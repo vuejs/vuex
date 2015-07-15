@@ -1,10 +1,11 @@
-var Flux = require('../../src')
+import Vue from 'vue'
+import Flux from '../../src'
 
-module.exports = new Flux({
+export default new Flux({
   debug: true,
-  injectMixin: true,
-  debugHandler: function (actionRecord) {
-    var storeRecord = actionRecord.affectedStores[0]
+  injectMixin: Vue,
+  debugHandler (actionRecord) {
+    const storeRecord = actionRecord.affectedStores[0]
     console.log(JSON.stringify(storeRecord, null, 2))
   }
 })

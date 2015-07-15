@@ -1,3 +1,3 @@
-var Vue = require('vue')
-var App = Vue.extend(require('./components/app.vue'))
-new App().$mount('#app')
+import Vue from 'vue'
+import appOptions from './components/app.vue'
+new Vue(appOptions).$mount('#app')

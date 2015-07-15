@@ -13,23 +13,7 @@
     </style>
   </head>
   <body>
-    <div id="app">
-      <input type="checkbox" checked="{{allChecked}}" v-on="change:TOGGLE_ALL_TODOS(!allChecked)">
-      <ul class="todo-list">
-        <todo v-repeat="todo:filteredTodos"></todo>
-      </ul>
-      <p>
-        <a v-class="active:filter==='all'"
-          v-on="click:SET_FILTER('all')">
-          all</a>
-        <a v-class="active:filter==='done'"
-          v-on="click:SET_FILTER('done')">
-          done</a>
-        <a v-class="active:filter==='notDone'"
-          v-on="click:SET_FILTER('notDone')">
-          not done</a>
-      </p>
-    </div>
+    <div id="app"></div>
     <script src="./build/bundle.js"></script>
   </body>
 </html>

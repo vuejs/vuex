@@ -1,16 +1,15 @@
 <script>
-module.exports = {
-  data: function () {
+export default {
+  data() {
     return {
       editing: false
     }
   },
   directives: {
-    focus: function (value) {
+    focus(value) {
       if (value) {
-        var el = this.el
-        this.vm.$nextTick(function () {
-          el.focus()
+        this.vm.$nextTick(() => {
+          this.el.focus()
         })
       }
     }

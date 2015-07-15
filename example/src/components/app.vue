@@ -1,37 +1,25 @@
 <script>
-var todoStore = require('../stores/todos')
-var TodoComponent = require('./todo.vue')
+import { todoStore } from '../stores/todos'
+import TodoComponent from './todo.vue'
 
-var filters = {
-  all: function (todos) {
-    return todos
-  },
-  done: function (todos) {
-    return todos.filter(function (todo) {
-      return todo.done
-    })
-  },
-  notDone: function (todos) {
-    return todos.filter(function (todo) {
-      return !todo.done
-    })
-  }
+const filters = {
+  all: (todos) => todos,
+  done: (todos) => todos.filter(todo => todo.done),
+  notDone: (todos) => todos.filter(todo => !todo.done)
 }
 
-module.exports = {
-  data: function () {
+export default {
+  data() {
     return todoStore.state
   },
   components: {
     todo: TodoComponent
   },
   computed: {
-    allChecked: function () {
-      return this.todos.every(function (todo) {
-        return todo.done
-      })
+    allChecked() {
+      return this.todos.every(todo => todo.done)
     },
-    filteredTodos: function () {
+    filteredTodos() {
       return filters[this.filter](this.todos)
     }
   }

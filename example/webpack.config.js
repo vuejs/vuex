@@ -1,3 +1,5 @@
+var vue = require('vue-loader')
+
 module.exports = {
   entry: './example/src/index.js',
   output: {
@@ -6,7 +8,17 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.vue$/, loader: 'vue' }
+      {
+        test: /\.vue$/,
+        loader: vue.withLoaders({
+          js: 'babel?optional[]=runtime'
+        })
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules|vue\/src/,
+        loader: 'babel?optional[]=runtime'
+      }
     ]
   },
   devtool: 'source-map'
