@@ -9,17 +9,17 @@ const filters = {
 }
 
 export default {
-  data() {
+  data () {
     return todoStore.state
   },
   components: {
     todo: TodoComponent
   },
   computed: {
-    allChecked() {
+    allChecked () {
       return this.todos.every(todo => todo.done)
     },
-    filteredTodos() {
+    filteredTodos () {
       return filters[this.filter](this.todos)
     }
   }

@@ -1,12 +1,12 @@
 <script>
 export default {
-  data() {
+  data () {
     return {
       editing: false
     }
   },
   directives: {
-    focus(value) {
+    focus (value) {
       if (value) {
         this.vm.$nextTick(() => {
           this.el.focus()

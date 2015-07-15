@@ -1,15 +1,25 @@
-function Store (name, state, owner) {
-  this.name = name
+function Store (options, owner) {
+  this.name = options.name
   this.owner = owner
   Object.defineProperty(this, 'state', {
     get: function () {
-      return state
+      return options.state
     },
     set: function () {
       console.warn('You should never change a store\'s state reference.')
     }
   })
   this.actions = {}
+  // register actions
+  var self = this
+  Object.keys(options.actions).forEach(function (action) {
+    if (self.actions[action]) {
+      console.warn('action already defined: ' + action)
+      return
+    }
+    self.actions[action] = options.actions[action]
+    owner.registerAction(action)
+  })
 }
 
 Store.prototype.handleAction = function (action, args, debug) {
@@ -30,15 +40,6 @@ Store.prototype.handleAction = function (action, args, debug) {
       record.afterState = JSON.parse(JSON.stringify(this.state))
     }
   }
-}
-
-Store.prototype.on = function (action, handler) {
-  if (this.actions[action]) {
-    console.warn('action already defined: ' + action)
-    return
-  }
-  this.actions[action] = handler
-  this.owner.registerAction(action)
 }
 
 module.exports = Store

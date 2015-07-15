@@ -57,8 +57,8 @@ Vuex.prototype.registerAction = function (action) {
   })
 }
 
-Vuex.prototype.createStore = function (name, state) {
-  var store = new Store(name, state, this)
+Vuex.prototype.createStore = function (options) {
+  var store = new Store(options, this)
   this.stores.push(store)
   return store
 }

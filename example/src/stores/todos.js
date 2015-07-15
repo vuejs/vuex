@@ -1,6 +1,6 @@
 import flux from '../flux'
 
-const todoStore = flux.createStore('todos', {
+export const state = {
   filter: 'all',
   todos: [{
     text: 'Vuex',
@@ -10,39 +10,46 @@ const todoStore = flux.createStore('todos', {
     text: 'Flux',
     done: true
   }]
-})
+}
 
-export default todoStore
+export const actions = {
 
-todoStore.on('ADD_TODO', function (text) {
-  this.state.todos.push({
-    text: text,
-    done: false
-  })
-})
+  ADD_TODO: (text) => {
+    state.todos.push({
+      text: text,
+      done: false
+    })
+  },
 
-todoStore.on('DELETE_TODO', function (todo) {
-  this.state.todos.$remove(todo)
-})
+  DELETE_TODO: (todo) => {
+    state.todos.$remove(todo)
+  },
 
-todoStore.on('TOGGLE_TODO', function (todo) {
-  todo.done = !todo.done
-})
+  TOGGLE_TODO: (todo) => {
+    todo.done = !todo.done
+  },
 
-todoStore.on('EDIT_TODO', function (todo, text) {
-  todo.text = text
-})
+  EDIT_TODO: (todo, text) => {
+    todo.text = text
+  },
 
-todoStore.on('TOGGLE_ALL_TODOS', function (done) {
-  this.state.todos.forEach((todo) => {
-    todo.done = done
-  })
-})
+  TOGGLE_ALL_TODOS: (done) => {
+    state.todos.forEach((todo) => {
+      todo.done = done
+    })
+  },
 
-todoStore.on('CLEAR_DONE_TODOS', function () {
-  this.state.todos = this.state.todos.filter(todo => !todo.done)
-})
+  CLEAR_DONE_TODOS: () => {
+    state.todos = state.todos.filter(todo => !todo.done)
+  },
 
-todoStore.on('SET_FILTER', function (filter) {
-  this.state.filter = filter
+  SET_FILTER: (filter) => {
+    state.filter = filter
+  }
+}
+
+export default flux.createStore({
+  name: 'todos',
+  state,
+  actions
 })
