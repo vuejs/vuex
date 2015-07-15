@@ -21,7 +21,12 @@ function Vuex (options) {
   }
 }
 
-Vuex.prototype.dispatch = function (action, args) {
+Vuex.prototype.dispatch = function (action) {
+  var args = slice.call(arguments, 1)
+  this._dispatch(action, args)
+}
+
+Vuex.prototype._dispatch = function (action, args) {
   var record
   if (this.debug) {
     record = {
@@ -47,7 +52,7 @@ Vuex.prototype.dispatch = function (action, args) {
 Vuex.prototype.registerAction = function (action) {
   var self = this
   function dispatch () {
-    self.dispatch(action, slice.call(arguments))
+    self._dispatch(action, slice.call(arguments))
   }
   if (!this.actions[action]) {
     this.actions[action] = dispatch

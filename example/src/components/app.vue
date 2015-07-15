@@ -1,4 +1,5 @@
 <script>
+import flux from '../flux'
 import todoStore from '../stores/todos'
 import TodoComponent from './todo.vue'
 
@@ -22,6 +23,15 @@ export default {
     filteredTodos () {
       return filters[this.filter](this.todos)
     }
+  },
+  methods: {
+    handleNewTodo (e) {
+      var text = e.target.value
+      if (text.trim()) {
+        flux.dispatch('ADD_TODO', text)
+      }
+      e.target.value = ''
+    }
   }
 }
 </script>
@@ -30,17 +40,18 @@ export default {
   <div>
     <input type="checkbox"
       checked="{{allChecked}}"
-      v-on="change:TOGGLE_ALL_TODOS(!allChecked)">
+      v-on="change: TOGGLE_ALL_TODOS(!allChecked)">
+    <input v-on="keyup: handleNewTodo | key 'enter'">
     <ul class="todo-list">
-      <todo v-repeat="todo:filteredTodos"></todo>
+      <todo v-repeat="todo: filteredTodos"></todo>
     </ul>
     <p>
-      <a v-class="active:filter==='all'"
-        v-on="click:SET_FILTER('all')">all</a>
-      <a v-class="active:filter==='done'"
-        v-on="click:SET_FILTER('done')">done</a>
-      <a v-class="active:filter==='notDone'"
-        v-on="click:SET_FILTER('notDone')">not done</a>
+      <a v-class="active: filter==='all'"
+        v-on="click: SET_FILTER('all')">all</a>
+      <a v-class="active: filter==='done'"
+        v-on="click: SET_FILTER('done')">done</a>
+      <a v-class="active: filter==='notDone'"
+        v-on="click: SET_FILTER('notDone')">not done</a>
     </p>
   </div>
 </template>

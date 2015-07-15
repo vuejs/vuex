@@ -2,6 +2,7 @@
 export default {
   data () {
     return {
+      todo: {},
       editing: false
     }
   },
@@ -18,9 +19,9 @@ export default {
 </script>
 
 <template>
-  <li v-class="done:todo.done">
+  <li v-class="done: todo.done">
     <input type="checkbox" checked="{{todo.done}}"
-      v-on="change:TOGGLE_TODO(todo)">
+      v-on="change: TOGGLE_TODO(todo)">
     <span
       v-show="!editing"
       v-on="dblclick: editing=!editing">

@@ -15,7 +15,7 @@ export const state = {
 export const actions = {
 
   ADD_TODO: (text) => {
-    state.todos.push({
+    state.todos.unshift({
       text: text,
       done: false
     })
