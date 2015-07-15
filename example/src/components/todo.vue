@@ -33,5 +33,6 @@ export default {
         change: EDIT_TODO(todo, $event.target.value),
         change: editing=false,
         blur: editing=false">
+    <button v-on="click: DELETE_TODO(todo)">x</button>
   </li>
 </template>

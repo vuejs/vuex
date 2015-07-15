@@ -25,7 +25,7 @@ export default {
     }
   },
   methods: {
-    handleNewTodo (e) {
+    addTodo (e) {
       var text = e.target.value
       if (text.trim()) {
         flux.dispatch('ADD_TODO', text)
@@ -41,7 +41,7 @@ export default {
     <input type="checkbox"
       checked="{{allChecked}}"
       v-on="change: TOGGLE_ALL_TODOS(!allChecked)">
-    <input v-on="keyup: handleNewTodo | key 'enter'">
+    <input v-on="keyup: addTodo | key 'enter'">
     <ul class="todo-list">
       <todo v-repeat="todo: filteredTodos"></todo>
     </ul>
