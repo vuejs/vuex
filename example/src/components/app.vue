@@ -53,5 +53,6 @@ export default {
       <a v-class="active: filter==='notDone'"
         v-on="click: SET_FILTER('notDone')">not done</a>
     </p>
+    <button v-on="click: CLEAR_DONE_TODOS">Clear Done</button>
   </div>
 </template>
