@@ -1,0 +1,37 @@
+{
+  "name": "vuex",
+  "version": "1.0.0",
+  "description": "flux for vue",
+  "main": "src/index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "dev": "webpack --config example/webpack.config.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/vuex.git"
+  },
+  "keywords": [
+    "vue",
+    "flux"
+  ],
+  "author": "Evan You",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vuejs/vuex/issues"
+  },
+  "homepage": "https://github.com/vuejs/vuex#readme",
+  "devDependencies": {
+    "babel-core": "^5.7.0",
+    "babel-loader": "^5.3.2",
+    "css-loader": "^0.14.5",
+    "html-loader": "^0.3.0",
+    "node-libs-browser": "^0.5.2",
+    "style-loader": "^0.12.3",
+    "vue": "^0.12.7",
+    "vue-loader": "^2.0.1",
+    "webpack": "^1.10.1"
+  }
+}
