@@ -1,6 +1,6 @@
 import flux from '../flux'
 
-export const todoStore = flux.createStore('todos', {
+const todoStore = flux.createStore('todos', {
   filter: 'all',
   todos: [{
     text: 'Vuex',
@@ -11,6 +11,8 @@ export const todoStore = flux.createStore('todos', {
     done: true
   }]
 })
+
+export default todoStore
 
 todoStore.on('ADD_TODO', function (text) {
   this.state.todos.push({

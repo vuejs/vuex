@@ -1,5 +1,5 @@
 <script>
-import { todoStore } from '../stores/todos'
+import todoStore from '../stores/todos'
 import TodoComponent from './todo.vue'
 
 const filters = {
