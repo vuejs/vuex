@@ -31,6 +31,7 @@
     "html-loader": "^0.3.0",
     "node-libs-browser": "^0.5.2",
     "style-loader": "^0.12.3",
+    "todomvc-app-css": "^2.0.1",
     "vue": "^0.12.7",
     "vue-loader": "^2.0.1",
     "webpack": "^1.10.1"

@@ -1,4 +1,6 @@
 <script>
+import flux from '../flux'
+
 export default {
   data () {
     return {
@@ -14,25 +16,43 @@ export default {
         })
       }
     }
+  },
+  methods: {
+    doneEdit: function (e) {
+      if (this.editing) {
+        flux.dispatch('EDIT_TODO', this.todo, e.target.value)
+        this.editing = false
+      }
+    },
+    cancelEdit: function (e, todo) {
+      e.target.value = todo.text
+      this.editing = false
+    }
   }
 }
 </script>
 
 <template>
-  <li v-class="done: todo.done">
-    <input type="checkbox" checked="{{todo.done}}"
-      v-on="change: TOGGLE_TODO(todo)">
-    <span
-      v-show="!editing"
-      v-on="dblclick: editing=!editing">
-      {{todo.text}}</span>
-    <input v-show="editing"
+  <li class="todo" v-class="completed: todo.done, editing: editing">
+    <div class="view">
+      <input class="toggle"
+        type="checkbox"
+        checked="{{todo.done}}"
+        v-on="change: TOGGLE_TODO(todo)">
+      <label v-text="todo.text"
+        v-on="dblclick: editing = true">
+      </label>
+      <button
+        class="destroy"
+        v-on="click: DELETE_TODO(todo)">
+      </button>
+    </div>
+    <input class="edit"
+      v-show="editing"
       v-focus="editing"
       value="{{todo.text}}"
-      v-on="
-        change: EDIT_TODO(todo, $event.target.value),
-        change: editing=false,
-        blur: editing=false">
-    <button v-on="click: DELETE_TODO(todo)">x</button>
+      v-on="keyup: doneEdit | key 'enter',
+            keyup: cancelEdit($event, todo) | key 'esc',
+            blur: doneEdit">
   </li>
 </template>
