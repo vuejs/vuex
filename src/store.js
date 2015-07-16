@@ -1,3 +1,14 @@
+/**
+ * A Store that holds a piece of state and listens to
+ * actions.
+ *
+ * @param {Object} options
+ *        - {String} name
+ *        - {Object} state
+ *        - {Object} actions
+ * @param {Vuex} owner
+ */
+
 function Store (options, owner) {
   this.name = options.name
   this.owner = owner
@@ -18,11 +29,19 @@ function Store (options, owner) {
       return
     }
     self.actions[action] = options.actions[action]
-    owner.registerAction(action)
+    owner._registerAction(action)
   })
 }
 
-Store.prototype.handleAction = function (action, args, debug) {
+/**
+ * Handle an action.
+ *
+ * @param {String} action
+ * @param {Array} args
+ * @param {Boolean} debug
+ */
+
+Store.prototype._handleAction = function (action, args, debug) {
   var handler = this.actions[action]
   if (handler) {
     var record
