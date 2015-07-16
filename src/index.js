@@ -12,10 +12,14 @@ function Vuex (options) {
   var mixin = createMixin(this)
   var Vue = options.injectActions
   if (Vue) {
-    var inject = [mixin.created]
-    Vue.options.created = Vue.options.created
-      ? inject.concat(Vue.options.created)
-      : inject
+    if (typeof Vue !== 'function' || !Vue.options) {
+      console.warn(
+        '[vuex]: "injectActions" option expects ' +
+        'the Vue singleton, not a boolean value.'
+      )
+    } else {
+      injectMixin(Vue, mixin)
+    }
   } else {
     this.mixin = mixin
   }
@@ -76,8 +80,21 @@ function createMixin (flux) {
         vm[action] = flux.actions[action]
       })
       flux.subs.push(this)
+    },
+    beforeDestroy: function () {
+      flux.subs.$remove(this)
     }
   }
+}
+
+function injectMixin (Vue, mixin) {
+  Object.keys(mixin).forEach(function (hook) {
+    var existing = Vue.options[hook]
+    var inject = [mixin[hook]]
+    Vue.options[hook] = existing
+      ? inject.concat(existing)
+      : inject
+  })
 }
 
 module.exports = Vuex
