@@ -1,5 +1,7 @@
 import flux from '../flux'
 
+// state and actions are exported for testing purposes.
+
 export const state = {
   filter: 'all',
   todos: [{
