@@ -10,11 +10,11 @@ function Vuex (options) {
   this.history = []
   this.stores = []
   var mixin = createMixin(this)
-  if (options.injectMixin) {
-    var VueOptions = require('vue').options
+  var Vue = options.injectActions
+  if (Vue) {
     var inject = [mixin.created]
-    VueOptions.created = VueOptions.created
-      ? inject.concat(VueOptions.created)
+    Vue.options.created = Vue.options.created
+      ? inject.concat(Vue.options.created)
       : inject
   } else {
     this.mixin = mixin
