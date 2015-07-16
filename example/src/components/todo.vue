@@ -18,13 +18,13 @@ export default {
     }
   },
   methods: {
-    doneEdit: function (e) {
+    doneEdit (e) {
       if (this.editing) {
         flux.dispatch('EDIT_TODO', this.todo, e.target.value)
         this.editing = false
       }
     },
-    cancelEdit: function (e, todo) {
+    cancelEdit (e, todo) {
       e.target.value = todo.text
       this.editing = false
     }
