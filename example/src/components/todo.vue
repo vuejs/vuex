@@ -2,6 +2,7 @@
 import flux from '../flux'
 
 export default {
+  mixins: [flux.mixin],
   data () {
     return {
       todo: {},
@@ -38,13 +39,13 @@ export default {
       <input class="toggle"
         type="checkbox"
         checked="{{todo.done}}"
-        v-on="change: TOGGLE_TODO(todo)">
+        v-action="change: TOGGLE_TODO(todo)">
       <label v-text="todo.text"
         v-on="dblclick: editing = true">
       </label>
       <button
         class="destroy"
-        v-on="click: DELETE_TODO(todo)">
+        v-action="click: DELETE_TODO(todo)">
       </button>
     </div>
     <input class="edit"

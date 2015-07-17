@@ -1,4 +1,5 @@
 var Store = require('./store')
+var Action = require('./action')
 var slice = [].slice
 
 /**
@@ -14,24 +15,10 @@ function Vuex (options) {
   options = options || {}
   this.debug = options.debug
   this.debugHandler = options.debugHandler
-  this.subs = []
   this.actions = {}
   this.history = []
   this.stores = []
-  var mixin = createMixin(this)
-  var Vue = options.injectActions
-  if (Vue) {
-    if (typeof Vue !== 'function' || !Vue.options) {
-      console.warn(
-        '[vuex]: "injectActions" option expects ' +
-        'the Vue singleton, not a boolean value.'
-      )
-    } else {
-      injectMixin(Vue, mixin)
-    }
-  } else {
-    this.mixin = mixin
-  }
+  this.mixin = createMixin(this)
 }
 
 /**
@@ -86,15 +73,11 @@ Vuex.prototype._dispatch = function (action, args) {
 
 Vuex.prototype._registerAction = function (action) {
   var self = this
-  function dispatch () {
-    self._dispatch(action, slice.call(arguments))
-  }
   if (!this.actions[action]) {
-    this.actions[action] = dispatch
+    this.actions[action] = function dispatch () {
+      self._dispatch(action, slice.call(arguments))
+    }
   }
-  this.subs.forEach(function (sub) {
-    sub[action] = dispatch
-  })
 }
 
 /**
@@ -121,36 +104,12 @@ Vuex.prototype.createStore = function (options) {
 function createMixin (flux) {
   return {
     created: function () {
-      var vm = this
-      Object.keys(flux.actions).forEach(function (action) {
-        vm[action] = flux.actions[action]
-      })
-      flux.subs.push(this)
+      this.$actions = flux.actions
     },
-    beforeDestroy: function () {
-      flux.subs.$remove(this)
+    directives: {
+      action: Action
     }
   }
-}
-
-/**
- * Inject the mixin globally, so that every regsitered
- * action automatically gets injected as a dispatcher
- * function into every Vue instance. Requires the Vue
- * singleton.
- *
- * @param {Function} Vue
- * @param {Object} mixin
- */
-
-function injectMixin (Vue, mixin) {
-  Object.keys(mixin).forEach(function (hook) {
-    var existing = Vue.options[hook]
-    var inject = [mixin[hook]]
-    Vue.options[hook] = existing
-      ? inject.concat(existing)
-      : inject
-  })
 }
 
 module.exports = Vuex

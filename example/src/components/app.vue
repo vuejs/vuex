@@ -10,6 +10,7 @@ const filters = {
 }
 
 export default {
+  mixins: [flux.mixin],
   data () {
     return todoStore.state
   },
@@ -53,7 +54,7 @@ export default {
       <input class="toggle-all"
         type="checkbox"
         checked="{{allChecked}}"
-        v-on="change: TOGGLE_ALL_TODOS(!allChecked)">
+        v-action="change: TOGGLE_ALL_TODOS(!allChecked)">
       <ul class="todo-list">
         <todo v-repeat="todo: filteredTodos"></todo>
       </ul>
@@ -67,22 +68,22 @@ export default {
         <li>
           <a href="#/all"
             v-class="selected: filter==='all'"
-            v-on="click: SET_FILTER('all')">All</a>
+            v-action="click: SET_FILTER('all')">All</a>
         </li>
         <li>
           <a href="#/active"
             v-class="selected: filter==='active'"
-            v-on="click: SET_FILTER('active')">Active</a>
+            v-action="click: SET_FILTER('active')">Active</a>
         </li>
         <li>
           <a href="#/completed"
             v-class="selected: filter==='completed'"
-            v-on="click: SET_FILTER('completed')">Completed</a>
+            v-action="click: SET_FILTER('completed')">Completed</a>
         </li>
       </ul>
       <button class="clear-completed"
         v-show="todos.length > remaining"
-        v-on="click: CLEAR_DONE_TODOS">
+        v-action="click: CLEAR_DONE_TODOS">
         Clear completed
       </button>
     </footer>
