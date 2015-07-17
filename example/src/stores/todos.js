@@ -3,7 +3,7 @@ import flux from '../flux'
 // state and actions are exported for testing purposes.
 
 export const state = {
-  filter: 'all',
+  visibility: 'all',
   todos: [{
     text: 'Vuex',
     done: false
@@ -45,8 +45,8 @@ export const actions = {
     state.todos = state.todos.filter(todo => !todo.done)
   },
 
-  SET_FILTER: (filter) => {
-    state.filter = filter
+  SET_VISIBILITY: (visibility) => {
+    state.visibility = visibility
   }
 }
 

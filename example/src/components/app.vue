@@ -12,20 +12,23 @@ const filters = {
 export default {
   mixins: [flux.mixin],
   data () {
-    return todoStore.state
+    return {
+      state: todoStore.state,
+      filters: filters
+    }
   },
   components: {
     todo: TodoComponent
   },
   computed: {
     allChecked () {
-      return this.todos.every(todo => todo.done)
+      return this.state.todos.every(todo => todo.done)
     },
     filteredTodos () {
-      return filters[this.filter](this.todos)
+      return filters[this.state.visibility](this.state.todos)
     },
     remaining () {
-      return this.todos.filter(todo => !todo.done).length
+      return this.state.todos.filter(todo => !todo.done).length
     }
   },
   methods: {
@@ -50,7 +53,7 @@ export default {
         placeholder="What needs to be done?"
         v-on="keyup: addTodo | key 'enter'">
     </header>
-    <section class="main" v-show="todos.length">
+    <section class="main" v-show="state.todos.length">
       <input class="toggle-all"
         type="checkbox"
         checked="{{allChecked}}"
@@ -59,30 +62,22 @@ export default {
         <todo v-repeat="todo: filteredTodos"></todo>
       </ul>
     </section>
-    <footer class="footer" v-show="todos.length">
+    <footer class="footer" v-show="state.todos.length">
       <span class="todo-count">
         <strong>{{remaining}}</strong>
         {{remaining | pluralize 'item'}} left
       </span>
       <ul class="filters">
-        <li>
-          <a href="#/all"
-            v-class="selected: filter==='all'"
-            v-action="click: SET_FILTER('all')">All</a>
-        </li>
-        <li>
-          <a href="#/active"
-            v-class="selected: filter==='active'"
-            v-action="click: SET_FILTER('active')">Active</a>
-        </li>
-        <li>
-          <a href="#/completed"
-            v-class="selected: filter==='completed'"
-            v-action="click: SET_FILTER('completed')">Completed</a>
+        <li v-repeat="filters">
+          <a href="#/{{$key}}"
+            v-class="selected: state.visibility === $key"
+            v-action="click: SET_VISIBILITY($key)">
+            {{$key | capitalize}}
+          </a>
         </li>
       </ul>
       <button class="clear-completed"
-        v-show="todos.length > remaining"
+        v-show="state.todos.length > remaining"
         v-action="click: CLEAR_DONE_TODOS">
         Clear completed
       </button>
