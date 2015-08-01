@@ -20,8 +20,11 @@ export default {
   },
   methods: {
     doneEdit (e) {
-      if (this.editing) {
-        flux.dispatch('EDIT_TODO', this.todo, e.target.value)
+      var value = e.target.value.trim()
+      if (!value) {
+        flux.dispatch('DELETE_TODO', this.todo)
+      } else if (this.editing) {
+        flux.dispatch('EDIT_TODO', this.todo, value)
         this.editing = false
       }
     },
