@@ -1,5 +1,4 @@
 <script>
-import flux from '../flux'
 import todoStore from '../stores/todos'
 import TodoComponent from './todo.vue'
 
@@ -10,7 +9,6 @@ const filters = {
 }
 
 export default {
-  mixins: [flux.mixin],
   data () {
     return {
       state: todoStore.state,
@@ -35,9 +33,18 @@ export default {
     addTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        flux.dispatch('ADD_TODO', text)
+        this.$dispatch('ADD_TODO', text)
       }
       e.target.value = ''
+    },
+    toggleAll: function () {
+      this.$dispatch('TOGGLE_ALL_TODOS', !this.allChecked)
+    },
+    setVisibility: function (visibility) {
+      this.$dispatch('SET_VISIBILITY', visibility)
+    },
+    clearCompleted: function () {
+      this.$dispatch('CLEAR_COMPLETED_TODOS')
     }
   }
 }
@@ -57,7 +64,7 @@ export default {
       <input class="toggle-all"
         type="checkbox"
         checked="{{allChecked}}"
-        v-action="change: TOGGLE_ALL_TODOS(!allChecked)">
+        v-on="change: toggleAll">
       <ul class="todo-list">
         <todo v-repeat="todo: filteredTodos"></todo>
       </ul>
@@ -71,14 +78,14 @@ export default {
         <li v-repeat="filters">
           <a href="#/{{$key}}"
             v-class="selected: state.visibility === $key"
-            v-action="click: SET_VISIBILITY($key)">
+            v-on="click: setVisibility($key)">
             {{$key | capitalize}}
           </a>
         </li>
       </ul>
       <button class="clear-completed"
         v-show="state.todos.length > remaining"
-        v-action="click: CLEAR_DONE_TODOS">
+        v-on="click: clearCompleted">
         Clear completed
       </button>
     </footer>

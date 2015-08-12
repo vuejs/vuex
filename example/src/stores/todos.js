@@ -1,8 +1,6 @@
-import flux from '../flux'
+const name = 'todos'
 
-// state and actions are exported for testing purposes.
-
-export const state = {
+const state = {
   visibility: 'all',
   todos: [{
     text: 'Vuex',
@@ -14,7 +12,7 @@ export const state = {
   }]
 }
 
-export const actions = {
+const actions = {
 
   ADD_TODO: (text) => {
     state.todos.unshift({
@@ -41,7 +39,7 @@ export const actions = {
     })
   },
 
-  CLEAR_DONE_TODOS: () => {
+  CLEAR_COMPLETED_TODOS: () => {
     state.todos = state.todos.filter(todo => !todo.done)
   },
 
@@ -50,8 +48,4 @@ export const actions = {
   }
 }
 
-export default flux.createStore({
-  name: 'todos',
-  state,
-  actions
-})
+export default { name, state, actions }

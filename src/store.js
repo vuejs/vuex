@@ -29,7 +29,6 @@ function Store (options, owner) {
       return
     }
     self.actions[action] = options.actions[action]
-    owner._registerAction(action)
   })
 }
 
@@ -41,7 +40,7 @@ function Store (options, owner) {
  * @param {Boolean} debug
  */
 
-Store.prototype._handleAction = function (action, args, debug) {
+Store.prototype.handleAction = function (action, args, debug) {
   var handler = this.actions[action]
   if (handler) {
     var record

@@ -17,30 +17,21 @@ function Vuex (options) {
   this.debugHandler = options.debugHandler
   this.actions = {}
   this.history = []
-  this.stores = []
-  this.mixin = createMixin(this)
+  var self = this
+  this.stores = options.stores.map(function (storeOption) {
+    return new Store(storeOption, self)
+  })
 }
 
 /**
- * Public dispatch method that takes flat arguments.
- *
- * @param {String} action
- */
-
-Vuex.prototype.dispatch = function (action) {
-  var args = slice.call(arguments, 1)
-  this._dispatch(action, args)
-}
-
-/**
- * Internal dispatch, send actions to all registered stores
+ * Send actions to all registered stores
  * and do history bookkeeping if in debug mode.
  *
  * @param {String} action
  * @param {Array} args
  */
 
-Vuex.prototype._dispatch = function (action, args) {
+Vuex.prototype.dispatch = function (action, args) {
   var record
   if (this.debug) {
     record = {
@@ -52,7 +43,7 @@ Vuex.prototype._dispatch = function (action, args) {
     this.history.push(record)
   }
   for (var i = 0; i < this.stores.length; i++) {
-    this.stores[i]._handleAction(action, args, this.debug)
+    this.stores[i].handleAction(action, args, this.debug)
   }
   if (this.debug) {
     if (this.debugHandler) {
@@ -63,53 +54,38 @@ Vuex.prototype._dispatch = function (action, args) {
   }
 }
 
-/**
- * Register an action type globally.
- * If "injectActions" is enabled, inject the action
- * dispatcher function into all Vue instances.
- *
- * @param {String} action
- */
+// API
 
-Vuex.prototype._registerAction = function (action) {
-  var self = this
-  if (!this.actions[action]) {
-    this.actions[action] = function dispatch () {
-      self._dispatch(action, slice.call(arguments))
-    }
+var Vue
+
+Vuex.install = function (_Vue) {
+  Vue = _Vue
+  Vue.prototype.$dispatch = function (action) {
+    var args = slice.call(arguments, 1)
+    var vuex = this.$root.$vuex
+    vuex.dispatch.call(vuex, action, args)
   }
 }
 
-/**
- * Create a store.
- *
- * @param {Object} options
- * @return {Store}
- */
-
-Vuex.prototype.createStore = function (options) {
-  var store = new Store(options, this)
-  this.stores.push(store)
-  return store
-}
-
-/**
- * Create a mixin that is specific for a flux instance.
- * Injects the registered actions into a Vue instance.
- *
- * @param {Vuex} flux
- * @return {Object} mixin
- */
-
-function createMixin (flux) {
-  return {
+Vuex.create = function (Component, options) {
+  if (!Vue) {
+    throw new Error(
+      '[vuex]: please install with Vue.use() ' +
+      'before creating App component.'
+    )
+  }
+  if (typeof Component !== 'function') {
+    Component = Vue.extend(Component)
+  }
+  var vuex = new Vuex(options)
+  Component.options = Vue.util.mergeOptions(Component.options, {
     created: function () {
-      this.$actions = flux.actions
-    },
-    directives: {
-      action: Action
+      Object.defineProperty(this, '$vuex', {
+        value: vuex
+      })
     }
-  }
+  })
+  return Component
 }
 
 module.exports = Vuex

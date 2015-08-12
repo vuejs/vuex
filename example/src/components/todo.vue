@@ -1,8 +1,5 @@
 <script>
-import flux from '../flux'
-
 export default {
-  mixins: [flux.mixin],
   data () {
     return {
       todo: {},
@@ -19,12 +16,18 @@ export default {
     }
   },
   methods: {
+    toggle: function (todo) {
+      this.$dispatch('TOGGLE_TODO', todo)
+    },
+    remove: function (todo) {
+      this.$dispatch('DELETE_TODO', todo)
+    },
     doneEdit (e) {
       var value = e.target.value.trim()
       if (!value) {
-        flux.dispatch('DELETE_TODO', this.todo)
+        this.$dispatch('DELETE_TODO', this.todo)
       } else if (this.editing) {
-        flux.dispatch('EDIT_TODO', this.todo, value)
+        this.$dispatch('EDIT_TODO', this.todo, value)
         this.editing = false
       }
     },
@@ -42,13 +45,13 @@ export default {
       <input class="toggle"
         type="checkbox"
         checked="{{todo.done}}"
-        v-action="change: TOGGLE_TODO(todo)">
+        v-on="change: toggle(todo)">
       <label v-text="todo.text"
         v-on="dblclick: editing = true">
       </label>
       <button
         class="destroy"
-        v-action="click: DELETE_TODO(todo)">
+        v-on="click: remove(todo)">
       </button>
     </div>
     <input class="edit"
