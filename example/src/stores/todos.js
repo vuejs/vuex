@@ -14,36 +14,36 @@ const state = {
 
 const actions = {
 
-  ADD_TODO: (text) => {
+  addTodo: (text) => {
     state.todos.unshift({
       text: text,
       done: false
     })
   },
 
-  DELETE_TODO: (todo) => {
+  deleteTodo: (todo) => {
     state.todos.$remove(todo)
   },
 
-  TOGGLE_TODO: (todo) => {
+  toggleTodo: (todo) => {
     todo.done = !todo.done
   },
 
-  EDIT_TODO: (todo, text) => {
+  editTodo: (todo, text) => {
     todo.text = text
   },
 
-  TOGGLE_ALL_TODOS: (done) => {
+  toggleAllTodos: (done) => {
     state.todos.forEach((todo) => {
       todo.done = done
     })
   },
 
-  CLEAR_COMPLETED_TODOS: () => {
+  clearCompletedTodos: () => {
     state.todos = state.todos.filter(todo => !todo.done)
   },
 
-  SET_VISIBILITY: (visibility) => {
+  setVisibility: (visibility) => {
     state.visibility = visibility
   }
 }

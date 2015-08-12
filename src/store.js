@@ -29,6 +29,7 @@ function Store (options, owner) {
       return
     }
     self.actions[action] = options.actions[action]
+    self.owner.registerAction(action)
   })
 }
 

@@ -1,5 +1,4 @@
 var Store = require('./store')
-var Action = require('./action')
 var slice = [].slice
 
 /**
@@ -54,17 +53,34 @@ Vuex.prototype.dispatch = function (action, args) {
   }
 }
 
+Vuex.prototype.registerAction = function (action) {
+  if (!this.actions[action]) {
+    var self = this
+    this.actions[action] = function () {
+      self.dispatch(action, slice.call(arguments))
+    }
+  }
+}
+
 // API
 
 var Vue
 
 Vuex.install = function (_Vue) {
   Vue = _Vue
-  Vue.prototype.$dispatch = function (action) {
-    var args = slice.call(arguments, 1)
-    var vuex = this.$root.$vuex
-    vuex.dispatch.call(vuex, action, args)
-  }
+  Vue.options = Vue.util.mergeOptions(Vue.options, {
+    created: function () {
+      var p = this.$parent
+      while (p) {
+        if (!p.hasOwnProperty('$vuex')) {
+          p = p.$parent
+        } else {
+          def(this, '$actions', p.$vuex.actions)
+          break
+        }
+      }
+    }
+  })
 }
 
 Vuex.create = function (Component, options) {
@@ -80,12 +96,17 @@ Vuex.create = function (Component, options) {
   var vuex = new Vuex(options)
   Component.options = Vue.util.mergeOptions(Component.options, {
     created: function () {
-      Object.defineProperty(this, '$vuex', {
-        value: vuex
-      })
+      def(this, '$vuex', vuex)
+      def(this, '$actions', vuex.actions)
     }
   })
   return Component
+}
+
+function def (obj, key, val) {
+  Object.defineProperty(obj, key, {
+    value: val
+  })
 }
 
 module.exports = Vuex

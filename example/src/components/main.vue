@@ -33,18 +33,18 @@ export default {
     addTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        this.$dispatch('ADD_TODO', text)
+        this.$actions.addTodo(text)
       }
       e.target.value = ''
     },
     toggleAll: function () {
-      this.$dispatch('TOGGLE_ALL_TODOS', !this.allChecked)
+      this.$actions.toggleAllTodos(!this.allChecked)
     },
     setVisibility: function (visibility) {
-      this.$dispatch('SET_VISIBILITY', visibility)
+      this.$actions.setVisibility(visibility)
     },
     clearCompleted: function () {
-      this.$dispatch('CLEAR_COMPLETED_TODOS')
+      this.$actions.clearCompletedTodos()
     }
   }
 }

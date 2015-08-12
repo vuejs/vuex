@@ -17,22 +17,22 @@ export default {
   },
   methods: {
     toggle: function (todo) {
-      this.$dispatch('TOGGLE_TODO', todo)
+      this.$actions.toggleTodo(todo)
     },
     remove: function (todo) {
-      this.$dispatch('DELETE_TODO', todo)
+      this.$actions.deleteTodo(todo)
     },
     doneEdit (e) {
       var value = e.target.value.trim()
       if (!value) {
-        this.$dispatch('DELETE_TODO', this.todo)
+        this.$actions.deleteTodo(this.todo)
       } else if (this.editing) {
-        this.$dispatch('EDIT_TODO', this.todo, value)
+        this.$actions.editTodo(this.todo, value)
         this.editing = false
       }
     },
-    cancelEdit (e, todo) {
-      e.target.value = todo.text
+    cancelEdit (e) {
+      e.target.value = this.todo.text
       this.editing = false
     }
   }
@@ -59,7 +59,7 @@ export default {
       v-focus="editing"
       value="{{todo.text}}"
       v-on="keyup: doneEdit | key 'enter',
-            keyup: cancelEdit($event, todo) | key 'esc',
+            keyup: cancelEdit | key 'esc',
             blur: doneEdit">
   </li>
 </template>
