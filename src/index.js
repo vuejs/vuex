@@ -53,6 +53,12 @@ Vuex.prototype.dispatch = function (action, args) {
   }
 }
 
+/**
+ * Register an action as a callable function.
+ *
+ * @param {String} action
+ */
+
 Vuex.prototype.registerAction = function (action) {
   if (!this.actions[action]) {
     var self = this
@@ -65,6 +71,13 @@ Vuex.prototype.registerAction = function (action) {
 // API
 
 var Vue
+
+/**
+ * Installation method. Locate root vuex instance and
+ * expose its actions on current component.
+ *
+ * @param {Function} _Vue
+ */
 
 Vuex.install = function (_Vue) {
   Vue = _Vue
@@ -83,7 +96,16 @@ Vuex.install = function (_Vue) {
   })
 }
 
-Vuex.create = function (Component, options) {
+/**
+ * Create/extend a Component constructor as the root
+ * component of a vuex application. Holds the vuex instance
+ * in the closure.
+ *
+ * @param {Function|Object} Component
+ * @param {Object} [vuexOptions]
+ */
+
+Vuex.create = function (Component, vuexOptions) {
   if (!Vue) {
     throw new Error(
       '[vuex]: please install with Vue.use() ' +
@@ -93,7 +115,7 @@ Vuex.create = function (Component, options) {
   if (typeof Component !== 'function') {
     Component = Vue.extend(Component)
   }
-  var vuex = new Vuex(options)
+  var vuex = new Vuex(vuexOptions)
   Component.options = Vue.util.mergeOptions(Component.options, {
     created: function () {
       def(this, '$vuex', vuex)
@@ -102,6 +124,14 @@ Vuex.create = function (Component, options) {
   })
   return Component
 }
+
+/**
+ * Helper for defining access-only properties.
+ *
+ * @param {Object} obj
+ * @param {String} key
+ * @param {*} val
+ */
 
 function def (obj, key, val) {
   Object.defineProperty(obj, key, {
