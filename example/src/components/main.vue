@@ -52,6 +52,7 @@ export default {
 
 <template>
   <section class="todoapp">
+    <!-- header -->
     <header class="header">
       <h1>todos</h1>
       <input class="new-todo"
@@ -60,6 +61,7 @@ export default {
         placeholder="What needs to be done?"
         v-on="keyup: addTodo | key 'enter'">
     </header>
+    <!-- main section -->
     <section class="main" v-show="state.todos.length">
       <input class="toggle-all"
         type="checkbox"
@@ -69,6 +71,7 @@ export default {
         <todo v-repeat="todo: filteredTodos"></todo>
       </ul>
     </section>
+    <!-- footer -->
     <footer class="footer" v-show="state.todos.length">
       <span class="todo-count">
         <strong>{{remaining}}</strong>
