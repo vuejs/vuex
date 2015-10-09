@@ -28,11 +28,11 @@
     "babel-loader": "^5.3.2",
     "babel-runtime": "^5.7.0",
     "css-loader": "^0.14.5",
-    "html-loader": "^0.3.0",
     "node-libs-browser": "^0.5.2",
     "style-loader": "^0.12.3",
     "todomvc-app-css": "^2.0.1",
     "vue": "yyx990803/vue#dev",
+    "vue-html-loader": "^1.0.0",
     "vue-loader": "^3.0.3",
     "webpack": "^1.10.1"
   }
