@@ -10,20 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/vue-store.git"
+    "url": "git+https://github.com/vuejs/vuex.git"
   },
-  "keywords": [
-    "vuejs",
-    "state",
-    "vue",
-    "store"
-  ],
   "author": "Evan You",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vuejs/vue-store/issues"
+    "url": "https://github.com/vuejs/vuex/issues"
   },
-  "homepage": "https://github.com/vuejs/vue-store#readme",
+  "homepage": "https://github.com/vuejs/vuex#readme",
   "devDependencies": {
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
