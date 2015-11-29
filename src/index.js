@@ -41,6 +41,16 @@ export default class Vuex {
 
     // middlewares
     this._middlewares = middlewares
+    this._needSnapshots = middlewares.some(m => m.snapshot)
+    const initialSnapshot = this._prevSnapshot = this._needSnapshots
+      ? deepClone(state)
+      : null
+    // call init hooks
+    middlewares.forEach(m => {
+      if (m.onInit) {
+        m.onInit(m.snapshot ? initialSnapshot : state)
+      }
+    })
   }
 
   /**
@@ -64,16 +74,26 @@ export default class Vuex {
 
   dispatch (type, ...payload) {
     const mutation = this._mutations[type]
+    const prevSnapshot = this._prevSnapshot
     const state = this.state
+    let snapshot
     if (mutation) {
+      // apply the mutation
       if (Array.isArray(mutation)) {
         mutation.forEach(m => m(state, ...payload))
       } else {
         mutation(state, ...payload)
       }
-      // middleware after hooks
-      this._middlewares.forEach(middleware => {
-        middleware({ type, payload }, state)
+      // invoke middlewares
+      if (this._needSnapshots) {
+        snapshot = this._prevSnapshot = deepClone(state)
+      }
+      this._middlewares.forEach(m => {
+        if (m.snapshot) {
+          m.onMutation({ type, payload }, snapshot, prevSnapshot)
+        } else {
+          m.onMutation({ type, payload }, state)
+        }
       })
     } else {
       console.warn(`[vuex] Unknown mutation: ${ type }`)
@@ -155,4 +175,20 @@ function mergeObjects (arr, allowDuplicate) {
     })
     return prev
   }, {})
+}
+
+function deepClone (obj) {
+  if (Array.isArray(obj)) {
+    return obj.map(deepClone)
+  } else if (obj && typeof obj === 'object') {
+    var cloned = {}
+    var keys = Object.keys(obj)
+    for (var i = 0, l = keys.length; i < l; i++) {
+      var key = keys[i]
+      cloned[key] = deepClone(obj[key])
+    }
+    return cloned
+  } else {
+    return obj
+  }
 }
