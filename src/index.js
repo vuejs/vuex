@@ -1,8 +1,11 @@
 import mixin from './mixin'
 import Cursor from './cursor'
+import devtoolMiddleware from './middlewares/devtool'
+import loggerMiddleware from './middlewares/logger'
 
 let Vue
 
+export { loggerMiddleware }
 export default class Vuex {
 
   /**
@@ -40,13 +43,13 @@ export default class Vuex {
       : mutations
 
     // middlewares
-    this._middlewares = middlewares
+    this._middlewares = [devtoolMiddleware].concat(middlewares)
     this._needSnapshots = middlewares.some(m => m.snapshot)
     const initialSnapshot = this._prevSnapshot = this._needSnapshots
       ? deepClone(state)
       : null
     // call init hooks
-    middlewares.forEach(m => {
+    this._middlewares.forEach(m => {
       if (m.onInit) {
         m.onInit(m.snapshot ? initialSnapshot : state)
       }
@@ -76,7 +79,7 @@ export default class Vuex {
     const mutation = this._mutations[type]
     const prevSnapshot = this._prevSnapshot
     const state = this.state
-    let snapshot
+    let snapshot, clonedPayload
     if (mutation) {
       // apply the mutation
       if (Array.isArray(mutation)) {
@@ -87,10 +90,11 @@ export default class Vuex {
       // invoke middlewares
       if (this._needSnapshots) {
         snapshot = this._prevSnapshot = deepClone(state)
+        clonedPayload = deepClone(payload)
       }
       this._middlewares.forEach(m => {
         if (m.snapshot) {
-          m.onMutation({ type, payload }, snapshot, prevSnapshot)
+          m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot)
         } else {
           m.onMutation({ type, payload }, state)
         }
@@ -108,6 +112,14 @@ export default class Vuex {
 
   get state () {
     return this._vm._data
+  }
+
+  /**
+   * Expose the logger middleware
+   */
+
+  static get loggerMiddleware () {
+    return loggerMiddleware
   }
 }
 

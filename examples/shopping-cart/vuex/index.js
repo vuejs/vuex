@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../../src'
+import Vuex, { loggerMiddleware } from '../../../src'
 import * as actions from './actions'
 import { cartInitialState, cartMutations } from './stores/cart'
 import { productsInitialState, productsMutations } from './stores/products'
@@ -13,5 +13,6 @@ export default new Vuex({
     products: productsInitialState
   },
   actions,
-  mutations: [cartMutations, productsMutations]
+  mutations: [cartMutations, productsMutations],
+  middlewares: [loggerMiddleware]
 })
