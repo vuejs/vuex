@@ -189,6 +189,13 @@ function mergeObjects (arr, allowDuplicate) {
   }, {})
 }
 
+/**
+ * Deep clone an object. Faster than JSON.parse(JSON.stringify()).
+ *
+ * @param {*} obj
+ * @return {*}
+ */
+
 function deepClone (obj) {
   if (Array.isArray(obj)) {
     return obj.map(deepClone)
