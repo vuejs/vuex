@@ -67,14 +67,20 @@ export default class Vuex {
 
   dispatch (type, ...payload) {
     const mutation = this._mutations[type]
+    const state = this.state
     if (mutation) {
-      if (Array.isArray(mutation)) {
-        mutation.forEach(m => m(this.state, ...payload))
-      } else {
-        mutation(this.state, ...payload)
-      }
+      // middleware before hooks
       this._middlewares.forEach(middleware => {
-        middleware({ type, payload }, this.state)
+        middleware.before && middleware.before({ type, payload }, state)
+      })
+      if (Array.isArray(mutation)) {
+        mutation.forEach(m => m(state, ...payload))
+      } else {
+        mutation(state, ...payload)
+      }
+      // middleware after hooks
+      this._middlewares.forEach(middleware => {
+        middleware.after && middleware.after({ type, payload }, state)
       })
     } else {
       console.warn(`[vuex] Unknown mutation: ${ type }`)
