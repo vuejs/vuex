@@ -17,11 +17,8 @@ export default class Vuex {
     state = {},
     actions = {},
     mutations = {},
-    middlewares = [],
-    debug = false
+    middlewares = []
   } = {}) {
-
-    this._debug = debug
 
     // use a Vue instance to store the state tree
     this._vm = new Vue({
@@ -69,10 +66,6 @@ export default class Vuex {
     const mutation = this._mutations[type]
     const state = this.state
     if (mutation) {
-      // middleware before hooks
-      this._middlewares.forEach(middleware => {
-        middleware.before && middleware.before({ type, payload }, state)
-      })
       if (Array.isArray(mutation)) {
         mutation.forEach(m => m(state, ...payload))
       } else {
@@ -80,7 +73,7 @@ export default class Vuex {
       }
       // middleware after hooks
       this._middlewares.forEach(middleware => {
-        middleware.after && middleware.after({ type, payload }, state)
+        middleware({ type, payload }, state)
       })
     } else {
       console.warn(`[vuex] Unknown mutation: ${ type }`)
