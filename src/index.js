@@ -17,8 +17,11 @@ export default class Vuex {
     state = {},
     actions = {},
     mutations = {},
-    middlewares = []
+    middlewares = [],
+    debug = false
   } = {}) {
+
+    this._debug = debug
 
     // use a Vue instance to store the state tree
     this._vm = new Vue({
@@ -27,12 +30,18 @@ export default class Vuex {
 
     // create actions
     this.actions = Object.create(null)
+    actions = Array.isArray(actions)
+      ? mergeObjects(actions)
+      : actions
     Object.keys(actions).forEach(name => {
       this.actions[name] = createAction(actions[name], this)
     })
 
     // mutations
-    this._mutations = mutations
+    this._mutations = Array.isArray(mutations)
+      ? mergeObjects(mutations, true)
+      : mutations
+
     // middlewares
     this._middlewares = middlewares
   }
@@ -59,7 +68,11 @@ export default class Vuex {
   dispatch (type, ...payload) {
     const mutation = this._mutations[type]
     if (mutation) {
-      mutation(this.state, ...payload)
+      if (Array.isArray(mutation)) {
+        mutation.forEach(m => m(this.state, ...payload))
+      } else {
+        mutation(this.state, ...payload)
+      }
       this._middlewares.forEach(middleware => {
         middleware({ type, payload }, this.state)
       })
@@ -111,4 +124,36 @@ function createAction (action, vuex) {
       action(...args)(dispatch, vuex.state)
     }
   }
+}
+
+/**
+ * Merge an array of objects into one.
+ *
+ * @param {Array<Object>} arr
+ * @param {Boolean} allowDuplicate
+ * @return {Object}
+ */
+
+function mergeObjects (arr, allowDuplicate) {
+  return arr.reduce((prev, obj) => {
+    Object.keys(obj).forEach(key => {
+      const existing = prev[key]
+      if (existing) {
+        // allow multiple mutation objects to contain duplicate
+        // handlers for the same mutation type
+        if (allowDuplicate) {
+          if (Array.isArray(existing)) {
+            existing.push(obj[key])
+          } else {
+            prev[key] = [prev[key], obj[key]]
+          }
+        } else {
+          console.warn(`[vuex] Duplicate action: ${ key }`)
+        }
+      } else {
+        prev[key] = obj[key]
+      }
+    })
+    return prev
+  }, {})
 }

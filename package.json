@@ -4,7 +4,8 @@
   "description": "state management for Vue.js",
   "main": "src/index.js",
   "scripts": {
-    "dev": "cd examples/todomvc && webpack-dev-server --inline --hot"
+    "dev-todomvc": "cd examples/todomvc && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
+    "dev-cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,9 @@
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
     "babel-plugin-transform-runtime": "^6.1.18",
+    "babel-polyfill": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
+    "babel-preset-stage-2": "^6.1.18",
     "babel-runtime": "^6.2.0",
     "css-loader": "^0.21.0",
     "style-loader": "^0.13.0",
