@@ -1,8 +1,8 @@
 module.exports = {
   entry: './main.js',
   output: {
-    path: __dirname,
-    filename: 'example.build.js'
+    path: process.cwd(),
+    filename: 'build.js'
   },
   module: {
     loaders: [
