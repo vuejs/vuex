@@ -108,7 +108,7 @@ export default class Vuex {
     Object.keys(actions).forEach(name => {
       this._actions[name] = createAction(actions[name], this)
       if (!this.actions[name]) {
-        this.actions[name] = () => this._actions[name]()
+        this.actions[name] = (...args) => this._actions[name](...args)
       }
     })
     // delete public actions that are no longer present

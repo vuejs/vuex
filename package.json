@@ -12,7 +12,8 @@
     "counter-hot": "cd examples/counter-hot && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "todomvc": "cd examples/todomvc && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "prepublish": "babel src --out-dir lib --presets es2015 --plugins add-module-exports"
+    "prepublish": "babel src --out-dir lib --presets es2015 --plugins add-module-exports",
+    "test": "mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,9 @@
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-stage-2": "^6.1.18",
     "babel-runtime": "^6.2.0",
+    "chai": "^3.4.1",
     "css-loader": "^0.21.0",
+    "mocha": "^2.3.4",
     "style-loader": "^0.13.0",
     "todomvc-app-css": "^2.0.3",
     "vue": "^1.0.8",
