@@ -209,7 +209,7 @@ describe('Vuex', () => {
     expect(mutations[0].nextState.a).to.equal(3)
   })
 
-  it('development mode: warn mutations outside of handlers', function () {
+  it('debug mode: warn mutations outside of handlers', function () {
     const vuex = new Vuex({
       state: {
         a: 1
@@ -219,7 +219,7 @@ describe('Vuex', () => {
           state.a++
         }
       },
-      development: true
+      debug: true
     })
     expect(() => {
       vuex.actions.test(2)

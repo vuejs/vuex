@@ -1,5 +1,4 @@
 import { STORAGE_KEY } from './index'
-import logger from '../../../src/middlewares/logger'
 
 const localStorageMiddleware = {
   onMutation (mutation, { todos }) {
@@ -8,6 +7,5 @@ const localStorageMiddleware = {
 }
 
 export default [
-  localStorageMiddleware,
-  logger({ collapsed: true })
+  localStorageMiddleware
 ]

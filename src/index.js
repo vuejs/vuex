@@ -1,5 +1,6 @@
 import { createAction, mergeObjects, deepClone } from './util'
 import devtoolMiddleware from './middlewares/devtool'
+import createLogger from './middlewares/logger'
 
 let Vue
 
@@ -18,7 +19,8 @@ export default class Vuex {
     actions = {},
     mutations = {},
     middlewares = [],
-    development = false
+    debug = false,
+    debugOptions = {}
   } = {}) {
     // use a Vue instance to store the state tree
     this._vm = new Vue({
@@ -28,9 +30,9 @@ export default class Vuex {
     this.actions = Object.create(null)
     this._setupActions(actions)
     this._setupMutations(mutations)
-    this._setupMiddlewares(middlewares, state)
+    this._setupMiddlewares(middlewares, state, debug, debugOptions)
     // add extra warnings in debug mode
-    if (development) {
+    if (debug) {
       this._setupMutationCheck()
     }
   }
@@ -104,6 +106,15 @@ export default class Vuex {
     }
   }
 
+  /**
+   * Setup mutation check: if the vuex instance's state is mutated
+   * outside of a mutation handler, we throw en error. This effectively
+   * enforces all mutations to the state to be trackable and hot-reloadble.
+   * However, this comes at a run time cost since we are doing a deep
+   * watch on the entire state tree, so it is only enalbed with the
+   * debug option is set to true.
+   */
+
   _setupMutationCheck () {
     // a hack to get the watcher constructor from older versions of Vue
     // mainly because the public $watch method does not allow sync
@@ -120,11 +131,19 @@ export default class Vuex {
     }, { deep: true, sync: true })
   }
 
+  /**
+   * Set up the callable action functions exposed to components.
+   * This method can be called multiple times for hot updates.
+   * We keep the real action functions in an internal object,
+   * and expose the public object which are just wrapper
+   * functions that point to the real ones. This is so that
+   * the reals ones can be hot reloaded.
+   *
+   * @param {Object} actions
+   * @param {Boolean} [hot]
+   */
+
   _setupActions (actions, hot) {
-    // keep the real action functions in an internal object,
-    // and expose the public object which are just wrapper
-    // functions that point to the real ones. This is so that
-    // the reals ones can be hot reloaded.
     this._actions = Object.create(null)
     actions = Array.isArray(actions)
       ? mergeObjects(actions)
@@ -146,15 +165,46 @@ export default class Vuex {
     }
   }
 
+  /**
+   * Setup the mutation handlers. Effectively a event listener.
+   * This method can be called multiple times for hot updates.
+   *
+   * @param {Object} mutations
+   */
+
   _setupMutations (mutations) {
     this._mutations = Array.isArray(mutations)
       ? mergeObjects(mutations, true)
       : mutations
   }
 
-  _setupMiddlewares (middlewares, state) {
-    this._middlewares = [devtoolMiddleware].concat(middlewares)
-    this._needSnapshots = middlewares.some(m => m.snapshot)
+  /**
+   * Setup the middlewares. The devtools middleware is always
+   * included, since it does nothing if no devtool is detected;
+   * In debug mode we also include the logger.
+   *
+   * A middleware can demand the state it receives to be
+   * "snapshots", i.e. deep clones of the actual state tree.
+   *
+   * @param {Array} middlewares
+   * @param {Object} state
+   * @param {Boolean} debug
+   * @param {Object} debugOptions
+   */
+
+  _setupMiddlewares (middlewares, state, debug, debugOptions) {
+    const builtInMiddlewares = debug
+      ? [devtoolMiddleware, createLogger(debugOptions)]
+      : [devtoolMiddleware]
+    this._middlewares = builtInMiddlewares.concat(middlewares)
+    const userMiddlewaresNeedSnapshots = middlewares.some(m => m.snapshot)
+    if (userMiddlewaresNeedSnapshots) {
+      console.log(
+        '[vuex] One or more of your middlewares are taking state snapshots ' +
+        'for each mutation. Make sure to use them only during development.'
+      )
+    }
+    this._needSnapshots = debug || userMiddlewaresNeedSnapshots
     const initialSnapshot = this._prevSnapshot = this._needSnapshots
       ? deepClone(state)
       : null

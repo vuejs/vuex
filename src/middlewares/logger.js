@@ -1,7 +1,7 @@
 // Credits: borrowed code from fcomb/redux-logger
 
 export default function createLogger ({
-  collapsed = false,
+  collapsed = true,
   transformer = state => state,
   mutationTransformer = mut => mut
 } = {}) {
