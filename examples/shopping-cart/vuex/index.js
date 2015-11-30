@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Vuex, { loggerMiddleware } from '../../../src'
+import Vuex from '../../../src'
+import logger from '../../../src/middlewares/logger'
 import * as actions from './actions'
 import { cartInitialState, cartMutations } from './stores/cart'
 import { productsInitialState, productsMutations } from './stores/products'
@@ -14,5 +15,5 @@ export default new Vuex({
   },
   actions,
   mutations: [cartMutations, productsMutations],
-  middlewares: [loggerMiddleware]
+  middlewares: [logger]
 })

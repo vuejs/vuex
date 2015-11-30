@@ -1,5 +1,5 @@
 import { STORAGE_KEY } from './index'
-import { loggerMiddleware } from '../../../src'
+import loggerMiddleware from '../../../src/middlewares/logger'
 
 const localStorageMiddleware = {
   onMutation (mutation, { todos }) {

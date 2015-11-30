@@ -1,11 +1,7 @@
-import mixin from './mixin'
-import Cursor from './cursor'
 import devtoolMiddleware from './middlewares/devtool'
-import loggerMiddleware from './middlewares/logger'
 
 let Vue
 
-export { loggerMiddleware }
 export default class Vuex {
 
   /**
@@ -57,19 +53,6 @@ export default class Vuex {
   }
 
   /**
-   * "Get" the store's state, or a part of it.
-   * Returns a Cursor, which can be subscribed to for change,
-   * and disposed of when no longer needed.
-   *
-   * @param {String} [path]
-   * @return {Cursor}
-   */
-
-  get (path) {
-    return new Cursor(this._vm, path)
-  }
-
-  /**
    * Dispatch an action.
    *
    * @param {String} type
@@ -113,14 +96,6 @@ export default class Vuex {
   get state () {
     return this._vm._data
   }
-
-  /**
-   * Expose the logger middleware
-   */
-
-  static get loggerMiddleware () {
-    return loggerMiddleware
-  }
 }
 
 /**
@@ -129,7 +104,6 @@ export default class Vuex {
 
 Vuex.install = function (_Vue) {
   Vue = _Vue
-  Vue.mixin(mixin)
 }
 
 /**
