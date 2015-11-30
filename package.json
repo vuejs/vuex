@@ -8,9 +8,9 @@
     "src"
   ],
   "scripts": {
-    "dev-counter": "cd examples/counter && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "dev-todomvc": "cd examples/todomvc && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "dev-cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
+    "counter": "cd examples/counter && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
+    "todomvc": "cd examples/todomvc && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
+    "cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "prepublish": "babel src --out-dir lib --presets es2015 --plugins add-module-exports"
   },
   "repository": {

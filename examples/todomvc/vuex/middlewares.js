@@ -1,5 +1,5 @@
 import { STORAGE_KEY } from './index'
-import loggerMiddleware from '../../../src/middlewares/logger'
+import logger from '../../../src/middlewares/logger'
 
 const localStorageMiddleware = {
   onMutation (mutation, { todos }) {
@@ -7,4 +7,7 @@ const localStorageMiddleware = {
   }
 }
 
-export default [localStorageMiddleware, loggerMiddleware]
+export default [
+  localStorageMiddleware,
+  logger({ collapsed: true })
+]

@@ -15,5 +15,5 @@ export default new Vuex({
   },
   actions,
   mutations: [cartMutations, productsMutations],
-  middlewares: [logger]
+  middlewares: [logger({ collapsed: true })]
 })
