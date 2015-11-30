@@ -40,6 +40,10 @@ export default class Vuex {
     return this._vm._data
   }
 
+  set state (v) {
+    throw new Error('[vuex] Vuex root state is read only.')
+  }
+
   /**
    * Dispatch an action.
    *
