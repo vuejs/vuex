@@ -208,4 +208,21 @@ describe('Vuex', () => {
     expect(mutations[0].prevState.a).to.equal(1)
     expect(mutations[0].nextState.a).to.equal(3)
   })
+
+  it('development mode: warn mutations outside of handlers', function () {
+    const vuex = new Vuex({
+      state: {
+        a: 1
+      },
+      actions: {
+        test: () => (dispatch, state) => {
+          state.a++
+        }
+      },
+      development: true
+    })
+    expect(() => {
+      vuex.actions.test(2)
+    }).to.throw(/Do not mutate vuex state outside mutation handlers/)
+  })
 })

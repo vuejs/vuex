@@ -17,16 +17,22 @@ export default class Vuex {
     state = {},
     actions = {},
     mutations = {},
-    middlewares = []
+    middlewares = [],
+    development = false
   } = {}) {
     // use a Vue instance to store the state tree
     this._vm = new Vue({
       data: state
     })
+    this._dispatching = false
     this.actions = Object.create(null)
     this._setupActions(actions)
     this._setupMutations(mutations)
     this._setupMiddlewares(middlewares, state)
+    // add extra warnings in debug mode
+    if (development) {
+      this._setupMutationCheck()
+    }
   }
 
   /**
@@ -51,6 +57,7 @@ export default class Vuex {
    */
 
   dispatch (type, ...payload) {
+    this._dispatching = true
     const mutation = this._mutations[type]
     const prevSnapshot = this._prevSnapshot
     const state = this.state
@@ -77,6 +84,7 @@ export default class Vuex {
     } else {
       console.warn(`[vuex] Unknown mutation: ${ type }`)
     }
+    this._dispatching = false
   }
 
   /**
@@ -94,6 +102,22 @@ export default class Vuex {
     if (mutations) {
       this._setupMutations(mutations)
     }
+  }
+
+  _setupMutationCheck () {
+    // a hack to get the watcher constructor from older versions of Vue
+    // mainly because the public $watch method does not allow sync
+    // watchers.
+    const unwatch = this._vm.$watch('__vuex__', a => a)
+    const Watcher = this._vm._watchers[0].constructor
+    unwatch()
+    new Watcher(this._vm, '$data', () => {
+      if (!this._dispatching) {
+        throw new Error(
+          '[vuex] Do not mutate vuex state outside mutation handlers.'
+        )
+      }
+    }, { deep: true, sync: true })
   }
 
   _setupActions (actions, hot) {
