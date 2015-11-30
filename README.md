@@ -1,4 +1,6 @@
-# Rewrite Work in Progress.
+# Vuex
+
+> Flux-inspired Application Architecture for Vue.js.
 
 ## Principles
 
@@ -8,3 +10,5 @@
 - Single State Tree
 - Hot Reloading
 - Time Travel
+
+Docs coming soon.
