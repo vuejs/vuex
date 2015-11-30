@@ -1,5 +1,5 @@
 import shop from '../api/shop'
-import * as types from './action-types'
+import * as types from './mutation-types'
 
 export const addToCart = types.ADD_TO_CART
 

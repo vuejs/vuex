@@ -18,38 +18,25 @@ export default class Vuex {
     mutations = {},
     middlewares = []
   } = {}) {
-
     // use a Vue instance to store the state tree
     this._vm = new Vue({
       data: state
     })
-
-    // create actions
     this.actions = Object.create(null)
-    actions = Array.isArray(actions)
-      ? mergeObjects(actions)
-      : actions
-    Object.keys(actions).forEach(name => {
-      this.actions[name] = createAction(actions[name], this)
-    })
+    this._setupActions(actions)
+    this._setupMutations(mutations)
+    this._setupMiddlewares(middlewares, state)
+  }
 
-    // mutations
-    this._mutations = Array.isArray(mutations)
-      ? mergeObjects(mutations, true)
-      : mutations
+  /**
+   * Getter for the entire state tree.
+   * Read only.
+   *
+   * @return {Object}
+   */
 
-    // middlewares
-    this._middlewares = [devtoolMiddleware].concat(middlewares)
-    this._needSnapshots = middlewares.some(m => m.snapshot)
-    const initialSnapshot = this._prevSnapshot = this._needSnapshots
-      ? deepClone(state)
-      : null
-    // call init hooks
-    this._middlewares.forEach(m => {
-      if (m.onInit) {
-        m.onInit(m.snapshot ? initialSnapshot : state)
-      }
-    })
+  get state () {
+    return this._vm._data
   }
 
   /**
@@ -88,13 +75,66 @@ export default class Vuex {
   }
 
   /**
-   * Getter for the entire state tree.
+   * Hot update actions and mutations.
    *
-   * @return {Object}
+   * @param {Object} options
+   *        - {Object} [actions]
+   *        - {Object} [mutations]
    */
 
-  get state () {
-    return this._vm._data
+  hotUpdate ({ actions, mutations } = {}) {
+    if (actions) {
+      this._setupActions(actions, true)
+    }
+    if (mutations) {
+      this._setupMutations(mutations)
+    }
+  }
+
+  _setupActions (actions, hot) {
+    // keep the real action functions in an internal object,
+    // and expose the public object which are just wrapper
+    // functions that point to the real ones. This is so that
+    // the reals ones can be hot reloaded.
+    this._actions = Object.create(null)
+    actions = Array.isArray(actions)
+      ? mergeObjects(actions)
+      : actions
+    Object.keys(actions).forEach(name => {
+      this._actions[name] = createAction(actions[name], this)
+      if (!this.actions[name]) {
+        this.actions[name] = () => this._actions[name]()
+      }
+    })
+    // delete public actions that are no longer present
+    // after a hot reload
+    if (hot) {
+      Object.keys(this.actions).forEach(name => {
+        if (!actions[name]) {
+          delete this.actions[name]
+        }
+      })
+    }
+  }
+
+  _setupMutations (mutations) {
+    this._mutations = Array.isArray(mutations)
+      ? mergeObjects(mutations, true)
+      : mutations
+  }
+
+  _setupMiddlewares (middlewares, state) {
+    this._middlewares = [devtoolMiddleware].concat(middlewares)
+    this._needSnapshots = middlewares.some(m => m.snapshot)
+    const initialSnapshot = this._prevSnapshot = this._needSnapshots
+      ? deepClone(state)
+      : null
+    // call init hooks
+    this._middlewares.forEach(m => {
+      if (m.onInit) {
+        m.onInit(m.snapshot ? initialSnapshot : state)
+      }
+    })
   }
 }
 

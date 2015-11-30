@@ -1,4 +1,7 @@
-import { RECEIVE_PRODUCTS, ADD_TO_CART } from '../action-types'
+import {
+  RECEIVE_PRODUCTS,
+  ADD_TO_CART
+} from '../mutation-types'
 
 // initial state
 export const productsInitialState = []

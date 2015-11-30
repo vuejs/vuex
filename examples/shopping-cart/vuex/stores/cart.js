@@ -3,7 +3,7 @@ import {
   CHECKOUT_REQUEST,
   CHECKOUT_SUCCESS,
   CHECKOUT_FAILURE
-} from '../action-types'
+} from '../mutation-types'
 
 // initial state
 // shape: [{ id, quantity }]
