@@ -17,9 +17,9 @@ import vuex from '../vuex'
 const { getAllProducts, addToCart } = vuex.actions
 
 export default {
-  data () {
-    return {
-      products: vuex.get('products')
+  computed: {
+    products () {
+      return vuex.state.products
     }
   },
   created () {

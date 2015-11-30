@@ -65,12 +65,14 @@ export default {
   components: { Todo },
   data () {
     return {
-      todos: vuex.get('todos'),
       visibility: 'all',
       filters: filters
     }
   },
   computed: {
+    todos () {
+      return vuex.state.todos
+    },
     allChecked () {
       return this.todos.every(todo => todo.done)
     },

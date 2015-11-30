@@ -31,7 +31,7 @@ const actions = {
   // the first being the dispatch function and the second is
   // the state tree.
   incrementIfOdd: () => (dispatch, state) => {
-    if (state.count % 2 === 1) {
+    if ((state.count + 1) % 2 === 0) {
       dispatch(INCREMENT)
     }
   },
