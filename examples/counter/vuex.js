@@ -62,11 +62,11 @@ const mutations = {
 // A Vuex instance is created by combining the state, the actions,
 // and the mutations. Because the actions and mutations are just
 // functions that do not depend on the instance itself, they can
-// be easily tested.
+// be easily tested or even hot-reloaded (see counter-hot example).
 // 
 // You can also provide middlewares, which is just an array of
-// objects containing before/after hooks that will get called for
-// each mutation.
+// objects containing some hooks to be called at initialization
+// and after each mutation.
 export default new Vuex({
   state,
   actions,
