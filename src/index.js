@@ -59,18 +59,19 @@ export default class Vuex {
    */
 
   dispatch (type, ...payload) {
-    this._dispatching = true
     const mutation = this._mutations[type]
     const prevSnapshot = this._prevSnapshot
     const state = this.state
     let snapshot, clonedPayload
     if (mutation) {
+      this._dispatching = true
       // apply the mutation
       if (Array.isArray(mutation)) {
         mutation.forEach(m => m(state, ...payload))
       } else {
         mutation(state, ...payload)
       }
+      this._dispatching = false
       // invoke middlewares
       if (this._needSnapshots) {
         snapshot = this._prevSnapshot = deepClone(state)
@@ -86,7 +87,6 @@ export default class Vuex {
     } else {
       console.warn(`[vuex] Unknown mutation: ${ type }`)
     }
-    this._dispatching = false
   }
 
   /**
