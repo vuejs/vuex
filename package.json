@@ -13,7 +13,8 @@
     "todomvc": "cd examples/todomvc && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "prepublish": "babel src --out-dir lib --presets es2015 --plugins add-module-exports",
-    "test": "eslint src && mocha --compilers js:babel-core/register"
+    "test": "eslint src && mocha --compilers js:babel-core/register",
+    "docs": "cd docs && gitbook serve"
   },
   "repository": {
     "type": "git",
