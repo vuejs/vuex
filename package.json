@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "state management for Vue.js",
   "main": "lib/index.js",
   "files": [
@@ -13,7 +13,7 @@
     "todomvc": "cd examples/todomvc && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "prepublish": "babel src --out-dir lib --presets es2015 --plugins add-module-exports",
-    "test": "mocha --compilers js:babel-core/register"
+    "test": "eslint src && mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "babel-runtime": "^6.2.0",
     "chai": "^3.4.1",
     "css-loader": "^0.21.0",
+    "eslint": "^1.10.2",
     "mocha": "^2.3.4",
     "style-loader": "^0.13.0",
     "todomvc-app-css": "^2.0.3",
