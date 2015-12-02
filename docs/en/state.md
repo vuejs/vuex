@@ -1,4 +1,4 @@
-## State
+# State
 
 ### Single State Tree
 
@@ -41,8 +41,8 @@ export default {
 
 Because the `data` function does not track any reactive dependencies, we are only getting a static reference to `vuex.state.message`. When the Vuex state is mutated later, the component has no idea that something has changed. In comparison, computed properties track all reactive dependencies when they are evaluated, so they reactively re-evaluate when the related vuex state mutates.
 
-### State Can Only Be Mutated by Vuex Mutations
+### Components Are Not Allowed to Directly Mutate State
 
 Using read-only computed properties has another benefit in that it helps emphasizing the rule that **components should never directly mutate Vuex state**. Because we want every state mutation to be explicit and trackable, all vuex state mutations must be conducted inside vuex mutation handlers.
 
-So essentially, our Vue components now becomes very thin: they connect to Vuex state via read-only computed properties, and the only way for them to affect Vuex state is by calling **actions**, which in turn trigger **mutations**. They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
+With this rule enforced, our Vue components now hold a lot less responsibility: they connect to Vuex state via read-only computed properties, and the only way for them to affect Vuex state is by calling **actions**, which in turn trigger **mutations**. They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.

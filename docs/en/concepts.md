@@ -1,4 +1,4 @@
-## Core Concepts
+# Core Concepts
 
 Similar to Vue itself, Vuex exposes a single `Vuex` constructor. You can use it to create **Vuex instances**. In most cases, you only need one Vuex instance for an app. You can think of a Vuex instance as an "enhanced store" that holds your app state.
 
@@ -14,11 +14,13 @@ Why do we have mutations and actions, rather then just simple functions that man
 
 > If you are familiar with Flux, note there's a term/concept difference here: Vuex mutations are the equivalent of Flux *actions*, while Vuex actions are equivalent to Flux *action creators*.
 
-### Putting it Together
+### Creating a Vuex Instance
 
 Creating a Vuex instance is pretty straightforward - just put the aforementioned ingredients together:
 
 ``` js
+import Vuex from 'vuex'
+
 const vuex = new Vuex({
   state: { ... },
   actions: { ... },
