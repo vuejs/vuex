@@ -4,7 +4,7 @@ Similar to Vue itself, Vuex exposes a single `Vuex` constructor. You can use it 
 
 Each Vuex instance consists of three core parts:
 
-- **State**: A plain object representing the state. Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". We will later discuss how to "split up" the logic for different parts of your app.
+- **State**: A plain object representing the application state.
 
 - **Mutations**: Functions that mutates the state. Mutations **must be synchronous**.
 
