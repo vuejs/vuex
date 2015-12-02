@@ -81,6 +81,8 @@ actions: {
 }
 ```
 
+Why don't we just define the actions as simple functions that directly access `vuex.state` and `vuex.dispatch`? The reason is that couples the action functions to the specific vuex instance. By using the thunk syntax, our actions only depend on function arguments and nothing else - this important characteristic makes them easy to test and hot-reloadable!
+
 ### Async Actions
 
 We can use the same thunk syntax for defining async actions:
