@@ -9,5 +9,11 @@
     "github": {
       "url": "https://github.com/vuejs/vuex/"
     }
+  },
+  "links": {
+    "sharing": {
+      "facebook": false,
+      "twitter": false
+    }
   }
 }

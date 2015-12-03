@@ -81,6 +81,18 @@ actions: {
 }
 ```
 
+The string shorthand is essentially syntax sugar for the following:
+
+``` js
+actions: {
+  increment: 'INCREMENT'
+}
+// ... equivalent to:
+actions: {
+  increment: (...args) => dispatch => dispatch('INCREMENT', ...args)
+}
+```
+
 Why don't we just define the actions as simple functions that directly access `vuex.state` and `vuex.dispatch`? The reason is that couples the action functions to the specific vuex instance. By using the thunk syntax, our actions only depend on function arguments and nothing else - this important characteristic makes them easy to test and hot-reloadable!
 
 ### Async Actions

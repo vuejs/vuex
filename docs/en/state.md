@@ -6,7 +6,7 @@ Vuex uses a **single state tree** - that is, this single object contains all you
 
 The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state managing logic into sub modules.
 
-### Reactive State
+### Getting Vuex State into Vue Components
 
 Similar to `data` objects passed to Vue instances, the `state` object, once passed into a Vuex instance, becomes reactive powered by [Vue's reactivity system](http://vuejs.org/guide/reactivity.html). This means binding Vuex state to Vue components is as simple as returning it from within a computed property:
 
@@ -24,6 +24,8 @@ export default {
   }
 }
 ```
+
+In order to ensure reactive updates, you should **always reference state via `vuex.state.xxx` inside your computed properties**. Do not cache the reference to a piece of state outside computed properties.
 
 > Flux reference: this can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux and [getters](https://optimizely.github.io/nuclear-js/docs/04-getters.html) in NuclearJS.
 
