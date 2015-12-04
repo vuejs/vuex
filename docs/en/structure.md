@@ -49,6 +49,57 @@ For any non-trivial app, we probably want to further split Vuex-related code int
     └── mutation-types.js # constants
 ```
 
-Note that we do not put actions into modules, because a single action may dispatch mutations that affect multiple modules. Also, since actions are only concerned with how to dispatch mutations, it's a good idea to decouple them from the state shape and the implementation details of mutations. If the actions file gets too large, we can turn it into a folder and split out the implementations of long async actions into individual files as well.
+A typical module looks like this:
+
+``` js
+// vuex/modules/products.js
+import { RECEIVE_PRODUCTS, ADD_TO_CART } from '../mutation-types'
+
+// initial state
+export const productsInitialState = []
+
+// mutations
+export const productsMutations = {
+  [RECEIVE_PRODUCTS] (state, products) {
+    state.products = products
+  },
+
+  [ADD_TO_CART] ({ products }, productId) {
+    const product = products.find(p => p.id === productId)
+    if (product.inventory > 0) {
+      product.inventory--
+    }
+  }
+}
+```
+
+And in `vuex/index.js`, we "assemble" multiple modules together to create the Vuex instance:
+
+``` js
+import Vue from 'vue'
+import Vuex from '../../../src'
+import * as actions from './actions'
+// import parts from modules
+import { cartInitialState, cartMutations } from './modules/cart'
+import { productsInitialState, productsMutations } from './modules/products'
+
+Vue.use(Vuex)
+
+export default new Vuex({
+  // ...
+  // combine sub-trees into root state
+  state: {
+    cart: cartInitialState,
+    products: productsInitialState
+  },
+  // mutations can be an array of mutation definition objects
+  // from multiple modules
+  mutations: [cartMutations, productsMutations]
+})
+```
+
+Since all modules simply export objects and functions, they are quite easy to test and maintain. You are also free to alter the patterns used here to find a structure that fits your preference.
+
+Note that we do not put actions into modules, because a single action may dispatch mutations that affect multiple modules. It's also a good idea to decouple actions from the state shape and the implementation details of mutations for better separation of concerns. If the actions file gets too large, we can turn it into a folder and split out the implementations of long async actions into individual files.
 
 For an actual example, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
