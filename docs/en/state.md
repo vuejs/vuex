@@ -25,7 +25,7 @@ export default {
 }
 ```
 
-In order to ensure reactive updates, you should **always reference state via `vuex.state.xxx` inside your computed properties**. Do not cache the reference to a piece of state outside computed properties.
+There's no need to worry about setting up and tearing down listeners, or "connecting" the component to a store. The only thing to remember is that you should **always reference state via `vuex.state.xxx` inside your computed properties**. Do not cache the reference to a piece of state outside computed properties.
 
 > Flux reference: this can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux and [getters](https://optimizely.github.io/nuclear-js/docs/04-getters.html) in NuclearJS.
 
@@ -47,4 +47,6 @@ Because the `data` function does not track any reactive dependencies, we are onl
 
 Using read-only computed properties has another benefit in that it helps emphasizing the rule that **components should never directly mutate Vuex state**. Because we want every state mutation to be explicit and trackable, all vuex state mutations must be conducted inside vuex mutation handlers.
 
-With this rule enforced, our Vue components now hold a lot less responsibility: they connect to Vuex state via read-only computed properties, and the only way for them to affect Vuex state is by calling **actions**, which in turn trigger **mutations**. They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
+To help enforce this rule, when in [Debug Mode](debug.md), if Vuex state is mutated outside of mutation handlers, Vuex will throw an error.
+
+With this rule in place, our Vue components now hold a lot less responsibility: they connect to Vuex state via read-only computed properties, and the only way for them to affect Vuex state is by calling **actions**, which in turn trigger **mutations**. They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
