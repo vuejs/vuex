@@ -60,7 +60,7 @@ import { SOME_MUTATION } from './mutation-types'
 
 const vuex = new Vuex({
   state: { ... },
-  actiosn: { ... },
+  actions: { ... },
   mutations: {
     // we can use the ES2015 computed property name feature
     // to use a constant as the function name
