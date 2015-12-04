@@ -78,10 +78,12 @@ export default class Vuex {
         clonedPayload = deepClone(payload)
       }
       this._middlewares.forEach(m => {
-        if (m.snapshot) {
-          m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot)
-        } else {
-          m.onMutation({ type, payload }, state)
+        if (m.onMutation) {
+          if (m.snapshot) {
+            m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot)
+          } else {
+            m.onMutation({ type, payload }, state)
+          }
         }
       })
     } else {
