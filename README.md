@@ -2,7 +2,9 @@
 
 > Flux-inspired Application Architecture for Vue.js.
 
-![vuex](https://raw.githubusercontent.com/vuejs/vuex/master/docs/en/vuex.png)
+<p align="center">
+  <img width="600px" src="https://raw.githubusercontent.com/vuejs/vuex/master/docs/en/vuex.png">
+</p>
 
 ## Principles
 
