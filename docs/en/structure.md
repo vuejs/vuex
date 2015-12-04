@@ -4,7 +4,7 @@ Vuex doesn't really restrict how you structure your code. Rather, it enforces a 
 
 1. Application state lives in a single object.
 2. Only mutation handlers can mutate the state.
-3. Mutations must be synchronous and as simple as possible.
+3. Mutations must be synchronous, and the only side effects they produce should be state mutation.
 4. All asynchronous logic such as data fetching should be performed in actions.
 
 The nice thing about Vuex actions and mutations is that **they are just functions with no external dependencies**. As long as you follow these rules, it's up to you how to structure your project. The simplest Vuex instance can even be declared [in a single file](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js)! However, this is unlikely to suffice for any serious project, so here are some recommended structures depending on the scale of your app.

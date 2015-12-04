@@ -88,5 +88,5 @@ Here you will notice the component itself is extremely simple: it simply display
 You will also notice the data flow is unidirectional, as it should be in Flux:
 
 <p align="center">
-  <img width="600px" src="https://raw.githubusercontent.com/vuejs/vuex/master/docs/en/vuex.png">
+  <img width="700px" src="vuex.png">
 </p>
