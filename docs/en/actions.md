@@ -4,6 +4,8 @@ Actions are functions that dispatch mutations. Actions can be asynchronous and a
 
 An action expresses the intention for something to happen, and abstracts the details away from the component calling it. When a component wants to do something, it just calls an action - there's no need to worry about a callback or a return value, because actions result in state changes, and state changes will trigger the component's DOM to update - the component is completely decoupled from how that action is actually performed.
 
+Therefore, we usually perform API calls to data endpoints inside actions, and hide the asynchronous details from both the Components calling the actions, and the mutations triggered by the actions.
+
 > Vuex actions are in fact "action creators" in vanilla flux definitions, but I find that term more confusing than useful.
 
 ### Simple Actions
@@ -93,7 +95,7 @@ actions: {
 }
 ```
 
-Why don't we just define the actions as simple functions that directly access `vuex.state` and `vuex.dispatch`? The reason is that couples the action functions to the specific vuex instance. By using the thunk syntax, our actions only depend on function arguments and nothing else - this important characteristic makes them easy to test and hot-reloadable!
+Why don't we just define the actions as simple functions that directly access `vuex.state` and `vuex.dispatch`? The reason is that such usage couples the action functions to the specific vuex instance. By using the thunk syntax, our actions only depend on function arguments and nothing else - this important characteristic makes them easy to test and hot-reloadable!
 
 ### Async Actions
 

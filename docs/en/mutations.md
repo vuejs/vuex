@@ -44,6 +44,13 @@ vuex.dispatch('INCREMENT', 10)
 
 Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
 
+### Mutations Follow Vue's Reactivity Rules
+
+Since Vuex's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+
+1. Prefer initializing your Vuex initial state with all desired fields upfront.
+2. When adding new properties to an Object, you should either use `Vue.set(obj, 'newProp', 123)`, or replace that Object with a fresh one, e.g. `state.obj = { ...state.obj, newProp: 123 }` (Using stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) here).
+
 ### Using Constants for Mutation Names
 
 It is also common to use constants for mutation names - they allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
