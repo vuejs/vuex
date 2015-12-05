@@ -8,7 +8,7 @@
       </li>
     </ul>
     <p>Total: {{ total | currency }}</p>
-    <p><button :disabled="!products.length" @click="checkout">Checkout</button></p>
+    <p><button :disabled="!products.length" @click="checkout(products)">Checkout</button></p>
     <p v-show="checkoutStatus">Checkout {{ checkoutStatus }}.</p>
   </div>
 </template>
