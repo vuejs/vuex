@@ -3,28 +3,53 @@ import * as types from './mutation-types'
 
 export default {
 
-  [types.RECEIVE_MESSAGE] (state, message) {
-    // reset error message
-    state.errorMessage = null
-    // create new thread if the thread doesn't exist
-    let thread = state.threads.find(t => t.id === message.threadID)
-    if (!thread) {
-      thread = {
-        id: message.threadID,
-        name: message.threadName,
-        messages: []
+  [types.RECEIVE_ALL] (state, messages) {
+    let latestMessage
+    messages.forEach(message => {
+      // create new thread if the thread doesn't exist
+      let thread = state.threads.find(t => t.id === message.threadID)
+      if (!thread) {
+        thread = {
+          id: message.threadID,
+          name: message.threadName,
+          messages: []
+        }
+        state.threads.push(thread)
       }
-      state.threads.push(thread)
-    }
-    // set current id if no thread is set
-    if (!state.currentThreadID) {
-      state.currentThreadID = thread.id
-    }
+      // mark the latest message
+      if (!latestMessage || message.timestamp > latestMessage.timestamp) {
+        latestMessage = message
+      }
+      // add message to thread
+      addMessageToThread(thread, message, state.currentThreadID)
+    })
+    // set initial thread to the one with the latest message
+    setCurrentThread(state, latestMessage.threadID)
+  },
+
+  [types.RECEIVE_MESSAGE] (state, message) {
     // add message
-    thread.messages.push(message)
+    const thread = state.threads.find(t => t.id === message.threadID)
+    addMessageToThread(thread, message, state.currentThreadID)
   },
 
   [types.SWITCH_THREAD] (state, id) {
-    state.currentThreadID = id
+    setCurrentThread(state, id)
   }
+}
+
+function addMessageToThread (thread, message, currentThreadID) {
+  if (!thread.messages.some(m => m.id === message.id)) {
+    // add a `isRead` field
+    message.isRead = message.threadID === currentThreadID
+    thread.messages.push(message)
+  }
+}
+
+function setCurrentThread (state, id) {
+  state.currentThreadID = id
+  const thread = state.threads.find(t => t.id === id)
+  thread.messages.forEach(message => {
+    message.isRead = true
+  })
 }

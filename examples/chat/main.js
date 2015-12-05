@@ -2,6 +2,10 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import App from './components/App.vue'
 
+Vue.filter('time', timestamp => {
+  return new Date(timestamp).toLocaleTimeString()
+})
+
 new Vue({
   el: 'body',
   components: { App }

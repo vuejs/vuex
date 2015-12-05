@@ -3,9 +3,7 @@ import * as types from './mutation-types'
 
 export const getAllMessages = () => dispatch => {
   api.getAllMessages(messages => {
-    messages.forEach(message => {
-      dispatch(types.RECEIVE_MESSAGE, message)
-    })
+    dispatch(types.RECEIVE_ALL, messages)
   })
 }
 
