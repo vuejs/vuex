@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import vuex from '../vuex'
 import ThreadSection from './ThreadSection.vue'
 import MessageSection from './MessageSection.vue'
 
@@ -16,9 +15,6 @@ export default {
   components: {
     ThreadSection,
     MessageSection
-  },
-  created () {
-    vuex.actions.getAllMessages()
   }
 }
 </script>

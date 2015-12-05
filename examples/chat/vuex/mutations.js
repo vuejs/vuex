@@ -39,11 +39,9 @@ export default {
 }
 
 function addMessageToThread (thread, message, currentThreadID) {
-  if (!thread.messages.some(m => m.id === message.id)) {
-    // add a `isRead` field
-    message.isRead = message.threadID === currentThreadID
-    thread.messages.push(message)
-  }
+  // add a `isRead` field
+  message.isRead = message.threadID === currentThreadID
+  thread.messages.push(message)
 }
 
 function setCurrentThread (state, id) {

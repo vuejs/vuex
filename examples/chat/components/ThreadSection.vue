@@ -6,7 +6,11 @@
       </span>
     </div>
     <ul class="thread-list">
-      <thread v-for="thread in threads" :thread="thread"></thread>
+      <thread
+        v-for="thread in threads"
+        track-by="id"
+        :thread="thread">
+      </thread>
     </ul>
   </div>
 </template>
