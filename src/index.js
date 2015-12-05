@@ -12,6 +12,7 @@ export default class Vuex {
    *        - {Object} actions
    *        - {Object} mutations
    *        - {Array} middlewares
+   *        - {Boolean} strict
    */
 
   constructor ({
@@ -19,8 +20,7 @@ export default class Vuex {
     actions = {},
     mutations = {},
     middlewares = [],
-    debug = false,
-    debugOptions = {}
+    strict = false
   } = {}) {
     // use a Vue instance to store the state tree
     this._vm = new Vue({
@@ -30,9 +30,9 @@ export default class Vuex {
     this.actions = Object.create(null)
     this._setupActions(actions)
     this._setupMutations(mutations)
-    this._setupMiddlewares(middlewares, state, debug, debugOptions)
-    // add extra warnings in debug mode
-    if (debug) {
+    this._setupMiddlewares(middlewares, state)
+    // add extra warnings in strict mode
+    if (strict) {
       this._setupMutationCheck()
     }
   }
@@ -114,7 +114,7 @@ export default class Vuex {
    * enforces all mutations to the state to be trackable and hot-reloadble.
    * However, this comes at a run time cost since we are doing a deep
    * watch on the entire state tree, so it is only enalbed with the
-   * debug option is set to true.
+   * strict option is set to true.
    */
 
   _setupMutationCheck () {
@@ -182,31 +182,24 @@ export default class Vuex {
 
   /**
    * Setup the middlewares. The devtools middleware is always
-   * included, since it does nothing if no devtool is detected;
-   * In debug mode we also include the logger.
+   * included, since it does nothing if no devtool is detected.
    *
    * A middleware can demand the state it receives to be
    * "snapshots", i.e. deep clones of the actual state tree.
    *
    * @param {Array} middlewares
    * @param {Object} state
-   * @param {Boolean} debug
-   * @param {Object} debugOptions
    */
 
-  _setupMiddlewares (middlewares, state, debug, debugOptions) {
-    const builtInMiddlewares = debug
-      ? [devtoolMiddleware, createLogger(debugOptions)]
-      : [devtoolMiddleware]
-    this._middlewares = builtInMiddlewares.concat(middlewares)
-    const userMiddlewaresNeedSnapshots = middlewares.some(m => m.snapshot)
-    if (userMiddlewaresNeedSnapshots) {
+  _setupMiddlewares (middlewares, state) {
+    this._middlewares = [devtoolMiddleware].concat(middlewares)
+    this._needSnapshots = middlewares.some(m => m.snapshot)
+    if (this._needSnapshots) {
       console.log(
         '[vuex] One or more of your middlewares are taking state snapshots ' +
         'for each mutation. Make sure to use them only during development.'
       )
     }
-    this._needSnapshots = debug || userMiddlewaresNeedSnapshots
     const initialSnapshot = this._prevSnapshot = this._needSnapshots
       ? deepClone(state)
       : null
@@ -218,6 +211,10 @@ export default class Vuex {
     })
   }
 }
+
+// export logger factory
+export { createLogger }
+Vuex.createLogger = createLogger
 
 /**
  * Exposed install method

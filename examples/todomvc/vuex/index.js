@@ -15,6 +15,5 @@ export default new Vuex({
   state,
   actions,
   mutations,
-  middlewares,
-  debug: process.env.NODE_ENV !== 'production'
+  middlewares
 })
