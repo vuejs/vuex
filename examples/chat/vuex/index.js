@@ -12,7 +12,17 @@ export default new Vuex({
       id: {
         id,
         name,
-        messages,
+        messages: {
+          id: {
+            id,
+            threadId,
+            threadName,
+            authorName,
+            text,
+            timestamp,
+            isRead
+          }
+        },
         lastMessage
       }
     */}
