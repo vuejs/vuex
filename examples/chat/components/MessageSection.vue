@@ -27,7 +27,7 @@ export default {
     }
   },
   watch: {
-    'thread.messages': function () {
+    'thread.lastMessage': function () {
       this.$nextTick(() => {
         const ul = this.$els.list
         ul.scrollTop = ul.scrollHeight

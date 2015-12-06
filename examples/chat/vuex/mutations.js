@@ -10,29 +10,21 @@ export default {
       const threadID = message.threadID
       let thread = state.threads[threadID]
       if (!thread) {
-        thread = {
-          id: threadID,
-          name: message.threadName,
-          messages: {},
-          lastMessage: null
-        }
-        set(state.threads, threadID, thread)
+        thread = createThread(state, threadID, message.threadName)
       }
       // mark the latest message
       if (!latestMessage || message.timestamp > latestMessage.timestamp) {
         latestMessage = message
       }
-      // add message to thread
-      addMessageToThread(thread, message, state.currentThreadID)
+      // add message
+      addMessage(state, message)
     })
     // set initial thread to the one with the latest message
     setCurrentThread(state, latestMessage.threadID)
   },
 
   [types.RECEIVE_MESSAGE] (state, message) {
-    // add message
-    const thread = state.threads[message.threadID]
-    addMessageToThread(thread, message, state.currentThreadID)
+    addMessage(state, message)
   },
 
   [types.SWITCH_THREAD] (state, id) {
@@ -40,9 +32,21 @@ export default {
   }
 }
 
-function addMessageToThread (thread, message, currentThreadID) {
+function createThread (state, id, name) {
+  const thread = {
+    id,
+    name,
+    messages: {},
+    lastMessage: null
+  }
+  set(state.threads, id, thread)
+  return thread
+}
+
+function addMessage (state, message) {
   // add a `isRead` field before adding the message
-  message.isRead = message.threadID === currentThreadID
+  message.isRead = message.threadID === state.currentThreadID
+  const thread = state.threads[message.threadID]
   set(thread.messages, message.id, message)
   thread.lastMessage = message
 }
