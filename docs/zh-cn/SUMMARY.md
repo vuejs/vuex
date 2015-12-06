@@ -1,0 +1,15 @@
+# Table of Contents
+
+- [What is Vuex?](intro.md)
+- [Core Concepts](concepts.md)
+  - [State](state.md)
+  - [Mutations](mutations.md)
+  - [Actions](actions.md)
+- [Data Flow](data-flow.md)
+- [Application Structure](structure.md)
+- [Middlewares](middlewares.md)
+- [Strict Mode](strict.md)
+- [Form Handling](forms.md)
+- [Testing](testing.md)
+- [Hot Reloading](hot-reload.md)
+- [API Reference](api.md)
