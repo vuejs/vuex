@@ -36,7 +36,7 @@ function createThread (state, id, name) {
   const thread = {
     id,
     name,
-    messages: {},
+    messages: [],
     lastMessage: null
   }
   set(state.threads, id, thread)
@@ -46,16 +46,18 @@ function createThread (state, id, name) {
 function addMessage (state, message) {
   // add a `isRead` field before adding the message
   message.isRead = message.threadID === state.currentThreadID
+  // add it to the thread it belongs to
   const thread = state.threads[message.threadID]
-  set(thread.messages, message.id, message)
-  thread.lastMessage = message
+  if (!thread.messages.some(id => id === message.id)) {
+    thread.messages.push(message.id)
+    thread.lastMessage = message
+  }
+  // add it to the messages map
+  set(state.messages, message.id, message)
 }
 
 function setCurrentThread (state, id) {
   state.currentThreadID = id
-  // mark thread messages as read
-  const thread = state.threads[id]
-  Object.keys(thread.messages).forEach(mid => {
-    thread.messages[mid].isRead = true
-  })
+  // mark thread as read
+  state.threads[id].lastMessage.isRead = true
 }

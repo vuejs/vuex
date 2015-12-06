@@ -3,7 +3,7 @@
     <h3 class="message-thread-heading">{{ thread.name }}</h3>
     <ul class="message-list" v-el:list>
       <message
-        v-for="message in thread.messages | orderBy 'timestamp'"
+        v-for="message in messages | orderBy 'timestamp'"
         track-by="id"
         :message="message">
       </message>
@@ -24,6 +24,10 @@ export default {
       return id
         ? vuex.state.threads[id]
         : {}
+    },
+    messages () {
+      return this.thread.messages &&
+        this.thread.messages.map(id => vuex.state.messages[id])
     }
   },
   watch: {
