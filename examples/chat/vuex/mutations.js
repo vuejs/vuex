@@ -2,15 +2,12 @@ import { set } from 'vue'
 import * as types from './mutation-types'
 
 export default {
-
   [types.RECEIVE_ALL] (state, messages) {
     let latestMessage
     messages.forEach(message => {
       // create new thread if the thread doesn't exist
-      const threadID = message.threadID
-      let thread = state.threads[threadID]
-      if (!thread) {
-        thread = createThread(state, threadID, message.threadName)
+      if (!state.threads[message.threadID]) {
+        createThread(state, message.threadID, message.threadName)
       }
       // mark the latest message
       if (!latestMessage || message.timestamp > latestMessage.timestamp) {
@@ -33,14 +30,12 @@ export default {
 }
 
 function createThread (state, id, name) {
-  const thread = {
+  set(state.threads, id, {
     id,
     name,
     messages: [],
     lastMessage: null
-  }
-  set(state.threads, id, thread)
-  return thread
+  })
 }
 
 function addMessage (state, message) {
