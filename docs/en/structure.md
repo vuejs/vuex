@@ -103,3 +103,31 @@ Since all modules simply export objects and functions, they are quite easy to te
 Note that we do not put actions into modules, because a single action may dispatch mutations that affect multiple modules. It's also a good idea to decouple actions from the state shape and the implementation details of mutations for better separation of concerns. If the actions file gets too large, we can turn it into a folder and split out the implementations of long async actions into individual files.
 
 For an actual example, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
+
+### Extracting Shared Computed Getters
+
+In large projects, it's possible that multiple components will need the same computed property based on Vuex state. Since computed getters are just functions, you can split them out into a separate file so that they can be shared in any component:
+
+``` js
+// getters.js
+import vuex from './vuex'
+
+export function filteredTodos () {
+  return vuex.state.messages.filter(message => {
+    return message.threadID === vuex.state.currentThreadID
+  })
+}
+```
+
+``` js
+// in a component...
+import { filteredTodos } from './getters'
+
+export default {
+  computed: {
+    filteredTodos
+  }
+}
+```
+
+This is very similar to [Getters in NuclearJS](https://optimizely.github.io/nuclear-js/docs/04-getters.html).
