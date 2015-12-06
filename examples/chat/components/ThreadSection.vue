@@ -26,11 +26,11 @@ export default {
       return vuex.state.threads
     },
     unreadCount () {
-      return vuex.state.threads.reduce((count, thread) => {
-        const hasUnread = thread.messages.some(m => !m.isRead)
-        return hasUnread
-          ? count + 1
-          : count
+      const threads = vuex.state.threads
+      return Object.keys(threads).reduce((count, id) => {
+        return threads[id].lastMessage.isRead
+          ? count
+          : count + 1
       }, 0)
     }
   }

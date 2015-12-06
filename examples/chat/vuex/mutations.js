@@ -7,14 +7,16 @@ export default {
     let latestMessage
     messages.forEach(message => {
       // create new thread if the thread doesn't exist
-      let thread = state.threads.find(t => t.id === message.threadID)
+      const threadID = message.threadID
+      let thread = state.threads[threadID]
       if (!thread) {
         thread = {
-          id: message.threadID,
+          id: threadID,
           name: message.threadName,
-          messages: []
+          messages: {},
+          lastMessage: null
         }
-        state.threads.push(thread)
+        set(state.threads, threadID, thread)
       }
       // mark the latest message
       if (!latestMessage || message.timestamp > latestMessage.timestamp) {
@@ -29,7 +31,7 @@ export default {
 
   [types.RECEIVE_MESSAGE] (state, message) {
     // add message
-    const thread = state.threads.find(t => t.id === message.threadID)
+    const thread = state.threads[message.threadID]
     addMessageToThread(thread, message, state.currentThreadID)
   },
 
@@ -39,15 +41,17 @@ export default {
 }
 
 function addMessageToThread (thread, message, currentThreadID) {
-  // add a `isRead` field
+  // add a `isRead` field before adding the message
   message.isRead = message.threadID === currentThreadID
-  thread.messages.push(message)
+  set(thread.messages, message.id, message)
+  thread.lastMessage = message
 }
 
 function setCurrentThread (state, id) {
   state.currentThreadID = id
-  const thread = state.threads.find(t => t.id === id)
-  thread.messages.forEach(message => {
-    message.isRead = true
+  // mark thread messages as read
+  const thread = state.threads[id]
+  Object.keys(thread.messages).forEach(mid => {
+    thread.messages[mid].isRead = true
   })
 }

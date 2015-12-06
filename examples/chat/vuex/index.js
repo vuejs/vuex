@@ -8,7 +8,14 @@ Vue.use(Vuex)
 export default new Vuex({
   state: {
     currentThreadID: null,
-    threads: [/* { id, name, messages } */]
+    threads: {/*
+      id: {
+        id,
+        name,
+        messages,
+        lastMessage
+      }
+    */}
   },
   actions,
   mutations,

@@ -5,10 +5,10 @@
     @click="onClick">
     <h5 class="thread-name">{{ thread.name }}</h5>
     <div class="thread-time">
-      {{ lastMessage.timestamp | time }}
+      {{ thread.lastMessage.timestamp | time }}
     </div>
     <div class="thread-last-message">
-      {{ lastMessage.text }}
+      {{ thread.lastMessage.text }}
     </div>
   </li>
 </template>
@@ -21,15 +21,6 @@ export default {
   computed: {
     isCurrentThread () {
       return this.thread.id === vuex.state.currentThreadID
-    },
-    lastMessage () {
-      let last
-      this.thread.messages.forEach(message => {
-        if (!last || message.timestamp > last.timestamp) {
-          last = message
-        }
-      })
-      return last
     }
   },
   methods: {
