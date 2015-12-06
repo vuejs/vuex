@@ -1,4 +1,4 @@
-# Vuex
+# Vuex [![Build Status](https://img.shields.io/circleci/project/vuejs/vuex/master.svg)](https://circleci.com/gh/vuejs/vuex) [![npm package](https://img.shields.io/npm/v/vuex.svg)](https://www.npmjs.com/package/vuex)
 
 > Flux-inspired Application Architecture for Vue.js.
 
@@ -12,11 +12,20 @@
 
 ## Examples
 
-- [Counter](exmaples/counter)
-- [Counter with Hot Reload](examples/counter-hot)
-- [TodoMVC](examples/todomvc)
-- [Flux Chat](examples/chat)
-- [Shopping Cart](examples/shopping-cart)
+- [Counter](https://github.com/vuejs/vuex/tree/master/exmaples/counter)
+- [Counter with Hot Reload](https://github.com/vuejs/vuex/tree/master/examples/counter-hot)
+- [TodoMVC](https://github.com/vuejs/vuex/tree/master/examples/todomvc)
+- [Flux Chat](https://github.com/vuejs/vuex/tree/master/examples/chat)
+- [Shopping Cart](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart)
+
+Running the examples:
+
+``` bash
+$ npm install
+$ npm run counter # run the counter example
+```
+
+See [npm scripts](https://github.com/vuejs/vuex/blob/master/package.json#L11-L15) for all example npm scripts.
 
 ## Principles
 
