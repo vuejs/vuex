@@ -12,7 +12,7 @@
 
 ## Examples
 
-- [Counter](https://github.com/vuejs/vuex/tree/master/exmaples/counter)
+- [Counter](https://github.com/vuejs/vuex/tree/master/examples/counter)
 - [Counter with Hot Reload](https://github.com/vuejs/vuex/tree/master/examples/counter-hot)
 - [TodoMVC](https://github.com/vuejs/vuex/tree/master/examples/todomvc)
 - [Flux Chat](https://github.com/vuejs/vuex/tree/master/examples/chat)
