@@ -19,7 +19,7 @@ const vuex = new Vuex({
   },
   mutations: {
     INCREMENT (state, x) {
-      state += x
+      state.count += x
     }
   },
   actions: {
