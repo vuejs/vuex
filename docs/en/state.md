@@ -47,6 +47,6 @@ Because the `data` function does not track any reactive dependencies, we are onl
 
 Using read-only computed properties has another benefit in that it helps emphasizing the rule that **components should never directly mutate Vuex state**. Because we want every state mutation to be explicit and trackable, all vuex state mutations must be conducted inside vuex mutation handlers.
 
-To help enforce this rule, when in [Debug Mode](debug.md), if Vuex state is mutated outside of mutation handlers, Vuex will throw an error.
+To help enforce this rule, when in [Strict Mode](strict.md), if Vuex state is mutated outside of mutation handlers, Vuex will throw an error.
 
 With this rule in place, our Vue components now hold a lot less responsibility: they connect to Vuex state via read-only computed properties, and the only way for them to affect Vuex state is by calling **actions**, which in turn trigger **mutations**. They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
