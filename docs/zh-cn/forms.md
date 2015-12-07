@@ -1,6 +1,6 @@
 # 表单控制
 
-当在严格模式中使用 Vuex 时，属于 Vuex 的 state 在使用 `v-model` 时需要用一些特殊的技巧。
+当在严格模式中使用 Vuex 时，属于 Vuex 的 state 在使用 `v-model` 时会比较棘手：
 
 ``` html
 <input v-model="obj.message">
