@@ -1,17 +1,17 @@
-# Application Structure
+# 应用结构
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of opinions:
+Vuex 并非限制你的代码结构，而是遵循一些观点：
 
-1. Application state lives in a single object.
-2. Only mutation handlers can mutate the state.
-3. Mutations must be synchronous, and the only side effects they produce should be state mutation.
-4. All asynchronous logic such as data fetching should be performed in actions.
+1. 应用 state 存在于单个对象中
+2. 只有 mutation handlers 可以改变 state
+3. Mutations 必须是同步的，它们做的应该仅仅是改变 state
+4. 所有类似数据获取的异步操作细节都应在 actions 里
 
-The nice thing about Vuex actions and mutations is that **they are just functions with no external dependencies**. As long as you follow these rules, it's up to you how to structure your project. The simplest Vuex instance can even be declared [in a single file](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js)! However, this is unlikely to suffice for any serious project, so here are some recommended structures depending on the scale of your app.
+Vuex actions 和 mutations 很好的地方在于 **他们都仅仅是函数**。你只需要遵循以上的准则，怎么组织代码就取决于你自己了。最简单的 Vuex 实例甚至只需要在 [单个文件](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js) 中声明！然而这对于很多项目来说并不够，所以这里有些根据不同应用规模推荐的不同结构。
 
-### Simple Project
+### 简单的项目
 
-For a simple project, we can simply separate **actions** and **mutations** into respective files:
+在简单的项目里，我们可以把 **actions** 和 **mutations** 分离到各自的文件：
 
 ``` bash
 .
@@ -26,11 +26,15 @@ For a simple project, we can simply separate **actions** and **mutations** into 
     └── mutations.js # exports all mutations
 ```
 
-For an actual example, check out the [TodoMVC example](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
+一个真实的 [TodoMVC 例子](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
 
 ### Medium to Large Project
 
+### 逐渐复杂的项目
+
 For any non-trivial app, we probably want to further split Vuex-related code into multiple "modules" (roughly comparable to "stores" in vanilla Flux), each dealing with a specific domain of our app. Each module would be managing a sub-tree of the state, exporting the initial state for that sub-tree and all mutations that operate on that sub-tree:
+
+???
 
 ``` bash
 ├── index.html
@@ -49,7 +53,7 @@ For any non-trivial app, we probably want to further split Vuex-related code int
     └── mutation-types.js # constants
 ```
 
-A typical module looks like this:
+一个典型的模块：
 
 ``` js
 // vuex/modules/products.js
@@ -73,7 +77,7 @@ export const productsMutations = {
 }
 ```
 
-And in `vuex/index.js`, we "assemble" multiple modules together to create the Vuex instance:
+在 `vuex/index.js` 里我们把多个模块集合在一起来创建 Vuex 实例：
 
 ``` js
 import Vue from 'vue'
@@ -104,9 +108,11 @@ Note that we do not put actions into modules, because a single action may dispat
 
 For an actual example, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
 
-### Extracting Shared Computed Getters
+???
 
-In large projects, it's possible that multiple components will need the same computed property based on Vuex state. Since computed getters are just functions, you can split them out into a separate file so that they can be shared in any component:
+### 提取共用的 Computed Getters
+
+在大型项目中，多个组件使用同一个基于 Vuex state 的 computed 属性是有可能的。由于 computed getters 只是普通函数，你可以把它们独立在另一个文件里，以实现共享：
 
 ``` js
 // getters.js
@@ -130,4 +136,4 @@ export default {
 }
 ```
 
-This is very similar to [Getters in NuclearJS](https://optimizely.github.io/nuclear-js/docs/04-getters.html).
+这非常像 [Getters in NuclearJS](https://optimizely.github.io/nuclear-js/docs/04-getters.html).
