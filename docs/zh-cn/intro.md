@@ -1,6 +1,6 @@
 ## 什么是 Vuex?
 
-Vuex 是 Vue.js 应用的 state 管理结构。它受启发于 [Flux](https://facebook.github.io/flux/) 和 [Redux](https://github.com/rackt/redux)，但 Vuex 的设计更加符合 Vue.js 的 reactivity system。
+Vuex 是 Vue.js 应用的 state 管理结构。它受启发于 [Flux](https://facebook.github.io/flux/) 和 [Redux](https://github.com/rackt/redux)，但 Vuex 的设计更加符合 Vue.js 的响应系统（reactivity system）。
 
 ## 我为什么需要它？
 
