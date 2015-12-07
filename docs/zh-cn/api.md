@@ -1,6 +1,6 @@
-# API Reference
+# API
 
-### Constructor
+### 构造器
 
 ``` js
 import Vuex from 'vuex'
@@ -8,46 +8,46 @@ import Vuex from 'vuex'
 const vuex = new Vuex({ ...options })
 ```
 
-### Constructor Options
+### 构造器 options
 
 - **state**
-  
+
   - type: `Object`
 
-    The root state object for the Vuex instance.
+    Vuex 实例中 state 对象的根。
 
-    [Details](state.md)
+    [详细](state.md)
 
 - **mutations**
 
   - type: `Object | Array<Object>`
 
-    An object where each entry's key is the mutation name and the value is a mutation handler function. The handler function always receives `state` as the first argument, and receives all arguments passed to the dispatch call following that.
+    一个以 mutation 名为 key, mutation handler 为 value 的对象。Handler function 接受的第一个参数是 `state` 和在后面的所有 dispatch 传来的参数。
 
-    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
+    如果传来一个对象数组，这些对象会自动合并到一个对象中。
 
-    [Details](mutations.md)
+    [详细](mutations.md)
 
 - **actions**
 
   - type: `Object | Array<Object>`
 
-    An object where each entry's key is the action name and the value is either
+    入口 key 为 action 名的对象，value 可能为
 
-    1. A mutation name string; or
-    2. A thunk action creator function.
+    1. 一个 mutation 名字的 string, 或
+    2. 一个 thunk action 创建函数（thunk action creator function）
 
-    Vuex will process these entries and create the actual callable action functions and expose them on the `actions` property of the instance.
+    Vuex 会处理这些入口，并创建可以被调用的 action 函数，暴露到实例中的 `actions` 属性。
 
-    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
+    如果传来一个对象数组，这些对象会自动合并到一个对象中。
 
-    [Details](actions.md)
+    [详细](actions.md)
 
 - **middlewares**
 
   - type: `Array<Object>`
 
-    An array of middleware objects that are in the shape of:
+    中间件对象的数组。中间件对象是这样的：
 
     ``` js
     {
@@ -57,37 +57,39 @@ const vuex = new Vuex({ ...options })
     }
     ```
 
-    All fields are optional. [Details](middlewares.md)
+    所有属性都是可选的. [详细](middlewares.md)
 
 - **strict**
 
   - type: `Boolean`
   - default: `false`
 
-    Force the Vuex instance into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw en Error.
+    使 Vuex 实例进入严格模式。严格模式中，在 mutation handler 外部对 Vuex state 做任何操作均会抛出错误。
 
-    [Details](strict.md)
+    [详细](strict.md)
 
-### Instance Properties
+### 实例属性
 
 - **state**
 
   - type: `Object`
 
-    The root state. Read only.
+    根 state，只读。
 
 - **actions**
 
   - type: `Object`
 
-    The callable action functions.
+    可被调用的 action 函数。
 
-### Instance Methods
+### 实例方法
 
 - **dispatch(mutationName: String, ...args)**
 
   Directly dispatch a mutation. This is useful in certain situations are in general you should prefer using actions in application code.
 
+  ???
+
 - **hotUpdate(newOptions: Object)**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  热更新新的 actions 和 mutations. [详细](hot-reload.md)
