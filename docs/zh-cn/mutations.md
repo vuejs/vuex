@@ -1,6 +1,6 @@
 # Mutations
 
-Vuex mutations are essentially events: each mutation has a **name** and a **handler**. The handler function always gets the entire state tree as the first argument:
+Vuex mutations 是必要的 events：每个 mutation 都有一个 **name** 和 一个 **handler**. Handler 的第一个参数为整个 state 树：
 
 ``` js
 import Vuex from 'vuex'
@@ -11,24 +11,26 @@ const vuex = new Vuex({
   },
   mutations: {
     INCREMENT (state) {
-      // mutate state
+      // 改变 state
       state.count++
     }
   }
 })
 ```
 
-Using all caps for mutation names is just a convention to make it easier to differentiate them from actions.
+用大定命名 mutation 是为了将它和 actions 区分开。
 
-You cannot directly call a mutation handler. The options here is more like event registration: "When an `INCREMENT` event is dispatched, call this handler." To invoke a mutation handler, you need to dispatch a mutation event:
+你不能直接调用 mutation handler. 这里的 options 更像是一种事件注册：『当 `INCREMENT` 事件被触发时，调用这个 handler』。引出 mutaion handler 的方法是 dispatch 一个 mutation 事件：
 
 ``` js
 vuex.dispatch('INCREMENT')
 ```
 
-### Dispatch with Arguments
+### 带参数的 dispatch
 
 It is also possible to pass along arguments:
+
+dispatch 可以带参数：
 
 ``` js
 // ...
@@ -42,18 +44,20 @@ mutations: {
 vuex.dispatch('INCREMENT', 10)
 ```
 
-Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
+这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 和所有额外的参数一样，这些参数被称为 mutation 的 payload.
 
-### Mutations Follow Vue's Reactivity Rules
+### 遵守 Vue 响应规则的 mutations
 
 Since Vuex's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
 
 1. Prefer initializing your Vuex initial state with all desired fields upfront.
 2. When adding new properties to an Object, you should either use `Vue.set(obj, 'newProp', 123)`, or replace that Object with a fresh one, e.g. `state.obj = { ...state.obj, newProp: 123 }` (Using stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) here).
 
-### Using Constants for Mutation Names
+???
 
-It is also common to use constants for mutation names - they allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+### 用常量为 mutation 命名
+
+为了可以使 linters 之类的工具发挥作用，通常我们建议使用常量去命名一个 mutation, 并且把这些常量放在单独的地方。这样做可以让你的代码合作者对整个 app 的 mutations 一目了然：
 
 ``` js
 // mutation-types.js
@@ -78,10 +82,12 @@ const vuex = new Vuex({
 })
 ```
 
-Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
+用不用常量取决于你 —— 事实上这样做大多数开发者很有帮助。但如果你不喜欢，你完全可以不这样做。
 
 ### On to Actions
 
-Manually calling `vuex.dispatch` is possible, but in practice, we will rarely do this in our component code. Most of the time we will be calling [actions](actions.md), which can encapsulate more complex logic such as async data fetching.
+???
 
-Also, one important rule to remember: all mutation handlers must be **synchronous**. Any async operations belong in actions.
+手动调用 `vuex.dispatch` 当然可以，但我们很少在组件里这样做，一般我们会调用 [actions](actions.md)。在 actions 里封装着异步数据请求之类的复杂逻辑。
+
+最后，要记得：所有 mutation handler 必须是 **同步** 的。异步的请求都应在 actions 里。
