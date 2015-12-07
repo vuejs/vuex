@@ -1,10 +1,12 @@
-# Testing
+# 测试
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Mutations 很容易测试，因为它仅仅是一个带参数的函数。相反测试 Actions 就比较难，因为 actions 会调用其它的一些 APIs. 测试 actions 的时候我们需要做一定的 mocking —— 比如说把 API 调用抽象成一个 service，然后测试的时候用另一个 mock 的 service. 为了方便地 mock，我们可以使用 Webpack 和 [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
 
 If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+???
+
+下面是用 Mocha + Chai 测试 mutation 的例子（你可以用任何你喜欢的测试工具）：
 
 ``` js
 // mutations.js
@@ -28,7 +30,7 @@ describe('mutations', () => {
 })
 ```
 
-Example testing an async action:
+测试异步 action 的例子：
 
 ``` js
 // actions.js
@@ -89,9 +91,9 @@ describe('actions', () => {
 })
 ```
 
-### Running in Node
+### 在 Node 中运行
 
-Create the following webpack config:
+创建以下 webpack 配置：
 
 ``` js
 module.exports = {
@@ -115,16 +117,21 @@ module.exports = {
 }
 ```
 
-Then:
+然后：
 
 ``` bash
 webpack
 mocha test-bundle.js
 ```
 
-### Running in Browser
+### 在浏览器运行
 
 1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`. 
+2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
 3. Start `webpack-dev-server` using the config
 4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+
+1. 安装 `mocha-loader`
+2. webpack 配置中的 entry 改成 `'mocha!babel!./test.js'`
+3. 用以上配置启动 `webpack-dev-server`
+4. 打开 `localhost:8080/webpack-dev-server/test-bundle`.
