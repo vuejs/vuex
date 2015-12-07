@@ -1,16 +1,16 @@
 # Actions
 
-Actions are functions that dispatch mutations. Actions can be asynchronous and a single action can dispatch multiple mutations.
+Actions 是用于 dispatch mutations 的函数。Actions 可以是异步的，一个 action 可以 dispatch 多个 mutations.
 
-An action expresses the intention for something to happen, and abstracts the details away from the component calling it. When a component wants to do something, it just calls an action - there's no need to worry about a callback or a return value, because actions result in state changes, and state changes will trigger the component's DOM to update - the component is completely decoupled from how that action is actually performed.
+一个 action 描述了有什么事情应该发生，把本应该在组件中调用的逻辑细节抽象出来。当一个组件需要做某件事时，只需要调用一个 action —— 并不需要关心 到底是 callback 还是一个返回值，因为 actions 会把结果直接反应给 state，state 改变时会触发组件的 DOM 更新 —— 组件完全和 action 要做的事情解耦。
 
-Therefore, we usually perform API calls to data endpoints inside actions, and hide the asynchronous details from both the Components calling the actions, and the mutations triggered by the actions.
+因为，我们通常在 actions 中做 API 相关的请求，并把『组件调用 actions、mutations 被 actions 触发』过程中的异步请求隐藏在其中。
 
-> Vuex actions are in fact "action creators" in vanilla flux definitions, but I find that term more confusing than useful.
+> Vuex actions 和 flux 中的 "actions creators" 是一样的，但是我觉得 flux 这样的定义会让人更疑惑。
 
-### Simple Actions
+### 简单的 Actions
 
-It is common that an action simply triggers a single mutation. Vuex provides a shorthand for defining such actions:
+通常一个 action 触发一个 mutation. Vuex 提供一个捷径去定义这样的 actions:
 
 ``` js
 const vuex = new Vuex({
@@ -24,29 +24,29 @@ const vuex = new Vuex({
   },
   actions: {
     // shorthand
-    // just provide the mutation name.
+    // 只要提供 mutation 名
     increment: 'INCREMENT'
   }
 })
 ```
 
-Now when we call the action:
+调用 action:
 
 ``` js
 vuex.actions.increment(1)
 ```
 
-It simply calls the following for us:
+这相当于调用：
 
 ``` js
 vuex.dispatch('INCREMENT', 1)
 ```
 
-Note any arguments passed to the action is also passed along to the mutation handler.
+注意所以传递给 action 的参数同样会传递给 mutation handler.
 
 ### Thunk Actions
 
-How about actions that involve logic depending on current state, or that need async operations? We can define these actions as **thunks** - essentially functions that return another function:
+当 actions 里存在逻辑或者异步操作时怎么办？我们可以定义 **Thunks(返回另一个函数的函数) actions**:
 
 ``` js
 const vuex = new Vuex({
@@ -70,7 +70,7 @@ const vuex = new Vuex({
 })
 ```
 
-Here, the outer function receives the arguments passed when calling the action. Then, it returns a function that gets 2 arguments: first is the `dispatch` function, and the second being the `state`. We are using ES5 syntax here to make things easier to understand. With ES2015 arrow functions we can "prettify" the above to the following:
+在这里，外部的函数接受传递进来的参数，之后返回一个带两个参数的函数：第一个参数是 `dispatch` 函数，另一个是 `state`. 我们在这里用 ES2015 语法中的箭头函数简化代码，使其更清晰好看：
 
 ``` js
 // ...
@@ -83,13 +83,13 @@ actions: {
 }
 ```
 
-The string shorthand is essentially syntax sugar for the following:
+下面是更简单的语法糖：
 
 ``` js
 actions: {
   increment: 'INCREMENT'
 }
-// ... equivalent to:
+// ... 相当于：
 actions: {
   increment: (...args) => dispatch => dispatch('INCREMENT', ...args)
 }
@@ -97,9 +97,11 @@ actions: {
 
 Why don't we just define the actions as simple functions that directly access `vuex.state` and `vuex.dispatch`? The reason is that such usage couples the action functions to the specific vuex instance. By using the thunk syntax, our actions only depend on function arguments and nothing else - this important characteristic makes them easy to test and hot-reloadable!
 
-### Async Actions
+???
 
-We can use the same thunk syntax for defining async actions:
+### 异步 Actions
+
+我们能像 thunk 一样定义异步 actions
 
 ``` js
 // ...
@@ -112,7 +114,7 @@ actions: {
 }
 ```
 
-A more practical example is when checking out a shopping cart - we may need to trigger multiple mutations: one that signifies the checkout has started, one for success, and one for failure:
+当在检查购物车时，更好的做法是触发多个不同的 mutations：一个在开始检查购物车时触发，一个在成功后触发，还有一个在失败时触发。
 
 ``` js
 // ...
@@ -135,4 +137,4 @@ actions: {
 }
 ```
 
-Again, all the component needs to do to perform the entire checkout is just calling `vuex.actions.checkout(products)`.
+这样一来，所以需要检查购物车的组件只需要调用 `vuex.actions.checkout(products)`.
