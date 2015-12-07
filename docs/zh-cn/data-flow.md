@@ -1,6 +1,6 @@
-# Date Flow
+# 数据流
 
-Let's build a simple counter app with Vuex to get a better understanding of the data flow inside Vuex apps. Note this is a trivial example solely for the purpose of explaining the concepts - in practice you don't need Vuex for such simple tasks.
+为了更好地理解 Vuex app 中的数据流，我们来做一个简单的计数器 app。这个例子仅仅用于解释一些概念，实际上你并不需要在这种简单的场合使用 Vuex.
 
 ### Setup
 
@@ -12,7 +12,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 ```
 
-### Define App State
+### 定义 App State
 
 ``` js
 const state = {
@@ -20,7 +20,7 @@ const state = {
 }
 ```
 
-### Define Possible State Mutations
+### 定义会被用到的 State Mutations
 
 ``` js
 const mutations = {
@@ -33,7 +33,7 @@ const mutations = {
 }
 ```
 
-### Define Callable Actions
+### 定义可被调用的 Actions
 
 ``` js
 const actions = {
@@ -42,7 +42,7 @@ const actions = {
 }
 ```
 
-### Create a Vuex Instance
+### 创建 Vuex 实例
 
 ``` js
 export default new Vuex({
@@ -52,7 +52,7 @@ export default new Vuex({
 })
 ```
 
-### Use It in a Vue Component
+### 在 Vue 组件里使用
 
 **Template**
 
@@ -71,7 +71,7 @@ import vuex from './vuex.js'
 
 export default {
   computed: {
-    // bind to state using computed properties
+    // 在 computed 属性内绑定 state
     count () {
       return vuex.state.count
     }
@@ -83,9 +83,11 @@ export default {
 }
 ```
 
-Here you will notice the component itself is extremely simple: it simply displays some state from the Vuex instance (not even owning its own data), and calls some vuex actions on user input events.
+你会注意到组件本身非常简洁：它仅仅显示了 Vuex 实例中的一些 state、在用户输入时调用了一些 vuex actions.
 
 You will also notice the data flow is unidirectional, as it should be in Flux:
+
+???
 
 <p align="center">
   <img width="700px" src="vuex.png">
