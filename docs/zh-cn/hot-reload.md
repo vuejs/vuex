@@ -1,8 +1,8 @@
-# Hot Reloading
+# 热重载
 
-Vuex supports hot-reloading actions and mutations during development, using Webpack's [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+Vuex 支持在开发中热重载 actions 和 mutations（使用 Webpack 的 [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html)）。你也可以在 Browserify 里使用 [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
 
-It's as simple as calling `vuex.hotUpdate()` with the new actions and mutations:
+只需要简单地调用 `vuex.hotUpdate()`:
 
 ``` js
 // ...
@@ -13,13 +13,13 @@ const vuex = new Vuex({
 })
 
 if (module.hot) {
-  // accept actions and mutations as hot modules
+  // 使 actions 和 mutations 成为热重载模块
   module.hot.accept(['./actions', './mutations'], () => {
     // require the updated modules
     // have to add .default here due to babel 6 module output
     const newActions = require('./actions').default
     const newMutations = require('./mutations').default
-    // swap in the new actions and mutations
+    // swap in the new actions and mutations  
     vuex.hotUpdate({
       actions: newActions,
       mutations: newMutations
