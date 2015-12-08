@@ -52,7 +52,7 @@ The middleware will be used by default. For production, use the build setup desc
 
 ### Built-in Logger Middleware
 
-Veux comes with a logger middleware for common debugging usage:
+Vuex comes with a logger middleware for common debugging usage:
 
 ``` js
 const vuex = new Vuex({
