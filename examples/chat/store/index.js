@@ -5,7 +5,7 @@ import mutations from './mutations'
 
 Vue.use(Vuex)
 
-export default new Vuex({
+export default new Vuex.Store({
   state: {
     currentThreadID: null,
     threads: {

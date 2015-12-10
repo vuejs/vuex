@@ -11,7 +11,7 @@ const state = {
   todos: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
 }
 
-export default new Vuex({
+export default new Vuex.Store({
   state,
   actions,
   mutations,

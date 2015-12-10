@@ -3,7 +3,7 @@ import * as types from './mutation-types'
 
 export const addToCart = types.ADD_TO_CART
 
-export const checkout = (products) => (dispatch, state) => {
+export const checkout = ({ dispatch, state }, products) => {
   const savedCartItems = [...state.cart.added]
   dispatch(types.CHECKOUT_REQUEST)
   shop.buyProducts(
@@ -13,7 +13,7 @@ export const checkout = (products) => (dispatch, state) => {
   )
 }
 
-export const getAllProducts = () => dispatch => {
+export const getAllProducts = ({ dispatch }) => {
   shop.getProducts(products => {
     dispatch(types.RECEIVE_PRODUCTS, products)
   })

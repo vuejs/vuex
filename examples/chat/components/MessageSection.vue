@@ -13,21 +13,21 @@
 </template>
 
 <script>
-import vuex from '../vuex'
+import store from '../store'
 import Message from './Message.vue'
 
 export default {
   components: { Message },
   computed: {
     thread () {
-      const id = vuex.state.currentThreadID
+      const id = store.state.currentThreadID
       return id
-        ? vuex.state.threads[id]
+        ? store.state.threads[id]
         : {}
     },
     messages () {
       return this.thread.messages &&
-        this.thread.messages.map(id => vuex.state.messages[id])
+        this.thread.messages.map(id => store.state.messages[id])
     }
   },
   watch: {
@@ -42,7 +42,7 @@ export default {
     sendMessage (e) {
       const text = e.target.value
       if (text.trim()) {
-        vuex.actions.sendMessage(text, this.thread)
+        store.actions.sendMessage(text, this.thread)
         e.target.value = ''
       }
     }

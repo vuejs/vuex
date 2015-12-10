@@ -46,14 +46,14 @@
 </template>
 
 <script>
-import vuex from '../vuex'
+import store from '../store'
 import Todo from './Todo.vue'
 
 const {
   addTodo,
   toggleAll,
   clearCompleted
-} = vuex.actions
+} = store.actions
 
 const filters = {
   all: (todos) => todos,
@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     todos () {
-      return vuex.state.todos
+      return store.state.todos
     },
     allChecked () {
       return this.todos.every(todo => todo.done)

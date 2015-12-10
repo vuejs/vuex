@@ -9,7 +9,7 @@ const TEST = 'TEST'
 
 describe('Vuex', () => {
   it('direct dispatch', () => {
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1
       },
@@ -19,12 +19,12 @@ describe('Vuex', () => {
         }
       }
     })
-    vuex.dispatch(TEST, 2)
-    expect(vuex.state.a).to.equal(3)
+    store.dispatch(TEST, 2)
+    expect(store.state.a).to.equal(3)
   })
 
   it('simple action', function () {
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1
       },
@@ -37,19 +37,19 @@ describe('Vuex', () => {
         }
       }
     })
-    vuex.actions.test(2)
-    expect(vuex.state.a).to.equal(3)
+    store.actions.test(2)
+    expect(store.state.a).to.equal(3)
   })
 
   it('async action', function (done) {
     const TEST = 'TEST'
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1,
         timeout: 10
       },
       actions: {
-        test: (n) => (dispatch, state) => {
+        test: ({ dispatch, state }, n) => {
           setTimeout(() => {
             dispatch(TEST, n)
           }, state.timeout)
@@ -61,16 +61,16 @@ describe('Vuex', () => {
         }
       }
     })
-    vuex.actions.test(2)
+    store.actions.test(2)
     setTimeout(() => {
-      expect(vuex.state.a).to.equal(3)
+      expect(store.state.a).to.equal(3)
       done()
-    }, vuex.state.timeout)
+    }, store.state.timeout)
   })
 
   it('array option syntax', function () {
     const TEST2 = 'TEST2'
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1,
         b: 1,
@@ -94,16 +94,16 @@ describe('Vuex', () => {
         }
       ]
     })
-    vuex.actions.test(2)
-    expect(vuex.state.a).to.equal(3)
-    expect(vuex.state.b).to.equal(3)
-    expect(vuex.state.c).to.equal(1)
-    vuex.actions.test2(2)
-    expect(vuex.state.c).to.equal(3)
+    store.actions.test(2)
+    expect(store.state.a).to.equal(3)
+    expect(store.state.b).to.equal(3)
+    expect(store.state.c).to.equal(1)
+    store.actions.test2(2)
+    expect(store.state.c).to.equal(3)
   })
 
   it('hot reload', function () {
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1
       },
@@ -116,12 +116,12 @@ describe('Vuex', () => {
         }
       }
     })
-    const test = vuex.actions.test
+    const test = store.actions.test
     test(2)
-    expect(vuex.state.a).to.equal(3)
-    vuex.hotUpdate({
+    expect(store.state.a).to.equal(3)
+    store.hotUpdate({
       actions: {
-        test: n => dispatch => dispatch(TEST, n + 1)
+        test: ({ dispatch }, n) => dispatch(TEST, n + 1)
       },
       mutations: {
         [TEST] (state, n) {
@@ -130,13 +130,13 @@ describe('Vuex', () => {
       }
     })
     test(999)
-    expect(vuex.state.a).to.equal(1000)
+    expect(store.state.a).to.equal(1000)
   })
 
   it('middleware', function () {
     let initState
     const mutations = []
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1
       },
@@ -154,14 +154,14 @@ describe('Vuex', () => {
             initState = state
           },
           onMutation (mut, state) {
-            expect(state).to.equal(vuex.state)
+            expect(state).to.equal(store.state)
             mutations.push(mut)
           }
         }
       ]
     })
-    expect(initState).to.equal(vuex.state)
-    vuex.actions.test(2)
+    expect(initState).to.equal(store.state)
+    store.actions.test(2)
     expect(mutations.length).to.equal(1)
     expect(mutations[0].type).to.equal(TEST)
     expect(mutations[0].payload[0]).to.equal(2)
@@ -170,7 +170,7 @@ describe('Vuex', () => {
   it('middleware with snapshot', function () {
     let initState
     const mutations = []
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1
       },
@@ -198,31 +198,31 @@ describe('Vuex', () => {
         }
       ]
     })
-    expect(initState).not.to.equal(vuex.state)
+    expect(initState).not.to.equal(store.state)
     expect(initState.a).to.equal(1)
-    vuex.actions.test(2)
+    store.actions.test(2)
     expect(mutations.length).to.equal(1)
     expect(mutations[0].mutation.type).to.equal(TEST)
     expect(mutations[0].mutation.payload[0]).to.equal(2)
-    expect(mutations[0].nextState).not.to.equal(vuex.state)
+    expect(mutations[0].nextState).not.to.equal(store.state)
     expect(mutations[0].prevState.a).to.equal(1)
     expect(mutations[0].nextState.a).to.equal(3)
   })
 
   it('strict mode: warn mutations outside of handlers', function () {
-    const vuex = new Vuex({
+    const store = new Vuex.Store({
       state: {
         a: 1
       },
       actions: {
-        test: () => (dispatch, state) => {
+        test: ({ dispatch, state }) => {
           state.a++
         }
       },
       strict: true
     })
     expect(() => {
-      vuex.actions.test(2)
-    }).to.throw(/Do not mutate vuex state outside mutation handlers/)
+      store.actions.test(2)
+    }).to.throw(/Do not mutate vuex store state outside mutation handlers/)
   })
 })

@@ -6,9 +6,7 @@
   <img width="700px" src="https://raw.githubusercontent.com/vuejs/vuex/master/docs/en/vuex.png">
 </p>
 
-**Note**: Vuex is still in development - API may change anytime.
-
-[Documentation](http://vuex.vuejs.org)
+## NOTE: Vuex is still in development - API may change anytime.
 
 ## Examples
 

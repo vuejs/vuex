@@ -5,13 +5,13 @@ export default {
   increment: INCREMENT,
   decrement: DECREMENT,
 
-  incrementIfOdd: () => (dispatch, state) => {
+  incrementIfOdd: ({ dispatch, state }) => {
     if ((state.count + 1) % 2 === 0) {
       dispatch(INCREMENT)
     }
   },
 
-  incrementAsync: () => dispatch => {
+  incrementAsync: ({ dispatch }) => {
     setTimeout(() => {
       dispatch(INCREMENT)
     }, 1000)

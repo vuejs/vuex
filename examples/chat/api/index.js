@@ -1,4 +1,3 @@
-import vuex from '../vuex'
 const data = require('./mock-data')
 const LATENCY = 16
 

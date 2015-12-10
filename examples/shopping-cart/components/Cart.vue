@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import vuex from '../vuex'
-const { checkout } = vuex.actions
+import store from '../store'
+const { checkout } = store.actions
 
 export default {
   computed: {
     products () {
-      return vuex.state.cart.added.map(({ id, quantity }) => {
-        const product = vuex.state.products.find(p => p.id === id)
+      return store.state.cart.added.map(({ id, quantity }) => {
+        const product = store.state.products.find(p => p.id === id)
         return {
           title: product.title,
           price: product.price,
@@ -30,7 +30,7 @@ export default {
       })
     },
     checkoutStatus () {
-      return vuex.state.cart.lastCheckout
+      return store.state.cart.lastCheckout
     },
     total () {
       return this.products.reduce((total, p) => {

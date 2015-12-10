@@ -4,7 +4,7 @@ import createLogger from './middlewares/logger'
 
 let Vue
 
-export default class Vuex {
+export class Store {
 
   /**
    * @param {Object} options
@@ -22,6 +22,11 @@ export default class Vuex {
     middlewares = [],
     strict = false
   } = {}) {
+    // bind dispatch to self
+    const dispatch = this.dispatch
+    this.dispatch = (...args) => {
+      dispatch.apply(this, args)
+    }
     // use a Vue instance to store the state tree
     this._vm = new Vue({
       data: state
@@ -127,7 +132,7 @@ export default class Vuex {
     new Watcher(this._vm, '$data', () => {
       if (!this._dispatching) {
         throw new Error(
-          '[vuex] Do not mutate vuex state outside mutation handlers.'
+          '[vuex] Do not mutate vuex store state outside mutation handlers.'
         )
       }
     }, { deep: true, sync: true })
@@ -214,12 +219,11 @@ export default class Vuex {
 
 // export logger factory
 export { createLogger }
-Vuex.createLogger = createLogger
 
-/**
- * Exposed install method
- */
-
-Vuex.install = function (_Vue) {
-  Vue = _Vue
+export default {
+  Store,
+  createLogger,
+  install (_Vue) {
+    Vue = _Vue
+  }
 }

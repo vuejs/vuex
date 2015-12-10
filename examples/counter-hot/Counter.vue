@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import vuex from './vuex'
+import store from './store'
 
 export default {
   computed: {
     count () {
-      return vuex.state.count
+      return store.state.count
     }
   },
-  methods: vuex.actions
+  methods: store.actions
 }
 </script>

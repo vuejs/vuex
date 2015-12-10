@@ -36,7 +36,7 @@
     "babel-polyfill": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-stage-2": "^6.1.18",
-    "babel-runtime": "^6.2.0",
+    "babel-runtime": "^5.8.0",
     "chai": "^3.4.1",
     "css-loader": "^0.21.0",
     "eslint": "^1.10.2",
@@ -46,7 +46,7 @@
     "vue": "^1.0.8",
     "vue-hot-reload-api": "^1.2.1",
     "vue-html-loader": "^1.0.0",
-    "vue-loader": "^7.1.1",
+    "vue-loader": "^7.2.0",
     "webpack": "^1.12.8",
     "webpack-dev-server": "^1.12.1"
   }

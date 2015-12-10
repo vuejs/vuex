@@ -16,17 +16,17 @@
 </template>
 
 <script>
-import vuex from '../vuex'
+import store from '../store'
 import Thread from './Thread.vue'
 
 export default {
   components: { Thread },
   computed: {
     threads () {
-      return vuex.state.threads
+      return store.state.threads
     },
     unreadCount () {
-      const threads = vuex.state.threads
+      const threads = store.state.threads
       return Object.keys(threads).reduce((count, id) => {
         return threads[id].lastMessage.isRead
           ? count

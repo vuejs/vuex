@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import vuex from '../vuex'
-const { getAllProducts, addToCart } = vuex.actions
+import store from '../store'
+const { getAllProducts, addToCart } = store.actions
 
 export default {
   computed: {
     products () {
-      return vuex.state.products
+      return store.state.products
     }
   },
   created () {

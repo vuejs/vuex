@@ -9,7 +9,7 @@ Vue.config.debug = true
 
 const debug = process.env.NODE_ENV !== 'production'
 
-export default new Vuex({
+export default new Vuex.Store({
   state: {
     cart: cartInitialState,
     products: productsInitialState

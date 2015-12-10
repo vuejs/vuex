@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 import Vue from 'vue'
 import App from './components/App.vue'
-import vuex from './vuex'
+import store from './store'
 
 Vue.filter('time', timestamp => {
   return new Date(timestamp).toLocaleTimeString()
@@ -12,4 +12,4 @@ new Vue({
   components: { App }
 })
 
-vuex.actions.getAllMessages()
+store.actions.getAllMessages()

@@ -15,7 +15,7 @@ const state = {
 }
 
 // actions are what components will be able to
-// call as vuex.actions.xxx
+// call as store.actions.xxx
 // note these are not the final functions the
 // components will be calling.
 const actions = {
@@ -30,7 +30,7 @@ const actions = {
   // the returned function will get two arguments,
   // the first being the dispatch function and the second is
   // the state tree.
-  incrementIfOdd: () => (dispatch, state) => {
+  incrementIfOdd: ({ dispatch, state }) => {
     if ((state.count + 1) % 2 === 0) {
       dispatch(INCREMENT)
     }
@@ -38,7 +38,7 @@ const actions = {
 
   // we also use thunks for async actions.
   // you can dispatch multiple mutations inside a thunk action.
-  incrementAsync: () => dispatch => {
+  incrementAsync: ({ dispatch }) => {
     setTimeout(() => {
       dispatch(INCREMENT)
     }, 1000)
@@ -67,7 +67,7 @@ const mutations = {
 // You can also provide middlewares, which is just an array of
 // objects containing some hooks to be called at initialization
 // and after each mutation.
-export default new Vuex({
+export default new Vuex.Store({
   state,
   actions,
   mutations

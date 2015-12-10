@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import vuex from '../vuex'
+import store from '../store'
 const {
   toggleTodo,
   deleteTodo,
   editTodo
-} = vuex.actions
+} = store.actions
 
 export default {
   props: ['todo'],

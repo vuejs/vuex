@@ -14,18 +14,18 @@
 </template>
 
 <script>
-import vuex from '../vuex'
+import store from '../store'
 
 export default {
   props: ['thread'],
   computed: {
     isCurrentThread () {
-      return this.thread.id === vuex.state.currentThreadID
+      return this.thread.id === store.state.currentThreadID
     }
   },
   methods: {
     onClick () {
-      vuex.actions.switchThread(this.thread.id)
+      store.actions.switchThread(this.thread.id)
     }
   }
 }
