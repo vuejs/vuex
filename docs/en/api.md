@@ -1,20 +1,20 @@
 # API Reference
 
-### Constructor
+### Vuex.Store
 
 ``` js
 import Vuex from 'vuex'
 
-const vuex = new Vuex({ ...options })
+const vuex = new Vuex.Store({ ...options })
 ```
 
-### Constructor Options
+### Vuex.Store Constructor Options
 
 - **state**
   
   - type: `Object`
 
-    The root state object for the Vuex instance.
+    The root state object for the Vuex store.
 
     [Details](state.md)
 
@@ -35,9 +35,9 @@ const vuex = new Vuex({ ...options })
     An object where each entry's key is the action name and the value is either
 
     1. A mutation name string; or
-    2. A thunk action creator function.
+    2. A function which will receive the store as the first argument, followed by additional payload arguments.
 
-    Vuex will process these entries and create the actual callable action functions and expose them on the `actions` property of the instance.
+    Vuex will process these entries and create the actual callable action functions and expose them on the `actions` property of the store.
 
     If passing in an Array of Objects, these objects will be automatically merged together into one final object.
 
@@ -64,11 +64,11 @@ const vuex = new Vuex({ ...options })
   - type: `Boolean`
   - default: `false`
 
-    Force the Vuex instance into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw en Error.
+    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw en Error.
 
     [Details](strict.md)
 
-### Instance Properties
+### Vuex.Store Instance Properties
 
 - **state**
 
@@ -82,7 +82,7 @@ const vuex = new Vuex({ ...options })
 
     The callable action functions.
 
-### Instance Methods
+### Vuex.Store Instance Methods
 
 - **dispatch(mutationName: String, ...args)**
 

@@ -1,9 +1,9 @@
 # Strict Mode
 
-To enable strict mode, simply pass in `strict: true` when creating the Vuex instance:
+To enable strict mode, simply pass in `strict: true` when creating a Vuex store:
 
 ``` js
-const vuex = new Vuex({
+const store = new Vuex.Store({
   // ...
   strict: true
 })
@@ -18,7 +18,7 @@ In strict mode, whenever Vuex state is mutated outside of mutation handlers, an 
 Similar to middlewares, we can let the build tools handle that:
 
 ``` js
-const vuex = new Vuex({
+const store = new Vuex.Store({
   // ...
   strict: process.env.NODE_ENV !== 'production'
 })

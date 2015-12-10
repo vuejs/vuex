@@ -7,7 +7,7 @@ Vuex doesn't really restrict how you structure your code. Rather, it enforces a 
 3. Mutations must be synchronous, and the only side effects they produce should be state mutation.
 4. All asynchronous logic such as data fetching should be performed in actions.
 
-The nice thing about Vuex actions and mutations is that **they are just functions with no external dependencies**. As long as you follow these rules, it's up to you how to structure your project. The simplest Vuex instance can even be declared [in a single file](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js)! However, this is unlikely to suffice for any serious project, so here are some recommended structures depending on the scale of your app.
+The nice thing about Vuex actions and mutations is that **they are just functions**. As long as you follow these rules, it's up to you how to structure your project. The simplest Vuex instance can even be declared [in a single file](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js)! However, this is unlikely to suffice for any serious project, so here are some recommended structures depending on the scale of your app.
 
 ### Simple Project
 
@@ -20,8 +20,8 @@ For a simple project, we can simply separate **actions** and **mutations** into 
 ├── components
 │   ├── App.vue
 │   └── ...
-└── vuex
-    ├── index.js     # exports the vuex instance
+└── store
+    ├── index.js     # exports the vuex store
     ├── actions.js   # exports all actions
     └── mutations.js # exports all mutations
 ```
@@ -40,7 +40,7 @@ For any non-trivial app, we probably want to further split Vuex-related code int
 ├── components
 │   ├── App.vue
 │   └── ...
-└── vuex
+└── store
     ├── actions.js # exports all actions
     ├── index.js
     ├── modules
@@ -73,7 +73,7 @@ export const productsMutations = {
 }
 ```
 
-And in `vuex/index.js`, we "assemble" multiple modules together to create the Vuex instance:
+And in `store/index.js`, we "assemble" multiple modules together to create the Vuex instance:
 
 ``` js
 import Vue from 'vue'
@@ -85,7 +85,7 @@ import { productsInitialState, productsMutations } from './modules/products'
 
 Vue.use(Vuex)
 
-export default new Vuex({
+export default new Vuex.Store({
   // ...
   // combine sub-trees into root state
   state: {
@@ -110,11 +110,11 @@ In large projects, it's possible that multiple components will need the same com
 
 ``` js
 // getters.js
-import vuex from './vuex'
+import store from './store'
 
 export function filteredTodos () {
-  return vuex.state.messages.filter(message => {
-    return message.threadID === vuex.state.currentThreadID
+  return store.state.messages.filter(message => {
+    return message.threadID === store.state.currentThreadID
   })
 }
 ```

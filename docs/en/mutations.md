@@ -5,7 +5,7 @@ Vuex mutations are essentially events: each mutation has a **name** and a **hand
 ``` js
 import Vuex from 'vuex'
 
-const vuex = new Vuex({
+const store = new Vuex.Store({
   state: {
     count: 1
   },
@@ -23,7 +23,7 @@ Using all caps for mutation names is just a convention to make it easier to diff
 You cannot directly call a mutation handler. The options here is more like event registration: "When an `INCREMENT` event is dispatched, call this handler." To invoke a mutation handler, you need to dispatch a mutation event:
 
 ``` js
-vuex.dispatch('INCREMENT')
+store.dispatch('INCREMENT')
 ```
 
 ### Dispatch with Arguments
@@ -39,16 +39,16 @@ mutations: {
 }
 ```
 ``` js
-vuex.dispatch('INCREMENT', 10)
+store.dispatch('INCREMENT', 10)
 ```
 
 Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
 
 ### Mutations Follow Vue's Reactivity Rules
 
-Since Vuex's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
 
-1. Prefer initializing your Vuex initial state with all desired fields upfront.
+1. Prefer initializing your store's initial state with all desired fields upfront.
 2. When adding new properties to an Object, you should either use `Vue.set(obj, 'newProp', 123)`, or replace that Object with a fresh one, e.g. `state.obj = { ...state.obj, newProp: 123 }` (Using stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) here).
 
 ### Using Constants for Mutation Names
@@ -61,11 +61,11 @@ export const SOME_MUTATION = 'SOME_MUTATION'
 ```
 
 ``` js
-// vuex.js
+// store.js
 import Vuex from 'vuex'
 import { SOME_MUTATION } from './mutation-types'
 
-const vuex = new Vuex({
+const store = new Vuex.Store({
   state: { ... },
   actions: { ... },
   mutations: {
@@ -82,6 +82,6 @@ Whether to use constants is largely a preference - it can be helpful in large pr
 
 ### On to Actions
 
-Manually calling `vuex.dispatch` is possible, but in practice, we will rarely do this in our component code. Most of the time we will be calling [actions](actions.md), which can encapsulate more complex logic such as async data fetching.
+Manually calling `store.dispatch` is possible, but in practice, we will rarely do this in our component code. Most of the time we will be calling [actions](actions.md), which can encapsulate more complex logic such as async data fetching.
 
 Also, one important rule to remember: all mutation handlers must be **synchronous**. Any async operations belong in actions.

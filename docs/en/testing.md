@@ -34,7 +34,7 @@ Example testing an async action:
 // actions.js
 import shop from '../api/shop'
 
-export const getAllProducts = () => dispatch => {
+export const getAllProducts = ({ dispatch }) => {
   dispatch('REQUEST_PRODUCTS')
   shop.getProducts(products => {
     dispatch('RECEIVE_PRODUCTS', products)
@@ -65,7 +65,8 @@ const actions = actionsInjector({
 // helper for testing action with expected mutations
 const testAction = (action, state, expectedMutations, done) => {
   let count = 0
-  const mockedDispatch = (name, payload) => {
+  // mock dispatch
+  const dispatch = (name, payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.name).to.equal(name)
     if (payload) {
@@ -76,12 +77,16 @@ const testAction = (action, state, expectedMutations, done) => {
       done()
     }
   }
-  action(mockedDispatch, state)
+  // call the action with mocked store
+  action({
+    dispatch,
+    state
+  })
 }
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts(), {}, [
+    testAction(actions.getAllProducts, {}, [
       { name: 'REQUEST_PRODUCTS' },
       { name: 'RECEIVE_PRODUCTS', payload: [ /* mocked response */ ] }
     ], done)

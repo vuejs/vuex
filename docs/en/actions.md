@@ -13,7 +13,7 @@ Therefore, we usually perform API calls to data endpoints inside actions, and hi
 It is common that an action simply triggers a single mutation. Vuex provides a shorthand for defining such actions:
 
 ``` js
-const vuex = new Vuex({
+const store = new Vuex.Store({
   state: {
     count: 1
   },
@@ -33,20 +33,20 @@ const vuex = new Vuex({
 Now when we call the action:
 
 ``` js
-vuex.actions.increment(1)
+store.actions.increment(1)
 ```
 
 It simply calls the following for us:
 
 ``` js
-vuex.dispatch('INCREMENT', 1)
+store.dispatch('INCREMENT', 1)
 ```
 
 Note any arguments passed to the action is also passed along to the mutation handler.
 
-### Thunk Actions
+### Normal Actions
 
-How about actions that involve logic depending on current state, or that need async operations? We can define these actions as **thunks** - essentially functions that return another function:
+For actions that involve logic depending on current state, or that need async operations, we define them as functions. Action functions always get the store calling it as the first argument:
 
 ``` js
 const vuex = new Vuex({
@@ -59,23 +59,21 @@ const vuex = new Vuex({
     }
   },
   actions: {
-    incrementIfOdd: function (x) {
-      return function (dispatch, state) {
-        if ((state.count + 1) % 2 === 0) {
-          dispatch('INCREMENT', x)
-        }
+    incrementIfOdd: (store, x) => {
+      if ((store.state.count + 1) % 2 === 0) {
+        store.dispatch('INCREMENT', x)
       }
     }
   }
 })
 ```
 
-Here, the outer function receives the arguments passed when calling the action. Then, it returns a function that gets 2 arguments: first is the `dispatch` function, and the second being the `state`. We are using ES5 syntax here to make things easier to understand. With ES2015 arrow functions we can "prettify" the above to the following:
+It is common to use ES6 argument destructuring to make the function body less verbose (here the `dispatch` function is pre-bound to the store instance so we don't have to call it as a method):
 
 ``` js
 // ...
 actions: {
-  incrementIfOdd: x => (dispatch, state) => {
+  incrementIfOdd: ({ dispatch, state }, x) => {
     if ((state.count + 1) % 2 === 0) {
       dispatch('INCREMENT', x)
     }
@@ -91,20 +89,20 @@ actions: {
 }
 // ... equivalent to:
 actions: {
-  increment: (...args) => dispatch => dispatch('INCREMENT', ...args)
+  increment: ({ dispatch }, ...payload) => {
+    dispatch('INCREMENT', ...payload)
+  }
 }
 ```
 
-Why don't we just define the actions as simple functions that directly access `vuex.state` and `vuex.dispatch`? The reason is that such usage couples the action functions to the specific vuex instance. By using the thunk syntax, our actions only depend on function arguments and nothing else - this important characteristic makes them easy to test and hot-reloadable!
-
 ### Async Actions
 
-We can use the same thunk syntax for defining async actions:
+We can use the same syntax for defining async actions:
 
 ``` js
 // ...
 actions: {
-  incrementAsync: x => dispatch => {
+  incrementAsync: ({ dispatch }, x) => {
     setTimeout(() => {
       dispatch('INCREMENT', x)
     }, 1000)
@@ -117,7 +115,7 @@ A more practical example is when checking out a shopping cart - we may need to t
 ``` js
 // ...
 actions: {
-  checkout: products => (dispatch, state) => {
+  checkout: ({ dispatch, state }, products) => {
     // save the current in cart items
     const savedCartItems = [...state.cart.added]
     // send out checkout request, and optimistically

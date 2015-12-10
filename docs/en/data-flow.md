@@ -5,7 +5,7 @@ Let's build a simple counter app with Vuex to get a better understanding of the 
 ### Setup
 
 ``` js
-// vuex.js
+// store.js
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -42,10 +42,10 @@ const actions = {
 }
 ```
 
-### Create a Vuex Instance
+### Create a Vuex Store
 
 ``` js
-export default new Vuex({
+export default new Vuex.Store({
   state,
   mutations,
   actions
@@ -67,23 +67,23 @@ export default new Vuex({
 **Script**
 
 ``` js
-import vuex from './vuex.js'
+import store from './store.js'
 
 export default {
   computed: {
     // bind to state using computed properties
     count () {
-      return vuex.state.count
+      return store.state.count
     }
   },
   methods: {
-    increment: vuex.actions.increment,
-    decrement: vuex.actions.decrement
+    increment: store.actions.increment,
+    decrement: store.actions.decrement
   }
 }
 ```
 
-Here you will notice the component itself is extremely simple: it simply displays some state from the Vuex instance (not even owning its own data), and calls some vuex actions on user input events.
+Here you will notice the component itself is extremely simple: it simply displays some state from the Vuex store (not even owning its own data), and calls some store actions on user input events.
 
 You will also notice the data flow is unidirectional, as it should be in Flux:
 

@@ -1,6 +1,6 @@
 # Middlewares
 
-Vuex instances accept the `middlewares` option that exposes hooks for each mutation (Note this is completely unrelated to Redux middlewares). A Vuex middleware is simply an object that implements some hook functions:
+Vuex stores accept the `middlewares` option that exposes hooks for each mutation (Note this is completely unrelated to Redux middlewares). A Vuex middleware is simply an object that implements some hook functions:
 
 ``` js
 const myMiddleware = {
@@ -17,7 +17,7 @@ const myMiddleware = {
 And can be used like this:
 
 ``` js
-const vuex = new Vuex({
+const store = new Vuex.Store({
   // ...
   middlewares: [myMiddleware]
 })
@@ -40,7 +40,7 @@ const myMiddlewareWithSnapshot = {
 **Middlewares that take state snapshots should be used only during development.** When using Webpack or Browserify, we can let our build tools handle that for us:
 
 ``` js
-const vuex = new Vuex({
+const store = new Vuex.Store({
   // ...
   middlewares: process.env.NODE_ENV !== 'production'
     ? [myMiddlewareWithSnapshot]
@@ -55,7 +55,7 @@ The middleware will be used by default. For production, use the build setup desc
 Vuex comes with a logger middleware for common debugging usage:
 
 ``` js
-const vuex = new Vuex({
+const store = new Vuex.Store({
   middlewares: [Vuex.createLogger()]
 })
 ```
