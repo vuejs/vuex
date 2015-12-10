@@ -1,3 +1,5 @@
+> 中文文档尚未更新完毕，请暂时以英文文档为准。
+
 # Table of Contents
 
 - [什么是 Vuex?](intro.md)
