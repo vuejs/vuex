@@ -220,10 +220,14 @@ export class Store {
 // export logger factory
 export { createLogger }
 
+// export install function
+export function install (_Vue) {
+  Vue = _Vue
+}
+
+// also export the default
 export default {
   Store,
   createLogger,
-  install (_Vue) {
-    Vue = _Vue
-  }
+  install
 }
