@@ -25,19 +25,17 @@ const actions = {
   increment: INCREMENT,
   decrement: DECREMENT,
 
-  // for conditional actions that depend on the state,
-  // we can provide a thunk (a function that returns a function)
-  // the returned function will get two arguments,
-  // the first being the dispatch function and the second is
-  // the state tree.
+  // for a normal action function, it always recieves the store
+  // instance as the first argument, from which we can get the
+  // dispatch function and the state object. Any additional
+  // arguments will follow the store argument.
   incrementIfOdd: ({ dispatch, state }) => {
     if ((state.count + 1) % 2 === 0) {
       dispatch(INCREMENT)
     }
   },
 
-  // we also use thunks for async actions.
-  // you can dispatch multiple mutations inside a thunk action.
+  // Same thing for async actions.
   incrementAsync: ({ dispatch }) => {
     setTimeout(() => {
       dispatch(INCREMENT)
