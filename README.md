@@ -8,6 +8,8 @@
 
 ## NOTE: Vuex is still in development - API may change anytime.
 
+[Documentation](http://vuex.vuejs.org/)
+
 ## Examples
 
 - [Counter](https://github.com/vuejs/vuex/tree/master/examples/counter)
