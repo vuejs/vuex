@@ -23,7 +23,7 @@ const store = new Vuex.Store({
 })
 ```
 
-By default, a middleware receives the actual `state` object. Since middlewares are primarily used for debugging purposes, they are **not allowed to mutate the state**.
+By default, a middleware receives the actual `state` object. Since middlewares are primarily used for debugging purposes or data persistence, they are **not allowed to mutate the state**.
 
 Sometimes a middleware may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. Such middlewares must declare the `snapshot: true` option:
 

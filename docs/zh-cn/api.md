@@ -1,14 +1,14 @@
 # API
 
-### 构造器
+### Vuex.Store
 
 ``` js
 import Vuex from 'vuex'
 
-const vuex = new Vuex({ ...options })
+const store = new Vuex.Store({ ...options })
 ```
 
-### 构造器 options
+### Vuex.Store 构造选项
 
 - **state**
 
@@ -32,12 +32,12 @@ const vuex = new Vuex({ ...options })
 
   - type: `Object | Array<Object>`
 
-    入口 key 为 action 名的对象，value 可能为
+    一个以 action 名为 key 的对象，value 可能为
 
     1. 一个 mutation 名字的 string, 或
-    2. 一个 thunk action 创建函数（thunk action creator function）
+    2. 一个函数。该函数将获取 store 实例为第一个参数，以及其他可能的 payload 参数。
 
-    Vuex 会处理这些入口，并创建可以被调用的 action 函数，暴露到实例中的 `actions` 属性。
+    Vuex 会将他们转化为可以被调用的 action 函数，并暴露到 store 实例的 `actions` 对象上。
 
     如果传来一个对象数组，这些对象会自动合并到一个对象中。
 
@@ -64,11 +64,11 @@ const vuex = new Vuex({ ...options })
   - type: `Boolean`
   - default: `false`
 
-    使 Vuex 实例进入严格模式。严格模式中，在 mutation handler 外部对 Vuex state 做任何操作均会抛出错误。
+    使 Vuex store 实例进入严格模式。严格模式中，在 mutation handler 外部对该 store 的 state 做任何操作均会抛出错误。
 
     [详细](strict.md)
 
-### 实例属性
+### Vuex.Store 实例属性
 
 - **state**
 
@@ -82,14 +82,12 @@ const vuex = new Vuex({ ...options })
 
     可被调用的 action 函数。
 
-### 实例方法
+### Vuex.Store 实例方法
 
 - **dispatch(mutationName: String, ...args)**
 
-  Directly dispatch a mutation. This is useful in certain situations are in general you should prefer using actions in application code.
-
-  ???
+  直接触发一个 mutation。在一些特殊情况下会需要用到这个方法，但通常来说，在组件中应当尽量通过调用 actions 来触发 mutation。
 
 - **hotUpdate(newOptions: Object)**
 
-  热更新新的 actions 和 mutations. [详细](hot-reload.md)
+  热更新 actions 和 mutations. [详细](hot-reload.md)

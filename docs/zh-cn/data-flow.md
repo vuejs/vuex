@@ -1,11 +1,11 @@
 # 数据流
 
-为了更好地理解 Vuex app 中的数据流，我们来做一个简单的计数器 app。这个例子仅仅用于解释一些概念，实际上你并不需要在这种简单的场合使用 Vuex.
+为了更好地理解 Vuex app 中的数据流，我们来开发一个简单的计数器 app。注意：这个例子仅仅是为了更好地解释概念，在实际情况中并不需要在这种简单的场合使用 Vuex.
 
-### Setup
+### 引入并加载 Vuex
 
 ``` js
-// vuex.js
+// store.js
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -42,10 +42,10 @@ const actions = {
 }
 ```
 
-### 创建 Vuex 实例
+### 创建 Store 实例
 
 ``` js
-export default new Vuex({
+export default new Vuex.Store({
   state,
   mutations,
   actions
@@ -67,27 +67,25 @@ export default new Vuex({
 **Script**
 
 ``` js
-import vuex from './vuex.js'
+import store from './store.js'
 
 export default {
   computed: {
     // 在 computed 属性内绑定 state
     count () {
-      return vuex.state.count
+      return store.state.count
     }
   },
   methods: {
-    increment: vuex.actions.increment,
-    decrement: vuex.actions.decrement
+    increment: store.actions.increment,
+    decrement: store.actions.decrement
   }
 }
 ```
 
-你会注意到组件本身非常简洁：它仅仅显示了 Vuex 实例中的一些 state、在用户输入时调用了一些 vuex actions.
+你会注意到组件本身非常简单：它所做的仅仅是绑定到 state、然后在用户输入时调用 actions.
 
-You will also notice the data flow is unidirectional, as it should be in Flux:
-
-???
+你也会发现整个应用的数据流是单向的，正如 Flux 最初所定义的那样：
 
 <p align="center">
   <img width="700px" src="vuex.png">

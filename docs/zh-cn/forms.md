@@ -1,14 +1,14 @@
-# 表单控制
+# 表单处理
 
-当在严格模式中使用 Vuex 时，属于 Vuex 的 state 在使用 `v-model` 时会比较棘手：
+当在严格模式中使用 Vuex 时，在属于 Vuex 的 state 上使用 `v-model` 会比较棘手：
 
 ``` html
 <input v-model="obj.message">
 ```
 
-这里的 `obj` 是在 computed 属性中返回的 Vue state 中的一个对象，在用户输入时，`v-model` 会直接改变 `obj.message`。在严格模式中，因为你只能通过 Vuex mutation handler 改变 state, 所以这里会抛出一个错误。
+假设这里的 `obj` 是在计算属性中返回的一个属于 Vuex store 的对象，在用户输入时，`v-model` 会试图直接修改 `obj.message`。在严格模式中，由于这个修改不是在 mutation handler 中执行的, 这里会抛出一个错误。
 
-用 『Vuex 方式』 去解决这个问题的方法是：在 input 中绑定 value，在 `input` 或者 `change` 事件中调用 action:
+用『Vuex 的思维』去解决这个问题的方法是：给 `<input>` 中绑定 value，然后侦听 `input` 或者 `change` 事件，在事件回调中调用 action:
 
 ``` html
 <input :value="obj.message" @input="updateMessage">
@@ -22,7 +22,7 @@ methods: {
 }
 ```
 
-`updateMessage` action 会 dispatch `'UPDATE_MESSAGE'`, 下面是 mutation handler:
+我们假设 `updateMessage` action 会 dispatch `'UPDATE_MESSAGE'`, 下面是 mutation handler:
 
 ``` js
 // ...
@@ -33,4 +33,4 @@ mutations: {
 }
 ```
 
-必须承认，这样做比简单地使用 `v-model` 要啰嗦得多，但这换来的是 state 的改变更加清晰和可被跟踪。实际上，Vuex 并不是想你把所有的 state 都放到 Vuex 实例中去 —— 如果有些 state 你不希望去跟踪，你就应该放在 Vuex 外面（比如组件里面），这样就可以愉快地使用 `v-model` 了。
+必须承认，这样做比简单地使用 `v-model` 要啰嗦得多，但这换来的是 state 的改变更加清晰和可被跟踪。另一方面，Vuex 并强制要求所有的状态都必须放在 Vuex store 中 —— 如果有些状态你觉得并没有需要对其变化进行追踪，那么你完全可以把它放在 Vuex 外面（比如作为组件的本地状态），这样就可以愉快地使用 `v-model` 了。

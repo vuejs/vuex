@@ -49,7 +49,16 @@ Here `10` will be passed to the mutation handler as the second argument followin
 Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
 
 1. Prefer initializing your store's initial state with all desired fields upfront.
-2. When adding new properties to an Object, you should either use `Vue.set(obj, 'newProp', 123)`, or replace that Object with a fresh one, e.g. `state.obj = { ...state.obj, newProp: 123 }` (Using stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) here).
+
+2. When adding new properties to an Object, you should either:
+
+  - Use `Vue.set(obj, 'newProp', 123)`, or -
+
+  - Replace that Object with a fresh one. For example, using the stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
+
+  ``` js
+  state.obj = { ...state.obj, newProp: 123 }
+  ```
 
 ### Using Constants for Mutation Names
 
@@ -82,6 +91,6 @@ Whether to use constants is largely a preference - it can be helpful in large pr
 
 ### On to Actions
 
-Manually calling `store.dispatch` is possible, but in practice, we will rarely do this in our component code. Most of the time we will be calling [actions](actions.md), which can encapsulate more complex logic such as async data fetching.
+So far, we've triggering mutations by manually calling `store.dispatch`. This is a viable approach, but in practice, we will rarely do this in our component code. Most of the time we will be calling [actions](actions.md), which can encapsulate more complex logic such as async data fetching.
 
 Also, one important rule to remember: all mutation handlers must be **synchronous**. Any async operations belong in actions.

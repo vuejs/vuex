@@ -5,7 +5,7 @@
 ``` js
 import Vuex from 'vuex'
 
-const vuex = new Vuex.Store({ ...options })
+const store = new Vuex.Store({ ...options })
 ```
 
 ### Vuex.Store Constructor Options

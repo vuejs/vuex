@@ -11,7 +11,7 @@
 - [应用结构](structure.md)
 - [中间件](middlewares.md)
 - [严格模式](strict.md)
-- [表单控制](forms.md)
+- [表单处理](forms.md)
 - [测试](testing.md)
 - [热重载](hot-reload.md)
 - [API Reference](api.md)

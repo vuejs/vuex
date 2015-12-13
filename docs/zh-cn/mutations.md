@@ -1,11 +1,11 @@
 # Mutations
 
-Vuex mutations 是必要的 events：每个 mutation 都有一个 **name** 和 一个 **handler**. Handler 的第一个参数为整个 state 树：
+Mutations 本质上是一个事件系统：每个 mutation 都有一个 **事件名 (name)** 和 一个 **回调函数 (handler)**. 任何一个 Mutation handler 的第一个参数永远为所属 store 的整个 state 对象：
 
 ``` js
 import Vuex from 'vuex'
 
-const vuex = new Vuex({
+const store = new Vuex.Store({
   state: {
     count: 1
   },
@@ -18,19 +18,17 @@ const vuex = new Vuex({
 })
 ```
 
-用大定命名 mutation 是为了将它和 actions 区分开。
+用全部大写命名 mutation 是一个惯例，方便将它和 actions 区分开。
 
-你不能直接调用 mutation handler. 这里的 options 更像是一种事件注册：『当 `INCREMENT` 事件被触发时，调用这个 handler』。引出 mutaion handler 的方法是 dispatch 一个 mutation 事件：
+你不能直接调用 mutation handler. 这里传入 Store 构造函数的选项更像是在注册事件回调：『当 `INCREMENT` 事件被触发时，调用这个 handler』。触发 mutation handler 的方法是 dispatch 一个 mutation 的事件名：
 
 ``` js
-vuex.dispatch('INCREMENT')
+store.dispatch('INCREMENT')
 ```
 
 ### 带参数的 dispatch
 
-It is also possible to pass along arguments:
-
-dispatch 可以带参数：
+`store.dispatch` 可以接受额外的参数：
 
 ``` js
 // ...
@@ -44,20 +42,27 @@ mutations: {
 vuex.dispatch('INCREMENT', 10)
 ```
 
-这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 和所有额外的参数一样，这些参数被称为 mutation 的 payload.
+这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 所有额外的参数被称为该 mutation 的 payload.
 
-### 遵守 Vue 响应规则的 mutations
+### Mutations 应当遵守 Vue 的响应系统规则
 
-Since Vuex's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+由于 Vuex store 内部的 state 对象被 Vue 改造成了响应式对象，当我们对 state 进行修改时，任何观测着 state 的 Vue 组件都会自动地进行相应地更新。但同时，这也意味着在 Vuex 的 mutation handler 中修改状态时也需要遵循 Vue 特有的一些注意点：
 
-1. Prefer initializing your Vuex initial state with all desired fields upfront.
-2. When adding new properties to an Object, you should either use `Vue.set(obj, 'newProp', 123)`, or replace that Object with a fresh one, e.g. `state.obj = { ...state.obj, newProp: 123 }` (Using stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) here).
+1. 尽可能在创建 store 时就初始化 state 所需要的所有属性；（就像创建 Vue 实例时应当初始化 `data` 一样）
 
-???
+2. 当添加一个原本不存在的属性时，需要：
 
-### 用常量为 mutation 命名
+  - 使用 `Vue.set(obj, 'newProp', 123)`；或者 -
 
-为了可以使 linters 之类的工具发挥作用，通常我们建议使用常量去命名一个 mutation, 并且把这些常量放在单独的地方。这样做可以让你的代码合作者对整个 app 的 mutations 一目了然：
+  - 拷贝并替换原本的对象。利用 stage 2 的语言特性 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread)，我们可以使用这样的语法:
+
+    ``` js
+    state.obj = { ...state.obj, newProp: 123 }
+    ```
+
+### 用常量为 Mutations 命名
+
+为了可以使 linters 之类的工具发挥作用，通常我们建议使用常量去命名一个 mutation, 并且把这些常量放在单独的地方。这样做可以让你的代码合作者对整个 app 包含的 mutations 一目了然：
 
 ``` js
 // mutation-types.js
@@ -65,11 +70,11 @@ export const SOME_MUTATION = 'SOME_MUTATION'
 ```
 
 ``` js
-// vuex.js
+// store.js
 import Vuex from 'vuex'
 import { SOME_MUTATION } from './mutation-types'
 
-const vuex = new Vuex({
+const store = new Vuex.Store({
   state: { ... },
   actions: { ... },
   mutations: {
@@ -82,12 +87,10 @@ const vuex = new Vuex({
 })
 ```
 
-用不用常量取决于你 —— 事实上这样做大多数开发者很有帮助。但如果你不喜欢，你完全可以不这样做。
+用不用常量取决于你 —— 在需要多人协作的大型项目中，这会很有帮助。但如果你不喜欢，你完全可以不这样做。
 
-### On to Actions
+### 下一步：Actions
 
-???
+到目前为止，我们都通过手动调用 `vuex.dispatch` 来触发 mutations。这样做固然可以，但实际上在组件里我们将会很少这样做。一般我们会通过调用 [actions](actions.md) 来触发 mutations。在 actions 里，我们可以封装异步数据请求之类的复杂逻辑。
 
-手动调用 `vuex.dispatch` 当然可以，但我们很少在组件里这样做，一般我们会调用 [actions](actions.md)。在 actions 里封装着异步数据请求之类的复杂逻辑。
-
-最后，要记得：所有 mutation handler 必须是 **同步** 的。异步的请求都应在 actions 里。
+最后，切记所有 mutation handler 必须是 **同步** 的。异步的请求都应该在 actions 里处理。
