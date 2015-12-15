@@ -91,6 +91,6 @@ const store = new Vuex.Store({
 
 ### 下一步：Actions
 
-到目前为止，我们都通过手动调用 `vuex.dispatch` 来触发 mutations。这样做固然可以，但实际上在组件里我们将会很少这样做。一般我们会通过调用 [actions](actions.md) 来触发 mutations。在 actions 里，我们可以封装异步数据请求之类的复杂逻辑。
+到目前为止，我们都通过手动调用 `store.dispatch` 来触发 mutations。这样做固然可以，但实际上在组件里我们将会很少这样做。一般我们会通过调用 [actions](actions.md) 来触发 mutations。在 actions 里，我们可以封装异步数据请求之类的复杂逻辑。
 
 最后，切记所有 mutation handler 必须是 **同步** 的。异步的请求都应该在 actions 里处理。
