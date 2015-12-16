@@ -121,6 +121,7 @@ actions: {
     // 发出结账的请求，并且清空购物车
     dispatch(types.CHECKOUT_REQUEST)
     // 假设我们的后台 API 接受一个成功回调和一个错误回调
+    shop.buyProducts(
       products,
       // 结账成功
       () => dispatch(types.CHECKOUT_SUCCESS),
