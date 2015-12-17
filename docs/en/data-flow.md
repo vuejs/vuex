@@ -1,4 +1,4 @@
-# Date Flow
+# Data Flow
 
 Let's build a simple counter app with Vuex to get a better understanding of the data flow inside Vuex apps. Note this is a trivial example solely for the purpose of explaining the concepts - in practice you don't need Vuex for such simple tasks.
 
