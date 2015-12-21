@@ -49,7 +49,7 @@ export const getAllProducts = ({ dispatch }) => {
 // with inject-loader, this returns a module factory
 // that allows us to inject mocked dependencies.
 import { expect } from 'chai'
-const actionsInjector = require('inject!babel!./actions')
+const actionsInjector = require('inject!./actions')
 
 // create the module with our mocks
 const actions = actionsInjector({

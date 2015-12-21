@@ -48,7 +48,7 @@ import { expect } from 'chai'
 // 这里因为需要用 webpack loader 所以使用 require() 而不是 import
 // inject-loader 会返回一个工厂函数。这个工厂函数让我们可以对该模块的
 // 依赖进行 mock
-const actionsInjector = require('inject!babel!./actions')
+const actionsInjector = require('inject!./actions')
 
 // 调用工厂函数，获得 mock 过依赖的 actions 模块
 const actions = actionsInjector({
