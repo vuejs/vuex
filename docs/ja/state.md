@@ -1,19 +1,18 @@
-# State
+# ステート
 
-### Single State Tree
+### 単一ステートツリー
 
-Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
+Vuex は**単一ステートツリー (single state tree)**を使用します。つまり、この単一なオブジェクトはあなたのアプリケーションレベルの状態が全て含まれており、"信頼できる唯一の情報源 (single source of truth)" として機能します。これは状態の特定の部分を見つけることが容易になり、そしてデバッギング目的のために現在のアプリケーション状態のスナップショットを取ることも容易にできます。
 
-The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state managing logic into sub modules.
+単一ステートツリーはモジュールとコンフリクト(競合)しません。以降の章では、あなたの状態管理ロジックをサブモジュールにおいてどうやって分離するかについて説明します。
 
-### Getting Vuex State into Vue Components
-
-Similar to `data` objects passed to Vue instances, the `state` object, once passed into a Vuex store, becomes reactive powered by [Vue's reactivity system](http://vuejs.org/guide/reactivity.html). This means binding Vuex state to Vue components is as simple as returning it from within a computed property:
+### Vue コンポーネントにおいて Vuex ステートを取得する
+`state` オブジェクトは、Vue インスタンスに渡される `data` オブジェクトに似ており、一度 Vuex store に渡され、[Vue のリアクティブシステム](http://vuejs.org/guide/reactivity.html) によってリアクティブになります。これは、Vue コンポーネントにバインディングする Vuex state は、算出プロパティ (computed property) の中からそれを返すのと同じくらい簡単なことを意味します:
 
 ``` js
-// inside a Vue component module
+// Vue コンポーネントモジュール内部
 
-// import a vuex store
+// vuex store をインポート
 import store from './store'
 
 export default {
@@ -25,11 +24,11 @@ export default {
 }
 ```
 
-There's no need to worry about setting up and tearing down listeners, or "connecting" the component to a store. The only thing to remember is that you should **always reference state via `store.state.xxx` inside your computed properties**. Do not cache the reference to a piece of state outside computed properties.
+store にコンポーネントを設定し、そしてリスナを切断または"接続する"心配の必要はりません。覚えておくくべき唯一のことは、**常にあなたの算出プロパティ内部で `store.state.xxx` 経由でステートを参照する**必要があるということです。算出プロパティ外のステートの一部への参照をキャッシュしないでください。
 
-> Flux reference: this can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux and [getters](https://optimizely.github.io/nuclear-js/docs/04-getters.html) in NuclearJS.
+> Flux リファレンス: これは雑ですが Redux での [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) と NuclearJS での [getters](https://optimizely.github.io/nuclear-js/docs/04-getters.html) と比較することができます。
 
-Why don't we just use `data` to bind to the state? Consider the following example:
+なぜ、ステートにバインドするために `data` を使用しないのでしょうか？次の例を考えてみます:
 
 ``` js
 export default {
@@ -41,12 +40,12 @@ export default {
 }
 ```
 
-Because the `data` function does not track any reactive dependencies, we are only getting a static reference to `store.state.message`. When the state is mutated later, the component has no idea that something has changed. In comparison, computed properties track all reactive dependencies when they are evaluated, so they reactively re-evaluate when the related state is mutated.
+`data` 関数は任意のリアクティブな依存関係を追跡していないため、`store.state.message` への静的な参照だけを取得してます。ステートが後で変異したとき、コンポーネントは何かが変化しときのアイデアを持っていません。比較して、算出プロパティはそれらが評価されたときリアクティブな依存関係を全て追跡し、関連するステートが変異されているとき、反応性を再評価します。
 
-### Components Are Not Allowed to Directly Mutate State
+### コンポーネントは直接ステートを変異することはできない
 
-Using read-only computed properties has another benefit in that it helps emphasizing the rule that **components should never directly mutate Vuex store state**. Because we want every state mutation to be explicit and trackable, all vuex store state mutations must be conducted inside the store's mutation handlers.
+読み取り専用の算出プロパティを使用すると、**コンポーネントは直接 Vuex store のステートを変異させるべきではない**というルールを強調するのを援助するという別の利点を持っています。全てのステートのミューテーションを明示的および追跡可能にしたいため、全ての vuex store のミューテーションは store のミューテーションハンドラ内部で行われければなりません。
 
-To help enforce this rule, when in [Strict Mode](strict.md), if a store's state is mutated outside of its mutation handlers, Vuex will throw an error.
+このルールを強制するのを援助するために、[Strict Mode](strict.md) で store のステートがミューテーションハンドラの外部で変異された場合は、Vuex はエラーを投げます。
 
-With this rule in place, our Vue components now hold a lot less responsibility: they are bound to Vuex store state via read-only computed properties, and the only way for them to affect the state is by calling **actions**, which in turn trigger **mutations**. They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
+代わりにこのルールでは、私達の Vue コンポーネントははるかに少ない責務で済みます。読み取り専用の算出プロパティを介して Vuex store のステートにバインドされており、ステートに影響を与えるための唯一の方法は、**アクション**によって呼び出され、順番に**ミューテーション** をトリガすることです。必要であれば、まだ所有しローカルステートに操作できますが、もはや個々のコンポーネント内部には、任意のデータフェッチまたはグローバルステートミューテーティングロジックを入れていません。
