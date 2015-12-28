@@ -1,22 +1,22 @@
-# Core Concepts
+# コアコンセプト
 
-You can use the `Vuex.Store` constructor to create Vuex stores. In most cases, you only need a single store each application. Each Vuex store consists of three types of "ingredients":
+Vuex Store を作成するために `Vuex.Store` コンストラクタを使用できます。ほとんどの場合、各アプリケーション毎に単独の store だけが必要になります。各 Vuex Store は 3 種類の "構成要素" からなります:
 
-- **State**: A plain object representing the application state.
+- **ステート**: アプリケーション状態を表すプレーンなオブジェクト
 
-- **Mutations**: Functions that mutates the state. Mutations **must be synchronous**.
+- **ミューテーション**: 状態を変異させる関数。ミューテーションは**同期**必須
 
-- **Actions**: Functions that dispatch mutations. An action can contain asynchronous operations and can dispatch multiple mutations.
+- **アクション**: ミューテーションをディスパッチする関数。アクションは非同期操作を含めることができ、複数のミューテーションをディスパッチすることができます
 
-Why do we differentiate between *mutations* and *actions*, rather then just simple functions that manipulate the state however we want? The reason is because we want to **separate mutation and asynchronicity**. A lot of application complexity roots from the combination of the two. When separated, they both become easier to reason about and write tests for.
+どうして、状態を操作する単純な機能よりもむしろ、*ミューテーション*と*アクション*を区別したいのでしょうか？その理由は、**ミューテーションを分離したいのと非同期**のためです。多くの複雑なアプリケーションは 2 つの組合せから成り立ちます。分離すると、それら両方を調査することが容易になり、そしてそれらのためのテストを書くこともできます。
 
-> If you are familiar with Flux, note there's a term/concept difference here: Vuex mutations are the equivalent of Flux **actions**, while Vuex actions are equivalent to Flux **action creators**.
+> Flux について精通している場合、ここでの用語/概念の違いがあることに注意してください。Vuex のアクションは Flux の**アクションクリエータ (action creators)** と同等でありますが、Vuex のミューテーションは Flux の **アクション (actions)** に相当します。
 
-### Creating a Vuex Store
+### Vuex Store の作成
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)! The doc also assumes you are already familiar with the concepts discussed in [Building Large-Scale Apps with Vue.js](http://vuejs.org/guide/application.html).
+> **NOTE:** 残りのドキュメント向けのコード例に対して ES2015 シンタックスを使用します。それについて理解できない場合は、[ここで](https://babeljs.io/docs/learn-es2015/)で学習してください！ドキュメントは既に[大規模アプリケーションの構築](http://vuejs.org/guide/application.html)で説明した概念にに精通している前提としています。
 
-Creating a Vuex store is pretty straightforward - just put the aforementioned ingredients together:
+Vuex Store を作成することは非常に簡単です。上記の構成要素を一緒に入れると下記になります:
 
 ``` js
 import Vuex from 'vuex'
@@ -28,4 +28,4 @@ const store = new Vuex.Store({
 })
 ```
 
-Once created, you can access the state via `store.state`, and the actions via `store.actions`. You cannot directly access the mutation functions - they can only be triggered by actions or calling `store.dispatch()`. We will discuss each concept in more details next.
+一度作成すると、ステートは `store.state` 経由、アクションは `store.actions` 経由でアクセスすることができます。ミューテーション関数は直接アクセスすることはできません。ミューテーション関数は、アクションによるトリガされた時だけ、もしくは `store.dispatch()` を呼び出すときにアクセスできます。次の詳細で各概念について説明します。
