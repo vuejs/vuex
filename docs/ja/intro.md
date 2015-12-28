@@ -1,13 +1,13 @@
-## What is Vuex?
+## vuex は何ですか？
 
-Vuex is an application architecture for centralized state management in Vue.js applications. It is inspired by [Flux](https://facebook.github.io/flux/) and [Redux](https://github.com/rackt/redux), but with simplified concepts and an implementation that is designed specifically to take advantage of Vue.js' reactivity system.
+Vuex は Vue.js アプリケーションで集中状態管理するためのアプリケーションアーキテクチャです。[Flux](https://facebook.github.io/flux/) や [Redux](https://github.com/rackt/redux) からインスピレーションを得ていますが、 簡易化されたコンセプト、そして Vue.js リアクティブシステムの長所を得るために、特別に設計された実装になっています。
 
-## Why do I need this?
+## なぜこれを必要とするのですか？
 
-If your app is simple enough, you probably don't need Vuex. Don't apply it prematurely. But if you are building a medium-to-large-scale SPA, chances are you have run into situations that make you think about how to better structure things outside of your Vue components. This is where Vuex comes into play.
+あなたのアプリケーションが非常に単純であるならば、多分 Vuex は必要ないでしょう。それを早まって適用しないでください。しかし、中〜大規模な SPA を構築する場合は、あなたの Vue コンポーネントの外側でどうやってよりよい構造物にするかについて考える状況に遭遇する機会です。これは Vuex の出番です。
 
-When using Vue.js alone, we often tend to store the state "inside" our components. That is, each component owns a piece of our application state, and as a result the state is scattered all over the place. However, sometimes a piece of state needs to be shared by multiple components. A commonly-seen practice is letting one component "send" some state to other components using the custom event system. The problem with this pattern is that the event flow inside large component trees can quickly become complex, and it's often difficult to reason about when something goes wrong.
+Vue.js を単独て使用するとき、しばしば、私達のコンポーネントの"内部"状態を保持します。つまり、各コンポーネントは、私達のアプリケーション状態の一部を所有しており、結果として状態があらゆる場所に散在しています。しかしながら、時どき状態の一部は、複数のコンポーネントにより共有される必要があります。一般的に見られる経験として、あるコンポーネントがいくつかの状態を他のコンポーネントにカスタムイベントシステムを使用して"送ろう"とします。このパターンの問題は、大規模なコンポーネントツリー内部のイベントフローはすぐに複雑にでき、しばしばうまく動作しない場合はそれについて原因を調査するのは難しいです。
 
-To better deal with shared state in large applications, we need to differentiate between **component local state** and **application level state**. Application state does not belong to a specific component, but our components can still observe it for reactive DOM updates. By centralizing its management in a single place, we no longer need to pass events around, because everything that affects more than one component should belong there. In addition, this allows us to record and inspect every mutation for easier understanding of state changes, and even implement fancy stuff like time-travel debugging.
+大規模アプリケーションで状態を共有させるために優れた対処として、**コンポーネントのローカル状態**と**アプリケーションレベルの状態**を区別する必要があります。アプリケーション状態は特定のコンポーネントに属していませんが、私達のコンポーネントはリアクティブな DOM 更新のためにそれを監視できます。1 つの場所でそれを集中的に管理することによって、あるコンポーネントがそこに属する必要よりも全てに影響を与えるため、もはやイベントあちこちを渡す必要はありません。加えて、私達は、記録と状態変化の理解を容易にするための全ての変異を検査することができ、タイムトラベルデバッグのような派手なものも実装可能です。
 
-Vuex also enforces some opinions on how to split state management logic into different places, but still allows enough flexibility for the actual code structure.
+Vuex はまた、どのように異なる場所に状態管理ロジックを分離するか、いくつか意見を強制しますが、それでも実際のコード構造に対して十分な柔軟性を可能します。
