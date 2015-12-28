@@ -1,6 +1,6 @@
-# Mutations
+# ミューテーション
 
-Vuex mutations are essentially events: each mutation has a **name** and a **handler**. The handler function always gets the entire state tree as the first argument:
+Vuex のミューテーションは基本的にイベントです。各ミューテーションは**名前**と**ハンドラ**を持ちます。ハンドラ関数は常に全体のステートツリーを第1引数として取得します:
 
 ``` js
 import Vuex from 'vuex'
@@ -11,24 +11,24 @@ const store = new Vuex.Store({
   },
   mutations: {
     INCREMENT (state) {
-      // mutate state
+      // 変異するステート
       state.count++
     }
   }
 })
 ```
 
-Using all caps for mutation names is just a convention to make it easier to differentiate them from actions.
+ミューテーション名に対して全て大文字を使用するのは、容易にアクションと区別できるようにするための規則です。
 
-You cannot directly call a mutation handler. The options here is more like event registration: "When an `INCREMENT` event is dispatched, call this handler." To invoke a mutation handler, you need to dispatch a mutation event:
+直接ミューテーションハンドラ呼び出すことはできません。ここでのオプションは、よりイベント登録のようなものです。"`INCREMENT` イベントがディスパッチされるとき、このハンドラは呼ばれます。"ミューテーションハンドラを起動するためには、ミューテーションイベントをディスパッチする必要があります:
 
 ``` js
 store.dispatch('INCREMENT')
 ```
 
-### Dispatch with Arguments
+### 引数によるディスパッチ
 
-It is also possible to pass along arguments:
+引数に沿って渡すことも可能です:
 
 ``` js
 // ...
@@ -42,27 +42,27 @@ mutations: {
 store.dispatch('INCREMENT', 10)
 ```
 
-Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
+ここの `10` は `state` に続く第2引数としてミューテーションハンドラに渡されます。任意の追加引数と同じです。これら引数は、特定のミューテーションに対して**ペイロード**と呼ばれています。
 
-### Mutations Follow Vue's Reactivity Rules
+### Vue のリアクティブなルールに従うミューテーション
 
-Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+Vuex store のステートは Vue によってリアクティブになっているので、ステートを変異するとき、ステートを監視している Vue コンポーネントは自動的に更新されます。これはまた、Vuex のミューテーションは、純粋な Vue で動作しているとき、同じリアクティブな警告の対象となっているのを意味します:
 
-1. Prefer initializing your store's initial state with all desired fields upfront.
+1. 前もって全て望まれるフィールドによって、あなたの store の初期ステートを初期化することを好みます
 
-2. When adding new properties to an Object, you should either:
+2. 新しいプロパティをオブジェクトに追加するとき、いずれか必要です:
 
-  - Use `Vue.set(obj, 'newProp', 123)`, or -
+  - `Vue.set(obj, 'newProp', 123)` を使用または -
 
-  - Replace that Object with a fresh one. For example, using the stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
+  - 全く新しいものでオブジェクトを置き換える。例えば、stage-2 の [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) を使用して、このようにそれを書くことができます:
 
   ``` js
   state.obj = { ...state.obj, newProp: 123 }
   ```
 
-### Using Constants for Mutation Names
+### ミューテーション名に対して定数を使用
 
-It is also common to use constants for mutation names - they allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+ミューテーション名には定数を使用することが一般的です。コードに対して linter のようなツールの長所を利用することができ、そして、単一ファイルに全ての定数を設定することは、あなたの協力者にミューテーションがアプリケーション全体で可能であるかが一目見ただけで理解できるビューを得ることができます:
 
 ``` js
 // mutation-types.js
@@ -78,19 +78,18 @@ const store = new Vuex.Store({
   state: { ... },
   actions: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature
-    // to use a constant as the function name
+    // 定数を関数名として使用できる ES2015 の算出プロパティ (computed property) 名機能を使用できます
     [SOME_MUTATION] (state) {
-      // mutate state
+      // 変異するステート
     }
   }
 })
 ```
 
-Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
+定数を使用するかどうか大部分が好みであり、それは多くの開発者による大規模アプリケーションで役に立ちますが、好きではないならば、それは完全にオプションです。
 
-### On to Actions
+### アクションの上へ
 
-So far, we've triggering mutations by manually calling `store.dispatch`. This is a viable approach, but in practice, we will rarely do this in our component code. Most of the time we will be calling [actions](actions.md), which can encapsulate more complex logic such as async data fetching.
+これまでのところ、`store.dispatch` の手動呼び出しによってミューテーションをトリガしていました。これは実行可能なアプローチですが、実際には私たちのコンポーネントのコードでこれを行うことはほとんどありません。ほとんどの時間、[アクション](actions.md) を呼び出し、非同期データフェッチングのようなより複雑なロジックをカプセル化することができます。
 
-Also, one important rule to remember: all mutation handlers must be **synchronous**. Any async operations belong in actions.
+また、全てのミューテーションハンドラは**同期**でなければならないという、1つ重要なルールを覚えておきましょう。任意の非同期な操作はアクションに属しています。
