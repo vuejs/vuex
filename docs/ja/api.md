@@ -1,4 +1,4 @@
-# API Reference
+# API リファレンス
 
 ### Vuex.Store
 
@@ -8,46 +8,46 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Vuex.Store Constructor Options
+### Vuex.Store コンストラクタオプション
 
-- **state**
+- **ステート**
   
-  - type: `Object`
+  - 型: `Object`
 
-    The root state object for the Vuex store.
+    Vuex store 向けの root なステートオブジェクト
 
-    [Details](state.md)
+    [詳細](state.md)
 
-- **mutations**
+- **ミューテーション**
 
-  - type: `Object | Array<Object>`
+  - 型: `Object | Array<Object>`
 
-    An object where each entry's key is the mutation name and the value is a mutation handler function. The handler function always receives `state` as the first argument, and receives all arguments passed to the dispatch call following that.
+    各エントリキーがミューテーション名とその値がミューテーションハンドラ関数である値であるオブジェクト。ハンドラ関数は常に第1引数として`state` を受信し、そして次のディスパッチ呼び出しに渡される全ての引数を受信する
 
-    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
+    オブジェクトの配列を渡す場合は、これらオブジェクトは自動的に最後のオブジェクトにいっしょにマージされる
 
-    [Details](mutations.md)
+    [詳細](mutations.md)
 
-- **actions**
+- **アクション**
 
-  - type: `Object | Array<Object>`
+  - 型: `Object | Array<Object>`
 
-    An object where each entry's key is the action name and the value is either
+    各エントリキーがアクション名とその値のいずれかであるオブジェクト
 
-    1. A mutation name string; or
-    2. A function which will receive the store as the first argument, followed by additional payload arguments.
+    1. ミューテーション名の文字列。または、
+    2. 第1引数として store を受信する関数、第2引数以降は追加されたペイロード引数
 
-    Vuex will process these entries and create the actual callable action functions and expose them on the `actions` property of the store.
+    Vuex はこれらエントリを処理し、そして実際に呼び出し可能なアクション関数を作成し、さらに store の `actions` プロパティを公開する
 
-    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
+    オブジェクトの配列を渡す場合は、これらオブジェクトは自動的に最後のオブジェクトにいっしょにマージされる
 
-    [Details](actions.md)
+    [詳細](actions.md)
 
-- **middlewares**
+- **ミドルウェア**
 
-  - type: `Array<Object>`
+  - 型: `Array<Object>`
 
-    An array of middleware objects that are in the shape of:
+    ミドルウェアオブジェクトの配列で以下のような形式であること:
 
     ``` js
     {
@@ -57,37 +57,37 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    All fields are optional. [Details](middlewares.md)
+    全てのフィールドは任意 [詳細](middlewares.md)
 
 - **strict**
 
-  - type: `Boolean`
-  - default: `false`
+  - 型: `Boolean`
+  - デフォルト値: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw en Error.
+    Vuex store を strict mode に強制する。strict mode ではミューテーションハンドラの外側の Vuex ステートに任意に変異するとき、エラーを投げる
 
-    [Details](strict.md)
+    [詳細](strict.md)
 
-### Vuex.Store Instance Properties
+### Vuex.Store インスタンスプロパティ
 
-- **state**
+- **ステート**
 
-  - type: `Object`
+  - 型: `Object`
 
-    The root state. Read only.
+    root なステート。読み取り専用
 
-- **actions**
+- **アクション**
 
-  - type: `Object`
+  - 型: `Object`
 
-    The callable action functions.
+    呼び出し可能なアクション関数
 
-### Vuex.Store Instance Methods
+### Vuex.Store インスタンスメソッド
 
 - **dispatch(mutationName: String, ...args)**
 
-  Directly dispatch a mutation. This is useful in certain situations are in general you should prefer using actions in application code.
+  直接ミューテーションをディスパッチする。これは一般的には、アプリケーションコードでアクションを使用するほうが必要な場合のような、特定の状況で有用
 
 - **hotUpdate(newOptions: Object)**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  ホットスワップな新しいアクションとミューテーション [詳細](hot-reload.md)
