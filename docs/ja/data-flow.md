@@ -1,8 +1,8 @@
-# Data Flow
+# データフロー
 
-Let's build a simple counter app with Vuex to get a better understanding of the data flow inside Vuex apps. Note this is a trivial example solely for the purpose of explaining the concepts - in practice you don't need Vuex for such simple tasks.
+Vuex アプリケーション内部のデータフローをより理解を得るために、Vuex で単純にカウンタするアプリケーションを構築してみましょう。これは概念を説明する目的のための簡単な例であることに注意してください。実際には、このような単純なタスクのために Vuex は必要ありません。
 
-### Setup
+### セットアップ
 
 ``` js
 // store.js
@@ -12,7 +12,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 ```
 
-### Define App State
+### アプリケーションのステートを定義
 
 ``` js
 const state = {
@@ -20,7 +20,7 @@ const state = {
 }
 ```
 
-### Define Possible State Mutations
+### ステート可能なミューテーションを定義
 
 ``` js
 const mutations = {
@@ -33,7 +33,7 @@ const mutations = {
 }
 ```
 
-### Define Callable Actions
+### 呼び出し可能なアクションを定義
 
 ``` js
 const actions = {
@@ -42,7 +42,7 @@ const actions = {
 }
 ```
 
-### Create a Vuex Store
+### Vuex Store を作成
 
 ``` js
 export default new Vuex.Store({
@@ -52,9 +52,9 @@ export default new Vuex.Store({
 })
 ```
 
-### Use It in a Vue Component
+### Vue コンポーネントでの使用
 
-**Template**
+**テンプレート**
 
 ``` html
 <div>
@@ -64,14 +64,14 @@ export default new Vuex.Store({
 </div>
 ```
 
-**Script**
+**スクリプト**
 
 ``` js
 import store from './store.js'
 
 export default {
   computed: {
-    // bind to state using computed properties
+    // 算出プロパティ(computed property) を使用してステートにバインド
     count () {
       return store.state.count
     }
@@ -83,9 +83,9 @@ export default {
 }
 ```
 
-Here you will notice the component itself is extremely simple: it simply displays some state from the Vuex store (not even owning its own data), and calls some store actions on user input events.
+ここでは、コンポーネントが非常に単純であることに注意しましょう。それは単に Vuex store からいくつかのステートを表示し(データそれ自身でさえ所有しません)、そしてユーザー入力イベントでいくつかの store のアクションを呼び出します。
 
-You will also notice the data flow is unidirectional, as it should be in Flux:
+Flux であるような、データの流れが一方向であることに注意しましょう:
 
 <p align="center">
   <img width="700px" src="vuex.png">
