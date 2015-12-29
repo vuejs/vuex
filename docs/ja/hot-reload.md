@@ -1,8 +1,8 @@
-# Hot Reloading
+# ホットリローディング
 
-Vuex supports hot-reloading actions and mutations during development, using Webpack's [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+Vuex は開発においてホットリローディングなアクションとミューテーションをサポートします。Webpack は [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) を使用します。Browserify においても [browserify-hmr](https://github.com/AgentME/browserify-hmr/) プラグインによって使用することができます。
 
-It's as simple as calling `store.hotUpdate()` with the new actions and mutations:
+新しいアクションとミューテーションによって `store.hotUpdate()` として呼び出すのと同じくらい簡単です:
 
 ``` js
 // ...
@@ -13,13 +13,13 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // accept actions and mutations as hot modules
+  // ホットモジュールとしてアクションとモジュールを受け付ける
   module.hot.accept(['./actions', './mutations'], () => {
-    // require the updated modules
-    // have to add .default here due to babel 6 module output
+    // 更新されたモジュールをインポートする
+    // babel 6 モジュール出力のため、ここでは .default を追加しなければならない
     const newActions = require('./actions').default
     const newMutations = require('./mutations').default
-    // swap in the new actions and mutations
+    // 新しいアクションとミューテーションにスワップ
     store.hotUpdate({
       actions: newActions,
       mutations: newMutations
