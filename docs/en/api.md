@@ -64,7 +64,7 @@ const store = new Vuex.Store({ ...options })
   - type: `Boolean`
   - default: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw en Error.
+    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
 
     [Details](strict.md)
 
