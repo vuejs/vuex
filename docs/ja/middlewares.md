@@ -1,20 +1,20 @@
-# Middlewares
+# ミドルウェア
 
-Vuex stores accept the `middlewares` option that exposes hooks for each mutation (Note this is completely unrelated to Redux middlewares). A Vuex middleware is simply an object that implements some hook functions:
+Vuex store は各ミューテーション(これは Redux のミドルウェアとは全く無関係であることに注意してください)に対して公開された hook を `middlewares` オプションとして受け入れます。Vuex のミドルウェアは単純にいくつかの hook 関数を実装したオブジェクトです:
 
 ``` js
 const myMiddleware = {
   onInit (state) {
-    // record initial state
+    // 初期ステートを記録
   },
   onMutation (mutation, state) {
-    // called after every mutation.
-    // The mutation comes in the format of { type, payload }
+    // 全ての変異後に呼ばれる
+    // ミューテーションは { type, payload } の形式で来る
   }
 }
 ```
 
-And can be used like this:
+そして、このように使用することができます:
 
 ``` js
 const store = new Vuex.Store({
@@ -23,21 +23,21 @@ const store = new Vuex.Store({
 })
 ```
 
-By default, a middleware receives the actual `state` object. Since middlewares are primarily used for debugging purposes or data persistence, they are **not allowed to mutate the state**.
+デフォルトでは、ミドルウェアは実際 `state` オブジェクトを受信します。ミドルウェアは主にデバッギング目的やデータの永続化のために使用されるため、ミドルウェアでは、**ステートを変異することができません**。
 
-Sometimes a middleware may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. Such middlewares must declare the `snapshot: true` option:
+時どき、ミドルウェアはステートの"スナップショット"を受信することができ、また事前のミューテーションの状態と事後のミューテーションの状態を比較したいかもしれません。このようなミドルウェアは `snapshot: true` オプションを宣言しなければなりません:
 
 ``` js
 const myMiddlewareWithSnapshot = {
   snapshot: true,
   onMutation (mutation, nextState, prevState) {
-    // nextState and prevState are deep-cloned snapshots
-    // of the state before and after the mutation.
+    // prevState と nextState は完全コピーされた(deep-cloned)、
+    // 前のミューテーションの後のミューテーションのスナップショット
   }
 }
 ```
 
-**Middlewares that take state snapshots should be used only during development.** When using Webpack or Browserify, we can let our build tools handle that for us:
+**ステートのスナップショットを撮るミドルウェアは開発時のみに使用すべきです。** Webpack または Browserify を使用するとき、私たちのためにビルドツールがそれを処理することができます:
 
 ``` js
 const store = new Vuex.Store({
@@ -48,11 +48,11 @@ const store = new Vuex.Store({
 })
 ```
 
-The middleware will be used by default. For production, use the build setup described [here](http://vuejs.org/guide/application.html#Deploying_for_Production) to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
+ミドルウェアはデフォルトで使用されるでしょう。本番環境のため、`process.env.NODE_ENV !== 'production'` の値を `false` に変換するために、[ここ](http://vuejs.org/guide/application.html#Deploying_for_Production) で説明したビルドセットアップを最終ビルド向けに使用します。
 
-### Built-in Logger Middleware
+### ビルドイン Logger ミドルウェア
 
-Vuex comes with a logger middleware for common debugging usage:
+Vuex は一般的なデバッギングを使用するための logger ミドルウェアが付属しています:
 
 ``` js
 const store = new Vuex.Store({
@@ -60,22 +60,22 @@ const store = new Vuex.Store({
 })
 ```
 
-The `createLogger` function takes a few options:
+`createLogger` 関数はいくつかのオプションがあります:
 
 ``` js
 const logger = Vuex.createLogger({
-  collapsed: false, // auto-expand logged mutations
+  collapsed: false, // ログに記録されたミューテーションを自動拡大する
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // それを記録す前にステートを変換する
+    // 例えば、特定のサブツリーだけ返します
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of { type, payload }
-    // we can format it anyway we want.
+    // ミューテーションは { type, payload } の形式で記録される
+    // どんな形式でも欲しいフォーマットに変換できる
     return mutation.type
   }
 })
 ```
 
-Note the logger middleware takes state snapshots, so use it only during development.
+ステートのスナップショットを撮る logger ミドルウェアは開発時のみ使用することに注意してください。
