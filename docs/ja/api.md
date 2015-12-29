@@ -64,7 +64,7 @@ const store = new Vuex.Store({ ...options })
   - 型: `Boolean`
   - デフォルト値: `false`
 
-    Vuex store を strict mode に強制する。strict mode ではミューテーションハンドラの外側の Vuex ステートに任意に変異するとき、エラーを投げる
+    Vuex store を 厳格モードに強制する。厳格モードではミューテーションハンドラの外側の Vuex ステートに任意に変異するとき、エラーを投げる
 
     [詳細](strict.md)
 

@@ -1,6 +1,6 @@
-## vuex は何ですか？
+## Vuex は何ですか？
 
-Vuex は Vue.js アプリケーションで集中状態管理するためのアプリケーションアーキテクチャです。[Flux](https://facebook.github.io/flux/) や [Redux](https://github.com/rackt/redux) からインスピレーションを得ていますが、 簡易化されたコンセプト、そして Vue.js リアクティブシステムの長所を得るために、特別に設計された実装になっています。
+Vuex は Vue.js アプリケーションで集中状態管理するためのアプリケーションアーキテクチャです。[Flux](https://facebook.github.io/flux/) や [Redux](https://github.com/rackt/redux) からインスピレーションを得ていますが、 簡易化された概念、そして Vue.js リアクティブシステムの長所を得るために、特別に設計された実装になっています。
 
 ## なぜこれを必要とするのですか？
 

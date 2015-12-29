@@ -1,12 +1,12 @@
 # フォームのハンドリング
 
-strict mode で Vuex を使用するとき、Vuex に属するステートの一部において `v-model` を使用するためには少しトリッキーです:
+厳格モードで Vuex を使用するとき、Vuex に属するステートの一部において `v-model` を使用するためには少しトリッキーです:
 
 ``` html
 <input v-model="obj.message">
 ```
 
-`obj` が store からオブジェクトを返す算出プロパティ (computed property) と仮定すると、`v-model` はここでは、input でユーザーがタイプするとき、直接 `obj.message` を変異させようとします。strict mode において、ミューテーションは明示的に Vuex のミューテーションハンドラ内部で処理されていないため、エラーを投げます。
+`obj` が store からオブジェクトを返す算出プロパティ (computed property) と仮定すると、`v-model` はここでは、input でユーザーがタイプするとき、直接 `obj.message` を変異させようとします。厳格モードにおいて、ミューテーションは明示的に Vuex のミューテーションハンドラ内部で処理されていないため、エラーを投げます。
 
 それに対処するための "Vuex way" は、`<input>` の値をバインディングし、そして `input` または `change` イベントでアクションを呼び出します:
 
