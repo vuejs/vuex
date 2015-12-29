@@ -10,7 +10,7 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store コンストラクタオプション
 
-- **ステート**
+- **state**
   
   - 型: `Object`
 
@@ -18,7 +18,7 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](state.md)
 
-- **ミューテーション**
+- **mutations**
 
   - 型: `Object | Array<Object>`
 
@@ -28,7 +28,7 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](mutations.md)
 
-- **アクション**
+- **actions**
 
   - 型: `Object | Array<Object>`
 
@@ -43,7 +43,7 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](actions.md)
 
-- **ミドルウェア**
+- **middlewares**
 
   - 型: `Array<Object>`
 
@@ -70,13 +70,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store インスタンスプロパティ
 
-- **ステート**
+- **state**
 
   - 型: `Object`
 
     root なステート。読み取り専用
 
-- **アクション**
+- **actions**
 
   - 型: `Object`
 
