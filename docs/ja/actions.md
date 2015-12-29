@@ -1,16 +1,16 @@
-# Actions
+# アクション
 
-Actions are functions that dispatch mutations. Actions can be asynchronous and a single action can dispatch multiple mutations.
+アクションはミューテーションをディスパッチする機能です。アクションは非同期にすることができ、単一アクションは複数のミューテーションをディスパッチできます。
 
-An action expresses the intention for something to happen, and abstracts the details away from the component calling it. When a component wants to do something, it just calls an action - there's no need to worry about a callback or a return value, because actions result in state changes, and state changes will trigger the component's DOM to update - the component is completely decoupled from how that action is actually performed.
+アクションは何かが起こるための意向を表しており、それを呼び出すコンポーネントから離れて詳細を抽象化します。コンポーネントが何かしたい場合アクション呼び出します。アクションはステート変化をもたらすため、コールバックまたは戻り値について心配する必要はなく、そしてステート変化は更新するコンポーネントの DOM をトリガします。コンポーネントは、アクションが実際に行われている方法から、完全に切り離されます。
 
-Therefore, we usually perform API calls to data endpoints inside actions, and hide the asynchronous details from both the Components calling the actions, and the mutations triggered by the actions.
+それゆえ、通常アクション内部のデータエンドポイントへの API 呼び出しを行い、そしてアクションを呼び出すコンポーネントの両方から非同期に詳細を隠し、さらにミューテーションはアクションによってトリガされます。
 
-> Vuex actions are in fact "action creators" in vanilla flux definitions, but I find that term more confusing than useful.
+> Vuex のアクションは純粋な Flux の定義では実際には "アクションクリエータ (action creators)" ですが、私はその用語は便利よりも混乱していると見ています。
 
-### Simple Actions
+### 単純なアクション
 
-It is common that an action simply triggers a single mutation. Vuex provides a shorthand for defining such actions:
+アクションは単純に単一のミューテーションをトリガするのが一般的です。Vuex はそのようなアクションの定義するために省略記法を提供します:
 
 ``` js
 const store = new Vuex.Store({
@@ -23,30 +23,30 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    // shorthand
-    // just provide the mutation name.
+    // 省略記法
+    // ミューテーション名を提供する
     increment: 'INCREMENT'
   }
 })
 ```
 
-Now when we call the action:
+今、アクションを呼び出すとき:
 
 ``` js
 store.actions.increment(1)
 ```
 
-It simply calls the following for us:
+単純に私たちに対して以下を呼び出します:
 
 ``` js
 store.dispatch('INCREMENT', 1)
 ```
 
-Note any arguments passed to the action is also passed along to the mutation handler.
+アクションに渡される任意の引数は、ミューテーションハンドラに渡されることに注意してください。
 
-### Normal Actions
+### 標準なアクション
 
-For actions that involve logic depending on current state, or that need async operations, we define them as functions. Action functions always get the store calling it as the first argument:
+現在のステートに依存しているロジック、または非同期な操作を必要とするアクションについては、それらを関数として定義します。アクション関数は常に第1引数として呼び出す store を取得します:
 
 ``` js
 const vuex = new Vuex({
@@ -68,7 +68,8 @@ const vuex = new Vuex({
 })
 ```
 
-It is common to use ES6 argument destructuring to make the function body less verbose (here the `dispatch` function is pre-bound to the store instance so we don't have to call it as a method):
+
+関数本体それほど冗長にしない ES6 の argument destructuring を使用するのが一般的です(ここでは、`dispatch` 関数は store インスタンスに事前にバインドされているように、それをメソッドとして呼び出す必要はありません):
 
 ``` js
 // ...
@@ -81,13 +82,13 @@ actions: {
 }
 ```
 
-The string shorthand is essentially syntax sugar for the following:
+以下のように、文字列省略記法は基本的に糖衣構文 (syntax sugar) です:
 
 ``` js
 actions: {
   increment: 'INCREMENT'
 }
-// ... equivalent to:
+// 以下に相当 ... :
 actions: {
   increment: ({ dispatch }, ...payload) => {
     dispatch('INCREMENT', ...payload)
@@ -95,9 +96,9 @@ actions: {
 }
 ```
 
-### Async Actions
+### 非同期なアクション
 
-We can use the same syntax for defining async actions:
+非同期なアクションの定義に対して同じ構文を使用することができます:
 
 ``` js
 // ...
@@ -110,27 +111,27 @@ actions: {
 }
 ```
 
-A more practical example is when checking out a shopping cart - we may need to trigger multiple mutations: one that signifies the checkout has started, one for success, and one for failure:
+より実践的な例はショッピングカートをチェックアウトする場合です。複数のミューテーションをトリガする必要がある場合があります。チェックアウトを開始されたとき、成功、そして失敗の例を示します:
 
 ``` js
 // ...
 actions: {
   checkout: ({ dispatch, state }, products) => {
-    // save the current in cart items
+    // カートアイテムで現在のアイテムを保存する
     const savedCartItems = [...state.cart.added]
-    // send out checkout request, and optimistically
-    // clear the cart
+    // チェックアウトリクエストを送り出し、
+    // 楽観的にカートをクリアします
     dispatch(types.CHECKOUT_REQUEST)
-    // the shop API accepts a success callback and a failure callback
+    // shop API は成功コールバックと失敗コールバックを受け入れます
     shop.buyProducts(
       products,
-      // handle success
+      // 成功処理
       () => dispatch(types.CHECKOUT_SUCCESS),
-      // handle failure
+      // 失敗処理
       () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }
 }
 ```
 
-Again, all the component needs to do to perform the entire checkout is just calling `vuex.actions.checkout(products)`.
+また、全てのコンポーネントは全体のチェックアウトを行うために `vuex.actions.checkout(products)` を呼び出す必要があります。
