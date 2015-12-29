@@ -1,14 +1,14 @@
-# Form Handling
+# フォームのハンドリング
 
-When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
+strict mode で Vuex を使用するとき、Vuex に属するステートの一部において `v-model` を使用するためには少しトリッキーです:
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in en error because the mutation is not performed inside an explicit Vuex mutation handler.
+`obj` が store からオブジェクトを返す算出プロパティ (computed property) と仮定すると、`v-model` はここでは、input でユーザーがタイプするとき、直接 `obj.message` を変異させようとします。strict mode において、ミューテーションは明示的に Vuex のミューテーションハンドラ内部で処理されていないため、エラーを投げます。
 
-The "Vuex way" to deal with it is binding the `<input>`'s value and call an action on the `input` or `change` event:
+それに対処するための "Vuex way" は、`<input>` の値をバインディングし、そして `input` または `change` イベントでアクションを呼び出します:
 
 ``` html
 <input :value="obj.message" @input="updateMessage">
@@ -22,7 +22,7 @@ methods: {
 }
 ```
 
-Assuming the `updateMessage` action simply dispatches `'UPDATE_MESSAGE'`, here's the mutation handler:
+`updateMessage` アクションが単に `'UPDATE_MESSAGE'` をディスパッチすると仮定すると、ここではミューテーションハンドラは以下のようになります:
 
 ``` js
 // ...
@@ -33,4 +33,4 @@ mutations: {
 }
 ```
 
-Admittedly, this is quite a bit more verbose than a simple `v-model`, but such is the cost of making state changes explicit and track-able. At the same time, do note that Vuex doesn't demand putting all your state inside a Vuex store - if you do not wish to track the mutations for form interactions at all, you can simply keep the form state outside of Vuex as component local state, which allows you to freely leverage `v-model`.
+確かに、これはかなりシンプルな `v-model` よりも冗長ですが、これは、明示的で追跡可能なステートの変化させるためのコストです。同時に、Vuex は Vuex store 内部の全てのステートを置く必要がないということに注意してください。フォームのインタラクションの全てにおいて、ミューテーションの追跡を望まない場合は、単純にコンポーネントのローカルステートとして Vuex の外部にフォームのステートを保つことができ、これは自由に `v-model` を活用することができます。
