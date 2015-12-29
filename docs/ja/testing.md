@@ -1,10 +1,10 @@
-# Testing
+# テスト
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+ミューテーションは完全に引数に依存しているだけの関数であるため、テストするのがとても簡単です。アクションは外部の API を呼び出す可能性があるためより少し注意が必要です。アクションをテストするとき、通常モックのいくつかのレベルで実行する必要があります。例えば、サービスでの API 呼び出しを抽象化することができ、そしてテスト内部でサービスをモックにすることができます。簡単に依存を真似るために、Webpack と [inject-loader](https://github.com/plasticine/inject-loader) をテストファイルにバンドルして使用することができます。
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+ミューテーションやアクションが適切に書かれている場合は、テストは適切なモック後、ブラウザの API に直接依存関係を持つべきではありません。したがって、単純に Webpack でテストをバンドルでき、それを直接 Node で実行できます。別の方法として、本当のブラウザでテストを実行するためには、`mocha-loader` または Karma + `karma-webpack` を使用できます。
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+Mocha + Chai を使用してミューテーションをテストする例です (好きな任意のフレームワーク/アサーションライブラリを使用できます):
 
 ``` js
 // mutations.js
@@ -18,11 +18,11 @@ import { INCREMENT } from './mutations'
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // モックステート
     const state = { count: 0 }
-    // apply mutation
+    // ミューテーションを適用
     INCREMENT(state)
-    // assert result
+    // 結果を検証
     expect(state.count).to.equal(1)
   })
 })
@@ -45,27 +45,27 @@ export const getAllProducts = ({ dispatch }) => {
 ``` js
 // actions.spec.js
 
-// use require syntax for inline loaders.
-// with inject-loader, this returns a module factory
-// that allows us to inject mocked dependencies.
+// inline loader に対して require 構文を使用する
+// inject-loader は、真似られた依存関係を注入できるようにする
+// モジュールファクトリを返す
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
 
-// create the module with our mocks
+// モックによってモジュールを作成する
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
       setTimeout(() => {
-        cb([ /* mocked response */ ])
+        cb([ /* 真似られたスポンス */ ])
       }, 100)
     }
   }
 })
 
-// helper for testing action with expected mutations
+// ミューテーションによって予期されたアクションをテストするためのヘルパー
 const testAction = (action, state, expectedMutations, done) => {
   let count = 0
-  // mock dispatch
+  // モックディスパッチ
   const dispatch = (name, payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.name).to.equal(name)
@@ -77,7 +77,7 @@ const testAction = (action, state, expectedMutations, done) => {
       done()
     }
   }
-  // call the action with mocked store
+  // 真似られた store によってアクションを呼び出す
   action({
     dispatch,
     state
@@ -88,15 +88,15 @@ describe('actions', () => {
   it('getAllProducts', done => {
     testAction(actions.getAllProducts, {}, [
       { name: 'REQUEST_PRODUCTS' },
-      { name: 'RECEIVE_PRODUCTS', payload: [ /* mocked response */ ] }
+      { name: 'RECEIVE_PRODUCTS', payload: [ /* 真似られたレスポンス */ ] }
     ], done)
   })
 })
 ```
 
-### Running in Node
+### Node での実行
 
-Create the following webpack config:
+以下のような webpack の設定を作成します:
 
 ``` js
 module.exports = {
@@ -120,16 +120,16 @@ module.exports = {
 }
 ```
 
-Then:
+その後、下記コマンドを実行します:
 
 ``` bash
 webpack
 mocha test-bundle.js
 ```
 
-### Running in Browser
+### ブラウザでの実行
 
-1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`. 
-3. Start `webpack-dev-server` using the config
-4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+1. `mocha-loader` をインストール
+2. 上記 Webpack 設定から `entry` を `'mocha!babel!./test.js'` に変更
+3. 設定を使用して `webpack-dev-server` を開始
+4. `localhost:8080/webpack-dev-server/test-bundle` に移動
