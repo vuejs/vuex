@@ -1,17 +1,17 @@
-# Application Structure
+# アプリケーションの構造
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of opinions:
+Vuex は本当にあなたのコードを構造化する方法を制限するものでありません。むしろ以下の見解が求められます:
 
-1. Application state lives in a single object.
-2. Only mutation handlers can mutate the state.
-3. Mutations must be synchronous, and the only side effects they produce should be state mutation.
-4. All asynchronous logic such as data fetching should be performed in actions.
+1. アプリケーションステートは単一オブジェクトで生存します
+2. ミューテーションハンドラだけステートを変異できます
+3. ミューテーションは同期でなければなく、そしてそれらを作成するだけの副作用はミューテーションとステートになるべきです
+4. データフェッチングのような全ての非同期ロジックはアクションで実行されるべきです
 
-The nice thing about Vuex actions and mutations is that **they are just functions**. As long as you follow these rules, it's up to you how to structure your project. The simplest Vuex instance can even be declared [in a single file](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js)! However, this is unlikely to suffice for any serious project, so here are some recommended structures depending on the scale of your app.
+Vuex のアクションとミューテーションの良いところは、**それらは関数である**ということです。これらのルールに従っている限り、あなたのプロジェクトで構造化する方法はあなた次第です。最も単純な Vuex インスタンスは[単一ファイルで](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js)さえ宣言できるということです！しかしながら、これは任意の重大なプロジェクトに対しては十分ではなく、ここではあなたのアプリケーションの規模に応じて、いくつか推奨される構造を紹介します。
 
-### Simple Project
+### 単純なプロジェクト
 
-For a simple project, we can simply separate **actions** and **mutations** into respective files:
+単純なプロジェクトに対しては、単純に**アクション**と**ミューテーション**をそれぞれのファイルに分離することができます:
 
 ``` bash
 .
@@ -21,44 +21,44 @@ For a simple project, we can simply separate **actions** and **mutations** into 
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── index.js     # exports the vuex store
-    ├── actions.js   # exports all actions
-    └── mutations.js # exports all mutations
+    ├── index.js     # vuex store をエクスポート
+    ├── actions.js   # 全てのアクションをエクスポート
+    └── mutations.js # 全てのミューテーションをエクスポート
 ```
 
-For an actual example, check out the [TodoMVC example](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
+実際の例として、[TodoMVC example](https://github.com/vuejs/vuex/tree/master/examples/todomvc) を確認してください。
 
-### Medium to Large Project
+### 中〜大規模プロジェクト
 
-For any non-trivial app, we probably want to further split Vuex-related code into multiple "modules" (roughly comparable to "stores" in vanilla Flux), each dealing with a specific domain of our app. Each module would be managing a sub-tree of the state, exporting the initial state for that sub-tree and all mutations that operate on that sub-tree:
+任意の素晴らしいアプリケーションに対して、多分、Vuex 関連のコードをさらに私たちのアプリケーションを特定のドメインによって各お気に入りの複数"モジュール" (雑にいうと、純粋な Flux で "stores" にほぼ匹敵)に分離したいです。各サブモジュールはステートのサブツリーを管理することになり、そのサブツリーとそのサブツリーで操作する全てのミューテーションに対する初期ステートをエクスポートします:
 
 ``` bash
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # API リクエストを作成するために抽象化
 ├── components
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── actions.js # exports all actions
+    ├── actions.js # 全てのアクションをエクスポート
     ├── index.js
     ├── modules
-    │   ├── cart.js       # state and mutations for cart
-    │   └── products.js   # state and mutations for products
-    └── mutation-types.js # constants
+    │   ├── cart.js       # ステートとカート向けのミューテーション
+    │   └── products.js   # ステートと製品向けのミューテーション
+    └── mutation-types.js # 定数
 ```
 
-A typical module looks like this:
+典型的なモジュールは次のようになります:
 
 ``` js
 // vuex/modules/products.js
 import { RECEIVE_PRODUCTS, ADD_TO_CART } from '../mutation-types'
 
-// initial state
+// 初期ステート
 export const productsInitialState = []
 
-// mutations
+// ミューテーション
 export const productsMutations = {
   [RECEIVE_PRODUCTS] (state, products) {
     state.products = products
@@ -73,13 +73,13 @@ export const productsMutations = {
 }
 ```
 
-And in `store/index.js`, we "assemble" multiple modules together to create the Vuex instance:
+そして `store/index.js` では、Vuex インスタンスを作成するために複数のモジュールをいっしょに"組み立てます(assemble)":
 
 ``` js
 import Vue from 'vue'
 import Vuex from '../../../src'
 import * as actions from './actions'
-// import parts from modules
+// modules からパーツをインポート
 import { cartInitialState, cartMutations } from './modules/cart'
 import { productsInitialState, productsMutations } from './modules/products'
 
@@ -87,26 +87,26 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   // ...
-  // combine sub-trees into root state
+  // root なステートにサブツリーを結合
   state: {
     cart: cartInitialState,
     products: productsInitialState
   },
-  // mutations can be an array of mutation definition objects
-  // from multiple modules
+  // ミューテーションは複数の modules から
+  // ミューテーション定義オブジェクトの配列にすることが可能
   mutations: [cartMutations, productsMutations]
 })
 ```
 
-Since all modules simply export objects and functions, they are quite easy to test and maintain. You are also free to alter the patterns used here to find a structure that fits your preference.
+全てのモジュールは単純にオブジェクトと関数をエクスポートするため、テストとメンテナンスすることが非常に簡単です。また、あなたの好みに合った構造を見つけるためにここで使用されるパターンを変えることは自由です。
 
-Note that we do not put actions into modules, because a single action may dispatch mutations that affect multiple modules. It's also a good idea to decouple actions from the state shape and the implementation details of mutations for better separation of concerns. If the actions file gets too large, we can turn it into a folder and split out the implementations of long async actions into individual files.
+単一のアクションは、複数のモジュールに影響を与えるミューテーションをディスパッチする可能性があるため、モジュールにアクションを置いていないことに注意してください。また、ステートの形式と、より良い関心事の分離のためにミューテーションの実装詳細からアクションを分離するもの良いアイデアです。アクションファイルが大きくなりすぎた場合は、フォルダにそれを格納し、個々のファイルへ長い非同期アクションの実装を分割できます。
 
-For an actual example, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
+実際の例として、[Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart) を確認してください。
 
-### Extracting Shared Computed Getters
+### 共有された算出プロパティ Getter の抽出
 
-In large projects, it's possible that multiple components will need the same computed property based on Vuex state. Since computed getters are just functions, you can split them out into a separate file so that they can be shared in any component:
+大規模なプロジェクトでは、複数のコンポーネントが Vuex のステートに基づいて同じ算出プロパティ (computed property) を必要とする可能性があります。算出プロパティは単に関数であるため、それらが任意のコンポーネントで共有することができるように、ファイルにそれらを分割することができます:
 
 ``` js
 // getters.js
@@ -120,7 +120,7 @@ export function filteredTodos () {
 ```
 
 ``` js
-// in a component...
+// コンポーネントで...
 import { filteredTodos } from './getters'
 
 export default {
@@ -130,4 +130,4 @@ export default {
 }
 ```
 
-This is very similar to [Getters in NuclearJS](https://optimizely.github.io/nuclear-js/docs/04-getters.html).
+これはとても [NuclearJS での Getter](https://optimizely.github.io/nuclear-js/docs/04-getters.html) と似ています。
