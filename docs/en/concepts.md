@@ -1,6 +1,6 @@
 # Core Concepts
 
-You can use the `Vuex.Store` constructor to create Vuex stores. In most cases, you only need a single store each application. Each Vuex store consists of three types of "ingredients":
+You can use the `Vuex.Store` constructor to create Vuex stores. In most cases, you only need a single store for an application. Each Vuex store consists of three types of "ingredients":
 
 - **State**: A plain object representing the application state.
 
