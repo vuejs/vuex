@@ -8,12 +8,10 @@
 </template>
 
 <script>
-import store from '../store'
 import ThreadSection from './ThreadSection.vue'
 import MessageSection from './MessageSection.vue'
 
 export default {
-  store,
   components: {
     ThreadSection,
     MessageSection
