@@ -134,4 +134,4 @@ actions: {
 }
 ```
 
-また、全てのコンポーネントは全体のチェックアウトを行うために `vuex.actions.checkout(products)` を呼び出す必要があります。
+また、全てのコンポーネントは全体のチェックアウトを行うために `store.actions.checkout(products)` を呼び出す必要があります。
