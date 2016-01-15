@@ -133,4 +133,4 @@ actions: {
 }
 ```
 
-Again, all the component needs to do to perform the entire checkout is just calling `vuex.actions.checkout(products)`.
+Again, all the component needs to do to perform the entire checkout is just calling `store.actions.checkout(products)`.
