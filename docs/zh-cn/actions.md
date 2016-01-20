@@ -42,7 +42,7 @@ store.actions.increment(1)
 store.dispatch('INCREMENT', 1)
 ```
 
-注意所以传递给 action 的参数同样会传递给 mutation handler.
+注意所有传递给 action 的参数同样会传递给 mutation handler.
 
 ### 正常 Actions
 
