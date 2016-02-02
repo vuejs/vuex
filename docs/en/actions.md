@@ -49,7 +49,7 @@ Note any arguments passed to the action is also passed along to the mutation han
 For actions that involve logic depending on current state, or that need async operations, we define them as functions. Action functions always get the store calling it as the first argument:
 
 ``` js
-const vuex = new Vuex({
+const vuex = new Vuex.Store({
   state: {
     count: 1
   },
