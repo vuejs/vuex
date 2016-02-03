@@ -19,13 +19,6 @@
 </template>
 
 <script>
-import store from '../store'
-const {
-  toggleTodo,
-  deleteTodo,
-  editTodo
-} = store.actions
-
 export default {
   props: ['todo'],
   data () {
@@ -43,14 +36,18 @@ export default {
     }
   },
   methods: {
-    toggleTodo,
-    deleteTodo,
+    toggleTodo (todo) {
+      this.$store.actions.toggleTodo(todo)
+    },
+    deleteTodo (todo) {
+      this.$store.actions.deleteTodo(todo)
+    },
     doneEdit (e) {
-      var value = e.target.value.trim()
+      const value = e.target.value.trim()
       if (!value) {
-        deleteTodo(this.todo)
+        this.deleteTodo(this.todo)
       } else if (this.editing) {
-        editTodo(this.todo, value)
+        this.editTodo(this.todo, value)
         this.editing = false
       }
     },

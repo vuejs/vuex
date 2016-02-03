@@ -46,14 +46,7 @@
 </template>
 
 <script>
-import store from '../store'
 import Todo from './Todo.vue'
-
-const {
-  addTodo,
-  toggleAll,
-  clearCompleted
-} = store.actions
 
 const filters = {
   all: (todos) => todos,
@@ -71,7 +64,7 @@ export default {
   },
   computed: {
     todos () {
-      return store.state.todos
+      return this.$store.state.todos
     },
     allChecked () {
       return this.todos.every(todo => todo.done)
@@ -87,12 +80,16 @@ export default {
     addTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        addTodo(text)
+        this.$store.actions.addTodo(text)
       }
       e.target.value = ''
     },
-    toggleAll,
-    clearCompleted
+    toggleAll () {
+      this.$store.actions.toggleAll()
+    },
+    clearCompleted () {
+      this.$store.actions.clearCompleted()
+    }
   }
 }
 </script>
