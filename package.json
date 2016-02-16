@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "state management for Vue.js",
   "main": "lib/index.js",
   "files": [
