@@ -17,22 +17,6 @@ export function createAction (action, store) {
 }
 
 /**
- * Validates hot api - unassigns any methods
- * that do not exist.
- *
- * @param {Object} currentMethods
- * @param {Object} newMethods
- */
-
-export function validateHotModules (currentMethods, newMethods) {
-  Object.keys(currentMethods).forEach(name => {
-    if (!newMethods[name]) {
-      delete currentMethods[name]
-    }
-  })
-}
-
-/**
  * Merge an array of objects into one.
  *
  * @param {Array<Object>} arr

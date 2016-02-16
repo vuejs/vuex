@@ -1,6 +1,7 @@
-import { createAction, validateHotModules, mergeObjects, deepClone } from './util'
+import { mergeObjects, deepClone } from './util'
 import devtoolMiddleware from './middlewares/devtool'
 import createLogger from './middlewares/logger'
+import override from './override'
 
 let Vue
 
@@ -17,12 +18,14 @@ export class Store {
 
   constructor ({
     state = {},
-    actions = {},
     mutations = {},
+    modules = {},
     middlewares = [],
-    getters = {},
     strict = false
   } = {}) {
+    this._dispatching = false
+    this._rootMutations = this._mutations = mutations
+    this._modules = modules
     // bind dispatch to self
     const dispatch = this.dispatch
     this.dispatch = (...args) => {
@@ -32,13 +35,9 @@ export class Store {
     this._vm = new Vue({
       data: state
     })
-    this._dispatching = false
-    this.actions = Object.create(null)
-    this.getters = Object.create(null)
-    this._setupActions(actions)
-    this._setupMutations(mutations)
+    this._setupModuleState(state, modules)
+    this._setupModuleMutations(modules)
     this._setupMiddlewares(middlewares, state)
-    this._setupGetters(getters)
     // add extra warnings in strict mode
     if (strict) {
       this._setupMutationCheck()
@@ -103,20 +102,53 @@ export class Store {
    * Hot update actions and mutations.
    *
    * @param {Object} options
-   *        - {Object} [actions]
    *        - {Object} [mutations]
+   *        - {Object} [modules]
    */
 
-  hotUpdate ({ actions, mutations, getters } = {}) {
-    if (actions) {
-      this._setupActions(actions, true)
-    }
-    if (mutations) {
-      this._setupMutations(mutations)
-    }
-    if (getters) {
-      this._setupGetters(getters, true)
-    }
+  hotUpdate ({ mutations, modules } = {}) {
+    this._rootMutations = this._mutations = mutations || this._rootMutations
+    this._setupModuleMutations(modules || this._modules)
+  }
+
+  /**
+   * Attach sub state tree of each module to the root tree.
+   *
+   * @param {Object} state
+   * @param {Object} modules
+   */
+
+  _setupModuleState (state, modules) {
+    const { setPath } = Vue.parsers.path
+    Object.keys(modules).forEach(key => {
+      setPath(state, key, modules[key].state)
+    })
+  }
+
+  /**
+   * Bind mutations for each module to its sub tree and
+   * merge them all into one final mutations map.
+   *
+   * @param {Object} modules
+   */
+
+  _setupModuleMutations (modules) {
+    this._modules = modules
+    const { getPath } = Vue.parsers.path
+    const allMutations = [this._rootMutations]
+    Object.keys(modules).forEach(key => {
+      const module = modules[key]
+      // bind mutations to sub state tree
+      const mutations = {}
+      Object.keys(module.mutations).forEach(name => {
+        const original = module.mutations[name]
+        mutations[name] = (state, ...args) => {
+          original(getPath(state, key), ...args)
+        }
+      })
+      allMutations.push(mutations)
+    })
+    this._mutations = mergeObjects(allMutations)
   }
 
   /**
@@ -142,74 +174,6 @@ export class Store {
         )
       }
     }, { deep: true, sync: true })
-  }
-
-  /**
-   * Set up the callable action functions exposed to components.
-   * This method can be called multiple times for hot updates.
-   * We keep the real action functions in an internal object,
-   * and expose the public object which are just wrapper
-   * functions that point to the real ones. This is so that
-   * the reals ones can be hot reloaded.
-   *
-   * @param {Object} actions
-   * @param {Boolean} [hot]
-   */
-
-  _setupActions (actions, hot) {
-    this._actions = Object.create(null)
-    actions = Array.isArray(actions)
-      ? mergeObjects(actions)
-      : actions
-    Object.keys(actions).forEach(name => {
-      this._actions[name] = createAction(actions[name], this)
-      if (!this.actions[name]) {
-        this.actions[name] = (...args) => this._actions[name](...args)
-      }
-    })
-    // delete public actions that are no longer present
-    // after a hot reload
-    if (hot) validateHotModules(this.actions, actions)
-  }
-
-  /**
-   * Set up the callable getter functions exposed to components.
-   * This method can be called multiple times for hot updates.
-   * We keep the real getter functions in an internal object,
-   * and expose the public object which are just wrapper
-   * functions that point to the real ones. This is so that
-   * the reals ones can be hot reloaded.
-   *
-   * @param {Object} getters
-   * @param {Boolean} [hot]
-   */
-  _setupGetters (getters, hot) {
-    this._getters = Object.create(null)
-    getters = Array.isArray(getters)
-      ? mergeObjects(getters)
-      : getters
-    Object.keys(getters).forEach(name => {
-      this._getters[name] = (...payload) => getters[name](this.state, ...payload)
-      if (!this.getters[name]) {
-        this.getters[name] = (...args) => this._getters[name](...args)
-      }
-    })
-    // delete public getters that are no longer present
-    // after a hot reload
-    if (hot) validateHotModules(this.getters, getters)
-  }
-
-  /**
-   * Setup the mutation handlers. Effectively a event listener.
-   * This method can be called multiple times for hot updates.
-   *
-   * @param {Object} mutations
-   */
-
-  _setupMutations (mutations) {
-    this._mutations = Array.isArray(mutations)
-      ? mergeObjects(mutations, true)
-      : mutations
   }
 
   /**
@@ -244,27 +208,19 @@ export class Store {
   }
 }
 
-// export logger factory
-export { createLogger }
-
-// export install function
-export function install (_Vue) {
+function install (_Vue) {
   Vue = _Vue
-  const _init = Vue.prototype._init
-  Vue.prototype._init = function (options) {
-    options = options || {}
-    if (options.store) {
-      this.$store = options.store
-    } else if (options.parent && options.parent.$store) {
-      this.$store = options.parent.$store
-    }
-    _init.call(this, options)
-  }
+  override(Vue)
+}
+
+export {
+  install,
+  createLogger
 }
 
 // also export the default
 export default {
   Store,
-  createLogger,
-  install
+  install,
+  createLogger
 }
