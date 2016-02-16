@@ -12,15 +12,16 @@
 </template>
 
 <script>
-import store from './store'
-export default {
-  computed: {
-    count () {
-      return store.state.count
-    },
-    recentHistory: store.getters.recentHistory
-  },
-  methods: store.actions
+import * as actions from './store/actions'
+import { recentHistory } from './store/getters'
 
+export default {
+  vuex: {
+    state: {
+      count: state => state.count,
+      recentHistory
+    },
+    actions: actions
+  }
 }
 </script>
