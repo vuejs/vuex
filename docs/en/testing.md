@@ -63,10 +63,10 @@ const actions = actionsInjector({
 })
 
 // helper for testing action with expected mutations
-const testAction = (action, state, expectedMutations, done) => {
+const testAction = (action, args, state, expectedMutations, done) => {
   let count = 0
   // mock dispatch
-  const dispatch = (name, payload) => {
+  const dispatch = (name, ...payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.name).to.equal(name)
     if (payload) {
@@ -77,16 +77,19 @@ const testAction = (action, state, expectedMutations, done) => {
       done()
     }
   }
-  // call the action with mocked store
-  action({
-    dispatch,
-    state
-  })
+  // call the action with mocked store and arguments
+  action({dispatch, state}, ...args)
+
+  // check if no mutations should have been dispatched
+  if (count === 0) {
+    expect(expectedMutations.length).to.equal(0)
+    done()
+  }
 }
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, {}, [
+    testAction(actions.getAllProducts, [], {}, [
       { name: 'REQUEST_PRODUCTS' },
       { name: 'RECEIVE_PRODUCTS', payload: [ /* mocked response */ ] }
     ], done)
