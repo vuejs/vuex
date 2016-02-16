@@ -106,28 +106,9 @@ For an actual example, check out the [Shopping Cart Example](https://github.com/
 
 ### Extracting Shared Computed Getters
 
-In large projects, it's possible that multiple components will need the same computed property based on Vuex state. Since computed getters are just functions, you can split them out into a separate file so that they can be shared in any component:
+In large projects, it's possible that multiple components will need the same computed property based on Vuex state. Since computed getters are just functions, you can split them out into a separate file so that they can be shared in any component via the store:
 
-``` js
-// getters.js
-import store from './store'
+For an actual example, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
+For an actual example with hot reload API, check out the [Counter Hot Example](https://github.com/vuejs/vuex/tree/master/examples/counter-hot).
 
-export function filteredTodos () {
-  return store.state.messages.filter(message => {
-    return message.threadID === store.state.currentThreadID
-  })
-}
-```
-
-``` js
-// in a component...
-import { filteredTodos } from './getters'
-
-export default {
-  computed: {
-    filteredTodos
-  }
-}
-```
-
-This is very similar to [Getters in NuclearJS](https://optimizely.github.io/nuclear-js/docs/04-getters.html).
+For more information, check out the [Getters documentation](getters.md)

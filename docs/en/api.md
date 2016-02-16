@@ -11,7 +11,7 @@ const store = new Vuex.Store({ ...options })
 ### Vuex.Store Constructor Options
 
 - **state**
-  
+
   - type: `Object`
 
     The root state object for the Vuex store.
@@ -42,6 +42,19 @@ const store = new Vuex.Store({ ...options })
     If passing in an Array of Objects, these objects will be automatically merged together into one final object.
 
     [Details](actions.md)
+
+
+- **getters**
+
+  - type: `Object | Array<Object>`
+
+    An object where each entry's key is the getter name and the value of a function which will receive the state as the first argument.
+
+    Vuex will process these entries and create the actual callable getter functions and expose them on the `getters` property of the store.
+
+    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
+
+    [Details](getters.md)
 
 - **middlewares**
 

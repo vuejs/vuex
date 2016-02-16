@@ -8,6 +8,8 @@ You can use the `Vuex.Store` constructor to create Vuex stores. In most cases, y
 
 - **Actions**: Functions that dispatch mutations. An action can contain asynchronous operations and can dispatch multiple mutations.
 
+- **Getters**: Functions that receive state to return a computed value. Useful for extracting shared computed functions from Vue components.
+
 Why do we differentiate between *mutations* and *actions*, rather then just simple functions that manipulate the state however we want? The reason is because we want to **separate mutation and asynchronicity**. A lot of application complexity roots from the combination of the two. When separated, they both become easier to reason about and write tests for.
 
 > If you are familiar with Flux, note there's a term/concept difference here: Vuex mutations are the equivalent of Flux **actions**, while Vuex actions are equivalent to Flux **action creators**.
@@ -24,8 +26,9 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({
   state: { ... },
   actions: { ... },
-  mutations: { ... }
+  mutations: { ... },
+  getters: { ... }
 })
 ```
 
-Once created, you can access the state via `store.state`, and the actions via `store.actions`. You cannot directly access the mutation functions - they can only be triggered by actions or calling `store.dispatch()`. We will discuss each concept in more details next.
+Once created, you can access the state via `store.state`, the actions via `store.actions` and the getters though `store.getters`. You cannot directly access the mutation functions - they can only be triggered by actions or calling `store.dispatch()`. We will discuss each concept in more details next.

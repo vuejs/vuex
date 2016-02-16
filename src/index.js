@@ -1,4 +1,4 @@
-import { createAction, mergeObjects, deepClone } from './util'
+import { createAction, validateHotModules, mergeObjects, deepClone } from './util'
 import devtoolMiddleware from './middlewares/devtool'
 import createLogger from './middlewares/logger'
 
@@ -20,6 +20,7 @@ export class Store {
     actions = {},
     mutations = {},
     middlewares = [],
+    getters = {},
     strict = false
   } = {}) {
     // bind dispatch to self
@@ -33,9 +34,11 @@ export class Store {
     })
     this._dispatching = false
     this.actions = Object.create(null)
+    this.getters = Object.create(null)
     this._setupActions(actions)
     this._setupMutations(mutations)
     this._setupMiddlewares(middlewares, state)
+    this._setupGetters(getters)
     // add extra warnings in strict mode
     if (strict) {
       this._setupMutationCheck()
@@ -104,12 +107,15 @@ export class Store {
    *        - {Object} [mutations]
    */
 
-  hotUpdate ({ actions, mutations } = {}) {
+  hotUpdate ({ actions, mutations, getters } = {}) {
     if (actions) {
       this._setupActions(actions, true)
     }
     if (mutations) {
       this._setupMutations(mutations)
+    }
+    if (getters) {
+      this._setupGetters(getters, true)
     }
   }
 
@@ -163,13 +169,34 @@ export class Store {
     })
     // delete public actions that are no longer present
     // after a hot reload
-    if (hot) {
-      Object.keys(this.actions).forEach(name => {
-        if (!actions[name]) {
-          delete this.actions[name]
-        }
-      })
-    }
+    if (hot) validateHotModules(this.actions, actions)
+  }
+
+  /**
+   * Set up the callable getter functions exposed to components.
+   * This method can be called multiple times for hot updates.
+   * We keep the real getter functions in an internal object,
+   * and expose the public object which are just wrapper
+   * functions that point to the real ones. This is so that
+   * the reals ones can be hot reloaded.
+   *
+   * @param {Object} getters
+   * @param {Boolean} [hot]
+   */
+  _setupGetters (getters, hot) {
+    this._getters = Object.create(null)
+    getters = Array.isArray(getters)
+      ? mergeObjects(getters)
+      : getters
+    Object.keys(getters).forEach(name => {
+      this._getters[name] = (...payload) => getters[name](this.state, ...payload)
+      if (!this.getters[name]) {
+        this.getters[name] = (...args) => this._getters[name](...args)
+      }
+    })
+    // delete public getters that are no longer present
+    // after a hot reload
+    if (hot) validateHotModules(this.getters, getters)
   }
 
   /**
