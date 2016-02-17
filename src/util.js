@@ -20,25 +20,20 @@ export function createAction (action, store) {
  * Merge an array of objects into one.
  *
  * @param {Array<Object>} arr
- * @param {Boolean} allowDuplicate
  * @return {Object}
  */
 
-export function mergeObjects (arr, allowDuplicate) {
+export function mergeObjects (arr) {
   return arr.reduce((prev, obj) => {
     Object.keys(obj).forEach(key => {
       const existing = prev[key]
       if (existing) {
         // allow multiple mutation objects to contain duplicate
         // handlers for the same mutation type
-        if (allowDuplicate) {
-          if (Array.isArray(existing)) {
-            existing.push(obj[key])
-          } else {
-            prev[key] = [prev[key], obj[key]]
-          }
+        if (Array.isArray(existing)) {
+          existing.push(obj[key])
         } else {
-          console.warn(`[vuex] Duplicate action: ${ key }`)
+          prev[key] = [prev[key], obj[key]]
         }
       } else {
         prev[key] = obj[key]
