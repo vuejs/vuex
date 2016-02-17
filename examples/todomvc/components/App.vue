@@ -9,7 +9,7 @@
         autofocus
         autocomplete="off"
         placeholder="What needs to be done?"
-        @keyup.enter="addTodo">
+        @keyup.enter="tryAddTodo">
     </header>
     <!-- main section -->
     <section class="main" v-show="todos.length">
@@ -47,6 +47,11 @@
 
 <script>
 import Todo from './Todo.vue'
+import {
+  addTodo,
+  toggleAll,
+  clearCompleted
+} from '../store/actions'
 
 const filters = {
   all: (todos) => todos,
@@ -56,6 +61,16 @@ const filters = {
 
 export default {
   components: { Todo },
+  vuex: {
+    state: {
+      todos: state => state.todos
+    },
+    actions: {
+      addTodo,
+      toggleAll,
+      clearCompleted
+    }
+  },
   data () {
     return {
       visibility: 'all',
@@ -63,9 +78,6 @@ export default {
     }
   },
   computed: {
-    todos () {
-      return this.$store.state.todos
-    },
     allChecked () {
       return this.todos.every(todo => todo.done)
     },
@@ -77,18 +89,12 @@ export default {
     }
   },
   methods: {
-    addTodo (e) {
+    tryAddTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        this.$store.actions.addTodo(text)
+        this.addTodo(text)
       }
       e.target.value = ''
-    },
-    toggleAll () {
-      this.$store.actions.toggleAll()
-    },
-    clearCompleted () {
-      this.$store.actions.clearCompleted()
     }
   }
 }

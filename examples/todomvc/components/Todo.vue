@@ -19,8 +19,21 @@
 </template>
 
 <script>
+import {
+  toggleTodo,
+  deleteTodo,
+  editTodo
+} from '../store/actions'
+
 export default {
   props: ['todo'],
+  vuex: {
+    actions: {
+      toggleTodo,
+      deleteTodo,
+      editTodo
+    }
+  },
   data () {
     return {
       editing: false
@@ -36,12 +49,6 @@ export default {
     }
   },
   methods: {
-    toggleTodo (todo) {
-      this.$store.actions.toggleTodo(todo)
-    },
-    deleteTodo (todo) {
-      this.$store.actions.deleteTodo(todo)
-    },
     doneEdit (e) {
       const value = e.target.value.trim()
       if (!value) {

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from '../../../src'
-import actions from './actions'
 import mutations from './mutations'
 import middlewares from './middlewares'
 
@@ -13,7 +12,6 @@ const state = {
 
 export default new Vuex.Store({
   state,
-  actions,
   mutations,
   middlewares
 })
