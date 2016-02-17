@@ -20,7 +20,7 @@ export default function (Vue) {
         options.computed = options.computed || {}
         Object.keys(state).forEach(key => {
           options.computed[key] = function vuexBoundGetter () {
-            return state[key](this.$store.state)
+            return state[key].call(this, this.$store.state)
           }
         })
       }
@@ -29,7 +29,7 @@ export default function (Vue) {
         options.methods = options.methods || {}
         Object.keys(actions).forEach(key => {
           options.methods[key] = function vuexBoundAction (...args) {
-            return actions[key](this.$store, ...args)
+            return actions[key].call(this, this.$store, ...args)
           }
         })
       }
