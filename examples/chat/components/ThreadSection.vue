@@ -21,12 +21,14 @@ import Thread from './Thread.vue'
 
 export default {
   components: { Thread },
+  vuex: {
+    state: {
+      threads: state => state.threads
+    }
+  },
   computed: {
-    threads () {
-      return store.state.threads
-    },
     unreadCount () {
-      const threads = store.state.threads
+      const threads = this.threads
       return Object.keys(threads).reduce((count, id) => {
         return threads[id].lastMessage.isRead
           ? count

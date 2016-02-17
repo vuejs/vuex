@@ -8,26 +8,28 @@
         :message="message">
       </message>
     </ul>
-    <textarea class="message-composer" @keyup.enter="sendMessage"></textarea>
+    <textarea class="message-composer" @keyup.enter="trySendMessage"></textarea>
   </div>
 </template>
 
 <script>
-import store from '../store'
 import Message from './Message.vue'
+import { sendMessage } from '../store/actions'
 
 export default {
   components: { Message },
-  computed: {
-    thread () {
-      const id = store.state.currentThreadID
-      return id
-        ? store.state.threads[id]
-        : {}
+  vuex: {
+    state: {
+      thread ({ currentThreadID, threads }) {
+        return currentThreadID ? threads[currentThreadID] : {}
+      },
+      messages ({ messages }) {
+        const messageIds = this.thread.messages
+        return messageIds && messageIds.map(id => messages[id])
+      }
     },
-    messages () {
-      return this.thread.messages &&
-        this.thread.messages.map(id => store.state.messages[id])
+    actions: {
+      sendMessage
     }
   },
   watch: {
@@ -39,10 +41,10 @@ export default {
     }
   },
   methods: {
-    sendMessage (e) {
+    trySendMessage (e) {
       const text = e.target.value
       if (text.trim()) {
-        store.actions.sendMessage(text, this.thread)
+        this.sendMessage(text, this.thread)
         e.target.value = ''
       }
     }

@@ -2,7 +2,7 @@
   <li
     class="thread-list-item"
     :class="{ active: isCurrentThread }"
-    @click="onClick">
+    @click="switchThread(thread.id)">
     <h5 class="thread-name">{{ thread.name }}</h5>
     <div class="thread-time">
       {{ thread.lastMessage.timestamp | time }}
@@ -14,18 +14,18 @@
 </template>
 
 <script>
-import store from '../store'
+import { switchThread } from '../store/actions'
 
 export default {
   props: ['thread'],
-  computed: {
-    isCurrentThread () {
-      return this.thread.id === store.state.currentThreadID
-    }
-  },
-  methods: {
-    onClick () {
-      store.actions.switchThread(this.thread.id)
+  vuex: {
+    state: {
+      isCurrentThread ({ currentThreadID }) {
+        return this.thread.id === currentThreadID
+      }
+    },
+    actions: {
+      switchThread
     }
   }
 }
