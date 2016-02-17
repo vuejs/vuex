@@ -1,7 +1,11 @@
 import shop from '../api/shop'
 import * as types from './mutation-types'
 
-export const addToCart = types.ADD_TO_CART
+export const addToCart = ({ dispatch }, product) => {
+  if (product.inventory > 0) {
+    dispatch(types.ADD_TO_CART, product.id)
+  }
+}
 
 export const checkout = ({ dispatch, state }, products) => {
   const savedCartItems = [...state.cart.added]

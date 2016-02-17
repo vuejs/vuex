@@ -4,18 +4,22 @@ import {
 } from '../mutation-types'
 
 // initial state
-export const productsInitialState = []
+const state = {
+  all: []
+}
 
 // mutations
-export const productsMutations = {
+const mutations = {
   [RECEIVE_PRODUCTS] (state, products) {
-    state.products = products
+    state.all = products
   },
 
-  [ADD_TO_CART] ({ products }, productId) {
-    const product = products.find(p => p.id === productId)
-    if (product.inventory > 0) {
-      product.inventory--
-    }
+  [ADD_TO_CART] (state, productId) {
+    state.all.find(p => p.id === productId).inventory--
   }
+}
+
+export default {
+  state,
+  mutations
 }

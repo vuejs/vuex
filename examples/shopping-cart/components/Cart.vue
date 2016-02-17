@@ -14,23 +14,25 @@
 </template>
 
 <script>
-import store from '../store'
-const { checkout } = store.actions
+import { checkout } from '../store/actions'
+import { cartProducts } from '../store/getters'
 
 export default {
-  computed: {
-    products: store.getters.cartProducts,
-    checkoutStatus () {
-      return store.state.cart.lastCheckout
+  vuex: {
+    state: {
+      products: cartProducts,
+      checkoutStatus: ({ cart }) => cart.lastCheckout
     },
+    actions: {
+      checkout
+    }
+  },
+  computed: {
     total () {
       return this.products.reduce((total, p) => {
         return total + p.price * p.quantity
       }, 0)
     }
-  },
-  methods: {
-    checkout
   }
 }
 </script>

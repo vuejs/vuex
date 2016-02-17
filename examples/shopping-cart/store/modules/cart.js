@@ -7,18 +7,18 @@ import {
 
 // initial state
 // shape: [{ id, quantity }]
-export const cartInitialState = {
+const state = {
   added: [],
   lastCheckout: null
 }
 
 // mutations
-export const cartMutations = {
-  [ADD_TO_CART] ({ cart }, productId) {
-    cart.lastCheckout = null
-    const record = cart.added.find(p => p.id === productId)
+const mutations = {
+  [ADD_TO_CART] (state, productId) {
+    state.lastCheckout = null
+    const record = state.added.find(p => p.id === productId)
     if (!record) {
-      cart.added.push({
+      state.added.push({
         id: productId,
         quantity: 1
       })
@@ -27,19 +27,24 @@ export const cartMutations = {
     }
   },
 
-  [CHECKOUT_REQUEST] ({ cart }) {
+  [CHECKOUT_REQUEST] (state) {
     // clear cart
-    cart.added = []
-    cart.lastCheckout = null
+    state.added = []
+    state.lastCheckout = null
   },
 
-  [CHECKOUT_SUCCESS] ({ cart }) {
-    cart.lastCheckout = 'successful'
+  [CHECKOUT_SUCCESS] (state) {
+    state.lastCheckout = 'successful'
   },
 
-  [CHECKOUT_FAILURE] ({ cart }, savedCartItems) {
+  [CHECKOUT_FAILURE] (state, savedCartItems) {
     // rollback to the cart saved before sending the request
-    cart.added = savedCartItems
-    cart.lastCheckout = 'failed'
+    state.added = savedCartItems
+    state.lastCheckout = 'failed'
   }
+}
+
+export default {
+  state,
+  mutations
 }

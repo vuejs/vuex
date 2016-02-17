@@ -13,24 +13,20 @@
 </template>
 
 <script>
-import store from '../store'
-const { getAllProducts, addToCart } = store.actions
+import { getAllProducts, addToCart } from '../store/actions'
 
 export default {
-  computed: {
-    products () {
-      return store.state.products
+  vuex: {
+    state: {
+      products: ({ products }) => products.all
+    },
+    actions: {
+      getAllProducts,
+      addToCart
     }
   },
   created () {
-    getAllProducts()
-  },
-  methods: {
-    addToCart (product) {
-      if (product.inventory > 0) {
-        addToCart(product.id)
-      }
-    }
+    this.getAllProducts()
   }
 }
 </script>
