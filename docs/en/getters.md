@@ -38,6 +38,7 @@ export default {
     filteredTodos
   }
 }
+```
 
 For an actual example, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
 For an actual example with hot reload API, check out the [Counter Hot Example](https://github.com/vuejs/vuex/tree/master/examples/counter-hot).
