@@ -2,51 +2,74 @@
 
 ### Single State Tree
 
-Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
+Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
 
-The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state managing logic into sub modules.
+The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
 
 ### Getting Vuex State into Vue Components
 
-Similar to `data` objects passed to Vue instances, the `state` object, once passed into a Vuex store, becomes reactive powered by [Vue's reactivity system](http://vuejs.org/guide/reactivity.html). This means binding Vuex state to Vue components is as simple as returning it from within a computed property:
+So how do we display state inside the store in our Vue components? Here's how:
 
-``` js
-// inside a Vue component module
+1. Install Vuex and connect your root component to the store:
 
-// import a vuex store
-import store from './store'
+  ``` js
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  import store from './store'
+  import MyComponent from './MyComponent'
 
-export default {
-  computed: {
-    message () {
-      return store.state.message
+  // important, teaches Vue components how to
+  // handle Vuex-related options
+  Vue.use(Vuex)
+
+  var app = new Vue({
+    el: '#app',
+    // provide the store using the "store" option.
+    // this will inject the store instance to all child components.
+    store,
+    components: {
+      MyComponent
+    }
+  })
+  ```
+
+2. Inside child components, retrieve state using the `vuex.state` option:
+
+  ``` js
+  // MyComponent.js
+  export default {
+    template: '...',
+    data () { ... },
+    // this is where we retrieve state from the store
+    vuex: {
+      state: {
+        // will bind `store.state.count` on the component as `this.count`
+        count: function (state) {
+          return state.count
+        }
+      }
     }
   }
-}
-```
+  ```
 
-There's no need to worry about setting up and tearing down listeners, or "connecting" the component to a store. The only thing to remember is that you should **always reference state via `store.state.xxx` inside your computed properties**. Do not cache the reference to a piece of state outside computed properties.
+  Note the special `vuex` option block. This is where we specify what state the component will be using from the store. For each property name, we specify a function which receives the entire state tree as the only argument, and then selects and returns a part of the state, or even computes derived state. The returned result will be set on the component using the property name.
 
-> Flux reference: this can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux and [getters](https://optimizely.github.io/nuclear-js/docs/04-getters.html) in NuclearJS.
+  In a lot of cases, the "getter" function can be very succinct using ES2015 arrow functions:
 
-Why don't we just use `data` to bind to the state? Consider the following example:
-
-``` js
-export default {
-  data () {
-    return {
-      message: store.state.message
+  ``` js
+  vuex: {
+    state: {
+      count: state => state.count
     }
   }
-}
-```
+  ```
 
-Because the `data` function does not track any reactive dependencies, we are only getting a static reference to `store.state.message`. When the state is mutated later, the component has no idea that something has changed. In comparison, computed properties track all reactive dependencies when they are evaluated, so they reactively re-evaluate when the related state is mutated.
+> Flux reference: this can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, this leverages Vue's computed properties memoization under the hood, thus is more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect) and [NuclearJS getters](https://optimizely.github.io/nuclear-js/docs/04-getters.html).
 
 ### Components Are Not Allowed to Directly Mutate State
 
-Using read-only computed properties has another benefit in that it helps emphasizing the rule that **components should never directly mutate Vuex store state**. Because we want every state mutation to be explicit and trackable, all vuex store state mutations must be conducted inside the store's mutation handlers.
+It's important to remember that **components should never directly mutate Vuex store state**. Because we want every state mutation to be explicit and trackable, all vuex store state mutations must be conducted inside the store's mutation handlers.
 
 To help enforce this rule, when in [Strict Mode](strict.md), if a store's state is mutated outside of its mutation handlers, Vuex will throw an error.
 
-With this rule in place, our Vue components now hold a lot less responsibility: they are bound to Vuex store state via read-only computed properties, and the only way for them to affect the state is by calling **actions**, which in turn trigger **mutations**. They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
+With this rule in place, our Vue components now hold a lot less responsibility: they are bound to Vuex store state via read-only getters, and the only way for them to affect the state is by somehow triggering **mutations** (which we will discuss later). They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
