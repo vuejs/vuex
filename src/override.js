@@ -14,6 +14,12 @@ export default function (Vue) {
     // vuex option handling
     const vuex = options.vuex || componentOptions.vuex
     if (vuex) {
+      if (!this.$store) {
+        console.warn(
+          '[vuex] store not injected. make sure to ' +
+          'provide the store option in your root component.'
+        )
+      }
       const { state, actions } = vuex
       // state
       if (state) {

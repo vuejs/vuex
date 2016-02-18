@@ -23,152 +23,157 @@ describe('Vuex', () => {
     expect(store.state.a).to.equal(3)
   })
 
-  it('simple action', function () {
+  it('injecting state and action to components', function () {
     const store = new Vuex.Store({
       state: {
         a: 1
       },
-      actions: {
-        test: TEST
-      },
-      getters: {
-        getA (state) {
-          return state.a
-        }
-      },
       mutations: {
         [TEST] (state, n) {
           state.a += n
         }
       }
     })
-    store.actions.test(2)
-    expect(store.state.a).to.equal(3)
-    expect(store.getters.getA()).to.equal(3)
-  })
-
-  it('async action', function (done) {
-    const TEST = 'TEST'
-    const store = new Vuex.Store({
-      state: {
-        a: 1,
-        timeout: 10
-      },
-      actions: {
-        test: ({ dispatch, state }, n) => {
-          setTimeout(() => {
-            dispatch(TEST, n)
-          }, state.timeout)
-        }
-      },
-      mutations: {
-        [TEST] (state, n) {
-          state.a += n
+    const vm = new Vue({
+      store,
+      vuex: {
+        state: {
+          a: state => state.a
+        },
+        actions: {
+          test: ({ dispatch }, n) => dispatch(TEST, n)
         }
       }
     })
-    store.actions.test(2)
-    setTimeout(() => {
-      expect(store.state.a).to.equal(3)
-      done()
-    }, store.state.timeout)
+    vm.test(2)
+    expect(vm.a).to.equal(3)
+    expect(store.state.a).to.equal(3)
   })
 
-  it('array option syntax', function () {
-    const TEST2 = 'TEST2'
+  it('modules', function () {
+    const mutations = {
+      [TEST] (state, n) {
+        state.a += n
+      }
+    }
     const store = new Vuex.Store({
       state: {
-        a: 1,
-        b: 1,
-        c: 1
+        a: 1
       },
-      actions: [{ test: TEST }, { test2: TEST2 }],
-      mutations: [
-        {
-          [TEST] (state, n) {
-            state.a += n
-          }
+      mutations,
+      modules: {
+        one: {
+          state: { a: 2 },
+          mutations
         },
-        // allow multiple handlers for the same mutation type
-        {
-          [TEST] (state, n) {
-            state.b += n
-          },
-          [TEST2] (state, n) {
-            state.c += n
-          }
+        two: {
+          state: { a: 3 },
+          mutations
         }
-      ],
-      getters: [
-        {
-          getA (state) {
-            return state.a
-          }
-        },
-        {
-          getB (state) {
-            return state.b
-          },
-
-          getC (state) {
-            return state.c
-          }
-        }
-      ]
+      }
     })
-    store.actions.test(2)
-    expect(store.state.a).to.equal(3)
-    expect(store.state.b).to.equal(3)
-    expect(store.state.c).to.equal(1)
-    expect(store.getters.getA()).to.equal(3)
-    expect(store.getters.getB()).to.equal(3)
-    expect(store.getters.getC()).to.equal(1)
-    store.actions.test2(2)
-    expect(store.state.c).to.equal(3)
+    store.dispatch(TEST, 1)
+    expect(store.state.a).to.equal(2)
+    expect(store.state.one.a).to.equal(3)
+    expect(store.state.two.a).to.equal(4)
   })
 
   it('hot reload', function () {
+    const mutations = {
+      [TEST] (state, n) {
+        state.a += n
+      }
+    }
     const store = new Vuex.Store({
       state: {
-        a: 1,
-        b: 2
+        a: 1
       },
-      actions: {
-        test: TEST
-      },
-      mutations: {
-        [TEST] (state, n) {
-          state.a += n
-        }
-      },
-      getters: {
-        getA (state) {
-          return state.b
+      mutations,
+      modules: {
+        one: {
+          state: { a: 2 },
+          mutations
+        },
+        two: {
+          state: { a: 3 },
+          mutations
         }
       }
     })
-    const test = store.actions.test
-    test(2)
-    expect(store.state.a).to.equal(3)
-    expect(store.getters.getA()).to.equal(2)
+    store.dispatch(TEST, 1)
+    expect(store.state.a).to.equal(2)
+    expect(store.state.one.a).to.equal(3)
+    expect(store.state.two.a).to.equal(4)
+
+    // hot reload only root mutations
     store.hotUpdate({
-      actions: {
-        test: ({ dispatch }, n) => dispatch(TEST, n + 1)
-      },
       mutations: {
         [TEST] (state, n) {
           state.a = n
         }
-      },
-      getters: {
-        getA (state) {
-          return state.a
+      }
+    })
+    store.dispatch(TEST, 1)
+    expect(store.state.a).to.equal(1) // only root mutation updated
+    expect(store.state.one.a).to.equal(4)
+    expect(store.state.two.a).to.equal(5)
+
+    // hot reload modules
+    store.hotUpdate({
+      modules: {
+        one: {
+          state: { a: 234 },
+          mutations: {
+            [TEST] (state, n) {
+              state.a += n
+            }
+          }
+        },
+        two: {
+          state: { a: 345 },
+          mutations: {
+            [TEST] (state, n) {
+              state.a -= n
+            }
+          }
         }
       }
     })
-    test(999)
-    expect(store.state.a).to.equal(1000)
-    expect(store.getters.getA()).to.equal(1000)
+    store.dispatch(TEST, 2)
+    expect(store.state.a).to.equal(2)
+    expect(store.state.one.a).to.equal(6) // should not reload initial state
+    expect(store.state.two.a).to.equal(3) // should not reload initial state
+
+    // hot reload all
+    store.hotUpdate({
+      mutations: {
+        [TEST] (state, n) {
+          state.a -= n
+        }
+      },
+      modules: {
+        one: {
+          state: { a: 234 },
+          mutations: {
+            [TEST] (state, n) {
+              state.a = n
+            }
+          }
+        },
+        two: {
+          state: { a: 345 },
+          mutations: {
+            [TEST] (state, n) {
+              state.a = n
+            }
+          }
+        }
+      }
+    })
+    store.dispatch(TEST, 3)
+    expect(store.state.a).to.equal(-1)
+    expect(store.state.one.a).to.equal(3)
+    expect(store.state.two.a).to.equal(3)
   })
 
   it('middleware', function () {

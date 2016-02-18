@@ -1,22 +1,4 @@
 /**
- * Create a actual callable action function.
- *
- * @param {String|Function} action
- * @param {Vuex} store
- * @return {Function} [description]
- */
-
-export function createAction (action, store) {
-  if (typeof action === 'string') {
-    // simple action string shorthand
-    return (...payload) => store.dispatch(action, ...payload)
-  } else if (typeof action === 'function') {
-    // normal action
-    return (...payload) => action(store, ...payload)
-  }
-}
-
-/**
  * Merge an array of objects into one.
  *
  * @param {Array<Object>} arr
