@@ -183,9 +183,6 @@ describe('Vuex', () => {
       state: {
         a: 1
       },
-      actions: {
-        test: TEST
-      },
       mutations: {
         [TEST] (state, n) {
           state.a += n
@@ -204,7 +201,7 @@ describe('Vuex', () => {
       ]
     })
     expect(initState).to.equal(store.state)
-    store.actions.test(2)
+    store.dispatch(TEST, 2)
     expect(mutations.length).to.equal(1)
     expect(mutations[0].type).to.equal(TEST)
     expect(mutations[0].payload[0]).to.equal(2)
@@ -216,9 +213,6 @@ describe('Vuex', () => {
     const store = new Vuex.Store({
       state: {
         a: 1
-      },
-      actions: {
-        test: TEST
       },
       mutations: {
         [TEST] (state, n) {
@@ -243,7 +237,7 @@ describe('Vuex', () => {
     })
     expect(initState).not.to.equal(store.state)
     expect(initState.a).to.equal(1)
-    store.actions.test(2)
+    store.dispatch(TEST, 2)
     expect(mutations.length).to.equal(1)
     expect(mutations[0].mutation.type).to.equal(TEST)
     expect(mutations[0].mutation.payload[0]).to.equal(2)
@@ -257,15 +251,10 @@ describe('Vuex', () => {
       state: {
         a: 1
       },
-      actions: {
-        test: ({ dispatch, state }) => {
-          state.a++
-        }
-      },
       strict: true
     })
     expect(() => {
-      store.actions.test(2)
+      store.state.a++
     }).to.throw(/Do not mutate vuex store state outside mutation handlers/)
   })
 })
