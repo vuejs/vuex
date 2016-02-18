@@ -246,6 +246,30 @@ describe('Vuex', () => {
     expect(mutations[0].nextState.a).to.equal(3)
   })
 
+  it('watch', function (done) {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST]: state => state.a++
+      }
+    })
+    let watchedValueOne, watchedValueTwo
+    store.watch(({ a }) => a, val => {
+      watchedValueOne = val
+    })
+    store.watch('a', val => {
+      watchedValueTwo = val
+    })
+    store.dispatch(TEST)
+    Vue.nextTick(() => {
+      expect(watchedValueOne).to.equal(2)
+      expect(watchedValueTwo).to.equal(2)
+      done()
+    })
+  })
+
   it('strict mode: warn mutations outside of handlers', function () {
     const store = new Vuex.Store({
       state: {

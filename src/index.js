@@ -99,6 +99,24 @@ export class Store {
   }
 
   /**
+   * Watch state changes on the store.
+   * Same API as Vue's $watch, except when watching a function,
+   * the function gets the state as the first argument.
+   *
+   * @param {String|Function} expOrFn
+   * @param {Function} cb
+   * @param {Object} [options]
+   */
+
+  watch (expOrFn, cb, options) {
+    return this._vm.$watch(() => {
+      return typeof expOrFn === 'function'
+        ? expOrFn(this.state)
+        : this._vm.$get(expOrFn)
+    }, cb, options)
+  }
+
+  /**
    * Hot update actions and mutations.
    *
    * @param {Object} options
