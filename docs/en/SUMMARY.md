@@ -1,7 +1,8 @@
 # Table of Contents
 
 - [What is Vuex?](intro.md)
-- [Core Concepts](concepts.md)
+- [Getting Started](getting-started.md)
+- Core Concepts
   - [State](state.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)

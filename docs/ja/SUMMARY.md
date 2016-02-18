@@ -1,5 +1,7 @@
 # Table of Contents
 
+> Note: The Japanese docs are currently for 0.2.x only. For the latest version please see the English docs instead.
+
 - [Vuex は何ですか？](intro.md)
 - [中核概念](concepts.md)
   - [ステート](state.md)

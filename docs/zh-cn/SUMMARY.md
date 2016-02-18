@@ -1,5 +1,7 @@
 # Table of Contents
 
+> 注意：中文版文档目前只更新到 0.2.x 版本，最新版本的文档请看英文版。
+
 - [什么是 Vuex?](intro.md)
 - [核心概念](concepts.md)
   - [State](state.md)
