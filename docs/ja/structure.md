@@ -104,30 +104,11 @@ export default new Vuex.Store({
 
 実際の例として、[Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart) を確認してください。
 
-### 共有された算出プロパティ Getter の抽出
+### 共有された算出プロパティのゲッター抽出
 
-大規模なプロジェクトでは、複数のコンポーネントが Vuex のステートに基づいて同じ算出プロパティ (computed property) を必要とする可能性があります。算出プロパティは単に関数であるため、それらが任意のコンポーネントで共有することができるように、ファイルにそれらを分割することができます:
+大規模なプロジェクトでは、複数のコンポーネントが Vuex のステートに基づいて同じ算出プロパティ (computed property) を必要とする可能性があります。算出プロパティは単に関数であるため、それらが store 経由で任意のコンポーネントで共有することができるように、ファイルにそれらを分割することができます:
 
-``` js
-// getters.js
-import store from './store'
+実際例として、[ショッピングカートの例](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart) を確認してください。
+ホットリロード API による実際の例として、[ホットなカウンターの例](https://github.com/vuejs/vuex/tree/master/examples/counter-hot) を確認してください。
 
-export function filteredTodos () {
-  return store.state.messages.filter(message => {
-    return message.threadID === store.state.currentThreadID
-  })
-}
-```
-
-``` js
-// コンポーネントで...
-import { filteredTodos } from './getters'
-
-export default {
-  computed: {
-    filteredTodos
-  }
-}
-```
-
-これはとても [NuclearJS での Getter](https://optimizely.github.io/nuclear-js/docs/04-getters.html) と似ています。
+より詳細情報として、[ゲッターのドキュメント](getters.md)を確認してください。

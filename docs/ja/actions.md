@@ -49,7 +49,7 @@ store.dispatch('INCREMENT', 1)
 現在のステートに依存しているロジック、または非同期な操作を必要とするアクションについては、それらを関数として定義します。アクション関数は常に第1引数として呼び出す store を取得します:
 
 ``` js
-const vuex = new Vuex({
+const vuex = new Vuex.Store({
   state: {
     count: 1
   },

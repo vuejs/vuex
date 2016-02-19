@@ -5,6 +5,7 @@
   - [ステート](state.md)
   - [ミューテーション](mutations.md)
   - [アクション](actions.md)
+  - [ゲッター](getters.md)
 - [データフロー](data-flow.md)
 - [アプリケーションの構造](structure.md)
 - [ミドルウェア](middlewares.md)
