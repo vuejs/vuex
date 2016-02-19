@@ -43,6 +43,19 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](actions.md)
 
+- **getters**
+ 
+   - 型: `Object | Array<Object>`
+ 
+     各エントリキーがゲッター名と第1引数としてステートを受信する関数の値であるオブジェクト
+ 
+     Vuex はそれらエントリを処理し、実際の呼び出し可能なゲッター関数と store の `getters` プロパティ上のそれらを公開する
+ 
+     オブジェクトの配列を渡す場合は、これらオブエジェクトは自動的に最後のオブジェクトにいっしょに自動的にマージされる
+ 
+     [詳細](getters.md)
+ 
+
 - **middlewares**
 
   - 型: `Array<Object>`
