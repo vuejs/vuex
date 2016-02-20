@@ -8,7 +8,20 @@ The single state tree does not conflict with modularity - in later chapters we w
 
 ### Getting Vuex State into Vue Components
 
-So how do we display state inside the store in our Vue components? Here's how:
+So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](http://vuejs.org/guide/computed.html):
+
+``` js
+// in a Vue component definition
+computed: {
+  count: function () {
+    return store.state.count
+  }
+}
+```
+
+Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
+
+However, this pattern causes the component to rely on the global store singleton. This makes it harder to test the component, and also makes it difficult to run multiple instances of the app using the same set of components. Ideally, we want to "inject" the store into child components from the root component. Here's how to do it:
 
 1. Install Vuex and connect your root component to the store:
 
@@ -52,7 +65,7 @@ So how do we display state inside the store in our Vue components? Here's how:
   }
   ```
 
-  Note the special `vuex` option block. This is where we specify what state the component will be using from the store. For each property name, we specify a function which receives the entire state tree as the only argument, and then selects and returns a part of the state, or even computes derived state. The returned result will be set on the component using the property name.
+  Note the special `vuex` option block. This is where we specify what state the component will be using from the store. For each property name, we specify a getter function which receives the entire state tree as the only argument, and then selects and returns a part of the state, or a computed value derived from the state. The returned result will be set on the component using the property name, just like a computed property.
 
   In a lot of cases, the "getter" function can be very succinct using ES2015 arrow functions:
 

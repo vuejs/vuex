@@ -1,6 +1,6 @@
 # Mutations
 
-Vuex mutations are essentially events: each mutation has a **name** and a **handler**. The handler function always gets the entire state tree as the first argument:
+Vuex mutations are essentially events: each mutation has a **name** and a **handler**. The handler function will receive the state as the first argument:
 
 ``` js
 import Vuex from 'vuex'
@@ -18,7 +18,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Using all caps for mutation names is just a convention to make it easier to differentiate them from actions.
+Using all caps for mutation names is just a convention to make it easier to differentiate them from plain functions.
 
 You cannot directly call a mutation handler. The options here is more like event registration: "When an `INCREMENT` event is dispatched, call this handler." To invoke a mutation handler, you need to dispatch a mutation event:
 
@@ -89,8 +89,22 @@ const store = new Vuex.Store({
 
 Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
 
+### Mutations Must Be Synchronous
+
+One important rule to remember is that **mutation handler functions must be synchronous**. Why? Consider the following example:
+
+``` js
+mutations: {
+  SOME_MUTATION (state) {
+    api.callAsyncMethod(() => {
+      state.count++
+    })
+  }
+}
+```
+
+Now imagine we are debugging the app and looking at our mutation logs. For every mutation logged, we want to be able to compare snapshots of the state *before* and *after* the mutation. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is dispatched, and we do not know when the callback will actually be called. Any state mutation performed in the callback is essentially un-trackable!
+
 ### On to Actions
 
-So far, we've triggering mutations by manually calling `store.dispatch`. This is a viable approach, but in practice, we will rarely do this in our component code. Most of the time we will be calling [actions](actions.md), which can encapsulate more complex logic such as async data fetching.
-
-Also, one important rule to remember: all mutation handlers must be **synchronous**. Any async operations belong in actions.
+Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, we perform all state mutations in a synchronous manner. We will perform all asynchronous operations inside [Actions](actions.md).
