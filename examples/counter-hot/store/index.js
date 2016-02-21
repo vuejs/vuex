@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from '../../../src'
-import actions from './actions'
 import mutations from './mutations'
-import getters from './getters'
 
 Vue.use(Vuex)
 
@@ -17,7 +15,12 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  module.hot.accept(['./mutations'], () => {
+  /**
+   * Mutations need to be handled by the store during hot reloading,
+   * to remove any unused mutations. Any actions and getters files can be
+   * handled by the HMR by browserify or webpack by including the files.
+   */
+  module.hot.accept(['./mutations', './actions', './getters'], () => {
     const mutations = require('./mutations').default
     store.hotUpdate({
       mutations
