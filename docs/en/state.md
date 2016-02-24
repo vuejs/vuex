@@ -46,6 +46,8 @@ However, this pattern causes the component to rely on the global store singleton
   })
   ```
 
+  By providing the `store` option to the root instance, the store will be injected into all child components of the root and will be available on them as `this.$store`. However it's quite rare that we will need to actually reference it.
+
 2. Inside child components, retrieve state using the `vuex.state` option:
 
   ``` js

@@ -1,136 +1,117 @@
 # Actions
 
-Actions are functions that dispatch mutations. Actions can be asynchronous and a single action can dispatch multiple mutations.
-
-An action expresses the intention for something to happen, and abstracts the details away from the component calling it. When a component wants to do something, it just calls an action - there's no need to worry about a callback or a return value, because actions result in state changes, and state changes will trigger the component's DOM to update - the component is completely decoupled from how that action is actually performed.
-
-Therefore, we usually perform API calls to data endpoints inside actions, and hide the asynchronous details from both the Components calling the actions, and the mutations triggered by the actions.
-
 > Vuex actions are in fact "action creators" in vanilla flux definitions, but I find that term more confusing than useful.
 
-### Simple Actions
-
-It is common that an action simply triggers a single mutation. Vuex provides a shorthand for defining such actions:
+Actions are just functions that dispatch mutations. By convention, Vuex actions always expect a store instance as its first argument, followed by optional additional arguments:
 
 ``` js
-const store = new Vuex.Store({
-  state: {
-    count: 1
-  },
-  mutations: {
-    INCREMENT (state, x) {
-      state.count += x
+// the simplest action
+function increment (store) {
+  store.dispatch('INCREMENT')
+}
+
+// a action with additional arguments
+// with ES2015 argument destructuring
+function incrementBy ({ dispatch }, amount) {
+  dispatch('INCREMENT', amount)
+}
+```
+
+This may look dumb at first sight: why don't we just dispatch mutations directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+
+``` js
+function incrementAsync ({ dispatch }) {
+  setTimeout(() => {
+    dispatch('INCREMENT')
+  }, 1000)
+}
+```
+
+A more practical example would be an action to checkout a shopping cart, which involves **calling an async API** and **dispatching multiple mutations**:
+
+``` js
+function checkout ({ dispatch, state }, products) {
+  // save the current in cart items
+  const savedCartItems = [...state.cart.added]
+  // send out checkout request, and optimistically
+  // clear the cart
+  dispatch(types.CHECKOUT_REQUEST)
+  // the shop API accepts a success callback and a failure callback
+  shop.buyProducts(
+    products,
+    // handle success
+    () => dispatch(types.CHECKOUT_SUCCESS),
+    // handle failure
+    () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
+  )
+}
+```
+
+Note that instead of expecting returns values or passing callbacks to actions, the result of calling the async API is handled by dispatching mutations as well. The rule of thumb is that **the only side effects produced by calling actions should be dispatched mutations**.
+
+### Calling Actions In Components
+
+You may have noticed that action functions are not directly callable without reference to a store instance. Technically, we can invoke an action by calling `action(this.$store)` inside a method, but it's better if we can directly expose "bound" versions of actions as the component's methods so that we can easily refer to them inside templates. We can do that using the `vuex.actions` option:
+
+``` js
+// inside a component
+import { incrementBy } from './actions'
+
+const vm = new Vue({
+  vuex: {
+    state: { ... }, // state getters
+    actions: {
+      incrementBy // ES6 object literal shorthand, bind using the same name
     }
-  },
-  actions: {
-    // shorthand
-    // just provide the mutation name.
-    increment: 'INCREMENT'
   }
 })
 ```
 
-Now when we call the action:
+What the above code does is binding the raw `incrementBy` action to the component's store instance, and expose it on the component as an instance method, `vm.incrementBy`. Any arguments passed to `vm.incrementBy` will be passed to the raw action function after the first argument which is the store, so calling:
 
 ``` js
-store.actions.increment(1)
+vm.incrementBy(1)
 ```
 
-It simply calls the following for us:
+is equivalent to:
 
 ``` js
-store.dispatch('INCREMENT', 1)
+incrementBy(vm.$store, 1)
 ```
 
-Note any arguments passed to the action is also passed along to the mutation handler.
+But the benefit is that we can bind to it more easily inside the component's template:
 
-### Normal Actions
+``` html
+<button v-on:click="incrementBy(1)">increment by one</button>
+```
 
-For actions that involve logic depending on current state, or that need async operations, we define them as functions. Action functions always get the store calling it as the first argument:
+You can obviously use a different method name when binding actions:
 
 ``` js
-const vuex = new Vuex.Store({
-  state: {
-    count: 1
-  },
-  mutations: {
-    INCREMENT (state, x) {
-      state += x
-    }
-  },
-  actions: {
-    incrementIfOdd: (store, x) => {
-      if ((store.state.count + 1) % 2 === 0) {
-        store.dispatch('INCREMENT', x)
-      }
+// inside a component
+import { incrementBy } from './actions'
+
+const vm = new Vue({
+  vuex: {
+    state: { ... },
+    actions: {
+      plus: incrementBy // bind using a different name
     }
   }
 })
 ```
 
-It is common to use ES6 argument destructuring to make the function body less verbose (here the `dispatch` function is pre-bound to the store instance so we don't have to call it as a method):
+Now the action will be bound as `vm.plus` instead of `vm.incrementBy`.
+
+Finally, if you simply want to bind all the actions:
 
 ``` js
-// ...
-actions: {
-  incrementIfOdd: ({ dispatch, state }, x) => {
-    if ((state.count + 1) % 2 === 0) {
-      dispatch('INCREMENT', x)
-    }
+import * as actions from './actions'
+
+const vm = new Vue({
+  vuex: {
+    state: { ... },
+    actions // bind all actions
   }
-}
+})
 ```
-
-The string shorthand is essentially syntax sugar for the following:
-
-``` js
-actions: {
-  increment: 'INCREMENT'
-}
-// ... equivalent to:
-actions: {
-  increment: ({ dispatch }, ...payload) => {
-    dispatch('INCREMENT', ...payload)
-  }
-}
-```
-
-### Async Actions
-
-We can use the same syntax for defining async actions:
-
-``` js
-// ...
-actions: {
-  incrementAsync: ({ dispatch }, x) => {
-    setTimeout(() => {
-      dispatch('INCREMENT', x)
-    }, 1000)
-  }
-}
-```
-
-A more practical example is when checking out a shopping cart - we may need to trigger multiple mutations: one that signifies the checkout has started, one for success, and one for failure:
-
-``` js
-// ...
-actions: {
-  checkout: ({ dispatch, state }, products) => {
-    // save the current in cart items
-    const savedCartItems = [...state.cart.added]
-    // send out checkout request, and optimistically
-    // clear the cart
-    dispatch(types.CHECKOUT_REQUEST)
-    // the shop API accepts a success callback and a failure callback
-    shop.buyProducts(
-      products,
-      // handle success
-      () => dispatch(types.CHECKOUT_SUCCESS),
-      // handle failure
-      () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
-    )
-  }
-}
-```
-
-Again, all the component needs to do to perform the entire checkout is just calling `store.actions.checkout(products)`.
