@@ -6,7 +6,6 @@
   - [State](state.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
-  - [Getters](getters.md)
 - [Data Flow](data-flow.md)
 - [Application Structure](structure.md)
 - [Middlewares](middlewares.md)
