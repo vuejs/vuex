@@ -1,5 +1,7 @@
 # Table of Contents
 
+> Make sure you read the sections in order.
+
 - [What is Vuex?](intro.md)
 - [Getting Started](getting-started.md)
 - Core Concepts

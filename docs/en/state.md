@@ -21,7 +21,7 @@ computed: {
 
 Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
 
-However, this pattern causes the component to rely on the global store singleton. This makes it harder to test the component, and also makes it difficult to run multiple instances of the app using the same set of components. Ideally, we want to "inject" the store into child components from the root component. Here's how to do it:
+However, this pattern causes the component to rely on the global store singleton. This makes it harder to test the component, and also makes it difficult to run multiple instances of the app using the same set of components. In large applications, we may want to "inject" the store into child components from the root component. Here's how to do it:
 
 1. Install Vuex and connect your root component to the store:
 
@@ -82,7 +82,7 @@ However, this pattern causes the component to rely on the global store singleton
 
 ### Getters Can Return Derived State
 
-Vuex state getters are computed properties under the hood, this means you can leverage them to reactively (and efficiently) compute derived state. For example, say in the state we have an array of `messages` containing all message, and a `currentThreadID` representing a thread that is currently being viewed by the user. What we want to display to the user is a filtered list of messages that belong to the current thread:
+Vuex state getters are computed properties under the hood, this means you can leverage them to reactively (and efficiently) compute derived state. For example, say in the state we have an array of `messages` containing all messages, and a `currentThreadID` representing a thread that is currently being viewed by the user. What we want to display to the user is a filtered list of messages that belong to the current thread:
 
 ``` js
 vuex: {
@@ -96,13 +96,13 @@ vuex: {
 }
 ```
 
-Because Vue.js computed properties are automatically cached (and only validated when a reactive dependency changes), you don't need to worry about this function being called on every mutation.
+Because Vue.js computed properties are automatically cached and only re-evaluated when a reactive dependency changes, you don't need to worry about this function being called on every mutation.
 
-> Flux reference: Vuex getters can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, this leverages Vue's computed properties memoization under the hood, thus is more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect) and [NuclearJS getters](https://optimizely.github.io/nuclear-js/docs/04-getters.html).
+> Flux reference: Vuex getters can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, because they leverage Vue's computed properties memoization under the hood, they are more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect).
 
 ### Sharing Getters Across Multiple Components
 
-As you can see, in most cases getters are just pure functions: they take the whole state in, and returns some value. The `filteredMessages` getter may be useful inside multiple components, and it's totally possible to just share the same function between them:
+As you can see, in most cases getters are just pure functions: they take the whole state in, and returns some value. The `filteredMessages` getter may be useful inside multiple components. In that case, it's a good idea to share the same function between them:
 
 ``` js
 // getters.js
@@ -132,4 +132,4 @@ It's important to remember that **components should never directly mutate Vuex s
 
 To help enforce this rule, when in [Strict Mode](strict.md), if a store's state is mutated outside of its mutation handlers, Vuex will throw an error.
 
-With this rule in place, our Vue components now hold a lot less responsibility: they are bound to Vuex store state via read-only getters, and the only way for them to affect the state is by somehow triggering **mutations** (which we will discuss later). They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components.
+With this rule in place, our Vue components now hold a lot less responsibility: they are bound to Vuex store state via read-only getters, and the only way for them to affect the state is by somehow triggering **mutations** (which we will discuss later). They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components. They are now centralized and handled inside Vuex related files, which makes large applications easier to understand and maintain.

@@ -2,7 +2,7 @@
 
 Let's build a simple counter app with Vuex to get a better understanding of the data flow inside Vuex apps. Note this is a trivial example solely for the purpose of explaining the concepts - in practice you don't need Vuex for such simple tasks.
 
-### Setup
+### The Store
 
 ``` js
 // store.js
@@ -10,19 +10,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-```
 
-### Define App State
-
-``` js
+// app initial state
 const state = {
   count: 0
 }
-```
 
-### Define Possible State Mutations
-
-``` js
+// define possible mutations
 const mutations = {
   INCREMENT (state) {
     state.count++
@@ -31,33 +25,28 @@ const mutations = {
     state.count--
   }
 }
-```
 
-### Define Callable Actions
-
-``` js
-const actions = {
-  increment: 'INCREMENT',
-  decrement: 'DECREMENT'
-}
-```
-
-### Create a Vuex Store
-
-``` js
+// create the store
 export default new Vuex.Store({
   state,
-  mutations,
-  actions
+  mutations
 })
 ```
 
-### Use It in a Vue Component
+### Actions
+
+``` js
+// actions.js
+export const increment = ({ dispatch }) => dispatch('INCREMENT')
+export const decrement = ({ dispatch }) => dispatch('DECREMENT')
+```
+
+### Use It with Vue
 
 **Template**
 
 ``` html
-<div>
+<div id="app">
   Clicked: {{ count }} times
   <button v-on:click="increment">+</button>
   <button v-on:click="decrement">-</button>
@@ -67,25 +56,33 @@ export default new Vuex.Store({
 **Script**
 
 ``` js
-import store from './store.js'
+// We are importing and injecting the store here because
+// this is the root. In larger apps you only do this once.
+import store from './store'
+import { increment, decrement } from './actions'
 
-export default {
-  computed: {
-    // bind to state using computed properties
-    count () {
-      return store.state.count
+const app = new Vue({
+  el: '#app',
+  store,
+  vuex: {
+    state: {
+      count: state => state.count
+    },
+    actions: {
+      increment,
+      decrement
     }
-  },
-  methods: {
-    increment: store.actions.increment,
-    decrement: store.actions.decrement
   }
-}
+})
 ```
 
 Here you will notice the component itself is extremely simple: it simply displays some state from the Vuex store (not even owning its own data), and calls some store actions on user input events.
 
 You will also notice the data flow is unidirectional, as it should be in Flux:
+
+1. User input in the component triggers action calls;
+2. Actions dispatch mutations that change the state;
+3. Changes in state flow from the store back into the component via getters.
 
 <p align="center">
   <img width="700px" src="vuex.png">
