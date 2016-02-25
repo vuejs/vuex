@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { getAllProducts, addToCart } from '../store/actions'
+import { getAllProducts, addToCart } from '../vuex/actions'
 
 export default {
   vuex: {

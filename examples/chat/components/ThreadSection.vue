@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import store from '../store'
 import Thread from './Thread.vue'
 
 export default {

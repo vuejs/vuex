@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from './index'
+import { STORAGE_KEY } from './store'
 import { createLogger } from '../../../src'
 
 const localStorageMiddleware = {

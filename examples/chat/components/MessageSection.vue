@@ -14,7 +14,7 @@
 
 <script>
 import Message from './Message.vue'
-import { sendMessage } from '../store/actions'
+import { sendMessage } from '../vuex/actions'
 
 export default {
   components: { Message },

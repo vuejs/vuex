@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { switchThread } from '../store/actions'
+import { switchThread } from '../vuex/actions'
 
 export default {
   props: ['thread'],

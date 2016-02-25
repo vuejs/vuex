@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { checkout } from '../store/actions'
-import { cartProducts } from '../store/getters'
+import { checkout } from '../vuex/actions'
+import { cartProducts } from '../vuex/getters'
 
 export default {
   vuex: {
