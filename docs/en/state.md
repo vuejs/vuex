@@ -6,7 +6,7 @@ Vuex uses a **single state tree** - that is, this single object contains all you
 
 The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state managing logic into sub modules.
 
-### Setting State in a Vuex Store
+### Setting Initial State in a Vuex Store
 
 This is a very basic example where the `state` object is initialized with a single `message` property containing the `Hello, Store` string:
 
