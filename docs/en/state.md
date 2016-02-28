@@ -6,6 +6,20 @@ Vuex uses a **single state tree** - that is, this single object contains all you
 
 The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state managing logic into sub modules.
 
+### Setting Initial State in a Vuex Store
+
+This is a very basic example where the `state` object is initialized with a single `message` property containing the `Hello, Store` string:
+
+``` js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({
+  state: {
+    message: 'Hello, Store'
+  }
+})
+```
+
 ### Getting Vuex State into Vue Components
 
 Similar to `data` objects passed to Vue instances, the `state` object, once passed into a Vuex store, becomes reactive powered by [Vue's reactivity system](http://vuejs.org/guide/reactivity.html). This means binding Vuex state to Vue components is as simple as returning it from within a computed property:
