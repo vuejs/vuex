@@ -21,7 +21,10 @@ Why do we differentiate between *mutations* and *actions*, rather then just simp
 Creating a Vuex store is pretty straightforward - just put the aforementioned ingredients together:
 
 ``` js
+import Vue from 'vue'
 import Vuex from 'vuex'
+
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: { ... },
