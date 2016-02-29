@@ -22,7 +22,7 @@ Now `store.getters.total` function can be used in a Vue component similarly to s
 ``` js
 export default {
   computed: {
-    store.getters.total
+    total: store.getters.total
   }
 }
 ```
