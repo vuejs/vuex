@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
   "files": [

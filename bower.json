@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "main": "lib/index.js",
+  "main": "dist/vuex.js",
   "description": "state management for Vue.js",
   "authors": "Evan You",
   "license": "MIT",
