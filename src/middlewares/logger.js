@@ -26,14 +26,14 @@ export default function createLogger ({
         console.log(message)
       }
 
-      console.log(`%c prev state`, `color: #9E9E9E; font-weight: bold`, prevState)
-      console.log(`%c mutation`, `color: #03A9F4; font-weight: bold`, formattedMutation)
-      console.log(`%c next state`, `color: #4CAF50; font-weight: bold`, nextState)
+      console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', prevState)
+      console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
+      console.log('%c next state', 'color: #4CAF50; font-weight: bold', nextState)
 
       try {
         console.groupEnd()
       } catch (e) {
-        console.log(`—— log end ——`)
+        console.log('—— log end ——')
       }
     }
   }
@@ -44,5 +44,5 @@ function repeat (str, times) {
 }
 
 function pad (num, maxLength) {
-  return repeat(`0`, maxLength - num.toString().length) + num
+  return repeat('0', maxLength - num.toString().length) + num
 }

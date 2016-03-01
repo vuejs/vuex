@@ -94,7 +94,7 @@ export class Store {
         }
       })
     } else {
-      console.warn(`[vuex] Unknown mutation: ${ type }`)
+      console.warn(`[vuex] Unknown mutation: ${type}`)
     }
   }
 
@@ -185,6 +185,7 @@ export class Store {
     const unwatch = this._vm.$watch('__vuex__', a => a)
     const Watcher = this._vm._watchers[0].constructor
     unwatch()
+    /* eslint-disable no-new */
     new Watcher(this._vm, '$data', () => {
       if (!this._dispatching) {
         throw new Error(
@@ -192,6 +193,7 @@ export class Store {
         )
       }
     }, { deep: true, sync: true })
+    /* eslint-enable no-new */
   }
 
   /**
