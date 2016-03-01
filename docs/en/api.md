@@ -20,41 +20,11 @@ const store = new Vuex.Store({ ...options })
 
 - **mutations**
 
-  - type: `Object | Array<Object>`
+  - type: `Object`
 
     An object where each entry's key is the mutation name and the value is a mutation handler function. The handler function always receives `state` as the first argument, and receives all arguments passed to the dispatch call following that.
 
-    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
-
     [Details](mutations.md)
-
-- **actions**
-
-  - type: `Object | Array<Object>`
-
-    An object where each entry's key is the action name and the value is either
-
-    1. A mutation name string; or
-    2. A function which will receive the store as the first argument, followed by additional payload arguments.
-
-    Vuex will process these entries and create the actual callable action functions and expose them on the `actions` property of the store.
-
-    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
-
-    [Details](actions.md)
-
-
-- **getters**
-
-  - type: `Object | Array<Object>`
-
-    An object where each entry's key is the getter name and the value of a function which will receive the state as the first argument.
-
-    Vuex will process these entries and create the actual callable getter functions and expose them on the `getters` property of the store.
-
-    If passing in an Array of Objects, these objects will be automatically merged together into one final object.
-
-    [Details](getters.md)
 
 - **middlewares**
 
@@ -89,17 +59,17 @@ const store = new Vuex.Store({ ...options })
 
     The root state. Read only.
 
-- **actions**
-
-  - type: `Object`
-
-    The callable action functions.
-
 ### Vuex.Store Instance Methods
 
 - **dispatch(mutationName: String, ...args)**
 
   Directly dispatch a mutation. This is useful in certain situations are in general you should prefer using actions in application code.
+
+- **watch(pathOrGetter: String|Function, cb: Function, [options: Object])**
+
+  Watch a path or a getter function's value, and call the callback when the value changes. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+
+  To stop watching, call the returned handle function.
 
 - **hotUpdate(newOptions: Object)**
 
