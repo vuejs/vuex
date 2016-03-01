@@ -11,18 +11,23 @@ Assuming `obj` is a computed property that returns an Object from the store, the
 The "Vuex way" to deal with it is binding the `<input>`'s value and call an action on the `input` or `change` event:
 
 ``` html
-<input :value="obj.message" @input="updateMessage">
+<input :value="message" @input="updateMessage">
 ```
 ``` js
 // ...
-methods: {
-  updateMessage: function (e) {
-    store.actions.updateMessage(e.target.value)
+vuex: {
+  state: {
+    message: state => state.obj.message
+  },
+  actions: {
+    updateMessage: (store, e) => {
+      store.dispatch('UPDATE_MESSAGE', e.target.value)
+    }
   }
 }
 ```
 
-Assuming the `updateMessage` action simply dispatches `'UPDATE_MESSAGE'`, here's the mutation handler:
+And here's the mutation handler:
 
 ``` js
 // ...
