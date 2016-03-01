@@ -6,10 +6,8 @@
   <img width="700px" src="https://raw.githubusercontent.com/vuejs/vuex/master/docs/en/vuex.png">
 </p>
 
-## NOTE: Vuex is still in development - API may change anytime.
-
 - [Documentation](http://vuex.vuejs.org/)
-- [Great introduction and explanation by @skyronic](http://skyronic.com/2016/01/03/vuex-basics-tutorial/)
+- [Great introduction and explanation by @skyronic](http://skyronic.com/2016/01/03/vuex-basics-tutorial/) (using outdated 0.3.0 API, but still worth a read!)
 
 ## Examples
 
