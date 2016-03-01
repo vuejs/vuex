@@ -1,0 +1,47 @@
+{
+  "name": "vuex",
+  "description": "state management for Vue.js",
+  "main": [
+    "lib/index.js"
+    ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.1.1",
+    "babel-plugin-transform-runtime": "^6.1.18",
+    "babel-polyfill": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-stage-2": "^6.1.18",
+    "babel-runtime": "^5.8.0",
+    "chai": "^3.4.1",
+    "css-loader": "^0.21.0",
+    "eslint": "^1.10.2",
+    "mocha": "^2.3.4",
+    "style-loader": "^0.13.0",
+    "todomvc-app-css": "^2.0.3",
+    "vue": "^1.0.8",
+    "vue-hot-reload-api": "^1.2.1",
+    "vue-html-loader": "^1.0.0",
+    "vue-loader": "^7.2.0",
+    "webpack": "^1.12.8",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/vuex.git"
+  },
+  "authors": [
+    "Evan You"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "example",
+    "**/*.txt",
+    "README",
+    "package.json",
+    ".gitignore",
+    "bower.json"
+  ]
+}
