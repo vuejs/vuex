@@ -1,29 +1,44 @@
 # Hot Reloading
 
-Vuex supports hot-reloading actions and mutations during development, using Webpack's [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+Vuex supports hot-reloading mutations, modules, actions and getters during development, using Webpack's [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
 
-It's as simple as calling `store.hotUpdate()` with the new actions and mutations:
+For mutations and modules, you need to use the `store.hotUpdate()` API method:
 
 ``` js
-// ...
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import mutations from './mutations'
+import moduleA from './modules/a'
+
+Vue.use(Vuex)
+
+const state = { ... }
+
 const store = new Vuex.Store({
   state,
-  actions,
-  mutations
+  mutations,
+  modules: {
+    a: moduleA
+  }
 })
 
 if (module.hot) {
   // accept actions and mutations as hot modules
-  module.hot.accept(['./actions', './mutations'], () => {
+  module.hot.accept(['./mutations', './modules/a'], () => {
     // require the updated modules
     // have to add .default here due to babel 6 module output
-    const newActions = require('./actions').default
     const newMutations = require('./mutations').default
+    const newModuleA = require('./modules/a').default
     // swap in the new actions and mutations
     store.hotUpdate({
-      actions: newActions,
-      mutations: newMutations
+      mutations: newMutations,
+      modules: {
+        a: newModuleA
+      }
     })
   })
 }
 ```
+
+You don't need to do anything specific for actions and getters. Webpack's hot module replacement system will "bubble" changes up the dependency chain - and changes in actions and getters will bubble up to the Vue components that imported them. Because Vue components loaded via `vue-loader` are automatically hot-reloadable, these affected components will hot-reload themselves and use the updated actions and getters.

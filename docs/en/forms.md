@@ -20,8 +20,8 @@ vuex: {
     message: state => state.obj.message
   },
   actions: {
-    updateMessage: (store, e) => {
-      store.dispatch('UPDATE_MESSAGE', e.target.value)
+    updateMessage: ({ dispatch }, e) => {
+      dispatch('UPDATE_MESSAGE', e.target.value)
     }
   }
 }

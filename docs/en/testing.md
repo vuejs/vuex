@@ -1,8 +1,22 @@
 # Testing
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+The main parts we want to unit test in Vuex are mutations and actions.
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+### Testing Mutations
+
+Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you can also export the mutations as a named export:
+
+``` js
+const state = { ... }
+
+// export mutations as a named export
+export const mutations = { ... }
+
+export default new Vuex.Store({
+  state,
+  mutations
+})
+```
 
 Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
 
@@ -14,7 +28,10 @@ export const INCREMENT = state => state.count++
 ``` js
 // mutations.spec.js
 import { expect } from 'chai'
-import { INCREMENT } from './mutations'
+import { mutations } from './store'
+
+// destructure assign mutations
+const { INCREMENT } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
@@ -27,6 +44,10 @@ describe('mutations', () => {
   })
 })
 ```
+
+### Testing Actions
+
+Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
 
 Example testing an async action:
 
@@ -97,7 +118,11 @@ describe('actions', () => {
 })
 ```
 
-### Running in Node
+### Running Tests
+
+If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+
+#### Running in Node
 
 Create the following webpack config:
 
@@ -130,9 +155,13 @@ webpack
 mocha test-bundle.js
 ```
 
-### Running in Browser
+#### Running in Browser
 
 1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`. 
+2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
 3. Start `webpack-dev-server` using the config
 4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+
+#### Running in Browser with Karma + karma-webpack
+
+Consult the setup in [vue-loader documentation](http://vuejs.github.io/vue-loader/workflow/testing.html).
