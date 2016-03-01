@@ -1,5 +1,34 @@
 # Getters
 
+Each getter is a function used to transform and compose the store data into a consumable format, either for the UI or another purpose. It returns a value computed from the store state:
+
+``` js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({
+  state: {
+    values: [0, 9, 18]
+  },
+  getters: {
+    total (state) {
+      return state.values.reduce((a, b) => a + b)
+    }
+  }
+})
+```
+
+Now `store.getters.total` function can be used in a Vue component similarly to state properties:
+
+``` js
+export default {
+  computed: {
+    total: store.getters.total
+  }
+}
+```
+
+### Getters in a Separated File
+
 It's possible that multiple components will need the same computed property based on Vuex state. Since computed getters are just functions, you can split them out into a separate file so that they can be shared in any component via the store:
 
 ``` js
