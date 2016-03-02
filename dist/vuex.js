@@ -1,13 +1,13 @@
 /*!
- * Vuex v0.4.1
+ * Vuex v0.4.2
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.Vuex = global.Vuex || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.Vuex = factory());
+}(this, function () { 'use strict';
 
   var babelHelpers = {};
   babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -365,6 +365,20 @@
       }
 
       /**
+       * Replace entire state tree.
+       */
+
+    }, {
+      key: 'replaceState',
+      value: function replaceState(newState) {
+        var state = this._vm._data;
+        var clone = deepClone(newState);
+        Object.keys(clone).forEach(function (key) {
+          state[key] = clone[key];
+        });
+      }
+
+      /**
        * Attach sub state tree of each module to the root tree.
        *
        * @param {Object} state
@@ -491,16 +505,12 @@
     override(Vue);
   }
 
-  // also export the default
   var index = {
     Store: Store,
     install: install,
     createLogger: createLogger
   };
 
-  exports.Store = Store;
-  exports.install = install;
-  exports.createLogger = createLogger;
-  exports['default'] = index;
+  return index;
 
 }));
