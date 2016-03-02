@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from '../../../src'
-import mutations from './mutations'
 import middlewares from './middlewares'
 
 Vue.use(Vuex)
