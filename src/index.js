@@ -130,6 +130,18 @@ export class Store {
   }
 
   /**
+   * Replace entire state tree.
+   */
+
+  replaceState (newState) {
+    const state = this._vm._data
+    const clone = deepClone(newState)
+    Object.keys(clone).forEach(key => {
+      state[key] = clone[key]
+    })
+  }
+
+  /**
    * Attach sub state tree of each module to the root tree.
    *
    * @param {Object} state
