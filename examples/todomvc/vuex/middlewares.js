@@ -1,5 +1,5 @@
 import { STORAGE_KEY } from './store'
-import { createLogger } from '../../../src'
+import Vuex from '../../../src'
 
 const localStorageMiddleware = {
   onMutation (mutation, { todos }) {
@@ -8,5 +8,5 @@ const localStorageMiddleware = {
 }
 
 export default process.env.NODE_ENV !== 'production'
-  ? [createLogger(), localStorageMiddleware]
+  ? [Vuex.createLogger(), localStorageMiddleware]
   : [localStorageMiddleware]

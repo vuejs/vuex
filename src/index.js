@@ -5,7 +5,7 @@ import override from './override'
 
 let Vue
 
-export class Store {
+class Store {
 
   /**
    * @param {Object} options
@@ -245,12 +245,6 @@ function install (_Vue) {
   override(Vue)
 }
 
-export {
-  install,
-  createLogger
-}
-
-// also export the default
 export default {
   Store,
   install,
