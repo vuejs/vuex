@@ -87,9 +87,9 @@ class Store {
       this._middlewares.forEach(m => {
         if (m.onMutation) {
           if (m.snapshot) {
-            m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot)
+            m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot, this)
           } else {
-            m.onMutation({ type, payload }, state)
+            m.onMutation({ type, payload }, state, this)
           }
         }
       })
@@ -130,18 +130,6 @@ class Store {
   }
 
   /**
-   * Replace entire state tree.
-   */
-
-  replaceState (newState) {
-    const state = this._vm._data
-    const clone = deepClone(newState)
-    Object.keys(clone).forEach(key => {
-      state[key] = clone[key]
-    })
-  }
-
-  /**
    * Attach sub state tree of each module to the root tree.
    *
    * @param {Object} state
@@ -151,7 +139,7 @@ class Store {
   _setupModuleState (state, modules) {
     const { setPath } = Vue.parsers.path
     Object.keys(modules).forEach(key => {
-      setPath(state, key, modules[key].state)
+      setPath(state, key, modules[key].state || {})
     })
   }
 
@@ -168,6 +156,7 @@ class Store {
     const allMutations = [this._rootMutations]
     Object.keys(modules).forEach(key => {
       const module = modules[key]
+      if (!module || !module.mutations) return
       // bind mutations to sub state tree
       const mutations = {}
       Object.keys(module.mutations).forEach(name => {
@@ -234,7 +223,7 @@ class Store {
     // call init hooks
     this._middlewares.forEach(m => {
       if (m.onInit) {
-        m.onInit(m.snapshot ? initialSnapshot : state)
+        m.onInit(m.snapshot ? initialSnapshot : state, this)
       }
     })
   }
