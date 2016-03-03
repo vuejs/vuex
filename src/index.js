@@ -32,9 +32,14 @@ class Store {
       dispatch.apply(this, args)
     }
     // use a Vue instance to store the state tree
+    // suppress warnings just in case the user has added
+    // some funky global mixins
+    const silent = Vue.config.silent
+    Vue.config.silent = true
     this._vm = new Vue({
       data: state
     })
+    Vue.config.silent = silent
     this._setupModuleState(state, modules)
     this._setupModuleMutations(modules)
     this._setupMiddlewares(middlewares, state)
