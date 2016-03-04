@@ -55,15 +55,17 @@ The middleware will be used by default. For production, use the build setup desc
 Vuex comes with a logger middleware for common debugging usage:
 
 ``` js
+import createLogger from 'vuex/logger'
+
 const store = new Vuex.Store({
-  middlewares: [Vuex.createLogger()]
+  middlewares: [createLogger()]
 })
 ```
 
 The `createLogger` function takes a few options:
 
 ``` js
-const logger = Vuex.createLogger({
+const logger = createLogger({
   collapsed: false, // auto-expand logged mutations
   transformer (state) {
     // transform the state before logging it.
