@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.4.2
+ * Vuex v0.5.0
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -92,70 +92,24 @@
     }
   }
 
+  var hook = typeof window !== 'undefined' && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
   var devtoolMiddleware = {
-    onInit: function onInit(state) {
-      // TODO
+    onInit: function onInit(state, store) {
+      if (!hook) return;
+      hook.emit('vuex:init', store);
+      hook.on('vuex:travel-to-state', function (targetState) {
+        var currentState = store._vm._data;
+        Object.keys(targetState).forEach(function (key) {
+          currentState[key] = targetState[key];
+        });
+      });
     },
     onMutation: function onMutation(mutation, state) {
-      // TODO
+      if (!hook) return;
+      hook.emit('vuex:mutation', mutation, state);
     }
   };
-
-  // Credits: borrowed code from fcomb/redux-logger
-
-  function createLogger() {
-    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-    var _ref$collapsed = _ref.collapsed;
-    var collapsed = _ref$collapsed === undefined ? true : _ref$collapsed;
-    var _ref$transformer = _ref.transformer;
-    var transformer = _ref$transformer === undefined ? function (state) {
-      return state;
-    } : _ref$transformer;
-    var _ref$mutationTransfor = _ref.mutationTransformer;
-    var mutationTransformer = _ref$mutationTransfor === undefined ? function (mut) {
-      return mut;
-    } : _ref$mutationTransfor;
-
-    return {
-      snapshot: true,
-      onMutation: function onMutation(mutation, nextState, prevState) {
-        if (typeof console === 'undefined') {
-          return;
-        }
-        var time = new Date();
-        var formattedTime = ' @ ' + pad(time.getHours(), 2) + ':' + pad(time.getMinutes(), 2) + ':' + pad(time.getSeconds(), 2) + '.' + pad(time.getMilliseconds(), 3);
-        var formattedMutation = mutationTransformer(mutation);
-        var message = 'mutation ' + mutation.type + formattedTime;
-        var startMessage = collapsed ? console.groupCollapsed : console.group;
-
-        // render
-        try {
-          startMessage.call(console, message);
-        } catch (e) {
-          console.log(message);
-        }
-
-        console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', prevState);
-        console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
-        console.log('%c next state', 'color: #4CAF50; font-weight: bold', nextState);
-
-        try {
-          console.groupEnd();
-        } catch (e) {
-          console.log('—— log end ——');
-        }
-      }
-    };
-  }
-
-  function repeat(str, times) {
-    return new Array(times + 1).join(str);
-  }
-
-  function pad(num, maxLength) {
-    return repeat('0', maxLength - num.toString().length) + num;
-  }
 
   // export install function
   function override (Vue) {
@@ -255,9 +209,14 @@
         dispatch.apply(_this, args);
       };
       // use a Vue instance to store the state tree
+      // suppress warnings just in case the user has added
+      // some funky global mixins
+      var silent = Vue.config.silent;
+      Vue.config.silent = true;
       this._vm = new Vue({
         data: state
       });
+      Vue.config.silent = silent;
       this._setupModuleState(state, modules);
       this._setupModuleMutations(modules);
       this._setupMiddlewares(middlewares, state);
@@ -285,6 +244,8 @@
        */
 
       value: function dispatch(type) {
+        var _this2 = this;
+
         for (var _len2 = arguments.length, payload = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
           payload[_key2 - 1] = arguments[_key2];
         }
@@ -313,9 +274,9 @@
           this._middlewares.forEach(function (m) {
             if (m.onMutation) {
               if (m.snapshot) {
-                m.onMutation({ type: type, payload: clonedPayload }, snapshot, prevSnapshot);
+                m.onMutation({ type: type, payload: clonedPayload }, snapshot, prevSnapshot, _this2);
               } else {
-                m.onMutation({ type: type, payload: payload }, state);
+                m.onMutation({ type: type, payload: payload }, state, _this2);
               }
             }
           });
@@ -337,10 +298,10 @@
     }, {
       key: 'watch',
       value: function watch(expOrFn, cb, options) {
-        var _this2 = this;
+        var _this3 = this;
 
         return this._vm.$watch(function () {
-          return typeof expOrFn === 'function' ? expOrFn(_this2.state) : _this2._vm.$get(expOrFn);
+          return typeof expOrFn === 'function' ? expOrFn(_this3.state) : _this3._vm.$get(expOrFn);
         }, cb, options);
       }
 
@@ -365,20 +326,6 @@
       }
 
       /**
-       * Replace entire state tree.
-       */
-
-    }, {
-      key: 'replaceState',
-      value: function replaceState(newState) {
-        var state = this._vm._data;
-        var clone = deepClone(newState);
-        Object.keys(clone).forEach(function (key) {
-          state[key] = clone[key];
-        });
-      }
-
-      /**
        * Attach sub state tree of each module to the root tree.
        *
        * @param {Object} state
@@ -391,7 +338,7 @@
         var setPath = Vue.parsers.path.setPath;
 
         Object.keys(modules).forEach(function (key) {
-          setPath(state, key, modules[key].state);
+          setPath(state, key, modules[key].state || {});
         });
       }
 
@@ -411,6 +358,7 @@
         var allMutations = [this._rootMutations];
         Object.keys(modules).forEach(function (key) {
           var module = modules[key];
+          if (!module || !module.mutations) return;
           // bind mutations to sub state tree
           var mutations = {};
           Object.keys(module.mutations).forEach(function (name) {
@@ -440,7 +388,7 @@
     }, {
       key: '_setupMutationCheck',
       value: function _setupMutationCheck() {
-        var _this3 = this;
+        var _this4 = this;
 
         // a hack to get the watcher constructor from older versions of Vue
         // mainly because the public $watch method does not allow sync
@@ -452,7 +400,7 @@
         unwatch();
         /* eslint-disable no-new */
         new Watcher(this._vm, '$data', function () {
-          if (!_this3._dispatching) {
+          if (!_this4._dispatching) {
             throw new Error('[vuex] Do not mutate vuex store state outside mutation handlers.');
           }
         }, { deep: true, sync: true });
@@ -473,6 +421,8 @@
     }, {
       key: '_setupMiddlewares',
       value: function _setupMiddlewares(middlewares, state) {
+        var _this5 = this;
+
         this._middlewares = [devtoolMiddleware].concat(middlewares);
         this._needSnapshots = middlewares.some(function (m) {
           return m.snapshot;
@@ -484,7 +434,7 @@
         // call init hooks
         this._middlewares.forEach(function (m) {
           if (m.onInit) {
-            m.onInit(m.snapshot ? initialSnapshot : state);
+            m.onInit(m.snapshot ? initialSnapshot : state, _this5);
           }
         });
       }
@@ -507,8 +457,7 @@
 
   var index = {
     Store: Store,
-    install: install,
-    createLogger: createLogger
+    install: install
   };
 
   return index;
