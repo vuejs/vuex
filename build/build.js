@@ -19,24 +19,16 @@ rollup.rollup({
   plugins: [babel()]
 })
 .then(function (bundle) {
-  return write('dist/vuex.js', bundle.generate({
+  var code = bundle.generate({
     format: 'umd',
     banner: banner,
     moduleName: 'Vuex'
-  }).code)
-})
-.then(function () {
-  // Standalone Production Build
-  return rollup.rollup({
-    entry: 'src/index.js',
-    plugins: [babel()]
+  }).code
+  return write('dist/vuex.js', code).then(function () {
+    return code
   })
 })
-.then(function (bundle) {
-  var code = bundle.generate({
-    format: 'umd',
-    moduleName: 'Vuex'
-  }).code
+.then(function (code) {
   var minified = banner + '\n' + uglify.minify(code, {
     fromString: true,
     output: {
@@ -44,6 +36,16 @@ rollup.rollup({
     }
   }).code
   return write('dist/vuex.min.js', minified)
+})
+.then(function () {
+  return rollup.rollup({
+    entry: 'src/middlewares/logger.js',
+    plugins: [babel()]
+  }).then(function (bundle) {
+    return write('logger.js', bundle.generate({
+      format: 'cjs'
+    }).code)
+  })
 })
 .catch(logError)
 

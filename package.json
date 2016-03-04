@@ -5,7 +5,8 @@
   "main": "dist/vuex.js",
   "files": [
     "dist",
-    "src"
+    "src",
+    "logger.js"
   ],
   "scripts": {
     "counter": "cd examples/counter && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",

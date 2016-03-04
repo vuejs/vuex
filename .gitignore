@@ -3,3 +3,4 @@ node_modules
 TODO.md
 lib
 docs/_book
+logger.js

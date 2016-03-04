@@ -1,6 +1,5 @@
 import { mergeObjects, deepClone } from './util'
 import devtoolMiddleware from './middlewares/devtool'
-import createLogger from './middlewares/logger'
 import override from './override'
 
 let Vue
@@ -241,6 +240,5 @@ function install (_Vue) {
 
 export default {
   Store,
-  install,
-  createLogger
+  install
 }
