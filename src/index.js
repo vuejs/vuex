@@ -238,7 +238,15 @@ function install (_Vue) {
   override(Vue)
 }
 
+function createLogger () {
+  console.warn(
+    '[vuex] Vuex.createLogger has been deprecated.' +
+    'Use `import createLogger from \'vuex/logger\' instead.'
+  )
+}
+
 export default {
   Store,
-  install
+  install,
+  createLogger
 }
