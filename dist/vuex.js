@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.5.0
+ * Vuex v0.5.1
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -100,9 +100,11 @@
       hook.emit('vuex:init', store);
       hook.on('vuex:travel-to-state', function (targetState) {
         var currentState = store._vm._data;
+        store._dispatching = true;
         Object.keys(targetState).forEach(function (key) {
           currentState[key] = targetState[key];
         });
+        store._dispatching = false;
       });
     },
     onMutation: function onMutation(mutation, state) {
@@ -455,9 +457,14 @@
     override(Vue);
   }
 
+  function createLogger() {
+    console.warn('[vuex] Vuex.createLogger has been deprecated.' + 'Use `import createLogger from \'vuex/logger\' instead.');
+  }
+
   var index = {
     Store: Store,
-    install: install
+    install: install,
+    createLogger: createLogger
   };
 
   return index;
