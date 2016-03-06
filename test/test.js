@@ -294,8 +294,7 @@ describe('Vuex', () => {
         }
       }
     })
-    const vm = new Vue({
-      store,
+    const Comp = Vue.extend({
       vuex: {
         getters: {
           a: state => state.a
@@ -315,6 +314,7 @@ describe('Vuex', () => {
         }
       }]
     })
+    const vm = new Comp({ store })
     expect(vm.a).to.equal(1)
     expect(vm.b).to.equal(2)
     vm.test(2)
