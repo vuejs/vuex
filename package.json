@@ -16,7 +16,9 @@
     "chat": "cd examples/chat && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "build": "node build/build.js",
     "build-examples": "webpack --config examples/webpack.build-all.config.js",
-    "test": "eslint src && BABEL_ENV=development mocha --compilers js:babel-core/register",
+    "unit": "BABEL_ENV=development mocha test/unit/test.js --compilers js:babel-core/register",
+    "e2e": "casperjs test --concise ./test/e2e",
+    "test": "eslint src && npm run unit && npm run build-examples && npm run e2e",
     "docs": "cd docs && gitbook serve",
     "deploy-docs": "cd docs && ./deploy.sh"
   },
@@ -40,6 +42,7 @@
     "babel-preset-es2015-rollup": "^1.1.1",
     "babel-preset-stage-2": "^6.1.18",
     "babel-runtime": "^5.8.0",
+    "casperjs": "^1.1.0-beta5",
     "chai": "^3.4.1",
     "css-loader": "^0.23.1",
     "eslint": "^2.2.0",

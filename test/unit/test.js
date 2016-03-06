@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import Vue from 'vue'
-import Vuex from '../src'
-import * as util from '../src/util'
+import Vuex from '../../src'
+import * as util from '../../src/util'
 
 Vue.use(Vuex)
 
