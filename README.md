@@ -8,6 +8,7 @@
 
 - [Documentation](http://vuex.vuejs.org/)
 - [Great introduction and explanation by @skyronic](http://skyronic.com/2016/01/03/vuex-basics-tutorial/) (using outdated 0.3.0 API, but still worth a read!)
+- [Vuex introduction video - James Browne from London Vue.js Meetup #1](https://www.youtube.com/watch?v=l1KHL-TX3qs)
 
 ## Examples
 
