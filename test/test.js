@@ -281,4 +281,47 @@ describe('Vuex', () => {
       store.state.a++
     }).to.throw(/Do not mutate vuex store state outside mutation handlers/)
   })
+
+  it('option merging', function () {
+    const store = new Vuex.Store({
+      state: {
+        a: 1,
+        b: 2
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      vuex: {
+        getters: {
+          a: state => state.a
+        },
+        actions: {
+          test: ({ dispatch }, n) => dispatch(TEST, n)
+        }
+      },
+      mixins: [{
+        vuex: {
+          getters: {
+            b: state => state.b
+          },
+          actions: {
+            testPlusOne: ({ dispatch }, n) => dispatch(TEST, n + 1)
+          }
+        }
+      }]
+    })
+    expect(vm.a).to.equal(1)
+    expect(vm.b).to.equal(2)
+    vm.test(2)
+    expect(vm.a).to.equal(3)
+    expect(store.state.a).to.equal(3)
+    vm.testPlusOne(2)
+    expect(vm.a).to.equal(6)
+    expect(store.state.a).to.equal(6)
+  })
 })

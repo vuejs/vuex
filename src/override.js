@@ -1,18 +1,23 @@
-// export install function
 export default function (Vue) {
+  // override init and inject vuex init procedure
   const _init = Vue.prototype._init
-  Vue.prototype._init = function (options) {
-    options = options || {}
-    const componentOptions = this.constructor.options
+  Vue.prototype._init = function (options = {}) {
+    options.init = options.init
+      ? [vuexInit].concat(options.init)
+      : vuexInit
+    _init.call(this, options)
+  }
+
+  function vuexInit () {
+    const options = this.$options
+    const { store, vuex } = options
     // store injection
-    const store = options.store || componentOptions.store
     if (store) {
       this.$store = store
     } else if (options.parent && options.parent.$store) {
       this.$store = options.parent.$store
     }
     // vuex option handling
-    const vuex = options.vuex || componentOptions.vuex
     if (vuex) {
       if (!this.$store) {
         console.warn(
@@ -21,32 +26,52 @@ export default function (Vue) {
         )
       }
       let { state, getters, actions } = vuex
-      // getters
+      // handle deprecated state option
       if (state && !getters) {
         console.warn(
-          '[vuex] vuex.state option has been deprecated. ' +
+          '[vuex] vuex.state option will been deprecated in 1.0. ' +
           'Use vuex.getters instead.'
         )
         getters = state
       }
+      // getters
       if (getters) {
         options.computed = options.computed || {}
-        Object.keys(getters).forEach(key => {
-          options.computed[key] = function vuexBoundGetter () {
-            return getters[key].call(this, this.$store.state)
-          }
-        })
+        for (let key in getters) {
+          options.computed[key] = makeBoundGetter(getters[key])
+        }
       }
       // actions
       if (actions) {
         options.methods = options.methods || {}
-        Object.keys(actions).forEach(key => {
-          options.methods[key] = function vuexBoundAction (...args) {
-            return actions[key].call(this, this.$store, ...args)
-          }
-        })
+        for (let key in actions) {
+          options.methods[key] = makeBoundAction(actions[key])
+        }
       }
     }
-    _init.call(this, options)
+  }
+
+  function makeBoundGetter (getter) {
+    return function vuexBoundGetter () {
+      return getter.call(this, this.$store.state)
+    }
+  }
+
+  function makeBoundAction (action) {
+    return function vuexBoundAction (...args) {
+      return action.call(this, this.$store, ...args)
+    }
+  }
+
+  // option merging
+  const merge = Vue.config.optionMergeStrategies.computed
+  Vue.config.optionMergeStrategies.vuex = (toVal, fromVal) => {
+    if (!toVal) return fromVal
+    if (!fromVal) return toVal
+    return {
+      getters: merge(toVal.getters, fromVal.getters),
+      state: merge(toVal.state, fromVal.state),
+      actions: merge(toVal.actions, fromVal.actions)
+    }
   }
 }
