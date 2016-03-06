@@ -13,7 +13,7 @@ import * as actions from './actions'
 
 export default {
   vuex: {
-    state: {
+    getters: {
       count: state => state.count
     },
     actions: actions

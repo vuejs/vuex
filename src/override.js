@@ -20,13 +20,20 @@ export default function (Vue) {
           'provide the store option in your root component.'
         )
       }
-      const { state, actions } = vuex
-      // state
-      if (state) {
+      let { state, getters, actions } = vuex
+      // getters
+      if (state && !getters) {
+        console.warn(
+          '[vuex] vuex.state option has been deprecated. ' +
+          'Use vuex.getters instead.'
+        )
+        getters = state
+      }
+      if (getters) {
         options.computed = options.computed || {}
-        Object.keys(state).forEach(key => {
+        Object.keys(getters).forEach(key => {
           options.computed[key] = function vuexBoundGetter () {
-            return state[key].call(this, this.$store.state)
+            return getters[key].call(this, this.$store.state)
           }
         })
       }

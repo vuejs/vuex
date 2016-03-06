@@ -37,7 +37,7 @@ describe('Vuex', () => {
     const vm = new Vue({
       store,
       vuex: {
-        state: {
+        getters: {
           a: state => state.a
         },
         actions: {

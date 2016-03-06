@@ -62,7 +62,7 @@ const filters = {
 export default {
   components: { Todo },
   vuex: {
-    state: {
+    getters: {
       todos: state => state.todos
     },
     actions: {

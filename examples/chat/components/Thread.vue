@@ -19,7 +19,7 @@ import { switchThread } from '../vuex/actions'
 export default {
   props: ['thread'],
   vuex: {
-    state: {
+    getters: {
       isCurrentThread ({ currentThreadID }) {
         return this.thread.id === currentThreadID
       }

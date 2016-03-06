@@ -21,7 +21,7 @@ import Thread from './Thread.vue'
 export default {
   components: { Thread },
   vuex: {
-    state: {
+    getters: {
       threads: state => state.threads
     }
   },

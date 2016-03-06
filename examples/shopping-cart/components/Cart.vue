@@ -19,7 +19,7 @@ import { cartProducts } from '../vuex/getters'
 
 export default {
   vuex: {
-    state: {
+    getters: {
       products: cartProducts,
       checkoutStatus: ({ cart }) => cart.lastCheckout
     },

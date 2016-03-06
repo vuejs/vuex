@@ -17,7 +17,7 @@ import { getAllProducts, addToCart } from '../vuex/actions'
 
 export default {
   vuex: {
-    state: {
+    getters: {
       products: ({ products }) => products.all
     },
     actions: {

@@ -19,7 +19,7 @@ import { sendMessage } from '../vuex/actions'
 export default {
   components: { Message },
   vuex: {
-    state: {
+    getters: {
       thread ({ currentThreadID, threads }) {
         return currentThreadID ? threads[currentThreadID] : {}
       },
