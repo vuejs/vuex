@@ -6,13 +6,18 @@ Vue.use(Vuex)
 
 export const STORAGE_KEY = 'todos-vuejs'
 
+// for testing
+if (navigator.userAgent.indexOf('PhantomJS') > -1) {
+  localStorage.clear()
+}
+
 const state = {
   todos: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
 }
 
 const mutations = {
   ADD_TODO (state, text) {
-    state.todos.unshift({
+    state.todos.push({
       text: text,
       done: false
     })
