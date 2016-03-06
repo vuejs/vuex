@@ -1,8 +1,21 @@
+var examples = [
+  'chat',
+  'counter',
+  'counter-hot',
+  'shopping-cart',
+  'todomvc'
+]
+
+var entry = {}
+examples.forEach(function (name) {
+  entry[name] = './examples/' + name + '/main.js'
+})
+
 module.exports = {
-  entry: './main.js',
+  entry: entry,
   output: {
-    path: process.cwd(),
-    filename: 'build.js'
+    path: __dirname,
+    filename: '[name]/build.js'
   },
   module: {
     loaders: [
@@ -16,6 +29,5 @@ module.exports = {
         loader: 'vue'
       }
     ]
-  },
-  devtool: '#source-map'
+  }
 }

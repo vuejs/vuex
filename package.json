@@ -15,6 +15,7 @@
     "cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "chat": "cd examples/chat && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "build": "node build/build.js",
+    "build-examples": "webpack --config examples/webpack.build-all.config.js",
     "test": "eslint src && BABEL_ENV=development mocha --compilers js:babel-core/register",
     "docs": "cd docs && gitbook serve",
     "deploy-docs": "cd docs && ./deploy.sh"

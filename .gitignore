@@ -4,3 +4,4 @@ TODO.md
 lib
 docs/_book
 logger.js
+examples/**/build.js
