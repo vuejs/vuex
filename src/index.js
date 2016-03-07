@@ -240,6 +240,11 @@ function install (_Vue) {
   override(Vue)
 }
 
+// auto install in dist mode
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue)
+}
+
 function createLogger () {
   console.warn(
     '[vuex] Vuex.createLogger has been deprecated.' +
