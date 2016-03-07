@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
   "files": [
@@ -20,7 +20,8 @@
     "e2e": "casperjs test --concise ./test/e2e",
     "test": "eslint src && npm run unit && npm run build-examples && npm run e2e",
     "docs": "cd docs && gitbook serve",
-    "deploy-docs": "cd docs && ./deploy.sh"
+    "deploy-docs": "cd docs && ./deploy.sh",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",

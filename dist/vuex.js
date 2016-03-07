@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.5.1
+ * Vuex v0.6.1
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -92,6 +92,31 @@
     }
   }
 
+  /**
+   * Hacks to get access to Vue internals.
+   * Maybe we should expose these...
+   */
+
+  var Watcher = void 0;
+  function getWatcher(vm) {
+    if (!Watcher) {
+      var unwatch = vm.$watch('__vuex__', function (a) {
+        return a;
+      });
+      Watcher = vm._watchers[0].constructor;
+      unwatch();
+    }
+    return Watcher;
+  }
+
+  var Dep = void 0;
+  function getDep(vm) {
+    if (!Dep) {
+      Dep = vm._data.__ob__.dep.constructor;
+    }
+    return Dep;
+  }
+
   var hook = typeof window !== 'undefined' && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
   var devtoolMiddleware = {
@@ -113,62 +138,121 @@
     }
   };
 
-  // export install function
   function override (Vue) {
+    // override init and inject vuex init procedure
     var _init = Vue.prototype._init;
-    Vue.prototype._init = function (options) {
-      var _this = this;
+    Vue.prototype._init = function () {
+      var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-      options = options || {};
-      var componentOptions = this.constructor.options;
+      options.init = options.init ? [vuexInit].concat(options.init) : vuexInit;
+      _init.call(this, options);
+    };
+
+    function vuexInit() {
+      var options = this.$options;
+      var store = options.store;
+      var vuex = options.vuex;
       // store injection
-      var store = options.store || componentOptions.store;
+
       if (store) {
         this.$store = store;
       } else if (options.parent && options.parent.$store) {
         this.$store = options.parent.$store;
       }
       // vuex option handling
-      var vuex = options.vuex || componentOptions.vuex;
       if (vuex) {
-        (function () {
-          if (!_this.$store) {
-            console.warn('[vuex] store not injected. make sure to ' + 'provide the store option in your root component.');
-          }
-          var state = vuex.state;
-          var actions = vuex.actions;
-          // state
+        if (!this.$store) {
+          console.warn('[vuex] store not injected. make sure to ' + 'provide the store option in your root component.');
+        }
+        var state = vuex.state;
+        var getters = vuex.getters;
+        var actions = vuex.actions;
+        // handle deprecated state option
 
-          if (state) {
-            options.computed = options.computed || {};
-            Object.keys(state).forEach(function (key) {
-              options.computed[key] = function vuexBoundGetter() {
-                return state[key].call(this, this.$store.state);
-              };
-            });
+        if (state && !getters) {
+          console.warn('[vuex] vuex.state option will been deprecated in 1.0. ' + 'Use vuex.getters instead.');
+          getters = state;
+        }
+        // getters
+        if (getters) {
+          options.computed = options.computed || {};
+          for (var key in getters) {
+            defineVuexGetter(this, key, getters[key]);
           }
-          // actions
-          if (actions) {
-            options.methods = options.methods || {};
-            Object.keys(actions).forEach(function (key) {
-              options.methods[key] = function vuexBoundAction() {
-                var _actions$key;
-
-                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-                  args[_key] = arguments[_key];
-                }
-
-                return (_actions$key = actions[key]).call.apply(_actions$key, [this, this.$store].concat(args));
-              };
-            });
+        }
+        // actions
+        if (actions) {
+          options.methods = options.methods || {};
+          for (var _key in actions) {
+            options.methods[_key] = makeBoundAction(actions[_key], this.$store);
           }
-        })();
+        }
       }
-      _init.call(this, options);
+    }
+
+    function setter() {
+      throw new Error('vuex getter properties are read-only.');
+    }
+
+    function defineVuexGetter(vm, key, getter) {
+      Object.defineProperty(vm, key, {
+        enumerable: true,
+        configurable: true,
+        get: makeComputedGetter(vm.$store, getter),
+        set: setter
+      });
+    }
+
+    function makeComputedGetter(store, getter) {
+      var id = store._getterCacheId;
+      // cached
+      if (getter[id]) {
+        return getter[id];
+      }
+      var vm = store._vm;
+      var Watcher = getWatcher(vm);
+      var Dep = getDep(vm);
+      var watcher = new Watcher(vm, function (state) {
+        return getter(state);
+      }, null, { lazy: true });
+      var computedGetter = function computedGetter() {
+        if (watcher.dirty) {
+          watcher.evaluate();
+        }
+        if (Dep.target) {
+          watcher.depend();
+        }
+        return watcher.value;
+      };
+      getter[id] = computedGetter;
+      return computedGetter;
+    }
+
+    function makeBoundAction(action, store) {
+      return function vuexBoundAction() {
+        for (var _len = arguments.length, args = Array(_len), _key2 = 0; _key2 < _len; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+
+        return action.call.apply(action, [this, store].concat(args));
+      };
+    }
+
+    // option merging
+    var merge = Vue.config.optionMergeStrategies.computed;
+    Vue.config.optionMergeStrategies.vuex = function (toVal, fromVal) {
+      if (!toVal) return fromVal;
+      if (!fromVal) return toVal;
+      return {
+        getters: merge(toVal.getters, fromVal.getters),
+        state: merge(toVal.state, fromVal.state),
+        actions: merge(toVal.actions, fromVal.actions)
+      };
     };
   }
 
-  var Vue = undefined;
+  var Vue = void 0;
+  var uid = 0;
 
   var Store = function () {
 
@@ -198,6 +282,7 @@
       var strict = _ref$strict === undefined ? false : _ref$strict;
       babelHelpers.classCallCheck(this, Store);
 
+      this._getterCacheId = 'vuex_store_' + uid++;
       this._dispatching = false;
       this._rootMutations = this._mutations = mutations;
       this._modules = modules;
@@ -255,8 +340,8 @@
         var mutation = this._mutations[type];
         var prevSnapshot = this._prevSnapshot;
         var state = this.state;
-        var snapshot = undefined,
-            clonedPayload = undefined;
+        var snapshot = void 0,
+            clonedPayload = void 0;
         if (mutation) {
           this._dispatching = true;
           // apply the mutation
@@ -392,14 +477,7 @@
       value: function _setupMutationCheck() {
         var _this4 = this;
 
-        // a hack to get the watcher constructor from older versions of Vue
-        // mainly because the public $watch method does not allow sync
-        // watchers.
-        var unwatch = this._vm.$watch('__vuex__', function (a) {
-          return a;
-        });
-        var Watcher = this._vm._watchers[0].constructor;
-        unwatch();
+        var Watcher = getWatcher(this._vm);
         /* eslint-disable no-new */
         new Watcher(this._vm, '$data', function () {
           if (!_this4._dispatching) {
