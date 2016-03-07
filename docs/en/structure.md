@@ -109,6 +109,26 @@ export default new Vuex.Store({
 
 Here, `cart` module's initial state will be attached to the root state tree as `store.state.cart`. In addition, **all the mutations defined in a sub-module only receives the sub-state-tree they are associated with**. So mutations defined in the `cart` module will receive `store.state.cart` as their first argument.
 
+The root of the sub-state-tree is irreplaceable inside the module itself. For example this won't work:
+
+``` js
+const mutations = {
+  SOME_MUTATION (state) {
+    state = { ... }
+  }
+}
+```
+
+Instead, always store actual state as a property of the sub-tree root:
+
+``` js
+const mutations = {
+  SOME_MUTATION (state) {
+    state.value = { ... }
+  }
+}
+```
+
 Since all modules simply export objects and functions, they are quite easy to test and maintain, and can be hot-reloaded. You are also free to alter the patterns used here to find a structure that fits your preference.
 
 Note that we do not put actions into modules, because a single action may dispatch mutations that affect multiple modules. It's also a good idea to decouple actions from the state shape and the implementation details of mutations for better separation of concerns. If the actions file gets too large, we can turn it into a folder and split out the implementations of long async actions into individual files.
