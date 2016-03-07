@@ -1,7 +1,7 @@
 <template>
   <li
     class="thread-list-item"
-    :class="{ active: isCurrentThread }"
+    :class="{ active: thread.id === currentThreadID }"
     @click="switchThread(thread.id)">
     <h5 class="thread-name">{{ thread.name }}</h5>
     <div class="thread-time">
@@ -20,9 +20,7 @@ export default {
   props: ['thread'],
   vuex: {
     getters: {
-      isCurrentThread ({ currentThreadID }) {
-        return this.thread.id === currentThreadID
-      }
+      currentThreadID: state => state.currentThreadID
     },
     actions: {
       switchThread

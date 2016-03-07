@@ -1,8 +1,9 @@
-import { mergeObjects, deepClone } from './util'
+import { mergeObjects, deepClone, getWatcher } from './util'
 import devtoolMiddleware from './middlewares/devtool'
 import override from './override'
 
 let Vue
+let uid = 0
 
 class Store {
 
@@ -22,6 +23,7 @@ class Store {
     middlewares = [],
     strict = false
   } = {}) {
+    this._getterCacheId = 'vuex_store_' + uid++
     this._dispatching = false
     this._rootMutations = this._mutations = mutations
     this._modules = modules
@@ -184,12 +186,7 @@ class Store {
    */
 
   _setupMutationCheck () {
-    // a hack to get the watcher constructor from older versions of Vue
-    // mainly because the public $watch method does not allow sync
-    // watchers.
-    const unwatch = this._vm.$watch('__vuex__', a => a)
-    const Watcher = this._vm._watchers[0].constructor
-    unwatch()
+    const Watcher = getWatcher(this._vm)
     /* eslint-disable no-new */
     new Watcher(this._vm, '$data', () => {
       if (!this._dispatching) {

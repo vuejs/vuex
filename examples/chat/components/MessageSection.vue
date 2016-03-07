@@ -15,18 +15,14 @@
 <script>
 import Message from './Message.vue'
 import { sendMessage } from '../vuex/actions'
+import { currentThread, currentMessages } from '../vuex/getters'
 
 export default {
   components: { Message },
   vuex: {
     getters: {
-      thread ({ currentThreadID, threads }) {
-        return currentThreadID ? threads[currentThreadID] : {}
-      },
-      messages ({ messages }) {
-        const messageIds = this.thread.messages
-        return messageIds && messageIds.map(id => messages[id])
-      }
+      thread: currentThread,
+      messages: currentMessages
     },
     actions: {
       sendMessage

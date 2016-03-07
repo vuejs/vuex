@@ -1,3 +1,5 @@
+import { getWatcher, getDep } from './util'
+
 export default function (Vue) {
   // override init and inject vuex init procedure
   const _init = Vue.prototype._init
@@ -38,28 +40,58 @@ export default function (Vue) {
       if (getters) {
         options.computed = options.computed || {}
         for (let key in getters) {
-          options.computed[key] = makeBoundGetter(getters[key])
+          defineVuexGetter(this, key, getters[key])
         }
       }
       // actions
       if (actions) {
         options.methods = options.methods || {}
         for (let key in actions) {
-          options.methods[key] = makeBoundAction(actions[key])
+          options.methods[key] = makeBoundAction(actions[key], this.$store)
         }
       }
     }
   }
 
-  function makeBoundGetter (getter) {
-    return function vuexBoundGetter () {
-      return getter.call(this, this.$store.state)
-    }
+  function defineVuexGetter (vm, key, getter) {
+    Object.defineProperty(vm, key, {
+      enumerable: true,
+      configurable: true,
+      get: makeComputedGetter(vm.$store, getter)
+    })
   }
 
-  function makeBoundAction (action) {
+  function makeComputedGetter (store, getter) {
+    const id = store._getterCacheId
+    // cached
+    if (getter[id]) {
+      return getter[id]
+    }
+    const vm = store._vm
+    const Watcher = getWatcher(vm)
+    const Dep = getDep(vm)
+    const watcher = new Watcher(
+      vm,
+      state => getter(state),
+      null,
+      { lazy: true }
+    )
+    const computedGetter = () => {
+      if (watcher.dirty) {
+        watcher.evaluate()
+      }
+      if (Dep.target) {
+        watcher.depend()
+      }
+      return watcher.value
+    }
+    getter[id] = computedGetter
+    return computedGetter
+  }
+
+  function makeBoundAction (action, store) {
     return function vuexBoundAction (...args) {
-      return action.call(this, this.$store, ...args)
+      return action.call(this, store, ...args)
     }
   }
 

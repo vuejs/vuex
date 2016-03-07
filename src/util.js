@@ -47,3 +47,26 @@ export function deepClone (obj) {
     return obj
   }
 }
+
+/**
+ * Hacks to get access to Vue internals.
+ * Maybe we should expose these...
+ */
+
+let Watcher
+export function getWatcher (vm) {
+  if (!Watcher) {
+    const unwatch = vm.$watch('__vuex__', a => a)
+    Watcher = vm._watchers[0].constructor
+    unwatch()
+  }
+  return Watcher
+}
+
+let Dep
+export function getDep (vm) {
+  if (!Dep) {
+    Dep = vm._data.__ob__.dep.constructor
+  }
+  return Dep
+}
