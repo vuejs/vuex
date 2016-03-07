@@ -53,11 +53,16 @@ export default function (Vue) {
     }
   }
 
+  function setter () {
+    throw new Error('vuex getter properties are read-only.')
+  }
+
   function defineVuexGetter (vm, key, getter) {
     Object.defineProperty(vm, key, {
       enumerable: true,
       configurable: true,
-      get: makeComputedGetter(vm.$store, getter)
+      get: makeComputedGetter(vm.$store, getter),
+      set: setter
     })
   }
 
