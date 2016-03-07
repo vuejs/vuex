@@ -324,4 +324,66 @@ describe('Vuex', () => {
     expect(vm.a).to.equal(6)
     expect(store.state.a).to.equal(6)
   })
+
+  it('shared getters should evaluate only once', function (done) {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state) {
+          state.a++
+        }
+      }
+    })
+
+    let getterCalls = 0
+    let watcherCalls = 0
+    const getter = state => {
+      getterCalls++
+      return state.a
+    }
+
+    const vm1 = new Vue({
+      store,
+      vuex: {
+        getters: {
+          a: getter
+        }
+      },
+      watch: {
+        a: () => {
+          watcherCalls++
+        }
+      }
+    })
+
+    const vm2 = new Vue({
+      store,
+      vuex: {
+        getters: {
+          a: getter
+        }
+      },
+      watch: {
+        a: () => {
+          watcherCalls++
+        }
+      }
+    })
+
+    expect(vm1.a).to.equal(1)
+    expect(vm2.a).to.equal(1)
+    expect(getterCalls).to.equal(1)
+    expect(watcherCalls).to.equal(0)
+
+    store.dispatch('TEST')
+    Vue.nextTick(() => {
+      expect(vm1.a).to.equal(2)
+      expect(vm2.a).to.equal(2)
+      expect(getterCalls).to.equal(2)
+      expect(watcherCalls).to.equal(2)
+      done()
+    })
+  })
 })
