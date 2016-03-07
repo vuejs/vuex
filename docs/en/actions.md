@@ -103,6 +103,19 @@ const vm = new Vue({
 
 Now the action will be bound as `vm.plus` instead of `vm.incrementBy`.
 
+If an action is specific to a component, you can take the shortcut and just define it inline:
+
+``` js
+const vm = new Vue({
+  vuex: {
+    state: { ... },
+    actions: {
+      plus: ({ dispatch }) => dispatch('INCREMENT')
+    }
+  }
+})
+```
+
 Finally, if you simply want to bind all the actions:
 
 ``` js
