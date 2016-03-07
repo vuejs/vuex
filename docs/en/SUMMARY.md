@@ -5,7 +5,7 @@
 - [What is Vuex?](intro.md)
 - [Getting Started](getting-started.md)
 - Core Concepts
-  - [State](state.md)
+  - [State and Getters](state.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
 - [Data Flow](data-flow.md)

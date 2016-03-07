@@ -1,4 +1,4 @@
-# State
+# State and Getters
 
 ### Single State Tree
 
@@ -48,7 +48,7 @@ However, this pattern causes the component to rely on the global store singleton
 
   By providing the `store` option to the root instance, the store will be injected into all child components of the root and will be available on them as `this.$store`. However it's quite rare that we will need to actually reference it.
 
-2. Inside child components, retrieve state with **getter** functions in the `vuex.state` option:
+2. Inside child components, retrieve state with **getter** functions in the `vuex.getters` option:
 
   ``` js
   // MyComponent.js
@@ -57,7 +57,7 @@ However, this pattern causes the component to rely on the global store singleton
     data () { ... },
     // this is where we retrieve state from the store
     vuex: {
-      state: {
+      getters: {
         // a state getter function, which will
         // bind `store.state.count` on the component as `this.count`
         count: function (state) {
@@ -74,11 +74,30 @@ However, this pattern causes the component to rely on the global store singleton
 
   ``` js
   vuex: {
-    state: {
+    getters: {
       count: state => state.count
     }
   }
   ```
+
+### Getters Must Be Pure
+
+All Vuex getters must be [pure functions](https://en.wikipedia.org/wiki/Pure_function) - they take the entire state tree in, and return some value solely based on that state. This makes them more testable, composable and efficient. It also means **you cannot rely on `this` inside getters**.
+
+If you do need access to `this`, for example to compute derived state based on the component's local state or props, you need to define separate, plain computed properties:
+
+``` js
+vuex: {
+  getters: {
+    currentId: state => state.currentId
+  }
+},
+computed: {
+  isCurrent () {
+    return this.id === this.currentId
+  }
+}
+```
 
 ### Getters Can Return Derived State
 
@@ -86,7 +105,7 @@ Vuex state getters are computed properties under the hood, this means you can le
 
 ``` js
 vuex: {
-  state: {
+  getters: {
     filteredMessages: state => {
       return state.messages.filter(message => {
         return message.threadID === state.currentThreadID
@@ -98,11 +117,9 @@ vuex: {
 
 Because Vue.js computed properties are automatically cached and only re-evaluated when a reactive dependency changes, you don't need to worry about this function being called on every mutation.
 
-> Flux reference: Vuex getters can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, because they leverage Vue's computed properties memoization under the hood, they are more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect).
-
 ### Sharing Getters Across Multiple Components
 
-As you can see, in most cases getters are just pure functions: they take the whole state in, and returns some value. The `filteredMessages` getter may be useful inside multiple components. In that case, it's a good idea to share the same function between them:
+As you can see, the `filteredMessages` getter may be useful inside multiple components. In that case, it's a good idea to share the same function between them:
 
 ``` js
 // getters.js
@@ -119,12 +136,16 @@ import { filteredMessages } from './getters'
 
 export default {
   vuex: {
-    state: {
+    getters: {
       filteredMessages
     }
   }
 }
 ```
+
+Because getters are pure, getters shared across multiple components are efficiently cached: when dependencies change, they only re-evaluate once for all components that uses them.
+
+> Flux reference: Vuex getters can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, because they leverage Vue's computed properties memoization under the hood, they are more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect).
 
 ### Components Are Not Allowed to Directly Mutate State
 

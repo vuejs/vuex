@@ -16,7 +16,7 @@ The "Vuex way" to deal with it is binding the `<input>`'s value and call an acti
 ``` js
 // ...
 vuex: {
-  state: {
+  getters: {
     message: state => state.obj.message
   },
   actions: {

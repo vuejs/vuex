@@ -65,7 +65,7 @@ const app = new Vue({
   el: '#app',
   store,
   vuex: {
-    state: {
+    getters: {
       count: state => state.count
     },
     actions: {

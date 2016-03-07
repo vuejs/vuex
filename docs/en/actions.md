@@ -59,7 +59,7 @@ import { incrementBy } from './actions'
 
 const vm = new Vue({
   vuex: {
-    state: { ... }, // state getters
+    getters: { ... }, // state getters
     actions: {
       incrementBy // ES6 object literal shorthand, bind using the same name
     }
@@ -93,7 +93,7 @@ import { incrementBy } from './actions'
 
 const vm = new Vue({
   vuex: {
-    state: { ... },
+    getters: { ... },
     actions: {
       plus: incrementBy // bind using a different name
     }
@@ -103,12 +103,14 @@ const vm = new Vue({
 
 Now the action will be bound as `vm.plus` instead of `vm.incrementBy`.
 
+### Inline Actions
+
 If an action is specific to a component, you can take the shortcut and just define it inline:
 
 ``` js
 const vm = new Vue({
   vuex: {
-    state: { ... },
+    getters: { ... },
     actions: {
       plus: ({ dispatch }) => dispatch('INCREMENT')
     }
@@ -116,14 +118,16 @@ const vm = new Vue({
 })
 ```
 
-Finally, if you simply want to bind all the actions:
+### Binding All Actions
+
+If you simply want to bind all the shared actions:
 
 ``` js
 import * as actions from './actions'
 
 const vm = new Vue({
   vuex: {
-    state: { ... },
+    getters: { ... },
     actions // bind all actions
   }
 })
