@@ -35,6 +35,11 @@ class Store {
     // use a Vue instance to store the state tree
     // suppress warnings just in case the user has added
     // some funky global mixins
+    if (!Vue) {
+      throw new Error(
+        '[vuex] must call Vue.use(Vuex) before creating a store instance.'
+      )
+    }
     const silent = Vue.config.silent
     Vue.config.silent = true
     this._vm = new Vue({
