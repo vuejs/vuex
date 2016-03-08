@@ -20,7 +20,8 @@
     "e2e": "casperjs test --concise ./test/e2e",
     "test": "eslint src && npm run unit && npm run build-examples && npm run e2e",
     "docs": "cd docs && gitbook serve",
-    "deploy-docs": "cd docs && ./deploy.sh"
+    "deploy-docs": "cd docs && ./deploy.sh",
+    "release": "bash build/release.sh"
   },
   "repository": {
     "type": "git",
