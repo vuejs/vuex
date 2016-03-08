@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.6.1
+ * Vuex v0.6.2
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -39,6 +39,16 @@
       return Constructor;
     };
   }();
+
+  babelHelpers.toConsumableArray = function (arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  };
 
   babelHelpers;
 
@@ -298,6 +308,9 @@
       // use a Vue instance to store the state tree
       // suppress warnings just in case the user has added
       // some funky global mixins
+      if (!Vue) {
+        throw new Error('[vuex] must call Vue.use(Vuex) before creating a store instance.');
+      }
       var silent = Vue.config.silent;
       Vue.config.silent = true;
       this._vm = new Vue({
@@ -337,6 +350,11 @@
           payload[_key2 - 1] = arguments[_key2];
         }
 
+        // compatibility for object actions, e.g. FSA
+        if ((typeof type === 'undefined' ? 'undefined' : babelHelpers.typeof(type)) === 'object' && type.type && arguments.length === 1) {
+          payload = [type];
+          type = type.type;
+        }
         var mutation = this._mutations[type];
         var prevSnapshot = this._prevSnapshot;
         var state = this.state;
@@ -347,10 +365,10 @@
           // apply the mutation
           if (Array.isArray(mutation)) {
             mutation.forEach(function (m) {
-              return m.apply(undefined, [state].concat(payload));
+              return m.apply(undefined, [state].concat(babelHelpers.toConsumableArray(payload)));
             });
           } else {
-            mutation.apply(undefined, [state].concat(payload));
+            mutation.apply(undefined, [state].concat(babelHelpers.toConsumableArray(payload)));
           }
           this._dispatching = false;
           // invoke middlewares
@@ -393,7 +411,7 @@
       }
 
       /**
-       * Hot update actions and mutations.
+       * Hot update mutations & modules.
        *
        * @param {Object} options
        *        - {Object} [mutations]
@@ -433,16 +451,19 @@
        * Bind mutations for each module to its sub tree and
        * merge them all into one final mutations map.
        *
-       * @param {Object} modules
+       * @param {Object} updatedModules
        */
 
     }, {
       key: '_setupModuleMutations',
-      value: function _setupModuleMutations(modules) {
-        this._modules = modules;
+      value: function _setupModuleMutations(updatedModules) {
+        var modules = this._modules;
         var getPath = Vue.parsers.path.getPath;
 
         var allMutations = [this._rootMutations];
+        Object.keys(updatedModules).forEach(function (key) {
+          modules[key] = updatedModules[key];
+        });
         Object.keys(modules).forEach(function (key) {
           var module = modules[key];
           if (!module || !module.mutations) return;
@@ -533,6 +554,11 @@
   function install(_Vue) {
     Vue = _Vue;
     override(Vue);
+  }
+
+  // auto install in dist mode
+  if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
   }
 
   function createLogger() {
