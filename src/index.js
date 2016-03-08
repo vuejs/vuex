@@ -133,7 +133,7 @@ class Store {
   }
 
   /**
-   * Hot update actions and mutations.
+   * Hot update mutations & modules.
    *
    * @param {Object} options
    *        - {Object} [mutations]
@@ -163,13 +163,16 @@ class Store {
    * Bind mutations for each module to its sub tree and
    * merge them all into one final mutations map.
    *
-   * @param {Object} modules
+   * @param {Object} updatedModules
    */
 
-  _setupModuleMutations (modules) {
-    this._modules = modules
+  _setupModuleMutations (updatedModules) {
+    const modules = this._modules
     const { getPath } = Vue.parsers.path
     const allMutations = [this._rootMutations]
+    Object.keys(updatedModules).forEach(key => {
+      modules[key] = updatedModules[key]
+    })
     Object.keys(modules).forEach(key => {
       const module = modules[key]
       if (!module || !module.mutations) return
