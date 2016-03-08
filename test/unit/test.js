@@ -386,4 +386,22 @@ describe('Vuex', () => {
       done()
     })
   })
+
+  it('object-format mutations', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, action) {
+          state.a += action.by
+        }
+      }
+    })
+    store.dispatch({
+      type: TEST,
+      by: 2
+    })
+    expect(store.state.a).to.equal(3)
+  })
 })

@@ -77,6 +77,11 @@ class Store {
    */
 
   dispatch (type, ...payload) {
+    // compatibility for object actions, e.g. FSA
+    if (typeof type === 'object' && type.type && arguments.length === 1) {
+      payload = [type]
+      type = type.type
+    }
     const mutation = this._mutations[type]
     const prevSnapshot = this._prevSnapshot
     const state = this.state
