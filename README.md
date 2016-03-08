@@ -6,7 +6,7 @@
   <img width="700px" src="https://raw.githubusercontent.com/vuejs/vuex/master/docs/en/vuex.png">
 </p>
 
-- [Documentation](http://vuex.vuejs.org/)
+- [Documentation](http://vuejs.github.io/vuex/)
 - [Great introduction and explanation by @skyronic](http://skyronic.com/2016/01/03/vuex-basics-tutorial/) (using outdated 0.3.0 API, but still worth a read!)
 - [Vuex introduction video - James Browne from London Vue.js Meetup #1](https://www.youtube.com/watch?v=l1KHL-TX3qs)
 
