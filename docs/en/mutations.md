@@ -44,6 +44,29 @@ store.dispatch('INCREMENT', 10)
 
 Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
 
+### Object-Style Dispatch
+
+> requires >=0.6.2
+
+You can also dispatch mutations using objects:
+
+``` js
+store.dispatch({
+  type: 'INCREMENT',
+  payload: 10
+})
+```
+
+Note when using the object-style, you should include all arguments as properties on the dispatched object. The entire object will be passed as the second argument to mutation handlers:
+
+``` js
+mutations: {
+  INCREMENT (state, mutation) {
+    state.count += mutation.payload
+  }
+}
+```
+
 ### Mutations Follow Vue's Reactivity Rules
 
 Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
