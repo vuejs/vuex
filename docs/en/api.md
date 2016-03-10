@@ -26,6 +26,24 @@ const store = new Vuex.Store({ ...options })
 
     [Details](mutations.md)
 
+- **modules**
+
+  - type: `Object`
+
+    An object containing sub modules to be merged into the store, in the shape of:
+
+    ``` js
+    {
+      key: {
+        state,
+        mutations
+      },
+      ...
+    }
+    ```
+
+    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations will only receives the module's own state as the first argument instead of the root state.
+
 - **middlewares**
 
   - type: `Array<Object>`
