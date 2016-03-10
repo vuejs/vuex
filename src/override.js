@@ -95,6 +95,9 @@ export default function (Vue) {
   }
 
   function makeBoundAction (action, store) {
+    if (action.bounded) {
+      return action
+    }
     return function vuexBoundAction (...args) {
       return action.call(this, store, ...args)
     }
