@@ -10,6 +10,10 @@ export default function (Vue) {
     _init.call(this, options)
   }
 
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
   function vuexInit () {
     const options = this.$options
     const { store, vuex } = options
@@ -47,15 +51,27 @@ export default function (Vue) {
       if (actions) {
         options.methods = options.methods || {}
         for (let key in actions) {
-          options.methods[key] = makeBoundAction(actions[key], this.$store)
+          options.methods[key] = makeBoundAction(this.$store, actions[key])
         }
       }
     }
   }
 
+  /**
+   * Setter for all getter properties.
+   */
+
   function setter () {
     throw new Error('vuex getter properties are read-only.')
   }
+
+  /**
+   * Define a Vuex getter on an instance.
+   *
+   * @param {Vue} vm
+   * @param {String} key
+   * @param {Function} getter
+   */
 
   function defineVuexGetter (vm, key, getter) {
     Object.defineProperty(vm, key, {
@@ -65,6 +81,17 @@ export default function (Vue) {
       set: setter
     })
   }
+
+  /**
+   * Make a computed getter, using the same caching mechanism of computed
+   * properties. In addition, it is cached on the raw getter function using
+   * the store's unique cache id. This makes the same getter shared
+   * across all components use the same underlying watcher, and makes
+   * the getter evaluated only once during every flush.
+   *
+   * @param {Store} store
+   * @param {Function} getter
+   */
 
   function makeComputedGetter (store, getter) {
     const id = store._getterCacheId
@@ -94,7 +121,14 @@ export default function (Vue) {
     return computedGetter
   }
 
-  function makeBoundAction (action, store) {
+  /**
+   * Make a bound-to-store version of a raw action function.
+   *
+   * @param {Store} store
+   * @param {Function} action
+   */
+
+  function makeBoundAction (store, action) {
     return function vuexBoundAction (...args) {
       return action.call(this, store, ...args)
     }
