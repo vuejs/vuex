@@ -83,9 +83,7 @@ class Store {
       type = type.type
     }
     const mutation = this._mutations[type]
-    const prevSnapshot = this._prevSnapshot
     const state = this.state
-    let snapshot, clonedPayload
     if (mutation) {
       this._dispatching = true
       // apply the mutation
@@ -95,20 +93,7 @@ class Store {
         mutation(state, ...payload)
       }
       this._dispatching = false
-      // invoke middlewares
-      if (this._needSnapshots) {
-        snapshot = this._prevSnapshot = deepClone(state)
-        clonedPayload = deepClone(payload)
-      }
-      this._middlewares.forEach(m => {
-        if (m.onMutation) {
-          if (m.snapshot) {
-            m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot, this)
-          } else {
-            m.onMutation({ type, payload }, state, this)
-          }
-        }
-      })
+      this._applyMiddlewares(type, payload)
     } else {
       console.warn(`[vuex] Unknown mutation: ${type}`)
     }
@@ -238,6 +223,32 @@ class Store {
     this._middlewares.forEach(m => {
       if (m.onInit) {
         m.onInit(m.snapshot ? initialSnapshot : state, this)
+      }
+    })
+  }
+
+  /**
+   * Apply the middlewares on a given mutation.
+   *
+   * @param {String} type
+   * @param {Array} payload
+   */
+
+  _applyMiddlewares (type, payload) {
+    const state = this.state
+    const prevSnapshot = this._prevSnapshot
+    let snapshot, clonedPayload
+    if (this._needSnapshots) {
+      snapshot = this._prevSnapshot = deepClone(state)
+      clonedPayload = deepClone(payload)
+    }
+    this._middlewares.forEach(m => {
+      if (m.onMutation) {
+        if (m.snapshot) {
+          m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot, this)
+        } else {
+          m.onMutation({ type, payload }, state, this)
+        }
       }
     })
   }
