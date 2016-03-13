@@ -1,4 +1,4 @@
-import { mergeObjects, deepClone, getWatcher } from './util'
+import { mergeObjects, deepClone, getWatcher, mutatorNameToCamelCase } from './util'
 import devtoolMiddleware from './middlewares/devtool'
 import override from './override'
 
@@ -49,6 +49,7 @@ class Store {
     this._setupModuleState(state, modules)
     this._setupModuleMutations(modules)
     this._setupMiddlewares(middlewares, state)
+    this._setupAuto ()
     // add extra warnings in strict mode
     if (strict) {
       this._setupMutationCheck()
@@ -209,6 +210,16 @@ class Store {
       }
     }, { deep: true, sync: true })
     /* eslint-enable no-new */
+  }
+
+  _setupAuto () {
+    this._auto = {}
+    for (let key in this._mutations) {
+      var camelCaseKey = mutatorNameToCamelCase(key)
+      this._auto[camelCaseKey] = ({ dispatch }, ...args) => {
+        dispatch(key, ...args)
+      }
+    }
   }
 
   /**

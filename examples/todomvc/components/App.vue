@@ -66,9 +66,13 @@ export default {
       todos: state => state.todos
     },
     actions: {
-      addTodo,
       toggleAll,
       clearCompleted
+    },
+    auto: function (store) {
+      return {
+        todoActions: store
+      }
     }
   },
   data () {
@@ -92,7 +96,7 @@ export default {
     tryAddTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        this.addTodo(text)
+        this.todoActions.addTodo(text)
       }
       e.target.value = ''
     }

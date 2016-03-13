@@ -27,7 +27,7 @@ export default function (Vue) {
           'provide the store option in your root component.'
         )
       }
-      let { state, getters, actions } = vuex
+      let { state, getters, actions, auto } = vuex
       // handle deprecated state option
       if (state && !getters) {
         console.warn(
@@ -48,6 +48,22 @@ export default function (Vue) {
         options.methods = options.methods || {}
         for (let key in actions) {
           options.methods[key] = makeBoundAction(actions[key], this.$store)
+        }
+      }
+
+      if (auto) {
+        options.methods = options.methods || {}
+        // The auto function 'selects' the store
+        // by returning a key-value object [ key => store ]
+        var selected = auto(this.$store)
+        for (let selectionKey in selected) {
+          var autoStore = selected[selectionKey]
+          // create an object to hold all the bound actions
+          var autoActions = {}
+          for (let autoKey in autoStore._auto) {
+            autoActions[autoKey] = makeBoundAction(autoStore._auto[autoKey], autoStore)
+          }
+          this[selectionKey] = autoActions
         }
       }
     }
