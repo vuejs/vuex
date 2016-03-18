@@ -44,6 +44,29 @@ store.dispatch('INCREMENT', 10)
 
 这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 所有额外的参数被称为该 mutation 的 payload.
 
+### Object 风格的 Dispatch
+
+> 需要版本 >=0.6.2
+
+你也可以传入对象来 dispatch mutation 操作：
+
+``` js
+store.dispatch({
+  type: 'INCREMENT',
+  payload: 10
+})
+```
+
+注意，当使用对象风格参数时，你应该把全部传入参数座位对象的属性传入。整个对象都会被作为 mutation 函数的第二个参数被传入：
+
+``` js
+mutations: {
+  INCREMENT (state, mutation) {
+    state.count += mutation.payload
+  }
+}
+```
+
 ### Mutations 应当遵守 Vue 的响应系统规则
 
 由于 Vuex store 内部的 state 对象被 Vue 改造成了响应式对象，当我们对 state 进行修改时，任何观测着 state 的 Vue 组件都会自动地进行相应地更新。但同时，这也意味着在 Vuex 的 mutation handler 中修改状态时也需要遵循 Vue 特有的一些注意点：
@@ -89,8 +112,22 @@ const store = new Vuex.Store({
 
 用不用常量取决于你 —— 在需要多人协作的大型项目中，这会很有帮助。但如果你不喜欢，你完全可以不这样做。
 
+### mutation 必须是同步函数
+
+一条重要的原则就是要记住** mutation 必须是同步函数**。为什么？请参考下面的例子：
+
+``` js
+mutations: {
+  SOME_MUTATION (state) {
+    api.callAsyncMethod(() => {
+      state.count++
+    })
+  }
+}
+```
+
+现在想象，我们正在 debug 一个 app 并且观察我们的 mutation 日志。每一条 mutation 被记录，我们都想要能够将快照中前一状态和后一状态对比。然而，在上面的例子中 mutation 中的异步函数中的回调让这不可能完成：因为当 mutation 触发的时候，回掉函数还没有被调用，我们不知道什么时候回调函数实际上被调用。实质上任何在回调函数中进行的的状态的改变都是不可追踪的。
+
 ### 下一步：Actions
 
-到目前为止，我们都通过手动调用 `store.dispatch` 来触发 mutations。这样做固然可以，但实际上在组件里我们将会很少这样做。一般我们会通过调用 [actions](actions.md) 来触发 mutations。在 actions 里，我们可以封装异步数据请求之类的复杂逻辑。
-
-最后，切记所有 mutation handler 必须是 **同步** 的。异步的请求都应该在 actions 里处理。
+在 mutation 中混合异步调用会导致你的程序很难调试。例如，当你能调用了两个包含异步回调的 mutation 来改变状态，你怎么知道什么时候回调和哪个先回调呢？这就是为什么我们要区分这两个概念。在 Vuex 中，我们将全部的改变都用同步方式实现。我们将全部的异步操作都放在[Actions](actions.md)中。
