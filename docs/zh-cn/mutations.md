@@ -114,7 +114,7 @@ const store = new Vuex.Store({
 
 ### mutation 必须是同步函数
 
-一条重要的原则就是要记住**mutation 必须是同步函数**。为什么？请参考下面的例子：
+一条重要的原则就是要记住** mutation 必须是同步函数**。为什么？请参考下面的例子：
 
 ``` js
 mutations: {
