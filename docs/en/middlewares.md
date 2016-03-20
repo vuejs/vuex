@@ -4,10 +4,10 @@ Vuex stores accept the `middlewares` option that exposes hooks for each mutation
 
 ``` js
 const myMiddleware = {
-  onInit (state) {
+  onInit (state, store) {
     // record initial state
   },
-  onMutation (mutation, state) {
+  onMutation (mutation, state, store) {
     // called after every mutation.
     // The mutation comes in the format of { type, payload }
   }
@@ -23,14 +23,14 @@ const store = new Vuex.Store({
 })
 ```
 
-By default, a middleware receives the actual `state` object. Since middlewares are primarily used for debugging purposes or data persistence, they are **not allowed to mutate the state**.
+By default, a middleware receives the actual `state` object. A middleware can also receive the `store` itself in order to dispatch mutations. Since middlewares are primarily used for debugging purposes or data persistence, they are **not allowed to mutate the state**.
 
 Sometimes a middleware may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. Such middlewares must declare the `snapshot: true` option:
 
 ``` js
 const myMiddlewareWithSnapshot = {
   snapshot: true,
-  onMutation (mutation, nextState, prevState) {
+  onMutation (mutation, nextState, prevState, store) {
     // nextState and prevState are deep-cloned snapshots
     // of the state before and after the mutation.
   }
