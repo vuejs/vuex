@@ -1,14 +1,14 @@
 # Tutorial
 
-Let's build a very simple app which will demonstrate the various parts of vuex and how they work together. For this example we're building an app where you press a button and it increments a counter. 
+Let's build a very simple app using vuex to understand how to use it. For this example, we're building an app where you press a button, and it increments a counter. 
 
 ![End Result](tutorial/result.png)
 
-We are using this simple example to explain the concept and the problem vuex aims to solve - how to manage a large app which uses several components. Consider if this example used three components:
+We are using this simple example to explain the concepts, and the problems vuex aims to solve - how to manage a large app which uses several components. Consider if this example used three components:
 
 ### `components/App.vue`
 
-The main app which contains two other child components: 
+The root component, which contains two other child components: 
 
 * `Display` to display the current counter value.
 * `Increment` which is a button to increment the current value.
@@ -23,13 +23,13 @@ The main app which contains two other child components:
 
 <script>
 
-import Display from "./Display.vue"
-import Increment from "./Increment.vue"
+import Display from './Display.vue'
+import Increment from './Increment.vue'
 
 export default {
   components: {
-    Display,
-    Increment
+    Display: Display,
+    Increment: Increment
   }
 }
 </script>
@@ -37,7 +37,7 @@ export default {
 
 ### `components/Display.vue`
 
-```
+```html
 <template>
   <div>
     <h3>Count is 0</h3>
@@ -52,7 +52,7 @@ export default {
 
 ### `components/Increment.vue`
 
-```
+```html
 <template>
   <div>
     <button>Increment +1</button>
@@ -65,11 +65,11 @@ export default {
 </script>
 ```
 
-### Challenges
+### Challenges without vuex
 
-* `Increment` and `Display` aren't aware of each other and cannot pass messages to each other.
+* `Increment` and `Display` aren't aware of each other, and cannot pass messages to each other.
 * `App` will have to use events and broadcasts to coordinate the two components.
-* Since `App` is coordinating between the two components, they are not re-usable and tightly coupled. Re-structuring the app might break it
+* Since `App` is coordinating between the two components, they are not re-usable and tightly coupled. Re-structuring the app might break it.
 
 ### Vuex "flow"
 
@@ -77,11 +77,11 @@ These are the steps that take place in order:
 
 ![Vuex Flow](tutorial/vuex_flow.png)
 
-This might seem a little excessive for incrementing a counter. But do note that these concepts work well in larger applications and improve maintainability and make your app easier to debug and improve in the long run. So let's modify our app to use vuex.
+This might seem a little excessive for incrementing a counter. But do note that these concepts work well in larger applications, improving maintainability and making your app easier to debug and improve in the long run. So let's modify our code to use vuex.
 
 ### Step 1: Add a store
 
-First, install vuex via npm:
+The store holds the data for the app. All components read the data from the store. Before we begin, install vuex via npm:
 
 ```
 $ npm install --save vuex
@@ -120,26 +120,37 @@ We need to make our app aware of this store. To do this we simply need to modify
 Edit `components/App.vue` and add the store.
 
 ```js
-import Display from "./Display.vue"
-import Increment from "./IncrementButton.vue"
-import store from '../vuex/store' // import the store
+import Display from './Display.vue'
+import Increment from './IncrementButton.vue'
+import store from '../vuex/store' // import the store we just created
 
 export default {
   components: {
-    Display,
-    Increment
+    Display: Display,
+    Increment: Increment
   },
   store: store // make this and all child components aware of the new store
 }
 ```
 
+> **Tip**: With ES6 and babel you can write it as 
+> 
+>     components: {
+>       Display,
+>       Increment,
+>     },
+>     store
+
 ### Step 2: Set up the action
+
+The action is a function which is called from the component. Action functions can trigger updates in the store by dispatching the right mutation. An action can also talk to HTTP backends and read other data from the store before dispatching updates.
 
 Create a new file in `vuex/actions.js` with a single function `incrementCounter`
 
-```
+```js
 // An action will recieve the store as the first argument.
 // Since we are only interested in the dispatch (and optionally the state)
+// We can pull those two parameters using the ES6 destructuring feature
 export const incrementCounter = function ({ dispatch, state }) {
   dispatch('INCREMENT', 1)
 }
@@ -150,12 +161,12 @@ And let's call the action from our `components/Increment.vue` component.
 ```
 <template>
   <div>
-    <button @click="increment">Increment +1</button>
+    <button @click='increment'>Increment +1</button>
   </div>
 </template>
 
 <script>
-import { incrementCounter } from "../vuex/actions"
+import { incrementCounter } from '../vuex/actions'
 export default {
   vuex: {
     actions: {
@@ -199,14 +210,17 @@ const mutations = {
 
 Create a new file called `vuex/getters.js`
 
-```
+```js
 // This getter is a function which just returns the count
-export const getCount = function (state) {
+// With ES6 you can also write it as:
+// export const getCount = state => state.count
+
+export function getCount (state) {
   return state.count
 }
 ```
 
-This is a simple function which just returns a subset of the state object which is of interest for us, which is the current count. Now we need to use this getter to actually fetch the data in the component.
+This function returns a part of the state object which is of interest - the current count. We can now use this getter inside the component.
 
 Edit `components/Display.vue`
 
@@ -218,10 +232,11 @@ Edit `components/Display.vue`
 </template>
 
 <script>
-import { getCount } from "../vuex/getters"
+import { getCount } from '../vuex/getters'
 export default {
   vuex: {
     getters: {
+      // note that you're passing the function itself, and not the value 'getCount()'
       counterValue: getCount
     }
   }
@@ -231,23 +246,21 @@ export default {
 
 There's a new object `vuex.getters` which requests `counterValue` to be bound to the getter `getCount`. We've chosen different names to demonstrate that you can use the names that make sense in the context of your component, not necessarily the getter name itself.
 
-You might be wondering, why is it preferable to use a getter instead of using something like `store.state.count` (which doesn't work, but still). While it would be ok here, in a large app:
+You might be wondering - why did we choose to use a getter instead of directly accessing the value from the state. This concept is more of a best practice, and is more applicable to a larger app, which presents several distinct advantages:
 
-1. A value may be derived from many other value (think totals, averages, etc.).
-2. Many components can use the same getter function.
+1. We may want to define getters with computed values (think totals, averages, etc.).
+2. Many components in a larger app can use the same getter function.
 3. If the value is moved from say `store.count` to `store.counter.value` you'd have to update one getter instead of dozens of components.
 
 These are a few of the benefits of using getters. 
 
 ### Step 5: Next steps
 
-If you run the application now you will find it behaves as expected.
+If you run the application, now you will find it behaves as expected.
 
-To further your understanding of vuex you can try implementing the following changes to the app.
+To further your understanding of vuex, you can try implementing the following changes to the app, as an exercise.
 
 * Add a decrement button.
 * Install [VueJS Devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en) and play with the vuex tools and observe the mutations being applied.
 * Add a text input in another component called `IncrementAmount` and enter the amount to increment by. This can be a bit tricky since forms in vuex work slightly differently. Read the [Form Handling](forms.md) section for more details.
-
-
 

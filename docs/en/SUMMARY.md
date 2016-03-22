@@ -4,6 +4,7 @@
 
 - [What is Vuex?](intro.md)
 - [Getting Started](getting-started.md)
+- [Tutorial](tutorial.md)
 - Core Concepts
   - [State and Getters](state.md)
   - [Mutations](mutations.md)
