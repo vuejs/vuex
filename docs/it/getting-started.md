@@ -9,7 +9,7 @@ Al centro di qualsiasi applicazione che utilizza Vuex si trova lo **store**. Uno
 ### Lo Store più Semplice
 
 > **NOTA:** Nel cosrso della guida utilizzeremo la sintassi JavaScript che si riferisce a `ES2015` se ancora non siete al corrente degli aggiornamenti [aggiornatevi al riguardo](https://babeljs.io/docs/learn-es2015/)!
-Questa documentazione, insoltre, assume che voi siate al corrente con i concetti discussi nel capitolo: [Costruire un'Applicazione scalabile](http://vuejs.org/guide/application.html).
+Questa documentazione, insoltre, assume che voi siate al corrente con i concetti discussi nel capitolo: [Costruire un'Applicazione scalabile](http://it.vuejs.org/guide/application.html).
 
 Creare uno Store in Vuex è un processo abbastanza semplice, si inizia con lo stato iniziale e qualche mutations:
 
