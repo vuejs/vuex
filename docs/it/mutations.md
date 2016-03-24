@@ -1,6 +1,6 @@
 # Mutations
 
-Vuex mutations are essentially events: each mutation has a **name** and a **handler**. The handler function will receive the state as the first argument:
+In Vuex le mutations, o mutazioni, sono degli eventi essenziali: ogni mutazione ha un **nome** ed un **handler**. L'handler è la funzione che riceverà lo stato come primo argomento:
 
 ``` js
 import Vuex from 'vuex'
@@ -11,24 +11,24 @@ const store = new Vuex.Store({
   },
   mutations: {
     INCREMENT (state) {
-      // mutate state
+      // stato in fase di mutazione
       state.count++
     }
   }
 })
 ```
 
-Using all caps for mutation names is just a convention to make it easier to differentiate them from plain functions.
+Utilizzare il nome della mutations tutto in maiuscolo è solo una convenzione che aiuta a distinguere le mutations da funzioni normali.
 
-You cannot directly call a mutation handler. The options here is more like event registration: "When an `INCREMENT` event is dispatched, call this handler." To invoke a mutation handler, you need to dispatch a mutation event:
+Non è possibile richiamare un handler direttamente. Bisogna registrarlo tramite il sistema di dispatch dello store: "Quando `INCREMENT` è in dispatch allora chiama questo handler", ecco un esempio pratico:
 
 ``` js
 store.dispatch('INCREMENT')
 ```
 
-### Dispatch with Arguments
+### Disptach con Argomenti
 
-It is also possible to pass along arguments:
+E' possibile passare gli argomenti alla mutation:
 
 ``` js
 // ...
@@ -38,17 +38,18 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.dispatch('INCREMENT', 10)
 ```
 
-Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
+In questo caso, `10` verrà passato al handler come secondo argomento. Nello specifico delle mutation questi argomenti vengono definiti **payload**.
 
-### Object-Style Dispatch
+### Disptach tramite Oggetti
 
-> requires >=0.6.2
+> Richiede una versione >=0.6.2
 
-You can also dispatch mutations using objects:
+Si può eseguire il dispatch delle mutation tramite oggetti:
 
 ``` js
 store.dispatch({
@@ -57,7 +58,7 @@ store.dispatch({
 })
 ```
 
-Note when using the object-style, you should include all arguments as properties on the dispatched object. The entire object will be passed as the second argument to mutation handlers:
+Qundo si effettua questo tipo di dispatch, tramite oggetti, è buona norma includere tutti gli argomenti richiesti dalla mutation. Tutto l'oggetto verrà passato come secondo argomento all handler della mutation:
 
 ``` js
 mutations: {
@@ -67,25 +68,26 @@ mutations: {
 }
 ```
 
-### Mutations Follow Vue's Reactivity Rules
+### Le Mutation Seguono le Regole di Vue sulla Reattività
 
-Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+Dato che lo stato di Store in Vuex segue la filosofia "reattiva" di Vue, quando mutiamo uno stato, tutti i componenti che osservano tale stato riceveranno l'aggiornamento in modo automatico.
+Questo significa che anche le mutation hanno bisogno di qualche precauzione:
 
-1. Prefer initializing your store's initial state with all desired fields upfront.
+1. E' preferibile inizializzare ogni stato all interno dello store.
 
-2. When adding new properties to an Object, you should either:
+2. Quando si aggiunge una proprietà ad un oggetto è consigliato:
 
-  - Use `Vue.set(obj, 'newProp', 123)`, or -
+  - Utilizzare `Vue.set(obj, 'newProp', 123)`, o -
 
-  - Replace that Object with a fresh one. For example, using the stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
+  - Rimpiazzare l'oggetto corrente con uno nuovo che include la nuova proprietà. Per esempio utilizzando la `stage-2` della [sintassi di diffusione](https://github.com/sebmarkbage/ecmascript-rest-spread) possiamo scrivere una cosa del tipo:
 
   ``` js
   state.obj = { ...state.obj, newProp: 123 }
   ```
 
-### Using Constants for Mutation Names
+### Utilizzare delle Regole per i Nomi delle Mutation
 
-It is also common to use constants for mutation names - they allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+E' pratica comune utilizzare costanti per i nomi delle mutation, tale pratica favorisce il debug tramite strumenti come linter ed è poi possibile distinguere bene ogni mutation
 
 ``` js
 // mutation-types.js
@@ -101,20 +103,20 @@ const store = new Vuex.Store({
   state: { ... },
   actions: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature
-    // to use a constant as the function name
+    // possiamo sfruttare la sintassi ES2015 
+    // per utilizzare una costante come nome di una funzione!
     [SOME_MUTATION] (state) {
-      // mutate state
+      // stato mutato
     }
   }
 })
 ```
 
-Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
+L'utilizzo delle costanti è altamente consigliato soprattutto quando si divide in più moduli un'applicazione di larga scala. Tutta via non c'è nessuna regola che vi obbliga ad utilizzare tale sintassi se non vi piace.
 
-### Mutations Must Be Synchronous
+### Le Mutation devono essere Sincrone
 
-One important rule to remember is that **mutation handler functions must be synchronous**. Why? Consider the following example:
+Una regola importante da tenere a mente è che **gli handler delle mutation devono essere sincroni** Perchè? Considerate il seguente esempio:
 
 ``` js
 mutations: {
@@ -126,8 +128,8 @@ mutations: {
 }
 ```
 
-Now imagine we are debugging the app and looking at our mutation logs. For every mutation logged, we want to be able to compare snapshots of the state *before* and *after* the mutation. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is dispatched, and we do not know when the callback will actually be called. Any state mutation performed in the callback is essentially un-trackable!
+Ora immaginate di dover debuggare l'applicazione e guardate il log delle mutation. Per ogni log sarebbe utile avere un immagine dello stato **prima** e **dopo** la mutazione, purtroppo la chiamata asincrona non ci permette di farlo dato che non viene eseguita quando la mutazione viene chiamata. Non sappiamo quando la chiamata asincrona viene effettivamente chiamata.
 
-### On to Actions
+### Sulle Azioni
 
-Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, we perform all state mutations in a synchronous manner. We will perform all asynchronous operations inside [Actions](actions.md).
+Le mutazioni di stato combinate con eventi asincroni possono portare difficoltà nel capire che cosa succede in un determinato momento. Per sempio se chiamate due metodi, entrambi implementano internamente delle chiamate asincrone, come potete stabilire l'ordine di chiamata? Ecco perchè dev'essere chiaro il motivo per il quale qualsiasi tipo di operazione asincrona dev'essere fatto tramite le [Azioni](actions.md)
