@@ -1,34 +1,50 @@
 # 测试
 
-Mutations 很容易测试，因为它仅仅是一个完全依赖参数的函数。相比之下，测试 Actions 会复杂一些，因为 actions 可能会调用一些外部的 API。 测试 actions 的时候我们需要做一定的 mocking —— 比如说把 API 调用抽象成一个 service，然后测试的时候用另一个 mock 的 service. 为了方便地 mock，我们可以使用 Webpack 和 [inject-loader](https://github.com/plasticine/inject-loader) 来打包测试文件。
+我们主要想针对 Vuex 中的 mutaions 和 actions 进行单元测试。
 
-如果你的 mutation 和 action 遵循了 Vuex 的规则，那么在 mock 之后它们应该对浏览器 API 没有任何直接依赖。因此，打包之后的文件可以直接在 Node.js 下运行。如果你想要在真正的浏览器里跑测试，则可以使用 `mocha-loader` 或是 Karma + `karma-webpack` 的组合。
+## 测试 Mutations
+
+Mutations 很容易被测试，因为它们仅仅是一些完全依赖参数的函数。这里有一个小技巧，如果你在 `store.js` 文件中定义了 mutations，并且使用 ES2015 模块功能默认输出了 Vuex.Store 的实例，那么你仍然可以给 mutation 取个变量名然后把它输出去：
+
+``` js
+const state = { ... }
+
+// mutations 作为命名输出对象
+export const mutations = { ... }
+
+export default new Vuex.Store({
+  state,
+  mutations
+})
+```
 
 下面是用 Mocha + Chai 测试一个 mutation 的例子（实际上你可以用任何你喜欢的测试框架）：
 
 ``` js
-// mutations.js
-export const INCREMENT = state => state.count++
-```
-
-``` js
 // mutations.spec.js
 import { expect } from 'chai'
-import { INCREMENT } from './mutations'
+import { mutations } from './store'
+
+// 解构 mutations
+const { INCREMENT } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // 模拟状态
     const state = { count: 0 }
-    // apply mutation
+    // 应用 mutation
     INCREMENT(state)
-    // assert result
+    // 断言结果
     expect(state.count).to.equal(1)
   })
 })
 ```
 
-测试异步 action 的例子：
+## 测试 Actions
+
+Actions 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 actions 的时候，我们需要增加一个 mocking 服务层 —— 例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 Webpack 和  [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
+
+下面是一个测试异步 action 的例子：
 
 ``` js
 // actions.js
@@ -44,13 +60,13 @@ export const getAllProducts = ({ dispatch }) => {
 
 ``` js
 // actions.spec.js
+
+// 使用 require 语法处理内联 loaders。
+// inject-loader 返回一个允许我们注入 mock 依赖的模块工厂
 import { expect } from 'chai'
-// 这里因为需要用 webpack loader 所以使用 require() 而不是 import
-// inject-loader 会返回一个工厂函数。这个工厂函数让我们可以对该模块的
-// 依赖进行 mock
 const actionsInjector = require('inject!./actions')
 
-// 调用工厂函数，获得 mock 过依赖的 actions 模块
+// 使用 mocks 创建模块
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
@@ -61,11 +77,11 @@ const actions = actionsInjector({
   }
 })
 
-// 这是一个可复用的助手函数，用于断言一个 action 应触发的 mutations
-const testAction = (action, state, expectedMutations, done) => {
+// 用指定的 mutaions 测试 action 的辅助函数
+const testAction = (action, args, state, expectedMutations, done) => {
   let count = 0
-  // mock dispatch
-  const dispatch = (name, payload) => {
+  // 模拟 dispatch
+  const dispatch = (name, ...payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.name).to.equal(name)
     if (payload) {
@@ -76,17 +92,19 @@ const testAction = (action, state, expectedMutations, done) => {
       done()
     }
   }
-  // call the action with mocked store
-  action({
-    dispatch,
-    state
-  })
+  // 用模拟的 store 和参数调用 action
+  action({dispatch, state}, ...args)
+
+  // 检查是否没有 mutation 被 dispatch
+  if (count === 0) {
+    expect(expectedMutations.length).to.equal(0)
+    done()
+  }
 }
 
-// 实际测试
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, {}, [
+    testAction(actions.getAllProducts, [], {}, [
       { name: 'REQUEST_PRODUCTS' },
       { name: 'RECEIVE_PRODUCTS', payload: [ /* mocked response */ ] }
     ], done)
@@ -94,7 +112,11 @@ describe('actions', () => {
 })
 ```
 
-### 在 Node 中运行
+### 执行测试
+
+如果你的 mutations 和 actions 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 Webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 `Karma` + `karma-webpack`在真实浏览器环境中进行测试。
+
+#### 在 Node 中执行测试
 
 创建以下 webpack 配置：
 
@@ -127,9 +149,13 @@ webpack
 mocha test-bundle.js
 ```
 
-### 在浏览器中运行
+### 在浏览器中执行测试
 
 1. 安装 `mocha-loader`
-2. webpack 配置中的 entry 改成 `'mocha!babel!./test.js'`
+2. 把上述 webpack 配置中的 `entry` 改成 `'mocha!babel!./test.js'`
 3. 用以上配置启动 `webpack-dev-server`
-4. 打开 `localhost:8080/webpack-dev-server/test-bundle`.
+4. 访问 `localhost:8080/webpack-dev-server/test-bundle`.
+
+#### 使用 Karma + karma-webpack 在浏览器中执行测试
+
+详询 [vue-loader documentation](http://vuejs.github.io/vue-loader/workflow/testing.html)。
