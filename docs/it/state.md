@@ -19,11 +19,12 @@ computed: {
 }
 ```
 
-Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
+Ogni volta che `store.state.count` cambia, verrà riflesso nella proprietà derivata e attiverà gli aggiornamenti del DOM necessari.
 
-However, this pattern causes the component to rely on the global store singleton. This makes it harder to test the component, and also makes it difficult to run multiple instances of the app using the same set of components. In large applications, we may want to "inject" the store into child components from the root component. Here's how to do it:
+Questo metodo, seppur semplice, può portare ad avere uno o più componenti che dipendono da un singleton globale, lo store, il quale può complicare la situazione in fase di test o se si vuole riutilizzare un componente in un'altra applicazione.
+Per evitare questo tipo di problemi, si può "iniettare" lo store internamente al componente, ecco come fare:
 
-1. Install Vuex and connect your root component to the store:
+1. Installato Vuex, collegate il componente principale (root) con lo store:
 
   ``` js
   import Vue from 'vue'
@@ -31,14 +32,14 @@ However, this pattern causes the component to rely on the global store singleton
   import store from './store'
   import MyComponent from './MyComponent'
 
-  // important, teaches Vue components how to
-  // handle Vuex-related options
+  // Questo passo è fondamentale in quando dice a vue
+  // Come comportarti con le opzioni relative a Vuex.
   Vue.use(Vuex)
 
   var app = new Vue({
     el: '#app',
-    // provide the store using the "store" option.
-    // this will inject the store instance to all child components.
+    // Iniettiamo lo store direttamente nel componente
+    // Così facendo sarà disponibile a tutti i componenti figli
     store,
     components: {
       MyComponent
@@ -46,20 +47,19 @@ However, this pattern causes the component to rely on the global store singleton
   })
   ```
 
-  By providing the `store` option to the root instance, the store will be injected into all child components of the root and will be available on them as `this.$store`. However it's quite rare that we will need to actually reference it.
+  Iniettando lo store direttamente al componente principale, tutti i figli ne beneficeranno e lo store sarà disponibile tramite la proprietà `this.$store`. Comunque non è necessario utilizzare la referenza diretta:
 
-2. Inside child components, retrieve state with **getter** functions in the `vuex.getters` option:
+2. Internamente al componente figlio, possiamo sfruttare una funzione **getter** e farci restituire l'opzione `vuex.getters`:
 
   ``` js
   // MyComponent.js
   export default {
     template: '...',
     data () { ... },
-    // this is where we retrieve state from the store
+    // Qui e dove lavoriamo con Vuex
     vuex: {
       getters: {
-        // a state getter function, which will
-        // bind `store.state.count` on the component as `this.count`
+        // Questo getter legherà `store.state.count` al componente tramite `this.count`
         count: function (state) {
           return state.count
         }
@@ -68,9 +68,10 @@ However, this pattern causes the component to rely on the global store singleton
   }
   ```
 
-  Note the special `vuex` option block. This is where we specify what state the component will be using from the store. For each property name, we specify a getter function which receives the entire state tree as the only argument, and then selects and returns a part of the state, or a computed value derived from the state. The returned result will be set on the component using the property name, just like a computed property.
+  Si noti la sintassi speciale `vuex`. Al suo interno si specificano gli stati che il componente deve utilizzare dallo store. Per ogni proprietà dello store specificheremo un getter il quale riceve tutto l'albero degli stati dallo store
+  e seleziona solo lo stato che specifichiamo noi il valore verrà inserito in una properità del componente, proprio come una proprietà derivata.
 
-  In a lot of cases, the "getter" function can be very succinct using ES2015 arrow functions:
+  In molti casi si può semplificare la sintassi del "getter" tramite ES2015:
 
   ``` js
   vuex: {
@@ -80,11 +81,11 @@ However, this pattern causes the component to rely on the global store singleton
   }
   ```
 
-### Getters Must Be Pure
+### I Getter devono essere Puri
 
-All Vuex getters must be [pure functions](https://en.wikipedia.org/wiki/Pure_function) - they take the entire state tree in, and return some value solely based on that state. This makes them more testable, composable and efficient. It also means **you cannot rely on `this` inside getters**.
+Tutti i getter Vuex devono essere [delle funzioni pure](https://en.wikipedia.org/wiki/Pure_function) - esse devono prendere l'intero albero degli stati e restituire solo e soltanto un valore di tale stato. Questo rende il tutto più facile da modularizzare, testare e comporre. Significa anche che **non potrete usare `this` nei getter**.
 
-If you do need access to `this`, for example to compute derived state based on the component's local state or props, you need to define separate, plain computed properties:
+Se vi ritrovate nella situazione di dover usare `this`, per esempio per elaborare una properità derivata basata su uno stato locale del componente, allora dovrete definire un'altra proprietà derivata dedicata:
 
 ``` js
 vuex: {
@@ -99,9 +100,11 @@ computed: {
 }
 ```
 
-### Getters Can Return Derived State
+### I Getter posso restituire Stati Derivati
 
-Vuex state getters are computed properties under the hood, this means you can leverage them to reactively (and efficiently) compute derived state. For example, say in the state we have an array of `messages` containing all messages, and a `currentThreadID` representing a thread that is currently being viewed by the user. What we want to display to the user is a filtered list of messages that belong to the current thread:
+Se consideriamo che i getter di Vuex dietro le quinte sono delle proprietà derivate, allora possiamo intuire che è possibile sfruttare alcune proprietà di quest'ultime per restituire uno stato più eleborato.
+Per esempio, si consideri che lo stato ha un array di `messaggi` contenente tutti i messaggi, ed un `currentThreadID` che rappresenta il thread corrente visualizzato dall utente.
+Ora, mettiamo caso di voler visualizzare tutti i messaggi che sono associati ad un Thread particolare:
 
 ``` js
 vuex: {
@@ -115,11 +118,11 @@ vuex: {
 }
 ```
 
-Because Vue.js computed properties are automatically cached and only re-evaluated when a reactive dependency changes, you don't need to worry about this function being called on every mutation.
+Dato che le proprietà derivate di Vue.js sono messe in cache in modo automatico, non dovremo preoccuparci di chiamare questo metodo ad ogni mutazione dello stato!
 
-### Sharing Getters Across Multiple Components
+### Condividere dei Getter su più Componenti
 
-As you can see, the `filteredMessages` getter may be useful inside multiple components. In that case, it's a good idea to share the same function between them:
+Come potete notare `filteredMessages` può essere utile in più componenti. In questo caso è buona idea esportare il metodo e condividerlo su più componenti:
 
 ``` js
 // getters.js
@@ -131,7 +134,7 @@ export function filteredMessages (state) {
 ```
 
 ``` js
-// in a component...
+// In un componente..
 import { filteredMessages } from './getters'
 
 export default {
@@ -143,14 +146,14 @@ export default {
 }
 ```
 
-Because getters are pure, getters shared across multiple components are efficiently cached: when dependencies change, they only re-evaluate once for all components that uses them.
+Grazie al fatto che i Getter sono puri, tutti i getter possono essere condivisi tra i componenti e cachati in modo molto convenzionale: quando una dipendenza cambia viene rievalutata una sola volta per tutti i componenti!
 
-> Flux reference: Vuex getters can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, because they leverage Vue's computed properties memoization under the hood, they are more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect).
+> Referenza a Flux: I getter di Vuex sono simili a [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. Comounque dato che ci si appoggia al sistema di proprietà derivate di Vue, c'è una netta differenza di prestazioni a favore di Vuex, troviamo più similitudini a [reselect](https://github.com/reactjs/reselect).
 
-### Components Are Not Allowed to Directly Mutate State
+### I Componenti Non Possono Mutare gli Stati
 
-It's important to remember that **components should never directly mutate Vuex store state**. Because we want every state mutation to be explicit and trackable, all vuex store state mutations must be conducted inside the store's mutation handlers.
+E' importante ricordare che **i componenti non dovrebbero mai mutare uno stato in Vuex in modo diretto**. Ogni stato dev'essere mutato in modo esplicito e tracciabile, possibilmente sfruttando il sistema mutations di Vuex stesso.
 
-To help enforce this rule, when in [Strict Mode](strict.md), if a store's state is mutated outside of its mutation handlers, Vuex will throw an error.
+Per aiutare a rispettare questa regola, se in [Modalità Strict](strict.md), Vuex lancierà un errore se si prova a mutare uno stato in modo diretto.
 
-With this rule in place, our Vue components now hold a lot less responsibility: they are bound to Vuex store state via read-only getters, and the only way for them to affect the state is by somehow triggering **mutations** (which we will discuss later). They can still possess and operate on their local state if necessary, but we no longer put any data-fetching or global-state-mutating logic inside individual components. They are now centralized and handled inside Vuex related files, which makes large applications easier to understand and maintain.
+Con questa regola i vostri componenti in Vue avranno meno responsabilità: essi sono legati allo Store di Vuex in modalità sola lettura tramite i getter, l'unico modo per cambiare lo stato in qualsiasi modo è attivando le **mutations** (ne parleremo dopo). Il vantaggio è che i componenti potranno continuare ad operare sui loro stati locali se necessario ma senza doversi preoccupare di gestire la logica per gli stati globali dell'applicazione dato che, quest'ultimi, sono centralizzati internamente in Vuex.
