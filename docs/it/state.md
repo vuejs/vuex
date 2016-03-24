@@ -1,17 +1,17 @@
-# State and Getters
+# Stato e Getter
 
-### Single State Tree
+### Albero a Stato Singolo
 
-Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
+Vuex utilizza un **albero a stato singolo** - questo singolo oggetto contiene tutti gli stati dell'applicazione e serve come "unica risorsa della verità". Vuex permette un solo store per applicazione. Un albero a stato singolo permette di localizzare specificatamente un singolo stato, modificarlo, salvarne una copia corrente ed effettuare debug e test.
 
-The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
+Questo principio non va in conflitto con il concetto di modularità, più avanti capiremo come distribuire lo stato in più moduli.
 
-### Getting Vuex State into Vue Components
+### Sfruttare lo Stato nei Componenti di Vue
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](http://vuejs.org/guide/computed.html):
+Come visualizziamo lo stato internamente ad un componente Vue? Il modo più semplice è quello di sfruttare le [proprietà derivate](http://it.vuejs.org/guide/computed.html):
 
 ``` js
-// in a Vue component definition
+// internamente ad un Componente di Vue
 computed: {
   count: function () {
     return store.state.count
