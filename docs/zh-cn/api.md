@@ -30,7 +30,7 @@ const store = new Vuex.Store({ ...options })
 
   - type: `Object`
 
-    一个会被合并到 store 中可以包含子模块的对象，形如：
+    一个会被合并到 store 中包含子模块的对象，形如：
 
     ``` js
     {
@@ -42,7 +42,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    每个模块都可以包含与根选项类似的 `state` 和 `mutations`。模块的状态会被以模块的 key 附加到 Vuex 实例的根状态中。模块的 mutations 只接受此模块的状态作为第一个参数而不会接受整个根状态。
+    每个模块都可以包含与根选项类似的 `state` 和 `mutations`。模块的状态会被以模块的 key 附加到 Vuex 实例的根状态中。模块的 mutations 只接受此模块的状态作为第一个参数而不是整个根状态。
 
 - **middlewares**
 
@@ -58,7 +58,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    所有字段都是可选的. [详细](middlewares.md)
+    所有字段都是可选的。[详细](middlewares.md)
 
 - **strict**
 
@@ -91,4 +91,4 @@ const store = new Vuex.Store({ ...options })
 
 - **hotUpdate(newOptions: Object)**
 
-  热更新 actions 和 mutations. [详细](hot-reload.md)
+  热更新 actions 和 mutations。[详细](hot-reload.md)
