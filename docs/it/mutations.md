@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     }
   }
 })
-```
+``` 
 
 Utilizzare il nome della mutations tutto in maiuscolo è solo una convenzione che aiuta a distinguere le mutations da funzioni normali.
 

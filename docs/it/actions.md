@@ -1,23 +1,23 @@
 # Actions
 
-> Vuex actions are in fact "action creators" in vanilla flux definitions, but I find that term more confusing than useful.
+> Le azioni, action, in Vuex sono i cosidetti "Actions creator" nel mondo di Flux. Ma questo termine è fuorviante.
 
-Actions are just functions that dispatch mutations. By convention, Vuex actions always expect a store instance as its first argument, followed by optional additional arguments:
+Le action sono semplici funzioni che inviano le mutation. Per convenzione, le action in Vuex si aspettano sempre un istanza di store come primo argomento, seguito da altri argomenti opzionali:
 
 ``` js
-// the simplest action
+// l'action più semplice
 function increment (store) {
   store.dispatch('INCREMENT')
 }
 
-// a action with additional arguments
-// with ES2015 argument destructuring
+// una semplice azione con più argomenti
+// che sfrutta il distruttore dei ES2015
 function incrementBy ({ dispatch }, amount) {
   dispatch('INCREMENT', amount)
 }
 ```
 
-This may look dumb at first sight: why don't we just dispatch mutations directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+La domanda può sorgere spontanea, perchè non inviamo direttamente le mutation senza passare per le azioni? Ricordate che **le mutation sono sempre sincrone**? Bene, tramite le action noi possiamo scavalcare questo problema in quanto, internamente ad una action, possiamo gestire codice asincrono!
 
 ``` js
 function incrementAsync ({ dispatch }) {
@@ -27,29 +27,28 @@ function incrementAsync ({ dispatch }) {
 }
 ```
 
-A more practical example would be an action to checkout a shopping cart, which involves **calling an async API** and **dispatching multiple mutations**:
+Un esempio pratico può essere il sistema di checkout di un carrello che richiede **chiamate asincrone ad API** e **l'invio di mutation multiple**:
 
 ``` js
 function checkout ({ dispatch, state }, products) {
-  // save the current in cart items
+  // salviamo l'oggetto corrente
   const savedCartItems = [...state.cart.added]
-  // send out checkout request, and optimistically
-  // clear the cart
+  // inviamo una richiesta di checkout
   dispatch(types.CHECKOUT_REQUEST)
-  // the shop API accepts a success callback and a failure callback
+  // in questo caso le API accettano due callback per success e failure
   shop.buyProducts(
     products,
-    // handle success
+    // success
     () => dispatch(types.CHECKOUT_SUCCESS),
-    // handle failure
+    // failure
     () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
   )
 }
 ```
 
-Note that instead of expecting returns values or passing callbacks to actions, the result of calling the async API is handled by dispatching mutations as well. The rule of thumb is that **the only side effects produced by calling actions should be dispatched mutations**.
+Si noti che invece di aspettarsi un valore di ritorno, la gestione delle API asincrone è fatta chiamando altre mutation. Possiamo quindi definire una regola di base dove **l'unico effetto prodotto dalla chiamata ad azioni è l'invio di mutation**.
 
-### Calling Actions In Components
+### Chiamare gli Action nei Componenti
 
 You may have noticed that action functions are not directly callable without reference to a store instance. Technically, we can invoke an action by calling `action(this.$store)` inside a method, but it's better if we can directly expose "bound" versions of actions as the component's methods so that we can easily refer to them inside templates. We can do that using the `vuex.actions` option:
 
