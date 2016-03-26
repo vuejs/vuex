@@ -2,7 +2,7 @@
 
 > Vuex actions 和 Flux 中的 "action creators" 是等同的概念，但是我觉得这个定义常让人感到困惑（比如分不清 actions 和 action creators）。
 
-Actions 是用于分发 mutations 的函数。按照惯例，Vuex 的第一个参数是 store 实例，附加上可选的自定义参数。
+Actions 是用于分发 mutations 的函数。按照惯例，Vuex actions 的第一个参数是 store 实例，附加上可选的自定义参数。
 
 ``` js
 // 最简单的 action
@@ -99,6 +99,7 @@ const vm = new Vue({
     }
   }
 })
+```
 
 这样 action 就会被绑定为 `vm.plus` 而不是 `vm.increamentBy` 了。
 
