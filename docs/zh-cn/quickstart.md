@@ -4,7 +4,7 @@
 
 1. Vuex 的状态存储是动态的. 当 Vue 组件从 store 中的 state 读取状态的时候, 如果 store 中的 state 改变，那么响应的组件也会动态并高效的改变.
 
-2. 你不能直接改变 store 中的 state. 改变 store 中的 state 的唯一途径就是明确的 dispatch **mutations** 事件. 这样使得每一个状态的变化冻很容易追踪, 并且能够让我们通过工具更了解应用内部的状态.
+2. 你不能直接改变 store 中的 state. 改变 store 中的 state 的唯一途径就是明确的 dispatch **mutations** 事件. 这样使得每一个状态的变化都很容易追踪, 并且能够让我们通过工具更了解应用内部的状态.
 
 ### 最简单的 store
 
