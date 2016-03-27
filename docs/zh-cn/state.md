@@ -8,7 +8,7 @@ Vuex 使用**单状态树** —— 也就是单个对象作为『单一数据提
 
 ### 在 Vue 组件中获得 Vuex 状态
 
-那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是动态的，从 store 实例中读取状态最简单的方法就是在计算属性[computed property](http://vuejs.org/guide/computed.html)中返回某个状态：
+那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是动态的，从 store 实例中读取状态最简单的方法就是在计算属性 [computed property](http://vuejs.org/guide/computed.html) 中返回某个状态：
 
 ``` js
 // 在 Vue 组件定义时
@@ -66,7 +66,7 @@ computed: {
 
   留意特殊的 `vuex` 选项部分，在这里我们指定该组件将会从 store 实例中读取哪些状态。每个属性名对应一个 getter 函数，该函数接收整个状态树作为唯一参数并返回状态树的一部分或计算后的新值。组件可以像使用计算属性一样通过属性名获取 getter 函数的返回值。
 
-  大多数情况下，"getter" 函数可以通过 ES2015 的箭头函数来简洁地实现：
+  大多数情况下，“getter” 函数可以通过 ES2015 的箭头函数来简洁地实现：
 
   ``` js
   vuex: {
@@ -78,7 +78,7 @@ computed: {
 
 ### getter 函数必须是纯函数
 
-所有的 Vuex getter 函数，必须是纯函数 [pure functions](https://en.wikipedia.org/wiki/Pure_function) - 它们只依赖传入的状态树计算出返回值。这让组件更容易测试、组合和更高效。这也意味着**在 getter 函数中不能依赖 `this`**。
+所有的 Vuex getter 函数，必须是[纯函数](https://en.wikipedia.org/wiki/Pure_function) —— 它们只依赖传入的状态树计算出返回值。这让组件更容易测试、组合和更高效。这也意味着**在 getter 函数中不能依赖 `this`**。
 
 如果你确实需要使用 `this`，例如为了基于组件的局部状态来计算派生属性，你需要另外单独定义一个计算属性：
 
@@ -90,7 +90,7 @@ vuex: {
   }
 },
 computed: {
-  // 计算属性可以通过 this 引用组件实例
+  // 但计算属性可以通过 this 引用组件实例
   isCurrent () {
     return this.id === this.currentId
   }
@@ -113,7 +113,7 @@ vuex: {
 }
 ```
 
-因为 Vue.js 计算属性是自动缓存的，且只有一个动态的依赖改变的时候才会重新计算，所以你不必担心 getter 函数会在每次状态树改变的时候调用一次。
+因为 Vue.js 计算属性是自动缓存的，且只有一个动态的依赖改变的时候才会重新计算，所以你不必担心 getter 函数会在每次状态树改变的时候被频繁调用。
 
 ### 在多组件中共享 getter 函数
 
@@ -143,12 +143,12 @@ export default {
 
 因为 getter 函数是纯函数，多组件共享的时候 getter 函数可以高效地缓存：当依赖状态改变的时候，在使用 getter 函数的全部组件中只重新计算一次。
 
-> Flux 参考: Vuex 的 getter 函数可以大致类比成 Redux 中的 [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options). 然而, 由于 Vue 的计算可以缓存的计算机制，getter 函数要比 `mapStateToProps` 更加高效，因此更加和 [reselect](https://github.com/reactjs/reselect)相似。
+> Flux 参考: Vuex 的 getter 函数可以大致类比成 Redux 中的 [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)。然而, 由于 Vue 的计算可以缓存的计算机制，getter 函数要比 `mapStateToProps` 更加高效，因此更加和 [reselect](https://github.com/reactjs/reselect) 相似。
 
 ### 组件不允许直接修改 store 实例的状态
 
 有一点很重要，需要注意，就是**组件永远都不应该直接修改 Vuex store 实例中的状态**。因为我们想要每个状态的改变都清晰并且可追踪，所有的 Vuex 状态改变必须在 store 实例的 mutation 中进行。
 
-为了保持这个规则，在严格模式([Strict Mode](strict.md))下，如果 store 实例中一个状态在 mutation 外进行修改，Vuex 会抛出异常。
+为了保持这个规则，在严格模式([Strict Mode](strict.md))下，如果 store 实例中一个状态在 mutation 外被修改，Vuex 会抛出异常。
 
 有了这一规则，我们的 Vue 组件现在少了很多职能：这势必让 Vuex 中 store 实例变得只读，组件唯一影响 state 的方法就是触发 **mutations**（我们接下来就讨论）。必要情况下，组件仍然能够拥有和操作自己的状态，但是我们不再在独立的组件中放置任何请求数据或者改变全局状态的逻辑。这些操作全部都集中在 Vuex 相关的文件中，这样能够让大型应用更容易理解和维护。
