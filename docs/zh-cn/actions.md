@@ -47,7 +47,7 @@ function checkout ({ dispatch, state }, products) {
 }
 ```
 
-请谨记一点，必须通过分发 mutations 来处理调用异步 API 的结果，而不是依赖返回值或者是传递回调来处理结果。基本原则就是：**Actions 除了分发 mutations 不能造成别的副作用**。
+请谨记一点，必须通过分发 mutations 来处理调用异步 API 的结果，而不是依赖返回值或者是传递回调来处理结果。基本原则就是：**Actions 除了分发 mutations 应当尽量避免其他副作用**。
 
 ### 在组件中调用 Actions
 
