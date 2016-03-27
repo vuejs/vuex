@@ -36,7 +36,9 @@ computed: {
 
   var app = new Vue({
     el: '#app',
-    // 使用 "store" 来配置，并会在全部的子组件中注入 store 实例,
+    // 使用 “store” 选项来配置 store 实例
+    // 并会在全部的子组件中注入 store 实例
+    store,
     components: {
       MyComponent
     }
