@@ -48,6 +48,23 @@ export function deepClone (obj) {
   }
 }
 
+export function mutatorNameToCamelCase (name) {
+  var len = name.length
+  var newName = ''
+  for (var i = 0; i < len; i++) {
+    if (name[i] === '_') {
+      continue
+    }
+    if (name[i - 1] && name[i - 1] === '_') {
+      newName += name[i].toUpperCase()
+    } else {
+      newName += name[i].toLowerCase()
+    }
+  }
+
+  return newName
+}
+
 /**
  * Hacks to get access to Vue internals.
  * Maybe we should expose these...
