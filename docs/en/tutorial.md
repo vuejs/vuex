@@ -148,7 +148,7 @@ The action is a function which is called from the component. Action functions ca
 Create a new file in `vuex/actions.js` with a single function `incrementCounter`
 
 ```js
-// An action will recieve the store as the first argument.
+// An action will receive the store as the first argument.
 // Since we are only interested in the dispatch (and optionally the state)
 // We can pull those two parameters using the ES6 destructuring feature
 export const incrementCounter = function ({ dispatch, state }) {
