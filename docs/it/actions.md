@@ -50,61 +50,61 @@ Si noti che invece di aspettarsi un valore di ritorno, la gestione delle API asi
 
 ### Chiamare gli Action nei Componenti
 
-You may have noticed that action functions are not directly callable without reference to a store instance. Technically, we can invoke an action by calling `action(this.$store)` inside a method, but it's better if we can directly expose "bound" versions of actions as the component's methods so that we can easily refer to them inside templates. We can do that using the `vuex.actions` option:
+Forse avrete notato che le azioni, e le funzioni legate ad esse, non possono essere chiamate direttamente senza una referenza all'istanza dello store. Tecnicamente si potrebbe fare chiamando `action(this.$store)` internamente ad un metodo, è comunque consigliato esporre un set di API dal componente tramite `vuex.actions`, per esempio:
 
 ``` js
-// inside a component
+// internamente ad un componente
 import { incrementBy } from './actions'
 
 const vm = new Vue({
   vuex: {
-    getters: { ... }, // state getters
+    getters: { ... }, // i getter
     actions: {
-      incrementBy // ES6 object literal shorthand, bind using the same name
+      incrementBy // Utilizziamo la sintassi ES6 per gli oggetti
     }
   }
 })
 ```
 
-What the above code does is binding the raw `incrementBy` action to the component's store instance, and expose it on the component as an instance method, `vm.incrementBy`. Any arguments passed to `vm.incrementBy` will be passed to the raw action function after the first argument which is the store, so calling:
+Il codice appena visto lega l'azione `incrementBy` con l'istanza di uguale nome nello store ed espone tale istanza al componente tramite `vm.incrementBy`. Tutti gli argomenti passati ad `vm.incrementBy` saranno passai prima all'azione e poi allo store in questo modo:
 
 ``` js
 vm.incrementBy(1)
 ```
 
-is equivalent to:
+è uguale a scrivere:
 
 ``` js
 incrementBy(vm.$store, 1)
 ```
 
-But the benefit is that we can bind to it more easily inside the component's template:
+ma il beneficio di avere tale sintassi è che ora possiamo usare:
 
 ``` html
-<button v-on:click="incrementBy(1)">increment by one</button>
+<button v-on:click="incrementBy(1)">Incrementa di uno</button>
 ```
 
-You can obviously use a different method name when binding actions:
+Ovviamente potete utilizzare un altro nome dentro il componente, l'importante è referenziarlo all'istanza nello store:
 
 ``` js
-// inside a component
+// il componente
 import { incrementBy } from './actions'
 
 const vm = new Vue({
   vuex: {
     getters: { ... },
     actions: {
-      plus: incrementBy // bind using a different name
+      plus: incrementBy // usiamo un altro nome
     }
   }
 })
 ```
 
-Now the action will be bound as `vm.plus` instead of `vm.incrementBy`.
+Ora l'action sarà legata a `vm.plus` invece che `vm.incrementBy`.
 
-### Inline Actions
+### Action Inline
 
-If an action is specific to a component, you can take the shortcut and just define it inline:
+Se un'azione è specifica per un determinato componente, allora possiamo usare una scorciatoia e definirla inline:
 
 ``` js
 const vm = new Vue({
@@ -117,9 +117,9 @@ const vm = new Vue({
 })
 ```
 
-### Binding All Actions
+### Legare tutte le Action
 
-If you simply want to bind all the shared actions:
+Possiamo vincolare un componente ad avere tutte le action senza specificarne nessuna:
 
 ``` js
 import * as actions from './actions'
@@ -127,7 +127,7 @@ import * as actions from './actions'
 const vm = new Vue({
   vuex: {
     getters: { ... },
-    actions // bind all actions
+    actions // il componente ora accede a tutte le action
   }
 })
 ```

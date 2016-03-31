@@ -7,7 +7,7 @@
 - Concetti fondamentali
   - [Stato e Getter](state.md)
   - [Mutazioni](mutations.md)
-  - [Azioni](actions.md)
+  - [Action](actions.md)
 - [Flusso dei Dati](data-flow.md)
 - [Struttura dell'Applicazione](structure.md)
 - [Middlewares](middlewares.md)
