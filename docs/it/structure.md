@@ -1,22 +1,22 @@
-# Application Structure
+# Struttura dell'Applicazione
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
+Vuex non ti obbliga a seguire nessuna convenzione per quanto riguarda la struttura del codice però ci sono dei principi che possono essere utili e vale la pena tenere in considerazione:
 
-1. Application state is held in the store, as a single object.
+1. Lo stato dell'Applicazione è conservato in uno store, il quale è un singolo oggetto.
 
-2. The only way to mutate the state is by dispatching mutations on the store.
+2. L'unico modo di mutare lo stato è quello di inviare una mutation allo store.
 
-3. Mutations must be synchronous, and the only side effects they produce should be mutating the state.
+3. Le mutation sono sincrone, l'unico effetto che devono avere è quello di mutare uno stato.
 
-4. We can expose a more expressive state mutation API by defining actions. Actions can encapsulate asynchronous logic such as data fetching, and the only side effects they produce should be dispatching mutations.
+4. Possiamo esporre uno strato più complesso di API tramite le action. Le action possono incapsulare mutation e codice asincrono ma il fine ultimo di una action dev'essere sempre quello che attivare una mutation.
 
-5. Components use getters to retrieve state from the store, and call actions to mutate the state.
+5. I Componenti usano i getter per prelevare gli stati dallo store e chiamano le azioni per mutarli.
 
-The nice thing about Vuex mutations, actions and getters is that **they are all just functions**. As long as you follow these rules, it's up to you how to structure your project. However, it's nice to have some conventions so that you can instantly become familiar with another project that uses Vuex, so here are some recommended structures depending on the scale of your app.
+La cosa interessante delle mutation, action e getter in Vuex è il fatto che **sono tutte funzioni javascript**. Se seguirete queste piccole regolette sarà più facile interscambiare la logica tra progetti che utilizzano VuexT. Di seguito sono mostrate delle strutture di base per i vostri progetti in Vuex.
 
-### Simple Project
+### Progetto Semplice
 
-For a simple project, we can simply define the **store** and the **actions** in respective files:
+Quando si parla di applicazioni semplici possiamo definire **store** e **actions** in due file separati:
 
 ``` bash
 .
@@ -26,36 +26,36 @@ For a simple project, we can simply define the **store** and the **actions** in 
 │   ├── App.vue
 │   └── ...
 └── vuex
-    ├── store.js     # exports the store (with initial state and mutations)
-    └── actions.js   # exports all actions
+    ├── store.js     # file per lo store
+    └── actions.js   # file per le action
 ```
 
-For an actual example, check out the [Counter example](https://github.com/vuejs/vuex/tree/master/examples/counter) or the [TodoMVC example](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
+Per un esempio pratico potete rivedere [L'esempio del Contatore](https://github.com/vuejs/vuex/tree/master/examples/counter) oppureß [L'esempio TodoMVC](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
 
-Alternatively, you can also split out mutations into its own file.
+Alternativamente potete anche suddividere le mutation in un file a se stante.
 
 ### Medium to Large Project
 
-For any non-trivial app, we probably want to further split Vuex-related code into multiple "modules" (roughly comparable to "stores" in vanilla Flux, and "reducers" in Redux), each dealing with a specific domain of our app. Each module would be managing a sub-tree of the state, exporting the initial state for that sub-tree and all mutations that operate on that sub-tree:
+Per tutte quelle applicazioni di medie o grosse dimensioni la struttura di Vuex può differire rispetto a quella vista precedentemente. Per esempio la suddivisione del codice in moduli atomici per ogni vario stato da monitorare (molto simile alla logica degli store in Flux o ai reducers in Redux), ognuno dei quali si occupa di uno specifico dominio nella vostra applicazione ecco un esempio di struttura:
 
 ``` bash
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # api request
 ├── components
 │   ├── App.vue
 │   └── ...
 └── vuex
-    ├── actions.js        # exports all actions
-    ├── store.js          # where we assemble modules and export the store
-    ├── mutation-types.js # constants
+    ├── actions.js        # Tutte le azioni
+    ├── store.js          # Qui assembliamo i moduli
+    ├── mutation-types.js # costanti globali
     └── modules
-        ├── cart.js       # state and mutations for cart
-        └── products.js   # state and mutations for products
+        ├── cart.js       # lo stato e le mutation per il carrello
+        └── products.js   # lo stato e le mutation per i prodotti
 ```
 
-A typical module looks like this:
+Un modulo, di solito, assomiglia a qualcosa del tipo:
 
 ``` js
 // vuex/modules/products.js
@@ -64,7 +64,7 @@ import {
   ADD_TO_CART
 } from '../mutation-types'
 
-// initial state
+// stato iniziale
 const state = {
   all: []
 }
@@ -86,20 +86,20 @@ export default {
 }
 ```
 
-And in `vuex/store.js`, we "assemble" multiple modules together to create the Vuex instance:
+Ed in vuex/store.js, possiamo assemblare tutti i moduli:
 
 ``` js
 // vuex/store.js
 import Vue from 'vue'
 import Vuex from '../../../src'
-// import parts from modules
+// importiamo i moduli
 import cart from './modules/cart'
 import products from './modules/products'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  // combine sub modules
+  // combiniamoli
   modules: {
     cart,
     products
@@ -107,9 +107,9 @@ export default new Vuex.Store({
 })
 ```
 
-Here, `cart` module's initial state will be attached to the root state tree as `store.state.cart`. In addition, **all the mutations defined in a sub-module only receives the sub-state-tree they are associated with**. So mutations defined in the `cart` module will receive `store.state.cart` as their first argument.
+Lo stato iniziale di `cart` verrà legato alla root dell'albero degli stati in modo tale da ottenere `store.state.cart`. In aggiunta **tutte le mutation sono definite in un sub modulo e ricevono solo lo stato associato a tale sub modulo**. Questo significa che il modulo `cart` riceverà sempre `store.state.cart` come primo argomento.
 
-The root of the sub-state-tree is irreplaceable inside the module itself. For example this won't work:
+L'albero degli stati, e la sua root, non possono essere rimpiazzati all'interno dei moduli. Per esempio questo codice non funzionerà:
 
 ``` js
 const mutations = {
@@ -119,7 +119,7 @@ const mutations = {
 }
 ```
 
-Instead, always store actual state as a property of the sub-tree root:
+Invece questo codice contiene la logica giusta per gestire gli alberi di ogni sub modulo:
 
 ``` js
 const mutations = {
@@ -129,8 +129,8 @@ const mutations = {
 }
 ```
 
-Since all modules simply export objects and functions, they are quite easy to test and maintain, and can be hot-reloaded. You are also free to alter the patterns used here to find a structure that fits your preference.
+Dato che tutti i moduli esportano semplici funzioni ed oggetti javascript essi sono facili da testare e mantenere ma, soprattutto, possono essere aggiornati tramite "hot-reload". Ovviamente la guida descritta sopra è solo un indicazione di come dovrebbe essere strutturata un'applicazione tramite Vuex. Potete usare qualsiasi struttura voi riteniate adeguata.
 
-Note that we do not put actions into modules, because a single action may dispatch mutations that affect multiple modules. It's also a good idea to decouple actions from the state shape and the implementation details of mutations for better separation of concerns. If the actions file gets too large, we can turn it into a folder and split out the implementations of long async actions into individual files.
+Si noti che non ci sono action nei moduli, questo perchè una singola azione può attivare differenti mutation in differenti moduli. E' sempre una buona idea separare le action dall'implementazione dei moduli.
 
-For an actual example, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
+Per un esempio concreto potete rivedere [il Carrello della Spesa in Vuex](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
