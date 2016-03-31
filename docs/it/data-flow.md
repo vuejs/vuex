@@ -1,8 +1,8 @@
-# Data Flow
+# Flusso dei Dati
 
-Let's build a simple counter app with Vuex to get a better understanding of the data flow inside Vuex apps. Note this is a trivial example solely for the purpose of explaining the concepts - in practice you don't need Vuex for such simple tasks.
+Costruiamo un semplice contatore tramite Vuex per avere una visione migliore su come i dati siano scambiati tra i vari componenti. Si noti che questo esempio è un estremizzazione per spiegare alcuni concetti chiavi, Vuex non è utile per questo tipo di applicazioni molto semplici.
 
-### The Store
+### Lo Store
 
 ``` js
 // store.js
@@ -11,12 +11,12 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-// app initial state
+// Stato iniziale della nostra applicazione
 const state = {
   count: 0
 }
 
-// define possible mutations
+// Definiamo tutte le mutazioni
 const mutations = {
   INCREMENT (state) {
     state.count++
@@ -26,14 +26,14 @@ const mutations = {
   }
 }
 
-// create the store
+// creiamo lo store
 export default new Vuex.Store({
   state,
   mutations
 })
 ```
 
-### Actions
+### Action
 
 ``` js
 // actions.js
@@ -41,23 +41,23 @@ export const increment = ({ dispatch }) => dispatch('INCREMENT')
 export const decrement = ({ dispatch }) => dispatch('DECREMENT')
 ```
 
-### Use It with Vue
+### Utilizziamo Vue
 
-**Template**
+**Il Template**
 
 ``` html
 <div id="app">
-  Clicked: {{ count }} times
+  Hai Cliccato: {{ count }} volte
   <button v-on:click="increment">+</button>
   <button v-on:click="decrement">-</button>
 </div>
 ```
 
-**Script**
+**Lo Script**
 
 ``` js
-// We are importing and injecting the store here because
-// this is the root. In larger apps you only do this once.
+// Stiamo importanto ed iniettando lo store perchè questo è il componente di root
+// In un'applicazione grossa questo procedimento viene fatto una sola volta
 import store from './store'
 import { increment, decrement } from './actions'
 
@@ -76,13 +76,13 @@ const app = new Vue({
 })
 ```
 
-Here you will notice the component itself is extremely simple: it simply displays some state from the Vuex store (not even owning its own data), and calls some store actions on user input events.
+Ecco fatto, questa applicazione è molto semplice e mostra come le action, mutazioni e lo store funzionino in modo tale da manipolare, anche se in questo caso molto banalmente, lo stato in base agli eventi che arrivano dal template, o utente.
 
-You will also notice the data flow is unidirectional, as it should be in Flux:
+Noterete anche che il flusso dei dati è unidirezionale, come dovrebbe esserlo in Flux:
 
-1. User input in the component triggers action calls;
-2. Actions dispatch mutations that change the state;
-3. Changes in state flow from the store back into the component via getters.
+1. L'utente sfrutta un componente per eseguire delle action;
+2. Le action avvitano le mutazioni che cambiano lo stato;
+3. Una volta che lo stato cambia una proprietà dello store, tale cambiamento viene riflesso ai componenti tramite i getter.
 
 <p align="center">
   <img width="700px" src="vuex.png">
