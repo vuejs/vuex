@@ -1,20 +1,20 @@
-# Middlewares
+# Middleware
 
-Vuex stores accept the `middlewares` option that exposes hooks for each mutation (Note this is completely unrelated to Redux middlewares). A Vuex middleware is simply an object that implements some hook functions:
+Lo store di Vuex accetta un'opzione detta `middlewares` che espone delle funzionalità per ogni mutation (si noti che non ha nulla a che vedere con i Middleware di Redux). Un Middleware in Vuex è un oggetto con al suo interno delle funzioni tipo:
 
 ``` js
 const myMiddleware = {
   onInit (state, store) {
-    // record initial state
+    // registra lo stato iniziale
   },
   onMutation (mutation, state, store) {
-    // called after every mutation.
-    // The mutation comes in the format of { type, payload }
+    // chiamata ad ogni mutation
+    // l'argomento mutation viene fornito con { type, payload }
   }
 }
 ```
 
-And can be used like this:
+un Middleware si può usare così:
 
 ``` js
 const store = new Vuex.Store({
@@ -23,21 +23,21 @@ const store = new Vuex.Store({
 })
 ```
 
-By default, a middleware receives the actual `state` object. A middleware can also receive the `store` itself in order to dispatch mutations. Since middlewares are primarily used for debugging purposes or data persistence, they are **not allowed to mutate the state**.
+Per definizione, il middleware riceve l'oggetto `state` ma può anche ricevere lo `store` in modo da chiamare delle mutation al suo interno. Dato che i Middleware sono usati principalmente per debugging **non possono mutare nessuno stato**.
 
-Sometimes a middleware may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. Such middlewares must declare the `snapshot: true` option:
+A volte un middleware potrebbe voler ricevere un'istantanea dello stato corrente in modo da poterla confrontare con l'eventuale stato post-mutation. Per fare ciò basta impostare l'ozione `snapshot: true`:
 
 ``` js
 const myMiddlewareWithSnapshot = {
   snapshot: true,
   onMutation (mutation, nextState, prevState, store) {
-    // nextState and prevState are deep-cloned snapshots
-    // of the state before and after the mutation.
+    // i due state, next e prev, sono snapshot dello state stesso
+    // prima e dopo la mutazione
   }
 }
 ```
 
-**Middlewares that take state snapshots should be used only during development.** When using Webpack or Browserify, we can let our build tools handle that for us:
+**I middleware che sfruttano gli snapshot andrebbero usati solo durante lo sviluppo**. Webpack, o Browserify, possono assicurarvi una pulizia di queste opzioni durante la build:
 
 ``` js
 const store = new Vuex.Store({
@@ -48,11 +48,11 @@ const store = new Vuex.Store({
 })
 ```
 
-The middleware will be used by default. For production, use the build setup described [here](http://vuejs.org/guide/application.html#Deploying_for_Production) to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
+In questo esempio viene usato il middleware se si è in ambiente di sviluppo. Per la build di produzione fate riferimento a [questo link](http://it.vuejs.org/guide/application.html#Distruibuzione-in-Produzione) che vi spiega come convertire `process.env.NODE_ENV !== 'production'` a `false` per la build finale.
 
-### Built-in Logger Middleware
+### Middleware Inclusi
 
-Vuex comes with a logger middleware for common debugging usage:
+Vuex ha dei middleware per il debugging già inclusi:
 
 ``` js
 import createLogger from 'vuex/logger'
@@ -62,22 +62,22 @@ const store = new Vuex.Store({
 })
 ```
 
-The `createLogger` function takes a few options:
+Il middleware `createLogger` ha alcune opzioni interessanti:
 
 ``` js
 const logger = createLogger({
-  collapsed: false, // auto-expand logged mutations
+  collapsed: false, // auto espansione dei log delle mutation
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // trasforma lo stato prima di loggare
+    // utile per esempio se si vuole speficiare quale subTree loggare
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of { type, payload }
-    // we can format it anyway we want.
+    // le mutation sono loggate nel formato { type, payload }
+    // ma possiamo specificare come formattarle a nostro piacimento
     return mutation.type
   }
 })
 ```
 
-Note the logger middleware takes state snapshots, so use it only during development.
+Si noti che il createLogger utilizza gli snapshot per gli stati, non usatelo in produzione.
