@@ -6,11 +6,11 @@
 - [Per iniziare](getting-started.md)
 - Concetti fondamentali
   - [Stato e Getter](state.md)
-  - [Mutazioni](mutations.md)
+  - [Mutation](mutations.md)
   - [Action](actions.md)
 - [Flusso dei Dati](data-flow.md)
 - [Struttura dell'Applicazione](structure.md)
-- [Middlewares](middlewares.md)
+- [Middleware](middlewares.md)
 - [Modalità Strict](strict.md)
 - [Gestione dei Form](forms.md)
 - [Test del Codice](testing.md)
