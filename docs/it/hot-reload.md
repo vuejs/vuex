@@ -1,8 +1,9 @@
-# Hot Reloading
+# Aggiornamento Automatico (Hot Reload)
 
-Vuex supports hot-reloading mutations, modules, actions and getters during development, using Webpack's [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+Vuex supporta l'aggiornamento automatico (Hot Reload o Aggiornamento a Caldo) per quanto riguarda i moduli, le mutation e gli action il tutto tramite WebPack [e le sue API](https://webpack.github.io/docs/hot-module-replacement.html).
+Ovviamente esiste anche l'alternativa tramite Browserify tramite il plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
-For mutations and modules, you need to use the `store.hotUpdate()` API method:
+Per le mutation ed i moduli dovrete usare il metodo `store.hotUpdate()`:
 
 ``` js
 // store.js
@@ -24,13 +25,13 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // accept actions and mutations as hot modules
+  // accetta le action o le mutation come moduli
   module.hot.accept(['./mutations', './modules/a'], () => {
-    // require the updated modules
-    // have to add .default here due to babel 6 module output
+    // richiede di aggiornare i moduli
+    // aggiungiamo .default tramite babel 6
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
-    // swap in the new actions and mutations
+    // sostituiamo le nuove mutation ed i moduli nello store
     store.hotUpdate({
       mutations: newMutations,
       modules: {
@@ -41,4 +42,4 @@ if (module.hot) {
 }
 ```
 
-You don't need to do anything specific for actions and getters. Webpack's hot module replacement system will "bubble" changes up the dependency chain - and changes in actions and getters will bubble up to the Vue components that imported them. Because Vue components loaded via `vue-loader` are automatically hot-reloadable, these affected components will hot-reload themselves and use the updated actions and getters.
+Per quanto riguarda i getters non dovrete fare niente di specifico. I moduli di Webpack per l'hot reload vengono inseriti nella catena delle dipendenze che vanno ad analizzare i componenti di Vue per i getters, dato che i componenti vengono caricati via `vue-loader` essi sono automaticamente sotto "hot reload", questa catena è ricorsiva per ogni albero di componenti.
