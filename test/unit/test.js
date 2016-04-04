@@ -404,4 +404,18 @@ describe('Vuex', () => {
     })
     expect(store.state.a).to.equal(3)
   })
+
+  it('throws when action is not a function', function () {
+    const vm = new Vue({
+      vuex: {
+        actions: {
+          test: undefined
+        }
+      }
+    })
+
+    expect(() => {
+      vm.test(2)
+    }).to.throw(/Action bound to key 'vuex.actions.test' is not a function./)
+  })
 })
