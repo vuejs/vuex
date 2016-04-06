@@ -255,6 +255,12 @@ class Store {
 }
 
 function install (_Vue) {
+  if (Vue) {
+    console.warn(
+      '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+    )
+    return
+  }
   Vue = _Vue
   override(Vue)
 }
