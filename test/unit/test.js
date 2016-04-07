@@ -246,6 +246,48 @@ describe('Vuex', () => {
     expect(mutations[0].nextState.a).to.equal(3)
   })
 
+  it('middleware should ignore silent mutations', function () {
+    let initState
+    const mutations = []
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      },
+      middlewares: [
+        {
+          onInit (state) {
+            initState = state
+          },
+          onMutation (mut, state) {
+            expect(state).to.equal(store.state)
+            mutations.push(mut)
+          }
+        }
+      ]
+    })
+    expect(initState).to.equal(store.state)
+    store.dispatch(TEST, 1)
+    store.dispatch({
+      type: TEST,
+      payload: 2
+    })
+    store.dispatch({
+      type: TEST,
+      silent: true,
+      payload: 3
+    })
+    expect(mutations.length).to.equal(2)
+    expect(mutations[0].type).to.equal(TEST)
+    expect(mutations[1].type).to.equal(TEST)
+    expect(mutations[0].payload[0]).to.equal(1)
+    expect(mutations[1].payload[0]).to.equal(2)
+  })
+
   it('watch', function (done) {
     const store = new Vuex.Store({
       state: {
@@ -393,14 +435,14 @@ describe('Vuex', () => {
         a: 1
       },
       mutations: {
-        [TEST] (state, action) {
-          state.a += action.by
+        [TEST] (state, amount) {
+          state.a += amount
         }
       }
     })
     store.dispatch({
       type: TEST,
-      by: 2
+      payload: 2
     })
     expect(store.state.a).to.equal(3)
   })

@@ -67,6 +67,37 @@ mutations: {
 }
 ```
 
+### Silent Dispatch
+
+> requires >=0.7.0
+
+In some scenarios you may not want the middlewares to record the state change. Multiple dispatches to the store in a short period or polled do not always need to be tracked. In these situations is may be considered appropriate to silent the mutations. 
+
+*Note:* This should be avoided where necessary. Silent mutations break the contract of all state changes being tracked by the devtool. Use sparingly and where absolutely necessary.
+
+Dispatching without hitting middlewares can be achieved with a `silent` flag.
+
+``` js
+/**
+ * Example: Progress action.
+ * Dispatches often for changes that are not necessary to be tracked
+ **/
+export function start(store, options = {}) {
+  let timer = setInterval(() => {
+    store.dispatch({
+      type: INCREMENT,
+      silent: true,
+      payload: {
+        amount: 1,
+      },
+    });
+    if (store.state.progress === 100) {
+      clearInterval(timer);
+    }
+  }, 10);
+}
+```
+
 ### Mutations Follow Vue's Reactivity Rules
 
 Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
