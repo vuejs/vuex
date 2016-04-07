@@ -1,15 +1,15 @@
-# Testing
+# Test del Codice
 
-The main parts we want to unit test in Vuex are mutations and actions.
+La prima cosa da testare in un'applicazione che sfrutta Vuex sono le mutation e le action.
 
-### Testing Mutations
+### Testare le Mutation
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you can also export the mutations as a named export:
+Per testare le mutation non abbiamo bisogno di nessun tipo di sistema specifico dato che esse si basano solo sugli argomenti che gli vengono passati. Se state utilizzando i moduli ES2015 potete mettere le vostre mutation nel file `store.js`, e potete esportarle come qualsiasi altro modulo:
 
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// esportiamo le mutation
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+Testiamo una mutation sfruttando Mocha e Chai (potete usare qualsiasi framework voi troviate comodo):
 
 ``` js
 // mutations.js
@@ -30,22 +30,22 @@ export const INCREMENT = state => state.count++
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// destructure assign mutations
+// creiamo la struttura
 const { INCREMENT } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // facciamo un mock dello stato
     const state = { count: 0 }
-    // apply mutation
+    // applichiamo la mutation
     INCREMENT(state)
-    // assert result
+    // confrontiamo i risultati
     expect(state.count).to.equal(1)
   })
 })
 ```
 
-### Testing Actions
+### Testare le Action
 
 Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
 
