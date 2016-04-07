@@ -1,36 +1,36 @@
-# API Reference
+# Referenza alle API
 
 ### Vuex.Store
 
 ``` js
 import Vuex from 'vuex'
 
-const store = new Vuex.Store({ ...options })
+const store = new Vuex.Store({ ...opzioni })
 ```
 
-### Vuex.Store Constructor Options
+### Opzioni per il Costruttore
 
 - **state**
 
-  - type: `Object`
+  - tipo: `Oggetto`
 
-    The root state object for the Vuex store.
+    Lo stato principale per lo store di Vuex.
 
-    [Details](state.md)
+    [Dettagli](state.md)
 
 - **mutations**
 
-  - type: `Object`
+  - tipo: `Oggetto`
 
-    An object where each entry's key is the mutation name and the value is a mutation handler function. The handler function always receives `state` as the first argument, and receives all arguments passed to the dispatch call following that.
+    Un Oggetto che ha come chiavi i nomi delle mutation e come valore il nome della funzione (handler) della mutation stessa. L'handler ricevere sempre `state` come primo argomento.
 
-    [Details](mutations.md)
+    [Dettagli](mutations.md)
 
 - **modules**
 
-  - type: `Object`
+  - tipo: `Oggetto`
 
-    An object containing sub modules to be merged into the store, in the shape of:
+    Un  Oggetto contenente tutti i sub moduli che si uniranno allo store, di solito è formato tipo:
 
     ``` js
     {
@@ -42,53 +42,53 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations will only receives the module's own state as the first argument instead of the root state.
+    Ogni modulo può contenere uno stato `state` e delle `mutations`, molto simile al'opzione di root. Lo stato di un modulo sarà legato a quello principale dello store e sarà accessibile tramite il nome del modulo. Una mutation in un modulo riceverà solo lo stato del modulo stesso invece di quello principale (root state).
 
 - **middlewares**
 
-  - type: `Array<Object>`
+  - tipo: `Array<Oggetto>`
 
-    An array of middleware objects that are in the shape of:
+    Un oggetto che contiene tutti i middleware del tipo:
 
     ``` js
     {
-      snapshot: Boolean, // default: false
-      onInit: Function,
-      onMutation: Function
+      snapshot: Boolean, // predefinito: false
+      onInit: Funzione,
+      onMutation: Funzione
     }
     ```
 
-    All fields are optional. [Details](middlewares.md)
+    Tutti i campi sono facoltativi. [Dettagli](middlewares.md)
 
 - **strict**
 
-  - type: `Boolean`
-  - default: `false`
+  - tipo: `Boolean`
+  - predefinito: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+    Forza Vuex ad avere lo store in modalità strict. In questa modalità tutte le mutazioni al di fuori del sistema di mutation di Vuex solleveranno un Errore.
 
-    [Details](strict.md)
+    [Dettagli](strict.md)
 
-### Vuex.Store Instance Properties
+### Proprietà di istanza di Vuex.Store
 
 - **state**
 
-  - type: `Object`
+  - tipo: `Oggetto`
 
-    The root state. Read only.
+    Lo stato principale. In sola lettura.
 
-### Vuex.Store Instance Methods
+### Metodi di istanza di Vuex.Store
 
-- **dispatch(mutationName: String, ...args)**
+- **dispatch(nomeMutazione: Stringa, ...argomenti)**
 
   Directly dispatch a mutation. This is useful in certain situations are in general you should prefer using actions in application code.
 
-- **watch(pathOrGetter: String|Function, cb: Function, [options: Object])**
+- **watch(pathOrGetter: Stringa|Funzione, cb: Funzione, [opzioni: Oggetto])**
 
-  Watch a path or a getter function's value, and call the callback when the value changes. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Watch a path or a getter Funzione's value, and call the callback when the value changes. Accepts an optional opzioni Oggetto that takes the same opzioni as Vue's `vm.$watch` method.
 
-  To stop watching, call the returned handle function.
+  To stop watching, call the returned handle Funzione.
 
-- **hotUpdate(newOptions: Object)**
+- **hotUpdate(opzioni: Oggetto)**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  Hot swap new actions and mutations. [Dettagli](hot-reload.md)
