@@ -48,7 +48,7 @@ const store = new Vuex.Store({
 })
 ```
 
-The middleware will be used by default. For production, use the build setup described [here](http://vuejs.org/guide/application.html#Deploying_for_Production) to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
+The middleware will be used by default. For production, use the build setup described [here](http://vuejs.org/guide/application.html#Deploying-for-Production) to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
 
 ### Built-in Logger Middleware
 
