@@ -130,12 +130,11 @@ export default function (Vue) {
    */
 
   function makeBoundAction (store, action, key) {
-    return function vuexBoundAction (...args) {
-      if (typeof action === 'function') {
-        return action.call(this, store, ...args)
-      }
-
+    if (typeof action !== 'function') {
       console.warn(`[vuex] Action bound to key 'vuex.actions.${key}' is not a function.`)
+    }
+    return function vuexBoundAction (...args) {
+      return action.call(this, store, ...args)
     }
   }
 

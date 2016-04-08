@@ -408,8 +408,10 @@ describe('Vuex', () => {
     expect(store.state.a).to.equal(3)
   })
 
-  it('console.warn when actions is not a function', function () {
-    const vm = new Vue({
+  it('console.warn when action is not a function', function () {
+    sinon.spy(console, 'warn')
+
+    new Vue({
       vuex: {
         actions: {
           test: undefined
@@ -417,9 +419,7 @@ describe('Vuex', () => {
       }
     })
 
-    sinon.spy(console, 'warn')
-    vm.test(2)
-    expect(console.warn).to.have.been.calledWith(`[vuex] Action bound to key 'vuex.actions.test' is not a function.`)
+    expect(console.warn).to.have.been.calledWith('[vuex] Action bound to key \'vuex.actions.test\' is not a function.')
     console.warn.restore()
   })
 })
