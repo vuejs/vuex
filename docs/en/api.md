@@ -79,9 +79,22 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store Instance Methods
 
-- **dispatch(mutationName: String, ...args)**
+- **dispatch(mutationName: String, ...args) | dispatch(mutation: Object)**
 
   Directly dispatch a mutation. This is useful in certain situations are in general you should prefer using actions in application code.
+
+  *Object-Style Dispatch*
+
+  > requires >=0.6.2
+
+  You can also dispatch mutations using objects:
+
+  ``` js
+  store.dispatch({
+    type: 'INCREMENT',
+    payload: 10
+  })
+  ```
 
 - **watch(pathOrGetter: String|Function, cb: Function, [options: Object])**
 

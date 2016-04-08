@@ -77,9 +77,11 @@ class Store {
    */
 
   dispatch (type, ...payload) {
+    let silent = false
     // compatibility for object actions, e.g. FSA
     if (typeof type === 'object' && type.type && arguments.length === 1) {
-      payload = [type]
+      payload = [type.payload]
+      if (type.silent) silent = true
       type = type.type
     }
     const mutation = this._mutations[type]
@@ -93,7 +95,7 @@ class Store {
         mutation(state, ...payload)
       }
       this._dispatching = false
-      this._applyMiddlewares(type, payload)
+      if (!silent) this._applyMiddlewares(type, payload)
     } else {
       console.warn(`[vuex] Unknown mutation: ${type}`)
     }
