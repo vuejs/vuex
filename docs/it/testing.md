@@ -47,9 +47,10 @@ describe('mutations', () => {
 
 ### Testare le Action
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Le Action possono essere più complesse da testate dato che possono contenere chiamate ad API esterne a Vuex. Quando si testano le action, si dovrà fare uso, nella maggior parte dei casi, di un sistema di mocking - per esempio nel caso volessimo chiamare delle API ad un servizio di terze parti
+Per effettuare il mocking delle dipendenze, si può utilizzare il comodo sistema di [inject-loader](https://github.com/plasticine/inject-loader) assieme a WebPack.
 
-Example testing an async action:
+Esempio su una Action asincrona:
 
 ``` js
 // actions.js
@@ -66,27 +67,26 @@ export const getAllProducts = ({ dispatch }) => {
 ``` js
 // actions.spec.js
 
-// use require syntax for inline loaders.
-// with inject-loader, this returns a module factory
-// that allows us to inject mocked dependencies.
+// utilizziamo la sintassi require per i loader inline
+// tramte inject-loader, ci restituisce un model
+// che ci permette di fare mocking
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
 
-// create the module with our mocks
+// creiamo il modulo tramite mock
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
       setTimeout(() => {
-        cb([ /* mocked response */ ])
+        cb([ /* response dal mock */ ])
       }, 100)
     }
   }
 })
 
-// helper for testing action with expected mutations
+// testiamo le azioni con i risultati desiderati
 const testAction = (action, args, state, expectedMutations, done) => {
   let count = 0
-  // mock dispatch
   const dispatch = (name, ...payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.name).to.equal(name)
@@ -98,10 +98,8 @@ const testAction = (action, args, state, expectedMutations, done) => {
       done()
     }
   }
-  // call the action with mocked store and arguments
   action({dispatch, state}, ...args)
 
-  // check if no mutations should have been dispatched
   if (count === 0) {
     expect(expectedMutations.length).to.equal(0)
     done()
@@ -118,13 +116,13 @@ describe('actions', () => {
 })
 ```
 
-### Running Tests
+### Eseguire i tests
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+Se le tue mutation o action sono scritte in modo consono, i test non dovrebbero soffrire dipendeze esterne, come il browser e le sue API, anche durante l'uso di Mock. Detto questo potenzialmente è possibile pacchettizare i test tramite WebPack e farli girare sotto Node direttamente. Alternativamente è possibile utilizzare un sistema come `mocha-loader` o Karma assieme a `karma-webpack` per far girare i test in un browser reale.
 
-#### Running in Node
+#### Girare sotto Node
 
-Create the following webpack config:
+Ecco una config webpack per testare tramite Node:
 
 ``` js
 module.exports = {
@@ -148,20 +146,21 @@ module.exports = {
 }
 ```
 
-Then:
+Successivamente:
 
 ``` bash
 webpack
 mocha test-bundle.js
 ```
 
-#### Running in Browser
+#### Testare nel Browser
 
-1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
-3. Start `webpack-dev-server` using the config
-4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+1. Installare `mocha-loader`
+2. Cambiare l `entry` dalla configurazione Webpack sopra citata in `'mocha!babel!./test.js'`.
+3. Inizializzare `webpack-dev-server` utilizzando la configurazione sopra citata
+4. Andare su `localhost:8080/webpack-dev-server/test-bundle`.
+5. Profit!
 
-#### Running in Browser with Karma + karma-webpack
+#### Testare nel Browser tramite Karma e karma-webpack
 
-Consult the setup in [vue-loader documentation](http://vuejs.github.io/vue-loader/workflow/testing.html).
+Per una guida più dettagliata su Karma consultare la [documentazione di vue-loader](http://vuejs.github.io/vue-loader/workflow/testing.html).
