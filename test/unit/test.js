@@ -1,9 +1,12 @@
-import { expect } from 'chai'
+import chai, { expect } from 'chai'
+import sinonChai from 'sinon-chai'
+import sinon from 'sinon'
 import Vue from 'vue'
 import Vuex from '../../src'
 import * as util from '../../src/util'
 
 Vue.use(Vuex)
+chai.use(sinonChai)
 
 const TEST = 'TEST'
 
@@ -403,5 +406,20 @@ describe('Vuex', () => {
       by: 2
     })
     expect(store.state.a).to.equal(3)
+  })
+
+  it('console.warn when action is not a function', function () {
+    sinon.spy(console, 'warn')
+
+    new Vue({
+      vuex: {
+        actions: {
+          test: undefined
+        }
+      }
+    })
+
+    expect(console.warn).to.have.been.calledWith('[vuex] Action bound to key \'vuex.actions.test\' is not a function.')
+    console.warn.restore()
   })
 })

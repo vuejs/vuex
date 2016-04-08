@@ -51,7 +51,7 @@ export default function (Vue) {
       if (actions) {
         options.methods = options.methods || {}
         for (let key in actions) {
-          options.methods[key] = makeBoundAction(this.$store, actions[key])
+          options.methods[key] = makeBoundAction(this.$store, actions[key], key)
         }
       }
     }
@@ -126,9 +126,13 @@ export default function (Vue) {
    *
    * @param {Store} store
    * @param {Function} action
+   * @param {String} key
    */
 
-  function makeBoundAction (store, action) {
+  function makeBoundAction (store, action, key) {
+    if (typeof action !== 'function') {
+      console.warn(`[vuex] Action bound to key 'vuex.actions.${key}' is not a function.`)
+    }
     return function vuexBoundAction (...args) {
       return action.call(this, store, ...args)
     }

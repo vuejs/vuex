@@ -53,6 +53,8 @@
     "mocha": "^2.3.4",
     "rollup": "^0.25.4",
     "rollup-plugin-babel": "^2.4.0",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "todomvc-app-css": "^2.0.3",
     "uglify-js": "^2.6.2",
     "vue": "^1.0.17",
