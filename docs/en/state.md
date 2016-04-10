@@ -101,7 +101,7 @@ computed: {
 
 ### Getters Can Return Derived State
 
-Vuex state getters are computed properties under the hood, this means you can leverage them to reactively (and efficiently) compute derived state. For example, say in the state we have an array of `messages` containing all messages, and a `currentThreadID` representing a thread that is currently being viewed by the user. What we want to display to the user is a filtered list of messages that belong to the current thread:
+Vuex state getters are computed properties under the hood, this means you can leverage them to reactively (and efficiently) compute derived state. For example, say in the state we have an array of `messages` containing all messages, and a `currentThreadID` representing a thread that is currently being viewed by the user. What we want to display to the user is a filtered list of messages that belongs to the current thread:
 
 ``` js
 vuex: {
