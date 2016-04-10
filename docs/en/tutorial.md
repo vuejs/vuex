@@ -180,7 +180,7 @@ export default {
 Notice some interesting things about what we just added.
 
 1. We have a new object `vuex.actions` which includes the new action
-2. We didn't specify which store, object, state etc. Vuex wires everything up for us.
+2. We didn't specify which store, object, state, etc. Vuex wires everything up for us.
 3. We can call the action either by using `this.increment()` in any method.
 4. We can also call the action using the `@click` parameter making `increment` like any regular vue component method.
 5. The action is called `incrementCounter` but we can use any name which is appropriate.
