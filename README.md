@@ -34,4 +34,4 @@ See [npm scripts](https://github.com/vuejs/vuex/blob/master/package.json#L11-L15
 - Reactive
 - Single State Tree
 - Hot Reloading
-- Time Travel (with upcoming vue-devtools support)
+- Time Travel (with [vue-devtools](https://github.com/vuejs/vue-devtools) support)
