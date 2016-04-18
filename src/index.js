@@ -140,9 +140,8 @@ class Store {
    */
 
   _setupModuleState (state, modules) {
-    const { setPath } = Vue.parsers.path
     Object.keys(modules).forEach(key => {
-      setPath(state, key, modules[key].state || {})
+      Vue.set(state, key, modules[key].state || {})
     })
   }
 
@@ -155,7 +154,6 @@ class Store {
 
   _setupModuleMutations (updatedModules) {
     const modules = this._modules
-    const { getPath } = Vue.parsers.path
     const allMutations = [this._rootMutations]
     Object.keys(updatedModules).forEach(key => {
       modules[key] = updatedModules[key]
@@ -168,7 +166,7 @@ class Store {
       Object.keys(module.mutations).forEach(name => {
         const original = module.mutations[name]
         mutations[name] = (state, ...args) => {
-          original(getPath(state, key), ...args)
+          original(state[key], ...args)
         }
       })
       allMutations.push(mutations)
