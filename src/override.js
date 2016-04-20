@@ -74,12 +74,16 @@ export default function (Vue) {
    */
 
   function defineVuexGetter (vm, key, getter) {
-    Object.defineProperty(vm, key, {
-      enumerable: true,
-      configurable: true,
-      get: makeComputedGetter(vm.$store, getter),
-      set: setter
-    })
+    if (typeof getter !== 'function') {
+      console.warn(`[vuex] Getter bound to key 'vuex.getters.${key}' is not a function.`)
+    } else {
+      Object.defineProperty(vm, key, {
+        enumerable: true,
+        configurable: true,
+        get: makeComputedGetter(vm.$store, getter),
+        set: setter
+      })
+    }
   }
 
   /**
@@ -95,6 +99,7 @@ export default function (Vue) {
 
   function makeComputedGetter (store, getter) {
     const id = store._getterCacheId
+
     // cached
     if (getter[id]) {
       return getter[id]
