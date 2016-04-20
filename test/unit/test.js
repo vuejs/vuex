@@ -464,4 +464,30 @@ describe('Vuex', () => {
     expect(console.warn).to.have.been.calledWith('[vuex] Action bound to key \'vuex.actions.test\' is not a function.')
     console.warn.restore()
   })
+
+  it('console.warn when getter is not a function', function () {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, amount) {
+          state.a += amount
+        }
+      }
+    })
+    sinon.spy(console, 'warn')
+
+    new Vue({
+      store,
+      vuex: {
+        getters: {
+          test: undefined
+        }
+      }
+    })
+
+    expect(console.warn).to.have.been.calledWith('[vuex] Getter bound to key \'vuex.getters.test\' is not a function.')
+    console.warn.restore()
+  })
 })
