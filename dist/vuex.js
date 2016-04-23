@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.6.2
+ * Vuex v0.6.3
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -158,6 +158,10 @@
       _init.call(this, options);
     };
 
+    /**
+     * Vuex init hook, injected into each instances init hooks list.
+     */
+
     function vuexInit() {
       var options = this.$options;
       var store = options.store;
@@ -194,27 +198,55 @@
         if (actions) {
           options.methods = options.methods || {};
           for (var _key in actions) {
-            options.methods[_key] = makeBoundAction(actions[_key], this.$store);
+            options.methods[_key] = makeBoundAction(this.$store, actions[_key], _key);
           }
         }
       }
     }
 
+    /**
+     * Setter for all getter properties.
+     */
+
     function setter() {
       throw new Error('vuex getter properties are read-only.');
     }
 
+    /**
+     * Define a Vuex getter on an instance.
+     *
+     * @param {Vue} vm
+     * @param {String} key
+     * @param {Function} getter
+     */
+
     function defineVuexGetter(vm, key, getter) {
-      Object.defineProperty(vm, key, {
-        enumerable: true,
-        configurable: true,
-        get: makeComputedGetter(vm.$store, getter),
-        set: setter
-      });
+      if (typeof getter !== 'function') {
+        console.warn('[vuex] Getter bound to key \'vuex.getters.' + key + '\' is not a function.');
+      } else {
+        Object.defineProperty(vm, key, {
+          enumerable: true,
+          configurable: true,
+          get: makeComputedGetter(vm.$store, getter),
+          set: setter
+        });
+      }
     }
+
+    /**
+     * Make a computed getter, using the same caching mechanism of computed
+     * properties. In addition, it is cached on the raw getter function using
+     * the store's unique cache id. This makes the same getter shared
+     * across all components use the same underlying watcher, and makes
+     * the getter evaluated only once during every flush.
+     *
+     * @param {Store} store
+     * @param {Function} getter
+     */
 
     function makeComputedGetter(store, getter) {
       var id = store._getterCacheId;
+
       // cached
       if (getter[id]) {
         return getter[id];
@@ -238,7 +270,18 @@
       return computedGetter;
     }
 
-    function makeBoundAction(action, store) {
+    /**
+     * Make a bound-to-store version of a raw action function.
+     *
+     * @param {Store} store
+     * @param {Function} action
+     * @param {String} key
+     */
+
+    function makeBoundAction(store, action, key) {
+      if (typeof action !== 'function') {
+        console.warn('[vuex] Action bound to key \'vuex.actions.' + key + '\' is not a function.');
+      }
       return function vuexBoundAction() {
         for (var _len = arguments.length, args = Array(_len), _key2 = 0; _key2 < _len; _key2++) {
           args[_key2] = arguments[_key2];
@@ -344,22 +387,19 @@
        */
 
       value: function dispatch(type) {
-        var _this2 = this;
-
         for (var _len2 = arguments.length, payload = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
           payload[_key2 - 1] = arguments[_key2];
         }
 
+        var silent = false;
         // compatibility for object actions, e.g. FSA
         if ((typeof type === 'undefined' ? 'undefined' : babelHelpers.typeof(type)) === 'object' && type.type && arguments.length === 1) {
-          payload = [type];
+          payload = [type.payload];
+          if (type.silent) silent = true;
           type = type.type;
         }
         var mutation = this._mutations[type];
-        var prevSnapshot = this._prevSnapshot;
         var state = this.state;
-        var snapshot = void 0,
-            clonedPayload = void 0;
         if (mutation) {
           this._dispatching = true;
           // apply the mutation
@@ -371,20 +411,7 @@
             mutation.apply(undefined, [state].concat(babelHelpers.toConsumableArray(payload)));
           }
           this._dispatching = false;
-          // invoke middlewares
-          if (this._needSnapshots) {
-            snapshot = this._prevSnapshot = deepClone(state);
-            clonedPayload = deepClone(payload);
-          }
-          this._middlewares.forEach(function (m) {
-            if (m.onMutation) {
-              if (m.snapshot) {
-                m.onMutation({ type: type, payload: clonedPayload }, snapshot, prevSnapshot, _this2);
-              } else {
-                m.onMutation({ type: type, payload: payload }, state, _this2);
-              }
-            }
-          });
+          if (!silent) this._applyMiddlewares(type, payload);
         } else {
           console.warn('[vuex] Unknown mutation: ' + type);
         }
@@ -403,10 +430,10 @@
     }, {
       key: 'watch',
       value: function watch(expOrFn, cb, options) {
-        var _this3 = this;
+        var _this2 = this;
 
         return this._vm.$watch(function () {
-          return typeof expOrFn === 'function' ? expOrFn(_this3.state) : _this3._vm.$get(expOrFn);
+          return typeof expOrFn === 'function' ? expOrFn(_this2.state) : _this2._vm.$get(expOrFn);
         }, cb, options);
       }
 
@@ -440,10 +467,8 @@
     }, {
       key: '_setupModuleState',
       value: function _setupModuleState(state, modules) {
-        var setPath = Vue.parsers.path.setPath;
-
         Object.keys(modules).forEach(function (key) {
-          setPath(state, key, modules[key].state || {});
+          Vue.set(state, key, modules[key].state || {});
         });
       }
 
@@ -458,8 +483,6 @@
       key: '_setupModuleMutations',
       value: function _setupModuleMutations(updatedModules) {
         var modules = this._modules;
-        var getPath = Vue.parsers.path.getPath;
-
         var allMutations = [this._rootMutations];
         Object.keys(updatedModules).forEach(function (key) {
           modules[key] = updatedModules[key];
@@ -476,7 +499,7 @@
                 args[_key3 - 1] = arguments[_key3];
               }
 
-              original.apply(undefined, [getPath(state, key)].concat(args));
+              original.apply(undefined, [state[key]].concat(args));
             };
           });
           allMutations.push(mutations);
@@ -496,12 +519,12 @@
     }, {
       key: '_setupMutationCheck',
       value: function _setupMutationCheck() {
-        var _this4 = this;
+        var _this3 = this;
 
         var Watcher = getWatcher(this._vm);
         /* eslint-disable no-new */
         new Watcher(this._vm, '$data', function () {
-          if (!_this4._dispatching) {
+          if (!_this3._dispatching) {
             throw new Error('[vuex] Do not mutate vuex store state outside mutation handlers.');
           }
         }, { deep: true, sync: true });
@@ -522,7 +545,7 @@
     }, {
       key: '_setupMiddlewares',
       value: function _setupMiddlewares(middlewares, state) {
-        var _this5 = this;
+        var _this4 = this;
 
         this._middlewares = [devtoolMiddleware].concat(middlewares);
         this._needSnapshots = middlewares.some(function (m) {
@@ -535,7 +558,38 @@
         // call init hooks
         this._middlewares.forEach(function (m) {
           if (m.onInit) {
-            m.onInit(m.snapshot ? initialSnapshot : state, _this5);
+            m.onInit(m.snapshot ? initialSnapshot : state, _this4);
+          }
+        });
+      }
+
+      /**
+       * Apply the middlewares on a given mutation.
+       *
+       * @param {String} type
+       * @param {Array} payload
+       */
+
+    }, {
+      key: '_applyMiddlewares',
+      value: function _applyMiddlewares(type, payload) {
+        var _this5 = this;
+
+        var state = this.state;
+        var prevSnapshot = this._prevSnapshot;
+        var snapshot = void 0,
+            clonedPayload = void 0;
+        if (this._needSnapshots) {
+          snapshot = this._prevSnapshot = deepClone(state);
+          clonedPayload = deepClone(payload);
+        }
+        this._middlewares.forEach(function (m) {
+          if (m.onMutation) {
+            if (m.snapshot) {
+              m.onMutation({ type: type, payload: clonedPayload }, snapshot, prevSnapshot, _this5);
+            } else {
+              m.onMutation({ type: type, payload: payload }, state, _this5);
+            }
           }
         });
       }
@@ -552,6 +606,10 @@
   }();
 
   function install(_Vue) {
+    if (Vue) {
+      console.warn('[vuex] already installed. Vue.use(Vuex) should be called only once.');
+      return;
+    }
     Vue = _Vue;
     override(Vue);
   }
