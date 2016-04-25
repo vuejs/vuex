@@ -4,6 +4,7 @@
 
 - [什么是 Vuex?](intro.md)
 - [快速开始](quickstart.md)
+- [教程](tutorial.md)
 - [核心概念](concepts.md)
   - [State](state.md)
   - [Mutations](mutations.md)
