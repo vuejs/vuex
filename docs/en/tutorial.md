@@ -1,14 +1,14 @@
 # Tutorial
 
-Let's build a very simple app using vuex to understand how to use it. For this example, we're building an app where you press a button, and it increments a counter. 
+Let's build a very simple app using Vuex to understand how to use it. For this example, we're building an app where you press a button, and it increments a counter.
 
 ![End Result](tutorial/result.png)
 
-We are using this simple example to explain the concepts, and the problems vuex aims to solve - how to manage a large app which uses several components. Consider if this example used three components:
+We are using this simple example to explain the concepts, and the problems Vuex aims to solve - how to manage a large app which uses several components. Consider if this example used three components:
 
 ### `components/App.vue`
 
-The root component, which contains two other child components: 
+The root component, which contains two other child components:
 
 * `Display` to display the current counter value.
 * `Increment` which is a button to increment the current value.
@@ -65,7 +65,7 @@ export default {
 </script>
 ```
 
-### Challenges without vuex
+### Challenges without Vuex
 
 * `Increment` and `Display` aren't aware of each other, and cannot pass messages to each other.
 * `App` will have to use events and broadcasts to coordinate the two components.
@@ -77,11 +77,11 @@ These are the steps that take place in order:
 
 ![Vuex Flow](tutorial/vuex_flow.png)
 
-This might seem a little excessive for incrementing a counter. But do note that these concepts work well in larger applications, improving maintainability and making your app easier to debug and improve in the long run. So let's modify our code to use vuex.
+This might seem a little excessive for incrementing a counter. But do note that these concepts work well in larger applications, improving maintainability and making your app easier to debug and improve in the long run. So let's modify our code to use Vuex.
 
 ### Step 1: Add a store
 
-The store holds the data for the app. All components read the data from the store. Before we begin, install vuex via npm:
+The store holds the data for the app. All components read the data from the store. Before we begin, install Vuex via npm:
 
 ```
 $ npm install --save vuex
@@ -93,10 +93,10 @@ Create a new file in `vuex/store.js`
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// Make vue aware of vuex
+// Make vue aware of Vuex
 Vue.use(Vuex)
 
-// We create an object to hold the initial state when
+// Create an object to hold the initial state when
 // the app starts up
 const state = {
   // TODO: Set up our initial state
@@ -107,7 +107,7 @@ const mutations = {
   // TODO: set up our mutations
 }
 
-// We combine the intial state and the mutations to create a vuex store.
+// Combine the initial state and the mutations to create a Vuex store.
 // This store can be linked to our app.
 export default new Vuex.Store({
   state,
@@ -133,8 +133,8 @@ export default {
 }
 ```
 
-> **Tip**: With ES6 and babel you can write it as 
-> 
+> **Tip**: With ES6 and babel you can write it as
+>
 >     components: {
 >       Display,
 >       Increment,
@@ -145,12 +145,12 @@ export default {
 
 The action is a function which is called from the component. Action functions can trigger updates in the store by dispatching the right mutation. An action can also talk to HTTP backends and read other data from the store before dispatching updates.
 
-Create a new file in `vuex/actions.js` with a single function `incrementCounter`
+Create a new file in `vuex/actions.js` with a single function `incrementCounter`.
 
 ```js
 // An action will receive the store as the first argument.
 // Since we are only interested in the dispatch (and optionally the state)
-// We can pull those two parameters using the ES6 destructuring feature
+// we can pull those two parameters using the ES6 destructuring feature
 export const incrementCounter = function ({ dispatch, state }) {
   dispatch('INCREMENT', 1)
 }
@@ -158,7 +158,7 @@ export const incrementCounter = function ({ dispatch, state }) {
 
 And let's call the action from our `components/Increment.vue` component.
 
-```
+```html
 <template>
   <div>
     <button @click='increment'>Increment +1</button>
@@ -179,10 +179,10 @@ export default {
 
 Notice some interesting things about what we just added.
 
-1. We have a new object `vuex.actions` which includes the new action
+1. We have a new object `vuex.actions` which includes the new action.
 2. We didn't specify which store, object, state, etc. Vuex wires everything up for us.
-3. We can call the action either by using `this.increment()` in any method.
-4. We can also call the action using the `@click` parameter making `increment` like any regular vue component method.
+3. We can call the action by using `this.increment()` in any method.
+4. We can also call the action using the `@click` parameter making `increment` like any regular Vue component method.
 5. The action is called `incrementCounter` but we can use any name which is appropriate.
 
 ### Step 3: Set up the state and mutation
@@ -198,7 +198,7 @@ const state = {
 }
 
 const mutations = {
-  // A mutation recieves the current state as the first argument
+  // A mutation receives the current state as the first argument
   // You can make any modifications you want inside this function
   INCREMENT (state, amount) {
     state.count = state.count + amount
@@ -252,15 +252,14 @@ You might be wondering - why did we choose to use a getter instead of directly a
 2. Many components in a larger app can use the same getter function.
 3. If the value is moved from say `store.count` to `store.counter.value` you'd have to update one getter instead of dozens of components.
 
-These are a few of the benefits of using getters. 
+These are a few of the benefits of using getters.
 
 ### Step 5: Next steps
 
 If you run the application, now you will find it behaves as expected.
 
-To further your understanding of vuex, you can try implementing the following changes to the app, as an exercise.
+To further your understanding of Vuex, you can try implementing the following changes to the app, as an exercise.
 
 * Add a decrement button.
-* Install [VueJS Devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en) and play with the vuex tools and observe the mutations being applied.
-* Add a text input in another component called `IncrementAmount` and enter the amount to increment by. This can be a bit tricky since forms in vuex work slightly differently. Read the [Form Handling](forms.md) section for more details.
-
+* Install [VueJS Devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en) and play with the Vuex tools and observe the mutations being applied.
+* Add a text input in another component called `IncrementAmount` and enter the amount to increment by. This can be a bit tricky since forms in Vuex work slightly differently. Read the [Form Handling](forms.md) section for more details.
