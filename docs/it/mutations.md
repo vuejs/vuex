@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     }
   }
 })
-``` 
+```
 
 Utilizzare il nome della mutations tutto in maiuscolo è solo una convenzione che aiuta a distinguere le mutations da funzioni normali.
 
@@ -68,6 +68,36 @@ mutations: {
 }
 ```
 
+### Disptach Silezioso
+
+> Richiede >=0.6.3
+
+In alcuni casi è possibile che vogliate un middleware che non ascolti il cambio di stato. Per esempio disptach multipli allo store in un breve periodo di tempo non è detto che sia necessario tracciarli tutti i cambiamenti. In questo caso è possibile effettuare un dispatch silezioso.
+
+*Nota:* Questo sistema andrebbe evitato dove possibile. Il sistema di dispatch silezioso impedisce il tracking degli stati da parte dei tool di sviluppo. Utilizzate questa tecnica se strettamente necessaria.
+
+Effettuare il dispatch silezioso è questione di inserire il flag `silent`.
+
+``` js
+/**
+ * Esempio: Barra di progresso.
+ **/
+export function start(store, options = {}) {
+  let timer = setInterval(() => {
+    store.dispatch({
+      type: INCREMENT,
+      silent: true,
+      payload: {
+        amount: 1,
+      },
+    });
+    if (store.state.progress === 100) {
+      clearInterval(timer);
+    }
+  }, 10);
+}
+```
+
 ### Le Mutation Seguono le Regole di Vue sulla Reattività
 
 Dato che lo stato di Store in Vuex segue la filosofia "reattiva" di Vue, quando mutiamo uno stato, tutti i componenti che osservano tale stato riceveranno l'aggiornamento in modo automatico.
@@ -103,7 +133,7 @@ const store = new Vuex.Store({
   state: { ... },
   actions: { ... },
   mutations: {
-    // possiamo sfruttare la sintassi ES2015 
+    // possiamo sfruttare la sintassi ES2015
     // per utilizzare una costante come nome di una funzione!
     [SOME_MUTATION] (state) {
       // stato mutato
