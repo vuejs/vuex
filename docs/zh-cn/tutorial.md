@@ -8,7 +8,7 @@
 
 ### `components/App.vue`
 
-App 根组件，它包含了以下两个组件：
+根组件，它包含了以下两个子组件：
 
 * `Display` 显示计数器当前的值
 * `Increment` 使计数器加一的按钮
@@ -81,7 +81,7 @@ export default {
 
 ### 第一步：加入 store
 
-Store 存储应用所需要的所有数据。所有组件都会从 store 中读取数据。在我们开始之前，用 npm 安装 Vuex：
+store 存储应用所需要的所有数据。所有组件都会从 store 中读取数据。在我们开始之前，用 npm 安装 Vuex：
 
 ```
 $ npm install --save vuex
@@ -142,13 +142,13 @@ export default {
 
 ### 第二步：创建 action
 
-Action 是被 component 所使用的函数(function)。Action 函数能够通过 dispatch 对应的 mutation 函数来触发 store 的更新。Action 也可以从后端读取数据之后再触发更新。
+action 是给 component 使用的函数。action 函数能够通过 dispatch 对应的 mutation 函数来触发 store 的更新。action 也可以从后端读取数据之后再触发更新。
 
 创建一个新文件 `vuex/actions.js`，然后写入一个函数 `incrementCounter`：
 
 
 ```js
-// Action 会收到 store 作为它的第一个参数
+// action 会收到 store 作为它的第一个参数
 // 在 store 里我们只需要 dispatch （在有些情况下需要 state）
 // 我们可以利用 ES6 的解构（destructuring）语法来简化参数的使用
 export const incrementCounter = function ({ dispatch, state }) {
@@ -198,7 +198,7 @@ const state = {
 }
 
 const mutations = {
-  // Mutation 的第一个参数是当前的 state
+  // mutation 的第一个参数是当前的 state
   // 你可以在函数里修改 state
   INCREMENT (state, amount) {
     state.count = state.count + amount
