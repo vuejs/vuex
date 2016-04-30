@@ -1,10 +1,10 @@
 # 教程
 
-让我们通过一个简单的实际例子来理解怎样使用 vuex。这个例子里，我们要实现一个按钮，当你点击它的时候，计数器会加一。
+让我们通过一个简单的实际例子来理解怎样使用 Vuex。这个例子里，我们要实现一个按钮，当你点击它的时候，计数器会加一。
 
 ![End Result](tutorial/result.png)
 
-通过这个简单的例子，我们会解释相应的概念，以及 vuex 所要解决的问题：如何管理一个包含许多组件的大型应用。假设这个例子使用了以下三个组件：
+通过这个简单的例子，我们会解释相应的概念，以及 Vuex 所要解决的问题：如何管理一个包含许多组件的大型应用。假设这个例子使用了以下三个组件：
 
 ### `components/App.vue`
 
@@ -81,7 +81,7 @@ export default {
 
 ### 第一步：加入 store
 
-Store 存储应用所需要的所有数据。所有组件都会从 store 中读取数据。在我们开始之前，用 npm 安装 vuex：
+Store 存储应用所需要的所有数据。所有组件都会从 store 中读取数据。在我们开始之前，用 npm 安装 Vuex：
 
 ```
 $ npm install --save vuex
@@ -182,7 +182,7 @@ export default {
 1. 我们有了一个新的 object `vuex.actions`，包含着一个新的 action。
 2. 我们没有指定 store, object, state 等等的东西。Vuex 会把它们串联好。
 3. 我们可以使用 `this.increment()` 在任何方法里调用 action。
-4. 我们也可以用 `@click` 参数，像使用普通的 vue 组件方法一样使用它。
+4. 我们也可以用 `@click` 参数，像使用普通的 Vue 组件方法一样使用它。
 5. 我们给 action 起名叫 `incrementCounter`，但是在使用时我们可以根据需要重新命名它。
 
 ### 第三步：创建 state 和 mutation
@@ -258,7 +258,7 @@ export default {
 
 运行一下你的应用，它应该能正常工作了。
 
-要更深入地理解 vuex，你可以做一个小练习：尝试对这个应用做一些修改。
+要更深入地理解 Vuex，你可以做一个小练习：尝试对这个应用做一些修改。
 
 * 加上“减一”的按钮。
 * 安装 [VueJS Devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)，尝试使用它提供的 Vuex 工具来观察 mutation 对 state 的改动。
