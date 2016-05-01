@@ -107,7 +107,7 @@ export default new Vuex.Store({
 })
 ```
 
-Here, `cart` module's initial state will be attached to the root state tree as `store.state.cart`. In addition, **all the mutations defined in a sub-module only receives the sub-state-tree they are associated with**. So mutations defined in the `cart` module will receive `store.state.cart` as their first argument.
+Here, `cart` module's initial state will be attached to the root state tree as `store.state.cart`. In addition, **all the mutations defined in a sub-module only receive the sub-state-tree they are associated with**. So mutations defined in the `cart` module will receive `store.state.cart` as their first argument.
 
 The root of the sub-state-tree is irreplaceable inside the module itself. For example this won't work:
 
