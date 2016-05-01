@@ -67,7 +67,7 @@ const vm = new Vue({
 })
 ```
 
-What the above code does is binding the raw `incrementBy` action to the component's store instance, and expose it on the component as an instance method, `vm.incrementBy`. Any arguments passed to `vm.incrementBy` will be passed to the raw action function after the first argument which is the store, so calling:
+What the above code does is bind the raw `incrementBy` action to the component's store instance, and expose it on the component as an instance method, `vm.incrementBy`. Any arguments passed to `vm.incrementBy` will be passed to the raw action function after the first argument which is the store, so calling:
 
 ``` js
 vm.incrementBy(1)
