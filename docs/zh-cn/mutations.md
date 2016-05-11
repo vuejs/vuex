@@ -67,6 +67,37 @@ mutations: {
 }
 ```
 
+### 静默 Dispatch
+
+> 需要版本 >=0.6.3
+
+在某些情景中，你也许并不想中间件去记录 state 的变化。在短周期内对 state 的多次 disptach 或轮询并非总需要被追踪。在这种情况下，可以考虑静默掉这些 mutations。  
+
+*注意：* 在关键时应该避免这样使用。静默 mutations 破坏了所有 state 变化都会被 devtool 追踪的约定。请在必须的情况下少量使用。
+
+`silent` 标志可以使得 dispatch 不去命中中间件。
+
+``` js
+/**
+ * 示例: 进度 action.
+ * 不必被追踪改变的频繁 Dispatch
+ **/
+export function start(store, options = {}) {
+  let timer = setInterval(() => {
+    store.dispatch({
+      type: INCREMENT,
+      silent: true,
+      payload: {
+        amount: 1,
+      },
+    });
+    if (store.state.progress === 100) {
+      clearInterval(timer);
+    }
+  }, 10);
+}
+```
+
 ### Mutations 应当遵守 Vue 的响应系统规则
 
 由于 Vuex store 内部的 state 对象被 Vue 改造成了响应式对象，当我们对 state 进行修改时，任何观测着 state 的 Vue 组件都会自动地进行相应地更新。但同时，这也意味着在 Vuex 的 mutation handler 中修改状态时也需要遵循 Vue 特有的一些注意点：
