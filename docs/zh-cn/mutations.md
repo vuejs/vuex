@@ -42,7 +42,7 @@ mutations: {
 store.dispatch('INCREMENT', 10)
 ```
 
-这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 所有额外的参数被称为该 mutation 的 payload.
+这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 所有额外的参数被称为该 mutation 的 **payload**.
 
 ### Object 风格的 Dispatch
 
