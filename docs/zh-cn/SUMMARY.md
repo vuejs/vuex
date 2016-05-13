@@ -8,7 +8,7 @@
 - [教程](tutorial.md)
 - 核心概念
   - [State 和 Getters](state.md)
-  - [Mutations（突发事件）](mutations.md)
+  - [Mutations（状态变更）](mutations.md)
   - [Actions](actions.md)
 - [数据流](data-flow.md)
 - [应用结构](structure.md)
@@ -17,4 +17,4 @@
 - [表单处理](forms.md)
 - [测试](testing.md)
 - [热重载](hot-reload.md)
-- [API Reference](api.md)
+- [API 参考文档](api.md)
