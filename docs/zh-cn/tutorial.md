@@ -158,7 +158,7 @@ export const incrementCounter = function ({ dispatch, state }) {
 
 然后我们从 `components/Increment.vue` 组件里调用 action 函数
 
-```
+```html
 <template>
   <div>
     <button @click='increment'>Increment +1</button>
