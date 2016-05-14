@@ -10,7 +10,7 @@
 
 > **注意**：我们将会在后续的文档中用 ES2015 语法进行案例展示。如果你还没能掌握 ES2015，[你得抓紧了](https://babeljs.io/docs/learn-es2015/)！本文同样假设你已经了解了 Vue 本体的官方文档中[构建大型应用](http://vuejs.org.cn/guide/application.html)章节所涉及的概念.
 
-创建 Vuex 的 store 相当直截了当 - 只要提供一个初始化的 state 对象，以及一些 mutations：
+创建 Vuex store 的过程相当直截了当 - 只要提供一个初始化的 state 对象，以及一些 mutations：
 
 ``` js
 import Vuex from 'vuex'
