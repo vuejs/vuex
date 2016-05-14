@@ -74,7 +74,7 @@ const logger = createLogger({
   },
   mutationTransformer (mutation) {
     // mutations are logged in the format of { type, payload }
-    // we can format it anyway we want.
+    // we can format it any way we want.
     return mutation.type
   }
 })
