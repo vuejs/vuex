@@ -5,7 +5,7 @@
 
 - [什么是 Vuex?](intro.md)
 - [快速开始](getting-started.md)
-- [教程](tutorial.md)
+- [简易教程](tutorial.md)
 - 核心概念
   - [State 和 Getters](state.md)
   - [Mutations（状态变更）](mutations.md)

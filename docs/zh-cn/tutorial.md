@@ -1,16 +1,16 @@
-# 教程
+# 简易教程
 
-让我们通过一个简单的实际例子来理解怎样使用 Vuex。这个例子里，我们要实现一个按钮，当你点击它的时候，计数器会加一。
+让我们通过一个简单的实际例子来理解怎样使用 Vuex。这个例子里，我们要实现一个按钮，每点击它一次，计数器加一。
 
 ![End Result](tutorial/result.png)
 
-通过这个简单的例子，我们会解释相应的概念，以及 Vuex 所要解决的问题：如何管理一个包含许多组件的大型应用。假设这个例子使用了以下三个组件：
+我们会通过这个例子解释相应的概念，以及 Vuex 所要解决的问题：如何管理一个包含许多组件的大型应用。我们假定这个例子使用以下三个组件：
 
 ### `components/App.vue`
 
-根组件，它包含了以下两个子组件：
+根组件，它包含了两个另外的子组件：
 
-* `Display` 显示计数器当前的值
+* `Display` 显示当前计数器的值
 * `Increment` 使计数器加一的按钮
 
 ```html
@@ -65,11 +65,11 @@ export default {
 </script>
 ```
 
-### Vuex 要解决的问题
+### 在没有 Vuex 的日子里
 
-* `Increment` 和 `Display` 彼此独立, 不能直接相互传递信息。
-* `App` 只能通过事件和广播去整合这两个组件。
-* 因为 `App` 需要整合这两个组件，它们无法被重用，形成了紧密的互相依赖。如果需要重构它，容易导致应用的 bug。
+* `Increment` 与 `Display` 彼此无法感知到彼此的存在，也无法相互传递消息。是怎样的孤独。
+* `App` 将必须通过事件(events)与广播(broadcasts)与其他两个组件进行协调。
+* 而 `App` 作为二者之间的协调者，导致这些组件并没法被复用，被迫紧密耦合。调整应用的结构，则可能导致应用崩溃。
 
 ### Vuex 的流程
 
@@ -77,11 +77,11 @@ export default {
 
 ![Vuex Flow](tutorial/vuex_flow.png)
 
-仅仅为了增加计数采取这么多步骤似乎有点多余。但是，这些概念的引入使得我们在大型应用里可以有效提高可维护性，在长期来看也可以使得 debug 和做后续改进工作变得更容易。那么接下来我们就用 vuex 来改写我们的代码：
+仅仅为了增加计数而采取这么多步骤显然很多余。但请注意，这些概念的引入是为了构建大型应用，提高可维护性，降低调试与长期维护的难度而设计的。（译注：换言之，这是屠龙刀，拿来杀鸡只是为了让我们好懂）好，那么接下来我们就用 vuex 来进行重构吧！
 
 ### 第一步：加入 store
 
-store 存储应用所需要的所有数据。所有组件都会从 store 中读取数据。在我们开始之前，用 npm 安装 Vuex：
+store 存储应用所需的数据。所有组件都从 store 中读取数据。在我们开始之前，先用 npm 安装 Vuex：
 
 ```
 $ npm install --save vuex
@@ -96,27 +96,27 @@ import Vuex from 'vuex'
 // 告诉 vue “使用” vuex
 Vue.use(Vuex)
 
-// 创建一个 object 存储应用启动时的状态
+// 创建一个对象来保存应用启动时的初始状态
 const state = {
-  // TODO: 设置启动状态
+  // TODO: 放置初始状态
 }
 
-// 创建一个 object 存储 mutation 函数
+// 创建一个对象存储一系列我们接下来要写的 mutation 函数
 const mutations = {
-  // TODO: set up our mutations
+  // TODO: 放置我们的状态变更函数
 }
 
-// 通过 new Vuex.Store 结合初始 state 和 mutations，创建 store
-// 这个 store 将和我们的 vue 应用链接起来
+// 整合初始状态和变更函数，我们就得到了我们所需的 store
+// 至此，这个 store 就可以连接到我们的应用中
 export default new Vuex.Store({
   state,
   mutations
 })
 ```
 
-我们需要修改根组件来让我们的应用和 store 建立联系。
+我们需要修改根组件来让应用注意到 store 的存在位置。
 
-修改 `components/App.vue`，加上 store.
+修改 `components/App.vue`，注入 store。
 
 ```js
 import Display from './Display.vue'
@@ -132,7 +132,7 @@ export default {
 }
 ```
 
-> **提示**： 如果使用 ES6 和 babel 你可以这样写：
+> **提示**：如果使用 ES6 和 babel 你可以这样写：
 >
 >     components: {
 >       Display,
@@ -142,15 +142,14 @@ export default {
 
 ### 第二步：创建 action
 
-action 是给 component 使用的函数。action 函数能够通过 dispatch 对应的 mutation 函数来触发 store 的更新。action 也可以从后端读取数据之后再触发更新。
+action 是一种专门用来被 component 调用的函数。action 函数能够通过分发相应的 mutation 函数，来触发对 store 的更新。action 也可以先从 HTTP 后端或 store 中读取其他数据之后再分发更新事件。
 
 创建一个新文件 `vuex/actions.js`，然后写入一个函数 `incrementCounter`：
 
-
 ```js
 // action 会收到 store 作为它的第一个参数
-// 在 store 里我们只需要 dispatch （在有些情况下需要 state）
-// 我们可以利用 ES6 的解构（destructuring）语法来简化参数的使用
+// 既然我们只对事件的分发（dispatch 对象）感兴趣。（state 也可以作为可选项放入）
+// 我们可以利用 ES6 的解构（destructuring）功能来简化对参数的导入
 export const incrementCounter = function ({ dispatch, state }) {
   dispatch('INCREMENT', 1)
 }
@@ -158,7 +157,7 @@ export const incrementCounter = function ({ dispatch, state }) {
 
 然后我们从 `components/Increment.vue` 组件里调用 action 函数
 
-```
+```html
 <template>
   <div>
     <button @click='increment'>Increment +1</button>
@@ -177,13 +176,13 @@ export default {
 </script>
 ```
 
-回顾一下我们刚刚写的一些有趣的东西：
+回顾一下我们刚刚添加的内容背后所潜藏的一些有趣的点：
 
-1. 我们有了一个新的 object `vuex.actions`，包含着一个新的 action。
-2. 我们没有指定 store, object, state 等等的东西。Vuex 会把它们串联好。
-3. 我们可以使用 `this.increment()` 在任何方法里调用 action。
-4. 我们也可以用 `@click` 参数，像使用普通的 Vue 组件方法一样使用它。
-5. 我们给 action 起名叫 `incrementCounter`，但是在使用时我们可以根据需要重新命名它。
+1. 我们有了一个新对象 `vuex.actions`，包含着新的 action。
+2. 我们没有指定特定的 store, object, state 等等。Vuex 会自动把它们串联好。
+3. 我们可以用 `this.increment()` 在任何方法中调用此 action。
+4. 我们也可以通过 `@click` 参数调用它，与使用其他普通的 Vue 组件方法并无二致。
+5. 我们给 action 起名叫 `incrementCounter`，但是在具体使用时，我们可以根据需要进行重新命名。
 
 ### 第三步：创建 state 和 mutation
 
@@ -246,11 +245,11 @@ export default {
 
 这里我们又加入了一个新的对象 `vuex.getters`。它将 `counterValue` 绑定到了 `getCount` 这个 getter 函数上。我们给它起了一个新名字来使得这个变量在你的组件里表意更明确。
 
-你可能有点困惑——为什么我们需要用 getter 函数而不是直接从 state 里读取数据。这个概念更多的是一种最佳实践，在大型应用里更加适用。它有这么几种明显的优势：
+你可能有点困惑——为什么我们需要用 getter 函数而不是直接从 state 里读取数据。这个概念更多的是一种最佳实践，在大型应用里更加适用。它有这么几种独特优势：
 
-1. 我们可能需要使用 getter 函数返回经过计算的值（比如总数，平均值等）。
+1. 我们可能需要使用 getter 函数返回需经过计算的值（比如总数，平均值等）。
 2. 在大型应用里，很多组件之间可以复用同一个 getter 函数。
-3. 如果这个值的位置改变了（比如从 `store.count` 变成了 `store.counter.value`），你只需要改一个 getter 方法，而不是一堆用到它的组件。
+3. 如果这个值的位置改变了（比如从 `store.count` 变成了 `store.counter.value`），你只需要改一个 getter 方法，而不是一堆组件。
 
 以上便是使用 getter 带来的好处。
 
@@ -258,8 +257,8 @@ export default {
 
 运行一下你的应用，它应该能正常工作了。
 
-要更深入地理解 Vuex，你可以做一个小练习：尝试对这个应用做一些修改。
+要更深入地理解 Vuex，你可以尝试以下挑战，对该应用进行少许修改，权当练习，嗯~
 
-* 加上“减一”的按钮。
-* 安装 [VueJS Devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)，尝试使用它提供的 Vuex 工具来观察 mutation 对 state 的改动。
-* 加上一个新的组件，让用户可以在文本框中输入要增加的数值。这个会稍有难度，因为在 vuex 架构中表单的处理有些不同。在开始前可以先读一下[表单处理](forms.md)。
+* 加一个“减一”的按钮。
+* 安装 [VueJS Devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)，尝试使用它提供的 Vuex 工具来观察 mutation 是如何生效的。
+* 添加一个名为 `IncrementAmount ` 的文本框组件，让用户可以输入要增加的数值。这个可能会稍有难度，因为表单在 vuex 中与原生的表现稍有不同。可以读一下[表单处理](forms.md)章节了解更多内容。
