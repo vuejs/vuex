@@ -18,7 +18,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Utilizar apenas letras para nomes de mutações é apenas uma convenção para fazer com que seja mais fácil diferenciá-las de simples funções.
+Utilizar apenas letras maiúsculas para nomes de mutações é apenas uma convenção para fazer com que seja mais fácil diferenciá-las de simples funções.
 
 Você não pode chamar diretamente um handler de mutação. As opções aqui são mais parecidas com um registro de um evento: "Quando um evento `INCREMENT` é disparado, chame esse handler". Para invocar um handler de uma mutação, você precisa disparar um evento de mutação:
 
