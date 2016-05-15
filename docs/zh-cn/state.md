@@ -1,14 +1,14 @@
 # State 和 Getters
 
-### 单状态树
+### 单一状态树
 
-Vuex 使用**单状态树** —— 也就是单个对象作为『单一数据提供源([SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth))』来管理整个应用级别的状态。这也意味着每个应用仅需一个 store 实例。单状态树使得我们能够直截了当地定位某一部分特定的状态，在调试的过程中也能轻易地取得当前应用状态的快照。
+Vuex 使用 **单一状态树** —— 是的，用一个对象就包含了全部的应用层级状态。至此它便作为一个『唯一数据源([SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth))』而存在。这也意味着，每个应用将仅仅包含一个 store 实例。单状态树让我们能够直接地定位任一特定的状态片段，在调试的过程中也能轻易地取得整个当前应用状态的快照。
 
-单状态树和模块化并不冲突 —— 在往后的章节里我们会讨论如何将状态管理分离到各个子模块中。
+单状态树和模块化并不冲突 —— 在后面的章节里我们会讨论如何将状态和状态变更事件分布到各个子模块中。
 
 ### 在 Vue 组件中获得 Vuex 状态
 
-那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是动态的，从 store 实例中读取状态最简单的方法就是在计算属性 [computed property](http://vuejs.org/guide/computed.html) 中返回某个状态：
+那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在计算属性 [computed property](http://vuejs.org/guide/computed.html) 中返回某个状态：
 
 ``` js
 // 在 Vue 组件定义时
