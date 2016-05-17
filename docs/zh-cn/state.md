@@ -8,10 +8,10 @@ Vuex 使用 **单一状态树** —— 是的，用一个对象就包含了全�
 
 ### 在 Vue 组件中获得 Vuex 状态
 
-那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在计算属性 [computed property](http://vuejs.org/guide/computed.html) 中返回某个状态：
+那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在计算属性 [computed property](http://vuejs.org.cn/guide/computed.html) 中返回某个状态：
 
 ``` js
-// 在 Vue 组件定义时
+// 在某个 Vue 组件的定义对象里
 computed: {
   count: function () {
     return store.state.count
@@ -19,9 +19,9 @@ computed: {
 }
 ```
 
-每当 `store.state.count` 变化的时候, 都会使得计算属性重新计算，并且触发相关联的 DOM 更新。
+每当 `store.state.count` 变化的时候, 都会重新求取计算属性，并且触发更新相关联的 DOM。
 
-然而，这种模式导致组件依赖全局状态。这导致测试单个组件和多个实例共享一套组件变得困难。在大型应用中，我们也许需要把状态从根组件『注入』到每一个子组件中。下面便是如何实现：
+然而，这种模式导致组件依赖的全局状态单利。这导致测试组件变得更麻烦，同时运行多个共享一套组件的应用实例也会变得更困难。在大型应用中，我们需要把状态从根组件『注入』到每一个子组件中。下面便是如何实现：
 
 1. 安装 Vuex 并且将您的根组件引入 store 实例：
 
@@ -31,33 +31,32 @@ computed: {
   import store from './store'
   import MyComponent from './MyComponent'
 
-  // 重要，告诉 Vue 组件如何处理 Vuex 相关的配置
+  // 关键点，教 Vue 组件如何处理与 Vuex 相关的选项
   Vue.use(Vuex)
 
   var app = new Vue({
     el: '#app',
-    // 使用 “store” 选项来配置 store 实例
-    // 并会在全部的子组件中注入 store 实例
-    store,
+    // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
+    store, // 译注：简写，等效于 store: store
     components: {
       MyComponent
     }
   })
   ```
 
-  通过在根实例中注册 `store` 选项，store 实例会被注入到根组件下全部的子组件中，并且可以通过 `this.$store` 获得。不过实际上我们几乎不需要直接引用它。
+  通过在根实例中注册 `store` 选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 `this.$store` 访问到。不过事实上，我们几乎不会需要直接引用它。
 
-2. 在子组件中，在 `vuex.getters` 配置中通过 **getter** 来读取状态：
+2. 在子组件中，通过在 `vuex.getters` 选项里定义的 **getter** 方法来读取状态：
 
   ``` js
   // MyComponent.js
   export default {
     template: '...',
     data () { ... },
-    // 这里是我们从 store 实例取回状态的位置
+    // 此处为我们从 store 实例中取回状态的位置
     vuex: {
       getters: {
-        // 一个状态的 getter 函数，将会把 `store.state.count` 绑定为 `this.count`
+        // 该 getter 函数将会把仓库的 `store.state.count` 绑定为组件的 `this.count`
         count: function (state) {
           return state.count
         }
@@ -66,9 +65,9 @@ computed: {
   }
   ```
 
-  留意特殊的 `vuex` 选项部分，在这里我们指定该组件将会从 store 实例中读取哪些状态。每个属性名对应一个 getter 函数，该函数接收整个状态树作为唯一参数并返回状态树的一部分或计算后的新值。组件可以像使用计算属性一样通过属性名获取 getter 函数的返回值。
+  请留意 `vuex` 的这个特殊选项（译注：getters 子对象）。它是我们指定当前组件能从 store 里获取哪些状态信息的地方。它的每个属性名将对应一个 getter 函数。该函数仅接收 store 的整个状态树作为其唯一参数，之后既可以返回状态树的一部分，也可以返回从状态树中求取的计算值。而返回结果，则会依据这个 getter 的属性名添加到组件上，用法与组件自身的*计算属性*一毛一样。
 
-  大多数情况下，“getter” 函数可以通过 ES2015 的箭头函数来简洁地实现：
+  大多数时候，“getter” 函数可以用 ES2015 的箭头函数方法实现得非常简洁：
 
   ``` js
   vuex: {
@@ -78,21 +77,20 @@ computed: {
   }
   ```
 
-### getter 函数必须是纯函数
+### Getter 函数必须是纯函数
 
-所有的 Vuex getter 函数，必须是[纯函数](https://en.wikipedia.org/wiki/Pure_function) —— 它们只依赖传入的状态树计算出返回值。这让组件更容易测试、组合和更高效。这也意味着**在 getter 函数中不能依赖 `this`**。
+所有的 Vuex getter 函数必须是[纯函数](https://en.wikipedia.org/wiki/Pure_function)（译注：在我之前还没有中文 wiki，简单来讲就是 1.计算完全依赖函数输入值，而非其他隐藏信息，若输入相同，则输出也必须相同 2. 该函数不能有语义上可观察的[函数副作用](https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E5%89%AF%E4%BD%9C%E7%94%A8)，如“触发事件”，“其他形式的输出”等。） —— 它们取值只依赖传入的状态树。这让组件更容易测试、编组且更高效。这也意味着：**在 getter 里你不能依赖 `this`**。
 
-如果你确实需要使用 `this`，例如为了基于组件的局部状态来计算派生属性，你需要另外单独定义一个计算属性：
+如果你确实需要使用 `this`，例如需要用到组件内部的本地状态来计算些派生属性，那么你需要另外单开一个计算属性：
+
 
 ``` js
 vuex: {
-  // getter 函数不能依赖 this
   getters: {
     currentId: state => state.currentId
   }
 },
 computed: {
-  // 但计算属性可以通过 this 引用组件实例
   isCurrent () {
     return this.id === this.currentId
   }
@@ -101,7 +99,7 @@ computed: {
 
 ### getter 函数可以返回派生状态
 
-Vuex 状态的 getters 内部其实是计算属性，这就意味着你能够动态（并且高效）地计算派生属性。例如，下面的例子中，我们有一个包含了全部消息的 `messages` 数组，和一个代表用户当前正在浏览的消息索引的 `currentThreadID`。我们想要展示给用户一个根据当前索引过滤后的消息列表：
+Vuex 状态的 getters 内部其实就是计算属性，这就意味着你能够以响应式的方式（并且更高效）地计算派生属性。举个例子，比如我们有一个包含全部消息的 `messages` 数组，和一个代表用户当前打开帖子的 `currentThreadID` 索引。而我们想仅向用户显示属于当前帖子的信息，一个过滤后的列表：
 
 ``` js
 vuex: {
@@ -115,7 +113,7 @@ vuex: {
 }
 ```
 
-因为 Vue.js 计算属性是自动缓存的，且只有一个动态的依赖改变的时候才会重新计算，所以你不必担心 getter 函数会在每次状态树改变的时候被频繁调用。
+因为 Vue.js 计算属性是自动缓存的，且仅在对应的依赖发生改变时才会重新计算，所以你不必担心 getter 函数会在每次状态变更事件触发时都被频繁的调用。
 
 ### 在多组件中共享 getter 函数
 
