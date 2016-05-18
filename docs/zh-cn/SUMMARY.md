@@ -4,7 +4,7 @@
 > 请确保按顺序阅读
 
 - [什么是 Vuex?](intro.md)
-- [快速开始](getting-started.md)
+- [准备开始](getting-started.md)
 - [简易教程](tutorial.md)
 - 核心概念
   - [State 和 Getters](state.md)
