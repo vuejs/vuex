@@ -79,7 +79,7 @@ computed: {
 
 ### Getter 函数必须是纯函数
 
-所有的 Vuex getter 函数必须是[纯函数](https://en.wikipedia.org/wiki/Pure_function)（译注：在我之前还没有中文 wiki，简单来讲就是 1.计算完全依赖函数输入值，而非其他隐藏信息，若输入相同，则输出也必须相同 2. 该函数不能有语义上可观察的[函数副作用](https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E5%89%AF%E4%BD%9C%E7%94%A8)，如“触发事件”，“其他形式的输出”等。） —— 它们取值只依赖传入的状态树。这让组件更容易测试、编组且更高效。这也意味着：**在 getter 里你不能依赖 `this`**。
+所有的 Vuex getter 函数必须是[纯函数](https://en.wikipedia.org/wiki/Pure_function)（译注：在我之前还没有中文 wiki，简单来讲就是 1.计算完全依赖函数输入值，而非其他隐藏信息，若输入相同，则输出也必须相同 2. 该函数不能有语义上可观察的[函数副作用](https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E5%89%AF%E4%BD%9C%E7%94%A8)，如“触发事件”，“其他形式的输出”等。） —— 它们取值只依赖传入的状态树。这让组件的测试和编组更容易且更高效。这也意味着：**在 getter 里你不能依赖 `this` 关键字**。
 
 如果你确实需要使用 `this`，例如需要用到组件内部的本地状态来计算些派生属性，那么你需要另外单开一个计算属性：
 
@@ -117,7 +117,7 @@ vuex: {
 
 ### 在多组件中共享 getter 函数
 
-正如你所见，getter 函数 `filteredMessages` 在多个组件中都很有用。这种情况下，在多组件中共享 getter 函数会是很好的办法：
+显而易见，`filteredMessages` getter 可能在多个组件中都很有用。这种情况下，让多组件共享相同的 getter 会是个好主意：
 
 ``` js
 // getters.js
@@ -141,14 +141,14 @@ export default {
 }
 ```
 
-因为 getter 函数是纯函数，多组件共享的时候 getter 函数可以高效地缓存：当依赖状态改变的时候，在使用 getter 函数的全部组件中只重新计算一次。
+因为 getter 函数都是纯函数，被多个组件共享的 getter 被高效地缓存起来了：当依赖状态发生改变的时候，该 getter 也仅仅只重新计算一次，便可供所有组件使用。
 
-> Flux 参考: Vuex 的 getter 函数可以大致类比成 Redux 中的 [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)。然而, 由于 Vue 的计算可以缓存的计算机制，getter 函数要比 `mapStateToProps` 更加高效，因此更加和 [reselect](https://github.com/reactjs/reselect) 相似。
+> 与 Flux 的对比参考：Vuex 的 getter 函数可以大致类比成 Redux 中的 [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)。然而, 由于其内部运用了 Vue 的计算属性记忆机制，它要比 `mapStateToProps` 更加高效，且更近似于 ReactJs 的 [reselect](https://github.com/reactjs/reselect)。
 
 ### 组件不允许直接修改 store 实例的状态
 
-有一点很重要，需要注意，就是**组件永远都不应该直接修改 Vuex store 实例中的状态**。因为我们想要每个状态的改变都清晰并且可追踪，所有的 Vuex 状态改变必须在 store 实例的 mutation 中进行。
+请始终记得非常重要的这点，就是：**组件永远都不应该直接改变 Vuex store 的状态**。因为我们想要让状态的每次改变都很明确且可追踪，Vuex 状态的所有改变都必须在 store 的 mutation handler (变更句柄)中管理。
 
-为了保持这个规则，在严格模式([Strict Mode](strict.md))下，如果 store 实例中一个状态在 mutation 外被修改，Vuex 会抛出异常。
+为了强化该规则，在开启([严格模式(Strict Mode)](strict.md))时，若有 store 的状态在 mutation 句柄外被修改，Vuex 就会报错。
 
-有了这一规则，我们的 Vue 组件现在少了很多职能：这势必让 Vuex 中 store 实例变得只读，组件唯一影响 state 的方法就是触发 **mutations**（我们接下来就讨论）。必要情况下，组件仍然能够拥有和操作自己的状态，但是我们不再在独立的组件中放置任何请求数据或者改变全局状态的逻辑。这些操作全部都集中在 Vuex 相关的文件中，这样能够让大型应用更容易理解和维护。
+现在有了这一规则，我们 Vue 组件的职能就少了很多：他们通过只读的 getter 与 Vuex store 的状态相绑定，组件唯一能影响全局状态的方法就是想办法触发 **mutations**（我们接下来会谈到）。若有必要，组件仍然能够处理和操作本地状态，但是我们不再在单独的组件中放置任何数据请求或全局状态变更的逻辑。这些操作全部都集中于 Vuex 相关的文件中，这样能让大型应用变得更容易理解和维护。
