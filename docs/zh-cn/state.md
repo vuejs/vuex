@@ -143,7 +143,7 @@ export default {
 
 因为 getter 函数都是纯函数，被多个组件共享的 getter 被高效地缓存起来了：当依赖状态发生改变的时候，该 getter 也仅仅只重新计算一次，便可供所有组件使用。
 
-> 与 Flux 的对比参考：Vuex 的 getter 函数可以大致类比成 Redux 中的 [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)。然而, 由于其内部运用了 Vue 的计算属性记忆机制，它要比 `mapStateToProps` 更加高效，且更近似于 ReactJs 的 [reselect](https://github.com/reactjs/reselect)。
+> 与 Flux 的对比参考：Vuex 的 getter 函数可以大致类比成 Redux 中的 [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)。然而, 由于其内部运用了 Vue 的计算属性[记忆化](https://en.wikipedia.org/wiki/Memoization)机制，它要比 `mapStateToProps` 更加高效，且更近似于 ReactJs 的 [reselect](https://github.com/reactjs/reselect)。
 
 ### 组件不允许直接修改 store 实例的状态
 
