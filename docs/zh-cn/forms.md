@@ -34,3 +34,34 @@ mutations: {
 ```
 
 必须承认，这样做比简单地使用 `v-model` 要啰嗦得多，但这换来的是 state 的改变更加清晰和可被跟踪。另一方面，Vuex **并不**强制要求所有的状态都必须放在 Vuex store 中 —— 如果有些状态你觉得并没有需要对其变化进行追踪，那么你完全可以把它放在 Vuex 外面（比如作为组件的本地状态），这样就可以愉快地使用 `v-model` 了。
+
+此外，如果仍然希望使用 Vuex 管理跟踪状态，并愉快地使用 `v-model`，还可以在组件中使用带 setter 的计算属性，这样，你就可以使用诸如 lazy、number 和 debounce 这样的参数特性了。
+
+``` html
+<input v-model="thisMessage">
+```
+``` js
+// ...
+vuex: {
+  getters: {
+    message: state => state.obj.message
+  },
+  actions: {
+    updateMessage: ({ dispatch }, value) => {
+      dispatch('UPDATE_MESSAGE', value)
+    }
+  },
+  computed: {
+    thisMessage: {
+      get () {
+        return this.message
+      },
+      set (val) {
+        this.updateMessage(val)
+      }
+    }
+  }
+}
+```
+
+mutation 保持不变。
