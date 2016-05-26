@@ -67,7 +67,7 @@ const vm = new Vue({
 })
 ```
 
-What the above code does is bind the raw `incrementBy` action to the component's store instance, and expose it on the component as an instance method, `vm.incrementBy`. Any arguments passed to `vm.incrementBy` will be passed to the raw action function after the first argument which is the store, so calling:
+What the above code does is to bind the raw `incrementBy` action to the component's store instance, and expose it on the component as an instance method, `vm.incrementBy`. Any arguments passed to `vm.incrementBy` will be passed to the raw action function after the first argument which is the store, so calling:
 
 ``` js
 vm.incrementBy(1)
@@ -131,4 +131,69 @@ const vm = new Vue({
     actions // bind all actions
   }
 })
+```
+
+### Arrange Actions in Modules
+
+Normally in large applications, actions should be arranged in groups/modules for different purposes. For example, userActions module deals with user registration, login, logout, and so on, while shoppingCartActions module deals with other tasks for shopping.
+
+Modularization is more convenient for different components to import only required actions.
+
+You may import action module into action module for reusability.
+
+```javascript
+// errorActions.js
+export const setError = ({dispatch}, error) => {
+  dispatch('SET_ERROR', error)
+}
+export const showError = ({dispatch}) => {
+  dispatch('SET_ERROR_VISIBLE', true)
+}
+export const hideError = ({dispatch}) => {
+  dispatch('SET_ERROR_VISIBLE', false)
+}
+```
+
+```javascript
+// userActions.js
+import {setError, showError} from './errorActions'
+
+export const login = ({dispatch}, username, password) => {
+  if (username && password) {
+    doLogin(username, password).done(res => {
+      dispatch('SET_USERNAME', res.username)
+      dispatch('SET_LOGGED_IN', true)
+      dispatch('SET_USER_INFO', res)
+    }).fail(error => {
+      dispatch('SET_INVALID_LOGIN')
+      setError({dispatch}, error)
+      showError({dispatch})
+    })
+  }
+}
+
+```
+
+While calling actions from one another module, or while calling another action in the same module, remember that actions take a store instance as its first argument, so the action called inside another action should be passed through the first argument for the caller.
+
+If you write the action with ES6 destructuring style, make sure that the first argument of the caller action covers all the properties and methods of both actions. For example, only *dispatch* is used in the caller action and *state*, *watch* are used in the called action, all the *dispatch*, *state* and *watch* should be presented in the caller first formal argument like this:
+
+```javascript
+import {callee} from './anotherActionModule'
+
+export const caller = ({dispatch, state, watch}) {
+  dispatch('MUTATION_1')
+  callee({state, watch})
+}
+```
+
+Otherwise, you should use the old-fationed function syntax:
+
+```javascript
+import {callee} from './anotherActionModule'
+
+export const caller = (store) {
+  store.dispatch('MUTATION_1')
+  callee(store)
+}
 ```
