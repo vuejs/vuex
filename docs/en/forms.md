@@ -39,3 +39,34 @@ mutations: {
 ```
 
 Admittedly, this is quite a bit more verbose than a simple `v-model`, but such is the cost of making state changes explicit and track-able. At the same time, do note that Vuex doesn't demand putting all your state inside a Vuex store - if you do not wish to track the mutations for form interactions at all, you can simply keep the form state outside of Vuex as component local state, which allows you to freely leverage `v-model`.
+
+Yet an alternative approach to leverage `v-model` with state in Vuex store is to use a computed property providing a setter in the component, with all the advantages of param attributes such as lazy, number and debounce.
+
+``` html
+<input v-model="thisMessage">
+```
+``` js
+// ...
+vuex: {
+  getters: {
+    message: state => state.obj.message
+  },
+  actions: {
+    updateMessage: ({ dispatch }, value) => {
+      dispatch('UPDATE_MESSAGE', value)
+    }
+  },
+  computed: {
+    thisMessage: {
+      get () {
+        return this.message
+      },
+      set (val) {
+        this.updateMessage(val)
+      }
+    }
+  }
+}
+```
+
+The mutation remains the same.
