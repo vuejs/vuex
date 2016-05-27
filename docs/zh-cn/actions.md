@@ -174,7 +174,7 @@ export const login = ({dispatch}, username, password) => {
 
 ```
 
-当从一个模块中调用另一个模块的 action 时，或者调用同一模块中的另一个 action 时，记住，action 的第一个参数是 store 实例，因此应该将调用者 action 的第一个参数传递给被调用 action。
+当从一个模块中调用另一个模块的 action 时，或者调用同一模块中的另一个 action 时，切记，action 的第一个参数是 store 实例，因此应该将调用者 action 的第一个参数传递给被调用 action。
 
 如果你使用 ES6 的解构形式来编写 action，确保调用者 action 的第一个参数包含两个 action 中用到的所有属性和方法。举例说明，调用者 action 仅使用 *dispatch* 方法，而被调用 action 使用了 *state* 属性和 *watch* 方法，那么，*dispatch*、*state* 和 *watch* 应该都出现在传递给调用者 action 的第一个形式参数中，示例如下：
 
