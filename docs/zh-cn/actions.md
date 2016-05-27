@@ -137,7 +137,7 @@ const vm = new Vue({
 
 通常在大型 App 中，action 应该按不同目的进行 分组 / 模块化 管理，例如，userActions 模块用于处理用户注册、登录、注销，而 shoppingCartActions 处理购物任务。
 
-当想要在不同组件中仅 import 必需的 action 时，模块化使之更为方便。
+当想要在不同组件中仅引入必需的 action 时，模块化使之更为方便。
 
 你还可以在 action 模块中引入其他 action 模块来实现复用。
 
