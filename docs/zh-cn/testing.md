@@ -96,8 +96,8 @@ const testAction = (action, args, state, expectedMutations, done) => {
   action({dispatch, state}, ...args)
 
   // 检查是否没有 mutation 被 dispatch
-  if (count === 0) {
-    expect(expectedMutations.length).to.equal(0)
+  if (expectedMutations.length === 0) {
+    expect(count).to.equal(0)
     done()
   }
 }
