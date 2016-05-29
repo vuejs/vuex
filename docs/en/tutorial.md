@@ -121,7 +121,7 @@ Edit `components/App.vue` and add the store.
 
 ```js
 import Display from './Display.vue'
-import Increment from './IncrementButton.vue'
+import Increment from './Increment.vue'
 import store from '../vuex/store' // import the store we just created
 
 export default {
