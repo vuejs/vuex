@@ -132,3 +132,68 @@ const vm = new Vue({
   }
 })
 ```
+
+### 管理多模块 Actions
+
+通常在大型 App 中，action 应该按不同目的进行 分组 / 模块化 管理，例如，userActions 模块用于处理用户注册、登录、注销，而 shoppingCartActions 处理购物任务。
+
+当想要在不同组件中仅引入必需的 action 时，模块化使之更为方便。
+
+你还可以在 action 模块中引入其他 action 模块来实现复用。
+
+```javascript
+// errorActions.js
+export const setError = ({dispatch}, error) => {
+  dispatch('SET_ERROR', error)
+}
+export const showError = ({dispatch}) => {
+  dispatch('SET_ERROR_VISIBLE', true)
+}
+export const hideError = ({dispatch}) => {
+  dispatch('SET_ERROR_VISIBLE', false)
+}
+```
+
+```javascript
+// userActions.js
+import {setError, showError} from './errorActions'
+
+export const login = ({dispatch}, username, password) => {
+  if (username && password) {
+    doLogin(username, password).done(res => {
+      dispatch('SET_USERNAME', res.username)
+      dispatch('SET_LOGGED_IN', true)
+      dispatch('SET_USER_INFO', res)
+    }).fail(error => {
+      dispatch('SET_INVALID_LOGIN')
+      setError({dispatch}, error)
+      showError({dispatch})
+    })
+  }
+}
+
+```
+
+当从一个模块中调用另一个模块的 action 时，或者调用同一模块中的另一个 action 时，切记，action 的第一个参数是 store 实例，因此应该将调用者 action 的第一个参数传递给被调用 action。
+
+如果你使用 ES6 的解构形式来编写 action，确保调用者 action 的第一个参数包含两个 action 中用到的所有属性和方法。举例说明，调用者 action 仅使用 *dispatch* 方法，而被调用 action 使用了 *state* 属性和 *watch* 方法，那么，*dispatch*、*state* 和 *watch* 应该都出现在传递给调用者 action 的第一个形式参数中，示例如下：
+
+```javascript
+import {callee} from './anotherActionModule'
+
+export const caller = ({dispatch, state, watch}) {
+  dispatch('MUTATION_1')
+  callee({state, watch})
+}
+```
+
+或者，你也可以使用老式的函数语法：
+
+```javascript
+import {callee} from './anotherActionModule'
+
+export const caller = (store) {
+  store.dispatch('MUTATION_1')
+  callee(store)
+}
+```
