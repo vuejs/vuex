@@ -100,8 +100,8 @@ const testAction = (action, args, state, expectedMutations, done) => {
   }
   action({dispatch, state}, ...args)
 
-  if (count === 0) {
-    expect(expectedMutations.length).to.equal(0)
+  if (expectedMutations.length === 0) {
+    expect(count).to.equal(0)
     done()
   }
 }
