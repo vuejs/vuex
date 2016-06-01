@@ -141,7 +141,7 @@ class Store {
 
   _setupModuleState (state, modules) {
     Object.keys(modules).forEach(key => {
-      Vue.set(state, key, modules[key].state || {})
+      Vue.set(state, key, modules[key].hasOwnProperty('state') ? modules[key].state : {})
     })
   }
 

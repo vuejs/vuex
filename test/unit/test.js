@@ -11,6 +11,33 @@ chai.use(sinonChai)
 const TEST = 'TEST'
 
 describe('Vuex', () => {
+  it('modules with falsy state', function () {
+    const store = new Vuex.Store({
+      modules: {
+        one: {
+          state: null
+        },
+        two: {
+          state: undefined
+        },
+        three: {
+          state: false
+        },
+        four: {
+          state: ''
+        },
+        five: {
+          state: 0
+        }
+      }
+    })
+    expect(store.state.one).to.equal(null)
+    expect(store.state.two).to.equal(undefined)
+    expect(store.state.three).to.equal(false)
+    expect(store.state.four).to.equal('')
+    expect(store.state.five).to.equal(0)
+  })
+
   it('direct dispatch', () => {
     const store = new Vuex.Store({
       state: {
