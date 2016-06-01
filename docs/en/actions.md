@@ -187,7 +187,7 @@ export const caller = ({dispatch, state, watch}) {
 }
 ```
 
-Otherwise, you should use the old-fationed function syntax:
+Otherwise, you should use the old-fashioned function syntax:
 
 ```javascript
 import {callee} from './anotherActionModule'
