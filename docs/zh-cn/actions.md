@@ -181,7 +181,7 @@ export const login = ({dispatch}, username, password) => {
 ```javascript
 import {callee} from './anotherActionModule'
 
-export const caller = ({dispatch, state, watch}) {
+export const caller = ({dispatch, state, watch}) => {
   dispatch('MUTATION_1')
   callee({state, watch})
 }
@@ -192,7 +192,7 @@ export const caller = ({dispatch, state, watch}) {
 ```javascript
 import {callee} from './anotherActionModule'
 
-export const caller = (store) {
+export const caller = (store) => {
   store.dispatch('MUTATION_1')
   callee(store)
 }

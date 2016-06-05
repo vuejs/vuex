@@ -181,7 +181,7 @@ If you write the action with ES6 destructuring style, make sure that the first a
 ```javascript
 import {callee} from './anotherActionModule'
 
-export const caller = ({dispatch, state, watch}) {
+export const caller = ({dispatch, state, watch}) => {
   dispatch('MUTATION_1')
   callee({state, watch})
 }
@@ -192,7 +192,7 @@ Otherwise, you should use the old-fashioned function syntax:
 ```javascript
 import {callee} from './anotherActionModule'
 
-export const caller = (store) {
+export const caller = (store) => {
   store.dispatch('MUTATION_1')
   callee(store)
 }
