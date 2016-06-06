@@ -35,3 +35,7 @@ See [npm scripts](https://github.com/vuejs/vuex/blob/master/package.json#L11-L15
 - Single State Tree
 - Hot Reloading
 - Time Travel (with [vue-devtools](https://github.com/vuejs/vue-devtools) support)
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
