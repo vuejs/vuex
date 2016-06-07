@@ -50,4 +50,4 @@ store.dispatch({
 
 再次强调，我们通过分发 mutation 的方式，而非直接改变 `store.state.count`，是因为我们想要更明确地追踪到状态的变化。这个简单的约定能够让你的意图更加明显，这样你在阅读代码的时候能更容易地解读应用内部的状态改变。此外，这样也让我们有机会去实现一些能记录每次状态改变，保存状态快照的调试工具。有了它，我们甚至可以实现如时间穿梭般的调试体验。
 
-以上只是一个用来展示 store 究竟是什么的一个极简栗子。但是 Vuex 可不仅仅是状态存储。接下来，我们将会更深入地探讨一些核心概念：[State（状态）](state.md)，[Mutations（变更）](mutations.md) 和 [Actions（动作）](actions.md)。
+以上只是一个用来展示 store 究竟是什么的一个极简例子。但是 Vuex 可不仅仅是状态存储。接下来，我们将会更深入地探讨一些核心概念：[State（状态）](state.md)，[Mutations（变更）](mutations.md) 和 [Actions（动作）](actions.md)。
