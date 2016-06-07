@@ -100,7 +100,7 @@ computed: {
 }
 ```
 
-### I Getter posso restituire Stati Derivati
+### I Getter possono restituire Stati Derivati
 
 Se consideriamo che i getter di Vuex dietro le quinte sono delle proprietà derivate, allora possiamo intuire che è possibile sfruttare alcune proprietà di quest'ultime per restituire uno stato più eleborato.
 Per esempio, si consideri che lo stato ha un array di `messaggi` contenente tutti i messaggi, ed un `currentThreadID` che rappresenta il thread corrente visualizzato dall utente.

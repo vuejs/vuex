@@ -47,7 +47,7 @@ describe('mutations', () => {
 
 ### Testare le Action
 
-Le Action possono essere più complesse da testate dato che possono contenere chiamate ad API esterne a Vuex. Quando si testano le action, si dovrà fare uso, nella maggior parte dei casi, di un sistema di mocking - per esempio nel caso volessimo chiamare delle API ad un servizio di terze parti
+Le Action possono essere più complesse da testate dato che possono contenere chiamate ad API esterne a Vuex. Quando si testano le action, si dovrà fare uso, nella maggior parte dei casi, di un sistema di mocking - per esempio nel caso volessimo chiamare delle API ad un servizio di terze parti.
 Per effettuare il mocking delle dipendenze, si può utilizzare il comodo sistema di [inject-loader](https://github.com/plasticine/inject-loader) assieme a WebPack.
 
 Esempio su una Action asincrona:
@@ -156,7 +156,7 @@ mocha test-bundle.js
 #### Testare nel Browser
 
 1. Installare `mocha-loader`
-2. Cambiare l `entry` dalla configurazione Webpack sopra citata in `'mocha!babel!./test.js'`.
+2. Cambiare l'`entry` dalla configurazione Webpack sopra citata in `'mocha!babel!./test.js'`.
 3. Inizializzare `webpack-dev-server` utilizzando la configurazione sopra citata
 4. Andare su `localhost:8080/webpack-dev-server/test-bundle`.
 5. Profit!
