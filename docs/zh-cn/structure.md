@@ -6,8 +6,9 @@ Vuex 并不限制你的代码结构，但是制定了一套需要遵守的规则
 2. 只有 mutation handlers 可以改变 state；
 3. Mutations 必须是同步的，它们做的应该仅仅是改变 state；
 4. 所有类似数据获取的异步操作细节都应封装在 actions 里面。
+5. 组件通过 getters 从 store 中获取 state，并通过调用 actions 来改变 state。
 
-Vuex actions 和 mutations 优雅的地方在于 **它们都只是一些函数**。只需要遵循以上的准则，怎么组织代码就取决于你自己了。最简单的 Vuex store 实例甚至可以在 [单个文件](https://github.com/vuejs/vuex/blob/master/examples/counter/vuex.js) 中声明！然而这在真正的项目里显然是行不通的，所以这里有些根据不同应用规模推荐的不同结构。
+Vuex actions 和 mutations 优雅的地方在于 **它们都只是一些函数**。只需要遵循以上的准则，怎么组织代码就取决于你自己了。不过，遵循一些规则能够让你更快地熟悉其他使用 vuex 的项目。这里介绍了一些适应不同项目规模的应用结构。
 
 ### 简单的项目
 
@@ -26,7 +27,9 @@ Vuex actions 和 mutations 优雅的地方在于 **它们都只是一些函数**
     └── mutations.js # exports all mutations
 ```
 
-参见 [TodoMVC 示例](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
+参见[计数器 示例](https://github.com/vuejs/vuex/tree/master/examples/todomvc) 或 [TodoMVC 示例](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
+
+另外，你也可以将 mutations 拆分到不同的文件中去。
 
 ### 中型到大型项目
 
@@ -42,13 +45,13 @@ Vuex actions 和 mutations 优雅的地方在于 **它们都只是一些函数**
 ├── components
 │   ├── App.vue
 │   └── ...
-└── store
-    ├── actions.js # exports all actions
-    ├── index.js
-    ├── modules
-    │   ├── cart.js       # state and mutations for cart
-    │   └── products.js   # state and mutations for products
-    └── mutation-types.js # constants
+└── vuex
+    ├── actions.js        # exports all actions
+    ├── store.js          # where we assemble modules and export the store
+    ├── mutation-types.js # constants
+    └── modules
+        ├── cart.js       # state and mutations for cart
+        └── products.js   # state and mutations for products
 ```
 
 一个典型的模块：
@@ -58,45 +61,67 @@ Vuex actions 和 mutations 优雅的地方在于 **它们都只是一些函数**
 import { RECEIVE_PRODUCTS, ADD_TO_CART } from '../mutation-types'
 
 // 该模块的初始状态
-export const productsInitialState = []
+const state = {
+  all: []
+}
 
 // 相关的 mutations
-export const productsMutations = {
+const mutations = {
   [RECEIVE_PRODUCTS] (state, products) {
-    state.products = products
+    state.all = products
   },
 
-  [ADD_TO_CART] ({ products }, productId) {
-    const product = products.find(p => p.id === productId)
-    if (product.inventory > 0) {
-      product.inventory--
-    }
+  [ADD_TO_CART] (state, productId) {
+    state.all.find(p => p.id === productId).inventory--
   }
+}
+
+export default {
+  state,
+  mutations
 }
 ```
 
-在 `store/index.js` 里我们把多个模块集合在一起来创建 Vuex 实例：
+在 `vuex/store.js` 里我们把多个模块集合在一起来创建 Vuex 实例：
 
 ``` js
 import Vue from 'vue'
 import Vuex from '../../../src'
 import * as actions from './actions'
 // 导入各个模块的初始状态和 mutations
-import { cartInitialState, cartMutations } from './modules/cart'
-import { productsInitialState, productsMutations } from './modules/products'
+import cart from './modules/cart'
+import products from './modules/products'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  // ...
-  // 将各个模块的状态组合成最终的根状态 (root state)
-  state: {
-    cart: cartInitialState,
-    products: productsInitialState
-  },
-  // mutations 选项可以是一个包含多个对象的数组
-  mutations: [cartMutations, productsMutations]
+  // 组合各个模块
+  modules: {
+    cart,
+    products
+  }
 })
+```
+在这里，`cart` 模块的初始状态会作为 `store.state.cart` 被设置到底层 state 树上。另外，**所有在子模块上定义的 mutations 都只能改变当前相关联子模块上的 state 子树**。所以在 `cart` 模块上定义的 mutations 接收到的第一个参数将会是 `store.state.cart`。
+
+state 子树的根节点不能在模块内部改写。比如这样的写法是无效的：
+
+``` js
+const mutations = {
+  SOME_MUTATION (state) {
+    state = { ... }
+  }
+}
+```
+
+可替代的写法是将真实的 state 作为子树本身的属性在存储：
+
+``` js
+const mutations = {
+  SOME_MUTATION (state) {
+    state.value = { ... }
+  }
+}
 ```
 
 由于一个模块导出的仅仅是对象和函数，它们也是非常易于测试和维护的。当然，你也可以按你的喜好和需求对这样的组织方式进行修改。
