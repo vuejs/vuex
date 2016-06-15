@@ -174,7 +174,7 @@ export const login = ({dispatch}, username, password) => {
 
 ```
 
-While calling actions from one another module, or while calling another action in the same module, remember that actions take a store instance as its first argument, so the action called inside another action should be passed through the first argument for the caller.
+While calling actions from another module, or while calling another action in the same module, remember that actions take a store instance as its first argument, so the action called inside another action should be passed through the first argument for the caller.
 
 If you write the action with ES6 destructuring style, make sure that the first argument of the caller action covers all the properties and methods of both actions. For example, only *dispatch* is used in the caller action and *state*, *watch* are used in the called action, all the *dispatch*, *state* and *watch* should be presented in the caller first formal argument like this:
 
