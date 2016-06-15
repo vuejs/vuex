@@ -130,7 +130,6 @@ import { SOME_MUTATION } from './mutation-types'
 
 const store = new Vuex.Store({
   state: { ... },
-  actions: { ... },
   mutations: {
     // we can use the ES2015 computed property name feature
     // to use a constant as the function name
