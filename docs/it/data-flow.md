@@ -1,6 +1,6 @@
 # Flusso dei Dati
 
-Costruiamo un semplice contatore tramite Vuex per avere una visione migliore su come i dati siano scambiati tra i vari componenti. Si noti che questo esempio è un estremizzazione per spiegare alcuni concetti chiavi, Vuex non è utile per questo tipo di applicazioni molto semplici.
+Costruiamo un semplice contatore tramite Vuex per avere una visione migliore su come i dati siano scambiati tra i vari componenti. Si noti che questo esempio è un'estremizzazione per spiegare alcuni concetti chiavi, Vuex non è utile per questo tipo di applicazioni molto semplici.
 
 ### Lo Store
 

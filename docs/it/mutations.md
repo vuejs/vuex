@@ -26,9 +26,9 @@ Non è possibile richiamare un handler direttamente. Bisogna registrarlo tramite
 store.dispatch('INCREMENT')
 ```
 
-### Disptach con Argomenti
+### Dispatch con Argomenti
 
-E' possibile passare gli argomenti alla mutation:
+E' possibile passare degli argomenti alla mutation:
 
 ``` js
 // ...
@@ -103,7 +103,7 @@ export function start(store, options = {}) {
 Dato che lo stato di Store in Vuex segue la filosofia "reattiva" di Vue, quando mutiamo uno stato, tutti i componenti che osservano tale stato riceveranno l'aggiornamento in modo automatico.
 Questo significa che anche le mutation hanno bisogno di qualche precauzione:
 
-1. E' preferibile inizializzare ogni stato all interno dello store.
+1. E' preferibile inizializzare ogni stato all'interno dello store.
 
 2. Quando si aggiunge una proprietà ad un oggetto è consigliato:
 
@@ -142,7 +142,7 @@ const store = new Vuex.Store({
 })
 ```
 
-L'utilizzo delle costanti è altamente consigliato soprattutto quando si divide in più moduli un'applicazione di larga scala. Tutta via non c'è nessuna regola che vi obbliga ad utilizzare tale sintassi se non vi piace.
+L'utilizzo delle costanti è altamente consigliato soprattutto quando si divide in più moduli un'applicazione di larga scala. Tuttavia non c'è nessuna regola che vi obbliga ad utilizzare tale sintassi se non vi piace.
 
 ### Le Mutation devono essere Sincrone
 
@@ -162,4 +162,4 @@ Ora immaginate di dover debuggare l'applicazione e guardate il log delle mutatio
 
 ### Sulle Azioni
 
-Le mutazioni di stato combinate con eventi asincroni possono portare difficoltà nel capire che cosa succede in un determinato momento. Per sempio se chiamate due metodi, entrambi implementano internamente delle chiamate asincrone, come potete stabilire l'ordine di chiamata? Ecco perchè dev'essere chiaro il motivo per il quale qualsiasi tipo di operazione asincrona dev'essere fatto tramite le [Azioni](actions.md)
+Le mutazioni di stato combinate con eventi asincroni possono portare difficoltà nel capire che cosa succede in un determinato momento. Per esempio se chiamate due metodi, entrambi implementano internamente delle chiamate asincrone, come potete stabilire l'ordine di chiamata? Ecco perchè dev'essere chiaro il motivo per il quale qualsiasi tipo di operazione asincrona dev'essere fatto tramite le [Azioni](actions.md)

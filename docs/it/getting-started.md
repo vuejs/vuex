@@ -8,7 +8,7 @@ Al centro di qualsiasi applicazione che utilizza Vuex si trova lo **store**. Uno
 
 ### Lo Store più Semplice
 
-> **NOTA:** Nel cosrso della guida utilizzeremo la sintassi JavaScript che si riferisce a `ES2015` se ancora non siete al corrente degli aggiornamenti [aggiornatevi al riguardo](https://babeljs.io/docs/learn-es2015/)!
+> **NOTA:** Nel corso della guida utilizzeremo la sintassi JavaScript che si riferisce a `ES2015` se ancora non siete al corrente degli aggiornamenti [aggiornatevi al riguardo](https://babeljs.io/docs/learn-es2015/)!
 Questa documentazione, insoltre, assume che voi siate al corrente con i concetti discussi nel capitolo: [Costruire un'Applicazione scalabile](http://it.vuejs.org/guide/application.html).
 
 Creare uno Store in Vuex è un processo abbastanza semplice, si inizia con lo stato iniziale e qualche mutations:
@@ -32,7 +32,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Ora potrete accedere all oggetto stato tramite `store.state` ed eventualmente attivare mutazioni, per esempio sul nome:
+Ora potrete accedere all'oggetto stato tramite `store.state` ed eventualmente attivare mutazioni, per esempio sul nome:
 
 ``` js
 store.dispatch('INCREMENT')
@@ -49,6 +49,6 @@ store.dispatch({
 })
 ```
 
-Di nuovo, il motivo per il quale stiamo effettuando il dispatch invece di cambiare lo stato tramite `store.state.count` è perchè vogliamo esplicitamente tenere traccia del cambiamento in se. Questa semplice convenzione rende le nostre intenzioni più esplicite, aiutando anche a capire perchè cambiamo lo stato in determinati punti del nostro codice. In aggiunta, questo ci permette di implementare strumenti per tenere traccia delle mutazioni, salvarne una copia o fare anche debuggin trasversale.
+Di nuovo, il motivo per il quale stiamo effettuando il dispatch invece di cambiare lo stato tramite `store.state.count` è perchè vogliamo esplicitamente tenere traccia del cambiamento in se. Questa semplice convenzione rende le nostre intenzioni più esplicite, aiutando anche a capire perchè cambiamo lo stato in determinati punti del nostro codice. In aggiunta, questo ci permette di implementare strumenti per tenere traccia delle mutazioni, salvarne una copia o fare anche debugging trasversale.
 
-Ovviamente questo è un esempio molto semplice di come funziona Vuex e la centralizzazione degli stati. Più avanti discuteremo di alcuni concetti in dettagli come: [Stati](state.md), [Mutazioni](mutations.md) ed [Azioni](actions.md).
+Ovviamente questo è un esempio molto semplice di come funziona Vuex e la centralizzazione degli stati. Più avanti discuteremo di alcuni concetti in dettaglio come: [Stati](state.md), [Mutazioni](mutations.md) ed [Azioni](actions.md).
