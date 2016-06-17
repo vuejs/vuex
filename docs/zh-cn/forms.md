@@ -50,15 +50,15 @@ vuex: {
     updateMessage: ({ dispatch }, value) => {
       dispatch('UPDATE_MESSAGE', value)
     }
-  },
-  computed: {
-    thisMessage: {
-      get () {
-        return this.message
-      },
-      set (val) {
-        this.updateMessage(val)
-      }
+  }
+},
+computed: {
+  thisMessage: {
+    get () {
+      return this.message
+    },
+    set (val) {
+      this.updateMessage(val)
     }
   }
 }
