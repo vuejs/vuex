@@ -49,6 +49,30 @@ export function deepClone (obj) {
 }
 
 /**
+ * Detect whether the given object is nested module or not.
+ * An object have not both `state` and `mutations` is nested module.
+ *
+ * @param {*} obj
+ * @return {Boolean}
+ */
+
+export function isNestedModule (module) {
+  return module !== null && typeof module === 'object' &&
+    !('state' in module && 'mutations' in module)
+}
+
+/**
+ * Get state sub tree by given keys.
+ *
+ * @param {Object} state
+ * @param {Array<String>} nestedKeys
+ * @return {Object}
+ */
+export function getNestedState (state, nestedKeys) {
+  return nestedKeys.reduce((state, key) => state[key], state)
+}
+
+/**
  * Hacks to get access to Vue internals.
  * Maybe we should expose these...
  */
