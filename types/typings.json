@@ -1,0 +1,7 @@
+{
+  "name": "vuex",
+  "main": "index.d.ts",
+  "globalDependencies": {
+    "vue": "registry:dt/vue#1.0.21+20160423143248"
+  }
+}
