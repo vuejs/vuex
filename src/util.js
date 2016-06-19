@@ -13,9 +13,9 @@ export function mergeObjects (arr) {
         // allow multiple mutation objects to contain duplicate
         // handlers for the same mutation type
         if (Array.isArray(existing)) {
-          existing.push(obj[key])
+          prev[key] = existing.concat(obj[key])
         } else {
-          prev[key] = [prev[key], obj[key]]
+          prev[key] = [existing].concat(obj[key])
         }
       } else {
         prev[key] = obj[key]
