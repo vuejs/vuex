@@ -20,8 +20,8 @@ function createStore(): Vuex.Store<ISimpleState> {
     [INCREMENT] (state: ISimpleState, amount: number) {
       state.count = state.count + amount;
     },
-    [INCREMENT_OBJECT] (state: ISimpleState, mutation: Vuex.MutationObject<number>) {
-      state.count = state.count + mutation.payload;
+    [INCREMENT_OBJECT] (state: ISimpleState, payload: number) {
+      state.count = state.count + payload;
     }
   };
 
