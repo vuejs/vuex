@@ -1,0 +1,200 @@
+import * as Vue from 'vue';
+import * as Vuex from 'vuex';
+import createLogger from 'vuex/logger';
+
+Vue.use(Vuex);
+
+interface ISimpleState {
+  count: number;
+}
+
+const INCREMENT = 'INCREMENT';
+const INCREMENT_OBJECT = 'INCREMENT_OBJECT';
+
+function createStore(): Vuex.Store<ISimpleState> {
+  const state: ISimpleState = {
+    count: 0
+  };
+
+  const mutations: Vuex.MutationTree<ISimpleState> = {
+    [INCREMENT] (state: ISimpleState, amount: number) {
+      state.count = state.count + amount;
+    },
+    [INCREMENT_OBJECT] (state: ISimpleState, mutation: Vuex.MutationObject<number>) {
+      state.count = state.count + mutation.payload;
+    }
+  };
+
+  return new Vuex.Store({
+    state,
+    mutations,
+    strict: true
+  });
+}
+
+namespace TestDispatch {
+  const store = createStore();
+
+  store.dispatch(INCREMENT, 1);
+  store.dispatch({
+    type: INCREMENT_OBJECT,
+    silent: true,
+    payload: 10
+  });
+}
+
+namespace TestWithComponent {
+  const store = createStore();
+
+  const a: vuejs.ComponentOption = {
+    vuex: {
+      getters: {
+        count: (state: ISimpleState) => state.count
+      },
+      actions: {
+        incrementCounter({ dispatch, state }: Vuex.Store<ISimpleState>) {
+          dispatch(INCREMENT, 1);
+        }
+      }
+    }
+  };
+
+  const app = new Vue({
+    el: '#app',
+    components: { a },
+    store
+  });
+
+  const b: number = app.$store.state.count;
+}
+
+namespace TestModules {
+  interface IModuleAState {
+    value: number;
+  }
+
+  interface IModuleBState {
+    value: string;
+  }
+
+  interface IModuleState {
+    a: IModuleAState;
+    b: IModuleBState;
+  }
+
+  const aState: IModuleAState = { value: 1 };
+  const bState: IModuleBState = { value: 'test' };
+
+  const aMutations: Vuex.MutationTree<IModuleAState> = {
+    INCREMENT (state: IModuleAState) {
+      state.value = state.value + 1;
+    }
+  };
+
+  const bMutations: Vuex.MutationTree<IModuleBState> = {
+    APPEND (state: IModuleBState, value: string) {
+      state.value = state.value + value;
+    }
+  };
+
+  const a = { state: aState, mutations: aMutations };
+  const b = { state: bState, mutations: bMutations };
+
+  const store = new Vuex.Store<IModuleState>({
+    modules: { a, b }
+  });
+
+  const valA: number = store.state.a.value;
+  const valB: string = store.state.b.value;
+}
+
+namespace TestMiddleware {
+  const a = {
+    onInit(
+      state: ISimpleState,
+      store: Vuex.Store<ISimpleState>
+    ) {},
+
+    onMutation(
+      mutation: Vuex.MutationObject<any>,
+      state: ISimpleState,
+      store: Vuex.Store<ISimpleState>
+    ) {}
+  };
+
+  const b = {
+    snapshot: true,
+    onMutation(
+      mutation: Vuex.MutationObject<any>,
+      nextState: ISimpleState,
+      prevState: ISimpleState,
+      store: Vuex.Store<ISimpleState>
+    ) {}
+  };
+
+  new Vuex.Store<ISimpleState>({
+    state: { count: 1 },
+    middlewares: [a, b]
+  });
+}
+
+namespace TestWatch {
+  const store = createStore();
+
+  store.watch('count', value => {
+    const a: number = value;
+  });
+
+  store.watch(state => state.count, value => {
+    const a: number = value;
+  }, {
+    deep: true,
+    immidiate: true
+  });
+}
+
+namespace TestHotUpdate {
+  const store = createStore();
+
+  store.hotUpdate({
+    mutations: {
+      INCREMENT (state) {
+        state.count += 10;
+      }
+    }
+  });
+
+  store.hotUpdate({
+    modules: {
+      a: {
+        state: 1,
+        mutations: {
+          INCREMENT (state) {
+            state.value++;
+          }
+        }
+      },
+      b: {
+        state: 'test',
+        mutations: {
+          APPEND (state, value) {
+            state.value += value;
+          }
+        }
+      }
+    }
+  });
+}
+
+namespace TestLogger {
+  const logger = createLogger<ISimpleState>({
+    collapsed: false,
+    transformer: state => state.count,
+    mutationTransformer: m => m
+  });
+
+  new Vuex.Store<ISimpleState>({
+    state: { count: 1 },
+    middlewares: [logger]
+  });
+}
