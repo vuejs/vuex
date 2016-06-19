@@ -65,20 +65,27 @@ describe('Vuex', () => {
       },
       mutations,
       modules: {
-        one: {
-          state: { a: 2 },
-          mutations
+        nested: {
+          one: {
+            state: { a: 2 },
+            mutations
+          },
+          two: {
+            state: { a: 3 },
+            mutations
+          }
         },
-        two: {
-          state: { a: 3 },
+        three: {
+          state: { a: 4 },
           mutations
         }
       }
     })
     store.dispatch(TEST, 1)
     expect(store.state.a).to.equal(2)
-    expect(store.state.one.a).to.equal(3)
-    expect(store.state.two.a).to.equal(4)
+    expect(store.state.nested.one.a).to.equal(3)
+    expect(store.state.nested.two.a).to.equal(4)
+    expect(store.state.three.a).to.equal(5)
   })
 
   it('hot reload', function () {
@@ -93,20 +100,27 @@ describe('Vuex', () => {
       },
       mutations,
       modules: {
-        one: {
-          state: { a: 2 },
-          mutations
+        nested: {
+          one: {
+            state: { a: 2 },
+            mutations
+          },
+          two: {
+            state: { a: 3 },
+            mutations
+          }
         },
-        two: {
-          state: { a: 3 },
+        three: {
+          state: { a: 4 },
           mutations
         }
       }
     })
     store.dispatch(TEST, 1)
     expect(store.state.a).to.equal(2)
-    expect(store.state.one.a).to.equal(3)
-    expect(store.state.two.a).to.equal(4)
+    expect(store.state.nested.one.a).to.equal(3)
+    expect(store.state.nested.two.a).to.equal(4)
+    expect(store.state.three.a).to.equal(5)
 
     // hot reload only root mutations
     store.hotUpdate({
@@ -118,22 +132,33 @@ describe('Vuex', () => {
     })
     store.dispatch(TEST, 1)
     expect(store.state.a).to.equal(1) // only root mutation updated
-    expect(store.state.one.a).to.equal(4)
-    expect(store.state.two.a).to.equal(5)
+    expect(store.state.nested.one.a).to.equal(4)
+    expect(store.state.nested.two.a).to.equal(5)
+    expect(store.state.three.a).to.equal(6)
 
     // hot reload modules
     store.hotUpdate({
       modules: {
-        one: {
-          state: { a: 234 },
-          mutations: {
-            [TEST] (state, n) {
-              state.a += n
+        nested: {
+          one: {
+            state: { a: 234 },
+            mutations: {
+              [TEST] (state, n) {
+                state.a += n
+              }
+            }
+          },
+          two: {
+            state: { a: 345 },
+            mutations: {
+              [TEST] (state, n) {
+                state.a -= n
+              }
             }
           }
         },
-        two: {
-          state: { a: 345 },
+        three: {
+          state: { a: 456 },
           mutations: {
             [TEST] (state, n) {
               state.a -= n
@@ -144,8 +169,9 @@ describe('Vuex', () => {
     })
     store.dispatch(TEST, 2)
     expect(store.state.a).to.equal(2)
-    expect(store.state.one.a).to.equal(6) // should not reload initial state
-    expect(store.state.two.a).to.equal(3) // should not reload initial state
+    expect(store.state.nested.one.a).to.equal(6) // should not reload initial state
+    expect(store.state.nested.two.a).to.equal(3) // should not reload initial state
+    expect(store.state.three.a).to.equal(4) // should not reload initial state
 
     // hot reload all
     store.hotUpdate({
@@ -155,16 +181,26 @@ describe('Vuex', () => {
         }
       },
       modules: {
-        one: {
-          state: { a: 234 },
-          mutations: {
-            [TEST] (state, n) {
-              state.a = n
+        nested: {
+          one: {
+            state: { a: 234 },
+            mutations: {
+              [TEST] (state, n) {
+                state.a = n
+              }
+            }
+          },
+          two: {
+            state: { a: 345 },
+            mutations: {
+              [TEST] (state, n) {
+                state.a = n
+              }
             }
           }
         },
-        two: {
-          state: { a: 345 },
+        three: {
+          state: { a: 456 },
           mutations: {
             [TEST] (state, n) {
               state.a = n
@@ -175,8 +211,9 @@ describe('Vuex', () => {
     })
     store.dispatch(TEST, 3)
     expect(store.state.a).to.equal(-1)
-    expect(store.state.one.a).to.equal(3)
-    expect(store.state.two.a).to.equal(3)
+    expect(store.state.nested.one.a).to.equal(3)
+    expect(store.state.nested.two.a).to.equal(3)
+    expect(store.state.three.a).to.equal(3)
   })
 
   it('middleware', function () {
