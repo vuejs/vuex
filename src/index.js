@@ -1,6 +1,6 @@
 import {
   mergeObjects, deepClone,
-  isNestedModule, getNestedState,
+  isModuleProperty, getNestedState,
   getWatcher
 } from './util'
 import devtoolMiddleware from './middlewares/devtool'
@@ -145,15 +145,15 @@ class Store {
 
   _setupModuleState (state, modules) {
     Object.keys(modules).forEach(key => {
+      if (isModuleProperty(key)) return
+
       const module = modules[key]
-      if (isNestedModule(module)) {
-        // retrieve nested modules
-        Vue.set(state, key, {})
-        this._setupModuleState(state[key], module)
-      } else {
-        // set module's state
-        Vue.set(state, key, module.state || {})
-      }
+
+      // set this module's state
+      Vue.set(state, key, module.state || {})
+
+      // retrieve nested modules
+      this._setupModuleState(state[key], module)
     })
   }
 
@@ -185,15 +185,17 @@ class Store {
 
   _createModuleMutations (modules, nestedKeys) {
     return Object.keys(modules).map(key => {
+      if (isModuleProperty(key)) return {}
+
       const module = modules[key]
       const newNestedKeys = nestedKeys.concat(key)
 
       // retrieve nested modules
-      if (isNestedModule(module)) {
-        return mergeObjects(this._createModuleMutations(module, newNestedKeys))
-      }
+      const nestedMutations = this._createModuleMutations(module, newNestedKeys)
 
-      if (!module || !module.mutations) return {}
+      if (!module || !module.mutations) {
+        return mergeObjects(nestedMutations)
+      }
 
       // bind mutations to sub state tree
       const mutations = {}
@@ -203,7 +205,12 @@ class Store {
           original(getNestedState(state, newNestedKeys), ...args)
         }
       })
-      return mutations
+
+      // merge mutations of this module and nested modules
+      return mergeObjects([
+        mutations,
+        ...nestedMutations
+      ])
     })
   }
 

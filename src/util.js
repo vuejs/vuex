@@ -49,16 +49,14 @@ export function deepClone (obj) {
 }
 
 /**
- * Detect whether the given object is nested module or not.
- * An object have not both `state` and `mutations` is nested module.
+ * Detect whether the given key is a module property or not.
  *
  * @param {*} obj
  * @return {Boolean}
  */
 
-export function isNestedModule (module) {
-  return module !== null && typeof module === 'object' &&
-    !('state' in module && 'mutations' in module)
+export function isModuleProperty (key) {
+  return key === 'state' || key === 'mutations'
 }
 
 /**
