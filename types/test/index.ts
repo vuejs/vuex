@@ -69,43 +69,61 @@ namespace TestWithComponent {
 }
 
 namespace TestModules {
-  interface IModuleAState {
+
+  interface INumberState {
     value: number;
   }
 
-  interface IModuleBState {
-    value: string;
+  interface INestedModuleState extends INumberState {
+    a: INumberState;
+    b: INumberState;
   }
 
   interface IModuleState {
-    a: IModuleAState;
-    b: IModuleBState;
+    nested: INestedModuleState;
+    c: INumberState;
   }
 
-  const aState: IModuleAState = { value: 1 };
-  const bState: IModuleBState = { value: 'test' };
+  const aState = { value: 1 };
+  const bState = { value: 2 };
+  const cState = { value: 3 };
+  const nestedState = { value: 4 };
 
-  const aMutations: Vuex.MutationTree<IModuleAState> = {
-    INCREMENT (state: IModuleAState) {
+  const mutations: Vuex.MutationTree<INumberState> = {
+    INCREMENT (state: INumberState) {
       state.value = state.value + 1;
     }
   };
 
-  const bMutations: Vuex.MutationTree<IModuleBState> = {
-    APPEND (state: IModuleBState, value: string) {
-      state.value = state.value + value;
-    }
+  const a = {
+    state: aState,
+    mutations
   };
 
-  const a = { state: aState, mutations: aMutations };
-  const b = { state: bState, mutations: bMutations };
+  const b = {
+    state: bState,
+    mutations
+  };
+
+  const nested = {
+    state: nestedState,
+    mutations,
+    modules: { a, b }
+  };
+
+  const c = {
+    state: cState,
+    mutations
+  };
 
   const store = new Vuex.Store<IModuleState>({
-    modules: { a, b }
+    modules: { nested, c }
   });
 
-  const valA: number = store.state.a.value;
-  const valB: string = store.state.b.value;
+  const valA = store.state.nested.a.value;
+  const valB = store.state.nested.b.value;
+  const valC = store.state.c.value;
+  const valNested = store.state.nested.value;
 }
 
 namespace TestPlugin {
@@ -139,31 +157,25 @@ namespace TestWatch {
 namespace TestHotUpdate {
   const store = createStore();
 
-  store.hotUpdate({
-    mutations: {
-      INCREMENT (state) {
-        state.count += 10;
-      }
+  const mutations: Vuex.MutationTree<ISimpleState> = {
+    INCREMENT (state: ISimpleState) {
+      state.count++;
     }
+  };
+
+  store.hotUpdate({
+    mutations
   });
 
   store.hotUpdate({
     modules: {
       a: {
-        state: 1,
-        mutations: {
-          INCREMENT (state) {
-            state.value++;
-          }
-        }
+        state: { count: 1 },
+        mutations
       },
       b: {
-        state: 'test',
-        mutations: {
-          APPEND (state, value) {
-            state.value += value;
-          }
-        }
+        state: { count: 2 },
+        mutations
       }
     }
   });
