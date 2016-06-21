@@ -18,7 +18,7 @@ import { recentHistory } from './vuex/getters'
 export default {
   vuex: {
     actions,
-    state: {
+    getters: {
       count: state => state.count,
       recentHistory
     }

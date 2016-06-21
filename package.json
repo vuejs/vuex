@@ -49,6 +49,7 @@
     "eslint-config-vue": "^1.0.0",
     "function-bind": "^1.1.0",
     "mocha": "^2.3.4",
+    "phantomjs-prebuilt": "^2.1.7",
     "rollup": "^0.32.0",
     "rollup-plugin-babel": "^2.4.0",
     "sinon": "^1.17.3",
@@ -56,7 +57,7 @@
     "todomvc-app-css": "^2.0.3",
     "uglify-js": "^2.6.2",
     "vue": "^2.0.0-alpha.5",
-    "vue-loader": "^9.0.1",
+    "vue-loader": "^9.0.3",
     "webpack": "^1.12.8",
     "webpack-dev-server": "^1.12.1"
   }

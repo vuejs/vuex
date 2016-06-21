@@ -25,11 +25,11 @@
     <footer class="footer" v-show="todos.length">
       <span class="todo-count">
         <strong>{{ remaining }}</strong>
-        {{ remaining | pluralize 'item' }} left
+        {{ remaining | pluralize('item') }} left
       </span>
       <ul class="filters">
-        <li v-for="(key, val) in filters">
-          <a href="#/{{$key}}"
+        <li v-for="(val, key) in filters">
+          <a :href="'#/' + key"
             :class="{ selected: visibility === key }"
             @click="visibility = key">
             {{ key | capitalize }}
@@ -96,6 +96,10 @@ export default {
       }
       e.target.value = ''
     }
+  },
+  filters: {
+    pluralize: (n, w) => n === 1 ? w : (w + 's'),
+    capitalize: s => s.charAt(0).toUpperCase() + s.slice(1)
   }
 }
 </script>
