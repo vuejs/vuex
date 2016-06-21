@@ -300,17 +300,13 @@ describe('Vuex', () => {
         [TEST]: state => state.a++
       }
     })
-    let watchedValueOne, watchedValueTwo
+    let watchedValueOne
     store.watch(({ a }) => a, val => {
       watchedValueOne = val
-    })
-    store.watch('a', val => {
-      watchedValueTwo = val
     })
     store.dispatch(TEST)
     Vue.nextTick(() => {
       expect(watchedValueOne).to.equal(2)
-      expect(watchedValueTwo).to.equal(2)
       done()
     })
   })

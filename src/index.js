@@ -43,7 +43,9 @@ class Store {
     const silent = Vue.config.silent
     Vue.config.silent = true
     this._vm = new Vue({
-      data: state
+      data: {
+        state
+      }
     })
     Vue.config.silent = silent
     this._setupModuleState(state, modules)
@@ -63,7 +65,7 @@ class Store {
    */
 
   get state () {
-    return this._vm._data
+    return this._vm.state
   }
 
   set state (v) {
@@ -106,17 +108,17 @@ class Store {
    * Same API as Vue's $watch, except when watching a function,
    * the function gets the state as the first argument.
    *
-   * @param {String|Function} expOrFn
+   * @param {Function} fn
    * @param {Function} cb
    * @param {Object} [options]
    */
 
-  watch (expOrFn, cb, options) {
-    return this._vm.$watch(() => {
-      return typeof expOrFn === 'function'
-        ? expOrFn(this.state)
-        : this._vm.$get(expOrFn)
-    }, cb, options)
+  watch (fn, cb, options) {
+    if (typeof fn !== 'function') {
+      console.error('Vuex store.watch only accepts function.')
+      return
+    }
+    return this._vm.$watch(() => fn(this.state), cb, options)
   }
 
   /**
@@ -186,7 +188,7 @@ class Store {
   _setupMutationCheck () {
     const Watcher = getWatcher(this._vm)
     /* eslint-disable no-new */
-    new Watcher(this._vm, '$data', () => {
+    new Watcher(this._vm, 'state', () => {
       if (!this._dispatching) {
         throw new Error(
           '[vuex] Do not mutate vuex store state outside mutation handlers.'

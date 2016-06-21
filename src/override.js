@@ -1,20 +1,13 @@
 import { getWatcher, getDep } from './util'
 
 export default function (Vue) {
-  // override init and inject vuex init procedure
-  const _init = Vue.prototype._init
-  Vue.prototype._init = function (options = {}) {
-    options.init = options.init
-      ? [vuexInit].concat(options.init)
-      : vuexInit
-    _init.call(this, options)
-  }
+  Vue.mixin({ init })
 
   /**
    * Vuex init hook, injected into each instances init hooks list.
    */
 
-  function vuexInit () {
+  function init () {
     const options = this.$options
     const { store, vuex } = options
     // store injection
@@ -31,7 +24,8 @@ export default function (Vue) {
           'provide the store option in your root component.'
         )
       }
-      let { state, getters, actions } = vuex
+      const { state, actions } = vuex
+      let { getters } = vuex
       // handle deprecated state option
       if (state && !getters) {
         console.warn(
@@ -43,14 +37,14 @@ export default function (Vue) {
       // getters
       if (getters) {
         options.computed = options.computed || {}
-        for (let key in getters) {
+        for (const key in getters) {
           defineVuexGetter(this, key, getters[key])
         }
       }
       // actions
       if (actions) {
         options.methods = options.methods || {}
-        for (let key in actions) {
+        for (const key in actions) {
           options.methods[key] = makeBoundAction(this.$store, actions[key], key)
         }
       }
@@ -109,7 +103,7 @@ export default function (Vue) {
     const Dep = getDep(vm)
     const watcher = new Watcher(
       vm,
-      state => getter(state),
+      vm => getter(vm.state),
       null,
       { lazy: true }
     )

@@ -1,9 +1,9 @@
 <template>
   <div class="message-section">
     <h3 class="message-thread-heading">{{ thread.name }}</h3>
-    <ul class="message-list" v-el:list>
+    <ul class="message-list" ref="list">
       <message
-        v-for="message in messages | orderBy 'timestamp'"
+        v-for="message in sortedMessages"
         track-by="id"
         :message="message">
       </message>
@@ -28,10 +28,17 @@ export default {
       sendMessage
     }
   },
+  computed: {
+    sortedMessages () {
+      return this.messages
+        .slice()
+        .sort((a, b) => a.timestamp - b.timestamp)
+    }
+  },
   watch: {
     'thread.lastMessage': function () {
       this.$nextTick(() => {
-        const ul = this.$els.list
+        const ul = this.$refs.list
         ul.scrollTop = ul.scrollHeight
       })
     }
