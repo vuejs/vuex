@@ -17,8 +17,9 @@
     "build": "node build/build.js",
     "build-examples": "BABEL_ENV=development webpack --config examples/webpack.build-all.config.js",
     "unit": "BABEL_ENV=development mocha test/unit/test.js --compilers js:babel-core/register",
+    "pree2e": "npm run build-examples",
     "e2e": "casperjs test --concise ./test/e2e",
-    "test": "eslint src && npm run unit && npm run build-examples && npm run e2e",
+    "test": "eslint src && npm run unit && npm run e2e",
     "docs": "cd docs && gitbook serve",
     "deploy-docs": "cd docs && ./deploy.sh",
     "release": "bash build/release.sh"
@@ -47,7 +48,6 @@
     "css-loader": "^0.23.1",
     "eslint": "^2.2.0",
     "eslint-config-vue": "^1.0.0",
-    "function-bind": "^1.1.0",
     "mocha": "^2.3.4",
     "phantomjs-prebuilt": "^2.1.7",
     "rollup": "^0.32.0",
