@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.7.0
+ * Vuex v0.7.1
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -130,11 +130,8 @@
       if (!hook) return;
       hook.emit('vuex:init', store);
       hook.on('vuex:travel-to-state', function (targetState) {
-        var currentState = store._vm._data;
         store._dispatching = true;
-        Object.keys(targetState).forEach(function (key) {
-          currentState[key] = targetState[key];
-        });
+        store._vm.state = targetState;
         store._dispatching = false;
       });
     },
