@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.7.1
+ * Vuex v0.8.0
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -142,13 +142,31 @@
   };
 
   function override (Vue) {
-    Vue.mixin({ init: init });
+    var version = Number(Vue.version.split('.')[0]);
+
+    if (version >= 2) {
+      Vue.mixin({
+        init: vuexInit
+      });
+    } else {
+      (function () {
+        // override init and inject vuex init procedure
+        // for 1.x backwards compatibility.
+        var _init = Vue.prototype._init;
+        Vue.prototype._init = function () {
+          var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+          options.init = options.init ? [vuexInit].concat(options.init) : vuexInit;
+          _init.call(this, options);
+        };
+      })();
+    }
 
     /**
      * Vuex init hook, injected into each instances init hooks list.
      */
 
-    function init() {
+    function vuexInit() {
       var options = this.$options;
       var store = options.store;
       var vuex = options.vuex;
@@ -611,14 +629,9 @@
     install(window.Vue);
   }
 
-  function createLogger() {
-    console.warn('[vuex] Vuex.createLogger has been deprecated.' + 'Use `import createLogger from \'vuex/logger\' instead.');
-  }
-
   var index = {
     Store: Store,
-    install: install,
-    createLogger: createLogger
+    install: install
   };
 
   return index;
