@@ -272,15 +272,7 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-function createLogger () {
-  console.warn(
-    '[vuex] Vuex.createLogger has been deprecated.' +
-    'Use `import createLogger from \'vuex/logger\' instead.'
-  )
-}
-
 export default {
   Store,
-  install,
-  createLogger
+  install
 }
