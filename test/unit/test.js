@@ -68,18 +68,22 @@ describe('Vuex', () => {
         nested: {
           state: { a: 2 },
           mutations,
-          one: {
-            state: { a: 3 },
-            mutations
-          },
-          nested: {
-            two: {
-              state: { a: 4 },
+          modules: {
+            one: {
+              state: { a: 3 },
               mutations
             },
-            three: {
-              state: { a: 5 },
-              mutations
+            nested: {
+              modules: {
+                two: {
+                  state: { a: 4 },
+                  mutations
+                },
+                three: {
+                  state: { a: 5 },
+                  mutations
+                }
+              }
             }
           }
         },
@@ -113,18 +117,22 @@ describe('Vuex', () => {
         nested: {
           state: { a: 2 },
           mutations,
-          one: {
-            state: { a: 3 },
-            mutations
-          },
-          nested: {
-            two: {
-              state: { a: 4 },
+          modules: {
+            one: {
+              state: { a: 3 },
               mutations
             },
-            three: {
-              state: { a: 5 },
-              mutations
+            nested: {
+              modules: {
+                two: {
+                  state: { a: 4 },
+                  mutations
+                },
+                three: {
+                  state: { a: 5 },
+                  mutations
+                }
+              }
             }
           }
         },
@@ -164,18 +172,22 @@ describe('Vuex', () => {
         nested: {
           state: { a: 234 },
           mutations,
-          one: {
-            state: { a: 345 },
-            mutations
-          },
-          nested: {
-            two: {
-              state: { a: 456 },
+          modules: {
+            one: {
+              state: { a: 345 },
               mutations
             },
-            three: {
-              state: { a: 567 },
-              mutations
+            nested: {
+              modules: {
+                two: {
+                  state: { a: 456 },
+                  mutations
+                },
+                three: {
+                  state: { a: 567 },
+                  mutations
+                }
+              }
             }
           }
         },
@@ -208,28 +220,32 @@ describe('Vuex', () => {
               state.a += n
             }
           },
-          one: {
-            state: { a: 345 },
-            mutations: {
-              [TEST] (state, n) {
-                state.a += n
-              }
-            }
-          },
-          nested: {
-            two: {
-              state: { a: 456 },
+          modules: {
+            one: {
+              state: { a: 345 },
               mutations: {
                 [TEST] (state, n) {
                   state.a += n
                 }
               }
             },
-            three: {
-              state: { a: 567 },
-              mutations: {
-                [TEST] (state, n) {
-                  state.a -= n
+            nested: {
+              modules: {
+                two: {
+                  state: { a: 456 },
+                  mutations: {
+                    [TEST] (state, n) {
+                      state.a += n
+                    }
+                  }
+                },
+                three: {
+                  state: { a: 567 },
+                  mutations: {
+                    [TEST] (state, n) {
+                      state.a -= n
+                    }
+                  }
                 }
               }
             }

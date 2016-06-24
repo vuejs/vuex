@@ -49,14 +49,14 @@ export function deepClone (obj) {
 }
 
 /**
- * Detect whether the given key is a module property or not.
+ * Check whether the given value is Object or not
  *
  * @param {*} obj
  * @return {Boolean}
  */
 
-export function isModuleProperty (key) {
-  return key === 'state' || key === 'mutations'
+export function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
 }
 
 /**

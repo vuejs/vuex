@@ -1,7 +1,6 @@
 import {
-  mergeObjects, deepClone,
-  isModuleProperty, getNestedState,
-  getWatcher
+  mergeObjects, deepClone, isObject,
+  getNestedState, getWatcher
 } from './util'
 import devtoolMiddleware from './middlewares/devtool'
 import override from './override'
@@ -144,16 +143,16 @@ class Store {
    */
 
   _setupModuleState (state, modules) {
-    Object.keys(modules).forEach(key => {
-      if (isModuleProperty(key)) return
+    if (!isObject(modules)) return
 
+    Object.keys(modules).forEach(key => {
       const module = modules[key]
 
       // set this module's state
       Vue.set(state, key, module.state || {})
 
       // retrieve nested modules
-      this._setupModuleState(state[key], module)
+      this._setupModuleState(state[key], module.modules)
     })
   }
 
@@ -184,14 +183,14 @@ class Store {
    */
 
   _createModuleMutations (modules, nestedKeys) {
-    return Object.keys(modules).map(key => {
-      if (isModuleProperty(key)) return {}
+    if (!isObject(modules)) return []
 
+    return Object.keys(modules).map(key => {
       const module = modules[key]
       const newNestedKeys = nestedKeys.concat(key)
 
       // retrieve nested modules
-      const nestedMutations = this._createModuleMutations(module, newNestedKeys)
+      const nestedMutations = this._createModuleMutations(module.modules, newNestedKeys)
 
       if (!module || !module.mutations) {
         return mergeObjects(nestedMutations)
