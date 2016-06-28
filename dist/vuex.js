@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.8.0
+ * Vuex v0.8.2
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -145,9 +145,8 @@
     var version = Number(Vue.version.split('.')[0]);
 
     if (version >= 2) {
-      Vue.mixin({
-        init: vuexInit
-      });
+      var usesInit = Vue.config._lifecycleHooks.indexOf('init') > -1;
+      Vue.mixin(usesInit ? { init: vuexInit } : { beforeCreate: vuexInit });
     } else {
       (function () {
         // override init and inject vuex init procedure
