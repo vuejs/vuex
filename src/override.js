@@ -1,12 +1,11 @@
 import { getWatcher, getDep } from './util'
 
 export default function (Vue) {
-  var version = Number(Vue.version.split('.')[0])
+  const version = Number(Vue.version.split('.')[0])
 
   if (version >= 2) {
-    Vue.mixin({
-      init: vuexInit
-    })
+    const usesInit = Vue.config._lifecycleHooks.indexOf('init') > -1
+    Vue.mixin(usesInit ? { init: vuexInit } : { beforeCreate: vuexInit })
   } else {
     // override init and inject vuex init procedure
     // for 1.x backwards compatibility.
