@@ -1,8 +1,8 @@
 import {
-  mergeObjects, deepClone, isObject,
+  mergeObjects, isObject,
   getNestedState, getWatcher
 } from './util'
-import devtoolMiddleware from './middlewares/devtool'
+import devtoolPlugin from './plugins/devtool'
 import override from './override'
 
 let Vue
@@ -15,7 +15,7 @@ class Store {
    *        - {Object} state
    *        - {Object} actions
    *        - {Object} mutations
-   *        - {Array} middlewares
+   *        - {Array} plugins
    *        - {Boolean} strict
    */
 
@@ -23,13 +23,14 @@ class Store {
     state = {},
     mutations = {},
     modules = {},
-    middlewares = [],
+    plugins = [],
     strict = false
   } = {}) {
     this._getterCacheId = 'vuex_store_' + uid++
     this._dispatching = false
     this._rootMutations = this._mutations = mutations
     this._modules = modules
+    this._events = Object.create(null)
     // bind dispatch to self
     const dispatch = this.dispatch
     this.dispatch = (...args) => {
@@ -53,11 +54,13 @@ class Store {
     Vue.config.silent = silent
     this._setupModuleState(state, modules)
     this._setupModuleMutations(modules)
-    this._setupMiddlewares(middlewares, state)
     // add extra warnings in strict mode
     if (strict) {
       this._setupMutationCheck()
     }
+    // apply plugins
+    devtoolPlugin(this)
+    plugins.forEach(plugin => plugin(this))
   }
 
   /**
@@ -91,25 +94,28 @@ class Store {
       if (type.silent) silent = true
       type = type.type
     }
-    const mutation = this._mutations[type]
+    const handler = this._mutations[type]
     const state = this.state
-    if (mutation) {
+    if (handler) {
       this._dispatching = true
       // apply the mutation
-      if (Array.isArray(mutation)) {
-        mutation.forEach(m => {
+      if (Array.isArray(handler)) {
+        handler.forEach(h => {
           isObjectStyleDispatch
-            ? m(state, payload)
-            : m(state, ...payload)
+            ? h(state, payload)
+            : h(state, ...payload)
         })
       } else {
         isObjectStyleDispatch
-          ? mutation(state, payload)
-          : mutation(state, ...payload)
+          ? handler(state, payload)
+          : handler(state, ...payload)
       }
       this._dispatching = false
       if (!silent) {
-        this._applyMiddlewares(type, payload, isObjectStyleDispatch)
+        const mutation = isObjectStyleDispatch
+          ? payload
+          : { type, payload }
+        this.emit('mutation', mutation, state)
       }
     } else {
       console.warn(`[vuex] Unknown mutation: ${type}`)
@@ -246,71 +252,6 @@ class Store {
     }, { deep: true, sync: true })
     /* eslint-enable no-new */
   }
-
-  /**
-   * Setup the middlewares. The devtools middleware is always
-   * included, since it does nothing if no devtool is detected.
-   *
-   * A middleware can demand the state it receives to be
-   * "snapshots", i.e. deep clones of the actual state tree.
-   *
-   * @param {Array} middlewares
-   * @param {Object} state
-   */
-
-  _setupMiddlewares (middlewares, state) {
-    this._middlewares = [devtoolMiddleware].concat(middlewares)
-    this._needSnapshots = middlewares.some(m => m.snapshot)
-    if (this._needSnapshots) {
-      console.log(
-        '[vuex] One or more of your middlewares are taking state snapshots ' +
-        'for each mutation. Make sure to use them only during development.'
-      )
-    }
-    const initialSnapshot = this._prevSnapshot = this._needSnapshots
-      ? deepClone(state)
-      : null
-    // call init hooks
-    this._middlewares.forEach(m => {
-      if (m.onInit) {
-        m.onInit(m.snapshot ? initialSnapshot : state, this)
-      }
-    })
-  }
-
-  /**
-   * Apply the middlewares on a given mutation.
-   *
-   * @param {String} type
-   * @param {Array} payload
-   * @param {Boolean} isObjectStyleDispatch
-   */
-
-  _applyMiddlewares (type, payload, isObjectStyleDispatch) {
-    const state = this.state
-    const prevSnapshot = this._prevSnapshot
-    let snapshot, clonedPayload
-    if (this._needSnapshots) {
-      snapshot = this._prevSnapshot = deepClone(state)
-      clonedPayload = deepClone(payload)
-    }
-    this._middlewares.forEach(m => {
-      if (m.onMutation) {
-        const mutation = isObjectStyleDispatch
-          ? m.snapshot
-            ? clonedPayload
-            : payload
-          : m.snapshot
-            ? { type, payload: clonedPayload }
-            : { type, payload }
-        if (m.snapshot) {
-          m.onMutation(mutation, snapshot, prevSnapshot, this)
-        } else {
-          m.onMutation(mutation, state, this)
-        }
-      }
-    })
-  }
 }
 
 function install (_Vue) {
@@ -321,6 +262,10 @@ function install (_Vue) {
     return
   }
   Vue = _Vue
+  // reuse Vue's event system
+  ;['on', 'off', 'once', 'emit'].forEach(e => {
+    Store.prototype[e] = Store.prototype['$' + e] = Vue.prototype['$' + e]
+  })
   override(Vue)
 }
 

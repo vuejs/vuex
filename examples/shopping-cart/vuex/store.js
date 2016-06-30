@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from '../../../src'
 import cart from './modules/cart'
 import products from './modules/products'
-import createLogger from '../../../src/middlewares/logger'
+import createLogger from '../../../src/plugins/logger'
 
 Vue.use(Vuex)
 Vue.config.debug = true
@@ -15,5 +15,5 @@ export default new Vuex.Store({
     products
   },
   strict: debug,
-  middlewares: debug ? [createLogger()] : []
+  plugins: debug ? [createLogger()] : []
 })

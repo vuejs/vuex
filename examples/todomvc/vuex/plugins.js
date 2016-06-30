@@ -1,0 +1,12 @@
+import { STORAGE_KEY } from './store'
+import createLogger from '../../../src/plugins/logger'
+
+const localStoragePlugin = store => {
+  store.on('mutation', (mutation, { todos }) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+  })
+}
+
+export default process.env.NODE_ENV !== 'production'
+  ? [createLogger(), localStoragePlugin]
+  : [localStoragePlugin]

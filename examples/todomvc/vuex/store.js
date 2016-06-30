@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from '../../../src'
-import middlewares from './middlewares'
+import plugins from './plugins'
 
 Vue.use(Vuex)
 
@@ -49,5 +49,5 @@ const mutations = {
 export default new Vuex.Store({
   state,
   mutations,
-  middlewares
+  plugins
 })
