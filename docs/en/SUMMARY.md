@@ -11,7 +11,7 @@
   - [Actions](actions.md)
 - [Data Flow](data-flow.md)
 - [Application Structure](structure.md)
-- [Middlewares](middlewares.md)
+- [Plugins](middlewares.md)
 - [Strict Mode](strict.md)
 - [Form Handling](forms.md)
 - [Testing](testing.md)

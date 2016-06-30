@@ -15,7 +15,7 @@ In strict mode, whenever Vuex state is mutated outside of mutation handlers, an 
 
 **Do not enable strict mode when deploying for production!** Strict mode runs a deep watch on the state tree for detecting inappropriate mutations - make sure to turn it off in production to avoid the performance cost.
 
-Similar to middlewares, we can let the build tools handle that:
+Similar to plugins, we can let the build tools handle that:
 
 ``` js
 const store = new Vuex.Store({

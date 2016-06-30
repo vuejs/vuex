@@ -44,21 +44,13 @@ const store = new Vuex.Store({ ...options })
 
     Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations will only receives the module's own state as the first argument instead of the root state.
 
-- **middlewares**
+- **plugins**
 
-  - type: `Array<Object>`
+  - type: `Array<Function>`
 
-    An array of middleware objects that are in the shape of:
+    An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
 
-    ``` js
-    {
-      snapshot: Boolean, // default: false
-      onInit: Function,
-      onMutation: Function
-    }
-    ```
-
-    All fields are optional. [Details](middlewares.md)
+    [Details](plugins.md)
 
 - **strict**
 
@@ -96,9 +88,9 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-- **watch(pathOrGetter: String|Function, cb: Function, [options: Object])**
+- **watch(getter: Function, cb: Function, [options: Object])**
 
-  Watch a path or a getter function's value, and call the callback when the value changes. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
   To stop watching, call the returned handle function.
 

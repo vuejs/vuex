@@ -39,7 +39,7 @@ rollup.rollup({
 })
 .then(function () {
   return rollup.rollup({
-    entry: 'src/middlewares/logger.js',
+    entry: 'src/plugins/logger.js',
     plugins: [babel()]
   }).then(function (bundle) {
     return write('logger.js', bundle.generate({
