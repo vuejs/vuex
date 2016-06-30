@@ -1,4 +1,7 @@
-import { mergeObjects, deepClone, getWatcher } from './util'
+import {
+  mergeObjects, deepClone, isObject,
+  getNestedState, getWatcher
+} from './util'
 import devtoolMiddleware from './middlewares/devtool'
 import override from './override'
 
@@ -142,8 +145,16 @@ class Store {
    */
 
   _setupModuleState (state, modules) {
+    if (!isObject(modules)) return
+
     Object.keys(modules).forEach(key => {
-      Vue.set(state, key, modules[key].state || {})
+      const module = modules[key]
+
+      // set this module's state
+      Vue.set(state, key, module.state || {})
+
+      // retrieve nested modules
+      this._setupModuleState(state[key], module.modules)
     })
   }
 
@@ -156,24 +167,52 @@ class Store {
 
   _setupModuleMutations (updatedModules) {
     const modules = this._modules
-    const allMutations = [this._rootMutations]
     Object.keys(updatedModules).forEach(key => {
       modules[key] = updatedModules[key]
     })
-    Object.keys(modules).forEach(key => {
+    const updatedMutations = this._createModuleMutations(modules, [])
+    this._mutations = mergeObjects([this._rootMutations, ...updatedMutations])
+  }
+
+  /**
+   * Helper method for _setupModuleMutations.
+   * The method retrieve nested sub modules and
+   * bind each mutations to its sub tree recursively.
+   *
+   * @param {Object} modules
+   * @param {Array<String>} nestedKeys
+   * @return {Array<Object>}
+   */
+
+  _createModuleMutations (modules, nestedKeys) {
+    if (!isObject(modules)) return []
+
+    return Object.keys(modules).map(key => {
       const module = modules[key]
-      if (!module || !module.mutations) return
+      const newNestedKeys = nestedKeys.concat(key)
+
+      // retrieve nested modules
+      const nestedMutations = this._createModuleMutations(module.modules, newNestedKeys)
+
+      if (!module || !module.mutations) {
+        return mergeObjects(nestedMutations)
+      }
+
       // bind mutations to sub state tree
       const mutations = {}
       Object.keys(module.mutations).forEach(name => {
         const original = module.mutations[name]
         mutations[name] = (state, ...args) => {
-          original(state[key], ...args)
+          original(getNestedState(state, newNestedKeys), ...args)
         }
       })
-      allMutations.push(mutations)
+
+      // merge mutations of this module and nested modules
+      return mergeObjects([
+        mutations,
+        ...nestedMutations
+      ])
     })
-    this._mutations = mergeObjects(allMutations)
   }
 
   /**

@@ -13,9 +13,9 @@ export function mergeObjects (arr) {
         // allow multiple mutation objects to contain duplicate
         // handlers for the same mutation type
         if (Array.isArray(existing)) {
-          existing.push(obj[key])
+          prev[key] = existing.concat(obj[key])
         } else {
-          prev[key] = [prev[key], obj[key]]
+          prev[key] = [existing].concat(obj[key])
         }
       } else {
         prev[key] = obj[key]
@@ -46,6 +46,28 @@ export function deepClone (obj) {
   } else {
     return obj
   }
+}
+
+/**
+ * Check whether the given value is Object or not
+ *
+ * @param {*} obj
+ * @return {Boolean}
+ */
+
+export function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+/**
+ * Get state sub tree by given keys.
+ *
+ * @param {Object} state
+ * @param {Array<String>} nestedKeys
+ * @return {Object}
+ */
+export function getNestedState (state, nestedKeys) {
+  return nestedKeys.reduce((state, key) => state[key], state)
 }
 
 /**
