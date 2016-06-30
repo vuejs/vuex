@@ -3,7 +3,7 @@ import store from './vuex/store'
 import Counter from './Counter.vue'
 
 new Vue({
-  el: 'body',
+  el: '#app',
   store,
-  components: { Counter }
+  render: h => h(Counter)
 })
