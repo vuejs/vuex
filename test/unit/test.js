@@ -348,8 +348,8 @@ describe('Vuex', () => {
         a: 1
       },
       mutations: {
-        [TEST] (state, n) {
-          state.a += n
+        [TEST] (state, { payload }) {
+          state.a += payload
         }
       },
       middlewares: [
@@ -378,8 +378,8 @@ describe('Vuex', () => {
     expect(mutations.length).to.equal(2)
     expect(mutations[0].type).to.equal(TEST)
     expect(mutations[1].type).to.equal(TEST)
-    expect(mutations[0].payload[0]).to.equal(1)
-    expect(mutations[1].payload[0]).to.equal(2)
+    expect(mutations[0].payload[0]).to.equal(1) // normal dispatch
+    expect(mutations[1].payload).to.equal(2) // object dispatch
   })
 
   it('watch', function (done) {
@@ -525,14 +525,14 @@ describe('Vuex', () => {
         a: 1
       },
       mutations: {
-        [TEST] (state, amount) {
-          state.a += amount
+        [TEST] (state, { by }) {
+          state.a += by
         }
       }
     })
     store.dispatch({
       type: TEST,
-      payload: 2
+      by: 2
     })
     expect(store.state.a).to.equal(3)
   })

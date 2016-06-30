@@ -83,9 +83,11 @@ class Store {
 
   dispatch (type, ...payload) {
     let silent = false
+    let isObjectStyleDispatch = false
     // compatibility for object actions, e.g. FSA
     if (typeof type === 'object' && type.type && arguments.length === 1) {
-      payload = [type.payload]
+      isObjectStyleDispatch = true
+      payload = type
       if (type.silent) silent = true
       type = type.type
     }
@@ -95,12 +97,20 @@ class Store {
       this._dispatching = true
       // apply the mutation
       if (Array.isArray(mutation)) {
-        mutation.forEach(m => m(state, ...payload))
+        mutation.forEach(m => {
+          isObjectStyleDispatch
+            ? m(state, payload)
+            : m(state, ...payload)
+        })
       } else {
-        mutation(state, ...payload)
+        isObjectStyleDispatch
+          ? mutation(state, payload)
+          : mutation(state, ...payload)
       }
       this._dispatching = false
-      if (!silent) this._applyMiddlewares(type, payload)
+      if (!silent) {
+        this._applyMiddlewares(type, payload, isObjectStyleDispatch)
+      }
     } else {
       console.warn(`[vuex] Unknown mutation: ${type}`)
     }
@@ -273,9 +283,10 @@ class Store {
    *
    * @param {String} type
    * @param {Array} payload
+   * @param {Boolean} isObjectStyleDispatch
    */
 
-  _applyMiddlewares (type, payload) {
+  _applyMiddlewares (type, payload, isObjectStyleDispatch) {
     const state = this.state
     const prevSnapshot = this._prevSnapshot
     let snapshot, clonedPayload
@@ -285,10 +296,17 @@ class Store {
     }
     this._middlewares.forEach(m => {
       if (m.onMutation) {
+        const mutation = isObjectStyleDispatch
+          ? m.snapshot
+            ? clonedPayload
+            : payload
+          : m.snapshot
+            ? { type, payload: clonedPayload }
+            : { type, payload }
         if (m.snapshot) {
-          m.onMutation({ type, payload: clonedPayload }, snapshot, prevSnapshot, this)
+          m.onMutation(mutation, snapshot, prevSnapshot, this)
         } else {
-          m.onMutation({ type, payload }, state, this)
+          m.onMutation(mutation, state, this)
         }
       }
     })
