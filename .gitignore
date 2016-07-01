@@ -7,3 +7,4 @@ logger.js
 examples/**/build.js
 types/typings
 types/test/*.js
+explorations
