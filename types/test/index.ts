@@ -108,34 +108,21 @@ namespace TestModules {
   const valB: string = store.state.b.value;
 }
 
-namespace TestMiddleware {
-  const a = {
-    onInit(
-      state: ISimpleState,
-      store: Vuex.Store<ISimpleState>
-    ) {},
+namespace TestPlugin {
+  const a = (store: Vuex.Store<any>) => {};
 
-    onMutation(
-      mutation: Vuex.MutationObject<any>,
-      state: ISimpleState,
-      store: Vuex.Store<ISimpleState>
-    ) {}
-  };
-
-  const b = {
-    snapshot: true,
-    onMutation(
-      mutation: Vuex.MutationObject<any>,
-      nextState: ISimpleState,
-      prevState: ISimpleState,
-      store: Vuex.Store<ISimpleState>
-    ) {}
-  };
+  const b = (store: Vuex.Store<ISimpleState>) => {};
 
   new Vuex.Store<ISimpleState>({
     state: { count: 1 },
-    middlewares: [a, b]
+    plugins: [a, b]
   });
+}
+
+namespace TestReplaceState {
+  const store = createStore();
+
+  store.replaceState({ count: 10 });
 }
 
 namespace TestWatch {
@@ -182,6 +169,23 @@ namespace TestHotUpdate {
   });
 }
 
+namespace TestEvents {
+  const store = createStore();
+
+  const handler = (mutation: Vuex.MutationObject<any>, state: ISimpleState) => {
+    state.count += 1;
+  };
+
+  store.on('mutation', handler);
+  store.once('mutation', handler);
+
+  store.off();
+  store.off('mutation');
+  store.off('mutation', handler);
+
+  store.emit('some-event', 1, 'a', []);
+}
+
 namespace TestLogger {
   const logger = createLogger<ISimpleState>({
     collapsed: false,
@@ -191,6 +195,6 @@ namespace TestLogger {
 
   new Vuex.Store<ISimpleState>({
     state: { count: 1 },
-    middlewares: [logger]
+    plugins: [logger]
   });
 }
