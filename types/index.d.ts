@@ -7,7 +7,6 @@ declare namespace Vuex {
     dispatch(mutationName: string, ...args: any[]): void;
     dispatch<P>(mutation: MutationObject<P>): void;
 
-    watch(path: string, cb: (value: any) => void, options?: WatchOption): void;
     watch<T>(getter: Getter<S, T>, cb: (value: T) => void, options?: WatchOption): void;
 
     hotUpdate(options: {

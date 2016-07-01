@@ -141,10 +141,6 @@ namespace TestMiddleware {
 namespace TestWatch {
   const store = createStore();
 
-  store.watch('count', value => {
-    const a: number = value;
-  });
-
   store.watch(state => state.count, value => {
     const a: number = value;
   }, {
