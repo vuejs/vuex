@@ -23,7 +23,38 @@ const store = new Vuex.Store({
 })
 ```
 
+### Dispatching Inside Plugins
+
 Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by dispatching mutations.
+
+By dispatching mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
+
+``` js
+export default function createWebSocketPlugin (socket) {
+  return store => {
+    socket.on('data', data => {
+      store.dispatch('RECEIVE_DATA', data)
+    })
+    store.on('mutation', (mutation) => {
+      if (mutation.type === 'UPDATE_DATA') {
+        socket.emit('update', mutation.payload)
+      }
+    })
+  }
+}
+```
+
+``` js
+const plugin = createWebSocketPlugin(socket)
+
+const store = new Vuex.Store({
+  state,
+  mutations,
+  plugins: [plugin]
+})
+```
+
+### Taking State Snapshots
 
 Sometimes a plugin may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. To achieve that, you will need to perform a deep-copy on the state object:
 
