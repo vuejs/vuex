@@ -7,12 +7,19 @@ declare namespace Vuex {
     dispatch(mutationName: string, ...args: any[]): void;
     dispatch<P>(mutation: MutationObject<P>): void;
 
+    replaceState(state: S): void;
+
     watch<T>(getter: Getter<S, T>, cb: (value: T) => void, options?: WatchOption): void;
 
     hotUpdate(options: {
       mutations?: MutationTree<S>;
       modules?: ModuleTree;
     }): void;
+
+    on(event: string, cb: (...args: any[]) => void): void;
+    once(event: string, cb: (...args: any[]) => void): void;
+    off(event?: string, cb?: (...args: any[]) => void): void;
+    emit(event: string, ...args: any[]): void;
   }
 
   function install(Vue: vuejs.VueStatic): void;
@@ -21,13 +28,14 @@ declare namespace Vuex {
     state?: S;
     mutations?: MutationTree<S>;
     modules?: ModuleTree;
-    middlewares?: (Middleware<S> | SnapshotMiddleware<S>)[];
+    plugins?: Plugin<S>[];
     strict?: boolean;
   }
 
   type Getter<S, T> = (state: S) => T;
   type Action<S> = (store: Store<S>, ...args: any[]) => any;
   type Mutation<S> = (state: S, ...args: any[]) => void;
+  type Plugin<S> = (store: Store<S>) => void;
 
   interface MutationTree<S> {
     [key: string]: Mutation<S>;
@@ -48,18 +56,6 @@ declare namespace Vuex {
     [key: string]: Module<any>;
   }
 
-  interface Middleware<S> {
-    snapshot?: boolean;
-    onInit?(state: S, store: Store<S>): void;
-    onMutation?(mutation: MutationObject<any>, state: S, store: Store<S>): void;
-  }
-
-  interface SnapshotMiddleware<S> {
-    snapshot: boolean;
-    onInit?(state: S, store: Store<S>): void;
-    onMutation?(mutation: MutationObject<any>, nextState: S, prevState: S, store: Store<S>): void;
-  }
-
   interface ComponentOption<S> {
     getters: { [key: string]: Getter<S, any> };
     actions: { [key: string]: Action<S> };
@@ -70,7 +66,7 @@ declare namespace Vuex {
     immidiate?: boolean;
   }
 
-  function createLogger<S>(option: LoggerOption<S>): SnapshotMiddleware<any>;
+  function createLogger<S>(option: LoggerOption<S>): Plugin<any>;
 
   interface LoggerOption<S> {
     collapsed?: boolean;
