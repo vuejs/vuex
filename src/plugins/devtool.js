@@ -8,9 +8,7 @@ export default function devtoolPlugin (store) {
   hook.emit('vuex:init', store)
 
   hook.on('vuex:travel-to-state', targetState => {
-    store._dispatching = true
-    store._vm.state = targetState
-    store._dispatching = false
+    store.replaceState(targetState)
   })
 
   store.on('mutation', (mutation, state) => {

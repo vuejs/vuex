@@ -75,7 +75,19 @@ class Store {
   }
 
   set state (v) {
-    throw new Error('[vuex] Vuex root state is read only.')
+    throw new Error('[vuex] Use store.replaceState() to explicit replace store state.')
+  }
+
+  /**
+   * Replace root state.
+   *
+   * @param {Object} state
+   */
+
+  replaceState (state) {
+    this._dispatching = true
+    this._vm.state = state
+    this._dispatching = false
   }
 
   /**
