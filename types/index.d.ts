@@ -66,7 +66,7 @@ declare namespace Vuex {
     immidiate?: boolean;
   }
 
-  function createLogger<S>(option: LoggerOption<S>): Plugin<any>;
+  function createLogger<S>(option: LoggerOption<S>): Plugin<S>;
 
   interface LoggerOption<S> {
     collapsed?: boolean;
