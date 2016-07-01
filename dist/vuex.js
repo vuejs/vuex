@@ -1,5 +1,5 @@
 /*!
- * Vuex v0.8.2
+ * Vuex v1.0.0-rc
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -64,9 +64,9 @@
           // allow multiple mutation objects to contain duplicate
           // handlers for the same mutation type
           if (Array.isArray(existing)) {
-            existing.push(obj[key]);
+            prev[key] = existing.concat(obj[key]);
           } else {
-            prev[key] = [prev[key], obj[key]];
+            prev[key] = [existing].concat(obj[key]);
           }
         } else {
           prev[key] = obj[key];
@@ -77,26 +77,27 @@
   }
 
   /**
-   * Deep clone an object. Faster than JSON.parse(JSON.stringify()).
+   * Check whether the given value is Object or not
    *
    * @param {*} obj
-   * @return {*}
+   * @return {Boolean}
    */
 
-  function deepClone(obj) {
-    if (Array.isArray(obj)) {
-      return obj.map(deepClone);
-    } else if (obj && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-      var cloned = {};
-      var keys = Object.keys(obj);
-      for (var i = 0, l = keys.length; i < l; i++) {
-        var key = keys[i];
-        cloned[key] = deepClone(obj[key]);
-      }
-      return cloned;
-    } else {
-      return obj;
-    }
+  function isObject(obj) {
+    return obj !== null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object';
+  }
+
+  /**
+   * Get state sub tree by given keys.
+   *
+   * @param {Object} state
+   * @param {Array<String>} nestedKeys
+   * @return {Object}
+   */
+  function getNestedState(state, nestedKeys) {
+    return nestedKeys.reduce(function (state, key) {
+      return state[key];
+    }, state);
   }
 
   /**
@@ -125,21 +126,19 @@
 
   var hook = typeof window !== 'undefined' && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
-  var devtoolMiddleware = {
-    onInit: function onInit(state, store) {
-      if (!hook) return;
-      hook.emit('vuex:init', store);
-      hook.on('vuex:travel-to-state', function (targetState) {
-        store._dispatching = true;
-        store._vm.state = targetState;
-        store._dispatching = false;
-      });
-    },
-    onMutation: function onMutation(mutation, state) {
-      if (!hook) return;
+  function devtoolPlugin(store) {
+    if (!hook) return;
+
+    hook.emit('vuex:init', store);
+
+    hook.on('vuex:travel-to-state', function (targetState) {
+      store.replaceState(targetState);
+    });
+
+    store.on('mutation', function (mutation, state) {
       hook.emit('vuex:mutation', mutation, state);
-    }
-  };
+    });
+  }
 
   function override (Vue) {
     var version = Number(Vue.version.split('.')[0]);
@@ -317,7 +316,7 @@
      *        - {Object} state
      *        - {Object} actions
      *        - {Object} mutations
-     *        - {Array} middlewares
+     *        - {Array} plugins
      *        - {Boolean} strict
      */
 
@@ -332,8 +331,8 @@
       var mutations = _ref$mutations === undefined ? {} : _ref$mutations;
       var _ref$modules = _ref.modules;
       var modules = _ref$modules === undefined ? {} : _ref$modules;
-      var _ref$middlewares = _ref.middlewares;
-      var middlewares = _ref$middlewares === undefined ? [] : _ref$middlewares;
+      var _ref$plugins = _ref.plugins;
+      var plugins = _ref$plugins === undefined ? [] : _ref$plugins;
       var _ref$strict = _ref.strict;
       var strict = _ref$strict === undefined ? false : _ref$strict;
       classCallCheck(this, Store);
@@ -342,6 +341,7 @@
       this._dispatching = false;
       this._rootMutations = this._mutations = mutations;
       this._modules = modules;
+      this._events = Object.create(null);
       // bind dispatch to self
       var dispatch = this.dispatch;
       this.dispatch = function () {
@@ -367,11 +367,15 @@
       Vue.config.silent = silent;
       this._setupModuleState(state, modules);
       this._setupModuleMutations(modules);
-      this._setupMiddlewares(middlewares, state);
       // add extra warnings in strict mode
       if (strict) {
         this._setupMutationCheck();
       }
+      // apply plugins
+      devtoolPlugin(this);
+      plugins.forEach(function (plugin) {
+        return plugin(_this);
+      });
     }
 
     /**
@@ -382,8 +386,20 @@
      */
 
     createClass(Store, [{
-      key: 'dispatch',
+      key: 'replaceState',
 
+
+      /**
+       * Replace root state.
+       *
+       * @param {Object} state
+       */
+
+      value: function replaceState(state) {
+        this._dispatching = true;
+        this._vm.state = state;
+        this._dispatching = false;
+      }
 
       /**
        * Dispatch an action.
@@ -391,32 +407,39 @@
        * @param {String} type
        */
 
+    }, {
+      key: 'dispatch',
       value: function dispatch(type) {
         for (var _len2 = arguments.length, payload = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
           payload[_key2 - 1] = arguments[_key2];
         }
 
         var silent = false;
+        var isObjectStyleDispatch = false;
         // compatibility for object actions, e.g. FSA
         if ((typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object' && type.type && arguments.length === 1) {
-          payload = [type.payload];
+          isObjectStyleDispatch = true;
+          payload = type;
           if (type.silent) silent = true;
           type = type.type;
         }
-        var mutation = this._mutations[type];
+        var handler = this._mutations[type];
         var state = this.state;
-        if (mutation) {
+        if (handler) {
           this._dispatching = true;
           // apply the mutation
-          if (Array.isArray(mutation)) {
-            mutation.forEach(function (m) {
-              return m.apply(undefined, [state].concat(toConsumableArray(payload)));
+          if (Array.isArray(handler)) {
+            handler.forEach(function (h) {
+              isObjectStyleDispatch ? h(state, payload) : h.apply(undefined, [state].concat(toConsumableArray(payload)));
             });
           } else {
-            mutation.apply(undefined, [state].concat(toConsumableArray(payload)));
+            isObjectStyleDispatch ? handler(state, payload) : handler.apply(undefined, [state].concat(toConsumableArray(payload)));
           }
           this._dispatching = false;
-          if (!silent) this._applyMiddlewares(type, payload);
+          if (!silent) {
+            var mutation = isObjectStyleDispatch ? payload : { type: type, payload: payload };
+            this.emit('mutation', mutation, state);
+          }
         } else {
           console.warn('[vuex] Unknown mutation: ' + type);
         }
@@ -476,8 +499,18 @@
     }, {
       key: '_setupModuleState',
       value: function _setupModuleState(state, modules) {
+        var _this3 = this;
+
+        if (!isObject(modules)) return;
+
         Object.keys(modules).forEach(function (key) {
-          Vue.set(state, key, modules[key].state || {});
+          var module = modules[key];
+
+          // set this module's state
+          Vue.set(state, key, module.state || {});
+
+          // retrieve nested modules
+          _this3._setupModuleState(state[key], module.modules);
         });
       }
 
@@ -492,13 +525,41 @@
       key: '_setupModuleMutations',
       value: function _setupModuleMutations(updatedModules) {
         var modules = this._modules;
-        var allMutations = [this._rootMutations];
         Object.keys(updatedModules).forEach(function (key) {
           modules[key] = updatedModules[key];
         });
-        Object.keys(modules).forEach(function (key) {
+        var updatedMutations = this._createModuleMutations(modules, []);
+        this._mutations = mergeObjects([this._rootMutations].concat(toConsumableArray(updatedMutations)));
+      }
+
+      /**
+       * Helper method for _setupModuleMutations.
+       * The method retrieve nested sub modules and
+       * bind each mutations to its sub tree recursively.
+       *
+       * @param {Object} modules
+       * @param {Array<String>} nestedKeys
+       * @return {Array<Object>}
+       */
+
+    }, {
+      key: '_createModuleMutations',
+      value: function _createModuleMutations(modules, nestedKeys) {
+        var _this4 = this;
+
+        if (!isObject(modules)) return [];
+
+        return Object.keys(modules).map(function (key) {
           var module = modules[key];
-          if (!module || !module.mutations) return;
+          var newNestedKeys = nestedKeys.concat(key);
+
+          // retrieve nested modules
+          var nestedMutations = _this4._createModuleMutations(module.modules, newNestedKeys);
+
+          if (!module || !module.mutations) {
+            return mergeObjects(nestedMutations);
+          }
+
           // bind mutations to sub state tree
           var mutations = {};
           Object.keys(module.mutations).forEach(function (name) {
@@ -508,12 +569,13 @@
                 args[_key3 - 1] = arguments[_key3];
               }
 
-              original.apply(undefined, [state[key]].concat(args));
+              original.apply(undefined, [getNestedState(state, newNestedKeys)].concat(args));
             };
           });
-          allMutations.push(mutations);
+
+          // merge mutations of this module and nested modules
+          return mergeObjects([mutations].concat(toConsumableArray(nestedMutations)));
         });
-        this._mutations = mergeObjects(allMutations);
       }
 
       /**
@@ -528,79 +590,16 @@
     }, {
       key: '_setupMutationCheck',
       value: function _setupMutationCheck() {
-        var _this3 = this;
+        var _this5 = this;
 
         var Watcher = getWatcher(this._vm);
         /* eslint-disable no-new */
         new Watcher(this._vm, 'state', function () {
-          if (!_this3._dispatching) {
+          if (!_this5._dispatching) {
             throw new Error('[vuex] Do not mutate vuex store state outside mutation handlers.');
           }
         }, { deep: true, sync: true });
         /* eslint-enable no-new */
-      }
-
-      /**
-       * Setup the middlewares. The devtools middleware is always
-       * included, since it does nothing if no devtool is detected.
-       *
-       * A middleware can demand the state it receives to be
-       * "snapshots", i.e. deep clones of the actual state tree.
-       *
-       * @param {Array} middlewares
-       * @param {Object} state
-       */
-
-    }, {
-      key: '_setupMiddlewares',
-      value: function _setupMiddlewares(middlewares, state) {
-        var _this4 = this;
-
-        this._middlewares = [devtoolMiddleware].concat(middlewares);
-        this._needSnapshots = middlewares.some(function (m) {
-          return m.snapshot;
-        });
-        if (this._needSnapshots) {
-          console.log('[vuex] One or more of your middlewares are taking state snapshots ' + 'for each mutation. Make sure to use them only during development.');
-        }
-        var initialSnapshot = this._prevSnapshot = this._needSnapshots ? deepClone(state) : null;
-        // call init hooks
-        this._middlewares.forEach(function (m) {
-          if (m.onInit) {
-            m.onInit(m.snapshot ? initialSnapshot : state, _this4);
-          }
-        });
-      }
-
-      /**
-       * Apply the middlewares on a given mutation.
-       *
-       * @param {String} type
-       * @param {Array} payload
-       */
-
-    }, {
-      key: '_applyMiddlewares',
-      value: function _applyMiddlewares(type, payload) {
-        var _this5 = this;
-
-        var state = this.state;
-        var prevSnapshot = this._prevSnapshot;
-        var snapshot = void 0,
-            clonedPayload = void 0;
-        if (this._needSnapshots) {
-          snapshot = this._prevSnapshot = deepClone(state);
-          clonedPayload = deepClone(payload);
-        }
-        this._middlewares.forEach(function (m) {
-          if (m.onMutation) {
-            if (m.snapshot) {
-              m.onMutation({ type: type, payload: clonedPayload }, snapshot, prevSnapshot, _this5);
-            } else {
-              m.onMutation({ type: type, payload: payload }, state, _this5);
-            }
-          }
-        });
       }
     }, {
       key: 'state',
@@ -608,7 +607,7 @@
         return this._vm.state;
       },
       set: function set(v) {
-        throw new Error('[vuex] Vuex root state is read only.');
+        throw new Error('[vuex] Use store.replaceState() to explicit replace store state.');
       }
     }]);
     return Store;
@@ -619,7 +618,11 @@
       console.warn('[vuex] already installed. Vue.use(Vuex) should be called only once.');
       return;
     }
-    Vue = _Vue;
+    Vue = _Vue
+    // reuse Vue's event system
+    ;['on', 'off', 'once', 'emit'].forEach(function (e) {
+      Store.prototype[e] = Store.prototype['$' + e] = Vue.prototype['$' + e];
+    });
     override(Vue);
   }
 
