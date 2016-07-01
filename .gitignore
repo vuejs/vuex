@@ -5,3 +5,5 @@ lib
 docs/_book
 logger.js
 examples/**/build.js
+types/typings
+types/test/*.js
