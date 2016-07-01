@@ -101,3 +101,13 @@ const store = new Vuex.Store({ ...options })
 - **hotUpdate(newOptions: Object)**
 
   Hot swap new actions and mutations. [Details](hot-reload.md)
+
+- **on(event: String, cb: Function)**
+
+- **once(event: String, cb: Function)**
+
+- **off([event: String, cb: Function])**
+
+- **emit(event: String, ...args)**
+
+  Same event interface as found on a Vue instance. The only event the store emits is `mutation` (see [Plugins](plugins.md)).
