@@ -169,12 +169,22 @@ namespace TestHotUpdate {
 
   store.hotUpdate({
     modules: {
-      a: {
-        state: { count: 1 },
-        mutations
+      nested: {
+        state: { count: 0 },
+        mutations,
+        modules: {
+          a: {
+            state: { count: 1 },
+            mutations
+          },
+          b: {
+            state: { count: 2 },
+            mutations
+          }
+        }
       },
-      b: {
-        state: { count: 2 },
+      c: {
+        state: { count: 4 },
         mutations
       }
     }
