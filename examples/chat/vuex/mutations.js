@@ -2,7 +2,7 @@ import { set } from 'vue'
 import * as types from './mutation-types'
 
 export default {
-  [types.RECEIVE_ALL] (state, messages) {
+  [types.RECEIVE_ALL] (state, { messages }) {
     let latestMessage
     messages.forEach(message => {
       // create new thread if the thread doesn't exist
@@ -20,11 +20,11 @@ export default {
     setCurrentThread(state, latestMessage.threadID)
   },
 
-  [types.RECEIVE_MESSAGE] (state, message) {
+  [types.RECEIVE_MESSAGE] (state, { message }) {
     addMessage(state, message)
   },
 
-  [types.SWITCH_THREAD] (state, id) {
+  [types.SWITCH_THREAD] (state, { id }) {
     setCurrentThread(state, id)
   }
 }
@@ -53,6 +53,9 @@ function addMessage (state, message) {
 
 function setCurrentThread (state, id) {
   state.currentThreadID = id
+  if (!state.threads[id]) {
+    debugger
+  }
   // mark thread as read
   state.threads[id].lastMessage.isRead = true
 }

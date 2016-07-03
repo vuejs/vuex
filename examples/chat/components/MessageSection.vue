@@ -4,31 +4,26 @@
     <ul class="message-list" ref="list">
       <message
         v-for="message in sortedMessages"
-        track-by="id"
+        :key="message.id"
         :message="message">
       </message>
     </ul>
-    <textarea class="message-composer" @keyup.enter="trySendMessage"></textarea>
+    <textarea class="message-composer" @keyup.enter="sendMessage"></textarea>
   </div>
 </template>
 
 <script>
 import Message from './Message.vue'
-import { sendMessage } from '../vuex/actions'
-import { currentThread, currentMessages } from '../vuex/getters'
+import { mapGetters } from 'vuex'
 
 export default {
+  name: 'MessageSection',
   components: { Message },
-  vuex: {
-    getters: {
-      thread: currentThread,
-      messages: currentMessages
-    },
-    actions: {
-      sendMessage
-    }
-  },
   computed: {
+    ...mapGetters({
+      thread: 'currentThread',
+      messages: 'currentMessages'
+    }),
     sortedMessages () {
       return this.messages
         .slice()
@@ -44,10 +39,13 @@ export default {
     }
   },
   methods: {
-    trySendMessage (e) {
+    sendMessage (e) {
       const text = e.target.value
       if (text.trim()) {
-        this.sendMessage(text, this.thread)
+        this.$store.call('sendMessage', {
+          text,
+          thread: this.thread
+        })
         e.target.value = ''
       }
     }

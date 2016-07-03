@@ -12,6 +12,7 @@ import ThreadSection from './ThreadSection.vue'
 import MessageSection from './MessageSection.vue'
 
 export default {
+  name: 'App',
   components: {
     ThreadSection,
     MessageSection
