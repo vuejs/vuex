@@ -1,8 +1,15 @@
+var path = require('path')
+
 module.exports = {
   entry: './main.js',
   output: {
     path: process.cwd(),
     filename: 'build.js'
+  },
+  resolve: {
+    alias: {
+      vuex: path.resolve(__dirname, '../build/dev-entry')
+    }
   },
   module: {
     loaders: [

@@ -1,3 +1,5 @@
+var path = require('path')
+
 var examples = [
   'chat',
   'counter',
@@ -16,6 +18,11 @@ module.exports = {
   output: {
     path: __dirname,
     filename: '[name]/build.js'
+  },
+  resolve: {
+    alias: {
+      vuex: path.resolve(__dirname, '../build/dev-entry')
+    }
   },
   module: {
     loaders: [

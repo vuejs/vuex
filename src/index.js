@@ -1,6 +1,6 @@
 import devtoolPlugin from './plugins/devtool'
-import strictPlugin from './plugins/strict'
 import applyMixin from './mixin'
+import { mapGetters, mapActions } from './helpers'
 
 let Vue // bind on install
 
@@ -38,24 +38,18 @@ class Store {
     this.call = bind(this.call, this)
     this.dispatch = bind(this.dispatch, this)
 
-    // use a Vue instance to store the state tree
-    // suppress warnings just in case the user has added
-    // some funky global mixins
-    const silent = Vue.config.silent
-    Vue.config.silent = true
-    this._vm = new Vue({ data: { state }})
-    Vue.config.silent = silent
+    // init state and getters
+    extractModuleGetters(getters, modules)
+    initStoreState(this, state, getters)
 
     // apply root module
     this.module([], options)
 
+    // strict mode
+    if (strict) enableStrictMode(this)
+
     // apply plugins
-    plugins = plugins.concat(
-      strict
-        ? [devtoolPlugin, strictPlugin]
-        : [devtoolPlugin]
-    )
-    plugins.forEach(plugin => plugin(this))
+    plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
   }
 
   get state () {
@@ -88,7 +82,7 @@ class Store {
 
     // set state
     if (!isRoot && !hot) {
-      const parentState = get(this.state, path.slice(-1))
+      const parentState = getNestedState(this.state, path.slice(-1))
       const moduleName = path[path.length - 1]
       Vue.set(parentState, moduleName, state || {})
     }
@@ -117,7 +111,7 @@ class Store {
     entry.push(payload => {
       handler(getNestedState(this.state, path), payload)
     })
-   },
+  }
 
   action (type, handler, path = []) {
     const entry = this._actions[type] || (this._actions[type] = [])
@@ -153,7 +147,7 @@ class Store {
     this._dispatching = true
     entry.forEach(handler => handler(payload))
     this._dispatching = false
-    this._subscribers.forEach(sub => sub(mutation, state))
+    this._subscribers.forEach(sub => sub(mutation, this.state))
   }
 
   call (type, payload, cb) {
@@ -177,14 +171,14 @@ class Store {
       subs.push(fn)
     }
     return () => {
-      let i = subs.indexOf(fn)
+      const i = subs.indexOf(fn)
       if (i > -1) {
         subs.splice(i, 1)
       }
     }
   }
 
-  update (newOptions) {
+  hotUpdate (newOptions) {
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
     const options = this._options
@@ -200,11 +194,82 @@ class Store {
       }
     }
     this.module([], options, true)
+
+    // update getters
+    const getters = extractModuleGetters(newOptions.getters || {}, newOptions.modules)
+    if (Object.keys(getters).length) {
+      const oldVm = this._vm
+      initStoreState(this, this.state, getters)
+      if (this.strict) {
+        enableStrictMode(this)
+      }
+      // trigger changes in all subscribed watchers
+      // to force getter re-evaluation.
+      this._dispatching = true
+      oldVm.state = null
+      this._dispatching = false
+      Vue.nextTick(() => oldVm.$destroy())
+    }
   }
 }
 
+function initStoreState (store, state, getters) {
+  // bind getters
+  store.getters = {}
+  const computed = {}
+  Object.keys(getters).forEach(key => {
+    const fn = getters[key]
+    // use computed to leverage its lazy-caching mechanism
+    computed[key] = () => fn(store._vm.state)
+    Object.defineProperty(store.getters, key, {
+      get: () => store._vm[key]
+    })
+  })
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  const silent = Vue.config.silent
+  Vue.config.silent = true
+  store._vm = new Vue({
+    data: { state },
+    computed
+  })
+  Vue.config.silent = silent
+}
+
+function extractModuleGetters (getters, modules, path = []) {
+  if (!modules) return
+  Object.keys(modules).forEach(key => {
+    const module = modules[key]
+    if (module.getters) {
+      Object.keys(module.getters).forEach(getterKey => {
+        const rawGetter = module.getters[getterKey]
+        if (getters[getterKey]) {
+          console.warn(`[vuex] duplicate getter key: ${getterKey}`)
+          return
+        }
+        getters[getterKey] = state => rawGetter(getNestedState(state, path))
+      })
+    }
+    extractModuleGetters(getters, module.modules, path.concat(key))
+  })
+}
+
+function enableStrictMode (store) {
+  store._vm.watch('state', () => {
+    if (!store._dispatching) {
+      throw new Error(
+        '[vuex] Do not mutate vuex store state outside mutation handlers.'
+      )
+    }
+  }, { deep: true, sync: true })
+}
+
 function bind (fn, ctx) {
-  return () => fn.apply(ctx, arguments)
+  return function () {
+    return fn.apply(ctx, arguments)
+  }
 }
 
 function isObject (obj) {
@@ -237,5 +302,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   Store,
-  install
+  install,
+  mapGetters,
+  mapActions
 }

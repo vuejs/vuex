@@ -9,14 +9,15 @@
 </template>
 
 <script>
-import * as actions from './actions'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  vuex: {
-    getters: {
-      count: state => state.count
-    },
-    actions: actions
-  }
+  computed: mapGetters(['count']),
+  methods: mapActions([
+    'increment',
+    'decrement',
+    'incrementIfOdd',
+    'incrementAsync'
+  ])
 }
 </script>

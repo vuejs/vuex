@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../src'
+import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
@@ -15,11 +15,26 @@ const state = {
 // mutations must be synchronous and can be recorded by plugins
 // for debugging purposes.
 const mutations = {
-  INCREMENT (state) {
+  increment (state) {
     state.count++
   },
-  DECREMENT (state) {
+  decrement (state) {
     state.count--
+  }
+}
+
+const actions = {
+  increment: ({ dispatch }) => dispatch('increment'),
+  decrement: ({ dispatch }) => dispatch('decrement'),
+  incrementIfOdd ({ dispatch, state }) {
+    if ((state.count + 1) % 2 === 0) {
+      dispatch('increment')
+    }
+  },
+  incrementAsync ({ dispatch, state }) {
+    setTimeout(() => {
+      dispatch('increment')
+    }, 1000)
   }
 }
 
@@ -29,5 +44,9 @@ const mutations = {
 // be easily tested or even hot-reloaded (see counter-hot example).
 export default new Vuex.Store({
   state,
+  getters: {
+    count: state => state.count
+  },
+  actions,
   mutations
 })

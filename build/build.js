@@ -37,16 +37,6 @@ rollup.rollup({
   }).code
   return write('dist/vuex.min.js', minified)
 })
-.then(function () {
-  return rollup.rollup({
-    entry: 'src/plugins/logger.js',
-    plugins: [babel()]
-  }).then(function (bundle) {
-    return write('logger.js', bundle.generate({
-      format: 'cjs'
-    }).code)
-  })
-})
 .catch(logError)
 
 function write (dest, code) {

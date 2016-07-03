@@ -11,7 +11,7 @@ export default function devtoolPlugin (store) {
     store.replaceState(targetState)
   })
 
-  store.subscribe(mutation, state) => {
+  store.subscribe((mutation, state) => {
     hook.emit('vuex:mutation', mutation, state)
   })
 }
