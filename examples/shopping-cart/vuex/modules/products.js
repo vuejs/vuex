@@ -1,7 +1,4 @@
-import {
-  RECEIVE_PRODUCTS,
-  ADD_TO_CART
-} from '../mutation-types'
+import * as types from '../mutation-types'
 
 // initial state
 const state = {
@@ -10,12 +7,12 @@ const state = {
 
 // mutations
 const mutations = {
-  [RECEIVE_PRODUCTS] (state, products) {
+  [types.RECEIVE_PRODUCTS] (state, { products }) {
     state.all = products
   },
 
-  [ADD_TO_CART] (state, productId) {
-    state.all.find(p => p.id === productId).inventory--
+  [types.ADD_TO_CART] (state, { id }) {
+    state.all.find(p => p.id === id).inventory--
   }
 }
 

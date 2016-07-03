@@ -1,25 +1,20 @@
-import {
-  ADD_TO_CART,
-  CHECKOUT_REQUEST,
-  CHECKOUT_SUCCESS,
-  CHECKOUT_FAILURE
-} from '../mutation-types'
+import * as types from '../mutation-types'
 
 // initial state
 // shape: [{ id, quantity }]
 const state = {
   added: [],
-  lastCheckout: null
+  checkoutStatus: null
 }
 
 // mutations
 const mutations = {
-  [ADD_TO_CART] (state, productId) {
+  [types.ADD_TO_CART] (state, { id }) {
     state.lastCheckout = null
-    const record = state.added.find(p => p.id === productId)
+    const record = state.added.find(p => p.id === id)
     if (!record) {
       state.added.push({
-        id: productId,
+        id,
         quantity: 1
       })
     } else {
@@ -27,20 +22,20 @@ const mutations = {
     }
   },
 
-  [CHECKOUT_REQUEST] (state) {
+  [types.CHECKOUT_REQUEST] (state) {
     // clear cart
     state.added = []
-    state.lastCheckout = null
+    state.checkoutStatus = null
   },
 
-  [CHECKOUT_SUCCESS] (state) {
-    state.lastCheckout = 'successful'
+  [types.CHECKOUT_SUCCESS] (state) {
+    state.checkoutStatus = 'successful'
   },
 
-  [CHECKOUT_FAILURE] (state, savedCartItems) {
+  [types.CHECKOUT_FAILURE] (state, { savedCartItems }) {
     // rollback to the cart saved before sending the request
     state.added = savedCartItems
-    state.lastCheckout = 'failed'
+    state.checkoutStatus = 'failed'
   }
 }
 

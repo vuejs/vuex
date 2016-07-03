@@ -81,7 +81,8 @@ class Store {
 
     // set state
     if (!isRoot && !hot) {
-      const parentState = getNestedState(this.state, path.slice(-1))
+      const parentState = getNestedState(this.state, path.slice(0, -1))
+      if (!parentState) debugger
       const moduleName = path[path.length - 1]
       Vue.set(parentState, moduleName, state || {})
     }
@@ -257,7 +258,7 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
 }
 
 function enableStrictMode (store) {
-  store._vm.watch('state', () => {
+  store._vm.$watch('state', () => {
     if (!store._dispatching) {
       throw new Error(
         '[vuex] Do not mutate vuex store state outside mutation handlers.'
