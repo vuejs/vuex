@@ -12,7 +12,9 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  computed: mapGetters(['count']),
+  computed: mapGetters([
+    'count'
+  ]),
   methods: mapActions([
     'increment',
     'decrement',

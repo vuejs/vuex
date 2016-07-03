@@ -1,12 +1,9 @@
-import { INCREMENT, DECREMENT } from './mutation-types'
+export const increment = state => {
+  state.count++
+  state.history.push('increment')
+}
 
-export default {
-  [INCREMENT] (state) {
-    state.count++
-    state.history.push('increment')
-  },
-  [DECREMENT] (state) {
-    state.count--
-    state.history.push('decrement')
-  }
+export const decrement = state => {
+  state.count--
+  state.history.push('decrement')
 }

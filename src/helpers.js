@@ -11,8 +11,8 @@ export function mapGetters (getters) {
 export function mapActions (actions) {
   const res = {}
   normalizeMap(actions).forEach(({ key, val }) => {
-    res[key] = function () {
-      return this.$store.call(val)
+    res[key] = function (...args) {
+      return this.$store.call(val, ...args)
     }
   })
   return res

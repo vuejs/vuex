@@ -22,7 +22,6 @@ class Store {
       state = {},
       modules = {},
       plugins = [],
-      getters = {},
       strict = false
     } = options
 
@@ -39,7 +38,7 @@ class Store {
     this.dispatch = bind(this.dispatch, this)
 
     // init state and getters
-    extractModuleGetters(getters, modules)
+    const getters = extractModuleGetters(options.getters, modules)
     initStoreState(this, state, getters)
 
     // apply root module
@@ -125,8 +124,8 @@ class Store {
         res = Promise.resolve(res)
       }
       return res.catch(err => {
-        console.warn(`[vuex] error in Promise returned from action ${type}`)
-        console.warn(err)
+        console.warn(`[vuex] error in Promise returned from action "${type}":`)
+        console.error(err)
       })
     })
   }
@@ -196,7 +195,7 @@ class Store {
     this.module([], options, true)
 
     // update getters
-    const getters = extractModuleGetters(newOptions.getters || {}, newOptions.modules)
+    const getters = extractModuleGetters(newOptions.getters, newOptions.modules)
     if (Object.keys(getters).length) {
       const oldVm = this._vm
       initStoreState(this, this.state, getters)
@@ -238,8 +237,8 @@ function initStoreState (store, state, getters) {
   Vue.config.silent = silent
 }
 
-function extractModuleGetters (getters, modules, path = []) {
-  if (!modules) return
+function extractModuleGetters (getters = {}, modules = {}, path = []) {
+  if (!modules) return getters
   Object.keys(modules).forEach(key => {
     const module = modules[key]
     if (module.getters) {
@@ -254,6 +253,7 @@ function extractModuleGetters (getters, modules, path = []) {
     }
     extractModuleGetters(getters, module.modules, path.concat(key))
   })
+  return getters
 }
 
 function enableStrictMode (store) {

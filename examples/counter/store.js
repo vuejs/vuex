@@ -23,6 +23,8 @@ const mutations = {
   }
 }
 
+// actions are functions that causes side effects and can involve
+// asynchronous operations.
 const actions = {
   increment: ({ dispatch }) => dispatch('increment'),
   decrement: ({ dispatch }) => dispatch('decrement'),
@@ -31,10 +33,13 @@ const actions = {
       dispatch('increment')
     }
   },
-  incrementAsync ({ dispatch, state }) {
-    setTimeout(() => {
-      dispatch('increment')
-    }, 1000)
+  incrementAsync ({ dispatch }) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        dispatch('increment')
+        resolve()
+      }, 1000)
+    })
   }
 }
 

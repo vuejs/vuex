@@ -1,16 +1,14 @@
-import { INCREMENT, DECREMENT } from './mutation-types'
-
-export const increment = ({ dispatch }) => dispatch(INCREMENT)
-export const decrement = ({ dispatch }) => dispatch(DECREMENT)
+export const increment = ({ dispatch }) => dispatch('increment')
+export const decrement = ({ dispatch }) => dispatch('decrement')
 
 export const incrementIfOdd = ({ dispatch, state }) => {
   if ((state.count + 1) % 2 === 0) {
-    dispatch(INCREMENT)
+    dispatch('increment')
   }
 }
 
 export const incrementAsync = ({ dispatch }) => {
   setTimeout(() => {
-    dispatch(INCREMENT)
+    dispatch('decrement')
   }, 1000)
 }
