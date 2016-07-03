@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import Vuex from '../../../src'
+import Vuex from 'vuex'
 import plugins from './plugins'
+import * as actions from './actions'
 
 Vue.use(Vuex)
 
@@ -48,6 +49,7 @@ const mutations = {
 
 export default new Vuex.Store({
   state,
+  actions,
   mutations,
   plugins
 })
