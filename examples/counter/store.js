@@ -43,10 +43,9 @@ const actions = {
   }
 }
 
-// A Vuex instance is created by combining the state, the actions,
-// and the mutations. Because the actions and mutations are just
-// functions that do not depend on the instance itself, they can
-// be easily tested or even hot-reloaded (see counter-hot example).
+// A Vuex instance is created by combining the state, mutations, actions,
+// and getters. Components should prefer interacting with the store via
+// getters and actions.
 export default new Vuex.Store({
   state,
   getters: {
