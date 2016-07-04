@@ -17,26 +17,26 @@ const state = {
 }
 
 const mutations = {
-  ADD_TODO (state, text) {
+  ADD_TODO (state, { text }) {
     state.todos.push({
-      text: text,
+      text,
       done: false
     })
   },
 
-  DELETE_TODO (state, todo) {
+  DELETE_TODO (state, { todo }) {
     state.todos.splice(state.todos.indexOf(todo), 1)
   },
 
-  TOGGLE_TODO (state, todo) {
+  TOGGLE_TODO (state, { todo }) {
     todo.done = !todo.done
   },
 
-  EDIT_TODO (state, todo, text) {
-    todo.text = text
+  EDIT_TODO (state, { todo, value }) {
+    todo.text = value
   },
 
-  TOGGLE_ALL (state, done) {
+  TOGGLE_ALL (state, { done }) {
     state.todos.forEach((todo) => {
       todo.done = done
     })

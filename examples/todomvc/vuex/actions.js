@@ -6,5 +6,5 @@ export const toggleAll = makeAction('TOGGLE_ALL')
 export const clearCompleted = makeAction('CLEAR_COMPLETED')
 
 function makeAction (type) {
-  return ({ dispatch }, ...args) => dispatch(type, ...args)
+  return ({ dispatch }, payload) => dispatch(type, payload)
 }

@@ -16,7 +16,7 @@
       <input class="toggle-all"
         type="checkbox"
         :checked="allChecked"
-        @change="toggleAll(!allChecked)">
+        @change="toggleAll({ done: !allChecked })">
       <ul class="todo-list">
         <todo v-for="todo in filteredTodos" :todo="todo"></todo>
       </ul>
@@ -81,7 +81,7 @@ export default {
     addTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        this.$store.call('addTodo', text)
+        this.$store.trigger('addTodo', { text })
       }
       e.target.value = ''
     },

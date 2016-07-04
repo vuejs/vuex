@@ -42,7 +42,7 @@ export default {
     sendMessage (e) {
       const text = e.target.value
       if (text.trim()) {
-        this.$store.call('sendMessage', {
+        this.$store.trigger('sendMessage', {
           text,
           thread: this.thread
         })

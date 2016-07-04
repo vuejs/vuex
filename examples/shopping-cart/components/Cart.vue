@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     checkout (products) {
-      this.$store.call('checkout', products)
+      this.$store.trigger('checkout', products)
     }
   }
 }

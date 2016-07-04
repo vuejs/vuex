@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     switchThread (id) {
-      this.$store.call('switchThread', { id })
+      this.$store.trigger('switchThread', { id })
     }
   }
 }

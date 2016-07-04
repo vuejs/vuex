@@ -33,9 +33,15 @@ class Store {
     this._mutations = Object.create(null)
     this._subscribers = []
 
-    // bind dispatch and call to self
-    this.call = bind(this.call, this)
-    this.dispatch = bind(this.dispatch, this)
+    // bind dispatch and trigger to self
+    const store = this
+    const { trigger, dispatch } = this
+    this.trigger = function boundTrigger (type, payload) {
+      trigger.call(store, type, payload)
+    }
+    this.dispatch = function boundDispatch (type, payload) {
+      dispatch.call(store, type, payload)
+    }
 
     // init state and getters
     const getters = extractModuleGetters(options.getters, modules)
@@ -108,18 +114,21 @@ class Store {
 
   mutation (type, handler, path = []) {
     const entry = this._mutations[type] || (this._mutations[type] = [])
-    entry.push(payload => {
-      handler(getNestedState(this.state, path), payload)
+    const store = this
+    entry.push(function wrappedMutationHandler (payload) {
+      handler(getNestedState(store.state, path), payload)
     })
   }
 
   action (type, handler, path = []) {
     const entry = this._actions[type] || (this._actions[type] = [])
-    entry.push((payload, cb) => {
+    const store = this
+    const { trigger, dispatch } = this
+    entry.push(function wrappedActionHandler (payload, cb) {
       let res = handler({
-        call: this.call,
-        dispatch: this.dispatch,
-        state: getNestedState(this.state, path)
+        trigger,
+        dispatch,
+        state: getNestedState(store.state, path)
       }, payload, cb)
       if (!isPromise(res)) {
         res = Promise.resolve(res)
@@ -145,12 +154,14 @@ class Store {
       mutation = { type, payload }
     }
     this._dispatching = true
-    entry.forEach(handler => handler(payload))
+    entry.forEach(function dispatchIterator (handler) {
+      handler(payload)
+    })
     this._dispatching = false
     this._subscribers.forEach(sub => sub(mutation, this.state))
   }
 
-  call (type, payload, cb) {
+  trigger (type, payload, cb) {
     const entry = this._actions[type]
     if (!entry) {
       console.warn(`[vuex] unknown action type: ${type}`)
@@ -249,7 +260,9 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
           console.warn(`[vuex] duplicate getter key: ${getterKey}`)
           return
         }
-        getters[getterKey] = state => rawGetter(getNestedState(state, path))
+        getters[getterKey] = function wrappedGetter (state) {
+          return rawGetter(getNestedState(state, path))
+        }
       })
     }
     extractModuleGetters(getters, module.modules, path.concat(key))
@@ -265,12 +278,6 @@ function enableStrictMode (store) {
       )
     }
   }, { deep: true, sync: true })
-}
-
-function bind (fn, ctx) {
-  return function () {
-    return fn.apply(ctx, arguments)
-  }
 }
 
 function isObject (obj) {
