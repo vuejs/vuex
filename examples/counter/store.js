@@ -26,17 +26,17 @@ const mutations = {
 // actions are functions that causes side effects and can involve
 // asynchronous operations.
 const actions = {
-  increment: ({ dispatch }) => dispatch('increment'),
-  decrement: ({ dispatch }) => dispatch('decrement'),
-  incrementIfOdd ({ dispatch, state }) {
+  increment: ({ commit }) => commit('increment'),
+  decrement: ({ commit }) => commit('decrement'),
+  incrementIfOdd ({ commit, state }) {
     if ((state.count + 1) % 2 === 0) {
-      dispatch('increment')
+      commit('increment')
     }
   },
-  incrementAsync ({ dispatch }) {
+  incrementAsync ({ commit }) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        dispatch('increment')
+        commit('increment')
         resolve()
       }, 1000)
     })

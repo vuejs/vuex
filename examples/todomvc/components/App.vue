@@ -81,7 +81,7 @@ export default {
     addTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        this.$store.trigger('addTodo', { text })
+        this.$store.dispatch('addTodo', { text })
       }
       e.target.value = ''
     },

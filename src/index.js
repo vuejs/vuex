@@ -27,20 +27,20 @@ class Store {
 
     // store internal state
     this._options = options
-    this._dispatching = false
+    this._committing = false
     this._events = Object.create(null)
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
     this._subscribers = []
 
-    // bind dispatch and trigger to self
+    // bind commit and dispatch to self
     const store = this
-    const { trigger, dispatch } = this
-    this.trigger = function boundTrigger (type, payload) {
-      trigger.call(store, type, payload)
-    }
+    const { dispatch, commit } = this
     this.dispatch = function boundDispatch (type, payload) {
       dispatch.call(store, type, payload)
+    }
+    this.commit = function boundCommit (type, payload) {
+      commit.call(store, type, payload)
     }
 
     // init state and getters
@@ -66,9 +66,9 @@ class Store {
   }
 
   replaceState (state) {
-    this._dispatching = true
+    this._committing = true
     this._vm.state = state
-    this._dispatching = false
+    this._committing = false
   }
 
   module (path, module, hot) {
@@ -123,57 +123,54 @@ class Store {
   action (type, handler, path = []) {
     const entry = this._actions[type] || (this._actions[type] = [])
     const store = this
-    const { trigger, dispatch } = this
+    const { dispatch, commit } = this
     entry.push(function wrappedActionHandler (payload, cb) {
       let res = handler({
-        trigger,
         dispatch,
+        commit,
         state: getNestedState(store.state, path)
       }, payload, cb)
       if (!isPromise(res)) {
         res = Promise.resolve(res)
       }
       return res.catch(err => {
-        console.warn(`[vuex] error in Promise returned from action "${type}":`)
+        console.error(`[vuex] error in Promise returned from action "${type}":`)
         console.error(err)
       })
     })
   }
 
-  dispatch (type, payload) {
+  commit (type, payload) {
     const entry = this._mutations[type]
     if (!entry) {
-      console.warn(`[vuex] unknown mutation type: ${type}`)
+      console.error(`[vuex] unknown mutation type: ${type}`)
       return
     }
-    // check object-style dispatch
+    // check object-style commit
     let mutation
     if (isObject(type)) {
       payload = mutation = type
     } else {
       mutation = { type, payload }
     }
-    this._dispatching = true
-    entry.forEach(function dispatchIterator (handler) {
+    this._committing = true
+    entry.forEach(function commitIterator (handler) {
       handler(payload)
     })
-    this._dispatching = false
+    this._committing = false
     this._subscribers.forEach(sub => sub(mutation, this.state))
   }
 
-  trigger (type, payload, cb) {
+  dispatch (type, payload) {
     const entry = this._actions[type]
     if (!entry) {
-      console.warn(`[vuex] unknown action type: ${type}`)
+      debugger
+      console.error(`[vuex] unknown action type: ${type}`)
       return
-    }
-    if (typeof payload === 'function') {
-      cb = payload
-      payload = undefined
     }
     return entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
-      : entry[0](payload)
+      : Promise.resolve(entry[0](payload))
   }
 
   subscribe (fn) {
@@ -214,11 +211,11 @@ class Store {
       if (this.strict) {
         enableStrictMode(this)
       }
-      // trigger changes in all subscribed watchers
+      // dispatch changes in all subscribed watchers
       // to force getter re-evaluation.
-      this._dispatching = true
+      this._committing = true
       oldVm.state = null
-      this._dispatching = false
+      this._committing = false
       Vue.nextTick(() => oldVm.$destroy())
     }
   }
@@ -257,7 +254,7 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
       Object.keys(module.getters).forEach(getterKey => {
         const rawGetter = module.getters[getterKey]
         if (getters[getterKey]) {
-          console.warn(`[vuex] duplicate getter key: ${getterKey}`)
+          console.error(`[vuex] duplicate getter key: ${getterKey}`)
           return
         }
         getters[getterKey] = function wrappedGetter (state) {
@@ -272,7 +269,7 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
 
 function enableStrictMode (store) {
   store._vm.$watch('state', () => {
-    if (!store._dispatching) {
+    if (!store._committing) {
       throw new Error(
         '[vuex] Do not mutate vuex store state outside mutation handlers.'
       )
@@ -294,7 +291,7 @@ function getNestedState (state, path) {
 
 function install (_Vue) {
   if (Vue) {
-    console.warn(
+    console.error(
       '[vuex] already installed. Vue.use(Vuex) should be called only once.'
     )
     return

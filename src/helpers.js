@@ -12,7 +12,7 @@ export function mapActions (actions) {
   const res = {}
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
-      return this.$store.trigger(val, ...args)
+      return this.$store.dispatch(val, ...args)
     }
   })
   return res

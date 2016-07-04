@@ -23,7 +23,7 @@ export default {
     'addToCart'
   ]),
   created () {
-    this.$store.trigger('getAllProducts')
+    this.$store.dispatch('getAllProducts')
   }
 }
 </script>

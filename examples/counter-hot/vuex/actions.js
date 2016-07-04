@@ -1,14 +1,14 @@
-export const increment = ({ dispatch }) => dispatch('increment')
-export const decrement = ({ dispatch }) => dispatch('decrement')
+export const increment = ({ commit }) => commit('increment')
+export const decrement = ({ commit }) => commit('decrement')
 
-export const incrementIfOdd = ({ dispatch, state }) => {
+export const incrementIfOdd = ({ commit, state }) => {
   if ((state.count + 1) % 2 === 0) {
-    dispatch('increment')
+    commit('increment')
   }
 }
 
-export const incrementAsync = ({ dispatch }) => {
+export const incrementAsync = ({ commit }) => {
   setTimeout(() => {
-    dispatch('decrement')
+    commit('decrement')
   }, 1000)
 }

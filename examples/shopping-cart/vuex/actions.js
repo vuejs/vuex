@@ -1,26 +1,26 @@
 import shop from '../api/shop'
 import * as types from './mutation-types'
 
-export const addToCart = ({ dispatch }, product) => {
+export const addToCart = ({ commit }, product) => {
   if (product.inventory > 0) {
-    dispatch(types.ADD_TO_CART, {
+    commit(types.ADD_TO_CART, {
       id: product.id
     })
   }
 }
 
-export const checkout = ({ dispatch, state }, products) => {
+export const checkout = ({ commit, state }, products) => {
   const savedCartItems = [...state.cart.added]
-  dispatch(types.CHECKOUT_REQUEST)
+  commit(types.CHECKOUT_REQUEST)
   shop.buyProducts(
     products,
-    () => dispatch(types.CHECKOUT_SUCCESS),
-    () => dispatch(types.CHECKOUT_FAILURE, { savedCartItems })
+    () => commit(types.CHECKOUT_SUCCESS),
+    () => commit(types.CHECKOUT_FAILURE, { savedCartItems })
   )
 }
 
-export const getAllProducts = ({ dispatch }) => {
+export const getAllProducts = ({ commit }) => {
   shop.getProducts(products => {
-    dispatch(types.RECEIVE_PRODUCTS, { products })
+    commit(types.RECEIVE_PRODUCTS, { products })
   })
 }
