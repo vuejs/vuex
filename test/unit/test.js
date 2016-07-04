@@ -285,7 +285,7 @@ describe('Vuex', () => {
       plugins: [
         store => {
           initState = store.state
-          store.on('mutation', (mut, state) => {
+          store.subscribe((mut, state) => {
             expect(state).to.equal(store.state)
             mutations.push(mut)
           })
@@ -314,7 +314,7 @@ describe('Vuex', () => {
       plugins: [
         store => {
           initState = store.state
-          store.on('mutation', (mut, state) => {
+          store.subscribe((mut, state) => {
             expect(state).to.equal(store.state)
             mutations.push(mut)
           })

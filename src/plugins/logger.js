@@ -8,7 +8,7 @@ export default function createLogger ({
   return store => {
     let prevState = JSON.parse(JSON.stringify(store.state))
 
-    store.on('mutation', (mutation, state) => {
+    store.subscribe((mutation, state) => {
       if (typeof console === 'undefined') {
         return
       }

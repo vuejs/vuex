@@ -30,7 +30,7 @@ class Store {
     this._dispatching = false
     this._rootMutations = this._mutations = mutations
     this._modules = modules
-    this._events = Object.create(null)
+    this._subscribers = []
     // bind dispatch to self
     const dispatch = this.dispatch
     this.dispatch = (...args) => {
@@ -127,7 +127,7 @@ class Store {
         const mutation = isObjectStyleDispatch
           ? payload
           : { type, payload }
-        this.emit('mutation', mutation, state)
+        this._subscribers.forEach(sub => sub(mutation, state))
       }
     } else {
       console.warn(`[vuex] Unknown mutation: ${type}`)
@@ -150,6 +150,23 @@ class Store {
       return
     }
     return this._vm.$watch(() => fn(this.state), cb, options)
+  }
+
+  /**
+   * Subscribe to state changes. Fires after every mutation.
+   */
+
+  subscribe (fn) {
+    const subs = this._subscribers
+    if (subs.indexOf(fn) < 0) {
+      subs.push(fn)
+    }
+    return () => {
+      const i = subs.indexOf(fn)
+      if (i > -1) {
+        subs.splice(i, 1)
+      }
+    }
   }
 
   /**
@@ -274,10 +291,6 @@ function install (_Vue) {
     return
   }
   Vue = _Vue
-  // reuse Vue's event system
-  ;['on', 'off', 'once', 'emit'].forEach(e => {
-    Store.prototype[e] = Store.prototype['$' + e] = Vue.prototype['$' + e]
-  })
   override(Vue)
 }
 
