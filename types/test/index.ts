@@ -169,21 +169,14 @@ namespace TestHotUpdate {
   });
 }
 
-namespace TestEvents {
+namespace TestSubscribe {
   const store = createStore();
 
   const handler = (mutation: Vuex.MutationObject<any>, state: ISimpleState) => {
     state.count += 1;
   };
 
-  store.on('mutation', handler);
-  store.once('mutation', handler);
-
-  store.off();
-  store.off('mutation');
-  store.off('mutation', handler);
-
-  store.emit('some-event', 1, 'a', []);
+  store.subscribe(handler);
 }
 
 namespace TestLogger {
