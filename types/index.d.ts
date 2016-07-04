@@ -16,10 +16,7 @@ declare namespace Vuex {
       modules?: ModuleTree;
     }): void;
 
-    on(event: string, cb: (...args: any[]) => void): void;
-    once(event: string, cb: (...args: any[]) => void): void;
-    off(event?: string, cb?: (...args: any[]) => void): void;
-    emit(event: string, ...args: any[]): void;
+    subscribe(cb: (mutation: MutationObject<any>, state: S) => void): () => void;
   }
 
   function install(Vue: vuejs.VueStatic): void;
