@@ -36,10 +36,10 @@ class Store {
     const store = this
     const { dispatch, commit } = this
     this.dispatch = function boundDispatch (type, payload) {
-      dispatch.call(store, type, payload)
+      return dispatch.call(store, type, payload)
     }
     this.commit = function boundCommit (type, payload) {
-      commit.call(store, type, payload)
+      return commit.call(store, type, payload)
     }
 
     // init state and getters
@@ -140,24 +140,27 @@ class Store {
   }
 
   commit (type, payload) {
+    // check object-style commit
+    let mutation
+    if (isObject(type) && type.type) {
+      payload = mutation = type
+      type = type.type
+    } else {
+      mutation = { type, payload }
+    }
     const entry = this._mutations[type]
     if (!entry) {
       console.error(`[vuex] unknown mutation type: ${type}`)
       return
-    }
-    // check object-style commit
-    let mutation
-    if (isObject(type)) {
-      payload = mutation = type
-    } else {
-      mutation = { type, payload }
     }
     this._committing = true
     entry.forEach(function commitIterator (handler) {
       handler(payload)
     })
     this._committing = false
-    this._subscribers.forEach(sub => sub(mutation, this.state))
+    if (!payload || !payload.silent) {
+      this._subscribers.forEach(sub => sub(mutation, this.state))
+    }
   }
 
   dispatch (type, payload) {
@@ -169,7 +172,7 @@ class Store {
     }
     return entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
-      : Promise.resolve(entry[0](payload))
+      : entry[0](payload)
   }
 
   subscribe (fn) {

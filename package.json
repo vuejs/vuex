@@ -16,7 +16,7 @@
     "chat": "cd examples/chat && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
     "build": "node build/build.js",
     "build-examples": "BABEL_ENV=development webpack --config examples/webpack.build-all.config.js",
-    "unit": "BABEL_ENV=development mocha test/unit/test.js --compilers js:babel-core/register",
+    "unit": "BABEL_ENV=development mocha test/unit/test.js --compilers js:babel-core/register 2>/dev/null",
     "pree2e": "npm run build-examples",
     "e2e": "casperjs test --concise ./test/e2e",
     "test": "eslint src && npm run unit && npm run e2e",
