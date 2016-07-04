@@ -252,6 +252,7 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
   if (!modules) return getters
   Object.keys(modules).forEach(key => {
     const module = modules[key]
+    const modulePath = path.concat(key)
     if (module.getters) {
       Object.keys(module.getters).forEach(getterKey => {
         const rawGetter = module.getters[getterKey]
@@ -260,11 +261,11 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
           return
         }
         getters[getterKey] = function wrappedGetter (state) {
-          return rawGetter(getNestedState(state, path))
+          return rawGetter(getNestedState(state, modulePath))
         }
       })
     }
-    extractModuleGetters(getters, module.modules, path.concat(key))
+    extractModuleGetters(getters, module.modules, modulePath)
   })
   return getters
 }
