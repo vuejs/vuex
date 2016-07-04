@@ -176,7 +176,8 @@ namespace TestSubscribe {
     state.count += 1;
   };
 
-  store.subscribe(handler);
+  const unsubscribe = store.subscribe(handler);
+  unsubscribe();
 }
 
 namespace TestLogger {
