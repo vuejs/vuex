@@ -9,6 +9,7 @@ Vue.use(Vuex)
 chai.use(sinonChai)
 
 const TEST = 'TEST'
+const TEST2 = 'TEST2'
 
 describe('Vuex', () => {
   it('committing mutations', () => {
@@ -393,177 +394,31 @@ describe('Vuex', () => {
     })
   })
 
-  // it('dispatching multiple actions in different modules', () => {
-
-  // })
-
-  // it('hot reload', function () {
-  //   const mutations = {
-  //     [TEST] (state, n) {
-  //       state.a += n
-  //     }
-  //   }
-  //   const store = new Vuex.Store({
-  //     state: {
-  //       a: 1
-  //     },
-  //     mutations,
-  //     modules: {
-  //       nested: {
-  //         state: { a: 2 },
-  //         mutations,
-  //         modules: {
-  //           one: {
-  //             state: { a: 3 },
-  //             mutations
-  //           },
-  //           nested: {
-  //             modules: {
-  //               two: {
-  //                 state: { a: 4 },
-  //                 mutations
-  //               },
-  //               three: {
-  //                 state: { a: 5 },
-  //                 mutations
-  //               }
-  //             }
-  //           }
-  //         }
-  //       },
-  //       four: {
-  //         state: { a: 6 },
-  //         mutations
-  //       }
-  //     }
-  //   })
-  //   store.dispatch(TEST, 1)
-  //   expect(store.state.a).to.equal(2)
-  //   expect(store.state.nested.a).to.equal(3)
-  //   expect(store.state.nested.one.a).to.equal(4)
-  //   expect(store.state.nested.nested.two.a).to.equal(5)
-  //   expect(store.state.nested.nested.three.a).to.equal(6)
-  //   expect(store.state.four.a).to.equal(7)
-
-  //   // hot reload only root mutations
-  //   store.hotUpdate({
-  //     mutations: {
-  //       [TEST] (state, n) {
-  //         state.a = n
-  //       }
-  //     }
-  //   })
-  //   store.dispatch(TEST, 1)
-  //   expect(store.state.a).to.equal(1) // only root mutation updated
-  //   expect(store.state.nested.a).to.equal(4)
-  //   expect(store.state.nested.one.a).to.equal(5)
-  //   expect(store.state.nested.nested.two.a).to.equal(6)
-  //   expect(store.state.nested.nested.three.a).to.equal(7)
-  //   expect(store.state.four.a).to.equal(8)
-
-  //   // hot reload modules
-  //   store.hotUpdate({
-  //     modules: {
-  //       nested: {
-  //         state: { a: 234 },
-  //         mutations,
-  //         modules: {
-  //           one: {
-  //             state: { a: 345 },
-  //             mutations
-  //           },
-  //           nested: {
-  //             modules: {
-  //               two: {
-  //                 state: { a: 456 },
-  //                 mutations
-  //               },
-  //               three: {
-  //                 state: { a: 567 },
-  //                 mutations
-  //               }
-  //             }
-  //           }
-  //         }
-  //       },
-  //       four: {
-  //         state: { a: 678 },
-  //         mutations
-  //       }
-  //     }
-  //   })
-  //   store.dispatch(TEST, 2)
-  //   expect(store.state.a).to.equal(2)
-  //   expect(store.state.nested.a).to.equal(6) // should not reload initial state
-  //   expect(store.state.nested.one.a).to.equal(7) // should not reload initial state
-  //   expect(store.state.nested.nested.two.a).to.equal(8) // should not reload initial state
-  //   expect(store.state.nested.nested.three.a).to.equal(9) // should not reload initial state
-  //   expect(store.state.four.a).to.equal(10) // should not reload initial state
-
-  //   // hot reload all
-  //   store.hotUpdate({
-  //     mutations: {
-  //       [TEST] (state, n) {
-  //         state.a -= n
-  //       }
-  //     },
-  //     modules: {
-  //       nested: {
-  //         state: { a: 234 },
-  //         mutations: {
-  //           [TEST] (state, n) {
-  //             state.a += n
-  //           }
-  //         },
-  //         modules: {
-  //           one: {
-  //             state: { a: 345 },
-  //             mutations: {
-  //               [TEST] (state, n) {
-  //                 state.a += n
-  //               }
-  //             }
-  //           },
-  //           nested: {
-  //             modules: {
-  //               two: {
-  //                 state: { a: 456 },
-  //                 mutations: {
-  //                   [TEST] (state, n) {
-  //                     state.a += n
-  //                   }
-  //                 }
-  //               },
-  //               three: {
-  //                 state: { a: 567 },
-  //                 mutations: {
-  //                   [TEST] (state, n) {
-  //                     state.a -= n
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       },
-  //       four: {
-  //         state: { a: 678 },
-  //         mutations: {
-  //           [TEST] (state, n) {
-  //             state.a -= n
-  //           }
-  //         }
-  //       }
-  //     }
-  //   })
-  //   store.dispatch(TEST, 3)
-  //   expect(store.state.a).to.equal(-1)
-  //   expect(store.state.nested.a).to.equal(9)
-  //   expect(store.state.nested.one.a).to.equal(10)
-  //   expect(store.state.nested.nested.two.a).to.equal(11)
-  //   expect(store.state.nested.nested.three.a).to.equal(6)
-  //   expect(store.state.four.a).to.equal(7)
-  // })
+  it('dispatching multiple actions in different modules', done => {
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          actions: {
+            [TEST] () {
+              return 1
+            }
+          }
+        },
+        b: {
+          actions: {
+            [TEST] () {
+              return new Promise(r => r(2))
+            }
+          }
+        }
+      }
+    })
+    store.dispatch(TEST).then(res => {
+      expect(res[0]).to.equal(1)
+      expect(res[1]).to.equal(2)
+      done()
+    })
+  })
 
   it('plugins', function () {
     let initState
@@ -644,5 +499,265 @@ describe('Vuex', () => {
     expect(() => {
       store.state.a++
     }).to.throw(/Do not mutate vuex store state outside mutation handlers/)
+  })
+
+  it('hot reload: mutations', function () {
+    const mutations = {
+      [TEST] (state, n) {
+        state.a += n
+      }
+    }
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations,
+      modules: {
+        nested: {
+          state: { a: 2 },
+          mutations,
+          modules: {
+            one: {
+              state: { a: 3 },
+              mutations
+            },
+            nested: {
+              modules: {
+                two: {
+                  state: { a: 4 },
+                  mutations
+                },
+                three: {
+                  state: { a: 5 },
+                  mutations
+                }
+              }
+            }
+          }
+        },
+        four: {
+          state: { a: 6 },
+          mutations
+        }
+      }
+    })
+    store.commit(TEST, 1)
+    expect(store.state.a).to.equal(2)
+    expect(store.state.nested.a).to.equal(3)
+    expect(store.state.nested.one.a).to.equal(4)
+    expect(store.state.nested.nested.two.a).to.equal(5)
+    expect(store.state.nested.nested.three.a).to.equal(6)
+    expect(store.state.four.a).to.equal(7)
+
+    // hot reload only root mutations
+    store.hotUpdate({
+      mutations: {
+        [TEST] (state, n) {
+          state.a = n
+        }
+      }
+    })
+    store.commit(TEST, 1)
+    expect(store.state.a).to.equal(1) // only root mutation updated
+    expect(store.state.nested.a).to.equal(4)
+    expect(store.state.nested.one.a).to.equal(5)
+    expect(store.state.nested.nested.two.a).to.equal(6)
+    expect(store.state.nested.nested.three.a).to.equal(7)
+    expect(store.state.four.a).to.equal(8)
+
+    // hot reload modules
+    store.hotUpdate({
+      modules: {
+        nested: {
+          state: { a: 234 },
+          mutations,
+          modules: {
+            one: {
+              state: { a: 345 },
+              mutations
+            },
+            nested: {
+              modules: {
+                two: {
+                  state: { a: 456 },
+                  mutations
+                },
+                three: {
+                  state: { a: 567 },
+                  mutations
+                }
+              }
+            }
+          }
+        },
+        four: {
+          state: { a: 678 },
+          mutations
+        }
+      }
+    })
+    store.commit(TEST, 2)
+    expect(store.state.a).to.equal(2)
+    expect(store.state.nested.a).to.equal(6) // should not reload initial state
+    expect(store.state.nested.one.a).to.equal(7) // should not reload initial state
+    expect(store.state.nested.nested.two.a).to.equal(8) // should not reload initial state
+    expect(store.state.nested.nested.three.a).to.equal(9) // should not reload initial state
+    expect(store.state.four.a).to.equal(10) // should not reload initial state
+
+    // hot reload all
+    store.hotUpdate({
+      mutations: {
+        [TEST] (state, n) {
+          state.a -= n
+        }
+      },
+      modules: {
+        nested: {
+          state: { a: 234 },
+          mutations: {
+            [TEST] (state, n) {
+              state.a += n
+            }
+          },
+          modules: {
+            one: {
+              state: { a: 345 },
+              mutations: {
+                [TEST] (state, n) {
+                  state.a += n
+                }
+              }
+            },
+            nested: {
+              modules: {
+                two: {
+                  state: { a: 456 },
+                  mutations: {
+                    [TEST] (state, n) {
+                      state.a += n
+                    }
+                  }
+                },
+                three: {
+                  state: { a: 567 },
+                  mutations: {
+                    [TEST] (state, n) {
+                      state.a -= n
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        four: {
+          state: { a: 678 },
+          mutations: {
+            [TEST] (state, n) {
+              state.a -= n
+            }
+          }
+        }
+      }
+    })
+    store.commit(TEST, 3)
+    expect(store.state.a).to.equal(-1)
+    expect(store.state.nested.a).to.equal(9)
+    expect(store.state.nested.one.a).to.equal(10)
+    expect(store.state.nested.nested.two.a).to.equal(11)
+    expect(store.state.nested.nested.three.a).to.equal(6)
+    expect(store.state.four.a).to.equal(7)
+  })
+
+  it('hot reload: actions', () => {
+    const store = new Vuex.Store({
+      state: {
+        list: []
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.list.push(n)
+        }
+      },
+      actions: {
+        [TEST] ({ commit }) {
+          commit(TEST, 1)
+        }
+      },
+      modules: {
+        a: {
+          actions: {
+            [TEST] ({ commit }) {
+              commit(TEST, 2)
+            }
+          }
+        }
+      }
+    })
+    store.dispatch(TEST)
+    expect(store.state.list.join()).to.equal('1,2')
+
+    // update root
+    store.hotUpdate({
+      actions: {
+        [TEST] ({ commit }) {
+          commit(TEST, 3)
+        }
+      }
+    })
+    store.dispatch(TEST)
+    expect(store.state.list.join()).to.equal('1,2,3,2')
+
+    // update modules
+    store.hotUpdate({
+      actions: {
+        [TEST] ({ commit }) {
+          commit(TEST, 4)
+        }
+      },
+      modules: {
+        a: {
+          actions: {
+            [TEST] ({ commit }) {
+              commit(TEST, 5)
+            }
+          }
+        }
+      }
+    })
+    store.dispatch(TEST)
+    expect(store.state.list.join()).to.equal('1,2,3,2,4,5')
+  })
+
+  it('hot reload: getters', done => {
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        inc: state => state.count++
+      },
+      getters: {
+        hasAny: state => state.count > 0
+      }
+    })
+
+    const spy = sinon.spy()
+    const vm = new Vue({
+      computed: {
+        a: () => store.getters.hasAny
+      },
+      watch: {
+        a: spy
+      }
+    })
+
+    expect(vm.a).to.equal(false)
+    store.commit('inc')
+    expect(vm.a).to.equal(true)
+    Vue.nextTick(() => {
+      expect(spy).to.have.been.called
+      done()
+    })
   })
 })
