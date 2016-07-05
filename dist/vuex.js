@@ -1,5 +1,5 @@
 /*!
- * Vuex v1.0.0-rc
+ * Vuex v1.0.0-rc.2
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -135,7 +135,7 @@
       store.replaceState(targetState);
     });
 
-    store.on('mutation', function (mutation, state) {
+    store.subscribe(function (mutation, state) {
       hook.emit('vuex:mutation', mutation, state);
     });
   }
@@ -341,7 +341,7 @@
       this._dispatching = false;
       this._rootMutations = this._mutations = mutations;
       this._modules = modules;
-      this._events = Object.create(null);
+      this._subscribers = [];
       // bind dispatch to self
       var dispatch = this.dispatch;
       this.dispatch = function () {
@@ -410,6 +410,8 @@
     }, {
       key: 'dispatch',
       value: function dispatch(type) {
+        var _this2 = this;
+
         for (var _len2 = arguments.length, payload = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
           payload[_key2 - 1] = arguments[_key2];
         }
@@ -437,8 +439,12 @@
           }
           this._dispatching = false;
           if (!silent) {
-            var mutation = isObjectStyleDispatch ? payload : { type: type, payload: payload };
-            this.emit('mutation', mutation, state);
+            (function () {
+              var mutation = isObjectStyleDispatch ? payload : { type: type, payload: payload };
+              _this2._subscribers.forEach(function (sub) {
+                return sub(mutation, state);
+              });
+            })();
           }
         } else {
           console.warn('[vuex] Unknown mutation: ' + type);
@@ -458,15 +464,34 @@
     }, {
       key: 'watch',
       value: function watch(fn, cb, options) {
-        var _this2 = this;
+        var _this3 = this;
 
         if (typeof fn !== 'function') {
           console.error('Vuex store.watch only accepts function.');
           return;
         }
         return this._vm.$watch(function () {
-          return fn(_this2.state);
+          return fn(_this3.state);
         }, cb, options);
+      }
+
+      /**
+       * Subscribe to state changes. Fires after every mutation.
+       */
+
+    }, {
+      key: 'subscribe',
+      value: function subscribe(fn) {
+        var subs = this._subscribers;
+        if (subs.indexOf(fn) < 0) {
+          subs.push(fn);
+        }
+        return function () {
+          var i = subs.indexOf(fn);
+          if (i > -1) {
+            subs.splice(i, 1);
+          }
+        };
       }
 
       /**
@@ -499,7 +524,7 @@
     }, {
       key: '_setupModuleState',
       value: function _setupModuleState(state, modules) {
-        var _this3 = this;
+        var _this4 = this;
 
         if (!isObject(modules)) return;
 
@@ -510,7 +535,7 @@
           Vue.set(state, key, module.state || {});
 
           // retrieve nested modules
-          _this3._setupModuleState(state[key], module.modules);
+          _this4._setupModuleState(state[key], module.modules);
         });
       }
 
@@ -545,7 +570,7 @@
     }, {
       key: '_createModuleMutations',
       value: function _createModuleMutations(modules, nestedKeys) {
-        var _this4 = this;
+        var _this5 = this;
 
         if (!isObject(modules)) return [];
 
@@ -554,7 +579,7 @@
           var newNestedKeys = nestedKeys.concat(key);
 
           // retrieve nested modules
-          var nestedMutations = _this4._createModuleMutations(module.modules, newNestedKeys);
+          var nestedMutations = _this5._createModuleMutations(module.modules, newNestedKeys);
 
           if (!module || !module.mutations) {
             return mergeObjects(nestedMutations);
@@ -590,12 +615,12 @@
     }, {
       key: '_setupMutationCheck',
       value: function _setupMutationCheck() {
-        var _this5 = this;
+        var _this6 = this;
 
         var Watcher = getWatcher(this._vm);
         /* eslint-disable no-new */
         new Watcher(this._vm, 'state', function () {
-          if (!_this5._dispatching) {
+          if (!_this6._dispatching) {
             throw new Error('[vuex] Do not mutate vuex store state outside mutation handlers.');
           }
         }, { deep: true, sync: true });
@@ -618,11 +643,7 @@
       console.warn('[vuex] already installed. Vue.use(Vuex) should be called only once.');
       return;
     }
-    Vue = _Vue
-    // reuse Vue's event system
-    ;['on', 'off', 'once', 'emit'].forEach(function (e) {
-      Store.prototype[e] = Store.prototype['$' + e] = Vue.prototype['$' + e];
-    });
+    Vue = _Vue;
     override(Vue);
   }
 
