@@ -5,7 +5,7 @@ Vuex stores accept the `plugins` option that exposes hooks for each mutation. A 
 ``` js
 const myPlugin = store => {
   // called when the store is initialized
-  store.on('mutation', (mutation, state) => {
+  store.subscribe((mutation, state) => {
     // called after every mutation.
     // The mutation comes in the format of { type, payload } for normal
     // dispatches, and will be the original mutation object for object-style
@@ -35,7 +35,7 @@ export default function createWebSocketPlugin (socket) {
     socket.on('data', data => {
       store.dispatch('RECEIVE_DATA', data)
     })
-    store.on('mutation', (mutation) => {
+    store.subscribe(mutation => {
       if (mutation.type === 'UPDATE_DATA') {
         socket.emit('update', mutation.payload)
       }
@@ -61,7 +61,7 @@ Sometimes a plugin may want to receive "snapshots" of the state, and also compar
 ``` js
 const myPluginWithSnapshot = store => {
   let prevState = _.cloneDeep(store.state)
-  store.on('mutation', (mutation, state) => {
+  store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
     // compare prevState and nextState...
