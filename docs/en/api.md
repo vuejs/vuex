@@ -102,12 +102,13 @@ const store = new Vuex.Store({ ...options })
 
   Hot swap new actions and mutations. [Details](hot-reload.md)
 
-- **on(event: String, cb: Function)**
+- **subscribe(handler: Function)**
 
-- **once(event: String, cb: Function)**
+  Subscribe to store mutations. The `handler` is called after every mutaiton and receives the mutation descriptor and post-mutation state as arguments:
 
-- **off([event: String, cb: Function])**
-
-- **emit(event: String, ...args)**
-
-  Same event interface as found on a Vue instance. The only event the store emits is `mutation` (see [Plugins](plugins.md)).
+  ``` js
+  store.subscribe((mutation, state) => {
+    console.log(mutation.type)
+    console.log(mutation.payload)
+  })
+  ```
