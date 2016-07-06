@@ -132,10 +132,14 @@ class Store {
       if (!isPromise(res)) {
         res = Promise.resolve(res)
       }
-      return res.catch(err => {
-        console.error(`[vuex] error in Promise returned from action "${type}":`)
-        console.error(err)
-      })
+      if (store._devtoolHook) {
+        return res.catch(err => {
+          store._devtoolHook.emit('vuex:error', err)
+          throw err
+        })
+      } else {
+        return res
+      }
     })
   }
 

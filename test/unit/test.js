@@ -108,22 +108,29 @@ describe('Vuex', () => {
     })
   })
 
-  it('capturing action Promise errors', done => {
-    const spy = sinon.spy(console, 'error')
+  it('detecting action Promise errors', done => {
     const store = new Vuex.Store({
       actions: {
         [TEST] () {
           return new Promise((resolve, reject) => {
-            reject(new Error())
+            reject('no')
           })
         }
       }
     })
-    store.dispatch(TEST).then(() => {
-      expect(spy).to.have.been.calledWith(`[vuex] error in Promise returned from action "${TEST}":`)
-      spy.restore()
-      done()
-    })
+    const spy = sinon.spy()
+    store._devtoolHook = {
+      emit: spy
+    }
+    const thenSpy = sinon.spy()
+    store.dispatch(TEST)
+      .then(thenSpy)
+      .catch(err => {
+        expect(thenSpy).not.to.have.been.called
+        expect(err).to.equal('no')
+        expect(spy).to.have.been.calledWith('vuex:error', 'no')
+        done()
+      })
   })
 
   it('getters', () => {
