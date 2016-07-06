@@ -6,17 +6,8 @@ let Vue // bind on install
 
 class Store {
   constructor (options = {}) {
-    if (!Vue) {
-      throw new Error(
-        '[vuex] must call Vue.use(Vuex) before creating a store instance.'
-      )
-    }
-
-    if (typeof Promise === 'undefined') {
-      throw new Error(
-        '[vuex] vuex requires a Promise polyfill in this browser.'
-      )
-    }
+    assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
+    assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
 
     const {
       state = {},
@@ -61,7 +52,7 @@ class Store {
   }
 
   set state (v) {
-    throw new Error('[vuex] Use store.replaceState() to explicit replace store state.')
+    assert(false, `Use store.replaceState() to explicit replace store state.`)
   }
 
   replaceState (state) {
@@ -72,9 +63,7 @@ class Store {
 
   module (path, module, hot) {
     if (typeof path === 'string') path = [path]
-    if (!Array.isArray(path)) {
-      throw new Error('[vuex] module path must be a string or an Array.')
-    }
+    assert(Array.isArray(path), `module path must be a string or an Array.`)
 
     const isRoot = !path.length
     const {
@@ -170,7 +159,6 @@ class Store {
   dispatch (type, payload) {
     const entry = this._actions[type]
     if (!entry) {
-      debugger
       console.error(`[vuex] unknown action type: ${type}`)
       return
     }
@@ -190,6 +178,11 @@ class Store {
         subs.splice(i, 1)
       }
     }
+  }
+
+  watch (getter, cb, options) {
+    assert(typeof getter === 'function', `store.watch only accepts a function.`)
+    return this._vm.$watch(() => getter(this.state), cb, options)
   }
 
   hotUpdate (newOptions) {
@@ -225,6 +218,10 @@ class Store {
       Vue.nextTick(() => oldVm.$destroy())
     }
   }
+}
+
+function assert (condition, msg) {
+  if (!condition) throw new Error(`[vuex] ${msg}`)
 }
 
 function initStoreState (store, state, getters) {
@@ -276,11 +273,7 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
 
 function enableStrictMode (store) {
   store._vm.$watch('state', () => {
-    if (!store._committing) {
-      throw new Error(
-        '[vuex] Do not mutate vuex store state outside mutation handlers.'
-      )
-    }
+    assert(store._committing, `Do not mutate vuex store state outside mutation handlers.`)
   }, { deep: true, sync: true })
 }
 
