@@ -1,12 +1,12 @@
 # Table of Contents
 
-> 章を上から順番に読んでください
+> 上から順番に各章を読んでください
 
 - [Vuex とは何か](intro.md)
 - [Vuex 入門](getting-started.md)
 - [チュートリアル](tutorial.md)
 - コアコンセプト
-  - [ステート](state.md)
+  - [ステートとゲッター](state.md)
   - [ミューテーション](mutations.md)
   - [アクション](actions.md)
 - [データフロー](data-flow.md)
