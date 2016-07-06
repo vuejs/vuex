@@ -133,6 +133,45 @@ describe('Vuex', () => {
       })
   })
 
+  it('onActionsResolved', done => {
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        inc: state => state.count++
+      },
+      actions: {
+        one ({ commit }) {
+          return new Promise(r => {
+            commit('inc')
+            r(1)
+          })
+        },
+        two ({ commit }) {
+          return new Promise(r => {
+            setTimeout(() => {
+              commit('inc')
+              r(2)
+            }, 0)
+          })
+        }
+      }
+    })
+    store.dispatch('one')
+    store.dispatch('two')
+    expect(store.state.count).to.equal(1)
+    expect(store._pendingActions.length).to.equal(2)
+    store.onActionsResolved(res => {
+      expect(store._pendingActions.length).to.equal(0)
+      expect(store.state.count).to.equal(2)
+      expect(res.length).to.equal(2)
+      expect(res[0]).to.equal(1)
+      expect(res[1]).to.equal(2)
+      done()
+    })
+  })
+
   it('getters', () => {
     const store = new Vuex.Store({
       state: {

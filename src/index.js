@@ -22,6 +22,7 @@ class Store {
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
     this._subscribers = []
+    this._pendingActions = []
 
     // bind commit and dispatch to self
     const store = this
@@ -162,9 +163,19 @@ class Store {
       console.error(`[vuex] unknown action type: ${type}`)
       return
     }
-    return entry.length > 1
+    const res = entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
+    const pending = this._pendingActions
+    pending.push(res)
+    return res.then(value => {
+      pending.splice(pending.indexOf(res), 1)
+      return value
+    })
+  }
+
+  onActionsResolved (cb) {
+    Promise.all(this._pendingActions).then(cb)
   }
 
   subscribe (fn) {
