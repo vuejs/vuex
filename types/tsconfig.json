@@ -6,6 +6,8 @@
   },
   "files": [
     "index.d.ts",
+    "../logger.d.ts",
+    "vue.d.ts",
     "typings/index.d.ts"
   ]
 }

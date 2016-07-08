@@ -1,93 +1,66 @@
-declare namespace Vuex {
-  class Store<S> {
-    constructor(options: StoreOption<S>);
+import './vue'
 
-    state: S;
+export class Store<S> {
+  constructor(options: StoreOption<S>);
 
-    dispatch(mutationName: string, ...args: any[]): void;
-    dispatch<P>(mutation: MutationObject<P>): void;
+  state: S;
 
-    replaceState(state: S): void;
+  dispatch(mutationName: string, ...args: any[]): void;
+  dispatch<P>(mutation: MutationObject<P>): void;
 
-    watch<T>(getter: Getter<S, T>, cb: (value: T) => void, options?: WatchOption): void;
+  replaceState(state: S): void;
 
-    hotUpdate(options: {
-      mutations?: MutationTree<S>;
-      modules?: ModuleTree;
-    }): void;
+  watch<T>(getter: Getter<S, T>, cb: (value: T) => void, options?: WatchOption): void;
 
-    subscribe(cb: (mutation: MutationObject<any>, state: S) => void): () => void;
-  }
-
-  function install(Vue: vuejs.VueStatic): void;
-
-  interface StoreOption<S> {
-    state?: S;
+  hotUpdate(options: {
     mutations?: MutationTree<S>;
     modules?: ModuleTree;
-    plugins?: Plugin<S>[];
-    strict?: boolean;
-  }
+  }): void;
 
-  type Getter<S, T> = (state: S) => T;
-  type Action<S> = (store: Store<S>, ...args: any[]) => any;
-  type Mutation<S> = (state: S, ...args: any[]) => void;
-  type Plugin<S> = (store: Store<S>) => void;
-
-  interface MutationTree<S> {
-    [key: string]: Mutation<S>;
-  }
-
-  interface MutationObject<P> {
-    type: string;
-    silent?: boolean;
-    payload?: P;
-  }
-
-  interface Module<S> {
-    state?: S;
-    mutations?: MutationTree<S>;
-    modules?: ModuleTree;
-  }
-
-  interface ModuleTree {
-    [key: string]: Module<any>;
-  }
-
-  interface ComponentOption<S> {
-    getters: { [key: string]: Getter<S, any> };
-    actions: { [key: string]: Action<S> };
-  }
-
-  interface WatchOption {
-    deep?: boolean;
-    immidiate?: boolean;
-  }
-
-  function createLogger<S>(option: LoggerOption<S>): Plugin<S>;
-
-  interface LoggerOption<S> {
-    collapsed?: boolean;
-    transformer?: (state: S) => any;
-    mutationTransformer?: (mutation: MutationObject<any>) => any;
-  }
+  subscribe(cb: (mutation: MutationObject<any>, state: S) => void): () => void;
 }
 
-declare namespace vuejs {
-  interface ComponentOption {
-    vuex?: Vuex.ComponentOption<any>;
-    store?: Vuex.Store<any>;
-  }
+export function install(Vue: vuejs.VueStatic): void;
 
-  interface Vue {
-    $store?: Vuex.Store<any>;
-  }
+export interface StoreOption<S> {
+  state?: S;
+  mutations?: MutationTree<S>;
+  modules?: ModuleTree;
+  plugins?: Plugin<S>[];
+  strict?: boolean;
 }
 
-declare module 'vuex' {
-  export = Vuex
+type Getter<S, T> = (state: S) => T;
+type Action<S> = (store: Store<S>, ...args: any[]) => any;
+type Mutation<S> = (state: S, ...args: any[]) => void;
+type Plugin<S> = (store: Store<S>) => void;
+
+export interface MutationTree<S> {
+  [key: string]: Mutation<S>;
 }
 
-declare module 'vuex/logger' {
-  export default Vuex.createLogger;
+export interface MutationObject<P> {
+  type: string;
+  silent?: boolean;
+  payload?: P;
+}
+
+export interface Module<S> {
+  state?: S;
+  mutations?: MutationTree<S>;
+  modules?: ModuleTree;
+}
+
+export interface ModuleTree {
+  [key: string]: Module<any>;
+}
+
+export interface VuexComponentOption<S> {
+  getters: { [key: string]: Getter<S, any> };
+  actions: { [key: string]: Action<S> };
+}
+
+export interface WatchOption {
+  deep?: boolean;
+  immidiate?: boolean;
 }

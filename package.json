@@ -3,10 +3,14 @@
   "version": "1.0.0-rc.2",
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
+  "typings": "types/index.d.ts",
   "files": [
     "dist",
     "src",
-    "logger.js"
+    "types/index.d.ts",
+    "types/vue.d.ts",
+    "logger.js",
+    "logger.d.ts"
   ],
   "scripts": {
     "counter": "cd examples/counter && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
