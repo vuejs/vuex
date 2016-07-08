@@ -1,6 +1,6 @@
 import * as Vue from 'vue';
-import * as Vuex from 'vuex';
-import createLogger from 'vuex/logger';
+import * as Vuex from '../index';
+import createLogger from '../../logger';
 
 Vue.use(Vuex);
 
