@@ -191,6 +191,21 @@ describe('Vuex', () => {
     expect(store.getters.hasAny).to.equal(true)
   })
 
+  it('dynamic module registration', () => {
+    const store = new Vuex.Store({
+      strict: true
+    })
+    expect(() => {
+      store.module('hi', {
+        state: { a: 1 },
+        mutations: { inc: state => state.a++ }
+      })
+    }).not.to.throw()
+    expect(store.state.hi.a).to.equal(1)
+    store.commit('inc')
+    expect(store.state.hi.a).to.equal(2)
+  })
+
   it('store injection', () => {
     const store = new Vuex.Store()
     const vm = new Vue({

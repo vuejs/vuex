@@ -63,6 +63,7 @@ class Store {
   }
 
   module (path, module, hot) {
+    this._committing = true
     if (typeof path === 'string') path = [path]
     assert(Array.isArray(path), `module path must be a string or an Array.`)
 
@@ -99,6 +100,7 @@ class Store {
         this.module(path.concat(key), modules[key], hot)
       })
     }
+    this._committing = false
   }
 
   mutation (type, handler, path = []) {
