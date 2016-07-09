@@ -1,137 +1,199 @@
 # アクション
 
-アクションはミューテーションをディスパッチする機能です。アクションは非同期にすることができ、単一アクションは複数のミューテーションをディスパッチできます。
+> Vuex のアクションは純粋な Flux の定義では実際には "アクションクリエーター (action creators)" ですが、その用語は有用さよりも混乱を生み出していると考えられます。
 
-アクションは何かが起こるための意向を表しており、それを呼び出すコンポーネントから離れて詳細を抽象化します。コンポーネントが何かしたい場合アクション呼び出します。アクションはステート変化をもたらすため、コールバックまたは戻り値について心配する必要はなく、そしてステート変化は更新するコンポーネントの DOM をトリガします。コンポーネントは、アクションが実際に行われている方法から、完全に切り離されます。
-
-それゆえ、通常アクション内部のデータエンドポイントへの API 呼び出しを行い、そしてアクションを呼び出すコンポーネントの両方から非同期に詳細を隠し、さらにミューテーションはアクションによってトリガされます。
-
-> Vuex のアクションは純粋な Flux の定義では実際には "アクションクリエータ (action creators)" ですが、私はその用語は便利よりも混乱していると見ています。
-
-### 単純なアクション
-
-アクションは単純に単一のミューテーションをトリガするのが一般的です。Vuex はそのようなアクションの定義するために省略記法を提供します:
+アクションはミューテーションをディスパッチする関数です。慣習として、 Vuex のアクションは常に1番目の引数にストアのインスタンスを受け取ることが期待され、2番目以降にはオプショナルな追加の引数が続きます。
 
 ``` js
-const store = new Vuex.Store({
-  state: {
-    count: 1
-  },
-  mutations: {
-    INCREMENT (state, x) {
-      state.count += x
+// 最も単純なアクション
+function increment (store) {
+  store.dispatch('INCREMENT')
+}
+
+// 追加の引数を持つアクション
+// ES2015 の引数分割束縛（argument destructuring）を使用しています
+function incrementBy ({ dispatch }, amount) {
+  dispatch('INCREMENT', amount)
+}
+```
+
+これは、なぜ単純に直接ミューテーションをディスパッチしないのかと、一見馬鹿げて見えるかもしれません。**ミューテーションは同期的でなければならない** というのを覚えていますか？ アクションはそうではありません。アクションの中では非同期の操作をおこなうことができます。
+
+``` js
+function incrementAsync ({ dispatch }) {
+  setTimeout(() => {
+    dispatch('INCREMENT')
+  }, 1000)
+}
+```
+
+より実践的な例として、ショッピングカートをチェックアウトするアクションを挙げます。このアクションは **非同期な API の呼び出し** と、**複数のミューテーションのディスパッチ** をします。
+
+``` js
+function checkout ({ dispatch, state }, products) {
+  // 現在のカート内の商品を保存します
+  const savedCartItems = [...state.cart.added]
+  // チェックアウトのリクエストを送信し、
+  // 楽観的にカート内をクリアします
+  dispatch(types.CHECKOUT_REQUEST)
+  // shop API は成功時のコールバックと失敗時のコールバックを受け取ります
+  shop.buyProducts(
+    products,
+    // 成功処理
+    () => dispatch(types.CHECKOUT_SUCCESS),
+    // 失敗処理
+    () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
+  )
+}
+```
+
+非同期 API 呼び出しの結果は、アクションの返り値やコールバックから受け取るのではなく、同様にミューテーションをディスパッチすることで扱っていることに注意してください。これは **アクションの呼び出しによって生み出される唯一の副作用はミューテーションのディスパッチであるべき** だという経験則です。
+
+### コンポーネント内でのアクション呼び出し
+
+アクション関数はストアのインスタンスへの参照無しに直接呼び出すことができないということに気づいているかもしれません。技術的に、メソッド内で `action(this.$store)` とアクションを呼び出すことはできます。しかし、ストアを "束縛した" 版のアクションをコンポーネントのメソッドとして呼び出すことができればより良いですし、テンプレートの中から簡単に参照することができるようになります。これは `vuex.actions` オプションを使うことで実現できます。
+
+``` js
+// コンポーネント内
+import { incrementBy } from './actions'
+
+const vm = new Vue({
+  vuex: {
+    getters: { ... }, // ステートのゲッター
+    actions: {
+      incrementBy // ES6 オブジェクトリテラル省略記法（object literal shorthand）、同じ名前で束縛します
     }
-  },
-  actions: {
-    // 省略記法
-    // ミューテーション名を提供する
-    increment: 'INCREMENT'
   }
 })
 ```
 
-今、アクションを呼び出すとき:
+上記のコードは元の `incrementBy` アクションをコンポーネントのストアインスタンスへと束縛し、それをコンポーネントのインスタンスメソッド `vm.incrementBy` として追加しています。`vm.incrementBy` に与えられた任意の引数は、第1引数にストアが渡されている状態で元のアクション関数へと渡されます。つまり以下のように呼ばれます。
 
 ``` js
-store.actions.increment(1)
+vm.incrementBy(1)
 ```
 
-単純に私たちに対して以下を呼び出します:
+これは以下と同様です。
 
 ``` js
-store.dispatch('INCREMENT', 1)
+incrementBy(vm.$store, 1)
 ```
 
-アクションに渡される任意の引数は、ミューテーションハンドラに渡されることに注意してください。
+このようにする利点はコンポーネントのテンプレートの中でより簡単にそれを束縛することができるという点です。
 
-### 標準なアクション
+``` html
+<button v-on:click="incrementBy(1)">1増加する</button>
+```
 
-現在のステートに依存しているロジック、または非同期な操作を必要とするアクションについては、それらを関数として定義します。アクション関数は常に第1引数として呼び出す store を取得します:
+アクションを束縛するときに、明示的に異なるメソッド名を使うこともできます。
 
 ``` js
-const vuex = new Vuex({
-  state: {
-    count: 1
-  },
-  mutations: {
-    INCREMENT (state, x) {
-      state += x
-    }
-  },
-  actions: {
-    incrementIfOdd: (store, x) => {
-      if ((store.state.count + 1) % 2 === 0) {
-        store.dispatch('INCREMENT', x)
-      }
+// コンポーネント内
+import { incrementBy } from './actions'
+
+const vm = new Vue({
+  vuex: {
+    getters: { ... },
+    actions: {
+      plus: incrementBy // 異なる名前で束縛します
     }
   }
 })
 ```
 
+このようにすることで、アクションは `vm.incrementBy` ではなく、 `vm.plus` と束縛されるでしょう。
 
-関数本体それほど冗長にしない ES6 の argument destructuring を使用するのが一般的です(ここでは、`dispatch` 関数は store インスタンスに事前にバインドされているように、それをメソッドとして呼び出す必要はありません):
+### インラインアクション
+
+もしアクションがコンポーネント特有のものであれば、それを単純にインラインで定義することもできます。
 
 ``` js
-// ...
-actions: {
-  incrementIfOdd: ({ dispatch, state }, x) => {
-    if ((state.count + 1) % 2 === 0) {
-      dispatch('INCREMENT', x)
+const vm = new Vue({
+  vuex: {
+    getters: { ... },
+    actions: {
+      plus: ({ dispatch }) => dispatch('INCREMENT')
     }
   }
-}
+})
 ```
 
-以下のように、文字列省略記法は基本的に糖衣構文 (syntax sugar) です:
+### すべてのアクションの束縛
+
+もし、単純にすべての共通のアクションを束縛したいのであれば、以下のように書くことができます。
 
 ``` js
-actions: {
-  increment: 'INCREMENT'
-}
-// 以下に相当 ... :
-actions: {
-  increment: ({ dispatch }, ...payload) => {
-    dispatch('INCREMENT', ...payload)
+import * as actions from './actions'
+
+const vm = new Vue({
+  vuex: {
+    getters: { ... },
+    actions // すべてのアクションを束縛
   }
+})
+```
+
+### モジュール内でアクションをアレンジする
+
+大抵の大きなアプリケーションでは、アクションは様々な目的にあわせてグループやモジュール内でアレンジされるべきでしょう。例えば、userActions モジュールはユーザーの登録、ログイン、ログアウトなどの処理を行い、その一方で、shoppingCartActions モジュールは買い物のためのその他のタスクを処理します。
+
+モジュール化をすることで、様々なコンポーネントで必要とされている最小限のアクションのインポートがよりしやすくなります。
+
+再利用のためにあるアクションモジュールを別のアクションモジュールにインポートする場合もあるかもしれません。
+
+```javascript
+// errorActions.js
+export const setError = ({dispatch}, error) => {
+  dispatch('SET_ERROR', error)
+}
+export const showError = ({dispatch}) => {
+  dispatch('SET_ERROR_VISIBLE', true)
+}
+export const hideError = ({dispatch}) => {
+  dispatch('SET_ERROR_VISIBLE', false)
 }
 ```
 
-### 非同期なアクション
+```javascript
+// userActions.js
+import {setError, showError} from './errorActions'
 
-非同期なアクションの定義に対して同じ構文を使用することができます:
-
-``` js
-// ...
-actions: {
-  incrementAsync: ({ dispatch }, x) => {
-    setTimeout(() => {
-      dispatch('INCREMENT', x)
-    }, 1000)
+export const login = ({dispatch}, username, password) => {
+  if (username && password) {
+    doLogin(username, password).done(res => {
+      dispatch('SET_USERNAME', res.username)
+      dispatch('SET_LOGGED_IN', true)
+      dispatch('SET_USER_INFO', res)
+    }).fail(error => {
+      dispatch('SET_INVALID_LOGIN')
+      setError({dispatch}, error)
+      showError({dispatch})
+    })
   }
+}
+
+```
+
+アクションを別のモジュールから呼び出す時や、同一モジュール内の別のアクションを呼び出す時は、アクションが第1引数にストアのインスタンスをとることを覚えておきましょう。すなわち、アクション内で呼び出されるアクションには、呼び出し元が受け取った第1引数をそのまま渡すべきです。
+
+もしアクションを ES6 の分割束縛（destructuring）スタイルで書いているのであれば、呼び出し元のアクションの第1引数は、両方のアクションが必要とするすべてのプロパティ、および、メソッドをカバーする必要があります。例えば、呼び出し元のアクションが *dispatch* のみを使用し、呼び出し先のアクションが *state* と *watch* を使用している時、呼び出し元の第1引数には、以下のように *dispatch*, *state*, *watch* のすべてを渡すべきです。
+
+```javascript
+import {callee} from './anotherActionModule'
+
+export const caller = ({dispatch, state, watch}) => {
+  dispatch('MUTATION_1')
+  callee({state, watch})
 }
 ```
 
-より実践的な例はショッピングカートをチェックアウトする場合です。複数のミューテーションをトリガする必要がある場合があります。チェックアウトを開始されたとき、成功、そして失敗の例を示します:
+そうでなければ、旧式の関数の書き方をするべきです。
 
-``` js
-// ...
-actions: {
-  checkout: ({ dispatch, state }, products) => {
-    // カートアイテムで現在のアイテムを保存する
-    const savedCartItems = [...state.cart.added]
-    // チェックアウトリクエストを送り出し、
-    // 楽観的にカートをクリアします
-    dispatch(types.CHECKOUT_REQUEST)
-    // shop API は成功コールバックと失敗コールバックを受け入れます
-    shop.buyProducts(
-      products,
-      // 成功処理
-      () => dispatch(types.CHECKOUT_SUCCESS),
-      // 失敗処理
-      () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
-    )
-  }
+```javascript
+import {callee} from './anotherActionModule'
+
+export const caller = (store) => {
+  store.dispatch('MUTATION_1')
+  callee(store)
 }
 ```
-
-また、全てのコンポーネントは全体のチェックアウトを行うために `store.actions.checkout(products)` を呼び出す必要があります。
