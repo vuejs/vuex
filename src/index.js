@@ -119,6 +119,7 @@ class Store {
       let res = handler({
         dispatch,
         commit,
+        getters: store.getters,
         state: getNestedState(store.state, path)
       }, payload, cb)
       if (!isPromise(res)) {

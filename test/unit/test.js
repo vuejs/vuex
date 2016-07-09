@@ -184,11 +184,21 @@ describe('Vuex', () => {
         [TEST] (state, n) {
           state.a += n
         }
+      },
+      actions: {
+        check ({ getters }, value) {
+          // check for exposing getters into actions
+          expect(getters.hasAny).to.equal(value)
+        }
       }
     })
     expect(store.getters.hasAny).to.equal(false)
+    store.dispatch('check', false)
+
     store.commit(TEST, 1)
+
     expect(store.getters.hasAny).to.equal(true)
+    store.dispatch('check', true)
   })
 
   it('dynamic module registration', () => {
@@ -799,23 +809,43 @@ describe('Vuex', () => {
         inc: state => state.count++
       },
       getters: {
-        hasAny: state => state.count > 0
+        count: state => state.count
+      },
+      actions: {
+        check ({ getters }, value) {
+          expect(getters.count).to.equal(value)
+        }
       }
     })
 
     const spy = sinon.spy()
     const vm = new Vue({
       computed: {
-        a: () => store.getters.hasAny
+        a: () => store.getters.count
       },
       watch: {
         a: spy
       }
     })
 
-    expect(vm.a).to.equal(false)
+    expect(vm.a).to.equal(0)
+    store.dispatch('check', 0)
+
     store.commit('inc')
-    expect(vm.a).to.equal(true)
+
+    expect(vm.a).to.equal(1)
+    store.dispatch('check', 1)
+
+    // update getters
+    store.hotUpdate({
+      getters: {
+        count: state => state.count * 10
+      }
+    })
+
+    expect(vm.a).to.equal(10)
+    store.dispatch('check', 10)
+
     Vue.nextTick(() => {
       expect(spy).to.have.been.called
       done()
