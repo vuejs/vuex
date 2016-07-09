@@ -184,11 +184,21 @@ describe('Vuex', () => {
         [TEST] (state, n) {
           state.a += n
         }
+      },
+      actions: {
+        check ({ getters }, value) {
+          // check for exposing getters into actions
+          expect(getters.hasAny).to.equal(value)
+        }
       }
     })
     expect(store.getters.hasAny).to.equal(false)
+    store.dispatch('check', false)
+
     store.commit(TEST, 1)
+
     expect(store.getters.hasAny).to.equal(true)
+    store.dispatch('check', true)
   })
 
   it('dynamic module registration', () => {
