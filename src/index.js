@@ -1,6 +1,6 @@
 import devtoolPlugin from './plugins/devtool'
 import applyMixin from './mixin'
-import { mapGetters, mapActions } from './helpers'
+import { mapState, mapMutations, mapGetters, mapActions } from './helpers'
 
 let Vue // bind on install
 
@@ -323,6 +323,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default {
   Store,
   install,
+  mapState,
+  mapMutations,
   mapGetters,
   mapActions
 }
