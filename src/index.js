@@ -119,7 +119,8 @@ class Store {
       let res = handler({
         dispatch,
         commit,
-        state: getNestedState(store.state, path)
+        state: getNestedState(store.state, path),
+        rootState: store.state
       }, payload, cb)
       if (!isPromise(res)) {
         res = Promise.resolve(res)
@@ -275,7 +276,7 @@ function extractModuleGetters (getters = {}, modules = {}, path = []) {
           return
         }
         getters[getterKey] = function wrappedGetter (state) {
-          return rawGetter(getNestedState(state, modulePath))
+          return rawGetter(getNestedState(state, modulePath), state)
         }
       })
     }

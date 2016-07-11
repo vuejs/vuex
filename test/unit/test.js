@@ -368,9 +368,10 @@ describe('Vuex', () => {
     let calls = 0
     const makeAction = n => {
       return {
-        [TEST] ({ state }) {
+        [TEST] ({ state, rootState }) {
           calls++
           expect(state.a).to.equal(n)
+          expect(rootState).to.equal(store.state)
         }
       }
     }
@@ -414,7 +415,12 @@ describe('Vuex', () => {
 
   it('module: getters', function () {
     const makeGetter = n => ({
-      [`getter${n}`]: state => state.a
+      [`getter${n}`]: (state, rootState) => {
+        if (rootState) {
+          expect(rootState).to.equal(store.state)
+        }
+        return state.a
+      }
     })
     const store = new Vuex.Store({
       state: {
