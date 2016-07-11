@@ -1,5 +1,5 @@
 /*!
- * Vuex v2.0.0-rc.2
+ * Vuex v2.0.0-rc.3
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -67,7 +67,7 @@
     Object.keys(map).forEach(function (key) {
       var fn = map[key];
       res[key] = function mappedState() {
-        return fn.call(this, this.$store.state);
+        return fn.call(this, this.$store.state, this.$store.getters);
       };
     });
     return res;
@@ -298,6 +298,7 @@
           var res = handler({
             dispatch: dispatch,
             commit: commit,
+            getters: store.getters,
             state: getNestedState(store.state, path),
             rootState: store.state
           }, payload, cb);
@@ -455,7 +456,7 @@
       var fn = getters[key];
       // use computed to leverage its lazy-caching mechanism
       computed[key] = function () {
-        return fn(store._vm.state);
+        return fn(store);
       };
       Object.defineProperty(store.getters, key, {
         get: function get() {
@@ -481,25 +482,37 @@
     var modules = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
     var path = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
 
-    if (!modules) return getters;
+    if (!path.length) {
+      wrapGetters(getters, getters, path, true);
+    }
+    if (!modules) {
+      return getters;
+    }
     Object.keys(modules).forEach(function (key) {
       var module = modules[key];
       var modulePath = path.concat(key);
       if (module.getters) {
-        Object.keys(module.getters).forEach(function (getterKey) {
-          var rawGetter = module.getters[getterKey];
-          if (getters[getterKey]) {
-            console.error('[vuex] duplicate getter key: ' + getterKey);
-            return;
-          }
-          getters[getterKey] = function wrappedGetter(state) {
-            return rawGetter(getNestedState(state, modulePath), state);
-          };
-        });
+        wrapGetters(getters, module.getters, modulePath);
       }
       extractModuleGetters(getters, module.modules, modulePath);
     });
     return getters;
+  }
+
+  function wrapGetters(getters, moduleGetters, modulePath, force) {
+    Object.keys(moduleGetters).forEach(function (getterKey) {
+      var rawGetter = moduleGetters[getterKey];
+      if (getters[getterKey] && !force) {
+        console.error('[vuex] duplicate getter key: ' + getterKey);
+        return;
+      }
+      getters[getterKey] = function wrappedGetter(store) {
+        return rawGetter(getNestedState(store.state, modulePath), // local state
+        store.getters, // getters
+        store.state // root state
+        );
+      };
+    });
   }
 
   function enableStrictMode(store) {
@@ -517,9 +530,9 @@
   }
 
   function getNestedState(state, path) {
-    return path.reduce(function (state, key) {
+    return path.length ? path.reduce(function (state, key) {
       return state[key];
-    }, state);
+    }, state) : state;
   }
 
   function install(_Vue) {
