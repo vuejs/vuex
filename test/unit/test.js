@@ -3,7 +3,7 @@ import chai, { expect } from 'chai'
 import sinonChai from 'sinon-chai'
 import sinon from 'sinon'
 import Vue from 'vue'
-import Vuex, { mapGetters, mapActions } from '../../build/dev-entry'
+import Vuex, { mapState, mapMutations, mapGetters, mapActions } from '../../build/dev-entry'
 
 Vue.use(Vuex)
 chai.use(sinonChai)
@@ -213,6 +213,62 @@ describe('Vuex', () => {
     })
     const child = new Vue({ parent: vm })
     expect(child.$store).to.equal(store)
+  })
+
+  it('helper: mapState', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState({
+        a: state => state.a + 1
+      })
+    })
+    expect(vm.a).to.equal(2)
+    store.state.a++
+    expect(vm.a).to.equal(3)
+  })
+
+  it('helper: mapMutations (array)', () => {
+    const store = new Vuex.Store({
+      state: { count: 0 },
+      mutations: {
+        inc: state => state.count++,
+        dec: state => state.count--
+      }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapMutations(['inc', 'dec'])
+    })
+    vm.inc()
+    expect(store.state.count).to.equal(1)
+    vm.dec()
+    expect(store.state.count).to.equal(0)
+  })
+
+  it('helper: mapMutations (object)', () => {
+    const store = new Vuex.Store({
+      state: { count: 0 },
+      mutations: {
+        inc: state => state.count++,
+        dec: state => state.count--
+      }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapMutations({
+        plus: 'inc',
+        minus: 'dec'
+      })
+    })
+    vm.plus()
+    expect(store.state.count).to.equal(1)
+    vm.minus()
+    expect(store.state.count).to.equal(0)
   })
 
   it('helper: mapGetters (array)', () => {
