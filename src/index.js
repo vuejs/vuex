@@ -246,7 +246,7 @@ function initStoreState (store, state, getters) {
   Object.keys(getters).forEach(key => {
     const fn = getters[key]
     // use computed to leverage its lazy-caching mechanism
-    computed[key] = () => fn(store._vm.state)
+    computed[key] = () => fn(store)
     Object.defineProperty(store.getters, key, {
       get: () => store._vm[key]
     })
@@ -265,25 +265,38 @@ function initStoreState (store, state, getters) {
 }
 
 function extractModuleGetters (getters = {}, modules = {}, path = []) {
-  if (!modules) return getters
+  if (!path.length) {
+    wrapGetters(getters, getters, path, true)
+  }
+  if (!modules) {
+    return getters
+  }
   Object.keys(modules).forEach(key => {
     const module = modules[key]
     const modulePath = path.concat(key)
     if (module.getters) {
-      Object.keys(module.getters).forEach(getterKey => {
-        const rawGetter = module.getters[getterKey]
-        if (getters[getterKey]) {
-          console.error(`[vuex] duplicate getter key: ${getterKey}`)
-          return
-        }
-        getters[getterKey] = function wrappedGetter (state) {
-          return rawGetter(getNestedState(state, modulePath), state)
-        }
-      })
+      wrapGetters(getters, module.getters, modulePath)
     }
     extractModuleGetters(getters, module.modules, modulePath)
   })
   return getters
+}
+
+function wrapGetters (getters, moduleGetters, modulePath, force) {
+  Object.keys(moduleGetters).forEach(getterKey => {
+    const rawGetter = moduleGetters[getterKey]
+    if (getters[getterKey] && !force) {
+      console.error(`[vuex] duplicate getter key: ${getterKey}`)
+      return
+    }
+    getters[getterKey] = function wrappedGetter (store) {
+      return rawGetter(
+        getNestedState(store.state, modulePath), // local state
+        store.getters, // getters
+        store.state // root state
+      )
+    }
+  })
 }
 
 function enableStrictMode (store) {
@@ -301,7 +314,9 @@ function isPromise (val) {
 }
 
 function getNestedState (state, path) {
-  return path.reduce((state, key) => state[key], state)
+  return path.length
+    ? path.reduce((state, key) => state[key], state)
+    : state
 }
 
 function install (_Vue) {

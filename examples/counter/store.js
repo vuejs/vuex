@@ -43,14 +43,16 @@ const actions = {
   }
 }
 
+// getters are functions
+const getters = {
+  evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
+}
+
 // A Vuex instance is created by combining the state, mutations, actions,
-// and getters. Components should prefer interacting with the store via
-// getters and actions.
+// and getters.
 export default new Vuex.Store({
   state,
-  getters: {
-    count: state => state.count
-  },
+  getters,
   actions,
   mutations
 })

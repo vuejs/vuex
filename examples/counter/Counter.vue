@@ -1,6 +1,6 @@
 <template>
   <div>
-    Clicked: {{ count }} times
+    Clicked: {{ $store.state.count }} times, count is {{ evenOrOdd }}.
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
     <button @click="incrementIfOdd">Increment if odd</button>
@@ -13,7 +13,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: mapGetters([
-    'count'
+    'evenOrOdd'
   ]),
   methods: mapActions([
     'increment',

@@ -486,10 +486,9 @@ describe('Vuex', () => {
 
   it('module: getters', function () {
     const makeGetter = n => ({
-      [`getter${n}`]: (state, rootState) => {
-        if (rootState) {
-          expect(rootState).to.equal(store.state)
-        }
+      [`getter${n}`]: (state, getters, rootState) => {
+        expect(getters.constant).to.equal(0)
+        expect(rootState).to.equal(store.state)
         return state.a
       }
     })
@@ -497,7 +496,10 @@ describe('Vuex', () => {
       state: {
         a: 1
       },
-      getters: makeGetter(1),
+      getters: {
+        constant: () => 0,
+        ...makeGetter(1)
+      },
       modules: {
         nested: {
           state: { a: 2 },
