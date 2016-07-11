@@ -10,8 +10,6 @@ Vuex は実際、あなたがコードを構造化する方法を制限しませ
 
 Vuex のミューテーション、アクション、ゲッターの良いところは、**それらは全てただの関数である**ということです。これらのルールに従っている限り、あなたのプロジェクトをどのように構造化するかはあなた次第です。しかし、Vuexを利用した異なるプロジェクトにすぐに慣れることができるようにいくつかの規約があるとよいでしょう。なので、ここではアプリケーションの規模に応じて、いくつかの推奨の構造を紹介したいと思います。
 
---- ここまで
-
 ### シンプルなプロジェクト
 
 シンプルなプロジェクトに対しては、単純に**ストア**と**アクション**それぞれのファイルに定義することができます:
@@ -31,3 +29,104 @@ Vuex のミューテーション、アクション、ゲッターの良いとこ
 実際の例として、 [Counter example](https://github.com/vuejs/vuex/tree/master/examples/counter) や [TodoMVC example](https://github.com/vuejs/vuex/tree/master/examples/todomvc) を確認してください。
 
 あるいは、ミューテーションだけをそれ自身のファイルに分割することができます。
+
+### 中規模から大規模なプロジェクト
+
+それなりに手の込んだアプリケーションであれば、おそらくさらに複数の Vuex 関連のコードをそれぞれがアプリの特定のドメインを担う複数の"モジュール"に分割したくなります(ざっくりと比べれば、普通の Flux の" stores "、 Redux の " reducers " に相当します)。各モジュールは、状態のサブツリーを管理し、サブツリーの初期状態とサブツリーで動作する全ての変更を公開します。
+
+```bash
+├── index.html
+├── main.js
+├── api
+│   └── ... # APIリクエストを作成するための抽象化
+├── components
+│   ├── App.vue
+│   └── ...
+└── vuex
+    ├── actions.js        # 全てのアクションのエクスポート
+    ├── store.js          # モジュールを集め、ストアを公開する
+    ├── mutation-types.js # 定数
+    └── modules
+        ├── cart.js       # カートのための状態とミューテーション
+        └── products.js   # 商品のための状態とミューテーション
+```
+
+典型的なモジュールは次のようになります:
+
+``` js
+// vuex/modules/products.js
+import {
+  RECEIVE_PRODUCTS,
+  ADD_TO_CART
+} from '../mutation-types'
+
+// 初期状態
+const state = {
+  all: []
+}
+
+// ミューテーション
+const mutations = {
+  [RECEIVE_PRODUCTS] (state, products) {
+    state.all = products
+  },
+
+  [ADD_TO_CART] (state, productId) {
+    state.all.find(p => p.id === productId).inventory--
+  }
+}
+
+export default {
+  state,
+  mutations
+}
+```
+
+そして、`vuex/store.js` では、 Vuex インスタンスを生成するために複数のモジュールをひとつに集めて整理します( "assemble" ):
+
+```js
+// vuex/store.js
+import Vue from 'vue'
+import Vuex from '../../../src'
+// それぞれのモジュールをインポートする
+import cart from './modules/cart'
+import products from './modules/products'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  // combine sub modules
+  modules: {
+    cart,
+    products
+  }
+})
+```
+
+ここで、 `cart` モジュールの初期状態は、ルートステートツリーの `store.state.cart` としてアタッチされます。加えて、全てのサブモジュールで定義されたミューテーションは、それに関係したサブステートツリーを受け取ります。なので、`cart` モジュールで定義されたミューテーションは、`store.state.cart` を第一引数として受け取ることになります。
+
+サブステートツリーのルートは、モジュール内部で自身を取りかえることはできません。例えば、次のコードは動作しません:
+
+``` js
+const mutations = {
+  SOME_MUTATION (state) {
+    state = { ... }
+  }
+}
+```
+
+代わりに、常にサブツリーのルートののプロパティとして、実際の状態を保存します。
+
+``` js
+const mutations = {
+  SOME_MUTATION (state) {
+    state.value = { ... }
+  }
+}
+```
+
+全てのモジュールは単純にオブジェクトと関数をエクスポートしているので、それらはかなり簡単にテストでき、メンテナンスも用意です。そして、ホットリロードできます。また、あなたの好みに合った構造を見つけるためにここで紹介したパターンを変えることは自由です。
+
+アクションをモジュール内に置くことはできないことに注意しましょう。なぜならば、ひとつのアクションが複数のモジュールに影響を与えるミューテーションをディスパッチするかもしれないからです。また、より「関心の分離」を進めるため、状態の形やミューテーションの実装の詳細からアクションを分けることをおすすめします。もし、アクションのファイルが非常に大きくなったなら、それをファイルに移し、長い非同期アクションの実装をいくつかのファイルに分割できます。
+
+例として、 [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart) をみてみるとよいでしょう。
