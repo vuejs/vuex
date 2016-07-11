@@ -229,17 +229,22 @@ describe('Vuex', () => {
     const store = new Vuex.Store({
       state: {
         a: 1
+      },
+      getters: {
+        b: () => 2
       }
     })
     const vm = new Vue({
       store,
       computed: mapState({
-        a: state => state.a + 1
+        a: (state, getters) => {
+          return state.a + getters.b
+        }
       })
     })
-    expect(vm.a).to.equal(2)
-    store.state.a++
     expect(vm.a).to.equal(3)
+    store.state.a++
+    expect(vm.a).to.equal(4)
   })
 
   it('helper: mapMutations (array)', () => {

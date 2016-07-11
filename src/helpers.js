@@ -3,7 +3,7 @@ export function mapState (map) {
   Object.keys(map).forEach(key => {
     const fn = map[key]
     res[key] = function mappedState () {
-      return fn.call(this, this.$store.state)
+      return fn.call(this, this.$store.state, this.$store.getters)
     }
   })
   return res
