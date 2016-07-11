@@ -1,5 +1,5 @@
 /*!
- * Vuex v2.0.0-rc.1
+ * Vuex v2.0.0-rc.2
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -9,19 +9,21 @@
   (global.Vuex = factory());
 }(this, function () { 'use strict';
 
-  var hook = typeof window !== 'undefined' && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+  var devtoolHook = typeof window !== 'undefined' && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
   function devtoolPlugin(store) {
-    if (!hook) return;
+    if (!devtoolHook) return;
 
-    hook.emit('vuex:init', store);
+    store._devtoolHook = devtoolHook;
 
-    hook.on('vuex:travel-to-state', function (targetState) {
+    devtoolHook.emit('vuex:init', store);
+
+    devtoolHook.on('vuex:travel-to-state', function (targetState) {
       store.replaceState(targetState);
     });
 
     store.subscribe(function (mutation, state) {
-      hook.emit('vuex:mutation', mutation, state);
+      devtoolHook.emit('vuex:mutation', mutation, state);
     });
   }
 
@@ -60,11 +62,41 @@
     }
   }
 
-  function mapGetters(getters) {
+  function mapState(map) {
     var res = {};
-    normalizeMap(getters).forEach(function (_ref) {
+    Object.keys(map).forEach(function (key) {
+      var fn = map[key];
+      res[key] = function mappedState() {
+        return fn.call(this, this.$store.state);
+      };
+    });
+    return res;
+  }
+
+  function mapMutations(mutations) {
+    var res = {};
+    normalizeMap(mutations).forEach(function (_ref) {
       var key = _ref.key;
       var val = _ref.val;
+
+      res[key] = function mappedMutation() {
+        var _$store;
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        return (_$store = this.$store).commit.apply(_$store, [val].concat(args));
+      };
+    });
+    return res;
+  }
+
+  function mapGetters(getters) {
+    var res = {};
+    normalizeMap(getters).forEach(function (_ref2) {
+      var key = _ref2.key;
+      var val = _ref2.val;
 
       res[key] = function mappedGetter() {
         if (!(val in this.$store.getters)) {
@@ -78,18 +110,18 @@
 
   function mapActions(actions) {
     var res = {};
-    normalizeMap(actions).forEach(function (_ref2) {
-      var key = _ref2.key;
-      var val = _ref2.val;
+    normalizeMap(actions).forEach(function (_ref3) {
+      var key = _ref3.key;
+      var val = _ref3.val;
 
       res[key] = function mappedAction() {
-        var _$store;
+        var _$store2;
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
+        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
         }
 
-        return (_$store = this.$store).dispatch.apply(_$store, [val].concat(args));
+        return (_$store2 = this.$store).dispatch.apply(_$store2, [val].concat(args));
       };
     });
     return res;
@@ -142,13 +174,8 @@
       var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
       classCallCheck(this, Store);
 
-      if (!Vue) {
-        throw new Error('[vuex] must call Vue.use(Vuex) before creating a store instance.');
-      }
-
-      if (typeof Promise === 'undefined') {
-        throw new Error('[vuex] vuex requires a Promise polyfill in this browser.');
-      }
+      assert(Vue, 'must call Vue.use(Vuex) before creating a store instance.');
+      assert(typeof Promise !== 'undefined', 'vuex requires a Promise polyfill in this browser.');
 
       var _options$state = options.state;
       var state = _options$state === undefined ? {} : _options$state;
@@ -166,6 +193,7 @@
       this._actions = Object.create(null);
       this._mutations = Object.create(null);
       this._subscribers = [];
+      this._pendingActions = [];
 
       // bind commit and dispatch to self
       var store = this;
@@ -207,10 +235,9 @@
       value: function module(path, _module, hot) {
         var _this2 = this;
 
+        this._committing = true;
         if (typeof path === 'string') path = [path];
-        if (!Array.isArray(path)) {
-          throw new Error('[vuex] module path must be a string or an Array.');
-        }
+        assert(Array.isArray(path), 'module path must be a string or an Array.');
 
         var isRoot = !path.length;
         var state = _module.state;
@@ -244,6 +271,7 @@
             _this2.module(path.concat(key), modules[key], hot);
           });
         }
+        this._committing = false;
       }
     }, {
       key: 'mutation',
@@ -270,15 +298,20 @@
           var res = handler({
             dispatch: dispatch,
             commit: commit,
-            state: getNestedState(store.state, path)
+            state: getNestedState(store.state, path),
+            rootState: store.state
           }, payload, cb);
           if (!isPromise(res)) {
             res = Promise.resolve(res);
           }
-          return res.catch(function (err) {
-            console.error('[vuex] error in Promise returned from action "' + type + '":');
-            console.error(err);
-          });
+          if (store._devtoolHook) {
+            return res.catch(function (err) {
+              store._devtoolHook.emit('vuex:error', err);
+              throw err;
+            });
+          } else {
+            return res;
+          }
         });
       }
     }, {
@@ -315,13 +348,23 @@
       value: function dispatch(type, payload) {
         var entry = this._actions[type];
         if (!entry) {
-          debugger;
           console.error('[vuex] unknown action type: ' + type);
           return;
         }
-        return entry.length > 1 ? Promise.all(entry.map(function (handler) {
+        var res = entry.length > 1 ? Promise.all(entry.map(function (handler) {
           return handler(payload);
         })) : entry[0](payload);
+        var pending = this._pendingActions;
+        pending.push(res);
+        return res.then(function (value) {
+          pending.splice(pending.indexOf(res), 1);
+          return value;
+        });
+      }
+    }, {
+      key: 'onActionsResolved',
+      value: function onActionsResolved(cb) {
+        Promise.all(this._pendingActions).then(cb);
       }
     }, {
       key: 'subscribe',
@@ -338,9 +381,19 @@
         };
       }
     }, {
+      key: 'watch',
+      value: function watch(getter, cb, options) {
+        var _this4 = this;
+
+        assert(typeof getter === 'function', 'store.watch only accepts a function.');
+        return this._vm.$watch(function () {
+          return getter(_this4.state);
+        }, cb, options);
+      }
+    }, {
       key: 'hotUpdate',
       value: function hotUpdate(newOptions) {
-        var _this4 = this;
+        var _this5 = this;
 
         this._actions = Object.create(null);
         this._mutations = Object.create(null);
@@ -362,16 +415,16 @@
         var getters = extractModuleGetters(newOptions.getters, newOptions.modules);
         if (Object.keys(getters).length) {
           (function () {
-            var oldVm = _this4._vm;
-            initStoreState(_this4, _this4.state, getters);
-            if (_this4.strict) {
-              enableStrictMode(_this4);
+            var oldVm = _this5._vm;
+            initStoreState(_this5, _this5.state, getters);
+            if (_this5.strict) {
+              enableStrictMode(_this5);
             }
             // dispatch changes in all subscribed watchers
             // to force getter re-evaluation.
-            _this4._committing = true;
+            _this5._committing = true;
             oldVm.state = null;
-            _this4._committing = false;
+            _this5._committing = false;
             Vue.nextTick(function () {
               return oldVm.$destroy();
             });
@@ -384,11 +437,15 @@
         return this._vm.state;
       },
       set: function set(v) {
-        throw new Error('[vuex] Use store.replaceState() to explicit replace store state.');
+        assert(false, 'Use store.replaceState() to explicit replace store state.');
       }
     }]);
     return Store;
   }();
+
+  function assert(condition, msg) {
+    if (!condition) throw new Error('[vuex] ' + msg);
+  }
 
   function initStoreState(store, state, getters) {
     // bind getters
@@ -436,7 +493,7 @@
             return;
           }
           getters[getterKey] = function wrappedGetter(state) {
-            return rawGetter(getNestedState(state, modulePath));
+            return rawGetter(getNestedState(state, modulePath), state);
           };
         });
       }
@@ -447,9 +504,7 @@
 
   function enableStrictMode(store) {
     store._vm.$watch('state', function () {
-      if (!store._committing) {
-        throw new Error('[vuex] Do not mutate vuex store state outside mutation handlers.');
-      }
+      assert(store._committing, 'Do not mutate vuex store state outside mutation handlers.');
     }, { deep: true, sync: true });
   }
 
@@ -484,6 +539,8 @@
   var index = {
     Store: Store,
     install: install,
+    mapState: mapState,
+    mapMutations: mapMutations,
     mapGetters: mapGetters,
     mapActions: mapActions
   };
