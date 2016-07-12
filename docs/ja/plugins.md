@@ -1,0 +1,117 @@
+# プラグイン
+
+Vuex ストア は、各ミューテーションへのフックを公開する `plugins` オプションを受け付けます。 Vuex プラグインは、単一の引数としてストアを受けつけるただの関数です:
+
+``` js
+const myPlugin = store => {
+  // ストアが初期化されたときに呼ばれる
+  store.on('mutation', (mutation, state) => {
+    // それぞれのミューテーションの後に呼ばれる。
+    // ミューテーションは、通常のディスパッチに対して、
+    // オブジェクトスタイルディスパッチのための独自のミューテーションオブジェクトのような { type, payload } の形式で提供されます
+  })
+}
+```
+
+そして、このように利用することができます:
+
+``` js
+const store = new Vuex.Store({
+  // ...
+  plugins: [myPlugin]
+})
+```
+
+### プラグイン内でのディスパッチ
+
+プラグインは、直接、状態を変更することは許されていません。これはコンポーネントに似ています。プラグインは、コンポーネント同様にミューテーションをディスパッチすることによる変更のトリガーによってのみ、状態を変更することができます。
+
+ミューテーションのディスパッチによって、プラグインをストアとデータソースの同期をおこなうために利用することができます。 websocket データソースとストアを例にします (これは不自然な例です。実際には、さらに複雑なタスクのために `createPlugn` 関数は、いくつかのオプションを受け取れます):
+
+``` js
+export default function createWebSocketPlugin (socket) {
+  return store => {
+    socket.on('data', data => {
+      store.dispatch('RECEIVE_DATA', data)
+    })
+    store.on('mutation', (mutation) => {
+      if (mutation.type === 'UPDATE_DATA') {
+        socket.emit('update', mutation.payload)
+      }
+    })
+  }
+}
+```
+
+``` js
+const plugin = createWebSocketPlugin(socket)
+
+const store = new Vuex.Store({
+  state,
+  mutations,
+  plugins: [plugin]
+})
+```
+
+### 状態のスナップショットを撮る
+
+時々、状態の"スナップショット"を受け取りたくなるはずです、そして、ミューテーション前後の状態を比較したくなるでしょう。それを実現するために、状態オブジェクトのディープコピーを行うことが必要になるはずです:
+
+``` js
+const myPluginWithSnapshot = store => {
+  let prevState = _.cloneDeep(store.state)
+  store.on('mutation', (mutation, state) => {
+    let nextState = _.cloneDeep(state)
+
+    // 以前の状態と以後の状態を比較...
+
+    // 次のミューテーションのために状態を保存
+    prevState = nextState
+  })
+}
+```
+
+**状態のスナップショットを撮るプラグインは開発の間だけ使われるべきです。**  Webpack や Browserify を使っていれば、ビルドツールにそれを処理させることができます:
+
+``` js
+const store = new Vuex.Store({
+  // ...
+  plugins: process.env.NODE_ENV !== 'production'
+    ? [myPluginWithSnapshot]
+    : []
+})
+```
+
+プラグインはデフォルトで利用されることになります。本番環境( production ) では、最終的に `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 Webpack では[DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
+
+### ビルトインロガープラグイン
+
+Vuex には、一般的なデバッグに利用する用途の備え付けのロガープラグインがあります。
+
+```js
+import createLogger from 'vuex/logger'
+
+const store = new Vuex.Store({
+  plugins: [createLogger()]
+})
+```
+
+`createLogger` 関数はいくつかのオプションを受け取ります:
+
+``` js
+const logger = createLogger({
+  collapsed: false, // ログ出力されたミューテーションを自動で展開します
+  transformer (state) {
+    // ロギングの前に、状態を変換します
+    // 例えば、特定のサブツリーのみを返します
+    return state.subTree
+  },
+  mutationTransformer (mutation) {
+    // ミューテーションは、{ type, payload } の形式でログ出力されます
+    // 任意の方法でそれをフォーマットできます
+    return mutation.type
+  }
+})
+```
+
+ロガープラグインは、状態のスナップショットを撮ることに注意しましょう。これは、開発を行っている間だけ利用すべきです。
