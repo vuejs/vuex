@@ -26,7 +26,7 @@ const store = new Vuex.Store({
 
 プラグインは、直接、状態を変更することは許されていません。これはコンポーネントに似ています。プラグインは、コンポーネント同様にミューテーションをディスパッチすることによる変更のトリガーによってのみ、状態を変更することができます。
 
-ミューテーションのディスパッチによって、プラグインをストアとデータソースの同期をおこなうために利用することができます。 websocket データソースとストアを例にします (これは不自然な例です。実際には、さらに複雑なタスクのために `createPlugin` 関数は、いくつかのオプションを受け取れます):
+プラグインを、ミューテーションのディスパッチでストアとデータソースの同期をおこなうために利用することができます。 websocket データソースとストアを例にします (これは不自然な例です。実際には、さらに複雑なタスクのために `createPlugin` 関数は、いくつかのオプションを受け取れます):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -55,7 +55,7 @@ const store = new Vuex.Store({
 
 ### 状態のスナップショットを撮る
 
-時々、状態の"スナップショット"を受け取りたくなるはずです、そして、ミューテーション前後の状態を比較したくなるでしょう。それを実現するために、状態オブジェクトのディープコピーを行うことが必要になるはずです:
+時々、状態の"スナップショット"を撮って、ミューテーション前後の状態を比較したくなることがあるでしょう。それを実現するために、状態オブジェクトのディープコピーを行う必要があります:
 
 ``` js
 const myPluginWithSnapshot = store => {
@@ -71,7 +71,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**状態のスナップショットを撮るプラグインは開発の間だけ使われるべきです。**  Webpack や Browserify を使っていれば、ビルドツールにそれを処理させることができます:
+**状態のスナップショットを撮るプラグインはアプリケーションの開発の間だけ使われるべきです。**  Webpack や Browserify を使っていれば、ビルドツールにそれを処理させることができます:
 
 ``` js
 const store = new Vuex.Store({
@@ -82,7 +82,7 @@ const store = new Vuex.Store({
 })
 ```
 
-プラグインはデフォルトで利用されることになります。本番環境( production ) では、最終的に `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 Webpack では[DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
+上のように記述すれば、プラグインはデフォルトで利用されることになります。本番環境( production ) では、 `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 Webpack では[DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
 
 ### ビルトインロガープラグイン
 
