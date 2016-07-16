@@ -2,7 +2,7 @@
 
 Vuex はアプリケーションの開発を行っている間のミューテーション、モジュール、アクション、ゲッターのホットリローディングをサポートします。Webpack は [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) を使用します。Browserify においても [browserify-hmr](https://github.com/AgentME/browserify-hmr/) プラグインを使用することができます。
 
-ミューテーションとモジュールに対して、`store.hotUpdate()` API method を利用する必要があります:
+ミューテーションとモジュールに対して、API `store.hotUpdate()` メソッドを利用する必要があります:
 
 ``` js
 // store.js
