@@ -11,60 +11,53 @@ const store = new Vuex.Store({ ...options })
 ### Vuex.Store コンストラクタオプション
 
 - **state**
-  
+
   - 型: `Object`
 
-    Vuex store 向けの root なステートオブジェクト
+    Vuex store のための ルートステートオブジェクト
 
     [詳細](state.md)
 
 - **mutations**
 
-  - 型: `Object | Array<Object>`
+  - 型: `Object`
 
-    各エントリキーがミューテーション名とその値がミューテーションハンドラ関数である値であるオブジェクト。ハンドラ関数は常に第1引数として`state` を受信し、そして次のディスパッチ呼び出しに渡される全ての引数を受信する
-
-    オブジェクトの配列を渡す場合は、これらオブジェクトは自動的に最後のオブジェクトにいっしょにマージされる
+    各エントリのキーがミューテーション名、値がミューテーションハンドラ関数のオブジェクト。ハンドラ関数は常に第1引数として`state` を受け取り、以降はディスパッチ呼び出しで渡された全ての引数を受け取る
 
     [詳細](mutations.md)
 
-- **actions**
+- **modules**
 
-  - 型: `Object | Array<Object>`
+  - 型: `Object`
 
-    各エントリキーがアクション名とその値のいずれかであるオブジェクト
-
-    1. ミューテーション名の文字列。または、
-    2. 第1引数として store を受信する関数、第2引数以降は追加されたペイロード引数
-
-    Vuex はこれらエントリを処理し、そして実際に呼び出し可能なアクション関数を作成し、さらに store の `actions` プロパティを公開する
-
-    オブジェクトの配列を渡す場合は、これらオブジェクトは自動的に最後のオブジェクトにいっしょにマージされる
-
-    [詳細](actions.md)
-
-- **middlewares**
-
-  - 型: `Array<Object>`
-
-    ミドルウェアオブジェクトの配列で以下のような形式であること:
+    サブモジュールを含む次のような形式のオブジェクトはストアにマージされます。
 
     ``` js
     {
-      snapshot: Boolean, // default: false
-      onInit: Function,
-      onMutation: Function
+      key: {
+        state,
+        mutations
+      },
+      ...
     }
     ```
 
-    全てのフィールドは任意 [詳細](middlewares.md)
+    各モジュールは、ルートオプションに似た `state` と `mutations` を含むことができます。モジュールの状態は、モジュールのキーを使って、ストアのルートステートにアタッチされます。モジュールのミューテーションは、第一引数としてルートステートの代わりに、モジュール自身のステートだけを受け取ります。
+
+- **plugins**
+
+  - 型: `Array<Function>`
+
+    プラグイン関数の配列は、ストアに適用されます。このプラグインは、ストアだけを引数として受け取り、外部への永続化、ロギング、デバッギングのために、ミューテーションを監視するか、または、 websocket や observable のような内部のデータのためにミューテーションをディスパッチします。
+
+    [詳細](plugins.md)
 
 - **strict**
 
   - 型: `Boolean`
-  - デフォルト値: `false`
+  - デフォルト: `false`
 
-    Vuex store を 厳格モードに強制する。厳格モードではミューテーションハンドラの外側の Vuex ステートに任意に変異するとき、エラーを投げる
+    Vuex ストアを厳格モードにします。厳格モードでは、ミューテーションハンドラ以外で、 Vuex の状態の変更を行うと、エラーが投げられます。
 
     [詳細](strict.md)
 
@@ -72,22 +65,49 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - 型: `Object`
+  - type: `Object`
 
-    root なステート。読み取り専用
-
-- **actions**
-
-  - 型: `Object`
-
-    呼び出し可能なアクション関数
+    ルートステート。読み取り専用です。
 
 ### Vuex.Store インスタンスメソッド
 
-- **dispatch(mutationName: String, ...args)**
+- **dispatch(mutationName: String, ...args) | dispatch(mutation: Object)**
 
-  直接ミューテーションをディスパッチする。これは一般的には、アプリケーションコードでアクションを使用するほうが必要な場合のような、特定の状況で有用
+  ミューテーションを直接ディスパッチします。これは、アプリケーションコードで一般的にアクションを使ったほうがよい特定の状況で有用です。
+
+  *オブジェクトスタイルディスパッチ*
+
+  > requires >=0.6.2
+
+  他にオブジェクトを使って、ミューテーションをディスパッチできます。
+
+  ``` js
+  store.dispatch({
+    type: 'INCREMENT',
+    payload: 10
+  })
+  ```
+
+- **replaceState(state: Object)**
+
+  ストアのルートステートを置き換えます。これは、ステートの再格納やタイムトラベルのためだけに利用すべきです。
+
+- **watch(getter: Function, cb: Function, [options: Object])**
+
+  リアクティブにゲッター関数の返す値を監視します。そして、値が変わった場合は、コールバックを呼びます。ゲッターはストアの状態のみを引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます.
+
+  監視を止める場合は、ハンドラ関数の返り値を関数として呼び出します。
 
 - **hotUpdate(newOptions: Object)**
 
-  ホットスワップな新しいアクションとミューテーション [詳細](hot-reload.md)
+  新しいアクションとミューテーションでホットスワップします。[詳細](hot-reload.md)
+
+- **on(event: String, cb: Function)**
+
+- **once(event: String, cb: Function)**
+
+- **off([event: String, cb: Function])**
+
+- **emit(event: String, ...args)**
+
+  Vue インスタンスのイベントインターフェイスと同様です。ストアの発行する唯一のイベントは `mutation` です。 (こちらを見てください [Plugins](plugins.md)).
