@@ -5,7 +5,7 @@ Vuex ストア は、各ミューテーションへのフックを公開する `
 ``` js
 const myPlugin = store => {
   // ストアが初期化されたときに呼ばれる
-  store.on('mutation', (mutation, state) => {
+  store.subscribe((mutation, state) => {
     // それぞれのミューテーションの後に呼ばれる。
     // ミューテーションは、通常のディスパッチに対して、
     // オブジェクトスタイルディスパッチのための独自のミューテーションオブジェクトのような { type, payload } の形式で提供されます
@@ -34,7 +34,7 @@ export default function createWebSocketPlugin (socket) {
     socket.on('data', data => {
       store.dispatch('RECEIVE_DATA', data)
     })
-    store.on('mutation', (mutation) => {
+    store.subscribe((mutation) => {
       if (mutation.type === 'UPDATE_DATA') {
         socket.emit('update', mutation.payload)
       }
@@ -60,7 +60,7 @@ const store = new Vuex.Store({
 ``` js
 const myPluginWithSnapshot = store => {
   let prevState = _.cloneDeep(store.state)
-  store.on('mutation', (mutation, state) => {
+  store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
     // 以前の状態と以後の状態を比較...

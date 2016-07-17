@@ -102,12 +102,13 @@ const store = new Vuex.Store({ ...options })
 
   新しいアクションとミューテーションでホットスワップします。[詳細](hot-reload.md)
 
-- **on(event: String, cb: Function)**
+- **subscribe(handler: Function)**
 
-- **once(event: String, cb: Function)**
+  ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリクタとミューテーション後の状態を受け取ります。
 
-- **off([event: String, cb: Function])**
-
-- **emit(event: String, ...args)**
-
-  Vue インスタンスのイベントインターフェイスと同様です。ストアの発行する唯一のイベントは `mutation` です。 (こちらを見てください [Plugins](plugins.md)).
+  ``` js
+  store.subscribe((mutation, state) => {
+    console.log(mutation.type)
+    console.log(mutation.payload)
+  })
+  ```
