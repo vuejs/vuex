@@ -104,7 +104,7 @@ const store = new Vuex.Store({ ...options })
 
 - **subscribe(handler: Function)**
 
-  ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリクタとミューテーション後の状態を受け取ります。
+  ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリプタとミューテーション後の状態を受け取ります。
 
   ``` js
   store.subscribe((mutation, state) => {
