@@ -20,7 +20,7 @@ class Store {
     this._committing = false
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
-    this._getters = Object.create(null)
+    this._wrappedGetters = Object.create(null)
     this._subscribers = []
     this._pendingActions = []
 
@@ -70,7 +70,7 @@ class Store {
 
     initModule(this, path, module, hot)
 
-    initStoreVM(this, this.state, this._getters)
+    initStoreVM(this, this.state, this._wrappedGetters)
 
     this._committing = false
   }
@@ -175,7 +175,7 @@ class Store {
   hotUpdate (newOptions) {
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
-    this._getters = Object.create(null)
+    this._wrappedGetters = Object.create(null)
     const options = this._options
     if (newOptions.actions) {
       options.actions = newOptions.actions
@@ -271,7 +271,7 @@ function initModule (store, path, module, hot) {
   }
 
   if (getters) {
-    wrapGetters(store._getters, getters, path)
+    wrapGetters(store._wrappedGetters, getters, path)
   }
 
   if (modules) {
