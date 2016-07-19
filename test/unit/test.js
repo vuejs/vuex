@@ -208,12 +208,16 @@ describe('Vuex', () => {
     expect(() => {
       store.module('hi', {
         state: { a: 1 },
-        mutations: { inc: state => state.a++ }
+        mutations: { inc: state => state.a++ },
+        actions: { inc: ({ commit }) => commit('inc') },
+        getters: { a: state => state.a }
       })
     }).not.to.throw()
     expect(store.state.hi.a).to.equal(1)
-    store.commit('inc')
+    expect(store.getters.a).to.equal(1)
+    store.dispatch('inc')
     expect(store.state.hi.a).to.equal(2)
+    expect(store.getters.a).to.equal(2)
   })
 
   it('store injection', () => {
