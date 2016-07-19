@@ -37,7 +37,7 @@ class Store {
     // strict mode
     this.strict = strict
 
-    // init internal vm with root state and getters
+    // init internal vm with root state
     // other options and sub modules will be
     // initialized in this.module method
     initStoreVM(this, state, {})
