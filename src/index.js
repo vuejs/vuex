@@ -34,15 +34,15 @@ class Store {
       return commit.call(store, type, payload)
     }
 
+    // strict mode
+    this.strict = strict
+
     // init state and getters
     const getters = extractModuleGetters(options.getters, modules)
-    initStoreState(this, state, getters)
+    initStoreVM(this, state, getters)
 
     // apply root module
     this.module([], options)
-
-    // strict mode
-    if (strict) enableStrictMode(this)
 
     // apply plugins
     plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
@@ -220,17 +220,7 @@ class Store {
     // update getters
     const getters = extractModuleGetters(newOptions.getters, newOptions.modules)
     if (Object.keys(getters).length) {
-      const oldVm = this._vm
-      initStoreState(this, this.state, getters)
-      if (this.strict) {
-        enableStrictMode(this)
-      }
-      // dispatch changes in all subscribed watchers
-      // to force getter re-evaluation.
-      this._committing = true
-      oldVm.state = null
-      this._committing = false
-      Vue.nextTick(() => oldVm.$destroy())
+      initStoreVM(this, this.state, getters)
     }
   }
 }
@@ -239,7 +229,9 @@ function assert (condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
 }
 
-function initStoreState (store, state, getters) {
+function initStoreVM (store, state, getters) {
+  const oldVm = store._vm
+
   // bind getters
   store.getters = {}
   const computed = {}
@@ -262,6 +254,20 @@ function initStoreState (store, state, getters) {
     computed
   })
   Vue.config.silent = silent
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store)
+  }
+
+  if (oldVm) {
+    // dispatch changes in all subscribed watchers
+    // to force getter re-evaluation.
+    store._committing = true
+    oldVm.state = null
+    store._committing = false
+    Vue.nextTick(() => oldVm.$destroy())
+  }
 }
 
 function extractModuleGetters (getters = {}, modules = {}, path = []) {
