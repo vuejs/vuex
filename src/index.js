@@ -271,9 +271,7 @@ function initModule (store, path, module, hot) {
   }
 
   if (getters) {
-    Object.keys(getters).forEach(key => {
-      wrapGetters(store._getters, getters, path)
-    })
+    wrapGetters(store._getters, getters, path)
   }
 
   if (modules) {
@@ -283,10 +281,10 @@ function initModule (store, path, module, hot) {
   }
 }
 
-function wrapGetters (getters, moduleGetters, modulePath, force) {
+function wrapGetters (getters, moduleGetters, modulePath) {
   Object.keys(moduleGetters).forEach(getterKey => {
     const rawGetter = moduleGetters[getterKey]
-    if (getters[getterKey] && !force) {
+    if (getters[getterKey]) {
       console.error(`[vuex] duplicate getter key: ${getterKey}`)
       return
     }
