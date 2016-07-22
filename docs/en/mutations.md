@@ -67,7 +67,7 @@ mutations: {
 
 ### Silent Dispatch
 
-In some scenarios you may not want the plugins to record the state change. Multiple dispatches to the store in a short period or polled do not always need to be tracked. In these situations is may be considered appropriate to silence the mutations.
+In some scenarios you may not want the plugins to record the state change. Multiple dispatches to the store in a short period or polled do not always need to be tracked. In these situations it may be considered appropriate to silence the mutations.
 
 *Note:* This should be avoided where possible. Silent mutations break the contract of all state changes being tracked by the devtool. Use sparingly and where absolutely necessary.
 
