@@ -225,7 +225,22 @@ describe('Vuex', () => {
     expect(child.$store).toBe(store)
   })
 
-  it('helper: mapState', () => {
+  it('helper: mapState (array)', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState(['a'])
+    })
+    expect(vm.a).toBe(1)
+    store.state.a++
+    expect(vm.a).toBe(2)
+  })
+
+  it('helper: mapState (object)', () => {
     const store = new Vuex.Store({
       state: {
         a: 1
