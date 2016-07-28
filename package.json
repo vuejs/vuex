@@ -9,19 +9,14 @@
     "logger.js"
   ],
   "scripts": {
-    "counter": "cd examples/counter && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "counter-hot": "cd examples/counter-hot && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "todomvc": "cd examples/todomvc && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "cart": "cd examples/shopping-cart && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "chat": "cd examples/chat && webpack-dev-server --inline --hot --config ../webpack.shared.config.js",
-    "build": "node build/build.js",
-    "build-examples": "BABEL_ENV=development webpack --config examples/webpack.build-all.config.js",
+    "dev": "cd examples && webpack-dev-server --inline --hot --no-info",
     "test": "eslint src && npm run test:unit && npm run test:e2e",
-    "test:unit": "cross-env BABEL_ENV=development jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
+    "test:unit": "jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
     "test:e2e": "npm run build-examples && casperjs test --concise ./test/e2e",
+    "build": "node build/build.js",
+    "release": "bash build/release.sh",
     "docs": "cd docs && gitbook serve",
-    "deploy-docs": "cd docs && ./deploy.sh",
-    "release": "bash build/release.sh"
+    "docs:deploy": "cd docs && ./deploy.sh"
   },
   "repository": {
     "type": "git",
