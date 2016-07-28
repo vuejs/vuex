@@ -1,12 +1,8 @@
 import 'babel-polyfill'
-import chai, { expect } from 'chai'
-import sinonChai from 'sinon-chai'
-import sinon from 'sinon'
 import Vue from 'vue'
 import Vuex, { mapState, mapMutations, mapGetters, mapActions } from '../../build/dev-entry'
 
 Vue.use(Vuex)
-chai.use(sinonChai)
 
 const TEST = 'TEST'
 const TEST2 = 'TEST2'
@@ -24,7 +20,7 @@ describe('Vuex', () => {
       }
     })
     store.commit(TEST, 2)
-    expect(store.state.a).to.equal(3)
+    expect(store.state.a).toBe(3)
   })
 
   it('dispatching actions, sync', () => {
@@ -44,7 +40,7 @@ describe('Vuex', () => {
       }
     })
     store.dispatch(TEST, 2)
-    expect(store.state.a).to.equal(3)
+    expect(store.state.a).toBe(3)
   })
 
   it('dispatching actions, with returned Promise', done => {
@@ -68,9 +64,9 @@ describe('Vuex', () => {
         }
       }
     })
-    expect(store.state.a).to.equal(1)
+    expect(store.state.a).toBe(1)
     store.dispatch(TEST, 2).then(() => {
-      expect(store.state.a).to.equal(3)
+      expect(store.state.a).toBe(3)
       done()
     })
   })
@@ -96,14 +92,14 @@ describe('Vuex', () => {
         },
         two: async ({ commit, dispatch }, n) => {
           await dispatch(TEST, 1)
-          expect(store.state.a).to.equal(2)
+          expect(store.state.a).toBe(2)
           commit(TEST, n)
         }
       }
     })
-    expect(store.state.a).to.equal(1)
+    expect(store.state.a).toBe(1)
     store.dispatch('two', 3).then(() => {
-      expect(store.state.a).to.equal(5)
+      expect(store.state.a).toBe(5)
       done()
     })
   })
@@ -118,17 +114,17 @@ describe('Vuex', () => {
         }
       }
     })
-    const spy = sinon.spy()
+    const spy = jasmine.createSpy()
     store._devtoolHook = {
       emit: spy
     }
-    const thenSpy = sinon.spy()
+    const thenSpy = jasmine.createSpy()
     store.dispatch(TEST)
       .then(thenSpy)
       .catch(err => {
-        expect(thenSpy).not.to.have.been.called
-        expect(err).to.equal('no')
-        expect(spy).to.have.been.calledWith('vuex:error', 'no')
+        expect(thenSpy).not.toHaveBeenCalled()
+        expect(err).toBe('no')
+        expect(spy).toHaveBeenCalledWith('vuex:error', 'no')
         done()
       })
   })
@@ -160,14 +156,14 @@ describe('Vuex', () => {
     })
     store.dispatch('one')
     store.dispatch('two')
-    expect(store.state.count).to.equal(1)
-    expect(store._pendingActions.length).to.equal(2)
+    expect(store.state.count).toBe(1)
+    expect(store._pendingActions.length).toBe(2)
     store.onActionsResolved(res => {
-      expect(store._pendingActions.length).to.equal(0)
-      expect(store.state.count).to.equal(2)
-      expect(res.length).to.equal(2)
-      expect(res[0]).to.equal(1)
-      expect(res[1]).to.equal(2)
+      expect(store._pendingActions.length).toBe(0)
+      expect(store.state.count).toBe(2)
+      expect(res.length).toBe(2)
+      expect(res[0]).toBe(1)
+      expect(res[1]).toBe(2)
       done()
     })
   })
@@ -188,16 +184,16 @@ describe('Vuex', () => {
       actions: {
         check ({ getters }, value) {
           // check for exposing getters into actions
-          expect(getters.hasAny).to.equal(value)
+          expect(getters.hasAny).toBe(value)
         }
       }
     })
-    expect(store.getters.hasAny).to.equal(false)
+    expect(store.getters.hasAny).toBe(false)
     store.dispatch('check', false)
 
     store.commit(TEST, 1)
 
-    expect(store.getters.hasAny).to.equal(true)
+    expect(store.getters.hasAny).toBe(true)
     store.dispatch('check', true)
   })
 
@@ -212,12 +208,12 @@ describe('Vuex', () => {
         actions: { inc: ({ commit }) => commit('inc') },
         getters: { a: state => state.a }
       })
-    }).not.to.throw()
-    expect(store.state.hi.a).to.equal(1)
-    expect(store.getters.a).to.equal(1)
+    }).not.toThrow()
+    expect(store.state.hi.a).toBe(1)
+    expect(store.getters.a).toBe(1)
     store.dispatch('inc')
-    expect(store.state.hi.a).to.equal(2)
-    expect(store.getters.a).to.equal(2)
+    expect(store.state.hi.a).toBe(2)
+    expect(store.getters.a).toBe(2)
   })
 
   it('store injection', () => {
@@ -226,7 +222,7 @@ describe('Vuex', () => {
       store
     })
     const child = new Vue({ parent: vm })
-    expect(child.$store).to.equal(store)
+    expect(child.$store).toBe(store)
   })
 
   it('helper: mapState', () => {
@@ -246,9 +242,9 @@ describe('Vuex', () => {
         }
       })
     })
-    expect(vm.a).to.equal(3)
+    expect(vm.a).toBe(3)
     store.state.a++
-    expect(vm.a).to.equal(4)
+    expect(vm.a).toBe(4)
   })
 
   it('helper: mapMutations (array)', () => {
@@ -264,9 +260,9 @@ describe('Vuex', () => {
       methods: mapMutations(['inc', 'dec'])
     })
     vm.inc()
-    expect(store.state.count).to.equal(1)
+    expect(store.state.count).toBe(1)
     vm.dec()
-    expect(store.state.count).to.equal(0)
+    expect(store.state.count).toBe(0)
   })
 
   it('helper: mapMutations (object)', () => {
@@ -285,9 +281,9 @@ describe('Vuex', () => {
       })
     })
     vm.plus()
-    expect(store.state.count).to.equal(1)
+    expect(store.state.count).toBe(1)
     vm.minus()
-    expect(store.state.count).to.equal(0)
+    expect(store.state.count).toBe(0)
   })
 
   it('helper: mapGetters (array)', () => {
@@ -306,15 +302,15 @@ describe('Vuex', () => {
       store,
       computed: mapGetters(['hasAny', 'negative'])
     })
-    expect(vm.hasAny).to.equal(false)
-    expect(vm.negative).to.equal(false)
+    expect(vm.hasAny).toBe(false)
+    expect(vm.negative).toBe(false)
     store.commit('inc')
-    expect(vm.hasAny).to.equal(true)
-    expect(vm.negative).to.equal(false)
+    expect(vm.hasAny).toBe(true)
+    expect(vm.negative).toBe(false)
     store.commit('dec')
     store.commit('dec')
-    expect(vm.hasAny).to.equal(false)
-    expect(vm.negative).to.equal(true)
+    expect(vm.hasAny).toBe(false)
+    expect(vm.negative).toBe(true)
   })
 
   it('helper: mapGetters (object)', () => {
@@ -336,20 +332,20 @@ describe('Vuex', () => {
         b: 'negative'
       })
     })
-    expect(vm.a).to.equal(false)
-    expect(vm.b).to.equal(false)
+    expect(vm.a).toBe(false)
+    expect(vm.b).toBe(false)
     store.commit('inc')
-    expect(vm.a).to.equal(true)
-    expect(vm.b).to.equal(false)
+    expect(vm.a).toBe(true)
+    expect(vm.b).toBe(false)
     store.commit('dec')
     store.commit('dec')
-    expect(vm.a).to.equal(false)
-    expect(vm.b).to.equal(true)
+    expect(vm.a).toBe(false)
+    expect(vm.b).toBe(true)
   })
 
   it('helper: mapActions (array)', () => {
-    const a = sinon.spy()
-    const b = sinon.spy()
+    const a = jasmine.createSpy()
+    const b = jasmine.createSpy()
     const store = new Vuex.Store({
       actions: {
         a,
@@ -361,15 +357,15 @@ describe('Vuex', () => {
       methods: mapActions(['a', 'b'])
     })
     vm.a()
-    expect(a).to.have.been.called
-    expect(b).not.to.have.been.called
+    expect(a).toHaveBeenCalled()
+    expect(b).not.toHaveBeenCalled()
     vm.b()
-    expect(b).to.have.been.called
+    expect(b).toHaveBeenCalled()
   })
 
   it('helper: mapActions (object)', () => {
-    const a = sinon.spy()
-    const b = sinon.spy()
+    const a = jasmine.createSpy()
+    const b = jasmine.createSpy()
     const store = new Vuex.Store({
       actions: {
         a,
@@ -384,10 +380,10 @@ describe('Vuex', () => {
       })
     })
     vm.foo()
-    expect(a).to.have.been.called
-    expect(b).not.to.have.been.called
+    expect(a).toHaveBeenCalled()
+    expect(b).not.toHaveBeenCalled()
     vm.bar()
-    expect(b).to.have.been.called
+    expect(b).toHaveBeenCalled()
   })
 
   it('module: mutation', function () {
@@ -431,12 +427,12 @@ describe('Vuex', () => {
       }
     })
     store.commit(TEST, 1)
-    expect(store.state.a).to.equal(2)
-    expect(store.state.nested.a).to.equal(3)
-    expect(store.state.nested.one.a).to.equal(4)
-    expect(store.state.nested.nested.two.a).to.equal(5)
-    expect(store.state.nested.nested.three.a).to.equal(6)
-    expect(store.state.four.a).to.equal(7)
+    expect(store.state.a).toBe(2)
+    expect(store.state.nested.a).toBe(3)
+    expect(store.state.nested.one.a).toBe(4)
+    expect(store.state.nested.nested.two.a).toBe(5)
+    expect(store.state.nested.nested.three.a).toBe(6)
+    expect(store.state.four.a).toBe(7)
   })
 
   it('module: action', function () {
@@ -445,8 +441,8 @@ describe('Vuex', () => {
       return {
         [TEST] ({ state, rootState }) {
           calls++
-          expect(state.a).to.equal(n)
-          expect(rootState).to.equal(store.state)
+          expect(state.a).toBe(n)
+          expect(rootState).toBe(store.state)
         }
       }
     }
@@ -485,14 +481,14 @@ describe('Vuex', () => {
       }
     })
     store.dispatch(TEST)
-    expect(calls).to.equal(6)
+    expect(calls).toBe(6)
   })
 
   it('module: getters', function () {
     const makeGetter = n => ({
       [`getter${n}`]: (state, getters, rootState) => {
-        expect(getters.constant).to.equal(0)
-        expect(rootState).to.equal(store.state)
+        expect(getters.constant).toBe(0)
+        expect(rootState).toBe(store.state)
         return state.a
       }
     })
@@ -534,7 +530,7 @@ describe('Vuex', () => {
       }
     })
     ;[1, 2, 3, 4, 5, 6].forEach(n => {
-      expect(store.getters[`getter${n}`]).to.equal(n)
+      expect(store.getters[`getter${n}`]).toBe(n)
     })
   })
 
@@ -558,8 +554,8 @@ describe('Vuex', () => {
       }
     })
     store.dispatch(TEST).then(res => {
-      expect(res[0]).to.equal(1)
-      expect(res[1]).to.equal(2)
+      expect(res[0]).toBe(1)
+      expect(res[1]).toBe(2)
       done()
     })
   })
@@ -580,17 +576,17 @@ describe('Vuex', () => {
         store => {
           initState = store.state
           store.subscribe((mut, state) => {
-            expect(state).to.equal(store.state)
+            expect(state).toBe(store.state)
             mutations.push(mut)
           })
         }
       ]
     })
-    expect(initState).to.equal(store.state)
+    expect(initState).toBe(store.state)
     store.commit(TEST, 2)
-    expect(mutations.length).to.equal(1)
-    expect(mutations[0].type).to.equal(TEST)
-    expect(mutations[0].payload).to.equal(2)
+    expect(mutations.length).toBe(1)
+    expect(mutations[0].type).toBe(TEST)
+    expect(mutations[0].payload).toBe(2)
   })
 
   it('plugins should ignore silent mutations', function () {
@@ -609,13 +605,13 @@ describe('Vuex', () => {
         store => {
           initState = store.state
           store.subscribe((mut, state) => {
-            expect(state).to.equal(store.state)
+            expect(state).toBe(store.state)
             mutations.push(mut)
           })
         }
       ]
     })
-    expect(initState).to.equal(store.state)
+    expect(initState).toBe(store.state)
     store.commit(TEST, { n: 1 })
     store.commit({
       type: TEST,
@@ -626,11 +622,11 @@ describe('Vuex', () => {
       silent: true,
       n: 3
     })
-    expect(mutations.length).to.equal(2)
-    expect(mutations[0].type).to.equal(TEST)
-    expect(mutations[1].type).to.equal(TEST)
-    expect(mutations[0].payload.n).to.equal(1) // normal dispatch
-    expect(mutations[1].n).to.equal(2) // object dispatch
+    expect(mutations.length).toBe(2)
+    expect(mutations[0].type).toBe(TEST)
+    expect(mutations[1].type).toBe(TEST)
+    expect(mutations[0].payload.n).toBe(1) // normal dispatch
+    expect(mutations[1].n).toBe(2) // object dispatch
   })
 
   it('strict mode: warn mutations outside of handlers', function () {
@@ -640,9 +636,9 @@ describe('Vuex', () => {
       },
       strict: true
     })
-    expect(() => {
-      store.state.a++
-    }).to.throw(/Do not mutate vuex store state outside mutation handlers/)
+    Vue.config.silent = true
+    expect(() => { store.state.a++ }).toThrow()
+    Vue.config.silent = false
   })
 
   it('hot reload: mutations', function () {
@@ -686,12 +682,12 @@ describe('Vuex', () => {
       }
     })
     store.commit(TEST, 1)
-    expect(store.state.a).to.equal(2)
-    expect(store.state.nested.a).to.equal(3)
-    expect(store.state.nested.one.a).to.equal(4)
-    expect(store.state.nested.nested.two.a).to.equal(5)
-    expect(store.state.nested.nested.three.a).to.equal(6)
-    expect(store.state.four.a).to.equal(7)
+    expect(store.state.a).toBe(2)
+    expect(store.state.nested.a).toBe(3)
+    expect(store.state.nested.one.a).toBe(4)
+    expect(store.state.nested.nested.two.a).toBe(5)
+    expect(store.state.nested.nested.three.a).toBe(6)
+    expect(store.state.four.a).toBe(7)
 
     // hot reload only root mutations
     store.hotUpdate({
@@ -702,12 +698,12 @@ describe('Vuex', () => {
       }
     })
     store.commit(TEST, 1)
-    expect(store.state.a).to.equal(1) // only root mutation updated
-    expect(store.state.nested.a).to.equal(4)
-    expect(store.state.nested.one.a).to.equal(5)
-    expect(store.state.nested.nested.two.a).to.equal(6)
-    expect(store.state.nested.nested.three.a).to.equal(7)
-    expect(store.state.four.a).to.equal(8)
+    expect(store.state.a).toBe(1) // only root mutation updated
+    expect(store.state.nested.a).toBe(4)
+    expect(store.state.nested.one.a).toBe(5)
+    expect(store.state.nested.nested.two.a).toBe(6)
+    expect(store.state.nested.nested.three.a).toBe(7)
+    expect(store.state.four.a).toBe(8)
 
     // hot reload modules
     store.hotUpdate({
@@ -741,12 +737,12 @@ describe('Vuex', () => {
       }
     })
     store.commit(TEST, 2)
-    expect(store.state.a).to.equal(2)
-    expect(store.state.nested.a).to.equal(6) // should not reload initial state
-    expect(store.state.nested.one.a).to.equal(7) // should not reload initial state
-    expect(store.state.nested.nested.two.a).to.equal(8) // should not reload initial state
-    expect(store.state.nested.nested.three.a).to.equal(9) // should not reload initial state
-    expect(store.state.four.a).to.equal(10) // should not reload initial state
+    expect(store.state.a).toBe(2)
+    expect(store.state.nested.a).toBe(6) // should not reload initial state
+    expect(store.state.nested.one.a).toBe(7) // should not reload initial state
+    expect(store.state.nested.nested.two.a).toBe(8) // should not reload initial state
+    expect(store.state.nested.nested.three.a).toBe(9) // should not reload initial state
+    expect(store.state.four.a).toBe(10) // should not reload initial state
 
     // hot reload all
     store.hotUpdate({
@@ -805,12 +801,12 @@ describe('Vuex', () => {
       }
     })
     store.commit(TEST, 3)
-    expect(store.state.a).to.equal(-1)
-    expect(store.state.nested.a).to.equal(9)
-    expect(store.state.nested.one.a).to.equal(10)
-    expect(store.state.nested.nested.two.a).to.equal(11)
-    expect(store.state.nested.nested.three.a).to.equal(6)
-    expect(store.state.four.a).to.equal(7)
+    expect(store.state.a).toBe(-1)
+    expect(store.state.nested.a).toBe(9)
+    expect(store.state.nested.one.a).toBe(10)
+    expect(store.state.nested.nested.two.a).toBe(11)
+    expect(store.state.nested.nested.three.a).toBe(6)
+    expect(store.state.four.a).toBe(7)
   })
 
   it('hot reload: actions', () => {
@@ -839,7 +835,7 @@ describe('Vuex', () => {
       }
     })
     store.dispatch(TEST)
-    expect(store.state.list.join()).to.equal('1,2')
+    expect(store.state.list.join()).toBe('1,2')
 
     // update root
     store.hotUpdate({
@@ -850,7 +846,7 @@ describe('Vuex', () => {
       }
     })
     store.dispatch(TEST)
-    expect(store.state.list.join()).to.equal('1,2,3,2')
+    expect(store.state.list.join()).toBe('1,2,3,2')
 
     // update modules
     store.hotUpdate({
@@ -870,7 +866,7 @@ describe('Vuex', () => {
       }
     })
     store.dispatch(TEST)
-    expect(store.state.list.join()).to.equal('1,2,3,2,4,5')
+    expect(store.state.list.join()).toBe('1,2,3,2,4,5')
   })
 
   it('hot reload: getters', done => {
@@ -886,12 +882,12 @@ describe('Vuex', () => {
       },
       actions: {
         check ({ getters }, value) {
-          expect(getters.count).to.equal(value)
+          expect(getters.count).toBe(value)
         }
       }
     })
 
-    const spy = sinon.spy()
+    const spy = jasmine.createSpy()
     const vm = new Vue({
       computed: {
         a: () => store.getters.count
@@ -901,12 +897,12 @@ describe('Vuex', () => {
       }
     })
 
-    expect(vm.a).to.equal(0)
+    expect(vm.a).toBe(0)
     store.dispatch('check', 0)
 
     store.commit('inc')
 
-    expect(vm.a).to.equal(1)
+    expect(vm.a).toBe(1)
     store.dispatch('check', 1)
 
     // update getters
@@ -916,11 +912,11 @@ describe('Vuex', () => {
       }
     })
 
-    expect(vm.a).to.equal(10)
+    expect(vm.a).toBe(10)
     store.dispatch('check', 10)
 
     Vue.nextTick(() => {
-      expect(spy).to.have.been.called
+      expect(spy).toHaveBeenCalled()
       done()
     })
   })
