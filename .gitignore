@@ -8,3 +8,6 @@ examples/**/build.js
 types/typings
 types/test/*.js
 explorations
+*.log
+test/e2e/reports
+test/e2e/screenshots

@@ -31,9 +31,7 @@
         <li v-for="(val, key) in filters">
           <a :href="'#/' + key"
             :class="{ selected: visibility === key }"
-            @click="visibility = key">
-            {{ key | capitalize }}
-          </a>
+            @click="visibility = key">{{ key | capitalize }}</a>
         </li>
       </ul>
       <button class="clear-completed"
