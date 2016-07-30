@@ -1,8 +1,8 @@
 # データフロー
 
-Vuex アプリケーション内部のデータフローをより理解を得るために、Vuex で単純にカウンタするアプリケーションを構築してみましょう。これは概念を説明する目的のための簡単な例であることに注意してください。実際には、このような単純なタスクのために Vuex は必要ありません。
+Vuex アプリケーションの内部のデータフローをよりよく理解するために、単純なカウンターアプリケーションを Vuex で作ってみましょう。これは単にコンセプトを説明するための素朴な例であるということに注意してください。実際はこのような単純なタスクに Vuex を使う必要はありません。
 
-### セットアップ
+### ストア
 
 ``` js
 // store.js
@@ -10,19 +10,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-```
 
-### アプリケーションのステートを定義
-
-``` js
+// アプリケーションの初期状態
 const state = {
   count: 0
 }
-```
 
-### ステート可能なミューテーションを定義
-
-``` js
+// 発生しうるミューテーションを定義
 const mutations = {
   INCREMENT (state) {
     state.count++
@@ -31,34 +25,29 @@ const mutations = {
     state.count--
   }
 }
-```
 
-### 呼び出し可能なアクションを定義
-
-``` js
-const actions = {
-  increment: 'INCREMENT',
-  decrement: 'DECREMENT'
-}
-```
-
-### Vuex Store を作成
-
-``` js
+// ストアを作成
 export default new Vuex.Store({
   state,
-  mutations,
-  actions
+  mutations
 })
 ```
 
-### Vue コンポーネントでの使用
+### アクション
+
+``` js
+// actions.js
+export const increment = ({ dispatch }) => dispatch('INCREMENT')
+export const decrement = ({ dispatch }) => dispatch('DECREMENT')
+```
+
+### Vue とともに使う
 
 **テンプレート**
 
 ``` html
-<div>
-  Clicked: {{ count }} times
+<div id="app">
+  クリック回数: {{ count }}
   <button v-on:click="increment">+</button>
   <button v-on:click="decrement">-</button>
 </div>
@@ -67,25 +56,33 @@ export default new Vuex.Store({
 **スクリプト**
 
 ``` js
-import store from './store.js'
+// これがルートの Vue インスタンスなので、ストアをインポートし、挿入しています
+// 大きなアプリケーションであれば、これは一度だけ行います
+import store from './store'
+import { increment, decrement } from './actions'
 
-export default {
-  computed: {
-    // 算出プロパティ(computed property) を使用してステートにバインド
-    count () {
-      return store.state.count
+const app = new Vue({
+  el: '#app',
+  store,
+  vuex: {
+    getters: {
+      count: state => state.count
+    },
+    actions: {
+      increment,
+      decrement
     }
-  },
-  methods: {
-    increment: store.actions.increment,
-    decrement: store.actions.decrement
   }
-}
+})
 ```
 
-ここでは、コンポーネントが非常に単純であることに注意しましょう。それは単に Vuex store からいくつかのステートを表示し(データそれ自身でさえ所有しません)、そしてユーザー入力イベントでいくつかの store のアクションを呼び出します。
+ここで、あなたはコンポーネントそれ自身はとても単純であることに気がつくでしょう。コンポーネントはただ Vuex ストアからのステートを表示し（コンポーネントは自身のデータを持っていません）、そして、ユーザーからの入力イベントに応じてストアのアクションを呼び出すだけになっています。
 
-Flux であるような、データの流れが一方向であることに注意しましょう:
+そしてまた、 Flux のようにデータフローが一方向であることにも気がつくでしょう。
+
+1. コンポーネント内でのユーザーの入力はアクションの呼び出しをトリガし、
+2. アクションはステートを更新するためにミューテーションをディスパッチし、
+3. ストア内部でのステートの更新はゲッターを通してコンポーネントへ反映されます。
 
 <p align="center">
   <img width="700px" src="vuex.png">

@@ -1,10 +1,24 @@
 # テスト
 
-ミューテーションは完全に引数に依存しているだけの関数であるため、テストするのがとても簡単です。アクションは外部の API を呼び出す可能性があるためより少し注意が必要です。アクションをテストするとき、通常モックのいくつかのレベルで実行する必要があります。例えば、サービスでの API 呼び出しを抽象化することができ、そしてテスト内部でサービスをモックにすることができます。簡単に依存を真似るために、Webpack と [inject-loader](https://github.com/plasticine/inject-loader) をテストファイルにバンドルして使用することができます。
+私達が Vuex でユニットテストしたい主な部分はミューテーションとアクションです。
 
-ミューテーションやアクションが適切に書かれている場合は、テストは適切なモック後、ブラウザの API に直接依存関係を持つべきではありません。したがって、単純に Webpack でテストをバンドルでき、それを直接 Node で実行できます。別の方法として、本当のブラウザでテストを実行するためには、`mocha-loader` または Karma + `karma-webpack` を使用できます。
+### ミューテーションのテスト
 
-Mocha + Chai を使用してミューテーションをテストする例です (好きな任意のフレームワーク/アサーションライブラリを使用できます):
+ミューテーションは完全に引数に依存しているだけの関数であるため、テストするのがとても簡単です。効果的なやり方として、もし ES2015 のモジュールを使っていて、 `store.js` ファイルの中にミューテーションがあるなら、デフォルトエクスポートに加えて、名前付きエクスポートでミューテーションをエクスポートできます。
+
+``` js
+const state = { ... }
+
+// 名前付きエクスポートでミューテーションをエクスポートする
+export const mutations = { ... }
+
+export default new Vuex.Store({
+  state,
+  mutations
+})
+```
+
+Mocha + Chai を使用してミューテーションをテストする例です (あなたの好きな任意のフレームワーク/アサーションライブラリを使用できます):
 
 ``` js
 // mutations.js
@@ -14,11 +28,14 @@ export const INCREMENT = state => state.count++
 ``` js
 // mutations.spec.js
 import { expect } from 'chai'
-import { INCREMENT } from './mutations'
+import { mutations } from './store'
+
+// ミューテーションの分割束縛
+const { INCREMENT } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // モックステート
+    // ステートのモック
     const state = { count: 0 }
     // ミューテーションを適用
     INCREMENT(state)
@@ -28,7 +45,11 @@ describe('mutations', () => {
 })
 ```
 
-Example testing an async action:
+### アクションのテスト
+
+アクションは外部の API を呼び出す可能性があるためより少し注意が必要です。アクションをテストするとき、通常、いくつかの段階でモックを作る必要があります。例えば、API 呼び出しをサービスとして抽象化し、そしてテストの内部ではそのサービスをモックにすることができます。簡単に依存をモック化するために、Webpack と [inject-loader](https://github.com/plasticine/inject-loader) をテストファイルにバンドルして使用することができます。
+
+非同期アクションのテストの例:
 
 ``` js
 // actions.js
@@ -45,8 +66,8 @@ export const getAllProducts = ({ dispatch }) => {
 ``` js
 // actions.spec.js
 
-// inline loader に対して require 構文を使用する
-// inject-loader は、真似られた依存関係を注入できるようにする
+// inline loader のために require 構文を使用する
+// inject-loader は、モック化された依存関係を注入できるようにする
 // モジュールファクトリを返す
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
@@ -56,17 +77,17 @@ const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
       setTimeout(() => {
-        cb([ /* 真似られたスポンス */ ])
+        cb([ /* レスポンスのモック */ ])
       }, 100)
     }
   }
 })
 
-// ミューテーションによって予期されたアクションをテストするためのヘルパー
-const testAction = (action, state, expectedMutations, done) => {
+// アクションが期待されるミューテーションを呼び出すかをテストするためのヘルパー
+const testAction = (action, args, state, expectedMutations, done) => {
   let count = 0
-  // モックディスパッチ
-  const dispatch = (name, payload) => {
+  // ディスパッチのモック
+  const dispatch = (name, ...payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.name).to.equal(name)
     if (payload) {
@@ -77,24 +98,31 @@ const testAction = (action, state, expectedMutations, done) => {
       done()
     }
   }
-  // 真似られた store によってアクションを呼び出す
-  action({
-    dispatch,
-    state
-  })
+  // モック化したストアと引数でアクションを呼び出す
+  action({dispatch, state}, ...args)
+
+  // 呼び出されるべきミューテーションが残っていないことを確認する
+  if (expectedMutations.length === 0) {
+    expect(count).to.equal(0)
+    done()
+  }
 }
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, {}, [
+    testAction(actions.getAllProducts, [], {}, [
       { name: 'REQUEST_PRODUCTS' },
-      { name: 'RECEIVE_PRODUCTS', payload: [ /* 真似られたレスポンス */ ] }
+      { name: 'RECEIVE_PRODUCTS', payload: [ /* レスポンスのモック */ ] }
     ], done)
   })
 })
 ```
 
-### Node での実行
+### テストの実行
+
+ミューテーションやアクションが適切に書かれている場合は、適切にモック化された後、テストコードはブラウザの API に直接依存関係を持つことはないでしょう。したがって、単純に Webpack でテストをバンドルでき、それを直接 Node で実行できます。別の方法として、本当のブラウザでテストを実行するためには、`mocha-loader` または Karma + `karma-webpack` を使用できます。
+
+#### Node での実行
 
 以下のような webpack の設定を作成します:
 
@@ -127,9 +155,13 @@ webpack
 mocha test-bundle.js
 ```
 
-### ブラウザでの実行
+#### ブラウザでの実行
 
 1. `mocha-loader` をインストール
 2. 上記 Webpack 設定から `entry` を `'mocha!babel!./test.js'` に変更
 3. 設定を使用して `webpack-dev-server` を開始
 4. `localhost:8080/webpack-dev-server/test-bundle` に移動
+
+#### Karma + karma-webpack を使ったブラウザでの実行
+
+[vue-loader documentation](http://vuejs.github.io/vue-loader/en/workflow/testing.html) 内のセットアップ方法を参考にしてください。
