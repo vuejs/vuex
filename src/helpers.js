@@ -1,9 +1,10 @@
-export function mapState (map) {
+export function mapState (states) {
   const res = {}
-  Object.keys(map).forEach(key => {
-    const fn = map[key]
+  normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
-      return fn.call(this, this.$store.state, this.$store.getters)
+      return typeof val === 'function'
+        ? val.call(this, this.$store.state, this.$store.getters)
+        : this.$store.state[val]
     }
   })
   return res
