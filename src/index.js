@@ -58,12 +58,6 @@ class Store {
     assert(false, `Use store.replaceState() to explicit replace store state.`)
   }
 
-  replaceState (state) {
-    this._committing = true
-    this._vm.state = state
-    this._committing = false
-  }
-
   commit (type, payload) {
     // check object-style commit
     let mutation
@@ -105,10 +99,6 @@ class Store {
     })
   }
 
-  onActionsResolved (cb) {
-    Promise.all(this._pendingActions).then(cb)
-  }
-
   subscribe (fn) {
     const subs = this._subscribers
     if (subs.indexOf(fn) < 0) {
@@ -127,6 +117,12 @@ class Store {
     return this._vm.$watch(() => getter(this.state), cb, options)
   }
 
+  replaceState (state) {
+    this._committing = true
+    this._vm.state = state
+    this._committing = false
+  }
+
   registerModule (path, module, hot) {
     this._committing = true
     if (typeof path === 'string') path = [path]
@@ -134,40 +130,6 @@ class Store {
     initModule(this, this.state, path, module, hot)
     initStoreVM(this, this.state, this._wrappedGetters)
     this._committing = false
-  }
-
-  registerMutation (type, handler, path = []) {
-    const entry = this._mutations[type] || (this._mutations[type] = [])
-    const store = this
-    entry.push(function wrappedMutationHandler (payload) {
-      handler(getNestedState(store.state, path), payload)
-    })
-  }
-
-  registerAction (type, handler, path = []) {
-    const entry = this._actions[type] || (this._actions[type] = [])
-    const store = this
-    const { dispatch, commit } = this
-    entry.push(function wrappedActionHandler (payload, cb) {
-      let res = handler({
-        dispatch,
-        commit,
-        getters: store.getters,
-        state: getNestedState(store.state, path),
-        rootState: store.state
-      }, payload, cb)
-      if (!isPromise(res)) {
-        res = Promise.resolve(res)
-      }
-      if (store._devtoolHook) {
-        return res.catch(err => {
-          store._devtoolHook.emit('vuex:error', err)
-          throw err
-        })
-      } else {
-        return res
-      }
-    })
   }
 
   hotUpdate (newOptions) {
@@ -190,6 +152,10 @@ class Store {
       }
     }
     this.registerModule([], options, true)
+  }
+
+  onActionsResolved (cb) {
+    Promise.all(this._pendingActions).then(cb)
   }
 }
 
@@ -257,18 +223,18 @@ function initModule (store, rootState, path, module, hot) {
 
   if (mutations) {
     Object.keys(mutations).forEach(key => {
-      store.registerMutation(key, mutations[key], path)
+      registerMutation(store, key, mutations[key], path)
     })
   }
 
   if (actions) {
     Object.keys(actions).forEach(key => {
-      store.registerAction(key, actions[key], path)
+      registerAction(store, key, actions[key], path)
     })
   }
 
   if (getters) {
-    wrapGetters(store._wrappedGetters, getters, path)
+    wrapGetters(store, getters, path)
   }
 
   if (modules) {
@@ -278,14 +244,46 @@ function initModule (store, rootState, path, module, hot) {
   }
 }
 
-function wrapGetters (getters, moduleGetters, modulePath) {
+function registerMutation (store, type, handler, path = []) {
+  const entry = store._mutations[type] || (store._mutations[type] = [])
+  entry.push(function wrappedMutationHandler (payload) {
+    handler(getNestedState(store.state, path), payload)
+  })
+}
+
+function registerAction (store, type, handler, path = []) {
+  const entry = store._actions[type] || (store._actions[type] = [])
+  const { dispatch, commit } = store
+  entry.push(function wrappedActionHandler (payload, cb) {
+    let res = handler({
+      dispatch,
+      commit,
+      getters: store.getters,
+      state: getNestedState(store.state, path),
+      rootState: store.state
+    }, payload, cb)
+    if (!isPromise(res)) {
+      res = Promise.resolve(res)
+    }
+    if (store._devtoolHook) {
+      return res.catch(err => {
+        store._devtoolHook.emit('vuex:error', err)
+        throw err
+      })
+    } else {
+      return res
+    }
+  })
+}
+
+function wrapGetters (store, moduleGetters, modulePath) {
   Object.keys(moduleGetters).forEach(getterKey => {
     const rawGetter = moduleGetters[getterKey]
-    if (getters[getterKey]) {
+    if (store._wrappedGetters[getterKey]) {
       console.error(`[vuex] duplicate getter key: ${getterKey}`)
       return
     }
-    getters[getterKey] = function wrappedGetter (store) {
+    store._wrappedGetters[getterKey] = function wrappedGetter (store) {
       return rawGetter(
         getNestedState(store.state, modulePath), // local state
         store.getters, // getters
