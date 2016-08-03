@@ -57,6 +57,7 @@
     "vue": "^2.0.0-beta.5",
     "vue-loader": "^9.0.3",
     "webpack": "^1.12.8",
-    "webpack-dev-middleware": "^1.6.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2"
   }
 }

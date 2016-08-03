@@ -10,7 +10,7 @@ module.exports = {
     const fullDir = path.join(__dirname, dir)
     const entry = path.join(fullDir, 'app.js')
     if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
-      entries[dir] = entry
+      entries[dir] = ['webpack-hot-middleware/client', entry]
     }
 
     return entries
@@ -40,7 +40,10 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin('shared.js'),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    })
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 
 }
