@@ -202,7 +202,7 @@ describe('Vuex', () => {
       strict: true
     })
     expect(() => {
-      store.module('hi', {
+      store.registerModule('hi', {
         state: { a: 1 },
         mutations: { inc: state => state.a++ },
         actions: { inc: ({ commit }) => commit('inc') },

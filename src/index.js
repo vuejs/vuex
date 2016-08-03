@@ -43,7 +43,7 @@ class Store {
     initStoreVM(this, state, {})
 
     // apply root module
-    this.module([], options)
+    this.registerModule([], options)
 
     // apply plugins
     plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
@@ -63,7 +63,7 @@ class Store {
     this._committing = false
   }
 
-  module (path, module, hot) {
+  registerModule (path, module, hot) {
     this._committing = true
     if (typeof path === 'string') path = [path]
     assert(Array.isArray(path), `module path must be a string or an Array.`)
@@ -75,7 +75,7 @@ class Store {
     this._committing = false
   }
 
-  mutation (type, handler, path = []) {
+  registerMutation (type, handler, path = []) {
     const entry = this._mutations[type] || (this._mutations[type] = [])
     const store = this
     entry.push(function wrappedMutationHandler (payload) {
@@ -83,7 +83,7 @@ class Store {
     })
   }
 
-  action (type, handler, path = []) {
+  registerAction (type, handler, path = []) {
     const entry = this._actions[type] || (this._actions[type] = [])
     const store = this
     const { dispatch, commit } = this
@@ -191,7 +191,7 @@ class Store {
         options.modules[key] = newOptions.modules[key]
       }
     }
-    this.module([], options, true)
+    this.registerModule([], options, true)
   }
 }
 
@@ -259,13 +259,13 @@ function initModule (store, path, module, hot) {
 
   if (mutations) {
     Object.keys(mutations).forEach(key => {
-      store.mutation(key, mutations[key], path)
+      store.registerMutation(key, mutations[key], path)
     })
   }
 
   if (actions) {
     Object.keys(actions).forEach(key => {
-      store.action(key, actions[key], path)
+      store.registerAction(key, actions[key], path)
     })
   }
 
