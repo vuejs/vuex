@@ -37,13 +37,14 @@ class Store {
     // strict mode
     this.strict = strict
 
-    // init internal vm with root state
-    // other options and sub modules will be
-    // initialized in this.module method
-    initStoreVM(this, state, {})
+    // init root module.
+    // this also recursively registers all sub-modules
+    // and collects all module getters inside this._wrappedGetters
+    initModule(this, state, [], options)
 
-    // apply root module
-    this.registerModule([], options)
+    // initialize the store vm, which is responsible for the reactivity
+    // (also registers _wrappedGetters as computed properties)
+    initStoreVM(this, state, this._wrappedGetters)
 
     // apply plugins
     plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
@@ -61,52 +62,6 @@ class Store {
     this._committing = true
     this._vm.state = state
     this._committing = false
-  }
-
-  registerModule (path, module, hot) {
-    this._committing = true
-    if (typeof path === 'string') path = [path]
-    assert(Array.isArray(path), `module path must be a string or an Array.`)
-
-    initModule(this, path, module, hot)
-
-    initStoreVM(this, this.state, this._wrappedGetters)
-
-    this._committing = false
-  }
-
-  registerMutation (type, handler, path = []) {
-    const entry = this._mutations[type] || (this._mutations[type] = [])
-    const store = this
-    entry.push(function wrappedMutationHandler (payload) {
-      handler(getNestedState(store.state, path), payload)
-    })
-  }
-
-  registerAction (type, handler, path = []) {
-    const entry = this._actions[type] || (this._actions[type] = [])
-    const store = this
-    const { dispatch, commit } = this
-    entry.push(function wrappedActionHandler (payload, cb) {
-      let res = handler({
-        dispatch,
-        commit,
-        getters: store.getters,
-        state: getNestedState(store.state, path),
-        rootState: store.state
-      }, payload, cb)
-      if (!isPromise(res)) {
-        res = Promise.resolve(res)
-      }
-      if (store._devtoolHook) {
-        return res.catch(err => {
-          store._devtoolHook.emit('vuex:error', err)
-          throw err
-        })
-      } else {
-        return res
-      }
-    })
   }
 
   commit (type, payload) {
@@ -170,6 +125,49 @@ class Store {
   watch (getter, cb, options) {
     assert(typeof getter === 'function', `store.watch only accepts a function.`)
     return this._vm.$watch(() => getter(this.state), cb, options)
+  }
+
+  registerModule (path, module, hot) {
+    this._committing = true
+    if (typeof path === 'string') path = [path]
+    assert(Array.isArray(path), `module path must be a string or an Array.`)
+    initModule(this, this.state, path, module, hot)
+    initStoreVM(this, this.state, this._wrappedGetters)
+    this._committing = false
+  }
+
+  registerMutation (type, handler, path = []) {
+    const entry = this._mutations[type] || (this._mutations[type] = [])
+    const store = this
+    entry.push(function wrappedMutationHandler (payload) {
+      handler(getNestedState(store.state, path), payload)
+    })
+  }
+
+  registerAction (type, handler, path = []) {
+    const entry = this._actions[type] || (this._actions[type] = [])
+    const store = this
+    const { dispatch, commit } = this
+    entry.push(function wrappedActionHandler (payload, cb) {
+      let res = handler({
+        dispatch,
+        commit,
+        getters: store.getters,
+        state: getNestedState(store.state, path),
+        rootState: store.state
+      }, payload, cb)
+      if (!isPromise(res)) {
+        res = Promise.resolve(res)
+      }
+      if (store._devtoolHook) {
+        return res.catch(err => {
+          store._devtoolHook.emit('vuex:error', err)
+          throw err
+        })
+      } else {
+        return res
+      }
+    })
   }
 
   hotUpdate (newOptions) {
@@ -240,7 +238,7 @@ function initStoreVM (store, state, getters) {
   }
 }
 
-function initModule (store, path, module, hot) {
+function initModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
   const {
     state,
@@ -252,7 +250,7 @@ function initModule (store, path, module, hot) {
 
   // set state
   if (!isRoot && !hot) {
-    const parentState = getNestedState(store.state, path.slice(0, -1))
+    const parentState = getNestedState(rootState, path.slice(0, -1))
     const moduleName = path[path.length - 1]
     Vue.set(parentState, moduleName, state || {})
   }
@@ -275,7 +273,7 @@ function initModule (store, path, module, hot) {
 
   if (modules) {
     Object.keys(modules).forEach(key => {
-      initModule(store, path.concat(key), modules[key], hot)
+      initModule(store, rootState, path.concat(key), modules[key], hot)
     })
   }
 }
