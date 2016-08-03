@@ -199,7 +199,15 @@ describe('Vuex', () => {
 
   it('dynamic module registration', () => {
     const store = new Vuex.Store({
-      strict: true
+      strict: true,
+      modules: {
+        foo: {
+          state: { bar: 1 },
+          mutations: { inc: state => state.bar++ },
+          actions: { incFoo: ({ commit }) => commit('inc') },
+          getters: { bar: state => state.bar }
+        }
+      }
     })
     expect(() => {
       store.registerModule('hi', {
@@ -209,11 +217,33 @@ describe('Vuex', () => {
         getters: { a: state => state.a }
       })
     }).not.toThrow()
+
+    expect(store._mutations.inc.length).toBe(2)
     expect(store.state.hi.a).toBe(1)
     expect(store.getters.a).toBe(1)
+
+    // assert initial modules work as expected after dynamic registration
+    expect(store.state.foo.bar).toBe(1)
+    expect(store.getters.bar).toBe(1)
+
+    // test dispatching actions defined in dynamic module
     store.dispatch('inc')
     expect(store.state.hi.a).toBe(2)
     expect(store.getters.a).toBe(2)
+    expect(store.state.foo.bar).toBe(2)
+    expect(store.getters.bar).toBe(2)
+
+    // unregister
+    store.unregisterModule('hi')
+    expect(store.state.hi).toBeUndefined()
+    expect(store.getters.a).toBeUndefined()
+    expect(store._mutations.inc.length).toBe(1)
+    expect(store._actions.inc).toBeUndefined()
+
+    // assert initial modules still work as expected after unregister
+    store.dispatch('incFoo')
+    expect(store.state.foo.bar).toBe(3)
+    expect(store.getters.bar).toBe(3)
   })
 
   it('store injection', () => {

@@ -21,6 +21,7 @@ class Store {
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
+    this._runtimeModules = Object.create(null)
     this._subscribers = []
     this._pendingActions = []
 
@@ -40,11 +41,11 @@ class Store {
     // init root module.
     // this also recursively registers all sub-modules
     // and collects all module getters inside this._wrappedGetters
-    initModule(this, state, [], options)
+    installModule(this, state, [], options)
 
     // initialize the store vm, which is responsible for the reactivity
     // (also registers _wrappedGetters as computed properties)
-    initStoreVM(this, state, this._wrappedGetters)
+    resetStoreVM(this, state)
 
     // apply plugins
     plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
@@ -72,11 +73,11 @@ class Store {
       console.error(`[vuex] unknown mutation type: ${type}`)
       return
     }
-    this._committing = true
-    entry.forEach(function commitIterator (handler) {
-      handler(payload)
+    this._withCommit(() => {
+      entry.forEach(function commitIterator (handler) {
+        handler(payload)
+      })
     })
-    this._committing = false
     if (!payload || !payload.silent) {
       this._subscribers.forEach(sub => sub(mutation, this.state))
     }
@@ -118,24 +119,32 @@ class Store {
   }
 
   replaceState (state) {
-    this._committing = true
-    this._vm.state = state
-    this._committing = false
+    this._withCommit(() => {
+      this._vm.state = state
+    })
   }
 
-  registerModule (path, module, hot) {
-    this._committing = true
+  registerModule (path, module) {
     if (typeof path === 'string') path = [path]
     assert(Array.isArray(path), `module path must be a string or an Array.`)
-    initModule(this, this.state, path, module, hot)
-    initStoreVM(this, this.state, this._wrappedGetters)
-    this._committing = false
+    this._runtimeModules[path.join('.')] = module
+    installModule(this, this.state, path, module)
+    // reset store to update getters...
+    resetStoreVM(this, this.state)
+  }
+
+  unregisterModule (path) {
+    if (typeof path === 'string') path = [path]
+    assert(Array.isArray(path), `module path must be a string or an Array.`)
+    delete this._runtimeModules[path.join('.')]
+    this._withCommit(() => {
+      const parentState = getNestedState(this.state, path.slice(0, -1))
+      Vue.delete(parentState, path[path.length - 1])
+    })
+    resetStore(this)
   }
 
   hotUpdate (newOptions) {
-    this._actions = Object.create(null)
-    this._mutations = Object.create(null)
-    this._wrappedGetters = Object.create(null)
     const options = this._options
     if (newOptions.actions) {
       options.actions = newOptions.actions
@@ -151,11 +160,18 @@ class Store {
         options.modules[key] = newOptions.modules[key]
       }
     }
-    this.registerModule([], options, true)
+    resetStore(this)
   }
 
   onActionsResolved (cb) {
     Promise.all(this._pendingActions).then(cb)
+  }
+
+  _withCommit (fn) {
+    const committing = this._committing
+    this._committing = true
+    fn()
+    this._committing = committing
   }
 }
 
@@ -163,14 +179,30 @@ function assert (condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
 }
 
-function initStoreVM (store, state, getters) {
+function resetStore (store) {
+  store._actions = Object.create(null)
+  store._mutations = Object.create(null)
+  store._wrappedGetters = Object.create(null)
+  const state = store.state
+  // init root module
+  installModule(store, state, [], store._options, true)
+  // init all runtime modules
+  Object.keys(store._runtimeModules).forEach(key => {
+    installModule(store, state, key.split('.'), store._runtimeModules[key], true)
+  })
+  // reset vm
+  resetStoreVM(store, state)
+}
+
+function resetStoreVM (store, state) {
   const oldVm = store._vm
 
-  // bind getters
+  // bind store public getters
   store.getters = {}
+  const wrappedGetters = store._wrappedGetters
   const computed = {}
-  Object.keys(getters).forEach(key => {
-    const fn = getters[key]
+  Object.keys(wrappedGetters).forEach(key => {
+    const fn = wrappedGetters[key]
     // use computed to leverage its lazy-caching mechanism
     computed[key] = () => fn(store)
     Object.defineProperty(store.getters, key, {
@@ -197,14 +229,14 @@ function initStoreVM (store, state, getters) {
   if (oldVm) {
     // dispatch changes in all subscribed watchers
     // to force getter re-evaluation.
-    store._committing = true
-    oldVm.state = null
-    store._committing = false
+    store._withCommit(() => {
+      oldVm.state = null
+    })
     Vue.nextTick(() => oldVm.$destroy())
   }
 }
 
-function initModule (store, rootState, path, module, hot) {
+function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
   const {
     state,
@@ -218,7 +250,9 @@ function initModule (store, rootState, path, module, hot) {
   if (!isRoot && !hot) {
     const parentState = getNestedState(rootState, path.slice(0, -1))
     const moduleName = path[path.length - 1]
-    Vue.set(parentState, moduleName, state || {})
+    store._withCommit(() => {
+      Vue.set(parentState, moduleName, state || {})
+    })
   }
 
   if (mutations) {
@@ -239,7 +273,7 @@ function initModule (store, rootState, path, module, hot) {
 
   if (modules) {
     Object.keys(modules).forEach(key => {
-      initModule(store, rootState, path.concat(key), modules[key], hot)
+      installModule(store, rootState, path.concat(key), modules[key], hot)
     })
   }
 }
