@@ -10,10 +10,11 @@
   ],
   "scripts": {
     "dev": "node examples/server.js",
+    "dev:dist": "rollup -wm -c build/rollup.config.js",
+    "build": "rollup -c build/rollup.config.js && uglifyjs dist/vuex.js -cm --comments -o dist/vuex.min.js",
     "test": "eslint src && npm run test:unit && npm run test:e2e",
-    "test:unit": "jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
+    "test:unit": "rollup -c build/rollup.config.js && jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
     "test:e2e": "node test/e2e/runner.js",
-    "build": "node build/build.js",
     "release": "bash build/release.sh",
     "docs": "cd docs && gitbook serve",
     "docs:deploy": "cd docs && ./deploy.sh"
@@ -48,7 +49,8 @@
     "nightwatch-helpers": "^1.1.0",
     "phantomjs-prebuilt": "^2.1.7",
     "rollup": "^0.34.1",
-    "rollup-plugin-babel": "^2.4.0",
+    "rollup-plugin-buble": "^0.12.1",
+    "rollup-watch": "^2.5.0",
     "selenium-server": "^2.53.1",
     "todomvc-app-css": "^2.0.3",
     "uglify-js": "^2.6.2",

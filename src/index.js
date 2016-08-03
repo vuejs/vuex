@@ -253,7 +253,6 @@ function initModule (store, path, module, hot) {
   // set state
   if (!isRoot && !hot) {
     const parentState = getNestedState(store.state, path.slice(0, -1))
-    if (!parentState) debugger
     const moduleName = path[path.length - 1]
     Vue.set(parentState, moduleName, state || {})
   }

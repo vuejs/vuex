@@ -14,7 +14,7 @@ export function mapMutations (mutations) {
   const res = {}
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
-      return this.$store.commit(val, ...args)
+      return this.$store.commit.apply(this.$store, [val].concat(args))
     }
   })
   return res
@@ -37,7 +37,7 @@ export function mapActions (actions) {
   const res = {}
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
-      return this.$store.dispatch(val, ...args)
+      return this.$store.dispatch.apply(this.$store, [val].concat(args))
     }
   })
   return res
