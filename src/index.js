@@ -30,8 +30,8 @@ class Store {
     this.dispatch = function boundDispatch (type, payload) {
       return dispatch.call(store, type, payload)
     }
-    this.commit = function boundCommit (type, payload) {
-      return commit.call(store, type, payload)
+    this.commit = function boundCommit (type, payload, options) {
+      return commit.call(store, type, payload, options)
     }
 
     // strict mode
@@ -58,10 +58,11 @@ class Store {
     assert(false, `Use store.replaceState() to explicit replace store state.`)
   }
 
-  commit (type, payload) {
+  commit (type, payload, options) {
     // check object-style commit
     let mutation
     if (isObject(type) && type.type) {
+      options = payload
       payload = mutation = type
       type = type.type
     } else {
@@ -77,7 +78,7 @@ class Store {
         handler(payload)
       })
     })
-    if (!payload || !payload.silent) {
+    if (!options || !options.silent) {
       this._subscribers.forEach(sub => sub(mutation, this.state))
     }
   }

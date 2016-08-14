@@ -623,10 +623,12 @@ describe('Vuex', () => {
       type: TEST,
       n: 2
     })
+    store.commit(TEST, { n: 3 }, { silent: true })
     store.commit({
       type: TEST,
-      silent: true,
-      n: 3
+      n: 4
+    }, {
+      silent: true
     })
     expect(mutations.length).toBe(2)
     expect(mutations[0].type).toBe(TEST)
