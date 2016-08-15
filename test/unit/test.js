@@ -928,4 +928,31 @@ describe('Vuex', () => {
       done()
     })
   })
+
+  it('watch: with resetting vm', done => {
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        [TEST]: state => state.count++
+      }
+    })
+
+    const spy = jasmine.createSpy()
+    store.watch(state => state.count, spy)
+
+    // reset store vm
+    store.registerModule('test', {})
+
+    Vue.nextTick(() => {
+      store.commit(TEST)
+      expect(store.state.count).toBe(1)
+
+      Vue.nextTick(() => {
+        expect(spy).toHaveBeenCalled()
+        done()
+      })
+    })
+  })
 })
