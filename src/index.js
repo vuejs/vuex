@@ -23,6 +23,7 @@ class Store {
     this._wrappedGetters = Object.create(null)
     this._runtimeModules = Object.create(null)
     this._subscribers = []
+    this._watcherVM = new Vue()
 
     // bind commit and dispatch to self
     const store = this
@@ -108,7 +109,7 @@ class Store {
 
   watch (getter, cb, options) {
     assert(typeof getter === 'function', `store.watch only accepts a function.`)
-    return this._vm.$watch(() => getter(this.state), cb, options)
+    return this._watcherVM.$watch(() => getter(this.state), cb, options)
   }
 
   replaceState (state) {
