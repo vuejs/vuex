@@ -1,5 +1,5 @@
 /**
- * vuex v2.0.0-rc.4
+ * vuex v2.0.0-rc.5
  * (c) 2016 Evan You
  * @license MIT
  */
@@ -154,7 +154,7 @@
     this._wrappedGetters = Object.create(null)
       this._runtimeModules = Object.create(null)
     this._subscribers = []
-    this._pendingActions = []
+    this._watcherVM = new Vue()
 
     // bind commit and dispatch to self
     var store = this
@@ -164,8 +164,8 @@
       this.dispatch = function boundDispatch (type, payload) {
       return dispatch.call(store, type, payload)
     }
-    this.commit = function boundCommit (type, payload) {
-      return commit.call(store, type, payload)
+    this.commit = function boundCommit (type, payload, options) {
+      return commit.call(store, type, payload, options)
     }
 
     // strict mode
@@ -194,12 +194,13 @@
     assert(false, "Use store.replaceState() to explicit replace store state.")
   };
 
-  Store.prototype.commit = function commit (type, payload) {
+  Store.prototype.commit = function commit (type, payload, options) {
       var this$1 = this;
 
     // check object-style commit
     var mutation
     if (isObject(type) && type.type) {
+      options = payload
       payload = mutation = type
       type = type.type
     } else {
@@ -215,7 +216,7 @@
         handler(payload)
       })
     })
-    if (!payload || !payload.silent) {
+    if (!options || !options.silent) {
       this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); })
     }
   };
@@ -226,15 +227,9 @@
       console.error(("[vuex] unknown action type: " + type))
       return
     }
-    var res = entry.length > 1
+    return entry.length > 1
       ? Promise.all(entry.map(function (handler) { return handler(payload); }))
       : entry[0](payload)
-    var pending = this._pendingActions
-    pending.push(res)
-    return res.then(function (value) {
-      pending.splice(pending.indexOf(res), 1)
-      return value
-    })
   };
 
   Store.prototype.subscribe = function subscribe (fn) {
@@ -254,7 +249,7 @@
       var this$1 = this;
 
     assert(typeof getter === 'function', "store.watch only accepts a function.")
-    return this._vm.$watch(function () { return getter(this$1.state); }, cb, options)
+    return this._watcherVM.$watch(function () { return getter(this$1.state); }, cb, options)
   };
 
   Store.prototype.replaceState = function replaceState (state) {
@@ -271,8 +266,8 @@
     this._runtimeModules[path.join('.')] = module
     installModule(this, this.state, path, module)
     // reset store to update getters...
-      resetStoreVM(this, this.state)
-    };
+    resetStoreVM(this, this.state)
+  };
 
   Store.prototype.unregisterModule = function unregisterModule (path) {
       var this$1 = this;
@@ -297,8 +292,8 @@
     }
     if (newOptions.getters) {
       options.getters = newOptions.getters
-      }
-      if (newOptions.modules) {
+    }
+    if (newOptions.modules) {
       for (var key in newOptions.modules) {
         options.modules[key] = newOptions.modules[key]
       }
@@ -306,13 +301,9 @@
     resetStore(this)
   };
 
-  Store.prototype.onActionsResolved = function onActionsResolved (cb) {
-    Promise.all(this._pendingActions).then(cb)
-  };
-
   Store.prototype._withCommit = function _withCommit (fn) {
     var committing = this._committing
-    this._committing = true
+      this._committing = true
     fn()
     this._committing = committing
   };
