@@ -2,6 +2,7 @@ casper.test.begin('todomvc', 57, function (test) {
   casper
   .start('examples/todomvc/index.html')
   .then(function () {
+    this.viewport(1000, 1000) // for appearing destroy button by mouse hover
     test.assertNotVisible('.main', '.main should be hidden')
     test.assertNotVisible('.footer', '.footer should be hidden')
     test.assertElementCount('.filters .selected', 1, 'should have one filter selected')
@@ -29,7 +30,7 @@ casper.test.begin('todomvc', 57, function (test) {
     test.assertVisible('.main', '.main should now be visible')
     test.assertVisible('.footer', '.footer should now be visible')
     test.assertNotVisible('.clear-completed', '.clear-completed should be hidden')
-    test.assertField({type: 'css', path: '.new-todo'}, '', 'new todo input should be reset')
+    test.assertField({ type: 'css', path: '.new-todo' }, '', 'new todo input should be reset')
   })
 
   // add another item ---------------------------------------------------
@@ -88,6 +89,9 @@ casper.test.begin('todomvc', 57, function (test) {
 
   // remove a completed item --------------------------------------------
 
+  .then(function () {
+    this.mouse.move('.todo:nth-child(1)')
+  })
   .thenClick('.todo:nth-child(1) .destroy', function () {
     test.assertElementCount('.todo', 4, 'should have 4 items now')
     test.assertElementCount('.todo.completed', 2, 'should have 2 item completed')
@@ -96,6 +100,9 @@ casper.test.begin('todomvc', 57, function (test) {
 
   // remove a incompleted item ------------------------------------------
 
+  .then(function () {
+    this.mouse.move('.todo:nth-child(2)')
+  })
   .thenClick('.todo:nth-child(2) .destroy', function () {
     test.assertElementCount('.todo', 3, 'should have 3 items now')
     test.assertElementCount('.todo.completed', 2, 'should have 2 item completed')
