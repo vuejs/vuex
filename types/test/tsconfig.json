@@ -2,11 +2,21 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "noImplicitAny": true
+    "lib": [
+      "es5",
+      "dom",
+      "es2015.promise",
+      "es2015.core"
+    ],
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noEmit": true
   },
   "files": [
     "index.ts",
+    "helpers.ts",
     "../index.d.ts",
+    "../helpers.d.ts",
     "../../logger.d.ts",
     "../vue.d.ts",
     "../typings/index.d.ts"
