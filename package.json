@@ -8,6 +8,7 @@
     "dist",
     "src",
     "types/index.d.ts",
+    "types/helpers.d.ts",
     "types/vue.d.ts",
     "logger.js",
     "logger.d.ts"
