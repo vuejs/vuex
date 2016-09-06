@@ -1,66 +1,103 @@
-import './vue'
+import "./vue";
 
-export class Store<S> {
-  constructor(options: StoreOption<S>);
+export * from "./helpers";
 
-  state: S;
+export declare class Store<S> {
+  constructor(options: StoreOptions<S>);
 
-  dispatch(mutationName: string, ...args: any[]): void;
-  dispatch<P>(mutation: MutationObject<P>): void;
+  readonly state: S;
+  readonly getters: any;
 
   replaceState(state: S): void;
 
-  watch<T>(getter: Getter<S, T>, cb: (value: T) => void, options?: WatchOption): void;
+  dispatch: Dispatch;
+  commit: Commit;
+
+  subscribe<P extends Payload>(fn: (mutation: P, state: S) => any): () => void;
+  watch<T>(getter: (state: S) => T, cb: (value: T) => void, options?: WatchOption): void;
+
+  registerModule<T>(path: string, module: Module<T, S>): void;
+  registerModule<T>(path: string[], module: Module<T, S>): void;
+
+  unregisterModule(path: string): void;
+  unregisterModule(path: string[]): void;
 
   hotUpdate(options: {
+    actions?: ActionTree<S, S>;
     mutations?: MutationTree<S>;
-    modules?: ModuleTree;
+    getters?: GetterTree<S, S>;
+    modules?: ModuleTree<S>;
   }): void;
-
-  subscribe(cb: (mutation: MutationObject<any>, state: S) => void): () => void;
 }
 
-export function install(Vue: vuejs.VueStatic): void;
+export declare function install(Vue: vuejs.VueStatic): void;
 
-export interface StoreOption<S> {
+export interface Dispatch {
+  (type: string, payload?: any): Promise<any[]>;
+  <P extends Payload>(payloadWithType: P): Promise<any[]>;
+}
+
+export interface Commit {
+  (type: string, payload?: any, options?: CommitOptions): void;
+  <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
+}
+
+export interface ActionInjectee<S, R> {
+  dispatch: Dispatch;
+  commit: Commit;
+  state: S;
+  getters: any;
+  rootState: R;
+}
+
+export interface Payload {
+  type: string;
+}
+
+export interface CommitOptions {
+  silent?: boolean;
+}
+
+export interface StoreOptions<S> {
   state?: S;
+  getters?: GetterTree<S, S>;
+  actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
-  modules?: ModuleTree;
+  modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];
   strict?: boolean;
 }
 
-type Getter<S, T> = (state: S) => T;
-type Action<S> = (store: Store<S>, ...args: any[]) => any;
-type Mutation<S> = (state: S, ...args: any[]) => void;
-type Plugin<S> = (store: Store<S>) => void;
+export type Getter<S, R> = (state: S, getters: any, rootState: R) => any;
+export type Action<S, R> = (injectee: ActionInjectee<S, R>, payload: any) => any;
+export type Mutation<S> = (state: S, payload: any) => any;
+export type Plugin<S> = (store: Store<S>) => any;
+
+export interface Module<S, R> {
+  state?: S;
+  getters?: GetterTree<S, R>;
+  actions?: ActionTree<S, R>;
+  mutations?: MutationTree<S>;
+  modules?: ModuleTree<R>;
+}
+
+export interface GetterTree<S, R> {
+  [key: string]: Getter<S, R>;
+}
+
+export interface ActionTree<S, R> {
+  [key: string]: Action<S, R>;
+}
 
 export interface MutationTree<S> {
   [key: string]: Mutation<S>;
 }
 
-export interface MutationObject<P> {
-  type: string;
-  silent?: boolean;
-  payload?: P;
-}
-
-export interface Module<S> {
-  state?: S;
-  mutations?: MutationTree<S>;
-  modules?: ModuleTree;
-}
-
-export interface ModuleTree {
-  [key: string]: Module<any>;
-}
-
-export interface VuexComponentOption<S> {
-  getters: { [key: string]: Getter<S, any> };
-  actions: { [key: string]: Action<S> };
+export interface ModuleTree<R> {
+  [key: string]: Module<any, R>;
 }
 
 export interface WatchOption {
   deep?: boolean;
-  immidiate?: boolean;
+  immediate?: boolean;
 }
