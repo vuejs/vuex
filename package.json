@@ -3,10 +3,15 @@
   "version": "2.0.0-rc.5",
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
+  "typings": "types/index.d.ts",
   "files": [
     "dist",
     "src",
-    "logger.js"
+    "types/index.d.ts",
+    "types/helpers.d.ts",
+    "types/vue.d.ts",
+    "logger.js",
+    "logger.d.ts"
   ],
   "scripts": {
     "dev": "node examples/server.js",
