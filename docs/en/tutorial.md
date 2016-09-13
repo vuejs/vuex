@@ -250,7 +250,7 @@ You might be wondering - why did we choose to use a getter instead of directly a
 
 1. We may want to define getters with computed values (think totals, averages, etc.).
 2. Many components in a larger app can use the same getter function.
-3. If the value is moved from say `store.count` to `store.counter.value` you'd have to update one getter instead of dozens of components.
+3. If the value is moved from say `store.state.count` to `store.state.counter.value` you'd have to update one getter instead of dozens of components.
 
 These are a few of the benefits of using getters.
 
