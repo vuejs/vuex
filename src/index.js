@@ -140,21 +140,7 @@ class Store {
   }
 
   hotUpdate (newOptions) {
-    const options = this._options
-    if (newOptions.actions) {
-      options.actions = newOptions.actions
-    }
-    if (newOptions.mutations) {
-      options.mutations = newOptions.mutations
-    }
-    if (newOptions.getters) {
-      options.getters = newOptions.getters
-    }
-    if (newOptions.modules) {
-      for (const key in newOptions.modules) {
-        options.modules[key] = newOptions.modules[key]
-      }
-    }
+    updateModule(this._options, newOptions)
     resetStore(this)
   }
 
@@ -168,6 +154,30 @@ class Store {
 
 function assert (condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
+}
+
+function updateModule (targetModule, newModule) {
+  if (newModule.actions) {
+    targetModule.actions = newModule.actions
+  }
+  if (newModule.mutations) {
+    targetModule.mutations = newModule.mutations
+  }
+  if (newModule.getters) {
+    targetModule.getters = newModule.getters
+  }
+  if (newModule.modules) {
+    for (const key in newModule.modules) {
+      if (!(targetModule.modules && targetModule.modules[key])) {
+        console.warn(
+          `[vuex] trying to add a new module '${key}' on hot reloading, ` +
+          'manual reload is needed'
+        )
+        return
+      }
+      updateModule(targetModule.modules[key], newModule.modules[key])
+    }
+  }
 }
 
 function resetStore (store) {
