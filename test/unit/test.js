@@ -23,6 +23,24 @@ describe('Vuex', () => {
     expect(store.state.a).toBe(3)
   })
 
+  it('committing with object style', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, payload) {
+          state.a += payload.amount
+        }
+      }
+    })
+    store.commit({
+      type: TEST,
+      amount: 2
+    })
+    expect(store.state.a).toBe(3)
+  })
+
   it('dispatching actions, sync', () => {
     const store = new Vuex.Store({
       state: {
@@ -40,6 +58,29 @@ describe('Vuex', () => {
       }
     })
     store.dispatch(TEST, 2)
+    expect(store.state.a).toBe(3)
+  })
+
+  it('dispatching with object style', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      },
+      actions: {
+        [TEST] ({ commit }, payload) {
+          commit(TEST, payload.amount)
+        }
+      }
+    })
+    store.dispatch({
+      type: TEST,
+      amount: 2
+    })
     expect(store.state.a).toBe(3)
   })
 
