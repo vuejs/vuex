@@ -970,6 +970,27 @@ describe('Vuex', () => {
     })
   })
 
+  it('hot reload: provide warning if a new module is given', () => {
+    const store = new Vuex.Store({})
+
+    spyOn(console, 'warn')
+
+    store.hotUpdate({
+      modules: {
+        test: {
+          state: {
+            count: 0
+          }
+        }
+      }
+    })
+
+    expect(console.warn).toHaveBeenCalledWith(
+      '[vuex] trying to add a new module \'test\' on hot reloading, ' +
+      'manual reload is needed'
+    )
+  })
+
   it('watch: with resetting vm', done => {
     const store = new Vuex.Store({
       state: {
