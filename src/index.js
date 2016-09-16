@@ -85,6 +85,11 @@ class Store {
   }
 
   dispatch (type, payload) {
+    // check object-style dispatch
+    if (isObject(type) && type.type) {
+      payload = type
+      type = type.type
+    }
     const entry = this._actions[type]
     if (!entry) {
       console.error(`[vuex] unknown action type: ${type}`)
