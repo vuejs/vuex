@@ -17,6 +17,7 @@
 - [TodoMVC](https://github.com/vuejs/vuex/tree/master/examples/todomvc)
 - [Flux Chat](https://github.com/vuejs/vuex/tree/master/examples/chat)
 - [Shopping Cart](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart)
+- [Vuex + Vue router](https://github.com/skyronic/vue-spa)
 
 Running the examples:
 
