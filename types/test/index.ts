@@ -1,6 +1,6 @@
-import * as Vue from "vue";
+import Vue = require("vue");
 import * as Vuex from "../index";
-import createLogger from "../../logger";
+import createLogger from "../../dist/logger";
 
 Vue.use(Vuex);
 

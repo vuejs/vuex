@@ -1,3 +1,7 @@
+import _Vue = require("vue");
+import { WatchOptions } from "vue";
+
+// augment typings of Vue.js
 import "./vue";
 
 export * from "./helpers";
@@ -14,7 +18,7 @@ export declare class Store<S> {
   commit: Commit;
 
   subscribe<P extends Payload>(fn: (mutation: P, state: S) => any): () => void;
-  watch<T>(getter: (state: S) => T, cb: (value: T) => void, options?: WatchOption): void;
+  watch<T>(getter: (state: S) => T, cb: (value: T) => void, options?: WatchOptions): void;
 
   registerModule<T>(path: string, module: Module<T, S>): void;
   registerModule<T>(path: string[], module: Module<T, S>): void;
@@ -30,7 +34,7 @@ export declare class Store<S> {
   }): void;
 }
 
-export declare function install(Vue: vuejs.VueStatic): void;
+export declare function install(Vue: typeof _Vue): void;
 
 export interface Dispatch {
   (type: string, payload?: any): Promise<any[]>;
@@ -95,9 +99,4 @@ export interface MutationTree<S> {
 
 export interface ModuleTree<R> {
   [key: string]: Module<any, R>;
-}
-
-export interface WatchOption {
-  deep?: boolean;
-  immediate?: boolean;
 }

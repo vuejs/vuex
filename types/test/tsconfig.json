@@ -12,13 +12,9 @@
     "strictNullChecks": true,
     "noEmit": true
   },
-  "files": [
-    "index.ts",
-    "helpers.ts",
-    "../index.d.ts",
-    "../helpers.d.ts",
-    "../../logger.d.ts",
-    "../vue.d.ts",
-    "../typings/index.d.ts"
+  "include": [
+    "*.ts",
+    "../*.d.ts",
+    "../../dist/logger.d.ts"
   ]
 }

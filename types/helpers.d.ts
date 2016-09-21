@@ -1,9 +1,11 @@
+import Vue = require("vue");
+
 type Dictionary<T> = { [key: string]: T };
 
 export function mapState (map: string[]): Dictionary<() => any>;
 export function mapState (map: Dictionary<string>): Dictionary<() => any>;
 export function mapState <S>(
-  map: Dictionary<(this: vuejs.Vue, state: S, getters: any) => any>
+  map: Dictionary<(this: typeof Vue, state: S, getters: any) => any>
 ): Dictionary<() => any>;
 
 type MutationMethod = (...args: any[]) => void;
