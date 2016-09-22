@@ -261,11 +261,11 @@ class Store {
   }
 
   /**
-   * Setup mutation check: if the vuex instance's state is mutated
+   * Setup mutation check: if the Vuex instance's state is mutated
    * outside of a mutation handler, we throw en error. This effectively
-   * enforces all mutations to the state to be trackable and hot-reloadble.
+   * enforces all mutations to the state to be trackable and hot-reloadable.
    * However, this comes at a run time cost since we are doing a deep
-   * watch on the entire state tree, so it is only enalbed with the
+   * watch on the entire state tree, so it is only enabled if the
    * strict option is set to true.
    */
 
