@@ -1,12 +1,15 @@
-# Table of Contents
+# Vuex
 
-> Make sure you read the sections in order.
+### Large-scale State Management for Vue.js
 
+> Note: This is docs for vuex@2.x. The docs for 1.x is [here](https://github.com/vuejs/vuex/tree/1.0/docs).
+
+- [Release Notes](https://github.com/vuejs/vuex/releases)
+- [Installation](installation.md)
 - [What is Vuex?](intro.md)
 - [Getting Started](getting-started.md)
-- [Tutorial](tutorial.md)
 - Core Concepts
-  - [State and Getters](state.md)
+  - [State](state.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
 - [Data Flow](data-flow.md)

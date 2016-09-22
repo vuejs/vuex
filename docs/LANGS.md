@@ -1,6 +1,1 @@
-* [English (1.0)](en/)
-* [简体中文 (0.8, outdated)](zh-cn/)
-* [Português (0.8, outdated)](pt/)
-* [Italiano (0.8, outdated)](it/)
-* [Español (0.8, outdated)](es/)
-* [日本語 (0.8, outdated)](ja/)
+* [English](en/)
