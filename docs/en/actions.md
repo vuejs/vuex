@@ -10,7 +10,7 @@ function increment (store) {
   store.dispatch('INCREMENT')
 }
 
-// a action with additional arguments
+// an action with additional arguments
 // with ES2015 argument destructuring
 function incrementBy ({ dispatch }, amount) {
   dispatch('INCREMENT', amount)
