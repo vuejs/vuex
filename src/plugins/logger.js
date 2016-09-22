@@ -1,18 +1,20 @@
 // Credits: borrowed code from fcomb/redux-logger
 
+import { deepCopy } from '../util'
+
 export default function createLogger ({
   collapsed = true,
   transformer = state => state,
   mutationTransformer = mut => mut
 } = {}) {
   return store => {
-    let prevState = JSON.parse(JSON.stringify(store.state))
+    let prevState = deepCopy(store.state)
 
     store.subscribe((mutation, state) => {
       if (typeof console === 'undefined') {
         return
       }
-      const nextState = JSON.parse(JSON.stringify(state))
+      const nextState = deepCopy(state)
       const time = new Date()
       const formattedTime = ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
       const formattedMutation = mutationTransformer(mutation)
