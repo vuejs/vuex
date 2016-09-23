@@ -1,6 +1,7 @@
 import devtoolPlugin from './plugins/devtool'
 import applyMixin from './mixin'
 import { mapState, mapMutations, mapGetters, mapActions } from './helpers'
+import { isObject, isPromise, assert } from './util'
 
 let Vue // bind on install
 
@@ -155,10 +156,6 @@ class Store {
     fn()
     this._committing = committing
   }
-}
-
-function assert (condition, msg) {
-  if (!condition) throw new Error(`[vuex] ${msg}`)
 }
 
 function updateModule (targetModule, newModule) {
@@ -337,14 +334,6 @@ function enableStrictMode (store) {
   store._vm.$watch('state', () => {
     assert(store._committing, `Do not mutate vuex store state outside mutation handlers.`)
   }, { deep: true, sync: true })
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-function isPromise (val) {
-  return val && typeof val.then === 'function'
 }
 
 function getNestedState (state, path) {
