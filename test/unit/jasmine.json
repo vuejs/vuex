@@ -1,7 +1,8 @@
 {
   "spec_dir": "test/unit",
   "spec_files": [
-    "test.js"
+    "test.js",
+    "util.js"
   ],
   "helpers": [
     "../../node_modules/babel-register/lib/node.js"
