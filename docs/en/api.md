@@ -48,8 +48,13 @@ const store = new Vuex.Store({ ...options })
 
   - type: `{ [key: string]: Function }`
 
-    Register getters on the store. The getter function receives the `state` as the first argument (will be module local state if defined in a module).
-
+    Register getters on the store. The getter function receives following arguments:
+    
+    ```
+    state,     // will be module local state if defined in a module).
+    getters,   // same as store.getters
+    rootState  // same as store.state
+    ```
     Registered getters are exposed on `store.getters`.
 
     [Details](getters.md)
