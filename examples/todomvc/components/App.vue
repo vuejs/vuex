@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 import Todo from './Todo.vue'
 
 const filters = {
@@ -79,11 +79,11 @@ export default {
     addTodo (e) {
       var text = e.target.value
       if (text.trim()) {
-        this.$store.dispatch('addTodo', { text })
+        this.$store.commit('addTodo', { text })
       }
       e.target.value = ''
     },
-    ...mapActions([
+    ...mapMutations([
       'toggleAll',
       'clearCompleted'
     ])
