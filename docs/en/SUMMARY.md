@@ -2,7 +2,7 @@
 
 > Note: This is docs for vuex@2.x.
 
-- [Looking for 1.0 Docs?](../old/)
+- [Looking for 1.0 Docs?](https://github.com/vuejs/vuex/tree/1.0/docs)
 - [Release Notes](https://github.com/vuejs/vuex/releases)
 - [Installation](installation.md)
 - [What is Vuex?](intro.md)
