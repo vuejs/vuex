@@ -20,11 +20,39 @@ const store = new Vuex.Store({ ...options })
 
 - **mutations**
 
-  - type: `Object`
+  - type: `{ [type: string]: Function }`
 
-    An object where each entry's key is the mutation name and the value is a mutation handler function. The handler function always receives `state` as the first argument, and receives all arguments passed to the dispatch call following that.
+    Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
 
     [Details](mutations.md)
+
+- **actions**
+
+  - type: `{ [type: string]: Function }`
+
+    Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+
+    ``` js
+    {
+      state,     // same as store.state, or local state if in modules
+      rootState, // same as store.state, only in modules
+      commit,    // same as store.commit
+      dispatch,  // same as store.dispatch
+      getters    // same as store.getters
+    }
+    ```
+
+    [Details](actions.md)
+
+- **getters**
+
+  - type: `{ [key: string]: Function }`
+
+    Register getters on the store. The getter function receives the `state` as the first argument (will be module local state if defined in a module).
+
+    Registered getters are exposed on `store.getters`.
+
+    [Details](getters.md)
 
 - **modules**
 
@@ -36,13 +64,18 @@ const store = new Vuex.Store({ ...options })
     {
       key: {
         state,
-        mutations
+        mutations,
+        actions?,
+        getters?,
+        modules?
       },
       ...
     }
     ```
 
-    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations will only receives the module's own state as the first argument instead of the root state.
+    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+
+    [Details](modules.md)
 
 - **plugins**
 
@@ -69,40 +102,33 @@ const store = new Vuex.Store({ ...options })
 
     The root state. Read only.
 
+- **getters**
+
+  - type: `Object`
+
+    Exposes registered getters. Read only.
+
 ### Vuex.Store Instance Methods
 
-- **dispatch(mutationName: String, ...args) | dispatch(mutation: Object)**
+- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-  Directly dispatch a mutation. This is useful in certain situations are in general you should prefer using actions in application code.
+  Commit a mutation. [Details](mutations.md)
 
-  *Object-Style Dispatch*
+- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
-  > requires >=0.6.2
+  Dispatch an action. Returns the return value of the triggered action handler, or a Promise if multiple handlers are triggered. [Details](actions.md)
 
-  You can also dispatch mutations using objects:
+- **`replaceState(state: Object)`**
 
-  ``` js
-  store.dispatch({
-    type: 'INCREMENT',
-    payload: 10
-  })
-  ```
+  Replace the store's root state. Use this only for state hydration / time-travel purposes.
 
-- **replaceState(state: Object)**
-
-  Replace the store's root state. Use this only for state restoration / time-travel purposes.
-
-- **watch(getter: Function, cb: Function, [options: Object])**
+- **`watch(getter: Function, cb: Function, options?: Object)`**
 
   Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
   To stop watching, call the returned handle function.
 
-- **hotUpdate(newOptions: Object)**
-
-  Hot swap new actions and mutations. [Details](hot-reload.md)
-
-- **subscribe(handler: Function)**
+- **`subscribe(handler: Function)`**
 
   Subscribe to store mutations. The `handler` is called after every mutaiton and receives the mutation descriptor and post-mutation state as arguments:
 
@@ -112,3 +138,17 @@ const store = new Vuex.Store({ ...options })
     console.log(mutation.payload)
   })
   ```
+
+  Most commonly used in plugins. [Details](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module)`**
+
+  Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+
+- **`unregisterModule(path: string | Array<string>)`**
+
+  Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)
+
+- **`hotUpdate(newOptions: Object)`**
+
+  Hot swap new actions and mutations. [Details](hot-reload.md)
