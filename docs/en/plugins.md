@@ -7,9 +7,7 @@ const myPlugin = store => {
   // called when the store is initialized
   store.subscribe((mutation, state) => {
     // called after every mutation.
-    // The mutation comes in the format of { type, payload } for normal
-    // dispatches, and will be the original mutation object for object-style
-    // dispatches.
+    // The mutation comes in the format of { type, payload }.
   })
 }
 ```
@@ -23,17 +21,17 @@ const store = new Vuex.Store({
 })
 ```
 
-### Dispatching Inside Plugins
+### Committing Mutations Inside Plugins
 
-Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by dispatching mutations.
+Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by committing mutations.
 
-By dispatching mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
+By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
   return store => {
     socket.on('data', data => {
-      store.dispatch('RECEIVE_DATA', data)
+      store.commit('receiveData', data)
     })
     store.subscribe(mutation => {
       if (mutation.type === 'UPDATE_DATA') {
@@ -87,10 +85,12 @@ The plugin will be used by default. For production, you will need [DefinePlugin]
 
 ### Built-in Logger Plugin
 
+> If you are using [vue-devtools](https://github.com/vuejs/vue-devtools) you probably don't need this.
+
 Vuex comes with a logger plugin for common debugging usage:
 
 ``` js
-import createLogger from 'vuex/logger'
+import createLogger from 'vuex/dist/logger'
 
 const store = new Vuex.Store({
   plugins: [createLogger()]
@@ -114,5 +114,7 @@ const logger = createLogger({
   }
 })
 ```
+
+The logger file can also be included directly via a `<script>` tag, and will expose the `createVuexLogger` function globally.
 
 Note the logger plugin takes state snapshots, so use it only during development.

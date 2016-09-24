@@ -15,14 +15,14 @@ The "Vuex way" to deal with it is binding the `<input>`'s value and call an acti
 ```
 ``` js
 // ...
-vuex: {
-  getters: {
+computed: {
+  ...mapState({
     message: state => state.obj.message
-  },
-  actions: {
-    updateMessage: ({ dispatch }, e) => {
-      dispatch('UPDATE_MESSAGE', e.target.value)
-    }
+  })
+},
+methods: {
+  updateMessage (e) {
+    this.$store.commit('updateMessage', e.target.value)
   }
 }
 ```
@@ -32,41 +32,27 @@ And here's the mutation handler:
 ``` js
 // ...
 mutations: {
-  UPDATE_MESSAGE (state, message) {
+  updateMessage (state, message) {
     state.obj.message = message
   }
 }
 ```
 
-Admittedly, this is quite a bit more verbose than a simple `v-model`, but such is the cost of making state changes explicit and track-able. At the same time, do note that Vuex doesn't demand putting all your state inside a Vuex store - if you do not wish to track the mutations for form interactions at all, you can simply keep the form state outside of Vuex as component local state, which allows you to freely leverage `v-model`.
+### Two-way Computed Property
 
-Yet an alternative approach to leverage `v-model` with state in Vuex store is to use a computed property providing a setter in the component, with all the advantages of param attributes such as lazy, number and debounce.
+Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
 
-``` html
-<input v-model="thisMessage">
-```
 ``` js
 // ...
-vuex: {
-  getters: {
-    message: state => state.obj.message
-  },
-  actions: {
-    updateMessage: ({ dispatch }, value) => {
-      dispatch('UPDATE_MESSAGE', value)
-    }
-  }
-},
 computed: {
-  thisMessage: {
+  message: {
     get () {
-      return this.message
+      return this.$store.state.obj.message
     },
-    set (val) {
-      this.updateMessage(val)
+    set (value) {
+      this.$store.commit('updateMessage', value)
     }
   }
 }
 ```
 
-The mutation remains the same.
