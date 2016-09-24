@@ -9,14 +9,14 @@
     "src",
     "types/index.d.ts",
     "types/helpers.d.ts",
-    "types/vue.d.ts",
-    "logger.js",
-    "logger.d.ts"
+    "types/vue.d.ts"
   ],
   "scripts": {
     "dev": "node examples/server.js",
     "dev:dist": "rollup -wm -c build/rollup.config.js",
-    "build": "rollup -c build/rollup.config.js && uglifyjs dist/vuex.js -cm --comments -o dist/vuex.min.js",
+    "build": "npm run build:main && npm run build:logger",
+    "build:main": "rollup -c build/rollup.config.js && uglifyjs dist/vuex.js -cm --comments -o dist/vuex.min.js",
+    "build:logger": "rollup -c build/rollup.logger.config.js",
     "test": "eslint src && npm run test:unit && npm run test:e2e",
     "test:unit": "rollup -c build/rollup.config.js && jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
     "test:e2e": "node test/e2e/runner.js",
