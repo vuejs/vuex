@@ -1,199 +1,175 @@
 # Actions
 
-> Vuex actions are in fact "action creators" in vanilla flux definitions, but I find that term more confusing than useful.
+Actions are similar to mutations, the difference being that:
 
-Actions are just functions that dispatch mutations. By convention, Vuex actions always expect a store instance as its first argument, followed by optional additional arguments:
+- Instead of mutating the state, actions commits mutations.
+- Actions can contain arbitrary asynchronous operations.
 
-``` js
-// the simplest action
-function increment (store) {
-  store.dispatch('INCREMENT')
-}
-
-// a action with additional arguments
-// with ES2015 argument destructuring
-function incrementBy ({ dispatch }, amount) {
-  dispatch('INCREMENT', amount)
-}
-```
-
-This may look dumb at first sight: why don't we just dispatch mutations directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+Let's register a simple action:
 
 ``` js
-function incrementAsync ({ dispatch }) {
-  setTimeout(() => {
-    dispatch('INCREMENT')
-  }, 1000)
-}
-```
-
-A more practical example would be an action to checkout a shopping cart, which involves **calling an async API** and **dispatching multiple mutations**:
-
-``` js
-function checkout ({ dispatch, state }, products) {
-  // save the current in cart items
-  const savedCartItems = [...state.cart.added]
-  // send out checkout request, and optimistically
-  // clear the cart
-  dispatch(types.CHECKOUT_REQUEST)
-  // the shop API accepts a success callback and a failure callback
-  shop.buyProducts(
-    products,
-    // handle success
-    () => dispatch(types.CHECKOUT_SUCCESS),
-    // handle failure
-    () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
-  )
-}
-```
-
-Note that instead of expecting returns values or passing callbacks to actions, the result of calling the async API is handled by dispatching mutations as well. The rule of thumb is that **the only side effects produced by calling actions should be dispatched mutations**.
-
-### Calling Actions In Components
-
-You may have noticed that action functions are not directly callable without reference to a store instance. Technically, we can invoke an action by calling `action(this.$store)` inside a method, but it's better if we can directly expose "bound" versions of actions as the component's methods so that we can easily refer to them inside templates. We can do that using the `vuex.actions` option:
-
-``` js
-// inside a component
-import { incrementBy } from './actions'
-
-const vm = new Vue({
-  vuex: {
-    getters: { ... }, // state getters
-    actions: {
-      incrementBy // ES6 object literal shorthand, bind using the same name
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  },
+  actions: {
+    increment (context) {
+      context.commit('increment')
     }
   }
 })
 ```
 
-What the above code does is to bind the raw `incrementBy` action to the component's store instance, and expose it on the component as an instance method, `vm.incrementBy`. Any arguments passed to `vm.incrementBy` will be passed to the raw action function after the first argument which is the store, so calling:
+Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `ctx.commit` to commit a mutation, or access the state and getters via `ctx.state` and `ctx.getters`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
+
+In practice, we often use ES2015 [argument destructuring](https://github.com/lukehoban/es6features#destructuring) to simplify the code a bit (especially when we need to call `commit` multiple times):
 
 ``` js
-vm.incrementBy(1)
-```
-
-is equivalent to:
-
-``` js
-incrementBy(vm.$store, 1)
-```
-
-But the benefit is that we can bind to it more easily inside the component's template:
-
-``` html
-<button v-on:click="incrementBy(1)">increment by one</button>
-```
-
-You can obviously use a different method name when binding actions:
-
-``` js
-// inside a component
-import { incrementBy } from './actions'
-
-const vm = new Vue({
-  vuex: {
-    getters: { ... },
-    actions: {
-      plus: incrementBy // bind using a different name
-    }
+actions: {
+  increment ({ commit }) {
+    commit('increment')
   }
-})
-```
-
-Now the action will be bound as `vm.plus` instead of `vm.incrementBy`.
-
-### Inline Actions
-
-If an action is specific to a component, you can take the shortcut and just define it inline:
-
-``` js
-const vm = new Vue({
-  vuex: {
-    getters: { ... },
-    actions: {
-      plus: ({ dispatch }) => dispatch('INCREMENT')
-    }
-  }
-})
-```
-
-### Binding All Actions
-
-If you simply want to bind all the shared actions:
-
-``` js
-import * as actions from './actions'
-
-const vm = new Vue({
-  vuex: {
-    getters: { ... },
-    actions // bind all actions
-  }
-})
-```
-
-### Arrange Actions in Modules
-
-Normally in large applications, actions should be arranged in groups/modules for different purposes. For example, userActions module deals with user registration, login, logout, and so on, while shoppingCartActions module deals with other tasks for shopping.
-
-Modularization is more convenient for different components to import only required actions.
-
-You may import action module into action module for reusability.
-
-```javascript
-// errorActions.js
-export const setError = ({dispatch}, error) => {
-  dispatch('SET_ERROR', error)
-}
-export const showError = ({dispatch}) => {
-  dispatch('SET_ERROR_VISIBLE', true)
-}
-export const hideError = ({dispatch}) => {
-  dispatch('SET_ERROR_VISIBLE', false)
 }
 ```
 
-```javascript
-// userActions.js
-import {setError, showError} from './errorActions'
+### Dispatching Actions
 
-export const login = ({dispatch}, username, password) => {
-  if (username && password) {
-    doLogin(username, password).done(res => {
-      dispatch('SET_USERNAME', res.username)
-      dispatch('SET_LOGGED_IN', true)
-      dispatch('SET_USER_INFO', res)
-    }).fail(error => {
-      dispatch('SET_INVALID_LOGIN')
-      setError({dispatch}, error)
-      showError({dispatch})
+Actions are triggered with the `store.dispatch` method:
+
+``` js
+store.dispatch('increment')
+```
+
+This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+
+``` js
+actions: {
+  incrementAsync ({ commit }) {
+    setTimeout(() => {
+      commit('increment')
     })
   }
 }
-
 ```
 
-While calling actions from another module, or while calling another action in the same module, remember that actions take a store instance as its first argument, so the action called inside another action should be passed through the first argument for the caller.
+Actions support the same payload format and object-style dispatch:
 
-If you write the action with ES6 destructuring style, make sure that the first argument of the caller action covers all the properties and methods of both actions. For example, only *dispatch* is used in the caller action and *state*, *watch* are used in the called action, all the *dispatch*, *state* and *watch* should be presented in the caller first formal argument like this:
+``` js
+// dispatch with a payload
+store.dispatch('incrementAsync', {
+  amount: 10
+})
 
-```javascript
-import {callee} from './anotherActionModule'
+// dispatch with an object
+store.dispatch({
+  type: 'incrementAsync',
+  amount: 10
+})
+```
 
-export const caller = ({dispatch, state, watch}) => {
-  dispatch('MUTATION_1')
-  callee({state, watch})
+A more practical example of real-world actions would be an action to checkout a shopping cart, which involves **calling an async API** and **committing multiple mutations**:
+
+``` js
+actions: {
+  checkout ({ commit, state }, payload) {
+    // save the current in cart items
+    const savedCartItems = [...state.cart.added]
+    // send out checkout request, and optimistically
+    // clear the cart
+    commit(types.CHECKOUT_REQUEST)
+    // the shop API accepts a success callback and a failure callback
+    shop.buyProducts(
+      products,
+      // handle success
+      () => commit(types.CHECKOUT_SUCCESS),
+      // handle failure
+      () => commit(types.CHECKOUT_FAILURE, savedCartItems)
+    )
+  }
 }
 ```
 
-Otherwise, you should use the old-fashioned function syntax:
+Note we are performing a flow of asynchronous operations, and recording the side effects (state mutations) of the action by committing them.
 
-```javascript
-import {callee} from './anotherActionModule'
+### Dispatching Actions in Components
 
-export const caller = (store) => {
-  store.dispatch('MUTATION_1')
-  callee(store)
+You can dispatch actions in components with `this.$store.dispatch('xxx')`, or use the `mapActions` helper which maps component methods to `store.dispatch` calls (requires root `store` injection):
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions([
+      'increment' // map this.increment() to this.$store.dispatch('increment')
+    ]),
+    ...mapActions({
+      add: 'increment' // map this.add() to this.$store.dispatch('increment')
+    })
+  }
 }
 ```
+
+### Composing Actions
+
+Actions are often asynchronous, so how do we know when an action is done? And more importantly, how can we compose multiple actions together to handle more complex async flows?
+
+The first thing to know is that `store.dispatch` returns the value returned by the triggered action handler, so you can return a Promise in an action:
+
+``` js
+actions: {
+  actionA ({ commit }) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        commit('someMutation')
+        resolve()
+      })
+    })
+  }
+}
+```
+
+Now you can do:
+
+``` js
+store.dispatch('actionA').then(() => {
+  // ...
+})
+```
+
+And also in another action:
+
+``` js
+actions: {
+  // ...
+  actionB ({ dispatch, commit }) {
+    return dispatch('actionA').then(() => {
+      commit('someOtherMutation')
+    })
+  }
+}
+```
+
+Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), a JavaScript feature landing very soon, we can compose our actions like this:
+
+``` js
+// assuming getData() and getOtherData() return Promises
+
+actions: {
+  async actionA ({ commit }) {
+    commit('gotData', await getData())
+  },
+  async actionB ({ dispatch, commit }) {
+    await dispatch('actionA') // wait for actionA to finish
+    commit('gotOtherData', await getOtherData())
+  }
+}
+```
+
+> It's possible for a `store.dispatch` to trigger multiple action handlers in different modules. In such a case the returned value will be a Promise that resolves when all triggered handlers have been resolved.
