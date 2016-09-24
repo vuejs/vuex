@@ -20,7 +20,7 @@ const store = new Vuex.Store({
     count: 0
   },
   mutations: {
-    INCREMENT (state) {
+    increment (state) {
       state.count++
     }
   }
@@ -30,11 +30,15 @@ const store = new Vuex.Store({
 Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
 
 ``` js
-store.commit('INCREMENT')
+store.commit('increment')
 
 console.log(store.state.count) // -> 1
 ```
 
 Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
 
-Next, let's see [how to use the State inside Vue components](state.md).
+Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+
+Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
+
+Next, we will discuss each core concept in much finer details and let's start with [State](state.md).
