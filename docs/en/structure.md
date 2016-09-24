@@ -29,4 +29,4 @@ For any non-trivial app, we will likely need to leverage modules. Here's an exam
         └── products.js   # products module
 ```
 
-As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/master/examples/shopping-cart).
+As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).

@@ -3,7 +3,7 @@
   "plugins": ["edit-link", "prism", "-highlight", "github"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/vuejs/vuex/tree/master/docs",
+      "base": "https://github.com/vuejs/vuex/tree/dev/docs",
       "label": "Edit This Page"
     },
     "github": {
