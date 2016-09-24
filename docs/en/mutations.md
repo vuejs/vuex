@@ -3,8 +3,6 @@
 Vuex mutations are essentially events: each mutation has a **name** and a **handler**. The handler function will receive the state as the first argument:
 
 ``` js
-import Vuex from 'vuex'
-
 const store = new Vuex.Store({
   state: {
     count: 1
