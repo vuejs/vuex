@@ -674,8 +674,8 @@ describe('Vuex', () => {
     expect(mutations.length).toBe(2)
     expect(mutations[0].type).toBe(TEST)
     expect(mutations[1].type).toBe(TEST)
-    expect(mutations[0].payload.n).toBe(1) // normal dispatch
-    expect(mutations[1].n).toBe(2) // object dispatch
+    expect(mutations[0].payload.n).toBe(1) // normal commit
+    expect(mutations[1].payload.n).toBe(2) // object commit
   })
 
   it('strict mode: warn mutations outside of handlers', function () {

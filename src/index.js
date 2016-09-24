@@ -62,14 +62,12 @@ class Store {
 
   commit (type, payload, options) {
     // check object-style commit
-    let mutation
     if (isObject(type) && type.type) {
       options = payload
-      payload = mutation = type
+      payload = type
       type = type.type
-    } else {
-      mutation = { type, payload }
     }
+    const mutation = { type, payload }
     const entry = this._mutations[type]
     if (!entry) {
       console.error(`[vuex] unknown mutation type: ${type}`)
