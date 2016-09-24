@@ -1,6 +1,6 @@
 # Mutations
 
-Vuex mutations are essentially events: each mutation has a **name** and a **handler**. The handler function will receive the state as the first argument:
+The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
 
 ``` js
 const store = new Vuex.Store({
@@ -8,7 +8,7 @@ const store = new Vuex.Store({
     count: 1
   },
   mutations: {
-    INCREMENT (state) {
+    increment (state) {
       // mutate state
       state.count++
     }
@@ -16,80 +16,81 @@ const store = new Vuex.Store({
 })
 ```
 
-Using all caps for mutation names is just a convention to make it easier to differentiate them from plain functions.
-
-You cannot directly call a mutation handler. The options here is more like event registration: "When an `INCREMENT` event is dispatched, call this handler." To invoke a mutation handler, you need to dispatch a mutation event:
+You cannot directly call a mutation handler. The options here is more like event registration: "When a mutation with type `increment` is triggered, call this handler." To invoke a mutation handler, you need to call **store.commit** with its type:
 
 ``` js
-store.dispatch('INCREMENT')
+store.commit('increment')
 ```
 
-### Dispatch with Arguments
+### Commit with Payload
 
-It is also possible to pass along arguments:
+You can pass an additional argument to `store.commit`, which is called the **payload** for the mutation:
 
 ``` js
 // ...
 mutations: {
-  INCREMENT (state, n) {
+  increment (state, n) {
     state.count += n
   }
 }
 ```
 ``` js
-store.dispatch('INCREMENT', 10)
+store.commit('INCREMENT', 10)
 ```
 
-Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
-
-### Object-Style Dispatch
-
-You can also dispatch mutations using objects:
+In most cases, the payload should be an object so that it can contain multiple fields, and the recorded mutation will also be more descriptive:
 
 ``` js
-store.dispatch({
-  type: 'INCREMENT',
-  payload: 10
+// ...
+mutations: {
+  increment (state, payload) {
+    state.count += payload.amount
+  }
+}
+```
+``` js
+store.commit('increment', {
+  amount: 10
 })
 ```
 
-Note when using the object-style, you should include all arguments as properties on the dispatched object. The entire object will be passed as the second argument to mutation handlers:
+### Object-Style Commit
+
+An alternative way to commit a mutation is by directly using an object that has a `type` property:
+
+``` js
+store.commit({
+  type: 'increment',
+  amount: 10
+})
+```
+
+When using object-style commit, the entire object will be passed as the payload to mutation handlers, so the handler remains the same:
 
 ``` js
 mutations: {
-  INCREMENT (state, mutation) {
-    state.count += mutation.payload
+  INCREMENT (state, payload) {
+    state.count += payload.amount
   }
 }
 ```
 
-### Silent Dispatch
+### Silent Commit
 
-In some scenarios you may not want the plugins to record the state change. Multiple dispatches to the store in a short period or polled do not always need to be tracked. In these situations is may be considered appropriate to silence the mutations.
+> Note: This is a feature that will likely be deprecated once we implement mutation filtering in the devtools.
 
-*Note:* This should be avoided where possible. Silent mutations break the contract of all state changes being tracked by the devtool. Use sparingly and where absolutely necessary.
-
-Dispatching without hitting plugins can be achieved with a `silent` flag.
+By default, every committed mutation is sent to plugins (e.g. the devtools). However in some scenarios you may not want the plugins to record every state change. Multiple commits to the store in a short period or polled do not always need to be tracked. In such cases you can pass a third argument to `store.commit` to "silence" that specific mutation from plugins:
 
 ``` js
-/**
- * Example: Progress action.
- * Dispatches often for changes that are not necessary to be tracked
- **/
-export function start(store, options = {}) {
-  let timer = setInterval(() => {
-    store.dispatch({
-      type: INCREMENT,
-      silent: true,
-      payload: {
-        amount: 1,
-      },
-    });
-    if (store.state.progress === 100) {
-      clearInterval(timer);
-    }
-  }, 10);
-}
+store.commit('increment', {
+  amount: 1
+}, { silent: true })
+
+// with object-style dispatch
+store.commit({
+  type: 'increment',
+  amount: 1
+}, { silent: true })
 ```
 
 ### Mutations Follow Vue's Reactivity Rules
@@ -104,13 +105,13 @@ Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vu
 
   - Replace that Object with a fresh one. For example, using the stage-2 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
 
-  ``` js
-  state.obj = { ...state.obj, newProp: 123 }
-  ```
+    ``` js
+    state.obj = { ...state.obj, newProp: 123 }
+    ```
 
 ### Using Constants for Mutation Names
 
-It is also common to use constants for mutation names - they allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
 
 ``` js
 // mutation-types.js
@@ -142,7 +143,7 @@ One important rule to remember is that **mutation handler functions must be sync
 
 ``` js
 mutations: {
-  SOME_MUTATION (state) {
+  someMutation (state) {
     api.callAsyncMethod(() => {
       state.count++
     })
@@ -150,8 +151,16 @@ mutations: {
 }
 ```
 
-Now imagine we are debugging the app and looking at our mutation logs. For every mutation logged, we want to be able to compare snapshots of the state *before* and *after* the mutation. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is dispatched, and we do not know when the callback will actually be called. Any state mutation performed in the callback is essentially un-trackable!
+Now imagine we are debugging the app and looking at the devtool's mutation logs. For every mutation logged, the devtool will need to capture a "before" and "after" snapshots of the state. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is committed, and there's no way for the devtool to know when the callback will actually be called - any state mutation performed in the callback is essentially un-trackable!
 
 ### On to Actions
 
-Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, we perform all state mutations in a synchronous manner. We will perform all asynchronous operations inside [Actions](actions.md).
+Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, **mutations are synchronous transactions**:
+
+``` js
+store.commit('increment')
+// any state change that the "increment" mutation may cause
+// should be done at this moment.
+```
+
+To handle asynchronous operations, let's introduce [Actions](actions.md).
