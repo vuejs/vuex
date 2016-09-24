@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import store from './vuex/store'
+import store from './store'
 import Counter from './Counter.vue'
 
 new Vue({

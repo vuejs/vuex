@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from './store'
+import { STORAGE_KEY } from './index'
 import createLogger from '../../../src/plugins/logger'
 
 const localStoragePlugin = store => {
