@@ -8,13 +8,11 @@
       "es2015.promise"
     ],
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noEmit": true
   },
-  "files": [
-    "index.d.ts",
-    "helpers.d.ts",
-    "../logger.d.ts",
-    "vue.d.ts",
-    "typings/index.d.ts"
+  "include": [
+    "*.d.ts",
+    "../dist/logger.d.ts"
   ]
 }

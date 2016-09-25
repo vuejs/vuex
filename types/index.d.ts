@@ -1,3 +1,7 @@
+import _Vue = require("vue");
+import { WatchOptions } from "vue";
+
+// augment typings of Vue.js
 import "./vue";
 
 export * from "./helpers";
@@ -14,7 +18,7 @@ export declare class Store<S> {
   commit: Commit;
 
   subscribe<P extends Payload>(fn: (mutation: P, state: S) => any): () => void;
-  watch<T>(getter: (state: S) => T, cb: (value: T) => void, options?: WatchOption): void;
+  watch<T>(getter: (state: S) => T, cb: (value: T) => void, options?: WatchOptions): void;
 
   registerModule<T>(path: string, module: Module<T, S>): void;
   registerModule<T>(path: string[], module: Module<T, S>): void;
@@ -30,7 +34,7 @@ export declare class Store<S> {
   }): void;
 }
 
-export declare function install(Vue: vuejs.VueStatic): void;
+export declare function install(Vue: typeof _Vue): void;
 
 export interface Dispatch {
   (type: string, payload?: any): Promise<any[]>;
@@ -42,7 +46,7 @@ export interface Commit {
   <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
 }
 
-export interface ActionInjectee<S, R> {
+export interface ActionContext<S, R> {
   dispatch: Dispatch;
   commit: Commit;
   state: S;
@@ -69,7 +73,7 @@ export interface StoreOptions<S> {
 }
 
 export type Getter<S, R> = (state: S, getters: any, rootState: R) => any;
-export type Action<S, R> = (injectee: ActionInjectee<S, R>, payload: any) => any;
+export type Action<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
 export type Mutation<S> = (state: S, payload: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
@@ -95,9 +99,4 @@ export interface MutationTree<S> {
 
 export interface ModuleTree<R> {
   [key: string]: Module<any, R>;
-}
-
-export interface WatchOption {
-  deep?: boolean;
-  immediate?: boolean;
 }

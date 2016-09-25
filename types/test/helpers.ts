@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue = require("vue");
 
 import {
   mapState,

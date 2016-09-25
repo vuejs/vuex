@@ -2,16 +2,17 @@
  * Extends interfaces in Vue.js
  */
 
-import { Store } from './index'
+import Vue = require("vue");
+import { Store } from "./index";
 
-declare global {
-  namespace vuejs {
-    interface ComponentOption {
-      store?: Store<any>;
-    }
+declare module "vue/types/options" {
+  interface ComponentOptions<V extends Vue> {
+    store?: Store<any>;
+  }
+}
 
-    interface Vue {
-      $store?: Store<any>;
-    }
+declare module "vue/types/vue" {
+  interface Vue {
+    $store: Store<any>;
   }
 }
