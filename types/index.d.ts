@@ -46,7 +46,7 @@ export interface Commit {
   <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
 }
 
-export interface ActionInjectee<S, R> {
+export interface ActionContext<S, R> {
   dispatch: Dispatch;
   commit: Commit;
   state: S;
@@ -73,7 +73,7 @@ export interface StoreOptions<S> {
 }
 
 export type Getter<S, R> = (state: S, getters: any, rootState: R) => any;
-export type Action<S, R> = (injectee: ActionInjectee<S, R>, payload: any) => any;
+export type Action<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
 export type Mutation<S> = (state: S, payload: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 

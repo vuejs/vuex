@@ -80,7 +80,7 @@ namespace NestedModules {
     };
   }
 
-  type ActionStore = Vuex.ActionInjectee<{ value: number }, RootState>
+  type ActionStore = Vuex.ActionContext<{ value: number }, RootState>
 
   const module = {
     state: {
@@ -160,7 +160,7 @@ namespace HotUpdate {
     };
   };
 
-  type ActionStore = Vuex.ActionInjectee<{ value: number }, RootState>
+  type ActionStore = Vuex.ActionContext<{ value: number }, RootState>
 
   const getters = {
     rootValue: (state: RootState) => state.value
