@@ -52,7 +52,7 @@ computed: {
 The `mapGetters` helper simply maps store getters to local computed properties:
 
 ``` js
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   // ...
