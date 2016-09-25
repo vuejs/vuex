@@ -8,7 +8,8 @@ To help with that, Vuex allows us to divide our store into **modules**. Each mod
 const moduleA = {
   state: { ... },
   mutations: { ... },
-  actions: { ... }
+  actions: { ... },
+  getters: { ... }
 }
 
 const moduleB = {
