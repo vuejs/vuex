@@ -3,7 +3,7 @@
  * This file must be put alongside the JavaScript file of the logger.
  */
 
-import { Payload, Plugin } from './types/index'
+import { Payload, Plugin } from '../types/index'
 
 export interface LoggerOption<S> {
   collapsed?: boolean;
