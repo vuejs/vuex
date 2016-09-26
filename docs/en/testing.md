@@ -122,6 +122,53 @@ describe('actions', () => {
 })
 ```
 
+### Testing Getters
+
+If your getters has complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+
+Example testing a getter:
+
+``` js
+// getters.js
+export const getters = {
+  filteredProducts (state, { filterCategory }) {
+    return state.products.filter(product => {
+      return product.category === filterCategory
+    })
+  }
+}
+```
+
+``` js
+// getters.spec.js
+import { expect } from 'chai'
+import { getters } from './getters'
+
+describe('getters', () => {
+  it('filteredProducts', () => {
+    // mock state
+    const state = {
+      products: [
+        { id: 1, title: 'Apple', category: 'fruit' },
+        { id: 2, title: 'Orange', category: 'fruit' },
+        { id: 3, title: 'Carrot', category: 'vegetable' }
+      ]
+    }
+    // mock getter
+    const filterCategory = 'fruit'
+
+    // get the result from the getter
+    const result = getters.filteredProducts(state, { filterCategory })
+
+    // assert the result
+    expect(result).to.deep.equal([
+      { id: 1, title: 'Apple', category: 'fruit' },
+      { id: 2, title: 'Orange', category: 'fruit' }
+    ])
+  })
+})
+```
+
 ### Running Tests
 
 If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
