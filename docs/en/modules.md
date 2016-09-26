@@ -69,7 +69,7 @@ const moduleA = {
 }
 ```
 
-Also, getters will receive the root state as their 3rd argument:
+Also, inside module getters, the root state will be exposed as their 3rd argument:
 
 ``` js
 const moduleA = {
