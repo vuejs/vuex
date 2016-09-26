@@ -69,6 +69,19 @@ const moduleA = {
 }
 ```
 
+Also, getters will receive the root state as their 3rd argument:
+
+``` js
+const moduleA = {
+  // ...
+  getters: {
+    sumWithRootCount (state, getters, rootState) {
+      return state.count + rootState.count
+    }
+  }
+}
+```
+
 ### Namespacing
 
 Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing, and you probably should if you are writing a reusable Vuex module that will be used in unknown environments.

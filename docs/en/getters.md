@@ -13,7 +13,7 @@ computed: {
 
 If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
 
-Vuex allows us to define "getters" in the store (think of them as computed properties for stores):
+Vuex allows us to define "getters" in the store (think of them as computed properties for stores). Getters will receive the state as their 1st argument:
 
 ``` js
 const store = new Vuex.Store({
@@ -24,14 +24,29 @@ const store = new Vuex.Store({
     ]
   },
   getters: {
-    doneTodosCount: state => {
-      return state.todos.filter(todo => todo.done).length
+    doneTodos: state => {
+      return state.todos.filter(todo => todo.done)
     }
   }
 })
 ```
 
 The getters will be exposed on the `store.getters` object:
+
+``` js
+store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
+```
+
+Getters will also receive other getters as the 2nd argument:
+
+``` js
+getters: {
+  // ...
+  doneTodosCount: (state, getters) => {
+    return getters.doneTodos.length
+  }
+}
+```
 
 ``` js
 store.getters.doneTodosCount // -> 1
