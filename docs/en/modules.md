@@ -75,7 +75,7 @@ Note that actions, mutations and getters inside modules are still registered und
 
 ### Dynamic Module Registration
 
-You can register a module **after** the store has been created with the `store.reigsterModule` method:
+You can register a module **after** the store has been created with the `store.registerModule` method:
 
 ``` js
 store.registerModule('myModule', {
