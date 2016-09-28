@@ -52,7 +52,7 @@ actions: {
   incrementAsync ({ commit }) {
     setTimeout(() => {
       commit('increment')
-    })
+    }, 1000)
   }
 }
 ```
@@ -129,7 +129,7 @@ actions: {
       setTimeout(() => {
         commit('someMutation')
         resolve()
-      })
+      }, 1000)
     })
   }
 }
