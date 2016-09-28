@@ -71,7 +71,45 @@ const moduleA = {
 
 ### Namespacing
 
-Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing, and you probably should if you are writing a reusable Vuex module that will be used in unknown environments.
+Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing by prefixing or suffixing their names. And you probably should if you are writing a reusable Vuex module that will be used in unknown environments. For example, we want to create a `todos` module:
+
+``` js
+// types.js
+
+// define names of getters, actions and mutations as constants
+// and they are prefixed by the module name `todos`
+export const DONE_COUNT = 'todos/DONE_COUNT'
+export const FETCH_ALL = 'todos/FETCH_ALL'
+export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
+```
+
+``` js
+// modules/todos.js
+import * as types from '../types'
+
+// define getters, actions and mutations using prefixed names
+const todosModule = {
+  state: { todos: [] },
+
+  getters: {
+    [types.DONE_COUNT] (state) {
+      // ...
+    }
+  },
+
+  actions: {
+    [types.FETCH_ALL] (context, payload) {
+      // ...
+    }
+  },
+
+  mutations: {
+    [types.TOGGLE_DONE] (state, payload) {
+      // ...
+    }
+  }
+}
+```
 
 ### Dynamic Module Registration
 
