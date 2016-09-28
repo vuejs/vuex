@@ -34,7 +34,7 @@ store.state.b // -> moduleB's state
 Inside a module's mutations and getters, The first argument received will be **the module's local state** instead of root state:
 
 ``` js
-cosnt moduleA = {
+const moduleA = {
   state: { count: 0 },
   mutations: {
     increment: (state, rootState) {
