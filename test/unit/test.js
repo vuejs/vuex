@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.common.js'
 import Vuex, { mapState, mapMutations, mapGetters, mapActions } from '../../dist/vuex.js'
 
 Vue.use(Vuex)
