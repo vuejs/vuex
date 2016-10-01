@@ -70,12 +70,24 @@ export default {
     // arrow functions can make the code very succinct!
     count: state => state.count,
 
+    // passing the string value 'count' is same as `state => state.count`
+    countAlias: 'count',
+
     // to access local state with `this`, a normal function must be used
     countPlusLocalState (state) {
       return state.count + this.localCount
     }
   })
 }
+```
+
+We can also pass a string array to `mapState` when the name of mapped computed property is same as state sub tree name.
+
+``` js
+computed: mapState([
+  // map this.count to store.state.count
+  'count'
+])
 ```
 
 ### Object Spread Operator
