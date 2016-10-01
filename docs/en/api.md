@@ -157,3 +157,21 @@ const store = new Vuex.Store({ ...options })
 - **`hotUpdate(newOptions: Object)`**
 
   Hot swap new actions and mutations. [Details](hot-reload.md)
+
+### Component Binding Helpers
+
+- **`mapState(map: Array<string> | Object): Object`**
+
+  Create component computed options that return the sub tree of the Vuex store. [Defails](state.md#the-mapstate-helper)
+
+- **`mapGetters(map: Array<string> | Object): Object`**
+
+  Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
+
+- **`mapActions(map: Array<string> | Object): Object`**
+
+  Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
+
+- **`mapMutations(map: Array<string> | Object): Object`**
+
+  Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
