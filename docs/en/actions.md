@@ -2,7 +2,7 @@
 
 Actions are similar to mutations, the difference being that:
 
-- Instead of mutating the state, actions commits mutations.
+- Instead of mutating the state, actions commit mutations.
 - Actions can contain arbitrary asynchronous operations.
 
 Let's register a simple action:
@@ -77,7 +77,7 @@ A more practical example of real-world actions would be an action to checkout a 
 ``` js
 actions: {
   checkout ({ commit, state }, payload) {
-    // save the current in cart items
+    // save the items currently in the cart
     const savedCartItems = [...state.cart.added]
     // send out checkout request, and optimistically
     // clear the cart
