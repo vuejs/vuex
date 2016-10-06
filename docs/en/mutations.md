@@ -35,7 +35,7 @@ mutations: {
 }
 ```
 ``` js
-store.commit('INCREMENT', 10)
+store.commit('increment', 10)
 ```
 
 In most cases, the payload should be an object so that it can contain multiple fields, and the recorded mutation will also be more descriptive:
@@ -69,7 +69,7 @@ When using object-style commit, the entire object will be passed as the payload 
 
 ``` js
 mutations: {
-  INCREMENT (state, payload) {
+  increment (state, payload) {
     state.count += payload.amount
   }
 }
