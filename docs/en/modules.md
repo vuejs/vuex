@@ -31,18 +31,15 @@ store.state.b // -> moduleB's state
 
 ### Module Local State
 
-Inside a module's mutations and getters, The first argument received will be **the module's local state** instead of root state:
+Inside a module's mutations and getters, The first argument received will be **the module's local state**.
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state, rootState) {
+    increment: (state) {
       // state is the local module state
       state.count++
-
-      // rootState is passed as the second argument, but you should not
-      // mutate it from within a module.
     }
   },
 
