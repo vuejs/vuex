@@ -7,7 +7,6 @@ Au cœur de chaque application Vuex, il y a le **store**. Un "store" est tout si
 2. Vous ne pouvez pas muter directement le state du store. La seule façon de modifier le state d'un store est de **commiter** explicitement des **mutations**. Cela assure que chaque etat laisse un enregistrement traçable, et permette à des outils de mieux nous aider à comprendre nos applications.
 
 ### Le store le plus simple
-### The Simplest Store
 
 > **NOTE:** Nous allons utiliser la syntaxe ES2015 dans les exemples de code pour le reste de la documentation. Si vous ne vous êtes pas encore penché dessus, [vous devriez](https://babeljs.io/docs/learn-es2015/) !
 
@@ -36,10 +35,10 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Encore une fois, la raison pour laquelle nous committons une mutation au lieu de modifier `store.state.count` directement, c'est parce que nous voulons le traçer explicitement. Cette simple convention rend votre intention plus explicite, ainsi vous pouvez raisonner plus facilement les changements de state en lisant votre code. De plus, cela nous donne l'opportunité d'implémenter des outils qui peuvent enregistrer chaque mutation, prendre des instantanés du state, ou même procéder à du debugging dans le temps.
+Encore une fois, la raison pour laquelle nous committons une mutation au lieu de modifier `store.state.count` directement, c'est parce que nous voulons le tracer explicitement. Cette simple convention rend votre intention plus explicite, ainsi vous pouvez raisonner plus facilement les changements de state en lisant votre code. De plus, cela nous donne l'opportunité d'implémenter des outils qui peuvent enregistrer chaque mutation, prendre des instantanés du state, ou même procéder à du debugging dans le temps.
 
-Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+Utiliser le state du store dans un composant implique simplement de retourner le state dans une *computed property*, car le state du store est réactif. Déclencher des changements signifie simplement committer des mutations dans les méthodes du composant.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
+Voici un exemple de la [plus basique app Vuex de compteur](https://jsfiddle.net/yyx990803/n9jmu5v7/).
 
-Next, we will discuss each core concept in much finer details and let's start with [State](state.md).
+Ensuite, nous allons examiner chaque concept de base plus en détails, et commençon avec le [State](state.md).
