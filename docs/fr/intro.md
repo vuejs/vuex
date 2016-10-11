@@ -62,4 +62,4 @@ Si vous n'avez jamais créé une *Single Page Application* à grande échelle et
 
 > Flux libraries are like glasses: you’ll know when you need them.
 >
-> *Les librairies Flux sont comme les lunettes : vous serez quand vous en aurez besoin.*
+> *Les librairies Flux sont comme les lunettes : vous saurez quand vous en aurez besoin.*
