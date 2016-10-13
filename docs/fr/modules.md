@@ -1,8 +1,8 @@
 # Modules
 
-Parce qu'il utilise un *single state tree*, tout le state de notre application est contenu dans un seul et même gros objet. Cependant, au fur et à mesure que notre application grandit, le store peut devenir très engorgé.
+Parce qu'il utilise un _single state tree_, tout le state de notre application est contenu dans un seul et même gros objet. Cependant, au fur et à mesure que notre application grandit, le store peut devenir très engorgé.
 
-Pour remédier à ça, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir son propre state, mutations, actions, getters, et même d'autres modules.
+Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir son propre state, mutations, actions, getters, et même d'autres modules.
 
 ``` js
 const moduleA = {
@@ -25,8 +25,8 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA's state
-store.state.b // -> moduleB's state
+store.state.a // -> le state du module A
+store.state.b // -> le state du module B
 ```
 
 ### State local d'un module
@@ -38,7 +38,7 @@ const moduleA = {
   state: { count: 0 },
   mutations: {
     increment: (state) {
-      // state is the local module state
+      // state est le state du module local
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-De façon similaire, dans les actions du module, `context.state` exposera le state local, and le state racine sera disponible avec `context.rootState` :
+De façon similaire, dans les actions du module, `context.state` exposera le state local, et le state racine sera disponible avec `context.rootState` :
 
 ``` js
 const moduleA = {
@@ -81,13 +81,13 @@ const moduleA = {
 
 ### Namespacing
 
-Notez que les actions, mutations et getters dans un module sont toujours enregistrés sous le **namespace global** &mdash; cela permet à plusieurs modules de réagir au même type de mutation/action. You pouvez répartir les modules dans des namespaces vous-mêmes afin d'éviter les conflits de nom en préfixant ou suffixant leurs noms. Et vous devriez probablement faire cela si vous utiliser un module Vuex réutilisable qui sera utilisé dans des environnements inconnus. Par exemple, nous voulons créer un module `todos` :
+Notez que les actions, mutations et getters dans un module sont toujours enregistrés sous le **namespace global** &mdash; cela permet à plusieurs modules de réagir au même type de mutation/action. Vous pouvez répartir les modules dans des namespaces vous-mêmes afin d'éviter les conflits de nom en préfixant ou suffixant leurs noms. Et vous devriez probablement faire cela si vous utiliser un module Vuex réutilisable qui sera utilisé dans des environnements inconnus. Par exemple, nous voulons créer un module `todos` :
 
 ``` js
 // types.js
 
-// define names of getters, actions and mutations as constants
-// and they are prefixed by the module name `todos`
+// on définit les noms des getters, actions et mutations en tant que constantes
+// et on les préfixe du nom du module `todos`
 export const DONE_COUNT = 'todos/DONE_COUNT'
 export const FETCH_ALL = 'todos/FETCH_ALL'
 export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
@@ -97,7 +97,7 @@ export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 // modules/todos.js
 import * as types from '../types'
 
-// define getters, actions and mutations using prefixed names
+// on définit les getters, actions et mutations en utilisant des noms préfixés
 const todosModule = {
   state: { todos: [] },
 
@@ -133,6 +133,6 @@ store.registerModule('myModule', {
 
 Le state du module sera disponible dans `store.state.myModule`.
 
-L'enregistrement dynamique de module rend possible pour les autres plugins Vue de bénéficier de la gestion de state de Vuex en attachant un module au store de l'application. Par exemple, la bibliothèque [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) intègre vue-router avec vuex en gérant le state de la route d'application dans un module enregistré dynamiquement.
+L'enregistrement dynamique de module permet aux autres plugins Vue de bénéficier de la gestion de state de Vuex en attachant un module au store de l'application. Par exemple, la bibliothèque [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) intègre vue-router avec vuex en gérant le state de la route d'application dans un module enregistré dynamiquement.
 
 Vous pouvez aussi supprimer un module enregistré dynamiquement avec `store.unregisterModule(moduleName)`. Notez que vous ne pouvez pas supprimer des modules statiques (déclarés à la création du store) avec cette méthode.

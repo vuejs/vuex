@@ -117,7 +117,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-  Committer une mutation. [Détails](mutations.md)
+  commiter une mutation. [Détails](mutations.md)
 
 - **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
@@ -174,4 +174,4 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapMutations(map: Array<string> | Object): Object`**
 
-  Créer des méthodes de composant qui committent une mutation. [Détails](mutations.md#committer-des-mutations-dans-les-composants)
+  Créer des méthodes de composant qui committent une mutation. [Détails](mutations.md#commiter-des-mutations-dans-les-composants)

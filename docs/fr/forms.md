@@ -1,12 +1,12 @@
 # Formulaires
 
-Lorsque l'on utilise Vuex en mode strict, il peut être compliqué d'utiliser `v-modal` sur une partie du state qui appartient à Vuex :
+Lorsque l'on utilise Vuex en mode strict, il peut être compliqué d'utiliser `v-model` sur une partie du state qui appartient à Vuex :
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Supposons que `obj` est une computed property qui retourne un Object depuis le store, le `v-model` tnetera de muer directement `obj.message` lorsque l'utilisateur saisit du texte dans le champ. En mode strict, cela produira une erreur car la mutation n'est pas effectuée dans un handler de mutation Vuex explicite.
+Supposons que `obj` est une computed property qui retourne un Object depuis le store, le `v-model` tentera de muter directement `obj.message` lorsque l'utilisateur saisit du texte dans le champ. En mode strict, cela produira une erreur car la mutation n'est pas effectuée dans un handler de mutation Vuex explicite.
 
 La "façon Vuex" de gérer ça est de binder la valeur de l'`input` est d'appeler une action sur l'event `input` ou `change` :
 

@@ -4,7 +4,7 @@ Vuex ne vous restreint pas vraiment dans la façon dont vous voulez structurer v
 
 1. Le state d'application est centralisé dans le store.
 
-2. La seule façon de muer le state est de committer des **mutations**, qui sont des transactions synchrones.
+2. La seule façon de muter le state est de commiter des **mutations**, qui sont des transactions synchrones.
 
 3. La logique asynchrone doit être composée et encapsulée dans des **actions**.
 

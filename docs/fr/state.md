@@ -2,16 +2,16 @@
 
 ### Single State Tree
 
-Vuex utilise un **single state tree** &mdash; cet unique objet contient tout le state au niveau applicatif et sert de "source unique de vérité". Cela signifie également que vous n'aurez qu'un seul store pour chaque application. Un *single state tree* rend rapide la localisation d'une partie de state spécifique, et nous permet de facilement prendre des instantanés du state actuel de l'application à des fins de debugging.
+Vuex utilise un **single state tree** &mdash; cet unique objet contient tout le state au niveau applicatif et sert de "source unique de vérité". Cela signifie également que vous n'aurez qu'un seul store pour chaque application. Un _single state tree_ rend rapide la localisation d'une partie de state spécifique, et nous permet de facilement prendre des instantanés du state actuel de l'application à des fins de debugging.
 
-Le *single state tree* n'entre pas en conflit avec la modularité &mdash; dans les prochains chapitres, nous examinerons comment séparer votre state et vos mutations dans des sous-modules.
+Le _single state tree_ n'entre pas en conflit avec la modularité &mdash; dans les prochains chapitres, nous examinerons comment séparer votre state et vos mutations dans des sous-modules.
 
 ### Récupérer le state Vuex dans des composants Vue
 
 Alors, comment affichons-nous le state du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple d'y "récupérer" le state est de simplement retourner une partie du state depuis une [computed property](http://vuejs.org/guide/computed.html) :
 
 ``` js
-// let's create a Counter component
+// créons un composant Counter
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
@@ -31,8 +31,8 @@ Vuex fournit un méchanisme pour "injecter" le store dans tous les composants en
 ``` js
 const app = new Vue({
   el: '#app',
-  // provide the store using the "store" option.
-  // this will inject the store instance to all child components.
+  // fournit le store avec l'option "store".
+  // cela injectera l'instance du store dans tous les composants enfants.
   store,
   components: { Counter },
   template: `
@@ -58,22 +58,22 @@ const Counter = {
 
 ### Le helper `mapState`
 
-Lorsqu'un composant a besoin d'utiliser plusieurs propriétés ou getters du state du store, déclarer toutes ces computed properties peut devenir répétitif et verbeux. Afin de palier à ça, nous pouvons utiliser le helper `mapState` qui génère des fonctions getters pour nous et nous épargnes quelques coups de clavier :
+Lorsqu'un composant a besoin d'utiliser plusieurs propriétés ou getters du state du store, déclarer toutes ces computed properties peut devenir répétitif et verbeux. Afin de palier à ça, nous pouvons utiliser le helper `mapState` qui génère des fonctions getters pour nous et nous épargne quelques coups de clavier :
 
 ``` js
-// in standalone builds helpers are exposed as Vuex.mapState
+// dans la version standalone, les helpers sont exposés comme Vuex.mapState
 import { mapState } from 'vuex'
 
 export default {
   // ...
   computed: mapState({
-    // arrow functions can make the code very succinct!
+    // les fonctions fléchées peuvent rendre le code très succinct !
     count: state => state.count,
 
-    // passing the string value 'count' is same as `state => state.count`
+    // passer la valeur littérale 'count' revient à écrire `state => state.count`
     countAlias: 'count',
 
-    // to access local state with `this`, a normal function must be used
+    // pour accéder au state local avec `this`, une fonction normale doit être utilisée
     countPlusLocalState (state) {
       return state.count + this.localCount
     }
@@ -85,7 +85,7 @@ Il est également possible de fournir un tableau de chaînes de caractères à `
 
 ``` js
 computed: mapState([
-  // map this.count to store.state.count
+  // attacher this.count à store.state.count
   'count'
 ])
 ```
@@ -97,7 +97,7 @@ Notez que `mapState` renvoie un objet. Comment l'utiliser en complément des aut
 ``` js
 computed: {
   localComputed () { /* ... */ },
-  // mix this into the outer object with the object spread operator
+  // rajouter cet objet dans l'objet `computed` avec l'object spread operator
   ...mapState({
     // ...
   })

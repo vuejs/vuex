@@ -4,7 +4,7 @@ Au cœur de chaque application Vuex, il y a le **store**. Un "store" est tout si
 
 1. Les stores Vuex sont réactifs. Quand les composants Vue y récupèrent le state, ils modifieront efficacement et de façon réactive si le state du store change.
 
-2. Vous ne pouvez pas muter directement le state du store. La seule façon de modifier le state d'un store est de **commiter** explicitement des **mutations**. Cela assure que chaque etat laisse un enregistrement traçable, et permette à des outils de mieux nous aider à comprendre nos applications.
+2. Vous ne pouvez pas muter directement le state du store. La seule façon de modifier le state d'un store est de **commiter** explicitement des **mutations**. Cela assure que chaque état laisse un enregistrement traçable, et permette à des outils de mieux nous aider à comprendre nos applications.
 
 ### Le store le plus simple
 
@@ -37,7 +37,7 @@ console.log(store.state.count) // -> 1
 
 Encore une fois, la raison pour laquelle nous committons une mutation au lieu de modifier `store.state.count` directement, c'est parce que nous voulons le tracer explicitement. Cette simple convention rend votre intention plus explicite, ainsi vous pouvez raisonner plus facilement les changements de state en lisant votre code. De plus, cela nous donne l'opportunité d'implémenter des outils qui peuvent enregistrer chaque mutation, prendre des instantanés du state, ou même procéder à du debugging dans le temps.
 
-Utiliser le state du store dans un composant implique simplement de retourner le state dans une *computed property*, car le state du store est réactif. Déclencher des changements signifie simplement committer des mutations dans les méthodes du composant.
+Utiliser le state du store dans un composant implique simplement de retourner le state dans une *computed property*, car le state du store est réactif. Déclencher des changements signifie simplement commiter des mutations dans les méthodes du composant.
 
 Voici un exemple de la [plus basique app Vuex de compteur](https://jsfiddle.net/yyx990803/n9jmu5v7/).
 
