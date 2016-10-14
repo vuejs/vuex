@@ -135,7 +135,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`subscribe(handler: Function)`**
 
-  Subscribe to store mutations. The `handler` is called after every mutaiton and receives the mutation descriptor and post-mutation state as arguments:
+  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
 
   ``` js
   store.subscribe((mutation, state) => {
