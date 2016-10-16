@@ -19,7 +19,7 @@ Include `vuex` after Vue and it will install itself automatically:
 npm install vuex
 ```
 
-When used with a module system, you must explicitly install the router via `Vue.use()`:
+When used with a module system, you must explicitly install Vuex via `Vue.use()`:
 
 ``` js
 import Vue from 'vue'
