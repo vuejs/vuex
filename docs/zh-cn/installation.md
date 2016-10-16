@@ -1,6 +1,6 @@
 # 安装
 
-### 直接下载 / CDN
+### 直接下载 / CDN 引用
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
@@ -28,12 +28,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 ```
 
-You don't need to do this when using global script tags.
+当使用全局 script 标签引用 Vuex 时，不需要以上安装过程。
 
-### Dev Build
+### 自己构建
 
-You will have to clone directly from GitHub and build `vuex` yourself if
-you want to use the latest dev build.
+如果需要使用 dev 分支下的最新版本，您可以直接从 GitHub 上克隆代码并自己构建。
 
 ``` bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex
