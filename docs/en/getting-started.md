@@ -41,4 +41,4 @@ Using store state in a component simply involves returning the state within a co
 
 Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
 
-Next, we will discuss each core concept in much finer details and let's start with [State](state.md).
+Next, we will discuss each core concept in much finer details, starting with [State](state.md).
