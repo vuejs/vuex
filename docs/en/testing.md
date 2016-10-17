@@ -86,7 +86,7 @@ const actions = actionsInjector({
 })
 
 // helper for testing action with expected mutations
-const testAction = (action, args, state, expectedMutations, done) => {
+const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
   // mock commit
@@ -103,7 +103,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
   }
 
   // call the action with mocked store and arguments
-  action({ commit, state }, ...args)
+  action({ commit, state }, payload)
 
   // check if no mutations should have been dispatched
   if (expectedMutations.length === 0) {
@@ -114,7 +114,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, [], {}, [
+    testAction(actions.getAllProducts, null, {}, [
       { type: 'REQUEST_PRODUCTS' },
       { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)
