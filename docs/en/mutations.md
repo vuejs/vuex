@@ -86,7 +86,7 @@ store.commit('increment', {
   amount: 1
 }, { silent: true })
 
-// with object-style dispatch
+// with object-style commit
 store.commit({
   type: 'increment',
   amount: 1
