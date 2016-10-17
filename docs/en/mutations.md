@@ -109,7 +109,7 @@ Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vu
     state.obj = { ...state.obj, newProp: 123 }
     ```
 
-### Using Constants for Mutation Names
+### Using Constants for Mutation Types
 
 It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
 
