@@ -1,4 +1,4 @@
-# API Reference
+# Documentation API
 
 ### Vuex.Store
 
@@ -8,62 +8,62 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Vuex.Store Constructor Options
+### Options de constructeur de Vuex.Store
 
 - **state**
 
   - type: `Object`
 
-    The root state object for the Vuex store.
+    L'objet state racine pour le store Vuex.
 
-    [Details](state.md)
+    [Détails](state.md)
 
 - **mutations**
 
   - type: `{ [type: string]: Function }`
 
-    Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
+    Enregistrer les mutations sur le store. La fonction handler reçoit toujours `state` comme premier argument (sera le state local du module si défini dans un module), et reçoit le `payload` en second argument s'il y en a un.
 
-    [Details](mutations.md)
+    [Détails](mutations.md)
 
 - **actions**
 
   - type: `{ [type: string]: Function }`
 
-    Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+    Enregistrer les actions sur le store. La fonction handler reçoit un objet `context` qui expose les propriétés suivantes :
 
     ``` js
     {
-      state,     // same as store.state, or local state if in modules
-      rootState, // same as store.state, only in modules
-      commit,    // same as store.commit
-      dispatch,  // same as store.dispatch
-      getters    // same as store.getters
+      state,     // identique à store.state, ou au state local si dans des modules
+      rootState, // identique à store.state, seulement dans des modules
+      commit,    // identique à store.commit
+      dispatch,  // identique à store.dispatch
+      getters    // identique à store.getters
     }
     ```
 
-    [Details](actions.md)
+    [Détails](actions.md)
 
 - **getters**
 
   - type: `{ [key: string]: Function }`
 
-    Register getters on the store. The getter function receives the following arguments:
-    
-    ```
-    state,     // will be module local state if defined in a module.
-    getters,   // same as store.getters
-    rootState  // same as store.state
-    ```
-    Registered getters are exposed on `store.getters`.
+    Enregistrer les getters sur le store. La fonction getter reçoit les arguments suivants :
 
-    [Details](getters.md)
+    ```
+    state,     // sera le state local du module si défini dans un module.
+    getters,   // indentique à store.getters
+    rootState  // indentique à store.state
+    ```
+    Les getters enregistrés sont exposés sur `store.getters`.
+
+    [Détails](getters.md)
 
 - **modules**
 
   - type: `Object`
 
-    An object containing sub modules to be merged into the store, in the shape of:
+    Un objet contenant des sous-modules qui seront regroupés dans le store, de la forme suivante :
 
     ``` js
     {
@@ -78,64 +78,64 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+    Chaque module peut contenir `state` et `mutations`, tout comme les options racine. Le state d'un module sera attaché au state racine du store en utilisant la clé du module. Les mutations et getters d'un module recevront seulement le state local du module en premier argument au lieu du state racine, et le `context.state` des actions du module pointeront également vers le state local.
 
-    [Details](modules.md)
+    [Détails](modules.md)
 
 - **plugins**
 
   - type: `Array<Function>`
 
-    An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+    Un tableau de fonctions plugin qui seront appliqués au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, logging ou debugging) ou dispatcher des mutations (pour les données internes, i.e. websockets ou observables).
 
-    [Details](plugins.md)
+    [Détails](plugins.md)
 
 - **strict**
 
   - type: `Boolean`
   - default: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+    Force le store Vuex en mode strict. En mode strict, toute mutation du state en dehors des handlers de mutation lancera une Error.
 
-    [Details](strict.md)
+    [Détails](strict.md)
 
-### Vuex.Store Instance Properties
+### Propriétés d'instance de Vuex.Store
 
 - **state**
 
   - type: `Object`
 
-    The root state. Read only.
+    Le state racine. Lecture seule.
 
 - **getters**
 
   - type: `Object`
 
-    Exposes registered getters. Read only.
+    Expose les getters enregistrés. Lecture seule.
 
-### Vuex.Store Instance Methods
+### Méthodes d'instance de Vuex.Store
 
 - **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-  Commit a mutation. [Details](mutations.md)
+  commiter une mutation. [Détails](mutations.md)
 
 - **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
-  Dispatch an action. Returns the return value of the triggered action handler, or a Promise if multiple handlers are triggered. [Details](actions.md)
+  Dispatcher une action. Retourne la valeur renvoyée par le handler d'action déclenché, ou une Promise si plusieurs handlers ont été déclenchés. [Détails](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  Remplacer le state racine du store. Utiliser seulement pour hydrater le state ou voir le state dans le temps.
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Observer de façon réactive la valeur de retour d'une fonction getter, et appeler le callback lorsque la valeur change. Le getter reçoit le state du store comme unique argument. Accepte un objet options optionnel qui prend les mêmes options que la méthode `vm.$watch` de Vue.
 
-  To stop watching, call the returned handle function.
+  Pour arrêter d'observer, appeler la fonction retournée.
 
 - **`subscribe(handler: Function)`**
 
-  Subscribe to store mutations. The `handler` is called after every mutaiton and receives the mutation descriptor and post-mutation state as arguments:
+  S'abonner aux mutations du store. Le `handler` est appelé après chaque mutation et reçoit le descripteur de mutation et le state post-mutation comme arguments :
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -144,34 +144,34 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Utilisé plus communément dans les plugins. [Détails](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-  Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Enregistrer un module dynamique. [Détails](modules.md#enregistrement-dynamique-de-module)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Supprimer un module dynamique. [Détails](modules.md#enregistrement-dynamique-de-module)
 
 - **`hotUpdate(newOptions: Object)`**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  Remplacement à la volée des nouvelles actions et mutations. [Détails](hot-reload.md)
 
-### Component Binding Helpers
+### Helpers d'attachement au composant
 
 - **`mapState(map: Array<string> | Object): Object`**
 
-  Create component computed options that return the sub tree of the Vuex store. [Defails](state.md#the-mapstate-helper)
+  Créer des computed properties qui retournent le sub tree du store Vuex au composant. [Détails](state.md#le-helper-mapstate)
 
 - **`mapGetters(map: Array<string> | Object): Object`**
 
-  Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
+  Créer des computed properties qui retournent la valeur calculée d'un getter. [Détails](getters.md#le-helper-mapgetters)
 
 - **`mapActions(map: Array<string> | Object): Object`**
 
-  Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
+  Créer des méthodes de composant qui dispatchent une action. [Détails](actions.md#dispatcher-des-actions-dans-les-composants)
 
 - **`mapMutations(map: Array<string> | Object): Object`**
 
-  Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
+  Créer des méthodes de composant qui committent une mutation. [Détails](mutations.md#commiter-des-mutations-dans-les-composants)

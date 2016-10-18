@@ -1,6 +1,6 @@
 # Mutations
 
-La seule façon de vraiment modifier le state dans un store Vuex est de committer une mutation. Les mutations Vuex sont très similaires aux events : chaque mutation a un **type** sous forme de chaîne de caractères et un **handler**. La fonction handler est là où nous procédons aux véritables modifications du state, et elle reçoit le state en premier argument :
+La seule façon de vraiment modifier le state dans un store Vuex est de commiter une mutation. Les mutations Vuex sont très similaires aux events : chaque mutation a un **type** sous forme de chaîne de caractères et un **handler**. La fonction handler est là où nous procédons aux véritables modifications du state, et elle reçoit le state en premier argument :
 
 ``` js
 const store = new Vuex.Store({
@@ -22,7 +22,7 @@ Vous ne pouvez pas appeler directement un handler de mutation. La façon de fair
 store.commit('increment')
 ```
 
-### Committer avec un Payload
+### commiter avec un Payload
 
 Vous pouvez donner un autre argument à **store.commit** pour la mutation, qui s'appelle **payload** :
 
@@ -38,7 +38,7 @@ mutations: {
 store.commit('increment', 10)
 ```
 
-Dans la plupart des cas, le payload, devrait être un objet, ainsi il peut contenir plusieurs champs, et les mutations enregistrées seront également plus descriptives :
+Dans la plupart des cas, le payload devrait être un objet, ainsi il peut contenir plusieurs champs, et les mutations enregistrées seront également plus descriptives :
 
 ``` js
 // ...
@@ -56,7 +56,7 @@ store.commit('increment', {
 
 ### Object-Style Commit
 
-Une méthode alternative pour committer une mutation est d'utiliser directement un objet qui a une propriété `type` :
+Une méthode alternative pour commiter une mutation est d'utiliser directement un objet qui a une propriété `type` :
 
 ``` js
 store.commit({
@@ -153,9 +153,9 @@ mutations: {
 
 Maintenant imaginons que nous debuggons l'application et que nous regardons dans les logs de mutation des devtools. Pour chaque mutation enregistrée, le devtool aura besoin de capturer un instantané du state "avant" et un instantané "après". Cependant, le callback asynchrone du l'exemple ci-dessus rend l'opération impossible : le callback n'est pas encore appelé lorsque la mutation est committée, et il n'y a aucun moyen pour le devtool de savoir quand le callback sera véritablement appelé &mdash; toute mutation du state effectuée dans le callack est essentiellement intraçable !
 
-### Committer des mutations dans les composants
+### commiter des mutations dans les composants
 
-Vous pouvez committer des mutations dans les composants avec `this.$store.commit('xxx')`, ou en utilisant le helper `mapMutations` qui attache les méthodes du composant aux appels de `store.commit` (nécessite l'injection de `store` à la racine) :
+Vous pouvez commiter des mutations dans les composants avec `this.$store.commit('xxx')`, ou en utilisant le helper `mapMutations` qui attache les méthodes du composant aux appels de `store.commit` (nécessite l'injection de `store` à la racine) :
 
 ``` js
 import { mapMutations } from 'vuex'

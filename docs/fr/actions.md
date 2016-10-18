@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Les handlers d'action reçoivent un objet contexte qui expose le même set de méthodes/propriétés que l'instance du store, donc vous pouvez appeler `context.commit` pour committer une mutation, ou accéder au state et aux getters via `context.state` et `context.getters`. Nous verrons pourquoi cet objet contexte n'est pas l'instance du store elle-même lorsque nous présenterons les [Modules](moduels.md) plus tard.
+Les handlers d'action reçoivent un objet contexte qui expose le même set de méthodes/propriétés que l'instance du store, donc vous pouvez appeler `context.commit` pour commiter une mutation, ou accéder au state et aux getters via `context.state` et `context.getters`. Nous verrons pourquoi cet objet contexte n'est pas l'instance du store elle-même lorsque nous présenterons les [Modules](moduels.md) plus tard.
 
 En pratique, nous utilisons souvent la [destructuration d'argument](https://github.com/lukehoban/es6features#destructuring) (*argument destructuring*) pour simplifier quelque peu le code (particulièrement si nous avons besoin d'appeler `commit` plusieurs fois) :
 
@@ -37,7 +37,7 @@ actions: {
 }
 ```
 
-### Dispatcher des actions
+### Dispatcher des actions dans les composants
 
 Les actions sont déclenchées par la méthode `store.dispatch` :
 
@@ -60,12 +60,12 @@ actions: {
 Les actions prennent en charge le même format de payload et *object-style dispatch* :
 
 ``` js
-// dispatch with a payload
+// dispatcher avec un payload
 store.dispatch('incrementAsync', {
   amount: 10
 })
 
-// dispatch with an object
+// dispatcher avec un object
 store.dispatch({
   type: 'incrementAsync',
   amount: 10
@@ -77,12 +77,11 @@ Un exemple plus pratique d'une application du monde réel serait une action pour
 ``` js
 actions: {
   checkout ({ commit, state }, payload) {
-    // save the items currently in the cart
+    // sauvegarder les articles actuellement dans le panier
     const savedCartItems = [...state.cart.added]
-    // send out checkout request, and optimistically
-    // clear the cart
+    // envoyer la requête de checkout, et vider le panier
     commit(types.CHECKOUT_REQUEST)
-    // the shop API accepts a success callback and a failure callback
+    // l'API du shop prend un callback success et un callback failure
     shop.buyProducts(
       products,
       // handle success
@@ -107,10 +106,10 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // map this.increment() to this.$store.dispatch('increment')
+      'increment' // attacher this.increment() à this.$store.dispatch('increment')
     ]),
     ...mapActions({
-      add: 'increment' // map this.add() to this.$store.dispatch('increment')
+      add: 'increment' // attacher this.add() à this.$store.dispatch('increment')
     })
   }
 }
@@ -159,7 +158,7 @@ actions: {
 Pour finir, nous pouvons utiliser de [async / await](https://tc39.github.io/ecmascript-asyncawait/), une fonctionnalité JavaScript qui sera disponible très bientôt, nous pouvons composer nos actions ainsi :
 
 ``` js
-// assuming getData() and getOtherData() return Promises
+// sachant que getData() et getOtherData() retournent des Promises
 
 actions: {
   async actionA ({ commit }) {
@@ -172,4 +171,4 @@ actions: {
 }
 ```
 
-> Il est possible pour un `store.dispatch` de déclencher plusieurs handlers d'action dans différentes modules. Dans ce genre de cas, la valeur retournée sera une Promise qui se résoud quand tous les handlers déclenchés ont été résolus.
+> Il est possible pour un `store.dispatch` de déclencher plusieurs handlers d'action dans différents modules. Dans ce genre de cas, la valeur retournée sera une Promise qui se résoud quand tous les handlers déclenchés ont été résolus.

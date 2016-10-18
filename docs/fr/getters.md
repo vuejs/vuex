@@ -72,7 +72,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // rajouter les getters dans computed avec l'object spread operator
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -86,7 +86,7 @@ Si vous voulez attacher un getter avec un nom différent, utilisez un objet :
 
 ``` js
 mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+  // attacher this.doneCount à store.getters.doneTodosCount
   doneCount: 'doneTodosCount'
 })
 ```

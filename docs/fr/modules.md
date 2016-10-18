@@ -1,8 +1,8 @@
 # Modules
 
-Due to using a single state tree, all state of our application is contained inside one big object. However, as our application grows in scale, the store can get really bloated.
+Parce qu'il utilise un _single state tree_, tout le state de notre application est contenu dans un seul et même gros objet. Cependant, au fur et à mesure que notre application grandit, le store peut devenir très engorgé.
 
-To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
+Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir son propre state, mutations, actions, getters, et même d'autres modules.
 
 ``` js
 const moduleA = {
@@ -25,20 +25,20 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA's state
-store.state.b // -> moduleB's state
+store.state.a // -> le state du module A
+store.state.b // -> le state du module B
 ```
 
-### Module Local State
+### State local d'un module
 
-Inside a module's mutations and getters, The first argument received will be **the module's local state**.
+Dans les mutations et getters d'un module, le premier argument reçu sera le **state local du module**.
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment: (state) {
-      // state is the local module state
+      // state est le state du module local
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
+De façon similaire, dans les actions du module, `context.state` exposera le state local, et le state racine sera disponible avec `context.rootState` :
 
 ``` js
 const moduleA = {
@@ -66,7 +66,7 @@ const moduleA = {
 }
 ```
 
-Also, inside module getters, the root state will be exposed as their 3rd argument:
+Également, dans les getters du module, le state racine sera exposé en troisième argument :
 
 ``` js
 const moduleA = {
@@ -81,13 +81,13 @@ const moduleA = {
 
 ### Namespacing
 
-Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing by prefixing or suffixing their names. And you probably should if you are writing a reusable Vuex module that will be used in unknown environments. For example, we want to create a `todos` module:
+Notez que les actions, mutations et getters dans un module sont toujours enregistrés sous le **namespace global** &mdash; cela permet à plusieurs modules de réagir au même type de mutation/action. Vous pouvez répartir les modules dans des namespaces vous-mêmes afin d'éviter les conflits de nom en préfixant ou suffixant leurs noms. Et vous devriez probablement faire cela si vous utiliser un module Vuex réutilisable qui sera utilisé dans des environnements inconnus. Par exemple, nous voulons créer un module `todos` :
 
 ``` js
 // types.js
 
-// define names of getters, actions and mutations as constants
-// and they are prefixed by the module name `todos`
+// on définit les noms des getters, actions et mutations en tant que constantes
+// et on les préfixe du nom du module `todos`
 export const DONE_COUNT = 'todos/DONE_COUNT'
 export const FETCH_ALL = 'todos/FETCH_ALL'
 export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
@@ -97,7 +97,7 @@ export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 // modules/todos.js
 import * as types from '../types'
 
-// define getters, actions and mutations using prefixed names
+// on définit les getters, actions et mutations en utilisant des noms préfixés
 const todosModule = {
   state: { todos: [] },
 
@@ -121,9 +121,9 @@ const todosModule = {
 }
 ```
 
-### Dynamic Module Registration
+### Enregistrement dynamique de module
 
-You can register a module **after** the store has been created with the `store.registerModule` method:
+Vous pouvez enregistrer un module **après** que le store ait été créé avec la méthode `store.registerModule` :
 
 ``` js
 store.registerModule('myModule', {
@@ -131,8 +131,8 @@ store.registerModule('myModule', {
 })
 ```
 
-The module's state will be exposed as `store.state.myModule`.
+Le state du module sera disponible dans `store.state.myModule`.
 
-Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
+L'enregistrement dynamique de module permet aux autres plugins Vue de bénéficier de la gestion de state de Vuex en attachant un module au store de l'application. Par exemple, la bibliothèque [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) intègre vue-router avec vuex en gérant le state de la route d'application dans un module enregistré dynamiquement.
 
-You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+Vous pouvez aussi supprimer un module enregistré dynamiquement avec `store.unregisterModule(moduleName)`. Notez que vous ne pouvez pas supprimer des modules statiques (déclarés à la création du store) avec cette méthode.
