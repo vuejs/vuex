@@ -1,6 +1,6 @@
 # Qu'est-ce que Vuex ?
 
-Vuex est un ***state management pattern* + bibliothèque** pour applications Vue.js. Il sert de store centralisé pour tous les composants dans une application, avec des règles pour s'assurer que l'état ne peut subir des mutations que d'une manière prévisible. Il s'intègre également avec [l'extension officielle](https://github.com/vuejs/vue-devtools) de Vue afin de fournir des fonctionnalités avancées comme voir l'état dans le temps et débugger sans configuration, ainsi que de prendre des instantanés, importer et exporter l'état.
+Vuex est un ***state management pattern* et une bibliothèque** pour des applications Vue.js. Il sert de store centralisé pour tous les composants dans une application, avec des règles pour s'assurer que l'état ne peut subir des mutations que d'une manière prévisible. Il s'intègre également avec [l'extension officielle](https://github.com/vuejs/vue-devtools) de Vue afin de fournir des fonctionnalités avancées comme voir l'état dans le temps et débugger sans configuration, ainsi que de prendre des instantanés, importer et exporter l'état.
 
 ### Qu'est-ce qu'un "State Management Pattern"?
 
