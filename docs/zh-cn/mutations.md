@@ -95,7 +95,7 @@ store.commit({
 
 ### Mutations 需遵守 Vue 的响应规则
 
-既然 Vuex 的 store 中的状态是响应式的，那么当我们变更状态时，监视状态的 Vue 组件也会自动更新。这也意味着 Vuex 中的 mutations 也需要与使用 Vue 一样遵守一些注意事项：
+既然 Vuex 的 store 中的状态是响应式的，那么当我们变更状态时，监视状态的 Vue 组件也会自动更新。这也意味着 Vuex 中的 mutation 也需要与使用 Vue 一样遵守一些注意事项：
 
 1. 最好提前在你的 store 中初始化好所有所需属性。
 
@@ -111,7 +111,7 @@ store.commit({
 
 ### 使用常量替代 Mutation 事件类型
 
-使用常量替代 mutation 事件类型在各种 Flux 实现中是很常见的模式。这样可以使 linters 之类的工具发挥作用，同时把这些常量放在单独的文件中可以让你的代码合作者对整个 app 包含的 mutations 一目了然：
+使用常量替代 mutation 事件类型在各种 Flux 实现中是很常见的模式。这样可以使 linter 之类的工具发挥作用，同时把这些常量放在单独的文件中可以让你的代码合作者对整个 app 包含的 mutation 一目了然：
 
 ``` js
 // mutation-types.js
@@ -154,7 +154,7 @@ mutations: {
 
 ### 在组件中提交 Mutations
 
-你可以在组件中使用 `this.$store.commit('xxx')` 提交 mutations，或者使用 `mapMutations` 辅助函数将组件中的 methods 映射为 `store.commit` 调用（需要在根节点注入 `store`）。
+你可以在组件中使用 `this.$store.commit('xxx')` 提交 mutation，或者使用 `mapMutations` 辅助函数将组件中的 methods 映射为 `store.commit` 调用（需要在根节点注入 `store`）。
 
 ``` js
 import { mapMutations } from 'vuex'
@@ -174,7 +174,7 @@ export default {
 
 ### 下一步：Actions
 
-在 mutation 中混合异步调用会导致你的程序很难调试。例如，当你能调用了两个包含异步回调的 mutation 来改变状态，你怎么知道什么时候回调和哪个先回调呢？这就是为什么我们要区分这两个概念。在 Vuex 中，**mutations 都是同步事务**：
+在 mutation 中混合异步调用会导致你的程序很难调试。例如，当你能调用了两个包含异步回调的 mutation 来改变状态，你怎么知道什么时候回调和哪个先回调呢？这就是为什么我们要区分这两个概念。在 Vuex 中，**mutation 都是同步事务**：
 
 ``` js
 store.commit('increment')

@@ -1,32 +1,33 @@
-# Application Structure
+# 项目结构
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
+Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的规则：
 
-1. Application-level state is centralized in the store.
+1. 应用层级的状态应该集中到单个 store 对象中。
 
-2. The only way to mutate the state is by committing **mutations**, which are synchronous transactions.
+2. 提交 **mutation** 是更改状态的唯一方法，并且这个过程是同步的。
 
-3. Asynchronous logic should be encapsulated in, and can be composed with **actions**.
+3. 异步逻辑都应该封装到 **action**里面。
 
-As long as you follow these rules, it's up to you how to structure your project. If your store file gets too big, simply start splitting the actions, mutations and getters into separate files.
+只要你遵守以上规则，如何组织代码随你便。如果你的 store 文件太大，只需将 action、mutation、和 getters 分割到单独的文件。
 
-For any non-trivial app, we will likely need to leverage modules. Here's an example project structure:
+对于大型应用，我们会希望把 Vuex 相关代码分割到模块中。下面是项目结构示例：
+
 
 ``` bash
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # 抽取出API请求
 ├── components
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── index.js          # where we assemble modules and export the store
-    ├── actions.js        # root actions
-    ├── mutations.js      # root mutations
+    ├── index.js          # 我们组装模块并导出 store 的地方
+    ├── actions.js        # 根级别的 action
+    ├── mutations.js      # 根级别的 mutation
     └── modules
-        ├── cart.js       # cart module
-        └── products.js   # products module
+        ├── cart.js       # 购物车模块
+        └── products.js   # 产品模块
 ```
 
-As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+请参考[购物车示例](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)

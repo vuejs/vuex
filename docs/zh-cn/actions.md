@@ -1,9 +1,9 @@
 # Actions
 
-Actions 类似于 mutations，不同在于：
+Action 类似于 mutation，不同在于：
 
-- Actions 提交的是 mutations，而不是直接变更状态。
-- Actions 可以包含任意异步操作。
+- Action 提交的是 mutation，而不是直接变更状态。
+- Action 可以包含任意异步操作。
 
 让我们来注册一个简单的 action：
 
@@ -37,15 +37,15 @@ actions: {
 }
 ```
 
-### 分发 Actions
+### 分发 Action
 
-Actions 通过 `store.dispatch` 方法触发：
+Action 通过 `store.dispatch` 方法触发：
 
 ``` js
 store.dispatch('increment')
 ```
 
-乍一眼看上去感觉多此一举，我们直接分发 mutations 岂不更方便？实际上并非如此，还记得 **mutations 必须同步执行**这个限制么？Actions 就不受约束！我们可以在 action 内部执行**异步**操作：
+乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 **mutation 必须同步执行**这个限制么？Action 就不受约束！我们可以在 action 内部执行**异步**操作：
 
 ``` js
 actions: {
@@ -93,11 +93,11 @@ actions: {
 }
 ```
 
-注意我们正在进行一系列的异步操作，并且通过提交 mutations 来记录 action 产生的副作用（即状态变更）。
+注意我们正在进行一系列的异步操作，并且通过提交 mutation 来记录 action 产生的副作用（即状态变更）。
 
-### 在组件中分发 Actions
+### 在组件中分发 Action
 
-You can dispatch actions in components with `this.$store.dispatch('xxx')`, or use the `mapActions` helper which maps component methods to `store.dispatch` calls (requires root `store` injection):
+你在组件中使用 `this.$store.dispatch('xxx')` 分发 action，或者使用 `mapActions` 辅助函数将组件的 methods 映射为 `store.dispatch` 调用（需要先在根节点注入 `store`）：
 
 ``` js
 import { mapActions } from 'vuex'
@@ -106,10 +106,10 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // map this.increment() to this.$store.dispatch('increment')
+      'increment' // 映射 this.increment() 为 this.$store.dispatch('increment')
     ]),
     ...mapActions({
-      add: 'increment' // map this.add() to this.$store.dispatch('increment')
+      add: 'increment' // 映射 this.add() 为 this.$store.dispatch('increment')
     })
   }
 }
@@ -117,9 +117,9 @@ export default {
 
 ### 组合 Actions
 
-Actions are often asynchronous, so how do we know when an action is done? And more importantly, how can we compose multiple actions together to handle more complex async flows?
+Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
 
-The first thing to know is that `store.dispatch` returns the value returned by the triggered action handler, so you can return a Promise in an action:
+第一件事你需要清楚的是 `store.dispatch` 的返回的是被触发的 action 函数的返回值，因此你可以在 action 中返回 Promise：
 
 ``` js
 actions: {
@@ -134,7 +134,7 @@ actions: {
 }
 ```
 
-Now you can do:
+现在你可以：
 
 ``` js
 store.dispatch('actionA').then(() => {
@@ -142,7 +142,7 @@ store.dispatch('actionA').then(() => {
 })
 ```
 
-And also in another action:
+在另外一个 action 中也可以：
 
 ``` js
 actions: {
@@ -155,20 +155,20 @@ actions: {
 }
 ```
 
-Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), a JavaScript feature landing very soon, we can compose our actions like this:
+最后，如果我们利用 [async / await](https://tc39.github.io/ecmascript-asyncawait/) 这个 JavaScript 即将到来的新特性，我们可以像这样组合 action：
 
 ``` js
-// assuming getData() and getOtherData() return Promises
+// 假设 getData() 和 getOtherData() 返回的是 Promise
 
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
   },
   async actionB ({ dispatch, commit }) {
-    await dispatch('actionA') // wait for actionA to finish
+    await dispatch('actionA') // 等待 actionA 完成
     commit('gotOtherData', await getOtherData())
   }
 }
 ```
 
-> It's possible for a `store.dispatch` to trigger multiple action handlers in different modules. In such a case the returned value will be a Promise that resolves when all triggered handlers have been resolved.
+> 一个 `store.dispatch` 在不同模块中可以触发多个 action 函数。在这种情况下，只有当所有触发函数完成后，返回的 Promise 才会执行。

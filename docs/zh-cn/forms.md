@@ -1,14 +1,14 @@
-# Form Handling
+# 表单处理
 
-When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
+当在严格模式中使用 Vuex 时，在属于 Vuex 的 state 上使用 `v-model` 会比较棘手：
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in an error because the mutation is not performed inside an explicit Vuex mutation handler.
+假设这里的 `obj` 是在计算属性中返回的一个属于 Vuex store 的对象，在用户输入时，`v-model` 会试图直接修改 `obj.message`。在严格模式中，由于这个修改不是在 mutation 函数中执行的, 这里会抛出一个错误。
 
-The "Vuex way" to deal with it is binding the `<input>`'s value and call an action on the `input` or `change` event:
+用『Vuex 的思维』去解决这个问题的方法是：给 `<input>` 中绑定 value，然后侦听 `input` 或者 `change` 事件，在事件回调中调用 action:
 
 ``` html
 <input :value="message" @input="updateMessage">
@@ -27,7 +27,7 @@ methods: {
 }
 ```
 
-And here's the mutation handler:
+下面是 mutation 函数：
 
 ``` js
 // ...
@@ -38,9 +38,9 @@ mutations: {
 }
 ```
 
-### Two-way Computed Property
+### 双向绑定的计算属性
 
-Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
+必须承认，这样做比简单地使用“`v-model` + 本地状态”要啰嗦得多，并且也损失了一些 `v-model` 中很有用的特性。另一个方法是使用带有 setter 的双向绑定计算属性：
 
 ``` js
 // ...
