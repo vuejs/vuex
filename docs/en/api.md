@@ -162,7 +162,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(map: Array<string> | Object): Object`**
 
-  Create component computed options that return the sub tree of the Vuex store. [Defails](state.md#the-mapstate-helper)
+  Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
 
 - **`mapGetters(map: Array<string> | Object): Object`**
 
