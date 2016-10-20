@@ -21,11 +21,11 @@ const store = new Vuex.Store({
 })
 ```
 
-### commiter des mutations dans des plugins
+### Commiter des mutations dans des plugins
 
 Les plugins ne sont pas autorisés à muter directement le state &mdash; tout comme vos composants, ils peuvent simplement déclencher des changements en committant des mutations.
 
-En committang des mutations, un plugin peut être utilisé pour synchroniser la source de données avec le store. Par exemple, pour synchroniser la source de données d'un websocket vers le store (c'est juste un exemple artificiel, en réalité la fonction `createPlugin` peut prendre des options additionnelles pour des tâches plus complexes) :
+En commitant des mutations, un plugin peut être utilisé pour synchroniser la source de données avec le store. Par exemple, pour synchroniser la source de données d'un websocket vers le store (c'est juste un exemple artificiel, en réalité la fonction `createPlugin` peut prendre des options additionnelles pour des tâches plus complexes) :
 
 ``` js
 export default function createWebSocketPlugin (socket) {

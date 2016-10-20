@@ -13,7 +13,7 @@ En mode strict, lorsque le state Vuex est modifié en dehors des handlers de mut
 
 ### Développement vs. Production
 
-**N'activez pas le mode strict lorsque vous déployez en production !** Le mode strict lance une profonde observation de state tree pour détecter des mutations inappropriées &mdash; assurrez-vous de l'avoir désactivé en production pour éviter un coût sur les performances.
+**N'activez pas le mode strict lorsque vous déployez en production !** Le mode strict lance une observation récursive du state tree pour détecter des mutations inappropriées &mdash; assurrez-vous de l'avoir désactivé en production pour éviter un coût sur les performances.
 
 Tout comme les plugins, nous pouvons laisser nos outils de build gérer ça :
 
