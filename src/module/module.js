@@ -34,6 +34,7 @@ export default class Module {
   }
 
   update (rawModule) {
+    this._rawModule.namespace = rawModule.namespace
     if (rawModule.actions) {
       this._rawModule.actions = rawModule.actions
     }

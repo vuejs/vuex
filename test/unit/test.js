@@ -248,6 +248,33 @@ describe('Vuex', () => {
     expect(store.getters.bar).toBe(3)
   })
 
+  it('dynamic module registration with namespace inheritance', () => {
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespace: 'prefix/'
+        }
+      }
+    })
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+    store.registerModule(['a', 'b'], {
+      state: { value: 1 },
+      getters: { foo: state => state.value },
+      actions: { foo: actionSpy },
+      mutations: { foo: mutationSpy }
+    })
+
+    expect(store.state.a.b.value).toBe(1)
+    expect(store.getters['prefix/foo']).toBe(1)
+
+    store.dispatch('prefix/foo')
+    expect(actionSpy).toHaveBeenCalled()
+
+    store.commit('prefix/foo')
+    expect(mutationSpy).toHaveBeenCalled()
+  })
+
   it('store injection', () => {
     const store = new Vuex.Store()
     const vm = new Vue({
@@ -1132,6 +1159,61 @@ describe('Vuex', () => {
       '[vuex] trying to add a new module \'test\' on hot reloading, ' +
       'manual reload is needed'
     )
+  })
+
+  it('hot reload: update namespace', () => {
+    // prevent to print notification of unknown action/mutation
+    spyOn(console, 'error')
+
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: { value: 1 },
+          getters: { foo: state => state.value },
+          actions: { foo: actionSpy },
+          mutations: { foo: mutationSpy }
+        }
+      }
+    })
+
+    expect(store.state.a.value).toBe(1)
+    expect(store.getters['prefix/foo']).toBe(1)
+    store.dispatch('prefix/foo')
+    expect(actionSpy.calls.count()).toBe(1)
+    store.commit('prefix/foo')
+    expect(actionSpy.calls.count()).toBe(1)
+
+    store.hotUpdate({
+      modules: {
+        a: {
+          namespace: 'prefix-changed/'
+        }
+      }
+    })
+
+    expect(store.state.a.value).toBe(1)
+    expect(store.getters['prefix/foo']).toBe(undefined) // removed
+    expect(store.getters['prefix-changed/foo']).toBe(1) // renamed
+
+    // should not be called
+    store.dispatch('prefix/foo')
+    expect(actionSpy.calls.count()).toBe(1)
+
+    // should be called
+    store.dispatch('prefix-changed/foo')
+    expect(actionSpy.calls.count()).toBe(2)
+
+    // should not be called
+    store.commit('prefix/foo')
+    expect(mutationSpy.calls.count()).toBe(1)
+
+    // should be called
+    store.commit('prefix-changed/foo')
+    expect(mutationSpy.calls.count()).toBe(2)
   })
 
   it('watch: with resetting vm', done => {
