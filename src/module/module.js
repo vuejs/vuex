@@ -11,6 +11,10 @@ export default class Module {
     return this._rawModule.state
   }
 
+  get hasNamespace () {
+    return this._rawModule.namespace != null && this._rawModule.namespace !== ''
+  }
+
   get namespacer () {
     // if the namespace option is string value, convert it to a function
     let namespacer = this._rawModule.namespace || ''

@@ -61,13 +61,14 @@ class Store {
     assert(false, `Use store.replaceState() to explicit replace store state.`)
   }
 
-  commit (type, payload, options) {
+  commit (_type, _payload, _options) {
     // check object-style commit
-    if (isObject(type) && type.type) {
-      options = payload
-      payload = type
-      type = type.type
-    }
+    const {
+      type,
+      payload,
+      options
+    } = unifyObjectStyle(_type, _payload, _options)
+
     const mutation = { type, payload }
     const entry = this._mutations[type]
     if (!entry) {
@@ -84,12 +85,13 @@ class Store {
     }
   }
 
-  dispatch (type, payload) {
+  dispatch (_type, _payload) {
     // check object-style dispatch
-    if (isObject(type) && type.type) {
-      payload = type
-      type = type.type
-    }
+    const {
+      type,
+      payload
+    } = unifyObjectStyle(_type, _payload)
+
     const entry = this._actions[type]
     if (!entry) {
       console.error(`[vuex] unknown action type: ${type}`)
@@ -211,6 +213,7 @@ function resetStoreVM (store, state) {
 
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
+  const hasNamespace = store._modules.hasNamespace(path)
   const namespacer = store._modules.getNamespacer(path)
 
   // set state
@@ -222,16 +225,31 @@ function installModule (store, rootState, path, module, hot) {
     })
   }
 
+  const { local, gettersProxy } = localize(store, namespacer, hasNamespace)
+
   module.forEachMutation((mutation, key) => {
-    registerMutation(store, namespacer(key, 'mutation'), mutation, path)
+    const namespacedType = namespacer(key, 'mutation')
+    registerMutation(store, namespacedType, mutation, path)
   })
 
   module.forEachAction((action, key) => {
-    registerAction(store, namespacer(key, 'action'), action, path)
+    const namespacedType = namespacer(key, 'action')
+    registerAction(store, namespacedType, action, local, path)
   })
 
   module.forEachGetter((getter, key) => {
-    registerGetter(store, namespacer(key, 'getter'), getter, path)
+    const namespacedType = namespacer(key, 'getter')
+
+    // Add a port to the getters proxy.
+    // Define as getter property because
+    // we do not want to evaluate the getters in this time.
+    if (hasNamespace) {
+      Object.defineProperty(gettersProxy, key, {
+        get: () => store.getters[namespacedType]
+      })
+    }
+
+    registerGetter(store, namespacedType, getter, local, path)
   })
 
   module.forEachChild((child, key) => {
@@ -239,22 +257,62 @@ function installModule (store, rootState, path, module, hot) {
   })
 }
 
-function registerMutation (store, type, handler, path = []) {
+function localize (store, namespacer, hasNamespace) {
+  const local = {
+    dispatch (_type, _payload, _options) {
+      const args = unifyObjectStyle(_type, _payload, _options)
+      const { payload, options } = args
+      let { type } = args
+
+      if (!options || !options.root) {
+        type = namespacer(type, 'action')
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit (_type, _payload, _options) {
+      const args = unifyObjectStyle(_type, _payload, _options)
+      const { payload, options } = args
+      let { type } = args
+
+      if (!options || !options.root) {
+        type = namespacer(type, 'mutation')
+      }
+
+      store.commit(type, payload, options)
+    }
+  }
+
+  // this object will be mutated in further process
+  // and its properties will be evaluated from the local getters
+  const gettersProxy = Object.create(null)
+
+  // getters object must be gotten lazily
+  // because store.getters will be changed by vm update
+  Object.defineProperty(local, 'getters', {
+    get: !hasNamespace ? () => store.getters : () => gettersProxy
+  })
+
+  return { local, gettersProxy }
+}
+
+function registerMutation (store, type, handler, path) {
   const entry = store._mutations[type] || (store._mutations[type] = [])
   entry.push(function wrappedMutationHandler (payload) {
     handler(getNestedState(store.state, path), payload)
   })
 }
 
-function registerAction (store, type, handler, path = []) {
+function registerAction (store, type, handler, local, path) {
   const entry = store._actions[type] || (store._actions[type] = [])
-  const { dispatch, commit } = store
   entry.push(function wrappedActionHandler (payload, cb) {
     let res = handler({
-      dispatch,
-      commit,
-      getters: store.getters,
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
       state: getNestedState(store.state, path),
+      rootGetters: store.getters,
       rootState: store.state
     }, payload, cb)
     if (!isPromise(res)) {
@@ -271,7 +329,7 @@ function registerAction (store, type, handler, path = []) {
   })
 }
 
-function registerGetter (store, type, rawGetter, path) {
+function registerGetter (store, type, rawGetter, local, path) {
   if (store._wrappedGetters[type]) {
     console.error(`[vuex] duplicate getter key: ${type}`)
     return
@@ -279,8 +337,9 @@ function registerGetter (store, type, rawGetter, path) {
   store._wrappedGetters[type] = function wrappedGetter (store) {
     return rawGetter(
       getNestedState(store.state, path), // local state
-      store.getters, // getters
-      store.state // root state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
     )
   }
 }
@@ -295,6 +354,15 @@ function getNestedState (state, path) {
   return path.length
     ? path.reduce((state, key) => state[key], state)
     : state
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload
+    payload = type
+    type = type.type
+  }
+  return { type, payload, options }
 }
 
 function install (_Vue) {

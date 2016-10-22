@@ -20,6 +20,14 @@ export default class ModuleCollection {
     }, this.root)
   }
 
+  hasNamespace (path) {
+    let module = this.root
+    return path.reduce((result, key) => {
+      module = module.getChild(key)
+      return result || module.hasNamespace
+    }, false)
+  }
+
   getNamespacer (path) {
     let module = this.root
     return path.reduce((namespacer, key) => {

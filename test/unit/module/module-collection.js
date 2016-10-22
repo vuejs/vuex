@@ -24,6 +24,40 @@ describe('ModuleCollection', () => {
     expect(collection.get(['b', 'c']).state.value).toBe(4)
   })
 
+  it('hasNamespace', () => {
+    const collection = new ModuleCollection({
+      namespace: 'ignore/',
+      modules: {
+        a: {
+          namespace: 'a/',
+          modules: {
+            b: {
+              modules: {
+                c: {
+                  namespace: 'c/'
+                }
+              }
+            }
+          }
+        },
+        d: {
+          modules: {
+            e: {
+              namespace: 'e/'
+            }
+          }
+        }
+      }
+    })
+
+    expect(collection.hasNamespace([])).toBe(false)
+    expect(collection.hasNamespace(['a'])).toBe(true)
+    expect(collection.hasNamespace(['a', 'b'])).toBe(true)
+    expect(collection.hasNamespace(['a', 'b', 'c'])).toBe(true)
+    expect(collection.hasNamespace(['d'])).toBe(false)
+    expect(collection.hasNamespace(['d', 'e'])).toBe(true)
+  })
+
   it('getNamespacer', () => {
     const module = (namespace, children) => {
       return {

@@ -751,6 +751,73 @@ describe('Vuex', () => {
     })
   })
 
+  it('module: getters are namespaced in namespaced module', () => {
+    const store = new Vuex.Store({
+      state: { value: 'root' },
+      getters: {
+        foo: state => state.value
+      },
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: { value: 'module' },
+          getters: {
+            foo: state => state.value,
+            bar: (state, getters) => getters.foo,
+            baz: (state, getters, rootState, rootGetters) => rootGetters.foo
+          }
+        }
+      }
+    })
+
+    expect(store.getters['prefix/foo']).toBe('module')
+    expect(store.getters['prefix/bar']).toBe('module')
+    expect(store.getters['prefix/baz']).toBe('root')
+  })
+
+  it('module: action context is namespaced in namespaced module', done => {
+    const rootActionSpy = jasmine.createSpy()
+    const rootMutationSpy = jasmine.createSpy()
+    const moduleActionSpy = jasmine.createSpy()
+    const moduleMutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      state: { value: 'root' },
+      getters: { foo: state => state.value },
+      actions: { foo: rootActionSpy },
+      mutations: { foo: rootMutationSpy },
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: { value: 'module' },
+          getters: { foo: state => state.value },
+          actions: {
+            foo: moduleActionSpy,
+            test ({ dispatch, commit, getters, rootGetters }) {
+              expect(getters.foo).toBe('module')
+              expect(rootGetters.foo).toBe('root')
+
+              dispatch('foo')
+              expect(moduleActionSpy.calls.count()).toBe(1)
+              dispatch('foo', null, { root: true })
+              expect(rootActionSpy.calls.count()).toBe(1)
+
+              commit('foo')
+              expect(moduleMutationSpy.calls.count()).toBe(1)
+              commit('foo', null, { root: true })
+              expect(rootMutationSpy.calls.count()).toBe(1)
+
+              done()
+            }
+          },
+          mutations: { foo: moduleMutationSpy }
+        }
+      }
+    })
+
+    store.dispatch('prefix/test')
+  })
+
   it('dispatching multiple actions in different modules', done => {
     const store = new Vuex.Store({
       modules: {
