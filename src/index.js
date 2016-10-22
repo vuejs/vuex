@@ -266,6 +266,10 @@ function localize (store, namespacer, hasNamespace) {
 
       if (!options || !options.root) {
         type = namespacer(type, 'action')
+        if (!store._actionss[type]) {
+          console.error(`[vuex] unknown local action type: ${args.type}, global type: ${type}`)
+          return
+        }
       }
 
       return store.dispatch(type, payload)
@@ -278,6 +282,10 @@ function localize (store, namespacer, hasNamespace) {
 
       if (!options || !options.root) {
         type = namespacer(type, 'mutation')
+        if (!store._mutations[type]) {
+          console.error(`[vuex] unknown local mutation type: ${args.type}, global type: ${type}`)
+          return
+        }
       }
 
       store.commit(type, payload, options)
