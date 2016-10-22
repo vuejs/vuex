@@ -1,7 +1,8 @@
 import devtoolPlugin from './plugins/devtool'
 import applyMixin from './mixin'
 import { mapState, mapMutations, mapGetters, mapActions } from './helpers'
-import { isObject, isPromise, assert } from './util'
+import { forEachValue, isObject, isPromise, assert } from './util'
+import ModuleCollection from './module/module-collection'
 
 let Vue // bind on install
 
@@ -22,7 +23,7 @@ class Store {
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
-    this._runtimeModules = Object.create(null)
+    this._modules = new ModuleCollection(options)
     this._subscribers = []
     this._watcherVM = new Vue()
 
@@ -42,7 +43,7 @@ class Store {
     // init root module.
     // this also recursively registers all sub-modules
     // and collects all module getters inside this._wrappedGetters
-    installModule(this, state, [], options)
+    installModule(this, state, [], this._modules.root)
 
     // initialize the store vm, which is responsible for the reactivity
     // (also registers _wrappedGetters as computed properties)
@@ -123,11 +124,11 @@ class Store {
     })
   }
 
-  registerModule (path, module) {
+  registerModule (path, rawModule) {
     if (typeof path === 'string') path = [path]
     assert(Array.isArray(path), `module path must be a string or an Array.`)
-    this._runtimeModules[path.join('.')] = module
-    installModule(this, this.state, path, module)
+    this._modules.register(path, rawModule)
+    installModule(this, this.state, path, this._modules.get(path))
     // reset store to update getters...
     resetStoreVM(this, this.state)
   }
@@ -135,7 +136,7 @@ class Store {
   unregisterModule (path) {
     if (typeof path === 'string') path = [path]
     assert(Array.isArray(path), `module path must be a string or an Array.`)
-    delete this._runtimeModules[path.join('.')]
+    this._modules.unregister(path)
     this._withCommit(() => {
       const parentState = getNestedState(this.state, path.slice(0, -1))
       Vue.delete(parentState, path[path.length - 1])
@@ -144,7 +145,7 @@ class Store {
   }
 
   hotUpdate (newOptions) {
-    updateModule(this._options, newOptions)
+    this._modules.update(newOptions)
     resetStore(this)
   }
 
@@ -156,41 +157,13 @@ class Store {
   }
 }
 
-function updateModule (targetModule, newModule) {
-  if (newModule.actions) {
-    targetModule.actions = newModule.actions
-  }
-  if (newModule.mutations) {
-    targetModule.mutations = newModule.mutations
-  }
-  if (newModule.getters) {
-    targetModule.getters = newModule.getters
-  }
-  if (newModule.modules) {
-    for (const key in newModule.modules) {
-      if (!(targetModule.modules && targetModule.modules[key])) {
-        console.warn(
-          `[vuex] trying to add a new module '${key}' on hot reloading, ` +
-          'manual reload is needed'
-        )
-        return
-      }
-      updateModule(targetModule.modules[key], newModule.modules[key])
-    }
-  }
-}
-
 function resetStore (store) {
   store._actions = Object.create(null)
   store._mutations = Object.create(null)
   store._wrappedGetters = Object.create(null)
   const state = store.state
-  // init root module
-  installModule(store, state, [], store._options, true)
-  // init all runtime modules
-  Object.keys(store._runtimeModules).forEach(key => {
-    installModule(store, state, key.split('.'), store._runtimeModules[key], true)
-  })
+  // init all modules
+  installModule(store, state, [], store._modules.root, true)
   // reset vm
   resetStoreVM(store, state)
 }
@@ -202,8 +175,7 @@ function resetStoreVM (store, state) {
   store.getters = {}
   const wrappedGetters = store._wrappedGetters
   const computed = {}
-  Object.keys(wrappedGetters).forEach(key => {
-    const fn = wrappedGetters[key]
+  forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
     computed[key] = () => fn(store)
     Object.defineProperty(store.getters, key, {
@@ -239,44 +211,31 @@ function resetStoreVM (store, state) {
 
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
-  const {
-    state,
-    actions,
-    mutations,
-    getters,
-    modules
-  } = module
 
   // set state
   if (!isRoot && !hot) {
     const parentState = getNestedState(rootState, path.slice(0, -1))
     const moduleName = path[path.length - 1]
     store._withCommit(() => {
-      Vue.set(parentState, moduleName, state || {})
+      Vue.set(parentState, moduleName, module.state || {})
     })
   }
 
-  if (mutations) {
-    Object.keys(mutations).forEach(key => {
-      registerMutation(store, key, mutations[key], path)
-    })
-  }
+  module.forEachMutation((mutation, key) => {
+    registerMutation(store, key, mutation, path)
+  })
 
-  if (actions) {
-    Object.keys(actions).forEach(key => {
-      registerAction(store, key, actions[key], path)
-    })
-  }
+  module.forEachAction((action, key) => {
+    registerAction(store, key, action, path)
+  })
 
-  if (getters) {
-    wrapGetters(store, getters, path)
-  }
+  module.forEachGetter((getter, key) => {
+    registerGetter(store, key, getter, path)
+  })
 
-  if (modules) {
-    Object.keys(modules).forEach(key => {
-      installModule(store, rootState, path.concat(key), modules[key], hot)
-    })
-  }
+  module.forEachChild((child, key) => {
+    installModule(store, rootState, path.concat(key), child, hot)
+  })
 }
 
 function registerMutation (store, type, handler, path = []) {
@@ -311,21 +270,18 @@ function registerAction (store, type, handler, path = []) {
   })
 }
 
-function wrapGetters (store, moduleGetters, modulePath) {
-  Object.keys(moduleGetters).forEach(getterKey => {
-    const rawGetter = moduleGetters[getterKey]
-    if (store._wrappedGetters[getterKey]) {
-      console.error(`[vuex] duplicate getter key: ${getterKey}`)
-      return
-    }
-    store._wrappedGetters[getterKey] = function wrappedGetter (store) {
-      return rawGetter(
-        getNestedState(store.state, modulePath), // local state
-        store.getters, // getters
-        store.state // root state
-      )
-    }
-  })
+function registerGetter (store, type, rawGetter, path) {
+  if (store._wrappedGetters[type]) {
+    console.error(`[vuex] duplicate getter key: ${type}`)
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      getNestedState(store.state, path), // local state
+      store.getters, // getters
+      store.state // root state
+    )
+  }
 }
 
 function enableStrictMode (store) {
