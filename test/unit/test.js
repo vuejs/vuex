@@ -581,6 +581,149 @@ describe('Vuex', () => {
     })
   })
 
+  it('module: namespace string', () => {
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: {
+            a: 1
+          },
+          getters: {
+            b: () => 2
+          },
+          actions: {
+            [TEST]: actionSpy
+          },
+          mutations: {
+            [TEST]: mutationSpy
+          }
+        }
+      }
+    })
+
+    expect(store.state.a.a).toBe(1)
+    expect(store.getters['prefix/b']).toBe(2)
+    store.dispatch('prefix/' + TEST)
+    expect(actionSpy).toHaveBeenCalled()
+    store.commit('prefix/' + TEST)
+    expect(mutationSpy).toHaveBeenCalled()
+  })
+
+  it('module: namespace generator function', () => {
+    const namespace = (type, category) => {
+      return category + '/' + type
+    }
+
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespace,
+          state: {
+            a: 1
+          },
+          getters: {
+            b: () => 2
+          },
+          actions: {
+            [TEST]: actionSpy
+          },
+          mutations: {
+            [TEST]: mutationSpy
+          }
+        }
+      }
+    })
+
+    expect(store.state.a.a).toBe(1)
+    expect(store.getters['getter/b']).toBe(2)
+    store.dispatch('action/' + TEST)
+    expect(actionSpy).toHaveBeenCalled()
+    store.commit('mutation/' + TEST)
+    expect(mutationSpy).toHaveBeenCalled()
+  })
+
+  it('module: nested namespace', () => {
+    const prefixCategory = namespace => (type, category) => {
+      return category + '-' + namespace + type
+    }
+
+    // mock module generator
+    const actionSpys = []
+    const mutationSpys = []
+    const createModule = (name, namespace, children) => {
+      const actionSpy = jasmine.createSpy()
+      const mutationSpy = jasmine.createSpy()
+
+      actionSpys.push(actionSpy)
+      mutationSpys.push(mutationSpy)
+
+      return {
+        namespace,
+        state: {
+          [name]: true
+        },
+        getters: {
+          [name]: state => state[name]
+        },
+        actions: {
+          [name]: actionSpy
+        },
+        mutations: {
+          [name]: mutationSpy
+        },
+        modules: children
+      }
+    }
+
+    // mock module
+    const modules = {
+      a: createModule('a', 'a/', { // a/a
+        b: createModule('b', null, { // a/b - does not add namespace
+          c: createModule('c', 'c/') // a/c/c
+        }),
+        d: createModule('d', 'd/'), // a/d/d
+        e: createModule('e', prefixCategory('e/'), { // a/(category)-e/e
+          f: createModule('f', prefixCategory('f/')) // a/(category)-e/(category)-f/f
+        })
+      })
+    }
+
+    const store = new Vuex.Store({ modules })
+
+    const expectedTypes = category => [
+      'a/a', 'a/b', 'a/c/c', 'a/d/d',
+      `a/${category}-e/e`, `a/${category}-e/${category}-f/f`
+    ]
+
+    // getters
+    expectedTypes('getter').forEach(type => {
+      expect(store.getters[type]).toBe(true)
+    })
+
+    // actions
+    expectedTypes('action').forEach(type => {
+      store.dispatch(type)
+    })
+    actionSpys.forEach(spy => {
+      expect(spy.calls.count()).toBe(1)
+    })
+
+    // mutations
+    expectedTypes('mutation').forEach(type => {
+      store.commit(type)
+    })
+    mutationSpys.forEach(spy => {
+      expect(spy.calls.count()).toBe(1)
+    })
+  })
+
   it('dispatching multiple actions in different modules', done => {
     const store = new Vuex.Store({
       modules: {

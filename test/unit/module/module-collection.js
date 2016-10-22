@@ -24,6 +24,43 @@ describe('ModuleCollection', () => {
     expect(collection.get(['b', 'c']).state.value).toBe(4)
   })
 
+  it('getNamespacer', () => {
+    const module = (namespace, children) => {
+      return {
+        namespace,
+        modules: children
+      }
+    }
+    const collection = new ModuleCollection({
+      namespace: 'ignore/', // root module namespace should be ignored
+      modules: {
+        a: module('a/', {
+          b: module(null, {
+            c: module('c/')
+          }),
+          d: module('d/'),
+          e: module((type, category) => {
+            return category + '-e/' + type
+          }, {
+            f: module('f/')
+          })
+        })
+      }
+    })
+    const check = (path, expected) => {
+      const type = 'test'
+      const category = 'getter'
+      const namespacer = collection.getNamespacer(path)
+      expect(namespacer(type, category)).toBe(expected)
+    }
+    check(['a'], 'a/test')
+    check(['a', 'b'], 'a/test')
+    check(['a', 'b', 'c'], 'a/c/test')
+    check(['a', 'd'], 'a/d/test')
+    check(['a', 'e'], `a/getter-e/test`)
+    check(['a', 'e', 'f'], `a/getter-e/f/test`)
+  })
+
   it('register', () => {
     const collection = new ModuleCollection({})
     collection.register(['a'], {

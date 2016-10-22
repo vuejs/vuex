@@ -211,6 +211,7 @@ function resetStoreVM (store, state) {
 
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
+  const namespacer = store._modules.getNamespacer(path)
 
   // set state
   if (!isRoot && !hot) {
@@ -222,15 +223,15 @@ function installModule (store, rootState, path, module, hot) {
   }
 
   module.forEachMutation((mutation, key) => {
-    registerMutation(store, key, mutation, path)
+    registerMutation(store, namespacer(key, 'mutation'), mutation, path)
   })
 
   module.forEachAction((action, key) => {
-    registerAction(store, key, action, path)
+    registerAction(store, namespacer(key, 'action'), action, path)
   })
 
   module.forEachGetter((getter, key) => {
-    registerGetter(store, key, getter, path)
+    registerGetter(store, namespacer(key, 'getter'), getter, path)
   })
 
   module.forEachChild((child, key) => {

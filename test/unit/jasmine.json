@@ -3,6 +3,7 @@
   "spec_files": [
     "test.js",
     "util.js",
+    "module/module.js",
     "module/module-collection.js"
   ],
   "helpers": [

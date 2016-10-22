@@ -20,6 +20,17 @@ export default class ModuleCollection {
     }, this.root)
   }
 
+  getNamespacer (path) {
+    let module = this.root
+    return path.reduce((namespacer, key) => {
+      module = module.getChild(key)
+      const moduleNamespacer = module.namespacer
+      return (type, category) => {
+        return namespacer(moduleNamespacer(type, category), category)
+      }
+    }, identity)
+  }
+
   update (rawRootModule) {
     update(this.root, rawRootModule)
   }
