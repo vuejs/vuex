@@ -8,7 +8,7 @@ export default class Module {
   }
 
   get state () {
-    return this._rawModule.state
+    return this._rawModule.state || {}
   }
 
   get namespace () {
