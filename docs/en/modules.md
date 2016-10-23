@@ -156,6 +156,22 @@ export default {
 }
 ```
 
+#### Caveat for Plugin Developers
+
+You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
+
+``` js
+// get namespace value via plugin option
+// and returns Vuex plugin function
+export function createPlugin (options = {}) {
+  return function (store) {
+    // add namespace to plugin module's types
+    const namespace = options.namespace || ''
+    store.dispatch(namespace + 'pluginAction')
+  }
+}
+```
+
 ### Dynamic Module Registration
 
 You can register a module **after** the store has been created with the `store.registerModule` method:
