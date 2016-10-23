@@ -81,42 +81,77 @@ const moduleA = {
 
 ### Namespacing
 
-Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing by prefixing or suffixing their names. And you probably should if you are writing a reusable Vuex module that will be used in unknown environments. For example, we want to create a `todos` module:
+Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You probably should namespace your Vuex module if you are writing a reusable one that will be used in unknown environments. To support namespacing for avoiding name clashing, Vuex provides `namespace` option. If you specify string value to `namespace` option, module assets types are prefixed by the given value:
 
 ``` js
-// types.js
+export default {
+  namespace: 'account/',
 
-// define names of getters, actions and mutations as constants
-// and they are prefixed by the module name `todos`
-export const DONE_COUNT = 'todos/DONE_COUNT'
-export const FETCH_ALL = 'todos/FETCH_ALL'
-export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
+  // module assets
+  state: { ... }, // module state will not be changed by prefix option
+  getters: {
+    isAdmin () { ... } // -> getters['account/isAdmin']
+  },
+  actions: {
+    login () { ... } // -> dispatch('account/login')
+  },
+  mutations: {
+    login () { ... } // -> commit('account/login')
+  },
+
+  // nested modules
+  modules: {
+    // inherit the namespace from parent module
+    myPage: {
+      state: { ... },
+      getters: {
+        profile () { ... } // -> getters['account/profile']
+      }
+    },
+
+    // nest the namespace
+    posts: {
+      namespace: 'posts/',
+
+      state: { ... },
+      getters: {
+        popular () { ... } // -> getters['account/posts/popular']
+      }
+    }
+  }
+}
 ```
 
-``` js
-// modules/todos.js
-import * as types from '../types'
+Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. If you want to use the global ones, `rootGetters` is passed to the 4th argument of getter functions and the property of the action context. In addition, `dispatch` and `commit` receives `root` option on their last argument.
 
-// define getters, actions and mutations using prefixed names
-const todosModule = {
-  state: { todos: [] },
+``` js
+export default {
+  namespace: 'prefix/',
 
   getters: {
-    [types.DONE_COUNT] (state) {
-      // ...
-    }
+    // `getters` is localized to this module's getters
+    // you can use rootGetters via 4th argument of getters
+    someGetter (state, getters, rootState, rootGetters) {
+      getters.someOtherGetter // -> 'prefix/someOtherGetter'
+      rootGetters.someOtherGetter // -> 'someOtherGetter'
+    },
+    someOtherGetter: state => { ... }
   },
 
   actions: {
-    [types.FETCH_ALL] (context, payload) {
-      // ...
-    }
-  },
+    // dispatch and commit are also localized for this module
+    // they will accept `root` option for the root dispatch/commit
+    someAction ({ dispatch, commit, getters, rootGetters }) {
+      getters.someGetter // -> 'prefix/someGetter'
+      rootGetters.someGetter // -> 'someGetter'
 
-  mutations: {
-    [types.TOGGLE_DONE] (state, payload) {
-      // ...
-    }
+      dispatch('someOtherAction') // -> 'prefix/someOtherAction'
+      dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
+      commit('someMutation') // -> 'prefix/someMutation'
+      commit('someMutation', null, { root: true }) // -> 'someMutation'
+    },
+    someOtherAction (ctx, payload) { ... }
   }
 }
 ```
