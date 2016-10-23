@@ -292,7 +292,7 @@ function localize (store, namespace) {
 }
 
 function localizeGetters (store, namespace) {
-  const gettersProxy = Object.create(null)
+  const gettersProxy = {}
 
   const splitPos = namespace.length
   Object.keys(store.getters).forEach(type => {
