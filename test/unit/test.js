@@ -640,6 +640,47 @@ describe('Vuex', () => {
     expect(mutationSpy).toHaveBeenCalled()
   })
 
+  it('module: use other module that has same namespace', done => {
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      modules: {
+        parent: {
+          namespace: 'prefix/',
+
+          modules: {
+            a: {
+              state: { value: 'a' },
+              getters: { foo: state => state.value },
+              actions: { foo: actionSpy },
+              mutations: { foo: mutationSpy }
+            },
+
+            b: {
+              state: { value: 'b' },
+              actions: {
+                test ({ dispatch, commit, getters }) {
+                  expect(getters.foo).toBe('a')
+
+                  dispatch('foo')
+                  expect(actionSpy).toHaveBeenCalled()
+
+                  commit('foo')
+                  expect(mutationSpy).toHaveBeenCalled()
+
+                  done()
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+
+    store.dispatch('prefix/test')
+  })
+
   it('module: nested namespace', () => {
     // mock module generator
     const actionSpys = []
