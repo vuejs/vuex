@@ -1,5 +1,5 @@
 import Module from './module'
-import { forEachValue, identity } from '../util'
+import { forEachValue } from '../util'
 
 export default class ModuleCollection {
   constructor (rawRootModule) {
@@ -20,23 +20,12 @@ export default class ModuleCollection {
     }, this.root)
   }
 
-  hasNamespace (path) {
+  getNamespace (path) {
     let module = this.root
-    return path.reduce((result, key) => {
+    return path.reduce((namespace, key) => {
       module = module.getChild(key)
-      return result || module.hasNamespace
-    }, false)
-  }
-
-  getNamespacer (path) {
-    let module = this.root
-    return path.reduce((namespacer, key) => {
-      module = module.getChild(key)
-      const moduleNamespacer = module.namespacer
-      return (type, category) => {
-        return namespacer(moduleNamespacer(type, category), category)
-      }
-    }, identity)
+      return namespace + module.namespace
+    }, '')
   }
 
   update (rawRootModule) {

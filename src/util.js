@@ -53,14 +53,6 @@ export function forEachValue (obj, fn) {
   Object.keys(obj).forEach(key => fn(obj[key], key))
 }
 
-/**
- * Returns given argument itself
- * Used for initial value to fold functions
- */
-export function identity (value) {
-  return value
-}
-
 export function isObject (obj) {
   return obj !== null && typeof obj === 'object'
 }

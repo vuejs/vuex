@@ -11,18 +11,8 @@ export default class Module {
     return this._rawModule.state
   }
 
-  get hasNamespace () {
-    return this._rawModule.namespace != null && this._rawModule.namespace !== ''
-  }
-
-  get namespacer () {
-    // if the namespace option is string value, convert it to a function
-    let namespacer = this._rawModule.namespace || ''
-    if (typeof namespacer === 'string') {
-      const prefix = namespacer
-      namespacer = (type, category) => prefix + type
-    }
-    return namespacer
+  get namespace () {
+    return this._rawModule.namespace || ''
   }
 
   addChild (key, module) {

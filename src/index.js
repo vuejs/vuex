@@ -181,7 +181,8 @@ function resetStoreVM (store, state) {
     // use computed to leverage its lazy-caching mechanism
     computed[key] = () => fn(store)
     Object.defineProperty(store.getters, key, {
-      get: () => store._vm[key]
+      get: () => store._vm[key],
+      enumerable: true // for local getters
     })
   })
 
@@ -213,8 +214,7 @@ function resetStoreVM (store, state) {
 
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
-  const hasNamespace = store._modules.hasNamespace(path)
-  const namespacer = store._modules.getNamespacer(path)
+  const namespace = store._modules.getNamespace(path)
 
   // set state
   if (!isRoot && !hot) {
@@ -225,30 +225,20 @@ function installModule (store, rootState, path, module, hot) {
     })
   }
 
-  const { local, gettersProxy } = localize(store, namespacer, hasNamespace)
+  const local = localize(store, namespace)
 
   module.forEachMutation((mutation, key) => {
-    const namespacedType = namespacer(key, 'mutation')
+    const namespacedType = namespace + key
     registerMutation(store, namespacedType, mutation, path)
   })
 
   module.forEachAction((action, key) => {
-    const namespacedType = namespacer(key, 'action')
+    const namespacedType = namespace + key
     registerAction(store, namespacedType, action, local, path)
   })
 
   module.forEachGetter((getter, key) => {
-    const namespacedType = namespacer(key, 'getter')
-
-    // Add a port to the getters proxy.
-    // Define as getter property because
-    // we do not want to evaluate the getters in this time.
-    if (hasNamespace) {
-      Object.defineProperty(gettersProxy, key, {
-        get: () => store.getters[namespacedType]
-      })
-    }
-
+    const namespacedType = namespace + key
     registerGetter(store, namespacedType, getter, local, path)
   })
 
@@ -257,7 +247,7 @@ function installModule (store, rootState, path, module, hot) {
   })
 }
 
-function localize (store, namespacer, hasNamespace) {
+function localize (store, namespace) {
   const local = {
     dispatch (_type, _payload, _options) {
       const args = unifyObjectStyle(_type, _payload, _options)
@@ -265,8 +255,8 @@ function localize (store, namespacer, hasNamespace) {
       let { type } = args
 
       if (!options || !options.root) {
-        type = namespacer(type, 'action')
-        if (!store._actionss[type]) {
+        type = namespace + type
+        if (!store._actions[type]) {
           console.error(`[vuex] unknown local action type: ${args.type}, global type: ${type}`)
           return
         }
@@ -281,7 +271,7 @@ function localize (store, namespacer, hasNamespace) {
       let { type } = args
 
       if (!options || !options.root) {
-        type = namespacer(type, 'mutation')
+        type = namespace + type
         if (!store._mutations[type]) {
           console.error(`[vuex] unknown local mutation type: ${args.type}, global type: ${type}`)
           return
@@ -292,17 +282,36 @@ function localize (store, namespacer, hasNamespace) {
     }
   }
 
-  // this object will be mutated in further process
-  // and its properties will be evaluated from the local getters
-  const gettersProxy = Object.create(null)
-
   // getters object must be gotten lazily
   // because store.getters will be changed by vm update
   Object.defineProperty(local, 'getters', {
-    get: !hasNamespace ? () => store.getters : () => gettersProxy
+    get: namespace === '' ? () => store.getters : () => localizeGetters(store, namespace)
   })
 
-  return { local, gettersProxy }
+  return local
+}
+
+function localizeGetters (store, namespace) {
+  const gettersProxy = Object.create(null)
+
+  const splitPos = namespace.length
+  Object.keys(store.getters).forEach(type => {
+    // skip if the target getter is not match this namespace
+    if (type.slice(0, splitPos) !== namespace) return
+
+    // extract local getter type
+    const localType = type.slice(splitPos)
+
+    // Add a port to the getters proxy.
+    // Define as getter property because
+    // we do not want to evaluate the getters in this time.
+    Object.defineProperty(gettersProxy, localType, {
+      get: () => store.getters[type],
+      enumerable: true
+    })
+  })
+
+  return gettersProxy
 }
 
 function registerMutation (store, type, handler, path) {
