@@ -18,7 +18,6 @@ class Store {
     } = options
 
     // store internal state
-    this._options = options
     this._committing = false
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
