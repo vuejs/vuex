@@ -224,7 +224,7 @@ function installModule (store, rootState, path, module, hot) {
     })
   }
 
-  const local = localize(store, namespace)
+  const local = makeLocalContext(store, namespace)
 
   module.forEachMutation((mutation, key) => {
     const namespacedType = namespace + key
@@ -246,9 +246,15 @@ function installModule (store, rootState, path, module, hot) {
   })
 }
 
-function localize (store, namespace) {
+/**
+ * make localized dispatch, commit and getters
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace) {
+  const noNamespace = namespace === ''
+
   const local = {
-    dispatch (_type, _payload, _options) {
+    dispatch: noNamespace ? store.dispatch : (_type, _payload, _options) => {
       const args = unifyObjectStyle(_type, _payload, _options)
       const { payload, options } = args
       let { type } = args
@@ -264,7 +270,7 @@ function localize (store, namespace) {
       return store.dispatch(type, payload)
     },
 
-    commit (_type, _payload, _options) {
+    commit: noNamespace ? store.commit : (_type, _payload, _options) => {
       const args = unifyObjectStyle(_type, _payload, _options)
       const { payload, options } = args
       let { type } = args
@@ -284,13 +290,13 @@ function localize (store, namespace) {
   // getters object must be gotten lazily
   // because store.getters will be changed by vm update
   Object.defineProperty(local, 'getters', {
-    get: namespace === '' ? () => store.getters : () => localizeGetters(store, namespace)
+    get: noNamespace ? () => store.getters : () => makeLocalGetters(store, namespace)
   })
 
   return local
 }
 
-function localizeGetters (store, namespace) {
+function makeLocalGetters (store, namespace) {
   const gettersProxy = {}
 
   const splitPos = namespace.length
