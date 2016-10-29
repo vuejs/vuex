@@ -1,3 +1,13 @@
+# Logs (e.g. npm-debug)
+*.log*
+
+# IDEA/Webstorm project files
+.idea
+*.iml
+
+# VSCode metadata
+.vscode
+
 .DS_Store
 node_modules
 TODO.md
