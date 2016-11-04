@@ -85,7 +85,7 @@ export default {
 If you want to map a getter to a different name, use an object:
 
 ``` js
-mapGetters({
+...mapGetters({
   // map this.doneCount to store.getters.doneTodosCount
   doneCount: 'doneTodosCount'
 })
