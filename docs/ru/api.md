@@ -1,4 +1,4 @@
-# API Reference
+# Справочник API
 
 ### Vuex.Store
 
@@ -12,58 +12,58 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - type: `Object`
+  - тип: `Object`
 
-    The root state object for the Vuex store.
+    Корневой объект состояния хранилища Vuex.
 
-    [Details](state.md)
+    [Подробнее](state.md)
 
 - **mutations**
 
-  - type: `{ [type: string]: Function }`
+  - тип: `{ [type: string]: Function }`
 
-    Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
+    Регистрирует доступные для хранилища мутации. Функции-обработчики в качестве первого аргумента всегда получают `state` (в случае использования модуля — это будет локальный state модуля). Второй аргумент, `payload`, также передаётся — при его наличии.
 
-    [Details](mutations.md)
+    [Подробнее](mutations.md)
 
 - **actions**
 
-  - type: `{ [type: string]: Function }`
+  - тип: `{ [type: string]: Function }`
 
-    Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+    Регистрирует действия хранилища. В функции-обработчики передаётся объект `context`, с нижеперечисленными свойствами:
 
     ``` js
     {
-      state,     // same as store.state, or local state if in modules
-      rootState, // same as store.state, only in modules
-      commit,    // same as store.commit
-      dispatch,  // same as store.dispatch
-      getters    // same as store.getters
+      state,     // то же, что store.state, или локальный state при использовании модулей
+      rootState, // то же, что store.state, только при использовании модулей
+      commit,    // то же, что store.commit
+      dispatch,  // то же, что store.dispatch
+      getters    // то же, что store.getters
     }
     ```
 
-    [Details](actions.md)
+    [Подробнее](actions.md)
 
 - **getters**
 
-  - type: `{ [key: string]: Function }`
+  - тип: `{ [key: string]: Function }`
 
-    Register getters on the store. The getter function receives the following arguments:
+    Регистрирует геттеры, используемые в хранилище. Геттер-функции при вызове получают следующие аргументы:
     
     ```
-    state,     // will be module local state if defined in a module.
-    getters,   // same as store.getters
-    rootState  // same as store.state
+    state,     // при использовании модулей — локальный state модуля
+    getters,   // то же, что и store.getters
+    rootState  // то же, что и store.state
     ```
-    Registered getters are exposed on `store.getters`.
+    Зарегистрированные геттеры далее доступны посредством `store.getters`.
 
-    [Details](getters.md)
+    [Подробнее](getters.md)
 
 - **modules**
 
-  - type: `Object`
+  - тип: `Object`
 
-    An object containing sub modules to be merged into the store, in the shape of:
+    Объект, содержащий подмодули для помещения в хранилище, в формате:
 
     ``` js
     {
@@ -77,65 +77,65 @@ const store = new Vuex.Store({ ...options })
       ...
     }
     ```
+    
+    Каждый модуль может содержать `state` и `mutations`, подобно корневому хранилищу. State модуля будет прикреплёна к корневому state, используя указанный ключ. Мутации и геттеры модуля получают при вызове первым аргументом только локальный state, а не корневой. При вызове действий `context.state` аналогичным образом указывает на локальную переменную состояния модуля.
 
-    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
-
-    [Details](modules.md)
+    [Подробнее](modules.md)
 
 - **plugins**
 
-  - type: `Array<Function>`
+  - тип: `Array<Function>`
+  
+    Массив функций-плагинов, которые будут применены к хранилищу. Плагины попросту получают хранилище в качестве единственного аргумента, и могут как отслеживать мутации (для целей outbound data persistence, логирования, или отладки) или инициировать их (для входящих данных, например вебсокетов или observables).
 
-    An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
-
-    [Details](plugins.md)
+    [Подробнее](plugins.md)
 
 - **strict**
 
-  - type: `Boolean`
+  - тип: `Boolean`
   - default: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+    Заставляет хранилище Vuex использовать strict mode. В strict mode любые изменения переменной состояния, происходящие за пределами обработчиков мутаций будут выбрасывать ошибки.
 
-    [Details](strict.md)
+    [Подробнее](strict.md)
 
-### Vuex.Store Instance Properties
+### Свойства Инстанса Vuex.Store
 
 - **state**
 
-  - type: `Object`
+  - тип: `Object`
 
-    The root state. Read only.
+    Корневое состояние. Только для чтения.
 
 - **getters**
 
-  - type: `Object`
+  - тип: `Object`
 
-    Exposes registered getters. Read only.
+    Зарегистрированные геттеры. Только для чтения.
 
-### Vuex.Store Instance Methods
+### Методы Инстанса Vuex.Store
 
 - **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-  Commit a mutation. [Details](mutations.md)
+  Запускает мутацию. [Подробнее](mutations.md)
 
 - **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
-  Dispatch an action. Returns the return value of the triggered action handler, or a Promise if multiple handlers are triggered. [Details](actions.md)
+  Инициирует действие. Возвращает то же значение, что и вызванный обработчик действия, или Promise, в случае если вызывается несколько обработчиков. [Подробнее](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  Позволяет заменить корневое состояние хранилища. Используйте только для гидрации состояния / функционала "машины времени".
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Устанавливает реактивное наблюдение за возвращаемым значением геттера, вызывая коллбэк в случае его изменения. Геттер получает единственный параметр — state хранилища. Возможно указание дополнительного объекта опций, с такими же параметрами как и у метода `vm.$watch` корневой библиотеки Vue.
 
-  To stop watching, call the returned handle function.
+  Для прекращения наблюдения, необходимо вызвать возвращённую функцию-хэндлер.
 
 - **`subscribe(handler: Function)`**
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Подписывается на мутации хранилища. `handler` вызывается после каждой мутации и получает в качестве параметров дескриптор мутации и состояние после мутации:
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -144,34 +144,34 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Чаще всего используется в плагинах. [Подробнее](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-  Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Регистрирует динамический модуль. [Подробнее](modules.md#dynamic-module-registration)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Разрегистрирует динамический модуль. [Подробнее](modules.md#dynamic-module-registration)
 
 - **`hotUpdate(newOptions: Object)`**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  Осуществляет горячую замену действий и мутаций. [Подробнее](hot-reload.md)
 
-### Component Binding Helpers
+### Вспомогательные Функции для Связывания с Компонентами
 
 - **`mapState(map: Array<string> | Object): Object`**
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
+  Создаёт вычисляемые свойства компонента, возвращающие поддерево state'а хранилища Vuex [Подробнее](state.md#the-mapstate-helper)
 
 - **`mapGetters(map: Array<string> | Object): Object`**
 
-  Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
+  Создаёт вычисляемые свойства компонента, проксирующие доступ к геттерам. [Подробнее](getters.md#the-mapgetters-helper)
 
 - **`mapActions(map: Array<string> | Object): Object`**
 
-  Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
+  Создаёт методы компонента, позволяющие диспетчеризировать действия. [Подробнее](actions.md#dispatching-actions-in-components)
 
 - **`mapMutations(map: Array<string> | Object): Object`**
 
-  Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
+  Создаёт методы компонента, позволяющие инициировать мутации. [Подробнее](mutations.md#commiting-mutations-in-components)
