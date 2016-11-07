@@ -1,14 +1,14 @@
-# Form Handling
+# Обработка Форм
 
-When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
+При использовании Vuex в strict mode, использование `v-model` с частью состояния, хранимого во Vue, может стать немного непростым:
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in an error because the mutation is not performed inside an explicit Vuex mutation handler.
+Предположим, что `obj` — это вычисляемое свойство, возвращающее объект из хранилища. В таком случае, `v-model` будет пытаться напрямую изменить значение `obj.message` в ответ на действия пользователя. В strict mode это спровоцирует ошибку, поскольку это изменение происходит вне формального обработчика мутации Vuex.
 
-The "Vuex way" to deal with it is binding the `<input>`'s value and call an action on the `input` or `change` event:
+Чтобы подружить Vuex с такой ситуацией, следует связать аттрибут `value` элемента `<input>`, а для учёта изменений использовать событие `change`:
 
 ``` html
 <input :value="message" @input="updateMessage">
@@ -27,7 +27,7 @@ methods: {
 }
 ```
 
-And here's the mutation handler:
+А вот и обработчик мутаций:
 
 ``` js
 // ...
@@ -38,9 +38,9 @@ mutations: {
 }
 ```
 
-### Two-way Computed Property
+### Двухсторонние Вычисляемые Свойства
 
-Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
+Заметно, что получившаяся выше запись — куда многословнее, чем используемая в связке `v-model` с локальным состоянием, да и некоторые полезные возможности `v-model` мы упускаем. В качестве альтернативы можно предложить использование двунаправленного вычисляемого свойства с сеттером:
 
 ``` js
 // ...
