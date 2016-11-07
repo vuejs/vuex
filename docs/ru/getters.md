@@ -1,7 +1,7 @@
 
-# Getters
+# Геттеры
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+Иногда может понадобится доступ к производным данным, основывающимся на состоянии хранилища: например, к отфильтрованной версии списка или количеству элементов в нём:
 
 ``` js
 computed: {
@@ -11,9 +11,9 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+Если этот функционал требуется более чем одному компоненту, понадобится либо дублировать функцию, либо выносить её в совместно используемый хелпер и импортировать в нескольких местах. Оба эти подхода далеки от идеала.
 
-Vuex allows us to define "getters" in the store (think of them as computed properties for stores). Getters will receive the state as their 1st argument:
+Vuex позволяет определять в хранилище "геттеры" (их можно считать вычисляемыми свойствами хранилища). Геттеры получают первым аргументом ссылку на state хранилища:
 
 ``` js
 const store = new Vuex.Store({
@@ -31,13 +31,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The getters will be exposed on the `store.getters` object:
+Доступ к геттерам происходит через объект `store.getters`:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+В качестве второго аргумента передаётся список всех геттеров:
 
 ``` js
 getters: {
@@ -52,7 +52,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+В компонентах геттеры можно использовать например таким образом:
 
 ``` js
 computed: {
@@ -62,9 +62,9 @@ computed: {
 }
 ```
 
-### The `mapGetters` Helper
+### Вспомогательная Функция `mapGetters`
 
-The `mapGetters` helper simply maps store getters to local computed properties:
+Хелпер `mapGetters` попросту проксирует геттеры хранилища через локальные вычисляемые свойства компонента:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -72,7 +72,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // примешиваем геттеры в вычисляемые свойства при помощи оператора распространения
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -82,7 +82,7 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+Если вы хотите использовать при проксировании альтернативное имя, используйте объектный синтаксис:
 
 ``` js
 ...mapGetters({
