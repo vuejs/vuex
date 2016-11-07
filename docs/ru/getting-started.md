@@ -1,19 +1,19 @@
-# Getting Started
+# Начало Работы
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that makes a Vuex store different from a plain global object:
+В центре любого Vuex-приложения находится **хранилище**. "Хранилище" — это, упрощённо говоря, контейнер, хранящий **состояние** вашего приложения. Две вещи отличают хранилище Vuex от простого глобального объекта:
 
-1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+1. Хранилища Vuex реактивны. Если компоненты Vue зависят от их состояния, изменения состояния хранилища будут провоцировать соответствующие изменения компонентов.
 
-2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
+2. Непосредственное изменение состояния хранилища запрещено. Единственная возможность для внесения изменений — явный **вызов мутаций**. Этот подход позволяет быть уверенным, что каждое изменение оставляет в системе след, и даёт возможность использовать инструменты, позволяющие лучше понять работу приложений.
 
-### The Simplest Store
+### Простейшее Хранилище
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
+> **ВНИМАНИЕ:** Мы будем использовать синтаксис ES2015 для примеров кода на всём протяжении этой документации. Если вы с ним ещё не разобрались, [сейчас самое время](https://babeljs.io/docs/learn-es2015/)!
 
-After [installing](installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
+После [установки](installation.md) Vuex, давайте создадим хранилище. Всё довольно прямолинейно: нужно просто указать исходное состояние и какие-нибудь мутации:
 
 ``` js
-// Make sure to call Vue.use(Vuex) first if using a module system
+// Удостоверьтесь, что вызвали Vue.use(Vuex) в коде ранее, если используете модульный сборщик
 
 const store = new Vuex.Store({
   state: {
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
+Теперь мы можем получить доступ к объекту состояния посредством `store.state`, или вызвать изменение состояния методом `store.commit`:
 
 ``` js
 store.commit('increment')
@@ -35,10 +35,10 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
+Ещё раз заметим, что причина, по которой мы вызываем мутацию вместо того чтобы напрямую изменить `store.state.count` заключается в том, что мы хотим явным образом отслеживать изменения. Простое архитектурное соглашение делает наши намерения более очевидными, что позволяет упростить размышления об изменениях состояния приложения при чтении кода. Кроме того, этот подход позволяет реализовать инструменты, способные логировать каждую мутацию, делать моментальные слепки состояния приложения, и даже использовать "путешествия во времени" при отладке.
 
-Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+Использование состояния хранилища в компонентах, из-за реактивной природы хранилища, требует исключительно создания вычисляемых свойств. Изменения состояния можно вызывать инициализируя мутации в методах компонентов.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
+Вот пример [простейшего приложения Vuex, реализующего счётчик](https://jsfiddle.net/yyx990803/n9jmu5v7/).
 
-Next, we will discuss each core concept in much finer details, starting with [State](state.md).
+Далее мы более подробно обсудим каждую из основных концепций, начиная с [Состояния](state.md)
