@@ -1,24 +1,24 @@
-# What is Vuex?
+# Что такое Vuex?
 
-Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
+Vuex - **паттерн управления состоянием + библиотека** для приложений на Vue.js. Он служит централизованным хранилищем данных для всех используемых в приложении компонентов, при помощи определённых правил обеспечивая предсказуемость изменений данных. Кроме того, Vuex интегрируется с официальным [расширением инструментов разработчика](https://github.com/vuejs/vue-devtools) Vue, предоставляя "из коробки" такие продвинутые возможности как "путешествия во времени" при отладке и экспорт/импорт слепков состояния данных.
 
-### What is a "State Management Pattern"?
+### Что такое "Паттерн Управления Состоянием"?
 
-Let's start with a simple Vue counter app:
+Давайте начнём с простого приложения, реализующего счётчик с использованием Vue:
 
 ``` js
 new Vue({
-  // state
+  // состояние
   data () {
     return {
       count: 0
     }
   },
-  // view
+  // представление
   template: `
     <div>{{ count }}</div>
   `,
-  // actions
+  // действия
   methods: {
     increment () {
       this.count++
@@ -27,37 +27,37 @@ new Vue({
 })
 ```
 
-It is a self-contained app with the following parts:
+Это самостоятельное приложение состоит из следующих частей:
 
-- The **state**, which is the source of truth that drives our app;
-- The **view**, which is just a declarative mapping of the **state**;
-- The **actions**, which are the possible ways the state could change in reaction to user inputs from the **view**.
+- **Состояние**, являющееся "источником истины", управляющим приложением;
+- **Представление**, представляющее из себя всего лишь декларативное отображение **состояния**;
+- **Действия**, определяющие возможные пути изменения состояния приложения в ответ на взаимодействие пользователя с **представлением**.
 
-This is an extremely simple representation of the concept of "one-way data flow":
+Вот простейшее представление концепции "однонаправленного потока данных":
 
 <p style="text-align: center; margin: 2em">
   <img style="max-width:450px;" src="./images/flow.png">
 </p>
 
-However, the simplicity quickly breaks down when we have **multiple components that share common state**:
+Но простота быстро теряется при появлении **нескольких компонентов, основывающихся на одном и том же состоянии**:
 
-- Multiple views may depend on the same piece of state.
-- Actions from different views may need to mutate the same piece of state.
+- Несколько представлений могут зависеть от одной и той же части состояния приложения
+- Действия из разных представлений могут оказывать влияние на одни и те же части состояния приложения
 
-For problem one, passing props can be tedious for deeply nested components, and simply doesn't work for sibling components. For problem two, we often find ourselves resorting to solutions such as reaching for direct parent/child instance references or trying to mutate and synchronize multiple copies of the state via events. Both of these patterns are brittle and quickly lead to unmaintainable code.
+В рамках первой проблемы, передача входных параметров в глубоко вложенные компоненты может быть утомительной, а для соседних компонентов и вовсе не сработает. Решая вторую проблему, мы нередко обнаруживаем себя прибегающими к таким средствам как обращение к прямым родителям/потомкам компонента, или в попытках внести изменения и затем синхронизировать эти изменения с другими местами в приложении, используя события. Оба подхода хрупки и быстро приводят к появлению кода, который невозможно поддерживать.
 
-So why don't we extract the shared state out of the components, and manage it in a global singleton? With this, our component tree becomes a big "view", and any component can access the state or trigger actions, no matter where they are in the tree!
+Так почему бы не вынести всё общее состояние из компонентов, управляя им в глобальном синглтоне? При использовании этого подхода, дерево компонентов станет одним большим "представлением", а каждый компонент получит доступ к состоянию приложения и возможности вызывать действия по его обновлению, независимо от расположения компонента в дереве.
 
-In addition, by defining and separating the concepts involved in state management and enforcing certain rules, we also give our code more structure and maintainability.
+Кроме того, определяя и разделяя концепции, возникающиее при управлении состоянием и требуя соблюдения некоторых правил, мы улучшаем структурированность и поддерживаемость нашего кода.
 
-This is the basic idea behind Vuex, inspired by [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) and [The Elm Architecture](https://guide.elm-lang.org/architecture/). Unlike the other patterns, Vuex is also a library implementation tailored specifically for Vue.js to take advantage of its granular reactivity system for efficient updates.
+Такова основная идея, лежащая в основе Vuex, вдохновлённого [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) и [Архитектурой Elm](https://guide.elm-lang.org/architecture/). В отличии от других паттернов, Vuex представляет собой также и реализацию в виде библиотеки, специально заточенной на использование совместно с Vue.js и позволяющей получить преимущество из-за использования его систем реактивности и эффективных обновлений.
 
 ![vuex](./images/vuex.png)
 
-### When Should I Use It?
+### В Каких Случаях Следует Использовать Vuex?
 
-Although Vuex helps us deal with shared state management, it also comes with the cost of more concepts and boilerplate. It's a trade-off between short term and long term productivity.
+Хотя Vuex и помогает управлять совместно используемым состоянием, ценой этого является привнесение новых концепций и вспомогательного кода. Имеет место быть сделка между кратковременной и долгосрочной продуктивностью.
 
-If you've never built a large-scale SPA and jump right into Vuex, it may feel verbose and daunting. That's perfectly normal - if your app is simple, you will most likely be fine without Vuex. A simple [global event bus](http://vuejs.org/guide/components.html#Non-Parent-Child-Communication) may be all you need. But if you are building a medium-to-large-scale SPA, chances are you have run into situations that make you think about how to better handle state outside of your Vue components, and Vuex will be natural next step for you. There's a good quote from Dan Abramov, the author of Redux:
+Если вам ещё не доводилось создавать крупномасштабный одностраничные приложения, Vuex может показаться многословным и обескураживающим. Это норма — простые приложения вполне могут обойтись и без Vuex. Возможно, вполне достаточно будет использования и простой [глобальной шины событий](http://vuejs.org/guide/components.html#Non-Parent-Child-Communication). Но если вы создаёте SPA среднего или крупного размера, вероятно вам уже приходилось сталкиваться с ситуациями, заставляющими задуматься о методах более эффективного управления состоянием приложения за пределами компонентов Vue, и Vuex в таком случае окажется естественным следующим шагом. Есть неплохая цитата от Дэна Абрамова, автора Redux:
 
-> Flux libraries are like glasses: you’ll know when you need them.
+> Flux-библиотеки подобны очкам: если они вам действительно нужны, вы на этот счёт не сомневаетесь.
