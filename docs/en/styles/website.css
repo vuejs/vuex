@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600');
+body { letter-spacing: 0; color: #34495e; }
+.book-summary ul.summary li a, .book-summary ul.summary li span { color: #7f8c8d; font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif; }
+.book .book-summary ul.summary li span { opacity: 0.6; cursor: not-allowed; }
+.book-summary ul.summary li.active>a { color: #42b983; font-weight: 600; }
+.book .book-body .page-wrapper .page-inner section.normal, .book-summary { font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif; }
+#book-search-input { background-color: #fafafa; }
+.book-summary { background-color: #fff; }
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+.markdown-section a {
+  color: #42b983;
+  font-weight: 600;
+}
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
+  word-spacing: 0.05em;
+}
+.markdown-section code, .markdown-section pre { font-family: 'Roboto Mono', Monaco, courier, monospace; -webkit-font-smoothing: initial; background-color: #f8f8f8; }
+.markdown-section pre>code { font-size: 0.8em; display: block; }
+.markdown-section code:after, .markdown-section code:before { content: none; letter-spacing: 0.05em; }
+
+body {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #34495e;
+  background-color: #fff;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: #34495e;
+}
+img {
+  border: none;
+}
+h1,
+h2,
+h3,
+h4,
+strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+code,
+pre {
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  font-size: 0.8em;
+  background-color: #f8f8f8;
+  -webkit-font-smoothing: initial;
+  -moz-osx-font-smoothing: initial;
+}
+code {
+  color: #e96900;
+  padding: 3px 5px;
+  margin: 0 2px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+em {
+  color: #7f8c8d;
+}
+p {
+  word-spacing: 0.05em;
+}
+a.button {
+  padding: 0.75em 2em;
+  border-radius: 2em;
+  display: inline-block;
+  color: #fff;
+  background-color: #4fc08d;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+  border: 1px solid #4fc08d;
+}
+a.button.white {
+  background-color: #fff;
+  color: #42b983;
+}
+.highlight {
+  overflow-x: auto;
+  position: relative;
+  padding: 0;
+  background-color: #f8f8f8;
+  padding: 0.8em 0.8em 0.4em;
+  line-height: 1.1em;
+  border-radius: 2px;
+}
+.highlight table,
+.highlight tr,
+.highlight td {
+  width: 100%;
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
+}
+.highlight .gutter {
+  width: 1.5em;
+}
+.markdown-section pre {
+  padding: 1.2em 1.4em;
+  line-height: 1.5em;
+  margin: 0;
+}
+code .token {
+  min-height: 1.5em;
+}
+pre code { position: relative; }
+pre code.lang-html:after,
+pre code.lang-js:after,
+pre code.lang-bash:after,
+pre code.lang-css:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #ccc;
+  text-align: right;
+  font-size: 0.75em;
+  padding: 5px 10px 0;
+  line-height: 15px;
+  height: 15px;
+  font-weight: 600;
+}
+pre code.lang-html:after {
+  content: 'HTML';
+}
+pre code.lang-js:after {
+  content: 'JS';
+}
+pre code.lang-bash:after {
+  content: 'Shell';
+}
+pre code.lang-css:after {
+  content: 'CSS';
+}
+.content img {
+  max-width: 100%;
+}
+.content span.light {
+  color: #7f8c8d;
+}
+.content span.info {
+  font-size: 0.85em;
+  display: inline-block;
+  vertical-align: middle;
+  width: 280px;
+  margin-left: 20px;
+}
+.markdown-section h1 {
+  margin: 0 0 1em;
+}
+.markdown-section h2 {
+  margin: 45px 0 0.8em;
+  padding-bottom: 0.7em;
+  border-bottom: 1px solid #ddd;
+}
+.markdown-section h3 {
+  margin: 52px 0 1.2em;
+}
+.markdown-section figure,
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
+  margin: 1.2em 0;
+}
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
+  line-height: 1.6em;
+}
+.markdown-section ul,
+.markdown-section ol {
+  padding-left: 1.5em;
+}
+.markdown-section a {
+  color: #42b983;
+  font-weight: 600;
+}
+.markdown-section blockquote {
+  margin: 2em 0;
+  padding-left: 20px;
+  border-left: 4px solid #42b983;
+}
+.markdown-section blockquote p {
+  font-weight: 600;
+  margin-left: 0;
+}
+.markdown-section iframe {
+  margin: 1em 0;
+}
