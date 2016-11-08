@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 
 Плагинам не разрешается напрямую изменять состояние приложения — как и компоненты, они могут только вызывать изменения опосредованно, используя мутации.
 
-Вызывая мутации, плагин может быть использован для синхронизации источника данных с хранилищем данных в приложении. Например, для синхронизации хранилища и вебсокета (пример намеренно упрощён, в реальной ситуации `createPlugin` имела бы дополнительные опции):
+Вызывая мутации, плагин может использоваться для синхронизации хранилища и внешнего источника данных. Например, для синхронизации с вебсокетом (пример намеренно упрощён, в реальной ситуации `createPlugin` имела бы дополнительные опции):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -54,7 +54,7 @@ const store = new Vuex.Store({
 
 ### Снятие Слепков Состояния
 
-Иногда плагину может потребоваться "слепок" состояния приложения или сравнить состояния "до" и "после" мутации. Для достижения этих целей необходимо использовать глубокое копирование объекта состояния:
+Иногда плагину может потребоваться "снять слепок" состояния приложения или сравнить состояния "до" и "после" мутации. Для этого необходимо использовать глубокое копирование объекта состояния:
 
 ``` js
 const myPluginWithSnapshot = store => {
@@ -70,7 +70,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**Plugins that take state snapshots should be used only during development.** When using Webpack or Browserify, we can let our build tools handle that for us:
+**Плагины, снимающие слепки, должны использоваться только на этапе разработки.** При использовании Webpack или Browserify, мы может отдать этот момент на их откуп:
 
 ``` js
 const store = new Vuex.Store({
@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Плагин будет использоваться по умолчанию. Для production вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для Webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
+Плагин будет использоваться по умолчанию. Для production-окружения вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для Webpack, или [envify](https://github.com/hughsk/envify) для Browserify, позволяющией изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
 
 ### Встроенный Плагин Логирования
 
