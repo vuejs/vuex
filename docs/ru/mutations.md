@@ -1,6 +1,6 @@
-# Mutations
+# Мутации
 
-The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
+Единственным способом изменения состояния хранилища во Vuex является использование мутаций. Мутации во Vuex очень похожи на события: каждая мутация имеет строковый **тип** и **функцию-обработчик**. В этом обработчике и происходят собственно изменения состояния, которое передаётся в функцию на позиции первого аргумента:
 
 ``` js
 const store = new Vuex.Store({
@@ -9,22 +9,22 @@ const store = new Vuex.Store({
   },
   mutations: {
     increment (state) {
-      // mutate state
+      // изменяем состояние
       state.count++
     }
   }
 })
 ```
 
-You cannot directly call a mutation handler. The options here is more like event registration: "When a mutation with type `increment` is triggered, call this handler." To invoke a mutation handler, you need to call **store.commit** with its type:
+Вызывать функцию-обработчик напрямую — нельзя. Ситуация больше похожа на обработку события: "Когда мутация типа `increment` инициирована, вызывается этот обработчик". Чтобы инициировать обработку мутации, необходимо вызвать **store.commit**, указав её тип:
 
 ``` js
 store.commit('increment')
 ```
 
-### Commit with Payload
+### Мутации с Нагрузкой
 
-You can pass an additional argument to `store.commit`, which is called the **payload** for the mutation:
+При вызове `store.commit`, мутации можно также передать дополнительный параметр, называемый **нагрузкой**:
 
 ``` js
 // ...
@@ -38,7 +38,7 @@ mutations: {
 store.commit('increment', 10)
 ```
 
-In most cases, the payload should be an object so that it can contain multiple fields, and the recorded mutation will also be more descriptive:
+В большинстве случаев нагрузка будет объектом, содержащим несколько полей. Запись мутаций в таком случае становится более описательной:
 
 ``` js
 // ...
@@ -54,9 +54,9 @@ store.commit('increment', {
 })
 ```
 
-### Object-Style Commit
+### Объектный Синтаксис
 
-An alternative way to commit a mutation is by directly using an object that has a `type` property:
+Альтернативным способом вызова мутации является использование единственного параметра, в котором `type` указывается напрямую:
 
 ``` js
 store.commit({
@@ -65,7 +65,7 @@ store.commit({
 })
 ```
 
-When using object-style commit, the entire object will be passed as the payload to mutation handlers, so the handler remains the same:
+При использовании объектной записи, объект передаётся в качестве нагрузки целиком, так что обработчик остаётся тем же самым:
 
 ``` js
 mutations: {
@@ -75,43 +75,43 @@ mutations: {
 }
 ```
 
-### Silent Commit
+### Молчаливые Мутации
 
-> Note: This is a feature that will likely be deprecated once we implement mutation filtering in the devtools.
+> Замечание: Эта возможность вероятно будет помечена как нерекоммендованная к использованию после появления функционала фильтрации в devtools.
 
-By default, every committed mutation is sent to plugins (e.g. the devtools). However in some scenarios you may not want the plugins to record every state change. Multiple commits to the store in a short period or polled do not always need to be tracked. In such cases you can pass a third argument to `store.commit` to "silence" that specific mutation from plugins:
+По умолчанию, каждая инициируемая мутация попадает в плагины (например, в инструменты разработчика). Иногда, впрочем, не хочется, чтобы плагины записывали каждое изменение состояния. Множественные мутации, происходящие в течении короткого периода времени не всегда необходимо отслеживать. В таких случаях существует возможность передать в `store.commit` третий параметр чтобы "заставить замолчать" эту конкретную мутацию и сделать её невидимой в плагинах:
 
 ``` js
 store.commit('increment', {
   amount: 1
 }, { silent: true })
 
-// with object-style commit
+// при использовании объектного синтаксиса
 store.commit({
   type: 'increment',
   amount: 1
 }, { silent: true })
 ```
 
-### Mutations Follow Vue's Reactivity Rules
+### Мутации Следуют Правилам Реактивности Vue
 
-Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+Поскольку состояние хранилища Vuex — это реактивная переменная Vue, при возникновении мутации зависящие от этого состояния компоненты Vue обновляются автоматически. Кроме того, это значит, что мутации Vuex имеют те же самые скользкие места, что и реактивность в обычном Vue:
 
-1. Prefer initializing your store's initial state with all desired fields upfront.
+1. Предпочтительна инициализация изначального состояния хранилища с указанием всех полей в самом начале.
 
-2. When adding new properties to an Object, you should either:
+2. При добавлении новых свойств объекту необходимо либо:
 
-  - Use `Vue.set(obj, 'newProp', 123)`, or -
+  - Использовать `Vue.set(obj, 'newProp', 123)`, либо же - 
 
-  - Replace that Object with a fresh one. For example, using the stage-3 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
+  - Целиком заменить старый объект новым. Например, используя [синтаксис распространения объектов](https://github.com/sebmarkbage/ecmascript-rest-spread) из stage-3, можно написать так:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
     ```
 
-### Using Constants for Mutation Types
+### Использование Констант для обозначения Типов Мутаций
 
-It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+В различных вариантах имплементации Flux этот подход используется весьма часто. Вынесение всех констанс типов мутаций и действий в отдельный файл позволяет не только лучше использовать такие инструменты, как линтеры, но и одним взглядом узнать, какие мутации возможны в приложении:
 
 ``` js
 // mutation-types.js
@@ -126,8 +126,8 @@ import { SOME_MUTATION } from './mutation-types'
 const store = new Vuex.Store({
   state: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature
-    // to use a constant as the function name
+    // вычисляемые имена из ES2015 позволяют использовать
+    // константу в качестве имени функции
     [SOME_MUTATION] (state) {
       // mutate state
     }
@@ -135,11 +135,11 @@ const store = new Vuex.Store({
 })
 ```
 
-Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
+Тем не менее, использование констант для указания типов мутаций полностью опционально, хотя и может оказаться полезным в крупных проектах.
 
-### Mutations Must Be Synchronous
+### Мутации Должны Быть Синхронными
 
-One important rule to remember is that **mutation handler functions must be synchronous**. Why? Consider the following example:
+Нужно помнить одно важное правило: **обработчики мутаций обязаны быть синхронными**. Почему? Рассмотрим пример:
 
 ``` js
 mutations: {
@@ -151,11 +151,11 @@ mutations: {
 }
 ```
 
-Now imagine we are debugging the app and looking at the devtool's mutation logs. For every mutation logged, the devtool will need to capture a "before" and "after" snapshots of the state. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is committed, and there's no way for the devtool to know when the callback will actually be called - any state mutation performed in the callback is essentially un-trackable!
+Теперь представьте, что отлаживаете приложение и смотрите в лог мутаций в интрументарии разработчика. Для каждой залогированной мутации, devtools должен сохранить слепки состояния приложения "до" и "после". Однако, асинхронный коллбэк внутри приведённой выше мутации делает это невозможным: мутация-то уже записана, и у devtools нет никакой возможности знать, что будет вызван коллбэк, а значит инициируемые им изменения становится, по сути, невозможно отследить.
 
-### Commiting Mutations in Components
+### Вызов Мутаций из Компонентов
 
-You can commit mutations in components with `this.$store.commit('xxx')`, or use the `mapMutations` helper which maps component methods to `store.commit` calls (requires root `store` injection):
+Мутации можно вызывать из кода компонентов, используя `this.$store.commit('xxx')`, или применяя хелпер `mapMutations`, который проксирует вызовы `store.commit` через методы компонента (для этого требуется наличие корневой ссылки на хранилище через `$store`):
 
 ``` js
 import { mapMutations } from 'vuex'
@@ -164,23 +164,23 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment' // map this.increment() to this.$store.commit('increment')
+      'increment' // this.increment() будет вызывать this.$store.commit('increment')
     ]),
     ...mapMutations({
-      add: 'increment' // map this.add() to this.$store.commit('increment')
+      add: 'increment' // this.add() будет вызывать this.$store.commit('increment')
     })
   }
 }
 ```
 
-### On to Actions
+### О Действиях
 
-Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, **mutations are synchronous transactions**:
+Привнесение асинхронности в мутации может изрядно затруднить понимание логики программы. Например, если вызываются два метода, оба с асинхронными коллбэками, изменяющими состояние приложения, откуда нам знать, какой из коллбэков будет вызван первым? Именно поэтому мы разделяем концепции изменений и асинхронности. Во Vuex, **мутации — это синхронные транзакции**:
 
 ``` js
 store.commit('increment')
-// any state change that the "increment" mutation may cause
-// should be done at this moment.
+// все изменения состояния, вызываемые мутацией "increment",
+// к этому моменту уже должны произойти.
 ```
 
-To handle asynchronous operations, let's introduce [Actions](actions.md).
+Для обработки асинхронных операций существуют [Действия](actions.md).
