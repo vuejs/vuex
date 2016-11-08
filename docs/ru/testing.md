@@ -69,7 +69,7 @@ export const getAllProducts = ({ dispatch }) => {
 // actions.spec.js
 
 // для inline-загрузчиков используйте синтаксис require
-// и inject-loader, возвращающий фабрику модулей, помошающую
+// и inject-loader, возвращающий фабрику модулей, помогающую
 // подменять зависимости
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
