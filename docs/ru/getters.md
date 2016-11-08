@@ -31,13 +31,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Доступ к геттерам происходит через объект `store.getters`:
+Геттеры доступны в `store.getters`:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-В качестве второго аргумента передаётся список всех геттеров:
+Вторым аргументом передаётся список всех геттеров:
 
 ``` js
 getters: {
@@ -62,7 +62,7 @@ computed: {
 }
 ```
 
-### Вспомогательная Функция `mapGetters`
+### Вспомогательная функция `mapGetters`
 
 Хелпер `mapGetters` попросту проксирует геттеры хранилища через локальные вычисляемые свойства компонента:
 
@@ -72,7 +72,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // примешиваем геттеры в вычисляемые свойства при помощи оператора распространения
+    // примешиваем геттеры в вычисляемые свойства оператором расширения
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -82,11 +82,11 @@ export default {
 }
 ```
 
-Если вы хотите использовать при проксировании альтернативное имя, примените объектный синтаксис:
+Если вы хотите использовать при проксировании другое имя, примените объектный синтаксис:
 
 ``` js
 ...mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+  // проксируем this.doneCount в store.getters.doneTodosCount
   doneCount: 'doneTodosCount'
 })
 ```
