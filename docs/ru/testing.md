@@ -1,15 +1,15 @@
-# Testing
+# Тестирование
 
-The main parts we want to unit test in Vuex are mutations and actions.
+В основном предметом модульного тестирования во Vuex являются мутации и действия.
 
-### Testing Mutations
+### Тестирование Мутаций
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you can also export the mutations as a named export:
+Мутации тестировать довольно просто, так как они представляют из себя всего лишь чистые функции, поведение которых полностью зависит от переданных параметров. Может пригодится возможность ES2015-модулей для самостоятельного именованного экспорта мутаций, наряду с экспортом самого хранилища из файла `store.js`:
 
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// именованный экспорт мутаций отдельно от самого хранилища
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+Пример тестирования мутаций с использованием Mocha + Chai (хотя вы не ограничены этими библиотеками и можете исползовать любые другие):
 
 ``` js
 // mutations.js
@@ -37,21 +37,21 @@ const { increment } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // фиксируем состояние
     const state = { count: 0 }
-    // apply mutation
+    // применяем мутацию
     increment(state)
-    // assert result
+    // оцениваем результат
     expect(state.count).to.equal(1)
   })
 })
 ```
 
-### Testing Actions
+### Тестирование Действий
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Действия тестировать несколько сложнее, поскольку они могут обращаться ко внешним API. При тестировании действий обычно приходится заниматься имитацией внешних объектов - например, вызовы к API можно вынести в отдельный сервис, и в рамках тестов этот сервис подменить поддельным. Для упрощения имитации зависимостий можно использовать Webpack и [inject-loader](https://github.com/plasticine/inject-loader) для сборки файлов тестов.
 
-Example testing an async action:
+Пример тестирования асинхронного действия:
 
 ``` js
 // actions.js
@@ -68,9 +68,9 @@ export const getAllProducts = ({ dispatch }) => {
 ``` js
 // actions.spec.js
 
-// use require syntax for inline loaders.
-// with inject-loader, this returns a module factory
-// that allows us to inject mocked dependencies.
+// для inline-загрузчиков используйте синтаксис require
+// и inject-loader, возвращающий фаблику модулей, позволяющую
+// использовать поддельные зависимости
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
 
@@ -79,17 +79,17 @@ const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
       setTimeout(() => {
-        cb([ /* mocked response */ ])
+        cb([ /* поддельный ответ от сервера */ ])
       }, 100)
     }
   }
 })
 
-// helper for testing action with expected mutations
+// вспомогательная фукнция для тестирования действия, которое должно вызывать известные мутации
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
-  // mock commit
+  // поддельная функция вызова мутаций
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.type).to.equal(type)
@@ -102,10 +102,10 @@ const testAction = (action, payload, state, expectedMutations, done) => {
     }
   }
 
-  // call the action with mocked store and arguments
+  // вызываем действие с поддельным хранилищем и аргументами
   action({ commit, state }, payload)
 
-  // check if no mutations should have been dispatched
+  // проверяем, были ли инициированы мутации
   if (expectedMutations.length === 0) {
     expect(count).to.equal(0)
     done()
@@ -122,11 +122,11 @@ describe('actions', () => {
 })
 ```
 
-### Testing Getters
+### Тестирование Геттеров
 
-If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+Геттеры, занимающиеся сложными вычислениями, тоже неплохо бы тестировать. Как и с мутациями, тут всё просто:
 
-Example testing a getter:
+Пример тестирования геттера:
 
 ``` js
 // getters.js
@@ -146,7 +146,7 @@ import { getters } from './getters'
 
 describe('getters', () => {
   it('filteredProducts', () => {
-    // mock state
+    // поддельное состояние
     const state = {
       products: [
         { id: 1, title: 'Apple', category: 'fruit' },
@@ -154,13 +154,13 @@ describe('getters', () => {
         { id: 3, title: 'Carrot', category: 'vegetable' }
       ]
     }
-    // mock getter
+    // поддельный параметр геттера
     const filterCategory = 'fruit'
 
-    // get the result from the getter
+    // получаем результат выполнения тестируемого геттера
     const result = getters.filteredProducts(state, { filterCategory })
 
-    // assert the result
+    // оцениваем результат
     expect(result).to.deep.equal([
       { id: 1, title: 'Apple', category: 'fruit' },
       { id: 2, title: 'Orange', category: 'fruit' }
@@ -169,13 +169,13 @@ describe('getters', () => {
 })
 ```
 
-### Running Tests
+### Запуск Тестов
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+Если вы должным образом соблюдаете правила написания мутаций и действий, результирующие тесты не должны зависеть от API браузера. Поэтому тесты можно просто собрать Webpack'ом и запустить в Node. С другой стороны, можно использовать `mocha-loader` или Karma + `karma-webpack`, и запускать тесты в реальных браузерах.
 
-#### Running in Node
+#### Запуск в Node
 
-Create the following webpack config (together with proper [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
+Используйте следущюий конфиг webpack (в сочетании с соответствующим [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
 
 ``` js
 // webpack.config.js
@@ -197,20 +197,20 @@ module.exports = {
 }
 ```
 
-Then:
+Затем, в терминале:
 
 ``` bash
 webpack
 mocha test-bundle.js
 ```
 
-#### Running in Browser
+#### Запуск в Браузерах
 
-1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
-3. Start `webpack-dev-server` using the config
-4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+1. Установите `mocha-loader`
+2. Измените `entry` в приведённой выше конфигурации Webpack на `'mocha!babel!./test.js'`.
+3. Запустите `webpack-dev-server`, используя эту конфигурацию
+4. Откройте в браузере `localhost:8080/webpack-dev-server/test-bundle`.
 
-#### Running in Browser with Karma + karma-webpack
+#### Запуск в Браузерах при помощи Karma + karma-webpack
 
-Consult the setup in [vue-loader documentation](http://vue-loader.vuejs.org/en/workflow/testing.html).
+Обратитесь к [документации vue-loader](http://vue-loader.vuejs.org/en/workflow/testing.html).
