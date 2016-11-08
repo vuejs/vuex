@@ -1,6 +1,6 @@
-# Горячая Замена
+# Горячая замена
 
-Vuex поддерживает горячую замену мутаций, модулей, действий и геттеров в процессе разработки, используя [Webpack Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). Аналогичный функционал в Browserify достижим при использовании плагина [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
+Vuex поддерживает горячую замену мутаций, модулей, действий и геттеров в момент разработки с помощью [Webpack Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). Аналогичный функционал в Browserify достижим при использовании плагина [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
 Для мутаций и модулей необходимо использовать метод API `store.hotUpdate()`:
 
@@ -26,8 +26,8 @@ const store = new Vuex.Store({
 if (module.hot) {
   // рассматриваем действия и мутации как модули для горячей замены
   module.hot.accept(['./mutations', './modules/a'], () => {
-    // затребуем обновлённые модули
-    // (указание .default — требование, продиктованное форматом вывода Babel 6)
+    // запрашиваем обновлённые модули
+    // (нужно указать .default из-за формата вывода Babel 6)
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
     // заменяем старые действия и мутации новыми
@@ -41,4 +41,4 @@ if (module.hot) {
 }
 ```
 
-[Пример counter-hot](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) позволяет поиграть с функционалом горячей замены вживую.
+[Пример counter-hot](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) позволяет посмотреть на горячую замену в реальной жизни.
