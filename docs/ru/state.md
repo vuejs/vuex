@@ -1,17 +1,17 @@
-# State
+# Состояние
 
-### Single State Tree
+### Единое Дерево Состояния
 
-Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
+Vuex использует **единое дерево состояния** - таким образом, один-единственный объект содержит всё глобальное состояние приложения и служит "единственным источником истины". Кроме того, это значит, что обычно для каждого приложения существует единственное хранилище. Единое дерево состояния делает поиск определённой части состояния прямолинейным, и позволяет легко делать слепки текущего состояния приложения для целей отладки.
 
-The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
+Единое дерево состояния не конфликтует с концепцией модульности — в последующих главах мы обсудим, как можно разбить состояние и мутации на подмодули.
 
-### Getting Vuex State into Vue Components
+### Передача Состояния Vuex в Компоненты Vue
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](http://vuejs.org/guide/computed.html):
+Так как же мы можем отобразить состояние хранилища в компонентах Vue? Поскольку хранилище Vuex реактивно, простейшим способом будет использование [вычисляемых свойств](http://vuejs.org/guide/computed.html):
 
 ``` js
-// let's create a Counter component
+// давайте создадим компонент-счётчик:
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
@@ -22,17 +22,17 @@ const Counter = {
 }
 ```
 
-Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
+Любые изменения `store.state.count` вызовут обновление вычисляемого свойства, которые инициируют связанные обновления в DOM.
 
-However, this pattern causes the component to rely on the global store singleton. When using a module system, it requires importing the store in every component that uses store state, and also requires mocking when testing the component.
+Однако, этот паттерн заставляет компонент полагаться на глобальный синглтон хранилища. При использовании модульной системы, это требует импортирования хранилища в каждый компонент, использующий состояние хранилища, а также требует "подделки" этой зависимости при тестировании компонента.
 
-Vuex provides a mechanism to "inject" the store into all child components from the root component with the `store` option (enabled by `Vue.use(Vuex)`):
+Vuex предоставляет механизм "инъекции" доступа к хранилищу для всех потомков компонента, для которого указана опция `store` (возможность появляется после вызова `Vue.use(Vuex)`):
 
 ``` js
 const app = new Vue({
   el: '#app',
-  // provide the store using the "store" option.
-  // this will inject the store instance to all child components.
+  // указываем хранилище в опции "store", что обеспечит
+  // доступ также и для всех дочерних компонентов
   store,
   components: { Counter },
   template: `
@@ -43,7 +43,7 @@ const app = new Vue({
 })
 ```
 
-By providing the `store` option to the root instance, the store will be injected into all child components of the root and will be available on them as `this.$store`. Let's update our `Counter` implementation:
+Указывая опцию `store` для корневого инстанса, мы обеспечиваем доступ к хранилищу для всех дочерних компонентов, через `this.$store`. Давайте обновим имплементацию нашего примера со счётчиком:
 
 ``` js
 const Counter = {
@@ -56,24 +56,24 @@ const Counter = {
 }
 ```
 
-### The `mapState` Helper
+### Вспомогательная Функция `mapState`
 
-When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us and help us save some keystrokes:
+Если компоненту требуется множество свойств или геттеров хранилища, объявление доступа ко всем ним вручную может заставить изрядно заскучать, не говоря о многословности кода. Чтобы обойти эту проблему, можно использовать хелпер `mapState`, автоматически генерирующий вычисляемые свойства, проксирующие доступ к состоянию и геттерам хранилища:
 
 ``` js
-// in standalone builds helpers are exposed as Vuex.mapState
+// при использовании модульных систем, необходим импорт Vuex.mapState
 import { mapState } from 'vuex'
 
 export default {
   // ...
   computed: mapState({
-    // arrow functions can make the code very succinct!
+    // arrow-функции позволяют писать код очень лаконично
     count: state => state.count,
 
-    // passing the string value 'count' is same as `state => state.count`
+    // передача строки 'count' эквивалентна записи `state => state.count`
     countAlias: 'count',
 
-    // to access local state with `this`, a normal function must be used
+    // если требуется доступ и к локальному состоянию, нужно использовать традиционную функцию
     countPlusLocalState (state) {
       return state.count + this.localCount
     }
@@ -81,29 +81,29 @@ export default {
 }
 ```
 
-We can also pass a string array to `mapState` when the name of mapped computed property is same as state sub tree name.
+В простых случаях в `mapState` можно передать и просто массив строк:
 
 ``` js
 computed: mapState([
-  // map this.count to store.state.count
+  // проксирует через this.count доступ к store.state.count
   'count'
 ])
 ```
 
-### Object Spread Operator
+### Оператор Расширения Объектов
 
-Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (which is a stage-3 ECMAScript proposal), we can greatly simplify the syntax:
+Обратите внимание: `mapState` возвращает объект. Как же быть, если нам нужны и локальные вычисляемые свойства? Обычно в таких случаях приходилось использовать вспомогательную утилиту для объединения объектов, и передавать результат её работы в `computed`. Однако, использование [оператора расширения объектов](https://github.com/sebmarkbage/ecmascript-rest-spread) (находящегося в статусе stage-3 ECMAScript proposal), мы можем изрядно упростить запись:
 
 ``` js
 computed: {
   localComputed () { /* ... */ },
-  // mix this into the outer object with the object spread operator
+  // результаты работы mapState будут добавлены в уже существующий объект
   ...mapState({
     // ...
   })
 }
 ```
 
-### Components Can Still Have Local State
+### Компоненты По-прежнему Могут Иметь Локальное Состояние
 
-Using Vuex doesn't mean you should put **all** the state in Vuex. Although putting more state into Vuex makes your state mutations more explicit and debuggable, sometimes it could also make the code more verbose and indirect. If a piece of state strictly belongs to a single component, it could be just fine leaving it as local state. You should weigh the trade-offs and make decisions that fit the development needs of your app.
+Использование Vuex не заставляет выносить в хранилище **всё** состояние приложения целиком. Хотя помещение большей части логики во Vuex делает мутации более красноречивыми и удобными для отладки, иногда те же действия могут привести к излишней многословности и ненужным усложнениям логики. Если состояние компонента полностью локально, в вынесении его во Vuex может не быть никакого смысла. Конечное решение же всегда остаётся на усмотрение разработчика конкретного приложения.
