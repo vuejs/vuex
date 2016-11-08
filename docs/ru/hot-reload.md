@@ -1,6 +1,6 @@
 # Горячая Замена
 
-Vuex поддерживает горячую замену мутаций, модулей, действий и геттеров в процессе разработки, используя [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) Webpack. Аналогичный функционал в Browserify достижим при использовании плагина [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
+Vuex поддерживает горячую замену мутаций, модулей, действий и геттеров в процессе разработки, используя [Webpack Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). Аналогичный функционал в Browserify достижим при использовании плагина [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
 Для мутаций и модулей необходимо использовать метод API `store.hotUpdate()`:
 
@@ -24,10 +24,10 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // принимаем действия и мутации как модули для горячей замены
+  // рассматриваем действия и мутации как модули для горячей замены
   module.hot.accept(['./mutations', './modules/a'], () => {
     // затребуем обновлённые модули
-    // нужно добавить .default из-за формата вывода Babel 6
+    // (указание .default — требование, продиктованное форматом вывода Babel 6)
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
     // заменяем старые действия и мутации новыми
