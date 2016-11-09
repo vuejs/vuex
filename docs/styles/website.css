@@ -1,6 +1,0 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600');
-body { letter-spacing: 0; color: #34495e; }
-.book-langs-index { font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif; }
-.book-langs-index .inner .languages { padding: 20px 0px; }
-.book-langs-index .inner .languages li { float: none; }
-li a { color: #42b983; font-weight: 600; }
