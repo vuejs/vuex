@@ -173,10 +173,10 @@ describe('Vuex', () => {
   it('getters', () => {
     const store = new Vuex.Store({
       state: {
-        a: 1
+        a: 0
       },
       getters: {
-        hasAny: state => state.a > 1
+        state: state => state.a > 0 ? 'hasAny' : 'none'
       },
       mutations: {
         [TEST] (state, n) {
@@ -186,17 +186,17 @@ describe('Vuex', () => {
       actions: {
         check ({ getters }, value) {
           // check for exposing getters into actions
-          expect(getters.hasAny).toBe(value)
+          expect(getters.state).toBe(value)
         }
       }
     })
-    expect(store.getters.hasAny).toBe(false)
-    store.dispatch('check', false)
+    expect(store.getters.state).toBe('none')
+    store.dispatch('check', 'none')
 
     store.commit(TEST, 1)
 
-    expect(store.getters.hasAny).toBe(true)
-    store.dispatch('check', true)
+    expect(store.getters.state).toBe('hasAny')
+    store.dispatch('check', 'hasAny')
   })
 
   it('dynamic module registration', () => {
