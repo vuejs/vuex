@@ -29,16 +29,16 @@ store.state.a // -> moduleA 的状态
 store.state.b // -> moduleB 的状态
 ```
 
-### 模块的本地状态
+### 模块的局部状态
 
-对于模块内部的 mutation 和 getter，接收的第一个参数是**模块的本地状态**。
+对于模块内部的 mutation 和 getter，接收的第一个参数是**模块的局部状态**。
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment: (state) {
-      // state 模块的本地状态
+      // state 模块的局部状态
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-同样，对于模块内部的 action，`context.state` 是本地状态，根节点的状态是 `context.rootState`:
+同样，对于模块内部的 action，`context.state` 是局部状态，根节点的状态是 `context.rootState`:
 
 ``` js
 const moduleA = {
