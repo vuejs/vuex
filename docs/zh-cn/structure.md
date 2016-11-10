@@ -27,7 +27,7 @@ Vuex actions 和 mutations 优雅的地方在于 **它们都只是一些函数**
     └── mutations.js # exports all mutations
 ```
 
-参见[计数器 示例](https://github.com/vuejs/vuex/tree/master/examples/todomvc) 或 [TodoMVC 示例](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
+参见[计数器 示例](https://github.com/vuejs/vuex/tree/master/examples/counter-hot) 或 [TodoMVC 示例](https://github.com/vuejs/vuex/tree/master/examples/todomvc).
 
 另外，你也可以将 mutations 拆分到不同的文件中去。
 
