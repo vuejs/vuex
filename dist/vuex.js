@@ -199,7 +199,7 @@ var Store = function Store (options) {
 var prototypeAccessors = { state: {} };
 
 prototypeAccessors.state.get = function () {
-  return this._vm.state
+  return this._vm.$data.state
 };
 
 prototypeAccessors.state.set = function (v) {
