@@ -121,7 +121,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
-  Dispatch an action. Returns the return value of the triggered action handler, or a Promise if multiple handlers are triggered. [Details](actions.md)
+  Dispatch an action. Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
 
 - **`replaceState(state: Object)`**
 
