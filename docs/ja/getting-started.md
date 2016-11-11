@@ -4,50 +4,41 @@ At the center of every Vuex application is the **store**. A "store" is basically
 
 1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
 
-2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly dispatching **mutations**. This makes every state change easily track-able, and enables tooling that helps us better understand our applications.
+2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
 
 ### The Simplest Store
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)! The doc also assumes you are already familiar with the concepts discussed in [Building Large-Scale Apps with Vue.js](http://vuejs.org/guide/application.html).
+> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
 
-Creating a Vuex store is pretty straightforward - just provide an initial state object, and some mutations:
+After [installing](installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
 
 ``` js
-import Vuex from 'vuex'
+// Make sure to call Vue.use(Vuex) first if using a module system
 
-const state = {
-  count: 0
-}
-
-const mutations = {
-  INCREMENT (state) {
-    state.count++
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
   }
-}
-
-export default new Vuex.Store({
-  state,
-  mutations
 })
 ```
 
-Now, you can access the state object as `store.state`, and trigger a mutation by dispatching its name:
+Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
 
 ``` js
-store.dispatch('INCREMENT')
+store.commit('increment')
 
 console.log(store.state.count) // -> 1
 ```
 
-If you prefer object-style dispatching, you can also do this:
+Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
 
-``` js
-// same effect as above
-store.dispatch({
-  type: 'INCREMENT'
-})
-```
+Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
 
-Again, the reason we are dispatching a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
+Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
 
-Now this is just the simplest possible example of what a store is. But Vuex is more than just the store. Next, we will discuss some core concepts in depth: [State](state.md), [Mutations](mutations.md) and [Actions](actions.md).
+Next, we will discuss each core concept in much finer details, starting with [State](state.md).
