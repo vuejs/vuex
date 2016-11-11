@@ -1,12 +1,12 @@
-# Getting Started
+# Vuex 入門
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that makes a Vuex store different from a plain global object:
+Vuex アプリケーションの中心にあるものは **ストア** です。"ストア" は、基本的にアプリケーションの**状態**を保持するコンテナです。単純なグローバルオブジェクトとの違いが 2つあります。
 
-1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+1. Vuex ストアはリアクティブです。 Vue コンポーネントがストアから状態を取り出すとき、もし、ストアの状態が変化したら、ストアは、リアクティブかつ効率的に更新を行います。
 
 2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
 
-### The Simplest Store
+### シンプルなストア
 
 > **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
 
@@ -43,15 +43,7 @@ Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx9
 
 Next, we will discuss each core concept in much finer details, starting with [State](state.md).
 
-# Vuex 入門
-
-Vuex アプリケーションの中心にあるものは **ストア** です。"ストア"は、基本的にアプリケーションの**状態**を保持するコンテナです。単純なグローバルオブジェクトとの違いが2つあります。
-
-1. Vuex ストアはリアクティブです。 Vue コンポーネントがストアから状態を取り出すとき、もし、ストアの状態が変化したら、ストアは、リアクティブかつ効率的に更新を行います。
-
 2. ストアの状態を直接変更することはできません。明示的な **ミューテーション**のディスパッチによってのみ、ストアの状態を変更します。これによって、全ての状態の変更の追跡を容易にし、ツールでのアプリケーションの動作の理解を助けます。
-
-### シンプルなストア
 
 > **注意:** 私たちは、このドキュメントのコード例に ES2015 のシンタックスを利用しています。 もし、触れたことがなければ、[ぜひ、触れてください](https://babeljs.io/docs/learn-es2015/)! このドキュメントは、他に[大規模アプリケーションの構築](https://jp.vuejs.org/guide/application.html)に書かれたコンセプトを既に読まれていることを前提にしています。
 
