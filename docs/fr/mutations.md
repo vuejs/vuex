@@ -75,24 +75,6 @@ mutations: {
 }
 ```
 
-### Commit silencieux
-
-> Note : Cette fonctionnalité sera probablement dépréciée une fois que nous aurons implémenté le filtrage des mutations dans les devtools.
-
-Par défaut, chaque mutation committée est envoyée aux plugins (i.e. les devtools). Cependant dans certains scénarios vous pourriez ne pas vouloir que les plugins enregistrent chaque changement de state. Plusieurs commits dans le store en un court laps de temps n'ont pas toujours besoin d'être tracés. Dans ce genre de cas, vous pouvez passer un troisième argument à `store.commit` afin de rendre cette mutation silencieuse aux yeux des plugins :
-
-``` js
-store.commit('increment', {
-  amount: 1
-}, { silent: true })
-
-// with object-style dispatch
-store.commit({
-  type: 'increment',
-  amount: 1
-}, { silent: true })
-```
-
 ### Les mutations suivent les règles de réactivité de Vue
 
 Puisqu'un state de store de Vuex est rendu réactif par Vue, lorsque nous mutons le state, les composants Vue observant ce state seront automatiquement mis à jour. Cela signifie également que les mutations Vuex sont sujettes aux mêmes inconvénients que lorsqu'on travaille avec Vue :

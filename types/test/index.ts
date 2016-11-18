@@ -20,11 +20,11 @@ namespace StoreInstance {
     amount: 1
   }).then(() => {});
 
-  store.commit("foo", { amount: 1 }, { silent: true });
+  store.commit("foo", { amount: 1 });
   store.commit({
     type: "foo",
     amount: 1
-  }, { silent: true });
+  });
 
   store.watch(state => state.value, value => {
     value = value + 1;
@@ -55,7 +55,7 @@ namespace RootModule {
         state.value;
         getters.count;
         dispatch("bar", {});
-        commit("bar", {}, { silent: true });
+        commit("bar", {});
       }
     },
     mutations: {
