@@ -1,6 +1,6 @@
 # 测试
 
-我们主要想针对 Vuex 中的 mutaions 和 actions 进行单元测试。
+我们主要想针对 Vuex 中的 mutations 和 actions 进行单元测试。
 
 ### 测试 Mutations
 
