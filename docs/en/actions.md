@@ -76,7 +76,7 @@ A more practical example of real-world actions would be an action to checkout a 
 
 ``` js
 actions: {
-  checkout ({ commit, state }, payload) {
+  checkout ({ commit, state }, products) {
     // save the items currently in the cart
     const savedCartItems = [...state.cart.added]
     // send out checkout request, and optimistically

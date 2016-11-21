@@ -76,7 +76,7 @@ Un exemple plus pratique d'une application du monde réel serait une action pour
 
 ``` js
 actions: {
-  checkout ({ commit, state }, payload) {
+  checkout ({ commit, state }, products) {
     // sauvegarder les articles actuellement dans le panier
     const savedCartItems = [...state.cart.added]
     // envoyer la requête de checkout, et vider le panier
