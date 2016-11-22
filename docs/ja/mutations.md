@@ -1,6 +1,6 @@
 # Mutations
 
-The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
+実際に Vuex のストアの状態を変更できる唯一の方法は、ミューテーションをコミットすることです。Vuex のミューテーションはイベントにとても近い概念です: 各ミューテーションは**タイプ**と**ハンドラ**を持ちます。ハンドラ関数は Vuex の state を第1引数として取得し、実際に状態の変更を行います:
 
 ``` js
 const store = new Vuex.Store({
@@ -16,15 +16,15 @@ const store = new Vuex.Store({
 })
 ```
 
-You cannot directly call a mutation handler. The options here is more like event registration: "When a mutation with type `increment` is triggered, call this handler." To invoke a mutation handler, you need to call **store.commit** with its type:
+直接ミューテーションハンドラを呼び出すことはできません。この mutations オプションは、どちらかいうと "タイプが `increment` のミューテーションがトリガーされたときに、このハンドラが呼ばれる" といったイベント登録のようなものです。ミューテーションハンドラを起動するためにはミューテーションのタイプを指定して **store.commit** を呼び出す必要があります:
 
 ``` js
 store.commit('increment')
 ```
 
-### Commit with Payload
+### 追加の引数を渡してコミットする
 
-You can pass an additional argument to `store.commit`, which is called the **payload** for the mutation:
+`store.commit` に追加の引数を渡すこともできます。この追加の引数は、特定のミューテーションに対する**ペイロード**と呼びます:
 
 ``` js
 // ...
@@ -34,11 +34,12 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', 10)
 ```
 
-In most cases, the payload should be an object so that it can contain multiple fields, and the recorded mutation will also be more descriptive:
+ほとんどの場合、ペイロードはオブジェクトにすべきです。そうすることで複数のフィールドを含められるようになり、またミューテーションがより記述的に記録されるようになります:
 
 ``` js
 // ...
@@ -48,15 +49,16 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', {
   amount: 10
 })
 ```
 
-### Object-Style Commit
+### オブジェクトスタイルのコミット
 
-An alternative way to commit a mutation is by directly using an object that has a `type` property:
+また `type` プロパティを持つオブジェクトを使って、ミューテーションをコミットすることもできます:
 
 ``` js
 store.commit({
@@ -65,7 +67,7 @@ store.commit({
 })
 ```
 
-When using object-style commit, the entire object will be passed as the payload to mutation handlers, so the handler remains the same:
+オブジェクトスタイルでコミットするとき、オブジェクト全体がペイロードとしてミューテーションハンドラに渡されます。したがってハンドラの中で同じものが利用できます:
 
 ``` js
 mutations: {
@@ -75,43 +77,43 @@ mutations: {
 }
 ```
 
-### Silent Commit
+### サイレントコミット
 
-> Note: This is a feature that will likely be deprecated once we implement mutation filtering in the devtools.
+> 注意: この機能は開発ツール内にミューテーション・フィルタが実装された後に非推奨になる予定です。
 
-By default, every committed mutation is sent to plugins (e.g. the devtools). However in some scenarios you may not want the plugins to record every state change. Multiple commits to the store in a short period or polled do not always need to be tracked. In such cases you can pass a third argument to `store.commit` to "silence" that specific mutation from plugins:
+デフォルトでは全てのコミットされたミューテーションはプラグイン（開発ツール等）に送られます。しかし場合によっては、プラグインに全ての状態の変化を記録して欲しくないこともあるでしょう。あるいは、短い間隔やポーリングでのストアへの複数のコミットも、常に追跡する必要はないでしょう。こうしたケースでは、`store.commit` に第3引数を渡すことで、特定のミューテーションをプラグインに気付かせないようにすること（"silence"）ができます:
 
 ``` js
 store.commit('increment', {
   amount: 1
 }, { silent: true })
 
-// with object-style commit
+// オブジェクトスタイルのコミット
 store.commit({
   type: 'increment',
   amount: 1
 }, { silent: true })
 ```
 
-### Mutations Follow Vue's Reactivity Rules
+### Vue のリアクティブなルールに則ったミューテーション
 
-Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+Vuex ストアのステートは Vue によってリアクティブになっているので、ステートを変更すると、ステートを監視している Vue コンポーネントは自動的に更新されます。これは Vuex のミューテーションは、通常の Vue で動作させているときと同じリアクティブな警告の対象となることを意味します:
 
-1. Prefer initializing your store's initial state with all desired fields upfront.
+1. あらかじめ全ての必要なフィールドによって、ストアの初期状態を初期化することが望ましいです
 
-2. When adding new properties to an Object, you should either:
+2. 新しいプロパティをオブジェクトに追加するとき、以下のいずれかが必要です:
 
-  - Use `Vue.set(obj, 'newProp', 123)`, or -
+  - `Vue.set(obj, 'newProp', 123)` を使用する。あるいは
 
-  - Replace that Object with a fresh one. For example, using the stage-3 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
+  - 全く新しいオブジェクトで既存のオブジェクトを置き換える。例えば、stage-3 の [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) を使用して、以下のように書くことができます:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
     ```
 
-### Using Constants for Mutation Types
+### ミューテーション・タイプに定数を使用する
 
-It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+いろいろな Flux 実装において、ミューテーション・タイプに定数を使用することが一般的だとされています。これはコードに対してリントツールのようなツールを利用できるという利点があり、また単一ファイルに全ての定数を設定することによって、共同で作業する人に、アプリケーション全体で何のミューテーションが可能であるかを一目見ただけで理解できるようにします:
 
 ``` js
 // mutation-types.js
@@ -126,20 +128,19 @@ import { SOME_MUTATION } from './mutation-types'
 const store = new Vuex.Store({
   state: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature
-    // to use a constant as the function name
+    // 定数を関数名として使用できる ES2015 の算出プロパティ（computed property）名機能を使用できます
     [SOME_MUTATION] (state) {
-      // mutate state
+      // 状態を変更する
     }
   }
 })
 ```
 
-Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
+定数を使用するかどうかは好みの問題です。多くの開発者による大規模なプロジェクトで役に立ちますが、完全にオプションなので、もしお気に召さなければ使用しなくても構いません。
 
-### Mutations Must Be Synchronous
+### ミューテーションは同期的でなければならない
 
-One important rule to remember is that **mutation handler functions must be synchronous**. Why? Consider the following example:
+ひとつの重要なルールを覚えておきましょう。それは**ミューテーションハンドラ関数は同期的でなければならない**ということです。なぜか？次の例で考えてみましょう:
 
 ``` js
 mutations: {
@@ -151,11 +152,11 @@ mutations: {
 }
 ```
 
-Now imagine we are debugging the app and looking at the devtool's mutation logs. For every mutation logged, the devtool will need to capture a "before" and "after" snapshots of the state. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is committed, and there's no way for the devtool to know when the callback will actually be called - any state mutation performed in the callback is essentially un-trackable!
+いま、開発ツールのミューテーションのログを見ながら、アプリケーションのデバッグを行っていることを想像してください。全てのミューテーションをログに記録するためには、ミューテーションの前後の状態のスナップショットを捕捉することが必要です。しかし、上の例にあるミューテーション内の非同期コールバックは、それを不可能にします: そのコールバックは、ミューテーションがコミットされた時点ではまだ呼び出されていません。そして、コールバックが実際にいつ呼び出されるかを、開発ツールは知る術がありません。いかなる状態変更でも、コールバック内で起きる場合は本質的に追跡不可能です。
 
-### Commiting Mutations in Components
+### コンポーネント内におけるミューテーションのコミット
 
-You can commit mutations in components with `this.$store.commit('xxx')`, or use the `mapMutations` helper which maps component methods to `store.commit` calls (requires root `store` injection):
+`this.$store.commit('xxx')` と書くか、もしくはコンポーネントのメソッドを `store.commit` にマッピングする `mapMutations` ヘルパーを呼び出すこと（ルートの `store` が必要）で、コンポーネント内でミューテーションをコミットできます:
 
 ``` js
 import { mapMutations } from 'vuex'
@@ -164,181 +165,22 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment' // map this.increment() to this.$store.commit('increment')
+      'increment' // this.increment() を this.$store.commit('increment') にマッピングする
     ]),
     ...mapMutations({
-      add: 'increment' // map this.add() to this.$store.commit('increment')
+      add: 'increment' // this.add() を this.$store.commit('increment') にマッピングする
     })
   }
 }
 ```
 
-### On to Actions
+### アクションへ向けて
 
-Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, **mutations are synchronous transactions**:
+状態変更を非同期に組み合わせることは、プログラムの動きを予測することを非常に困難にします。例えば、状態を変更する非同期コールバックを持った 2つのメソッドを両方呼び出しとき、それらがいつ呼び出されたか、どちらが先に呼び出されたかを、どうやって知ればよいのでしょう？これがまさに、状態変更と非同期の 2つの概念を分離したいという理由です。Vuex では**全てのミューテーションは同期的に行う**という作法になっています:
 
 ``` js
 store.commit('increment')
-// any state change that the "increment" mutation may cause
-// should be done at this moment.
+// "increment" ミューテーションによる状態変更は、この時点で行われるすべき
 ```
 
-To handle asynchronous operations, let's introduce [Actions](actions.md).
-
-# ミューテーション
-
-Vuex のミューテーションは本質的にイベントです。各ミューテーションは**名前**と**ハンドラ**を持ちます。ハンドラ関数は常に Vuex の state を第1引数として取得します:
-
-``` js
-import Vuex from 'vuex'
-
-const store = new Vuex.Store({
-  state: {
-    count: 1
-  },
-  mutations: {
-    INCREMENT (state) {
-      // 状態の変更
-      state.count++
-    }
-  }
-})
-```
-
-ミューテーションの名前に全て大文字を使用するのは、容易に通常の関数と区別できるようにするための規約です。
-
-直接ミューテーションハンドラを呼び出すことはできません。この mutations オプションは、どちらかいうと"`INCREMENT` イベントがディスパッチされるとき、このハンドラが呼ばれる"といったイベント登録のようなものです。ミューテーションハンドラを起動するためには、ミューテーションイベントをディスパッチする必要があります:
-
-``` js
-store.dispatch('INCREMENT')
-```
-
-### 引数によるディスパッチ
-
-引数を渡すことも可能です:
-
-``` js
-// ...
-mutations: {
-  INCREMENT (state, n) {
-    state.count += n
-  }
-}
-```
-``` js
-store.dispatch('INCREMENT', 10)
-```
-
-ここでの `10` は `state` に続く第2引数としてミューテーションハンドラに渡されます。さらに追加される引数についても同様です。これらの引数は、特定のミューテーションに対する**ペイロード**と呼びます。
-
-### オブジェクトスタイルのディスパッチ
-
-またオブジェクトを利用してミューテーションをディスパッチすることもできます:
-
-```js
-store.dispatch({
-  type: 'INCREMENT',
-  payload: 10
-})
-```
-
-オブジェクトスタイルを利用するとき、全ての引数をディスパッチされるオブジェクトのプロパティとして含めなければいけないことに注意してください。全体のオブジェクトは、ミューテーションハンドラの第2引数として渡されます。
-
-``` js
-mutations: {
-  INCREMENT (state, mutation) {
-    state.count += mutation.payload
-  }
-}
-```
-
-### サイレントディスパッチ
-
-場合によっては、プラグインに状態の変化を記録して欲しくないこともあるでしょう。あるいは、短い間隔、ポーリングでのストアへの複数のディスパッチも、常に追跡する必要はないでしょう。これらの状況では、ミューテーションを沈黙( silence )させることが適切と考えることができます。
-
-注意: サイレントディスパッチは可能な限り避けるべきです。サイレントミューテーションは、開発ツールの全ての状態の変更を追跡するという規約を壊します。絶対に必要だという状況で控えめに使用してください。
-
-``` js
-/**
- * 例: プログレス アクション
- * 追跡する必要がない変更を頻繁に送ります
- **/
-export function start(store, options = {}) {
-  let timer = setInterval(() => {
-    store.dispatch({
-      type: INCREMENT,
-      silent: true,
-      payload: {
-        amount: 1,
-      },
-    });
-    if (store.state.progress === 100) {
-      clearInterval(timer);
-    }
-  }, 10);
-}
-```
-
-### Vue のリアクティブなルールに則ったミューテーション
-
-Vuex ストアのステートは Vue によってリアクティブになっているので、ステートを変更すると、ステートを監視している Vue コンポーネントは自動的に更新されます。これは、Vuex のミューテーションは、通常の Vue で動作させているときと同じリアクティブな警告の対象となることを意味します:
-
-1. 前もって、全ての必要なフィールドによって、ストアの初期状態を初期化することを好みます
-
-2. 新しいプロパティをオブジェクトに追加するとき、以下のいずれかが必要です:
-
-  - `Vue.set(obj, 'newProp', 123)` を使用する。あるいは
-
-  - 全く新しいオブジェクトで既存のオブジェクトを置き換える。例えば、stage-2 の [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) を使用して、以下のように書くことができます:
-
-  ``` js
-  state.obj = { ...state.obj, newProp: 123 }
-  ```
-
-### ミューテーション名に定数を使用する
-
-ミューテーション名には定数を使用することが一般的です。これは、コードに対してリントツールのようなツールを利用できるという利点があり、また、単一ファイルに全ての定数を設定することで、共同で作業する人にアプリケーション全体で何のミューテーションが可能であるか一目見ただけで理解できるようにします:
-
-``` js
-// mutation-types.js
-export const SOME_MUTATION = 'SOME_MUTATION'
-```
-
-``` js
-// store.js
-import Vuex from 'vuex'
-import { SOME_MUTATION } from './mutation-types'
-
-const store = new Vuex.Store({
-  state: { ... },
-  actions: { ... },
-  mutations: {
-    // 定数を関数名として使用できる ES2015 の算出プロパティ (computed property) 名機能を使用できます
-    [SOME_MUTATION] (state) {
-      // 変異するステート
-    }
-  }
-})
-```
-
-定数を使用するかどうか大抵は好みであり、多くの開発者による大規模アプリケーションで役に立ちますが、もしお気に召さなければ、使用しなくても構いません。これは完全にオプションです。
-
-### ミューテーションは同期的でなければならない
-
-ひとつの重要なルールを覚えておきましょう。それはミューテーションハンドラ関数は同期的でなければならないということです。なぜか？　次の例で考えてみましょう:
-
-```js
-mutations: {
-  SOME_MUTATION (state) {
-    api.callAsyncMethod(() => {
-      state.count++
-    })
-  }
-}
-```
-
-いま、ミューテーションのログを見て、アプリケーションのデバッグを行っていることを想像してください。全てのミューテーションはログに記録されていて、ミューテーションの前後の状態のスナップショットを比較することが可能です。しかし、例のミューテーション内の非同期コールバックは、それを不可能にします: そのコールバックは、ミューテーションがディスパッチされたときにまだ呼ばれません。そして、コールバックが実際いつ呼ばれるかは分かりません。いかなる状態変更でも、コールバック内で起きる場合は本質的に追跡不可能です。
-
-### アクションに続けて
-
-状態変更を非同期に組み合わせることは、プログラムの動きを予測することを非常に困難にするかもしれません。例えば、状態を変更する非同期コールバックを持った2つのメソッドを両方呼び出しとき、どうやってそれらが呼び出されたか、あるいは先に呼び出されたかのはどちらかなのか知ればよいのでしょう？　状態変更と非同期の2つの概念を分離したいという理由は、はっきりしています。 Vuex では、全ての状態変更は同期的におこなうという作法になっています。全ての非同期命令は [アクション](actions.md) の内部でおこなうことになるでしょう。
+非同期的な命令を扱うために [アクション](actions.md) を見てみましょう。
