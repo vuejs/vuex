@@ -1,7 +1,7 @@
 
-# Getters
+# ゲッター
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+例えば項目のリストをフィルタリングしたりカウントするときのように、ストアの状態を算出したいときがあります。
 
 ``` js
 computed: {
@@ -11,9 +11,9 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+もしこの関数を複数のコンポーネントで利用したくなったら、関数をコピーするか、あるいは関数を共用のヘルパーに切り出して複数の場所でインポートする必要があります。- しかし、どちらも理想的とはいえません。
 
-Vuex allows us to define "getters" in the store (think of them as computed properties for stores). Getters will receive the state as their 1st argument:
+Vuex を利用するとストア内に "ゲッター" を定義することができます（ストアのための算出プロパティだと考えてください）。ゲッターはストアを第1引数として受け取ります:
 
 ``` js
 const store = new Vuex.Store({
@@ -31,13 +31,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The getters will be exposed on the `store.getters` object:
+ゲッターは `store.getters` オブジェクトから取り出されます:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+ゲッターは第2引数として他のゲッターを受け取ります:
 
 ``` js
 getters: {
@@ -52,7 +52,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+どのコンポーネントの内部でも簡単にゲッターを利用することができます:
 
 ``` js
 computed: {
