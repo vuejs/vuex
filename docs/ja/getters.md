@@ -62,9 +62,11 @@ computed: {
 }
 ```
 
-### The `mapGetters` Helper
+### `mapGetters` ヘルパー
 
 The `mapGetters` helper simply maps store getters to local computed properties:
+
+`mapGetters` ヘルパーはストアのゲッターをローカルの算出プロパティにマッピングさせます:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -82,7 +84,7 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+ゲッターを異なる名前でマッピングさせたいときはオブジェクトを使います:
 
 ``` js
 mapGetters({
