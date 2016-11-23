@@ -22,7 +22,9 @@ Example testing a mutation using Mocha + Chai (you can use any framework/asserti
 
 ``` js
 // mutations.js
-export const INCREMENT = state => state.count++
+export const mutations = {
+  increment: state => state.count++
+}
 ```
 
 ``` js
@@ -31,14 +33,14 @@ import { expect } from 'chai'
 import { mutations } from './store'
 
 // destructure assign mutations
-const { INCREMENT } = mutations
+const { increment } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
     // mock state
     const state = { count: 0 }
     // apply mutation
-    INCREMENT(state)
+    increment(state)
     // assert result
     expect(state.count).to.equal(1)
   })
@@ -84,12 +86,13 @@ const actions = actionsInjector({
 })
 
 // helper for testing action with expected mutations
-const testAction = (action, args, state, expectedMutations, done) => {
+const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
-  // mock dispatch
-  const dispatch = (name, ...payload) => {
+
+  // mock commit
+  const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    expect(mutation.name).to.equal(name)
+    expect(mutation.type).to.equal(type)
     if (payload) {
       expect(mutation.payload).to.deep.equal(payload)
     }
@@ -98,8 +101,9 @@ const testAction = (action, args, state, expectedMutations, done) => {
       done()
     }
   }
+
   // call the action with mocked store and arguments
-  action({dispatch, state}, ...args)
+  action({ commit, state }, payload)
 
   // check if no mutations should have been dispatched
   if (expectedMutations.length === 0) {
@@ -110,10 +114,57 @@ const testAction = (action, args, state, expectedMutations, done) => {
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, [], {}, [
-      { name: 'REQUEST_PRODUCTS' },
-      { name: 'RECEIVE_PRODUCTS', payload: [ /* mocked response */ ] }
+    testAction(actions.getAllProducts, null, {}, [
+      { type: 'REQUEST_PRODUCTS' },
+      { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)
+  })
+})
+```
+
+### Testing Getters
+
+If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+
+Example testing a getter:
+
+``` js
+// getters.js
+export const getters = {
+  filteredProducts (state, { filterCategory }) {
+    return state.products.filter(product => {
+      return product.category === filterCategory
+    })
+  }
+}
+```
+
+``` js
+// getters.spec.js
+import { expect } from 'chai'
+import { getters } from './getters'
+
+describe('getters', () => {
+  it('filteredProducts', () => {
+    // mock state
+    const state = {
+      products: [
+        { id: 1, title: 'Apple', category: 'fruit' },
+        { id: 2, title: 'Orange', category: 'fruit' },
+        { id: 3, title: 'Carrot', category: 'vegetable' }
+      ]
+    }
+    // mock getter
+    const filterCategory = 'fruit'
+
+    // get the result from the getter
+    const result = getters.filteredProducts(state, { filterCategory })
+
+    // assert the result
+    expect(result).to.deep.equal([
+      { id: 1, title: 'Apple', category: 'fruit' },
+      { id: 2, title: 'Orange', category: 'fruit' }
+    ])
   })
 })
 ```
@@ -124,9 +175,10 @@ If your mutations and actions are written properly, the tests should have no dir
 
 #### Running in Node
 
-Create the following webpack config:
+Create the following webpack config (together with proper [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
 
 ``` js
+// webpack.config.js
 module.exports = {
   entry: './test.js',
   output: {
@@ -141,9 +193,6 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
-  },
-  babel: {
-    presets: ['es2015']
   }
 }
 ```
