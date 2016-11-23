@@ -1,15 +1,15 @@
-# Testing
+# テスト
 
-The main parts we want to unit test in Vuex are mutations and actions.
+私たちが Vuex でユニットテストしたい主な部分はミューテーションとアクションです。
 
-### Testing Mutations
+### ミューテーションのテスト
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you can also export the mutations as a named export:
+ミューテーションは完全に引数に依存しているだけの関数であるため、テストするのがとても簡単です。効果的なやり方として、もし ES2015 のモジュールを使っていて `store.js` ファイルの中にミューテーションがあるなら、デフォルトエクスポートに加えて、名前付きエクスポートでミューテーションをエクスポートできます。
 
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// 名前付きエクスポートでミューテーションをエクスポートする
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+Mocha + Chai を使用してミューテーションをテストする例です（あなたの好きな任意のフレームワーク/アサーションライブラリを使用できます）:
 
 ``` js
 // mutations.js
@@ -32,16 +32,16 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// destructure assign mutations
+// ミューテーションの分割束縛
 const { increment } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // ステートのモック
     const state = { count: 0 }
-    // apply mutation
+    // ミューテーションを適用する
     increment(state)
-    // assert result
+    // 結果を検証する
     expect(state.count).to.equal(1)
   })
 })
