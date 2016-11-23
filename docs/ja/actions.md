@@ -1,11 +1,11 @@
-# Actions
+# アクション
 
-Actions are similar to mutations, the difference being that:
+アクションはミューテーションと似ていますが、下記の点で異なります:
 
-- Instead of mutating the state, actions commit mutations.
-- Actions can contain arbitrary asynchronous operations.
+- アクションは、状態を変更するのではなく、ミューテーションをコミットします。
+- アクションは任意の非同期処理を含むことができます。
 
-Let's register a simple action:
+シンプルなアクションを登録してみましょう:
 
 ``` js
 const store = new Vuex.Store({
@@ -25,9 +25,9 @@ const store = new Vuex.Store({
 })
 ```
 
-Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
+アクションハンドラはストアインスタンスのメソッドやプロパティのセットと同じものを呼び出せる、コンテキストオブジェクトを受け取ります。したがって `context.commit` を呼び出すことでミューテーションをコミットできます。あるいは `context.state` や `context.getters` で、状態やゲッターにアクセスできます。なぜコンテキストオブジェクトがストアインスタンスそのものではないのかは、後ほど [モジュール](modules.md) で説明します。
 
-In practice, we often use ES2015 [argument destructuring](https://github.com/lukehoban/es6features#destructuring) to simplify the code a bit (especially when we need to call `commit` multiple times):
+実際にはコードを少しシンプルにするために ES2015 の [引数分割束縛（argument destructuring）](https://github.com/lukehoban/es6features#destructuring) がよく使われます（特に `commit` を複数回呼び出す必要があるとき）:
 
 ``` js
 actions: {
@@ -37,15 +37,15 @@ actions: {
 }
 ```
 
-### Dispatching Actions
+### アクションのディスパッチ
 
-Actions are triggered with the `store.dispatch` method:
+アクションは `store.dispatch` がトリガーとなって実行されます:
 
 ``` js
 store.dispatch('increment')
 ```
 
-This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+これは一見ばかげて見えるかもしれません。つまり、カウントをインクリメントしたいときに、どうして直接 `store.commit('increment')` を呼び出してミューテーションをコミットしないのか、と。**ミューテーションは同期的でなければならない** というのを覚えていますか？アクションはそうではありません。アクションの中では **非同期** の操作をおこなうことができます。
 
 ``` js
 actions: {
@@ -57,48 +57,47 @@ actions: {
 }
 ```
 
-Actions support the same payload format and object-style dispatch:
+アクションはペイロード形式とオブジェクトスタイルのディスパッチをサポートします:
 
 ``` js
-// dispatch with a payload
+// ペイロードを使ってディスパッチする
 store.dispatch('incrementAsync', {
   amount: 10
 })
 
-// dispatch with an object
+// オブジェクトを使ってディスパッチする
 store.dispatch({
   type: 'incrementAsync',
   amount: 10
 })
 ```
 
-A more practical example of real-world actions would be an action to checkout a shopping cart, which involves **calling an async API** and **committing multiple mutations**:
+より実践的な例として、ショッピングカートをチェックアウトするアクションを挙げます。このアクションは **非同期な API の呼び出し** と、**複数のミューテーションのコミット** をします:
 
 ``` js
 actions: {
   checkout ({ commit, state }, payload) {
-    // save the items currently in the cart
+    // 現在のカート内の商品を保存する
     const savedCartItems = [...state.cart.added]
-    // send out checkout request, and optimistically
-    // clear the cart
+    // チェックアウトのリクエストを送信し、楽観的にカート内をクリアする
     commit(types.CHECKOUT_REQUEST)
-    // the shop API accepts a success callback and a failure callback
+    // shop API は成功時のコールバックと失敗時のコールバックを受け取る
     shop.buyProducts(
       products,
-      // handle success
+      // 成功時の処理
       () => commit(types.CHECKOUT_SUCCESS),
-      // handle failure
+      // 失敗時の処理
       () => commit(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }
 }
 ```
 
-Note we are performing a flow of asynchronous operations, and recording the side effects (state mutations) of the action by committing them.
+一連の非同期の処理を実行しつつ、ミューテーションのコミットによってのみ副作用（状態の変更）を与えていることに注意してください。
 
-### Dispatching Actions in Components
+### コンポーネント内でのアクションのディスパッチ
 
-You can dispatch actions in components with `this.$store.dispatch('xxx')`, or use the `mapActions` helper which maps component methods to `store.dispatch` calls (requires root `store` injection):
+`this.$store.dispatch('xxx')` でコンポーネント内でアクションをディスパッチできます。あるいはコンポーネントのメソッドを `store.dispatch` にマッピングする `mapActions` ヘルパーを使うこともできます（ルートの `store` が必要です）:
 
 ``` js
 import { mapActions } from 'vuex'
@@ -107,10 +106,10 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // map this.increment() to this.$store.dispatch('increment')
+      'increment' // this.increment() を this.$store.dispatch('increment') にマッピングする
     ]),
     ...mapActions({
-      add: 'increment' // map this.add() to this.$store.dispatch('increment')
+      add: 'increment' // this.add() を this.$store.dispatch('increment') にマッピングする
     })
   }
 }
