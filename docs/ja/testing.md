@@ -47,11 +47,11 @@ describe('mutations', () => {
 })
 ```
 
-### Testing Actions
+### アクションのテスト
+ 
+アクションは外部の API を呼び出す可能性があるため、ミューテーションのテストよりも少し注意が必要です。アクションをテストするとき、通常、いくつかの段階でモックを作る必要があります。例えば API 呼び出しをサービスとして抽象化し、そしてテストの内部ではそのサービスをモックにすることができます。簡単に依存関係をモック化するために、Webpack と [inject-loader](https://github.com/plasticine/inject-loader) をテストファイルにバンドルして使用することができます。
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
-
-Example testing an async action:
+非同期なアクションのテストの例:
 
 ``` js
 // actions.js
@@ -68,28 +68,27 @@ export const getAllProducts = ({ dispatch }) => {
 ``` js
 // actions.spec.js
 
-// use require syntax for inline loaders.
-// with inject-loader, this returns a module factory
-// that allows us to inject mocked dependencies.
+// inline loader のために require 構文を使用する
+// ここでは inject-loader を使って、モック化された依存関係を注入できるようにするモジュールファクトリーを返す
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
 
-// create the module with our mocks
+// モックによってモジュールを作成する
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
       setTimeout(() => {
-        cb([ /* mocked response */ ])
+        cb([ /* レスポンスのモック */ ])
       }, 100)
     }
   }
 })
 
-// helper for testing action with expected mutations
+// 期待されるミューテーションをアクションが呼び出すかをテストするためのヘルパー
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
-  // mock commit
+  // コミットをモックする
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
     expect(mutation.type).to.equal(type)
@@ -102,10 +101,10 @@ const testAction = (action, payload, state, expectedMutations, done) => {
     }
   }
 
-  // call the action with mocked store and arguments
+  // モック化したストアと引数でアクションを呼び出す
   action({ commit, state }, payload)
 
-  // check if no mutations should have been dispatched
+  // 呼び出されるべきミューテーションが残っていないか確認する
   if (expectedMutations.length === 0) {
     expect(count).to.equal(0)
     done()
@@ -116,7 +115,7 @@ describe('actions', () => {
   it('getAllProducts', done => {
     testAction(actions.getAllProducts, null, {}, [
       { type: 'REQUEST_PRODUCTS' },
-      { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
+      { type: 'RECEIVE_PRODUCTS', payload: { /* レスポンスのモック */ } }
     ], done)
   })
 })
