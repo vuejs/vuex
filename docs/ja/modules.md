@@ -1,8 +1,10 @@
 # Modules
 
-Due to using a single state tree, all state of our application is contained inside one big object. However, as our application grows in scale, the store can get really bloated.
+単一ステートツリーを使うため、アプリケーションの全ての状態は、一つの大きなストアオブジェクトに内包されます。しかしながら、アプリケーションが大きくなるにつれて、ストアオブジェクトは膨れ上がってきます。
 
-To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
+そのような場合に役立てるため Vuex ではストアを **モジュール** に分割できるようになっています。
+
+それぞれのモジュールは、ステート、ミューテーション、アクション、ゲッター、モジュールさえも内包できます（モジュールをネストできます）- トップからボトムまでフラクタル構造です:
 
 ``` js
 const moduleA = {
@@ -29,16 +31,16 @@ store.state.a // -> moduleA's state
 store.state.b // -> moduleB's state
 ```
 
-### Module Local State
+### モジュールのローカルステート
 
-Inside a module's mutations and getters, The first argument received will be **the module's local state**.
+モジュールのミューテーションやゲッターの中では、渡される第1引数は **モジュールのローカルステート** です。
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment: (state) {
-      // state is the local module state
+      // state はモジュールのローカルステート
       state.count++
     }
   },
@@ -51,7 +53,7 @@ const moduleA = {
 }
 ```
 
-Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
+同様に、モジュールのアクションの中では `context.state` はローカルステートにアクセスでき、ルートのステートは `context.rootState` でアクセスできます:
 
 ``` js
 const moduleA = {
@@ -66,7 +68,7 @@ const moduleA = {
 }
 ```
 
-Also, inside module getters, the root state will be exposed as their 3rd argument:
+また、モジュールのゲッターの中では、ルートのステートは第3引数でアクセスできます:
 
 ``` js
 const moduleA = {
@@ -79,15 +81,15 @@ const moduleA = {
 }
 ```
 
-### Namespacing
+### 名前空間
 
-Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing by prefixing or suffixing their names. And you probably should if you are writing a reusable Vuex module that will be used in unknown environments. For example, we want to create a `todos` module:
+モジュール内部のアクションやミューテーション、ゲッターは依然として **グローバル名前空間** の下に登録されることに注意してください。そのため、複数のモジュールが同一のミューテーションやアクションタイプに反応してしまいます。接頭語や接尾語を付けることで名前の衝突を回避できますし、再利用可能でかつどこで使われるか分からない Vuex のモジュールを書いているのならば、そうすべきです。例えば `todos` モジュールを作りたいときは以下のようにします:
 
 ``` js
 // types.js
 
-// define names of getters, actions and mutations as constants
-// and they are prefixed by the module name `todos`
+// ゲッター、アクション、ミューテーションの名前を定数として定義し、
+// それらにモジュール名である `todos` を接頭語として付ける
 export const DONE_COUNT = 'todos/DONE_COUNT'
 export const FETCH_ALL = 'todos/FETCH_ALL'
 export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
@@ -97,7 +99,7 @@ export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 // modules/todos.js
 import * as types from '../types'
 
-// define getters, actions and mutations using prefixed names
+// 接頭語を付けたゲッター、アクション、ミューテーションを定義する
 const todosModule = {
   state: { todos: [] },
 
@@ -121,9 +123,9 @@ const todosModule = {
 }
 ```
 
-### Dynamic Module Registration
+### 動的にモジュールを登録する
 
-You can register a module **after** the store has been created with the `store.registerModule` method:
+ストアが作られた**後**に `store.registerModule` メソッドを使って、モジュールを登録できます:
 
 ``` js
 store.registerModule('myModule', {
@@ -131,8 +133,8 @@ store.registerModule('myModule', {
 })
 ```
 
-The module's state will be exposed as `store.state.myModule`.
+モジュールのステートには `store.state.myModule` でアクセスします。
 
-Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
+動的なモジュール登録があることで、他の Vue プラグインが、モジュールをアプリケーションのストアに付属させることで、状態の管理に Vuex を活用できることができます。例えば [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) ライブラリは、動的に付属させたモジュール内部でアプリケーションのルートステートを管理することで vue-router と vuex を統合しています。
 
-You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+`store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）によって宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
