@@ -1,6 +1,6 @@
-# 導入方法
+# インストール
 
-### 直接のDownload / CDN
+### 直接ダウンロードする / CDN
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
