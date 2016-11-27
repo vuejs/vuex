@@ -96,7 +96,7 @@ export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 // modules/todos.js
 import * as types from '../types'
 
-// 实用添加了前缀的名称定义 getter、action 和 mutation
+// 使用添加了前缀的名称定义 getter、action 和 mutation
 const todosModule = {
   state: { todos: [] },
 
