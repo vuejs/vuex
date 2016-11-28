@@ -10,7 +10,7 @@ Vuex は**単一ステートツリー (single state tree)**を使います。つ
 
 ストアにある状態を Vue コンポーネント に表示するにはどうすればよいのでしょう？　Vuex ストア はリアクティブなので、ストアから状態を"取り出す"一番シンプルな方法は、単純にいくつかのストアの状態を [算出プロパティ](https://jp.vuejs.org/guide/computed.html) で返すことです。
 
-``` js
+```js
 // Counter コンポーネントをつくってみましょう
 const Counter = {
     template: `<div>{{ count }}</div>`,
@@ -26,34 +26,34 @@ const Counter = {
 
 しかし、このパターンでは、コンポーネントがグローバルストアシングルトンに依存してしまいます。 モジュールシステムを使っているとき、ストアの状態を使っているすべてのコンポーネントでインポートが必要です。また、コンポーネントのテストのときにモック化が必要となります。
 
-Vuex は、ルートコンポーネントに `store` オプションを指定することで (これは、 `Vue.use(Vuex)` で有効にできます)、すべての子コンポーネントにストアを "挿入" する機構を提供しています:
+Vuex は、ルートコンポーネントに `store` オプションを指定することで (これは、 `Vue.use(Vuex)` で有効にできます)、すべての子コンポーネントにストアを "注入" する機構を提供しています:
 
-  ``` js
-  const app = new Vue({
-    el: '#app',
-    // "store" オプションで指定されたストアは、全ての子コンポーネントに注入されます
-    store,
-    components: { Counter },
-    template: `
-        <div class="app">
-            <counter></counter>
-        </div>
-    `
-  })
-  ```
+```js
+const app = new Vue({
+  el: '#app',
+  // "store" オプションで指定されたストアは、全ての子コンポーネントに注入されます
+  store,
+  components: { Counter },
+  template: `
+    <div class="app">
+      <counter></counter>
+    </div>
+  `
+})
+```
 
-  ルートインスタンスに `store` オプションを渡すことで、渡されたストアをルートの全ての子コンポーネントに注入します。これは `this.$store` で各コンポーネントから参照することができます。 `Counter` の実装を変更しましょう:
+ルートインスタンスに `store` オプションを渡すことで、渡されたストアをルートの全ての子コンポーネントに注入します。これは `this.$store` で各コンポーネントから参照することができます。 `Counter` の実装を変更しましょう:
 
-  ``` js
-    const Counter = {
-        template: `<div>{{ count }}</div>`,
-        computed: {
-            count: function() {
-                return this.$store.state.count
-            }
-        }
+```js
+const Counter = {
+  template: `<div>{{ count }}</div>`,
+  computed: {
+    count() {
+      return this.$store.state.count
     }
-  ```
+  }
+}
+```
 
 ### `mapState`  ヘルパー
 
