@@ -1,6 +1,8 @@
+# Vuex とは何か？
+
 Vuex は Vue.js アプリケーションのための **状態管理パターン + ライブラリ**です。
-これは状態の変異を予測可能な方法で確実におこなわせるルールを持っており、アプリケーション内の全てのコンポーネントのための集中型のストアとして機能します。
-また Vue 公式の[開発ツール拡張](https://github.com/vuejs/vue-devtools)と連携し、設定なしでタイムトラベルデバッギングやステートのスナップショットのエクスポートやインポートのような高度な機能を提供します。
+これは予測可能な方法によってのみ状態の変異を行うというルールを保証し、アプリケーション内の全てのコンポーネントのための集中型のストアとして機能します。
+また Vue 公式の[開発ツール拡張](https://github.com/vuejs/vue-devtools)と連携し、設定なしでタイムトラベルデバッグやステートのスナップショットのエクスポートやインポートのような高度な機能を提供します。
 
 ### "状態管理パターン"とはなんですか？
 
@@ -50,7 +52,7 @@ new Vue({
 
 さらに、状態管理に関わる概念を定義、分離し、特定のルールを敷くことで、コードの構造と保守性を向上させます。
 
-Vuex の背景にある基本的なアイディアは、[Flux](https://facebook.github.io/flux/docs/overview.html)、 [Redux](http://redux.js.org/) そして [The Elm Architecture](https://guide.elm-lang.org/architecture/)から影響を受けたものです。
+これが Vuex の背景にある基本的なアイディアであり、[Flux](https://facebook.github.io/flux/docs/overview.html)、 [Redux](http://redux.js.org/) そして [The Elm Architecture](https://guide.elm-lang.org/architecture/)から影響を受けています。
 他のパターンと異なるのは、Vuex は効率的な更新のために、Vue.js の粒度の細かいリアクティビティシステムを利用するよう特別に調整して実装されたライブラリだということです。
 
 ![vuex](./images/vuex.png)
