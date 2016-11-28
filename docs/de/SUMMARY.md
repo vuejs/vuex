@@ -1,22 +1,22 @@
 # Vuex
 
-> Note: This is docs for vuex@2.x.
+> Merke: Das ist die Dokumentation zu vuex@2.x.
 
-- [Looking for 1.0 Docs?](https://github.com/vuejs/vuex/tree/1.0/docs)
-- [Release Notes](https://github.com/vuejs/vuex/releases)
+- [Suche nach 1.0 Doku? (englisch)](https://github.com/vuejs/vuex/tree/1.0/docs)
+- [Versionshinweise (englisch)](https://github.com/vuejs/vuex/releases)
 - [Installation](installation.md)
-- [What is Vuex?](intro.md)
-- [Getting Started](getting-started.md)
-- Core Concepts
+- [Was ist Vuex?](intro.md)
+- [Erste Schritte](getting-started.md)
+- Kernkonzepte
   - [State](state.md)
   - [Getters](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
   - [Modules](modules.md)
-- [Application Structure](structure.md)
+- [Struktur einer Applikation](structure.md)
 - [Plugins](plugins.md)
 - [Strict Mode](strict.md)
-- [Form Handling](forms.md)
-- [Testing](testing.md)
+- [Formulare](forms.md)
+- [Tests](testing.md)
 - [Hot Reloading](hot-reload.md)
-- [API Reference](api.md)
+- [API-Referenz](api.md)
