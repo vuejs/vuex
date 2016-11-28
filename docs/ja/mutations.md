@@ -180,7 +180,7 @@ export default {
 
 ``` js
 store.commit('increment')
-// "increment" ミューテーションによる状態変更は、この時点で行われるすべき
+// "increment" ミューテーションによる状態変更は、この時点で行われるべきです
 ```
 
 非同期的な命令を扱うために [アクション](actions.md) を見てみましょう。
