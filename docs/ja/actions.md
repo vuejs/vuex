@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 })
 ```
 
-アクションハンドラはストアインスタンスのメソッドやプロパティのセットと同じものを呼び出せる、コンテキストオブジェクトを受け取ります。したがって `context.commit` を呼び出すことでミューテーションをコミットできます。あるいは `context.state` や `context.getters` で、状態やゲッターにアクセスできます。なぜコンテキストオブジェクトがストアインスタンスそのものではないのかは、後ほど [モジュール](modules.md) で説明します。
+アクションハンドラはストアインスタンスのメソッドやプロパティのセットと同じものを呼び出せるコンテキストオブジェクトを受け取ります。したがって `context.commit` を呼び出すことでミューテーションをコミットできます。あるいは `context.state` や `context.getters` で、状態やゲッターにアクセスできます。なぜコンテキストオブジェクトがストアインスタンスそのものではないのかは、後ほど [モジュール](modules.md) で説明します。
 
 実際にはコードを少しシンプルにするために ES2015 の [引数分割束縛（argument destructuring）](https://github.com/lukehoban/es6features#destructuring) がよく使われます（特に `commit` を複数回呼び出す必要があるとき）:
 
@@ -117,9 +117,9 @@ export default {
 
 ### アクションを構成する
 
-アクションはしばしば非同期処理を行いますが、アクションが完了したことをどうやって知れば良いのでしょう？そしてもっと重要なことは、もっと複雑な非同期処理を取り扱うために、どうやって複数のアクションを構成させるかということです。
+アクションはしばしば非同期処理を行いますが、アクションが完了したことをどうやって知れば良いのでしょう？そしてもっと重要なことは、さらに複雑な非同期処理を取り扱うために、どうやって複数のアクションを構成させるかということです。
 
-まず知っておくべきことは `store.dispatch` は、トリガーされたアクションハンドラによって返された値を、戻り値として返すということです。したがってアクションの中で Promise を返すようにできます:
+まず知っておくべきことは `store.dispatch` がトリガーされたアクションハンドラによって返された Promise を処理できることと、Promise を返すことです。
 
 ``` js
 actions: {
@@ -155,10 +155,10 @@ actions: {
 }
 ```
 
-最終的には [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使うと、JavaScript はとても素早くランディングを計算でき、複数のアクションを以下のように構成できます:
+最終的に JavaScript の機能として近く導入される [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使用することで、次のようにアクションを組み合わせることができます:
 
 ``` js
-// assuming getData() and getOtherData() return Promises
+// getData() と getOtherData() を受け取って Promises を返す
 
 actions: {
   async actionA ({ commit }) {
