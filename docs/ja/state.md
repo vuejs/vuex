@@ -13,12 +13,12 @@ Vuex は**単一ステートツリー (single state tree)**を使います。つ
 ```js
 // Counter コンポーネントをつくってみましょう
 const Counter = {
-    template: `<div>{{ count }}</div>`,
-    computed: {
-        count: function() {
-            return store.state.count
-        }
+  template: `<div>{{ count }}</div>`,
+  computed: {
+    count () {
+      return store.state.count
     }
+  }
 }
 ```
 
@@ -48,7 +48,7 @@ const app = new Vue({
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count() {
+    count () {
       return this.$store.state.count
     }
   }
@@ -64,17 +64,17 @@ const Counter = {
 import { mapState } from 'vuex'
 
 export default {
-    // ...
-    computed: mapState({
-        // アロー関数は、コードをとても簡潔にできます！
-        count: state => state.count,
-        // 文字列を渡すことは、`state => state.count` と同じです
-        countAlias: 'count',
-        // `this` からローカルステートを参照するときは、通常の関数を使わなければいけません
-        countPlusLocalState (state) {
-            return state.count + this.localCount
-        }
-    })
+  // ...
+  computed: mapState({
+    // アロー関数は、コードをとても簡潔にできます！
+    count: state => state.count,
+    // 文字列を渡すことは、`state => state.count` と同じです
+    countAlias: 'count',
+    // `this` からローカルステートを参照するときは、通常の関数を使わなければいけません
+    countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+  })
 }
 ```
 
@@ -93,11 +93,11 @@ computed: mapState([
 
 ```js
 computed: {
-    localComputed () { /* ... */ }.
-    // オブジェクトスプレット演算子で、外のオブジェクトとこのオブジェクトを混ぜる
-    ...mapState({
-        // ...
-    })
+  localComputed () { /* ... */ }.
+  // オブジェクトスプレット演算子で、外のオブジェクトとこのオブジェクトを混ぜる
+  ...mapState({
+    // ...
+  })
 }
 ```
 
