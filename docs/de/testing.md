@@ -1,15 +1,15 @@
-# Testing
+# Tests
 
-The main parts we want to unit test in Vuex are mutations and actions.
+Hauptsächlich werden in Vuex Mutations und Actions getestet.
 
-### Testing Mutations
+### Mutation-Tests
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you can also export the mutations as a named export:
+Mutations sind unkompliziert zu testen, weil sie lediglich Funktionen sind, die auf ihren Argumenten beruhen. Ein Trick ist, wenn ES2015-Module genutzt werden und die Mutations in `store.js` liegen, neben dem Default-Export auch die Mutations als benannten Export zu verwenden:
 
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// Exportiere Mutations als benannten Export.
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+Testbeispiel einer Mutation mit Mocha + Chai (man kann jedes Framework/Assertion Library nutzen):
 
 ``` js
 // mutations.js
@@ -32,26 +32,28 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// destructure assign mutations
+// destruiere zugeordnete Mutations
 const { increment } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // setze State
     const state = { count: 0 }
-    // apply mutation
+    // lege Mutation fest
     increment(state)
-    // assert result
+    // lege Wert fest
     expect(state.count).to.equal(1)
   })
 })
 ```
 
-### Testing Actions
+### Action-Tests
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Actions sind etwas kniffliger, da sie externe APIs aufrufen. Bei Action-Tests ist meist ein gewisser Grad an Mocking notwendig. Zum Beispiel kann man die API-Aufrufe in einen Service zusammenfassen und nur diesen in den Tests im Mocking nutzen.
 
-Example testing an async action:
+Um einfacher Abhängigkeiten im Mocking zu prüfen, kann man Webpack und [inject-loader (englisch)](https://github.com/plasticine/inject-loader) nutzen, um die Testdaten zu bündeln.
+
+Testbeispiel einer ansynchronen Action:
 
 ``` js
 // actions.js
@@ -74,7 +76,7 @@ export const getAllProducts = ({ dispatch }) => {
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
 
-// create the module with our mocks
+// Kreiere die Module mit den Mocks.
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
@@ -85,7 +87,7 @@ const actions = actionsInjector({
   }
 })
 
-// helper for testing action with expected mutations
+// Helfer für Action-Tests mit erwarteter Mutation
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
@@ -122,11 +124,11 @@ describe('actions', () => {
 })
 ```
 
-### Testing Getters
+### Getter-Tests
 
-If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+Wenn die Getter komplizierte Berechnungen inne haben, lohnt es sich diese zu testen. Getters sind ebenfalls recht geradelinig zu testen wie Mutations.
 
-Example testing a getter:
+Testbeispiel für Getters:
 
 ``` js
 // getters.js
@@ -169,13 +171,13 @@ describe('getters', () => {
 })
 ```
 
-### Running Tests
+### Lauf von Tests
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+Wenn Mutations und Actions ordentlich geschrieben wurden, sollten die Tests keine direkte Abhängigkeit zur Browser-API nach korrektem Mocking haben. Demnach kann man die Tests mit Webpack bündlen und direkt in Node laufen lassen. Alternativ kann man `mocha-loader` oder Karma + `karma-webpack` für reale Browser-Tests nutzen.
 
 #### Running in Node
 
-Create the following webpack config (together with proper [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
+Erstell die folgende Webpack-Konfiguration (zusammen mit korrektem [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
 
 ``` js
 // webpack.config.js
@@ -197,20 +199,20 @@ module.exports = {
 }
 ```
 
-Then:
+Anschließend:
 
 ``` bash
 webpack
 mocha test-bundle.js
 ```
 
-#### Running in Browser
+#### Laufen im Browser
 
-1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
-3. Start `webpack-dev-server` using the config
-4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+1. Installiere `mocha-loader`.
+2. Ändere `entry` der obigen Webpack-Konfiguration zu `'mocha!babel!./test.js'`.
+3. Starte `webpack-dev-server`
+4. Öffne `localhost:8080/webpack-dev-server/test-bundle`.
 
-#### Running in Browser with Karma + karma-webpack
+#### Laufen im Browser mit Karma + karma-webpack
 
-Consult the setup in [vue-loader documentation](http://vue-loader.vuejs.org/en/workflow/testing.html).
+Siehe auch den Aufbau in der [vue-loader-Dokumentation (englisch)](http://vue-loader.vuejs.org/en/workflow/testing.html).
