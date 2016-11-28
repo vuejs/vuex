@@ -63,8 +63,6 @@ computed: {
 
 ### `mapGetters` ヘルパー
 
-The `mapGetters` helper simply maps store getters to local computed properties:
-
 `mapGetters` ヘルパーはストアのゲッターをローカルの算出プロパティにマッピングさせます:
 
 ``` js
@@ -73,7 +71,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // ゲッターを computed に組み込む
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -87,7 +85,7 @@ export default {
 
 ``` js
 mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+  // this.doneCount を store.getters.doneTodosCount にマッピングさせる
   doneCount: 'doneTodosCount'
 })
 ```
