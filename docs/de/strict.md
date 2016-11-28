@@ -1,6 +1,6 @@
 # Strict Mode
 
-To enable strict mode, simply pass in `strict: true` when creating a Vuex store:
+Um Stric Mode zu aktivieren, setze `strict: true`, wenn der Vuex-Store erstellt wird:
 
 ``` js
 const store = new Vuex.Store({
@@ -9,13 +9,13 @@ const store = new Vuex.Store({
 })
 ```
 
-In strict mode, whenever Vuex state is mutated outside of mutation handlers, an error will be thrown. This ensures that all state mutations can be explicitly tracked by debugging tools.
+In Strict Mode wird ein Fehler ausgeworfen, wenn Vuex-State außerhalb der Mutation-Handler verändert wird. Das versichert, dass State-Änderungen explizit mit dem Debugging-Tool nachvollzogen werden können.
 
 ### Development vs. Production
 
-**Do not enable strict mode when deploying for production!** Strict mode runs a deep watch on the state tree for detecting inappropriate mutations - make sure to turn it off in production to avoid the performance cost.
+**Aktiviere Strict Mode nicht im Produktionsschritt!** Strict Mode überwacht State-Änderungen tief im State-Baum, was Performance-Einbuße bedeuten kann.
 
-Similar to plugins, we can let the build tools handle that:
+Ähnlich den Plugins kann man das Build-Tools regeln lassen:
 
 ``` js
 const store = new Vuex.Store({
