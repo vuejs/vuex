@@ -13,7 +13,7 @@
   - [Mutations](mutations.md)
   - [Actions](actions.md)
   - [Modules](modules.md)
-- [Struktur einer Applikation](structure.md)
+- [Struktur einer App](structure.md)
 - [Plugins](plugins.md)
 - [Strict Mode](strict.md)
 - [Formulare](forms.md)
