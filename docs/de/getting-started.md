@@ -1,19 +1,21 @@
-# Getting Started
+# Erste Schritte
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that makes a Vuex store different from a plain global object:
+Im Zentrum jeder Vuex-App ist der **Store** (Speicher). Grundsätzlich ist dieser ein Container, der den **State** (Zustand) der App beinhaltet. Es gibt zwei Dinge, die den Vuex-Store von einem banalen Objekt unterscheiden:
 
-1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+1. Vuex-Store ist reaktiv. Wenn Vue-Komponenten State von ihm erhalten, werden sie reaktionsfähig und effizient aktualisiert, wenn der State im Store verändert wird.
 
-2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
+2. Es ist nicht möglich den State im Store direkt zu manipulieren. Der einzige Weg dies zu tun ist via **Mutation-Committing** (Festlegung von Änderungen). So wird versichert, dass jede State-Änderung eine verfolgbare Spur hinterlässt und ermöglicht den Nutzen von Werkzeugen, um die App besser zu verstehen.
 
-### The Simplest Store
+### Der einfachte Store
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
+> Merke: Es wird [ES2015](https://babeljs.io/docs/learn-es2015/) in den Code-Beispielen verwendet.
 
-After [installing](installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
+Nach der [Installation](installation.md) von Vuex können wir den Store erstellen. Recht simpel - stelle lediglich ein initialisiertes State-Objekt und ein paar Mutations bereit:
+
 
 ``` js
-// Make sure to call Vue.use(Vuex) first if using a module system
+// Stell sicher, dass Vue.use(Vuex) aufgerufen wurde,
+// wenn ein Modulsystem genutzt wird.
 
 const store = new Vuex.Store({
   state: {
@@ -27,7 +29,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
+Nun kann auf das State-Objekt als `store.state` zugegriffen und State-Änderungen mit der `store.commit`-Methode ausgeführt werden:
 
 ``` js
 store.commit('increment')
@@ -35,10 +37,12 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
+Der Grund weshalb eine Mutation committed wird, anstatt `store.state.count` direkt zu verändern, ist die Fähigkeit, die Schritte explizit verfolgen zu können.
+Diese simple Konvention ermöglicht unter anderem den Einsatz von Werkzeugen, die jede Mutation protokollieren, State-Snapshots aufnehmen und sogar zeitreisendes Debugging ermöglichen.
 
-Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+Das Nutzen des Store-States in einer Komponente beinhaltet lediglich die Wiedergabe des States in einer **Computed Property** (berechnete Eigenschaft), da der Store-State reaktionsfähig ist. Änderungen auslösen steht hierbei für das committen von Mutations in Komponenten-Methoden.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
+Hier ist ein Beispiel der [einfachsten Vuex-Counter-App](https://jsfiddle.net/yyx990803/n9jmu5v7/).
 
-Next, we will discuss each core concept in much finer details, starting with [State](state.md).
+
+Als nächstes werden die Kernkonzepte detaillierter erklärt - beginnent mit [State](state.md).
