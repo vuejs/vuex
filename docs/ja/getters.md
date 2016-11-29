@@ -10,9 +10,9 @@ computed: {
 }
 ```
 
-もしこの関数を複数のコンポーネントで利用したくなったら、関数をコピーするか、あるいは関数を共用のヘルパーに切り出して複数の場所でインポートする必要があります。- しかし、どちらも理想的とはいえません。
+もしこの関数を複数のコンポーネントで利用したくなったら、関数をコピーするか、あるいは関数を共用のヘルパーに切り出して複数の場所でインポートする必要があります。しかし、どちらも理想的とはいえません。
 
-Vuex を利用するとストア内に "ゲッター" を定義することができます（ストアのための算出プロパティだと考えてください）。ゲッターはストアを第1引数として受け取ります:
+Vuex を利用するとストア内に "ゲッター" を定義することができます（ストアのための算出プロパティだと考えてください）。ゲッターはステート（状態）を第1引数として受け取ります:
 
 ``` js
 const store = new Vuex.Store({
@@ -71,7 +71,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // ゲッターを computed に組み込む
+    // ゲッターを、スプレッド演算子（object spread operator）を使って computed に組み込む
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -84,7 +84,7 @@ export default {
 ゲッターを異なる名前でマッピングさせたいときはオブジェクトを使います:
 
 ``` js
-mapGetters({
+...mapGetters({
   // this.doneCount を store.getters.doneTodosCount にマッピングさせる
   doneCount: 'doneTodosCount'
 })

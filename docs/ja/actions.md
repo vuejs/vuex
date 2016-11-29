@@ -76,7 +76,7 @@ store.dispatch({
 
 ``` js
 actions: {
-  checkout ({ commit, state }, payload) {
+  checkout ({ commit, state }, products) {
     // 現在のカート内の商品を保存する
     const savedCartItems = [...state.cart.added]
     // チェックアウトのリクエストを送信し、楽観的にカート内をクリアする
@@ -97,7 +97,7 @@ actions: {
 
 ### コンポーネント内でのアクションのディスパッチ
 
-`this.$store.dispatch('xxx')` でコンポーネント内でアクションをディスパッチできます。あるいはコンポーネントのメソッドを `store.dispatch` にマッピングする `mapActions` ヘルパーを使うこともできます（ルートの `store` が必要です）:
+`this.$store.dispatch('xxx')` でコンポーネント内でアクションをディスパッチできます。あるいはコンポーネントのメソッドを `store.dispatch` にマッピングする `mapActions` ヘルパーを使うこともできます（ルートの `store` の注入が必要です）:
 
 ``` js
 import { mapActions } from 'vuex'
@@ -119,7 +119,7 @@ export default {
 
 アクションはしばしば非同期処理を行いますが、アクションが完了したことをどうやって知れば良いのでしょう？そしてもっと重要なことは、さらに複雑な非同期処理を取り扱うために、どうやって複数のアクションを構成させるかということです。
 
-まず知っておくべきことは `store.dispatch` がトリガーされたアクションハンドラによって返された Promise を処理できることと、Promise を返すことです。
+まず知っておくべきことは `store.dispatch` がトリガーされたアクションハンドラによって返された Promise を処理できることと、`store.dispatch` もまた Promise を返すことです。
 
 ``` js
 actions: {
@@ -158,7 +158,7 @@ actions: {
 最終的に JavaScript の機能として近く導入される [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使用することで、次のようにアクションを組み合わせることができます:
 
 ``` js
-// getData() と getOtherData() を受け取って Promises を返す
+// getData() と getOtherData() が Promise を返すことを想定している
 
 actions: {
   async actionA ({ commit }) {

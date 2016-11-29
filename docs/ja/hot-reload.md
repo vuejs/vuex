@@ -1,6 +1,6 @@
 # ホットリローディング
 
-Vuex はアプリケーションの開発を行っている間のミューテーション、モジュール、アクション、ゲッターのホットリローディングをサポートします。Webpack は [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) を使用します。Browserify では [browserify-hmr](https://github.com/AgentME/browserify-hmr/) プラグインを使用することができます。
+Vuex は Webpack の [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) を使用することで、アプリケーションの開発を行っている間のミューテーション、モジュール、アクション、ゲッターのホットリローディングをサポートします。Browserify では [browserify-hmr](https://github.com/AgentME/browserify-hmr/) プラグインを使用することができます。
 
 ミューテーションとモジュールのホットリローディングのために、`store.hotUpdate()`  API メソッドを利用する必要があります:
 
