@@ -1,0 +1,180 @@
+# API リファレンス
+
+### Vuex.Store
+
+``` js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({ ...options })
+  ```
+
+### Vuex.Store コンストラクタオプション
+
+- **state**
+
+  - 型: `Object`
+
+    Vuex store のための ルートステートオブジェクトです。
+
+    [詳細](state.md)
+
+- **mutations**
+
+  - 型: `{ [type: string]: Function }`
+
+    Vuex storeにミューテーションを登録します。ハンドラ関数は第一引数に `state` を常に受け取り(またモジュール内で定義されていれば、ローカルステートをモジュール化し)、指定されていれば第二引数に `payload` を受け取ります。
+
+    [詳細](mutations.md)
+
+- **actions**
+
+  - 型: `{ [type: string]: Function }`
+
+    Vuex storeにアクションを登録します。ハンドラ関数は次のプロパティを持つ `context` オブジェクトを受け取ります。:
+
+    ``` js
+    {
+      state,     // store.state と同じか, or モジュール内にあればローカルステート
+      rootState, // store.state と同じ。 ただしモジュール内に限る
+      commit,    // store.commit と同じ
+      dispatch,  // store.dispatch と同じ
+      getters    // store.getters と同じ
+    }
+    ```
+
+    [詳細](actions.md)
+
+- **getters**
+
+  - type: `{ [key: string]: Function }`
+
+    Vuex storeにゲッターを登録します. ゲッター関数は次の引数を受け取ります:
+
+    ```
+    state,     // モジュール内で定義されていればローカルステートをモジュール化します
+    getters,   // store.getters と同じ
+    rootState  // store.state と同じ
+    ```
+
+    登録されたゲッターは `store.getters` 上で外から見えるようになります。
+
+    [詳細](getters.md)
+
+- **modules**
+
+  - 型: `Object`
+
+    サブモジュールを含む次のような形式のオブジェクトはストアにマージされます。
+
+    ``` js
+    {
+      key: {
+        state,
+        mutations
+        actions?,
+        getters?,
+        modules?
+    
+      },
+      ...
+    }
+    ```
+
+    各モジュールは、ルートオプションに似た `state` と `mutations` を含むことができます。モジュールの状態は、モジュールのキーを使って、ストアのルートステートにアタッチされます。モジュールのミューテーションとゲッターは、第一引数としてルートステートの代わりに、モジュールのローカルステートだけを受け取り、モジュールのアクションの `context.state` もローカルステートを指すようになります。
+
+    [詳細](modules.md)
+
+- **plugins**
+
+  - 型: `Array<Function>`
+
+    プラグイン関数の配列は、ストアに適用されます。このプラグインは、ストアだけを引数として受け取り、外部への永続化、ロギング、デバッギングのために、ミューテーションを監視するか、または、 websocket や observable のような内部のデータのためにミューテーションをディスパッチします。
+
+    [詳細](plugins.md)
+
+- **strict**
+
+  - 型: `Boolean`
+  - デフォルト: `false`
+
+    Vuex ストアを厳格モードにします。厳格モードでは、ミューテーションハンドラ以外で、 Vuex の状態の変更を行うと、エラーが投げられます。
+
+    [詳細](strict.md)
+
+### Vuex.Store インスタンスプロパティ
+
+  - **state**
+
+  - type: `Object`
+
+  ルートステート、読み取り専用です。
+
+- **getters**
+
+  - type: `Object`
+
+  登録されているゲッターを見せます。読み取り専用です。
+
+### Vuex.Store インスタンスメソッド
+
+- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
+
+ミューテーションをコミットします。[詳細](mutations.md)
+
+- **`dispatch(mutationName: String, ...args) | dispatch(mutation: Object)`**
+
+アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するプロミスを返します。[詳細](actions.md)
+
+- **`replaceState(state: Object)`**
+
+ストアのルートステートを置き換えます。これは、ステートの水和やタイムトラベルのためだけに利用すべきです。
+
+- **`watch(getter: Function, cb: Function, [options: Object])`**
+
+  リアクティブにゲッター関数の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの状態のみを引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
+
+  監視を止める場合は、ハンドラ関数の返り値を関数として呼び出します。
+
+- **`subscribe(handler: Function)`**
+
+  ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリプタとミューテーション後の状態を受け取ります。
+
+  ``` js
+  store.subscribe((mutation, state) => {
+      console.log(mutation.type)
+      console.log(mutation.payload)
+      })
+  ```
+
+  もっともよく利用されるプラグイン。[詳細](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module)`**
+
+動的なモジュールを登録します。[詳細](modules.md#dynamic-module-registration)
+
+- **`unregisterModule(path: string | Array<string>)`**
+
+動的なモジュールを解除します。[詳細](modules.md#dynamic-module-registration)
+
+- **`hotUpdate(newOptions: Object)`**
+
+新しいアクションとミューテーションでホットスワップします。[詳細](hot-reload.md)
+
+### コンポーネントをバインドするヘルパー
+
+- **`mapState(map: Array<string> | Object): Object`**
+
+  Vuex storeのサブツリーを返すオプションを計算したコンポーネントを作成します。[詳細](state.md#the-mapstate-helper)
+
+- **`mapGetters(map: Array<string> | Object): Object`**
+
+  ゲッターの評価後の値を返すオプションを計算したコンポーネントを作成します。[詳細](getters.md#the-mapgetters-helper)
+
+- **`mapActions(map: Array<string> | Object): Object`**
+
+  アクションをディスパッチするコンポーネントメソッドオプションを作成します。[詳細](actions.md#dispatching-actions-in-components)
+
+- **`mapMutations(map: Array<string> | Object): Object`**
+
+  ミューテーションをコミットするコンポーネントメソッドオプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
+
