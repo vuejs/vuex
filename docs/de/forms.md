@@ -1,14 +1,16 @@
-# Form Handling
+# Formulare
 
-When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
+Wenn Vuex in Strict-Mode genutzt wird, könnte es etwas schwerer werden `v-model` an einem State zu nutzen, der zu Vuex gehört.
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in an error because the mutation is not performed inside an explicit Vuex mutation handler.
+Wenn angenommen wird, dass `obj` eine Computed Property ist, die ein Objekt vom Store wiedergibt, so versucht `v-model` eine direkte Änderung von `obj.message` vorzunehmen, wenn der Nutzer Eingaben tätigt.
 
-The "Vuex way" to deal with it is binding the `<input>`'s value and call an action on the `input` or `change` event:
+In Strict-Mode würde das einen Fehler auslösen, da die Änderung nicht in einem Vuex-Handler vonstattenging.
+
+Um es Vuex-konform zu halten, sollte der `<input>`-Wert gebunden werden und eine Action für `input` oder dem `change`-Event auslösen.
 
 ``` html
 <input :value="message" @input="updateMessage">
@@ -27,7 +29,7 @@ methods: {
 }
 ```
 
-And here's the mutation handler:
+Und hier ist der Mutation-Handler:
 
 ``` js
 // ...
@@ -38,9 +40,9 @@ mutations: {
 }
 ```
 
-### Two-way Computed Property
+### Zweiseitige Computed Property
 
-Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
+Zugegeben ist das obige Beispiel etwas wortreicher als `v-model` mit lokalem State und man verliert ebenfalls einige nützliche Features von `v-model`. Eine Alternative wäre eine zweisteitige Computed Property mit einem Setter:
 
 ``` js
 // ...
@@ -55,4 +57,3 @@ computed: {
   }
 }
 ```
-
