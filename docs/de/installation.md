@@ -1,14 +1,14 @@
 # Installation
 
-### Direct Download / CDN
+### Direkter Download / CDN
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
 <!--email_off-->
-[Unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like `https://unpkg.com/vuex@2.0.0`.
+[Unpkg.com](https://unpkg.com) bietet NPM-basierte CDN-Links an. Der obige Link führt immer zur aktuellsten Version auf NPM. Eine bestimmte Version kann via URL genutzt werden: `https://unpkg.com/vuex@2.0.0`.
 <!--/email_off-->
 
-Include `vuex` after Vue and it will install itself automatically:
+Füge `vuex` nach Vue ein und es installiert sich selbst automatisch:
 
 ``` html
 <script src="/path/to/vue.js"></script>
@@ -21,7 +21,7 @@ Include `vuex` after Vue and it will install itself automatically:
 npm install vuex
 ```
 
-When used with a module system, you must explicitly install Vuex via `Vue.use()`:
+Wenn mit einem Modulsystem genutzt, muss Vuex explizit via `Vue.use()` installiert werden:
 
 ``` js
 import Vue from 'vue'
@@ -30,12 +30,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 ```
 
-You don't need to do this when using global script tags.
+Das muss nicht getan werden, wenn globale Skript-Tags genutzt werden.
 
 ### Dev Build
 
-You will have to clone directly from GitHub and build `vuex` yourself if
-you want to use the latest dev build.
+Die Repo muss direkt von GitHub geklont und `vuex`-Build selbst erstellt werden, wenn die aktuelle Dev-Version gewünscht ist.
 
 ``` bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex
