@@ -97,7 +97,7 @@ actions: {
 
 ### コンポーネント内でのアクションのディスパッチ
 
-`this.$store.dispatch('xxx')` でコンポーネント内でアクションをディスパッチできます。あるいはコンポーネントのメソッドを `store.dispatch` にマッピングする `mapActions` ヘルパーを使うこともできます（ルートの `store` が必要です）:
+`this.$store.dispatch('xxx')` でコンポーネント内でアクションをディスパッチできます。あるいはコンポーネントのメソッドを `store.dispatch` にマッピングする `mapActions` ヘルパーを使うこともできます（ルートの `store` の注入が必要です）:
 
 ``` js
 import { mapActions } from 'vuex'
@@ -158,7 +158,7 @@ actions: {
 最終的に JavaScript の機能として近く導入される [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使用することで、次のようにアクションを組み合わせることができます:
 
 ``` js
-// getData() と getOtherData() を受け取って Promises を返す
+// getData() と getOtherData() が Promise を返すことを想定している
 
 actions: {
   async actionA ({ commit }) {
