@@ -84,7 +84,7 @@ export default {
 ゲッターを異なる名前でマッピングさせたいときはオブジェクトを使います:
 
 ``` js
-mapGetters({
+...mapGetters({
   // this.doneCount を store.getters.doneTodosCount にマッピングさせる
   doneCount: 'doneTodosCount'
 })
