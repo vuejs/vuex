@@ -7,7 +7,7 @@
 - [Installation](installation.md)
 - [What is Vuex?](intro.md)
 - [Getting Started](getting-started.md)
-- [Core Concepts](state.md)
+- [Core Concepts](core-concepts.md)
   - [State](state.md)
   - [Getters](getters.md)
   - [Mutations](mutations.md)
