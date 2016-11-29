@@ -1,4 +1,4 @@
-# API Reference
+# API-Referenz
 
 ### Vuex.Store
 
@@ -8,62 +8,62 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Vuex.Store Constructor Options
+### Optionen des Konstruktors von Vuex.Store
 
-- **state**
+- **State**
 
-  - type: `Object`
+  - Typ: `Object`
 
-    The root state object for the Vuex store.
+    Das Root-State-Objekt für den Vuex-Store.
 
     [Details](state.md)
 
-- **mutations**
+- **Mutations**
 
-  - type: `{ [type: string]: Function }`
+  - Typ: `{ [type: string]: Function }`
 
-    Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
+    Registriere Mutations im Store. die Handler-Funktion erhält immer `state` als erstes Argument (wäre lokaler Modul-State, wenn definiert in einem Modul) und erhält ein zweites `payload`-Argument, sofern vorhanden.
 
     [Details](mutations.md)
 
-- **actions**
+- **Actions**
 
-  - type: `{ [type: string]: Function }`
+  - Typ: `{ [type: string]: Function }`
 
-    Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+    Registriere Actions im Store. Die Handler-Funktion erhält ein `context`-Objekt, welche folgende Eigenschaften freilegt:
 
     ``` js
     {
-      state,     // same as store.state, or local state if in modules
-      rootState, // same as store.state, only in modules
-      commit,    // same as store.commit
-      dispatch,  // same as store.dispatch
-      getters    // same as store.getters
+      state,     // gleich store.state oder lokalen State in Modulen
+      rootState, // gleich store.state, nur in Modulen
+      commit,    // gleich store.commit
+      dispatch,  // gleich store.dispatch
+      getters    // gleich store.getters
     }
     ```
 
     [Details](actions.md)
 
-- **getters**
+- **Getters**
 
-  - type: `{ [key: string]: Function }`
+  - Typ: `{ [key: string]: Function }`
 
-    Register getters on the store. The getter function receives the following arguments:
-    
+    Registriere Getters im Store. Die Getter-Funktion erhält folgende Argumente:
+
+    ``` js
+    state,     // wäre lokaler Modul-State, wenn definiert in einem Modul
+    getters,   // gleich store.getters
+    rootState  // gleich store.state
     ```
-    state,     // will be module local state if defined in a module.
-    getters,   // same as store.getters
-    rootState  // same as store.state
-    ```
-    Registered getters are exposed on `store.getters`.
+    Registrierte Getters sind erreichbar in `store.getters`.
 
     [Details](getters.md)
 
-- **modules**
+- **Modules**
 
-  - type: `Object`
+  - Typ: `Object`
 
-    An object containing sub modules to be merged into the store, in the shape of:
+    Ein Objekt, welches Sub-Module enthält, die mit dem Store zusammengefügt werden:
 
     ``` js
     {
@@ -78,42 +78,42 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+    Jedes Modul kann `state` und `mutations` ähnlich den Root-Optionen enthalten. Ein State des Moduls wird an den Root-State des Stores mithilfe des Modulschlüssels angehängt. Mutations und Getters eines Moduls erhalten lediglich den lokalen State als erstes Argument anstelle des Root-States. Zudem ist `context.state` der Modul-Actions ausgerichtet nach dem lokalen State.
 
     [Details](modules.md)
 
-- **plugins**
+- **Plugins**
 
-  - type: `Array<Function>`
+  - Typ: `Array<Function>`
 
-    An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+    Ein Array von Plugin-Funktionen, welche auf den Store angewandt werden. Das Plugin erhält den Store als einziges Argument und hört entweder auf Mutations (für ausgehende Datenpersistenz, Logging oder Debugging) oder versendet Mutations (für eingehende Daten, zB. Websockets oder beobachtbare Daten)
 
     [Details](plugins.md)
 
-- **strict**
+- **Strict**
 
-  - type: `Boolean`
-  - default: `false`
+  - Typ: `Boolean`
+  - Default: `false`
 
     Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
 
     [Details](strict.md)
 
-### Vuex.Store Instance Properties
+### Instanzeigenschaft von Vuex.Store
 
-- **state**
+- **State**
 
-  - type: `Object`
+  - Typ: `Object`
 
     The root state. Read only.
 
-- **getters**
+- **Getters**
 
-  - type: `Object`
+  - Typ: `Object`
 
     Exposes registered getters. Read only.
 
-### Vuex.Store Instance Methods
+### Instanzmethoden von Vuex.Store
 
 - **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
