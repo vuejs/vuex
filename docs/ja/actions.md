@@ -76,7 +76,7 @@ store.dispatch({
 
 ``` js
 actions: {
-  checkout ({ commit, state }, payload) {
+  checkout ({ commit, state }, products) {
     // 現在のカート内の商品を保存する
     const savedCartItems = [...state.cart.added]
     // チェックアウトのリクエストを送信し、楽観的にカート内をクリアする
