@@ -1,7 +1,7 @@
 
 # Getters
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+Manchmal ist es nötig abgeleiteten State basierend auf den Store-State zu bearbeiten, zum Beispiel für das Filtern und Zählen von Listelementen:
 
 ``` js
 computed: {
@@ -11,9 +11,9 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+Wenn mehr als eine Komponente davon Gebrauch macht, muss man entwender die Funktion duplizieren oder es in einen geteilten Helfer extrahieren, um es an mehreren Orten wieder zu importieren. Beide Wege sind nicht ideal.
 
-Vuex allows us to define "getters" in the store (think of them as computed properties for stores). Getters will receive the state as their 1st argument:
+Vuex ermöglicht die Definition von Getters im Store. Man könnte sie als Computed Properties für den Store ansehen. Getters erhalten den State als ihr erstes Argument:
 
 ``` js
 const store = new Vuex.Store({
@@ -31,13 +31,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The getters will be exposed on the `store.getters` object:
+Getters werden im `store.getters`-Objekt freigelegt:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+Getters erhalten auch andere Getters als zweites Argument:
 
 ``` js
 getters: {
@@ -52,7 +52,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+Jetzt kann man einfachen Gebrauch von ihnen innerhalb der Komponente machen:
 
 ``` js
 computed: {
@@ -62,9 +62,9 @@ computed: {
 }
 ```
 
-### The `mapGetters` Helper
+### Der `mapGetters`-Helfer
 
-The `mapGetters` helper simply maps store getters to local computed properties:
+Der `mapGetters`-Helfer verbindet lediglich Store-Getters mit lokalen Computed Properties:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -72,7 +72,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // Mische die Getters in 'computed' mit dem Object Spread Operator.
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -82,11 +82,11 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+Ist ein Getter mit einem anderen Namen gewünscht ist, schreibt man es als Objekt:
 
 ``` js
 ...mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+  // Binde 'this.doneCount' mit 'store.getters.doneTodosCount'.
   doneCount: 'doneTodosCount'
 })
 ```
