@@ -1,18 +1,18 @@
 # Plugins
 
-Vuex stores accept the `plugins` option that exposes hooks for each mutation. A Vuex plugin is simply a function that receives the store as the only argument:
+Vuex-Store akzeptiert die `plugins`-Option, welche Hooks für jede Mutation freilegt. Ein Vuex-Plugin ist lediglich eine Funktion, das den Store als einziges Argument erhält:
 
 ``` js
 const myPlugin = store => {
-  // called when the store is initialized
+  // Aufgerufen, wenn der Store initialisiert ist.
   store.subscribe((mutation, state) => {
-    // called after every mutation.
-    // The mutation comes in the format of { type, payload }.
+    // Aufgerufen nach jeder Mutation.
+    // Die Mutation liegt im Format "{ type, payload }" vor.
   })
 }
 ```
 
-And can be used like this:
+Und es kann wie folgt genutzt werden:
 
 ``` js
 const store = new Vuex.Store({
@@ -21,11 +21,13 @@ const store = new Vuex.Store({
 })
 ```
 
-### Committing Mutations Inside Plugins
+### Commit Mutations innerhalb von Plugins
 
-Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by committing mutations.
+Plugins haben nicht die Erlaubnis State direkt zu verändern. Ähnlich wie Komponenten können sie lediglich Änderungen durch Mutation-Committing einleiten.
 
-By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
+Durch Mutation-Committing kann das Plugin Datenquellen mit dem Store synchronisieren. Um zum Beispiel eine Websocket-Datenquelle mit dem Store zu synchronisieren:
+
+> Dies ist lediglich ein erfundenes Beispiel. In Realität kann die `createPlugin`-Funktion zusätzliche Optionen für komplexere Aufgaben aufnehmen.
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -52,9 +54,9 @@ const store = new Vuex.Store({
 })
 ```
 
-### Taking State Snapshots
+### State-Schnappschüsse aufnehmen
 
-Sometimes a plugin may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. To achieve that, you will need to perform a deep-copy on the state object:
+Manchmal soll das Plugin Schnappschüsse (Snapshots) des States aufnehmen und ebenfalls den State vor und nach der Mutation vergleichen. Um dies zu erreichen, muss eine tiefgehende Kopie des State-Objekts erfolgen:
 
 ``` js
 const myPluginWithSnapshot = store => {
@@ -62,15 +64,15 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // compare prevState and nextState...
+    // Vergleiche 'PrevState' und 'nextState'.
 
-    // save state for next mutation
+    // Sichere 'state' für nächste Mutation.
     prevState = nextState
   })
 }
 ```
 
-**Plugins that take state snapshots should be used only during development.** When using Webpack or Browserify, we can let our build tools handle that for us:
+**Plugins, die State-Schnappschüsse aufnehmen, sollten nur während der Entwicklungsphase genutzt werden.** In Verbindung mit Webpack oder Browserify können wir das automatisieren:
 
 ``` js
 const store = new Vuex.Store({
@@ -81,13 +83,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The plugin will be used by default. For production, you will need [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) for Webpack or [envify](https://github.com/hughsk/envify) for Browserify to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
+Das Plugin wird standardmäßig eingesetzt. Für die Produktionsphase werden [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) für Webpack oder [envify](https://github.com/hughsk/envify) für Browserify benötigt, um den Wert von `process.env.NODE_ENV !== 'production'` zu `false` für das finale Build zu konvertieren.
 
-### Built-in Logger Plugin
+### Eingebautes Logger-Plugin
 
-> If you are using [vue-devtools](https://github.com/vuejs/vue-devtools) you probably don't need this.
+> In Verbindung mit [vue-devtools](https://github.com/vuejs/vue-devtools) ist das womöglich nicht nötig.
 
-Vuex comes with a logger plugin for common debugging usage:
+Vuex hat ebenfalls ein Logger-PLugin (Log = Protokoll) für häufigen Debugging-Gebrauch:
 
 ``` js
 import createLogger from 'vuex/dist/logger'
@@ -97,24 +99,24 @@ const store = new Vuex.Store({
 })
 ```
 
-The `createLogger` function takes a few options:
+Die `createLogger`-Funktion hat einige Optionen:
 
 ``` js
 const logger = createLogger({
-  collapsed: false, // auto-expand logged mutations
+  collapsed: false, // automatische Expandierung von protokollierten Mutations
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // Transformiere den State vor Protokollierung,
+    // zB. gib bestimmten Sub-Tree wieder.
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of { type, payload }
-    // we can format it any way we want.
+    // Mutations werden als "{ type, payload }" protokolliert.
+    // Es ist wie gewünscht formatierbar.
     return mutation.type
   }
 })
 ```
 
-The logger file can also be included directly via a `<script>` tag, and will expose the `createVuexLogger` function globally.
+Die Logger-Date kann auch direkt via `<script>`-Tag eingebunden werden und stellt die `createVuexLogger`-Function global zur Verfügung.
 
-Note the logger plugin takes state snapshots, so use it only during development.
+> Merke: Das Logger-Plugin nimmt State-Schnappschüsse auf. Nutze es demnach während der Entwicklung, nicht zur Veröffentlichung!
