@@ -1,24 +1,27 @@
-# What is Vuex?
+# Was ist Vuex?
 
-Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
+Vuex ist eine **Vorlage und Bibliothek für State-Management** (Organisation von Zuständen) für Apps in Vue.js. Es dient als eine zentralisierte Ablage mit festgelegten Regeln für alle Komponenten einer App, zB. dass State nur auf bestimmte Art und Weise verändert werden darf.
 
-### What is a "State Management Pattern"?
+Es ist auch Teil von Vues offizieller [DevTools-Erweiterung](https://github.com/vuejs/vue-devtools), um erweiterte Features wie konfigurationsfreies, zeitreisendes Debugging und Import/Export von State-Snappshots (Schnappschüsse) zu ermöglichen.
 
-Let's start with a simple Vue counter app:
+
+### Was ist eine "State-Management-Vorlage"?
+
+Beginnen wir mit einer simplen Counter-App in Vue:
 
 ``` js
 new Vue({
-  // state
+  // State
   data () {
     return {
       count: 0
     }
   },
-  // view
+  // View
   template: `
     <div>{{ count }}</div>
   `,
-  // actions
+  // Actions
   methods: {
     increment () {
       this.count++
@@ -27,37 +30,48 @@ new Vue({
 })
 ```
 
-It is a self-contained app with the following parts:
+Es ist eine in sich geschlossene App bestehenden aus folgenden Teilen:
 
-- The **state**, which is the source of truth that drives our app;
-- The **view**, which is just a declarative mapping of the **state**;
-- The **actions**, which are the possible ways the state could change in reaction to user inputs from the **view**.
+- Der **State** (Zustand), welcher die [Source of Truth (Quelle der Wahrheit)](https://de.wikipedia.org/wiki/SPOT_(Datenmanagement) ist.
+- Der **View** (Ansicht), welcher lediglich eine deklarative Verbindung zum State darstellt.
+- Die **Actions** (Aktionen), welche die Möglichkeit bieten den State anhand von Benutzerinteraktionen zu ändern.
 
-This is an extremely simple representation of the concept of "one-way data flow":
+Dies ist eine extrem einfache Form des Konzepts des **one-way Data Flows** (einseitiger Datenfluss):
 
 <p style="text-align: center; margin: 2em">
   <img style="max-width:450px;" src="./images/flow.png">
 </p>
 
-However, the simplicity quickly breaks down when we have **multiple components that share common state**:
+Allerdings fällt diese Einfachheit schnell in sich zusammen, wenn **mehrere Komponenten vorhanden sind, die den gleichen State teilen:**
 
-- Multiple views may depend on the same piece of state.
-- Actions from different views may need to mutate the same piece of state.
+- Mehrere Views können abhängig vom gleichen Teil des States sein.
+- Actions aus verschiedenen Views können den gleichen Teil des States verändern.
 
-For problem one, passing props can be tedious for deeply nested components, and simply doesn't work for sibling components. For problem two, we often find ourselves resorting to solutions such as reaching for direct parent/child instance references or trying to mutate and synchronize multiple copies of the state via events. Both of these patterns are brittle and quickly lead to unmaintainable code.
+Zum ersten Problem sei gesagt, dass es zwar möglich, aber anstrengend ist Props in tief verschachtelte Komponenten überzugeben und es für Sibling-Komponenten erst gar nicht funktioniert.
 
-So why don't we extract the shared state out of the components, and manage it in a global singleton? With this, our component tree becomes a big "view", and any component can access the state or trigger actions, no matter where they are in the tree!
+Das zweite Problem löst man gern mit direkter Referenz der Parent-/Child-Instanz oder dem Versuch mehrere Kopien des States via Events zu ändern und zu synchronisieren.
 
-In addition, by defining and separating the concepts involved in state management and enforcing certain rules, we also give our code more structure and maintainability.
+Beide Lösungen führen schnell zu schwer instandhaltbaren Code.
 
-This is the basic idea behind Vuex, inspired by [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) and [The Elm Architecture](https://guide.elm-lang.org/architecture/). Unlike the other patterns, Vuex is also a library implementation tailored specifically for Vue.js to take advantage of its granular reactivity system for efficient updates.
+Demnach wäre es sinnvoll den von mehreren Komponenten geteilte State zu extrahieren, um es in einer globalen Einheit zu organisieren. Damit wird der Verzeichnisbaum aller Komponenten zu einem großen "View" und jede Komponente hat Zugang zum State und kann Actions auslösen - völlig egal, wo sie sich befinden!
+
+Darüberhinaus wird durch Definition und Aufteilung der Konzepte, welche den State-Management und das Festlegen bestimmter Regeln ausmachen, der Code wesentlich übersichtlicher und einfacher instand zu halten.
+
+
+Das ist die grundlegende Idee hinter Vuex - inspiriert durch [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) und [The Elm Architecture](https://guide.elm-lang.org/architecture/). Anders als die anderen ist Vuex eine Implementierung, die speziell auf Vue.js zugeschnitten ist und demnach vollen Nutzen des Reaktivitätssystems für effiziente Updates nehmen kann.
 
 ![vuex](./images/vuex.png)
 
-### When Should I Use It?
+### Wann sollte ich es nutzen?
 
-Although Vuex helps us deal with shared state management, it also comes with the cost of more concepts and boilerplate. It's a trade-off between short term and long term productivity.
+Obwohl Vuex uns bei der Arbeit mit geteiltem State-Management hilft, kommt es auch mit Kosten wie weiterem Konzeptverständnis und mehr Boilerplate. Man muss abwägen zwischen kurzzeitiger und langzeitiger Produktivität.
 
-If you've never built a large-scale SPA and jump right into Vuex, it may feel verbose and daunting. That's perfectly normal - if your app is simple, you will most likely be fine without Vuex. A simple [global event bus](http://vuejs.org/guide/components.html#Non-Parent-Child-Communication) may be all you need. But if you are building a medium-to-large-scale SPA, chances are you have run into situations that make you think about how to better handle state outside of your Vue components, and Vuex will be natural next step for you. There's a good quote from Dan Abramov, the author of Redux:
+Solltest du noch nie eine größere SPA (Single Page App) geschrieben haben, kann Vuex langatmig oder gar abschreckend wirken - das ist völlig normal.
 
-> Flux libraries are like glasses: you’ll know when you need them.
+Wenn die App simpel aufgebaut ist, wird Vuex womöglich erst gar nicht nötig sein. Ein simpler [Global Event Bus](http://vuejs.org/guide/components.html#Non-Parent-Child-Communication) würde auch reichen.
+
+Wenn es jedoch um mittlere bis große SPAs geht, könnte es gut sein, dass Probleme zum Handhaben des States in Vue-Komponenten auftraten. Hierfür ist Vuex der nächste Schritt.
+
+Ein wunderbares Zitat von Dan Abramov, dem Autor von Redux:
+
+> Flux-Bibliotheken sind wie Brillen: Du weißt Bescheid, wenn du sie brauchst.
