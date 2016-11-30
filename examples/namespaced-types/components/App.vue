@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="handleFormSubmit">
-  <fieldset>
-    <legend>Your username is: '{{ username }}'</legend>
-    <input type="text" name="username" placeholder="Change username..." required>
-    <input type="submit">
+    <fieldset>
+      <legend>Your username is: '{{ username }}'</legend>
+      <input type="text" name="username" placeholder="Change username..." required>
+      <input type="submit">
     </fieldset>
   </form>
 </template>
