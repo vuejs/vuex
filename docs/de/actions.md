@@ -1,11 +1,11 @@
 # Actions
 
-Actions are similar to mutations, the difference being that:
+Actions ähneln Mutations, die Unterschiede sind:
 
-- Instead of mutating the state, actions commit mutations.
-- Actions can contain arbitrary asynchronous operations.
+- Actions committen Mutations, anstelle den State zu ändern.
+- Actions können beliebige asynchrone Operationen enthalten.
 
-Let's register a simple action:
+Die Registrierung einer einfachen Action:
 
 ``` js
 const store = new Vuex.Store({
@@ -25,9 +25,11 @@ const store = new Vuex.Store({
 })
 ```
 
-Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
+Action-Handler erhalten ein Kontextobjekt, welche die gleichen Sets von Methoden/Eigenschaften wie in der Store-Instanz freigeben. Sodass durch Aufrufen von `context.commit` eine Mutation committed werden kann oder auf den State und die Getters via `context.state` und `context.getters` zugegriffen werden können. Wir werden sehen, wieso das Kontextobjekt nicht die Store-Instanz selbst ist, wenn wir zu [Modulen](modules.md) kommen. 
 
 In practice, we often use ES2015 [argument destructuring](https://github.com/lukehoban/es6features#destructuring) to simplify the code a bit (especially when we need to call `commit` multiple times):
+
+
 
 ``` js
 actions: {
