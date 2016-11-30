@@ -172,9 +172,9 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapActions(map: Array<string> | Object): Object`**
 
-  アクションをディスパッチするコンポーネントメソッドオプションを作成します。[詳細](actions.md#dispatching-actions-in-components)
+  アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](actions.md#dispatching-actions-in-components)
 
 - **`mapMutations(map: Array<string> | Object): Object`**
 
-  ミューテーションをコミットするコンポーネントメソッドオプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
+  ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
 
