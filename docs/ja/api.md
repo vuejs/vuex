@@ -103,31 +103,31 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store インスタンスプロパティ
 
-  - **state**
+- **state**
 
   - type: `Object`
 
-  ルートステート、読み取り専用です。
+    ルートステート、読み取り専用です。
 
 - **getters**
 
   - type: `Object`
 
-  登録されているゲッターを公開します。読み取り専用です。
+    登録されているゲッターを公開します。読み取り専用です。
 
 ### Vuex.Store インスタンスメソッド
 
 - **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-ミューテーションをコミットします。[詳細](mutations.md)
+  ミューテーションをコミットします。[詳細](mutations.md)
 
 - **`dispatch(mutationName: String, ...args) | dispatch(mutation: Object)`**
 
-アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
+  アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
 
 - **`replaceState(state: Object)`**
 
-ストアのルートステートを置き換えます。これは、ステートの水和やタイムトラベルのためだけに利用すべきです。
+  ストアのルートステートを置き換えます。これは、ステートの水和やタイムトラベルのためだけに利用すべきです。
 
 - **`watch(getter: Function, cb: Function, [options: Object])`**
 
@@ -150,15 +150,15 @@ const store = new Vuex.Store({ ...options })
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-動的なモジュールを登録します。[詳細](modules.md#dynamic-module-registration)
+  動的なモジュールを登録します。[詳細](modules.md#dynamic-module-registration)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-動的なモジュールを解除します。[詳細](modules.md#dynamic-module-registration)
+  動的なモジュールを解除します。[詳細](modules.md#dynamic-module-registration)
 
 - **`hotUpdate(newOptions: Object)`**
 
-新しいアクションとミューテーションでホットスワップします。[詳細](hot-reload.md)
+  新しいアクションとミューテーションでホットスワップします。[詳細](hot-reload.md)
 
 ### コンポーネントをバインドするヘルパー
 
