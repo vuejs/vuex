@@ -123,7 +123,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`dispatch(mutationName: String, ...args) | dispatch(mutation: Object)`**
 
-アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するプロミスを返します。[詳細](actions.md)
+アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
 
 - **`replaceState(state: Object)`**
 
