@@ -56,7 +56,7 @@ const store = new Vuex.Store({ ...options })
     rootState  // store.state と同じ
     ```
 
-    登録されたゲッターは `store.getters` 上で外から見えるようになります。
+    登録されたゲッターは `store.getters` 上に公開されます。
 
     [詳細](getters.md)
 
@@ -113,7 +113,7 @@ const store = new Vuex.Store({ ...options })
 
   - type: `Object`
 
-  登録されているゲッターを見せます。読み取り専用です。
+  登録されているゲッターを公開します。読み取り専用です。
 
 ### Vuex.Store インスタンスメソッド
 
