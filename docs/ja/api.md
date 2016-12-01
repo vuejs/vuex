@@ -14,7 +14,7 @@ const store = new Vuex.Store({ ...options })
 
   - 型: `Object`
 
-    Vuex store のための ルートステートオブジェクトです。
+    ストアのための ルートステートオブジェクトです。
 
     [詳細](state.md)
 
@@ -22,7 +22,7 @@ const store = new Vuex.Store({ ...options })
 
   - 型: `{ [type: string]: Function }`
 
-    Vuex storeにミューテーションを登録します。ハンドラ関数は第一引数に `state` を常に受け取り(またモジュール内で定義されていれば、ローカルステートをモジュール化し)、指定されていれば第二引数に `payload` を受け取ります。
+    ストアにミューテーションを登録します。ハンドラ関数は第一引数に `state` を常に受け取り(またモジュール内で定義されていれば、ローカルステートをモジュール化し)、指定されていれば第二引数に `payload` を受け取ります。
 
     [詳細](mutations.md)
 
@@ -30,7 +30,7 @@ const store = new Vuex.Store({ ...options })
 
   - 型: `{ [type: string]: Function }`
 
-    Vuex storeにアクションを登録します。ハンドラ関数は次のプロパティを持つ `context` オブジェクトを受け取ります。:
+    ストアにアクションを登録します。ハンドラ関数は次のプロパティを持つ `context` オブジェクトを受け取ります。:
 
     ``` js
     {
@@ -48,7 +48,7 @@ const store = new Vuex.Store({ ...options })
 
   - type: `{ [key: string]: Function }`
 
-    Vuex storeにゲッターを登録します. ゲッター関数は次の引数を受け取ります:
+    ストアにゲッターを登録します. ゲッター関数は次の引数を受け取ります:
 
     ```
     state,     // モジュール内で定義されていればローカルステートをモジュール化します
@@ -164,7 +164,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(map: Array<string> | Object): Object`**
 
-  Vuex storeのサブツリーを返すオプションを計算したコンポーネントを作成します。[詳細](state.md#the-mapstate-helper)
+  ストアのサブツリーを返すオプションを計算したコンポーネントを作成します。[詳細](state.md#the-mapstate-helper)
 
 - **`mapGetters(map: Array<string> | Object): Object`**
 
