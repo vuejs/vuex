@@ -164,11 +164,11 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(map: Array<string> | Object): Object`**
 
-  ストアのサブツリーを返すオプションを計算したコンポーネントを作成します。[詳細](state.md#the-mapstate-helper)
+  ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](state.md#the-mapstate-helper)
 
 - **`mapGetters(map: Array<string> | Object): Object`**
 
-  ゲッターの評価後の値を返すオプションを計算したコンポーネントを作成します。[詳細](getters.md#the-mapgetters-helper)
+  ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](getters.md#the-mapgetters-helper)
 
 - **`mapActions(map: Array<string> | Object): Object`**
 
