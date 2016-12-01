@@ -146,7 +146,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  もっともよく利用されるプラグインです。[詳細](plugins.md)
+  プラグインの中でももっともよく利用されます。[詳細](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
@@ -158,7 +158,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`hotUpdate(newOptions: Object)`**
 
-  新しいアクションとミューテーションでホットスワップします。[詳細](hot-reload.md)
+  新しいアクションとミューテーションをホットスワップします。[詳細](hot-reload.md)
 
 ### コンポーネントをバインドするヘルパー
 
@@ -177,4 +177,3 @@ const store = new Vuex.Store({ ...options })
 - **`mapMutations(map: Array<string> | Object): Object`**
 
   ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
-
