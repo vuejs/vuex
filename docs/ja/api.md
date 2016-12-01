@@ -121,7 +121,7 @@ const store = new Vuex.Store({ ...options })
 
   ミューテーションをコミットします。[詳細](mutations.md)
 
-- **`dispatch(mutationName: String, ...args) | dispatch(mutation: Object)`**
+- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
   アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
 
@@ -129,7 +129,7 @@ const store = new Vuex.Store({ ...options })
 
   ストアのルートステートを置き換えます。これは、ステートの水和やタイムトラベルのためだけに利用すべきです。
 
-- **`watch(getter: Function, cb: Function, [options: Object])`**
+- **`watch(getter: Function, cb: Function, options?: Object)`**
 
   リアクティブにゲッター関数の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの状態のみを引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
 
