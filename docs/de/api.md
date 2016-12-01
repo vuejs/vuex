@@ -22,7 +22,7 @@ const store = new Vuex.Store({ ...options })
 
   - Typ: `{ [type: string]: Function }`
 
-    Registriere Mutations im Store. die Handler-Funktion erhält immer `state` als erstes Argument (wäre lokaler Modul-State, wenn definiert in einem Modul) und erhält ein zweites `payload`-Argument, sofern vorhanden.
+    Registriere Mutations im Store. Die Handler-Funktion erhält immer `state` als erstes Argument (wäre lokaler Modul-State, wenn definiert in einem Modul) und erhält ein zweites `payload`-Argument, sofern vorhanden.
 
     [Details](mutations.md)
 
@@ -95,83 +95,85 @@ const store = new Vuex.Store({ ...options })
   - Typ: `Boolean`
   - Default: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+    Zwinge den Vuex-Store in den Strict-Mode. Im Strict-Mode gibt jede Mutation des Vuex-States außerhalb des Mutation-Handlers einen Fehler aus.
 
     [Details](strict.md)
 
-### Instanzeigenschaft von Vuex.Store
+### Instanzeigenschaften von Vuex.Store
 
 - **State**
 
   - Typ: `Object`
 
-    The root state. Read only.
+    Der Root-State. Schreibgeschützt.
 
 - **Getters**
 
   - Typ: `Object`
 
-    Exposes registered getters. Read only.
+    Stellt registrierte Getter frei. Schreibgeschützt.
 
 ### Instanzmethoden von Vuex.Store
 
 - **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-  Commit a mutation. [Details](mutations.md)
+  Committe eine Mutation. [Details](mutations.md)
 
 - **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
-  Dispatch an action. Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
+  Versende eine Action. Gibt einen Promise wieder, welche alle ausgelösten Action-Handler auflöst. [Details](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  Tausche den Root-State des Stores aus. Nutze dies nur für State-Hydration/Zeitreise.
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Observiere reaktionsfähig den wiedergegebenen Wert einer Getter-Funktion und rufe den Callback, wenn der Wert geändert wird. Der Getter erhält den State des Stores als einziges Argument. Akzeptiert ein optionales Objekt der Optionen mit den gleichen Optionen wie in Vues `vm.$watch`-Methode.
 
-  To stop watching, call the returned handle function.
+  Um die Observierung zu stoppen, rufe die Handle-Funktion auf.
 
 - **`subscribe(handler: Function)`**
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Abonniere Store-Mutations. Der `handler` wird nach jeder Mutation aufgerufen und erhält den Mutation-Descriptor und Post-Mutation:
 
-  ``` js
+  ``` js
   store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
   })
   ```
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Meist genutzt in Plugins. [Details](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-  Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Registriere ein dynamisches Modul. [Details](modules.md#dynamic-module-registration)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Deregistriere ein dynamisches Modul. [Details](modules.md#dynamic-module-registration)
 
 - **`hotUpdate(newOptions: Object)`**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  Tausche neue Actions und Mutations heiß aus (hot swap). [Details](hot-reload.md)
 
-### Component Binding Helpers
+
+### Bindungshelfer von Komponenten
 
 - **`mapState(map: Array<string> | Object): Object`**
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
+  Erstelle berechnete Optionen für Komponenten, die den Sub-Tree des Vuex-Stores wiedergeben. [Details](state.md#the-mapstate-helper)
 
 - **`mapGetters(map: Array<string> | Object): Object`**
 
-  Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
+  Erstelle berechnete Optionen für Komponenten, die den ausgewerteten Wert eines Getters wiedergeben. [Details](getters.md#the-mapgetters-helper)
+
 
 - **`mapActions(map: Array<string> | Object): Object`**
 
-  Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
+  Erstelle berechnete Optionen für Komponenten, die eine Action versenden. [Details](actions.md#dispatching-actions-in-components)
 
 - **`mapMutations(map: Array<string> | Object): Object`**
 
-  Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
+  Erstelle berechnete Optionen für Komponenten, die eine Mutation committen. [Details](mutations.md#commiting-mutations-in-components)
