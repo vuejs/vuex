@@ -127,7 +127,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`replaceState(state: Object)`**
 
-  ストアのルートステートを置き換えます。これは、ステートの水和やタイムトラベルのためだけに利用すべきです。
+  ストアのルートステートを置き換えます。これは、ステートのハイドレーションやタイムトラベルのためだけに利用すべきです。
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
