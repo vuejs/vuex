@@ -141,9 +141,9 @@ const store = new Vuex.Store({ ...options })
 
   ``` js
   store.subscribe((mutation, state) => {
-      console.log(mutation.type)
-      console.log(mutation.payload)
-      })
+    console.log(mutation.type)
+    console.log(mutation.payload)
+  })
   ```
 
   もっともよく利用されるプラグインです。[詳細](plugins.md)
