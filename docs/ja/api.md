@@ -146,7 +146,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  プラグインの中でももっともよく利用されます。[詳細](plugins.md)
+  プラグインの中でもっともよく利用されます。[詳細](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
