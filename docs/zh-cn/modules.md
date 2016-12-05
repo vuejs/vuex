@@ -2,7 +2,7 @@
 
 使用单一状态树，导致应用的所有状态集中到一个很大的对象。但是，当应用变得很大时，store 对象会变得臃肿不堪。
 
-为了解决以上问题，Vuex 运行我们将 store 分割到**模块（module）**。每个模块拥有自己的 state、mutation、action、getters、甚至是嵌套子模块——从上至下进行类似的分割：
+为了解决以上问题，Vuex 允许我们将 store 分割到**模块（module）**。每个模块拥有自己的 state、mutation、action、getters、甚至是嵌套子模块——从上至下进行类似的分割：
 
 ``` js
 const moduleA = {
@@ -29,16 +29,16 @@ store.state.a // -> moduleA 的状态
 store.state.b // -> moduleB 的状态
 ```
 
-### 模块的本地状态
+### 模块的局部状态
 
-对于模块内部的 mutation 和 getter，接收的第一个参数是**模块的本地状态**。
+对于模块内部的 mutation 和 getter，接收的第一个参数是**模块的局部状态**。
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment: (state) {
-      // state 模块的本地状态
+      // state 模块的局部状态
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-同样，对于模块内部的 action，`context.state` 是本地状态，根节点的状态是 `context.rootState`:
+同样，对于模块内部的 action，`context.state` 是局部状态，根节点的状态是 `context.rootState`:
 
 ``` js
 const moduleA = {
@@ -96,7 +96,7 @@ export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 // modules/todos.js
 import * as types from '../types'
 
-// 实用添加了前缀的名称定义 getter、action 和 mutation
+// 使用添加了前缀的名称定义 getter、action 和 mutation
 const todosModule = {
   state: { todos: [] },
 

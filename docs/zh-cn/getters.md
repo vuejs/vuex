@@ -64,7 +64,7 @@ computed: {
 
 ### `mapGetters` 辅助函数
 
-`mapGetters` 辅助函数仅仅是将 store 中的 getters 映射到 本地计算属性：
+`mapGetters` 辅助函数仅仅是将 store 中的 getters 映射到局部计算属性：
 
 ``` js
 import { mapGetters } from 'vuex'
