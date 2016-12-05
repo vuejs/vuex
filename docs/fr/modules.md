@@ -83,9 +83,8 @@ const moduleA = {
 
 Notez que les actions, mutations et getters dans un module sont toujours enregistrés sous le **namespace global** &mdash; cela permet à plusieurs modules de réagir au même type de mutation/action. Vous pouvez répartir les modules dans des namespaces vous-mêmes afin d'éviter les conflits de nom en préfixant ou suffixant leurs noms. Et vous devriez probablement faire cela si vous utiliser un module Vuex réutilisable qui sera utilisé dans des environnements inconnus. Par exemple, nous voulons créer un module `todos` :
 
+###### types.js
 ``` js
-// types.js
-
 // on définit les noms des getters, actions et mutations en tant que constantes
 // et on les préfixe du nom du module `todos`
 export const DONE_COUNT = 'todos/DONE_COUNT'
@@ -93,8 +92,8 @@ export const FETCH_ALL = 'todos/FETCH_ALL'
 export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 ```
 
+###### modules/todos.js
 ``` js
-// modules/todos.js
 import * as types from '../types'
 
 // on définit les getters, actions et mutations en utilisant des noms préfixés
@@ -119,6 +118,27 @@ const todosModule = {
     }
   }
 }
+```
+
+###### components/SomeComponent.vue  
+``` js
+<script>
+import { mapGetters, mapActions } from 'vuex'
+import * as types from '../types'
+
+export default {
+  computed: {
+    ...mapGetters({
+      doneCount: types.DONE_COUNT
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchAllTodos: types.FETCH_ALL
+    })
+  }
+}
+</script>
 ```
 
 ### Enregistrement dynamique de module

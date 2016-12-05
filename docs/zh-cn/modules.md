@@ -83,17 +83,16 @@ const moduleA = {
 
 模块内部的 action、mutation、和 getter 现在仍然注册在**全局命名空间**——这样保证了多个模块能够响应同一 mutation 或 action。你可以通过添加前缀或后缀的方式隔离各模块，以避免名称冲突。你也可能希望写出一个可复用的模块，其使用环境不可控。例如，我们想创建一个 `todos` 模块：
 
+###### types.js
 ``` js
-// types.js
-
 // 定义 getter、action、和 mutation 的名称为常量，以模块名 `todos` 为前缀
 export const DONE_COUNT = 'todos/DONE_COUNT'
 export const FETCH_ALL = 'todos/FETCH_ALL'
 export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 ```
 
+###### modules/todos.js
 ``` js
-// modules/todos.js
 import * as types from '../types'
 
 // 使用添加了前缀的名称定义 getter、action 和 mutation
@@ -118,6 +117,27 @@ const todosModule = {
     }
   }
 }
+```
+
+###### components/SomeComponent.vue  
+``` js
+<script>
+import { mapGetters, mapActions } from 'vuex'
+import * as types from '../types'
+
+export default {
+  computed: {
+    ...mapGetters({
+      doneCount: types.DONE_COUNT
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchAllTodos: types.FETCH_ALL
+    })
+  }
+}
+</script>
 ```
 
 ### 模块动态注册
