@@ -76,7 +76,7 @@ store.dispatch({
 
 ``` js
 actions: {
-  checkout ({ commit, state }, payload) {
+  checkout ({ commit, state }, products) {
     // сохраним находящиеся на данный момент в корзине товары
     const savedCartItems = [...state.cart.added]
     // инициируем запрос и "оптимистично" очистим корзину
