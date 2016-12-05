@@ -4,7 +4,9 @@
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
+<!--email_off-->
 [Unpkg.com](https://unpkg.com) で NPM ベースの CDN リンクが提供されています。上記リンクは常に NPM の最新のリリースを指します。`https://unpkg.com/vuex@2.0.0` のような URL によって特定のバージョン/タグを利用することもできます。
+<!--/email_off-->
 
 Vue のあとで `vuex` を取り込むと自動的に Vuex が導入されます:
 
