@@ -53,7 +53,7 @@ class Store {
   }
 
   get state () {
-    return this._vm.state
+    return this._vm.$data.state
   }
 
   set state (v) {

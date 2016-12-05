@@ -76,7 +76,7 @@ A more practical example of real-world actions would be an action to checkout a 
 
 ``` js
 actions: {
-  checkout ({ commit, state }, payload) {
+  checkout ({ commit, state }, products) {
     // save the items currently in the cart
     const savedCartItems = [...state.cart.added]
     // send out checkout request, and optimistically
@@ -120,7 +120,7 @@ export default {
 
 Actions are often asynchronous, so how do we know when an action is done? And more importantly, how can we compose multiple actions together to handle more complex async flows?
 
-The first thing to know is that `store.dispatch` returns the value returned by the triggered action handler, so you can return a Promise in an action:
+The first thing to know is that `store.dispatch` can handle Promise returned by the triggered action handler and it also returns Promise:
 
 ``` js
 actions: {

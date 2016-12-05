@@ -9,6 +9,6 @@ export const incrementIfOdd = ({ commit, state }) => {
 
 export const incrementAsync = ({ commit }) => {
   setTimeout(() => {
-    commit('decrement')
+    commit('increment')
   }, 1000)
 }

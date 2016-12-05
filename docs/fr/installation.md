@@ -4,7 +4,9 @@
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
+<!--email_off-->
 [Unpkg.com](https://unpkg.com) fournit des liens CDN basés sur NPM. Le lien ci-dessus pointera toujours vers la dernière release sur NPM. Vous pouvez aussi utiliser un tag ou une version spécifique comme `https://unpkg.com/vuex@2.0.0`.
+<!--/email_off-->
 
 Incluez `vuex` après Vue et l'installation sera automatique :
 
