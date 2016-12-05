@@ -21,6 +21,12 @@ Vue のあとで `vuex` を取り込むと自動的に Vuex が導入されま�
 npm install vuex
 ```
 
+### Yarn
+
+``` bash
+yarn add vuex
+```
+
 モジュールシステムで利用される場合、 `Vue.use()` によって Vuex を明示的に導入する必要があります:
 
 ``` js

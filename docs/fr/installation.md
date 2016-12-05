@@ -21,6 +21,12 @@ Incluez `vuex` après Vue et l'installation sera automatique :
 npm install vuex
 ```
 
+### Yarn
+
+``` bash
+yarn add vuex
+```
+
 Lorsque vous utilisez un système de modules, vous devez explicitement installer le router via `Vue.use()`:
 
 ``` js
