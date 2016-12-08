@@ -57,10 +57,10 @@ Example testing an async action:
 // actions.js
 import shop from '../api/shop'
 
-export const getAllProducts = ({ dispatch }) => {
-  dispatch('REQUEST_PRODUCTS')
+export const getAllProducts = ({ commit }) => {
+  commit('REQUEST_PRODUCTS')
   shop.getProducts(products => {
-    dispatch('RECEIVE_PRODUCTS', products)
+    commit('RECEIVE_PRODUCTS', products)
   })
 }
 ```
