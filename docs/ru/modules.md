@@ -83,9 +83,8 @@ const moduleA = {
 
 Обратите внимание, что действия, мутации и геттеры, определённые внутри модулей, тем не менее регистрируются в **глобальном пространстве имён** — это позволяет нескольким модулям реагировать на один и тот же тип мутации или действия. Избежать конфликта пространства имён вы можете, указывая для них префикс или суффикс. При создании пригодных для повторного использования модулей Vuex, пожалуй, так поступать даже нужно — кто знает, в каком окружении их будут использовать? Например, предположим что мы создаём модуль `todos`:
 
+###### types.js
 ``` js
-// types.js
-
 // определим названия геттеров, действий и мутаций как константы
 // используя название модуля (`todos`) в качестве префикса
 export const DONE_COUNT = 'todos/DONE_COUNT'
@@ -93,8 +92,8 @@ export const FETCH_ALL = 'todos/FETCH_ALL'
 export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 ```
 
+###### modules/todos.js
 ``` js
-// modules/todos.js
 import * as types from '../types'
 
 // теперь используем определённые выше константы
@@ -119,6 +118,27 @@ const todosModule = {
     }
   }
 }
+```
+
+###### components/SomeComponent.vue  
+``` js
+<script>
+import { mapGetters, mapActions } from 'vuex'
+import * as types from '../types'
+
+export default {
+  computed: {
+    ...mapGetters({
+      doneCount: types.DONE_COUNT
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchAllTodos: types.FETCH_ALL
+    })
+  }
+}
+</script>
 ```
 
 ### Динамическая регистрация модулей
