@@ -199,7 +199,7 @@ var Store = function Store (options) {
 var prototypeAccessors = { state: {} };
 
 prototypeAccessors.state.get = function () {
-  return this._vm.state
+  return this._vm.$data.state
 };
 
 prototypeAccessors.state.set = function (v) {
@@ -264,7 +264,7 @@ Store.prototype.watch = function watch (getter, cb, options) {
     var this$1 = this;
 
   assert(typeof getter === 'function', "store.watch only accepts a function.")
-  return this._watcherVM.$watch(function () { return getter(this$1.state); }, cb, options)
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
 };
 
 Store.prototype.replaceState = function replaceState (state) {
