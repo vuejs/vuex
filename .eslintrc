@@ -1,4 +1,8 @@
 {
   "root": true,
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion":6
+  },
   "extends": "vue"
 }
