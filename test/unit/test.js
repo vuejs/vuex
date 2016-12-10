@@ -5,7 +5,6 @@ import Vuex, { mapState, mapMutations, mapGetters, mapActions } from '../../dist
 Vue.use(Vuex)
 
 const TEST = 'TEST'
-// const TEST2 = 'TEST2'
 
 describe('Vuex', () => {
   it('committing mutations', () => {
