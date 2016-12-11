@@ -1,24 +1,24 @@
-# What is Vuex?
+# Vuex가 무엇인가요?
 
-Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
+Vuex는 Vue.js 애플리케이션에 대한 **상태 관리 패턴 + 라이브러리** 입니다. 애플리케이션의 모든 컴포넌트에 대한 중앙 집중식 저장소 역할을 하며 예측 가능한 방식으로 상태를 변경할 수 있습니다. 또한 Vue의 공식 [devtools 확장 프로그램](https://github.com/vuejs/vue-devtools)과 통합되어 설정 시간이 필요 없는 디버깅 및 상 태 스냅 샷 내보내기/가져오기와 같은 고급 기능을 제공합니다.
 
-### What is a "State Management Pattern"?
+### "상태 관리 패턴"이란 무엇인가요?
 
-Let's start with a simple Vue counter app:
+간단한 Vue 카운터 앱부터 시작 해보겠습니다.
 
 ``` js
 new Vue({
-  // state
+  // 상태
   data () {
     return {
       count: 0
     }
   },
-  // view
+  // 뷰
   template: `
     <div>{{ count }}</div>
   `,
-  // actions
+  // 액션
   methods: {
     increment () {
       this.count++
@@ -27,37 +27,37 @@ new Vue({
 })
 ```
 
-It is a self-contained app with the following parts:
+다음과 같은 기능을 가진 앱입니다.
 
-- The **state**, which is the source of truth that drives our app;
-- The **view**, which is just a declarative mapping of the **state**;
-- The **actions**, which are the possible ways the state could change in reaction to user inputs from the **view**.
+- **상태** 는 앱을 작동하는 원본 소스 입니다.
+- **뷰** 는 **상태의** 선언적 매핑입니다.
+- **액션** 은 **뷰** 에서 사용자 입력에 대해 반응적으로 상태를 바꾸는 방법입니다.
 
-This is an extremely simple representation of the concept of "one-way data flow":
+이것은 "단방향 데이터 흐름" 개념의 매우 단순한 표현입니다.
 
 <p style="text-align: center; margin: 2em">
   <img style="max-width:450px;" src="./images/flow.png">
 </p>
 
-However, the simplicity quickly breaks down when we have **multiple components that share common state**:
+그러나 **공통의 상태를 공유하는 여러 컴포넌트** 가 있는 경우 단순함이 빠르게 저하됩니다.
 
-- Multiple views may depend on the same piece of state.
-- Actions from different views may need to mutate the same piece of state.
+- 여러 뷰는 같은 상태에 의존합니다.
+- 서로 다른 뷰의 작업은 동일한 상태를 반영해야 할 수 있습니다.
 
-For problem one, passing props can be tedious for deeply nested components, and simply doesn't work for sibling components. For problem two, we often find ourselves resorting to solutions such as reaching for direct parent/child instance references or trying to mutate and synchronize multiple copies of the state via events. Both of these patterns are brittle and quickly lead to unmaintainable code.
+첫번째 문제의 경우, 지나치게 중첩된 컴포넌트는 통과하는 prop는 장황할 수 있으며 형제 컴포넌트에서는 작동하지 않습니다. 두번째 문제의 경우 직접 부모/자식 인스턴스를 참조하거나 이벤트를 통해 상태의 여러 복사본을 변경 및 동기화 하려는 등의 해결 방법을 사용해야 합니다. 이러한 패턴은 모두 부서지기 쉽고 유지보수가 불가능한 코드로 빠르게 변경됩니다.
 
-So why don't we extract the shared state out of the components, and manage it in a global singleton? With this, our component tree becomes a big "view", and any component can access the state or trigger actions, no matter where they are in the tree!
+그렇다면 컴포넌트에서 공유된 상태를 추출하고 이를 글로벌 싱글톤에서 관리하지 않는 이유는 무엇입니까? 이를 통해 우리의 컴포넌트 트리는 커다란 "뷰"가 되며 모든 컴포넌트는 트리에 상관없이 상태에 액세스하거나 동작을 트리거 할 수 있습니다!
 
-In addition, by defining and separating the concepts involved in state management and enforcing certain rules, we also give our code more structure and maintainability.
+또한 상태 관리 및 특정 규칙 적용과 관련된 개념을 정의하고 분리함으로써 코드의 구조와 유지 관리 기능을 향상시킵니다.
 
-This is the basic idea behind Vuex, inspired by [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) and [The Elm Architecture](https://guide.elm-lang.org/architecture/). Unlike the other patterns, Vuex is also a library implementation tailored specifically for Vue.js to take advantage of its granular reactivity system for efficient updates.
+이는 [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/), [The Elm Architecture](https://guide.elm-lang.org/architecture/)에서 영감을 받은 Vuex의 기본 아이디어 입니다. 다른 패턴과 달리 Vuex는 Vue.js가 효율적인 업데이트를 위해 세분화된 반응 시스템을 활용하도록 특별히 고안된 라이브러리입니다.
 
 ![vuex](./images/vuex.png)
 
-### When Should I Use It?
+### 언제 사용해야 하나요?
 
-Although Vuex helps us deal with shared state management, it also comes with the cost of more concepts and boilerplate. It's a trade-off between short term and long term productivity.
+Vuex는 공유된 상태 관리를 처리하는 데 유용하지만, 개념에 대한 이해와 시작하는 비용도 함께 듭니다. 그것은 단기간과 장기간 생산성 간의 기회비용이 있습니다.
 
-If you've never built a large-scale SPA and jump right into Vuex, it may feel verbose and daunting. That's perfectly normal - if your app is simple, you will most likely be fine without Vuex. A simple [global event bus](http://vuejs.org/guide/components.html#Non-Parent-Child-Communication) may be all you need. But if you are building a medium-to-large-scale SPA, chances are you have run into situations that make you think about how to better handle state outside of your Vue components, and Vuex will be natural next step for you. There's a good quote from Dan Abramov, the author of Redux:
+대규모 SPA를 구축하지 않고 Vuex로 바로 뛰어 들었다면, 시간이 오래 걸리고 힘든일일 것입니다. 이것은 일반 적인 일입니다. 앱이 단순하다면 Vuex없이는 괜찮을 것입니다. 간단한 [글로벌 이벤트 버스](http://vuejs.org/guide/components.html#Non-Parent-Child-Communication)만 있으면됩니다. 그러나 중대형 규모의 SPA를 구축하는 경우 Vue컴포넌트 외부의 상태를 보다 잘 처리할 수 있는 방법을 생각하게 될 가능성이 있으며 Vuex는 자연스럽게 선택할 수 있는 단계가 될 것입니다. Redux의 저자인 Dan Abramov의 좋은 인용이 있습니다.
 
-> Flux libraries are like glasses: you’ll know when you need them.
+> Flux 라이브러리는 안경과 같습니다. 필요할 때 알아볼 수 있습니다.
