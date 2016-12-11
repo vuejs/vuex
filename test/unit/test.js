@@ -872,46 +872,20 @@ describe('Vuex', () => {
     expect(mutations[0].payload).toBe(2)
   })
 
-  it('plugins should ignore silent mutations', function () {
-    let initState
-    const mutations = []
+  it('should warn silent option depreciation', function () {
+    spyOn(console, 'warn')
+
     const store = new Vuex.Store({
-      state: {
-        a: 1
-      },
       mutations: {
-        [TEST] (state, { n }) {
-          state.a += n
-        }
+        [TEST] () {}
       },
-      plugins: [
-        store => {
-          initState = store.state
-          store.subscribe((mut, state) => {
-            expect(state).toBe(store.state)
-            mutations.push(mut)
-          })
-        }
-      ]
     })
-    expect(initState).toBe(store.state)
-    store.commit(TEST, { n: 1 })
-    store.commit({
-      type: TEST,
-      n: 2
-    })
-    store.commit(TEST, { n: 3 }, { silent: true })
-    store.commit({
-      type: TEST,
-      n: 4
-    }, {
-      silent: true
-    })
-    expect(mutations.length).toBe(2)
-    expect(mutations[0].type).toBe(TEST)
-    expect(mutations[1].type).toBe(TEST)
-    expect(mutations[0].payload.n).toBe(1) // normal commit
-    expect(mutations[1].payload.n).toBe(2) // object commit
+    store.commit(TEST, {}, { silent: true });
+
+    expect(console.warn).toHaveBeenCalledWith(
+      `[vuex] mutation type: ${TEST}. Silent option has been removed. ` +
+      'Use the filter functionality in the vue-devtools'
+    )
   })
 
   it('strict mode: warn mutations outside of handlers', function () {

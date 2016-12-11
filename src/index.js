@@ -79,8 +79,16 @@ class Store {
         handler(payload)
       })
     })
-    if (!options || !options.silent) {
-      this._subscribers.forEach(sub => sub(mutation, this.state))
+    this._subscribers.forEach(sub => sub(mutation, this.state))
+
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      options && options.hasOwnProperty('silent')
+    ) {
+      console.warn(
+        `[vuex] mutation type: ${type}. Silent option has been removed. ` +
+        'Use the filter functionality in the vue-devtools'
+      )
     }
   }
 
