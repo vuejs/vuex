@@ -121,6 +121,59 @@ namespace NestedModules {
   });
 }
 
+namespace NamespacedModule {
+  const store = new Vuex.Store({
+    state: { value: 0 },
+    getters: {
+      rootValue: state => state.value
+    },
+    actions: {
+      foo () {}
+    },
+    mutations: {
+      foo () {}
+    },
+    modules: {
+      a: {
+        namespace: "prefix/",
+        state: { value: 1 },
+        modules: {
+          b: {
+            state: { value: 2 }
+          },
+          c: {
+            namespace: "nested/",
+            state: { value: 3 },
+            getters: {
+              constant: () => 10,
+              count (state, getters, rootState, rootGetters) {
+                getters.constant;
+                rootGetters.rootValue;
+              }
+            },
+            actions: {
+              test ({ dispatch, commit, getters, rootGetters }) {
+                getters.constant;
+                rootGetters.rootValue;
+
+                dispatch("foo");
+                dispatch("foo", null, { root: true });
+
+                commit("foo");
+                commit("foo", null, { root: true });
+              },
+              foo () {}
+            },
+            mutations: {
+              foo () {}
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 namespace RegisterModule {
   interface RootState {
     value: number;

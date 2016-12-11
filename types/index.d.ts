@@ -37,8 +37,8 @@ export declare class Store<S> {
 export declare function install(Vue: typeof _Vue): void;
 
 export interface Dispatch {
-  (type: string, payload?: any): Promise<any[]>;
-  <P extends Payload>(payloadWithType: P): Promise<any[]>;
+  (type: string, payload?: any, options?: DispatchOptions): Promise<any[]>;
+  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<any[]>;
 }
 
 export interface Commit {
@@ -52,14 +52,20 @@ export interface ActionContext<S, R> {
   state: S;
   getters: any;
   rootState: R;
+  rootGetters: any;
 }
 
 export interface Payload {
   type: string;
 }
 
+export interface DispatchOptions {
+  root?: boolean;
+}
+
 export interface CommitOptions {
   silent?: boolean;
+  root?: boolean;
 }
 
 export interface StoreOptions<S> {
@@ -72,12 +78,13 @@ export interface StoreOptions<S> {
   strict?: boolean;
 }
 
-export type Getter<S, R> = (state: S, getters: any, rootState: R) => any;
+export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
 export type Action<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
 export type Mutation<S> = (state: S, payload: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
 export interface Module<S, R> {
+  namespace?: string;
   state?: S;
   getters?: GetterTree<S, R>;
   actions?: ActionTree<S, R>;

@@ -248,6 +248,33 @@ describe('Vuex', () => {
     expect(store.getters.bar).toBe(3)
   })
 
+  it('dynamic module registration with namespace inheritance', () => {
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespace: 'prefix/'
+        }
+      }
+    })
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+    store.registerModule(['a', 'b'], {
+      state: { value: 1 },
+      getters: { foo: state => state.value },
+      actions: { foo: actionSpy },
+      mutations: { foo: mutationSpy }
+    })
+
+    expect(store.state.a.b.value).toBe(1)
+    expect(store.getters['prefix/foo']).toBe(1)
+
+    store.dispatch('prefix/foo')
+    expect(actionSpy).toHaveBeenCalled()
+
+    store.commit('prefix/foo')
+    expect(mutationSpy).toHaveBeenCalled()
+  })
+
   it('store injection', () => {
     const store = new Vuex.Store()
     const vm = new Vue({
@@ -579,6 +606,215 @@ describe('Vuex', () => {
     ;[1, 2, 3, 4, 5, 6].forEach(n => {
       expect(store.getters[`getter${n}`]).toBe(n)
     })
+  })
+
+  it('module: namespace', () => {
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: {
+            a: 1
+          },
+          getters: {
+            b: () => 2
+          },
+          actions: {
+            [TEST]: actionSpy
+          },
+          mutations: {
+            [TEST]: mutationSpy
+          }
+        }
+      }
+    })
+
+    expect(store.state.a.a).toBe(1)
+    expect(store.getters['prefix/b']).toBe(2)
+    store.dispatch('prefix/' + TEST)
+    expect(actionSpy).toHaveBeenCalled()
+    store.commit('prefix/' + TEST)
+    expect(mutationSpy).toHaveBeenCalled()
+  })
+
+  it('module: nested namespace', () => {
+    // mock module generator
+    const actionSpys = []
+    const mutationSpys = []
+    const createModule = (name, namespace, children) => {
+      const actionSpy = jasmine.createSpy()
+      const mutationSpy = jasmine.createSpy()
+
+      actionSpys.push(actionSpy)
+      mutationSpys.push(mutationSpy)
+
+      return {
+        namespace,
+        state: {
+          [name]: true
+        },
+        getters: {
+          [name]: state => state[name]
+        },
+        actions: {
+          [name]: actionSpy
+        },
+        mutations: {
+          [name]: mutationSpy
+        },
+        modules: children
+      }
+    }
+
+    // mock module
+    const modules = {
+      a: createModule('a', 'a/', { // a/a
+        b: createModule('b', null, { // a/b - does not add namespace
+          c: createModule('c', 'c/') // a/c/c
+        }),
+        d: createModule('d', 'd/'), // a/d/d
+      })
+    }
+
+    const store = new Vuex.Store({ modules })
+
+    const expectedTypes = [
+      'a/a', 'a/b', 'a/c/c', 'a/d/d'
+    ]
+
+    // getters
+    expectedTypes.forEach(type => {
+      expect(store.getters[type]).toBe(true)
+    })
+
+    // actions
+    expectedTypes.forEach(type => {
+      store.dispatch(type)
+    })
+    actionSpys.forEach(spy => {
+      expect(spy.calls.count()).toBe(1)
+    })
+
+    // mutations
+    expectedTypes.forEach(type => {
+      store.commit(type)
+    })
+    mutationSpys.forEach(spy => {
+      expect(spy.calls.count()).toBe(1)
+    })
+  })
+
+  it('module: getters are namespaced in namespaced module', () => {
+    const store = new Vuex.Store({
+      state: { value: 'root' },
+      getters: {
+        foo: state => state.value
+      },
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: { value: 'module' },
+          getters: {
+            foo: state => state.value,
+            bar: (state, getters) => getters.foo,
+            baz: (state, getters, rootState, rootGetters) => rootGetters.foo
+          }
+        }
+      }
+    })
+
+    expect(store.getters['prefix/foo']).toBe('module')
+    expect(store.getters['prefix/bar']).toBe('module')
+    expect(store.getters['prefix/baz']).toBe('root')
+  })
+
+  it('module: action context is namespaced in namespaced module', done => {
+    const rootActionSpy = jasmine.createSpy()
+    const rootMutationSpy = jasmine.createSpy()
+    const moduleActionSpy = jasmine.createSpy()
+    const moduleMutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      state: { value: 'root' },
+      getters: { foo: state => state.value },
+      actions: { foo: rootActionSpy },
+      mutations: { foo: rootMutationSpy },
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: { value: 'module' },
+          getters: { foo: state => state.value },
+          actions: {
+            foo: moduleActionSpy,
+            test ({ dispatch, commit, getters, rootGetters }) {
+              expect(getters.foo).toBe('module')
+              expect(rootGetters.foo).toBe('root')
+
+              dispatch('foo')
+              expect(moduleActionSpy.calls.count()).toBe(1)
+              dispatch('foo', null, { root: true })
+              expect(rootActionSpy.calls.count()).toBe(1)
+
+              commit('foo')
+              expect(moduleMutationSpy.calls.count()).toBe(1)
+              commit('foo', null, { root: true })
+              expect(rootMutationSpy.calls.count()).toBe(1)
+
+              done()
+            }
+          },
+          mutations: { foo: moduleMutationSpy }
+        }
+      }
+    })
+
+    store.dispatch('prefix/test')
+  })
+
+  it('module: use other module that has same namespace', done => {
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      modules: {
+        parent: {
+          namespace: 'prefix/',
+
+          modules: {
+            a: {
+              state: { value: 'a' },
+              getters: { foo: state => state.value },
+              actions: { foo: actionSpy },
+              mutations: { foo: mutationSpy }
+            },
+
+            b: {
+              state: { value: 'b' },
+              getters: { bar: (state, getters) => getters.foo },
+              actions: {
+                test ({ dispatch, commit, getters }) {
+                  expect(getters.foo).toBe('a')
+                  expect(getters.bar).toBe('a')
+
+                  dispatch('foo')
+                  expect(actionSpy).toHaveBeenCalled()
+
+                  commit('foo')
+                  expect(mutationSpy).toHaveBeenCalled()
+
+                  done()
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+
+    store.dispatch('prefix/test')
   })
 
   it('dispatching multiple actions in different modules', done => {
@@ -989,6 +1225,61 @@ describe('Vuex', () => {
       '[vuex] trying to add a new module \'test\' on hot reloading, ' +
       'manual reload is needed'
     )
+  })
+
+  it('hot reload: update namespace', () => {
+    // prevent to print notification of unknown action/mutation
+    spyOn(console, 'error')
+
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespace: 'prefix/',
+          state: { value: 1 },
+          getters: { foo: state => state.value },
+          actions: { foo: actionSpy },
+          mutations: { foo: mutationSpy }
+        }
+      }
+    })
+
+    expect(store.state.a.value).toBe(1)
+    expect(store.getters['prefix/foo']).toBe(1)
+    store.dispatch('prefix/foo')
+    expect(actionSpy.calls.count()).toBe(1)
+    store.commit('prefix/foo')
+    expect(actionSpy.calls.count()).toBe(1)
+
+    store.hotUpdate({
+      modules: {
+        a: {
+          namespace: 'prefix-changed/'
+        }
+      }
+    })
+
+    expect(store.state.a.value).toBe(1)
+    expect(store.getters['prefix/foo']).toBe(undefined) // removed
+    expect(store.getters['prefix-changed/foo']).toBe(1) // renamed
+
+    // should not be called
+    store.dispatch('prefix/foo')
+    expect(actionSpy.calls.count()).toBe(1)
+
+    // should be called
+    store.dispatch('prefix-changed/foo')
+    expect(actionSpy.calls.count()).toBe(2)
+
+    // should not be called
+    store.commit('prefix/foo')
+    expect(mutationSpy.calls.count()).toBe(1)
+
+    // should be called
+    store.commit('prefix-changed/foo')
+    expect(mutationSpy.calls.count()).toBe(2)
   })
 
   it('watch: with resetting vm', done => {
