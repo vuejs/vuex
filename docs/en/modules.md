@@ -81,6 +81,8 @@ const moduleA = {
 
 ### Namespacing
 
+> This feature is not released yet! It will be out soon in vuex@2.1.0.
+
 Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You probably should namespace your Vuex module if you are writing a reusable one that will be used in unknown environments. To support namespacing for avoiding name clashing, Vuex provides `namespace` option. If you specify string value to `namespace` option, module assets types are prefixed by the given value:
 
 ``` js
