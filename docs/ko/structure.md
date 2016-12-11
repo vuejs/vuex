@@ -1,32 +1,34 @@
-# Application Structure
+# 애플리케이션 구조
 
 Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
+실제로 Vuex는 코드 구조를 제한하지는 않습니다. 이보다 아래의 고수준 원칙을 강요합니다.
 
-1. Application-level state is centralized in the store.
+1. 애플리케이션 레벨의 상태는 중앙 집중된 저장소 입니다.
 
-2. The only way to mutate the state is by committing **mutations**, which are synchronous transactions.
+2. 상태를 변경시키는 유일한 방법은 동기 트랜잭션인 **변이** 를 커밋하는 것입니다.
 
-3. Asynchronous logic should be encapsulated in, and can be composed with **actions**.
+3. 비동기식 로직은 캡슐화되어야하며 **액션** 으로 구성 됩니다.
 
-As long as you follow these rules, it's up to you how to structure your project. If your store file gets too big, simply start splitting the actions, mutations and getters into separate files.
 
-For any non-trivial app, we will likely need to leverage modules. Here's an example project structure:
+이 규칙을 따른다면 프로젝트를 구조화하는 것은 사용자에게 달려 있습니다. 저장소 파일이 너무 커지면 액션, 돌연변이 및 getter를 개별 파일로 분할하기만 하면됩니다.
+
+중요한 앱의 경우 모듈을 활용해야 할 가능성이 높습니다. 다음은 프로젝트 구조의 예입니다.
 
 ``` bash
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # API 요청을 위한 추상화를 포함합니다.
 ├── components
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── index.js          # where we assemble modules and export the store
-    ├── actions.js        # root actions
-    ├── mutations.js      # root mutations
+    ├── index.js          # 모듈을 조합하고 저장소를 내보내는 곳 입니다.
+    ├── actions.js        # 루트 액션
+    ├── mutations.js      # 루트 변이
     └── modules
-        ├── cart.js       # cart module
-        └── products.js   # products module
+        ├── cart.js       # cart 모듈
+        └── products.js   # products 모듈
 ```
 
-As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+참고 사항으로, [장바구니 예](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)를 확인하십시오.
