@@ -1,7 +1,6 @@
 # 애플리케이션 구조
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
-실제로 Vuex는 코드 구조를 제한하지는 않습니다. 이보다 아래의 고수준 원칙을 강요합니다.
+실제로 Vuex는 코드 구조를 제한하지는 않습니다. 이보다 아래에 있는 상위 수준 원칙을 강요합니다.
 
 1. 애플리케이션 레벨의 상태는 중앙 집중된 저장소 입니다.
 

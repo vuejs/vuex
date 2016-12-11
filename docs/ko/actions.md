@@ -1,6 +1,5 @@
 # 액션
 
-Actions are similar to mutations, the difference being that:
 액션은 변이와 유사합니다. 몇가지 다른 점은,
 
 - 상태를 변이시키는 대신 액션으로 변이에 대한 커밋을 합니다.
@@ -26,7 +25,7 @@ const store = new Vuex.Store({
 })
 ```
 
-액션 핸들러는 저장소 인스턴스의 같은 메소드들/프로퍼티 세트를 드러내는 컨텍스트 객체를 받습니다. 그래서 `context.commit`을 호출하여 변이를 커밋하거나 `context.state`와 `context.getters`를 통해 상태와 getters에 접근 할 수 있습니다. 나중에 [Modules](modules.md)에서 이 컨텍스트 객체가 저장소 인스턴스 자체가 아닌 이유를 알 수 있습니다.
+액션 핸들러는 저장소 인스턴스의 같은 메소드들/프로퍼티 세트를 드러내는 컨텍스트 객체를 받습니다. 그래서 `context.commit`을 호출하여 변이를 커밋하거나 `context.state`와 `context.getters`를 통해 상태와 getters에 접근 할 수 있습니다. 나중에 [모듈](modules.md)에서 이 컨텍스트 객체가 저장소 인스턴스 자체가 아닌 이유를 알 수 있습니다.
 
 실제로 (특히 `commit`를 여러 번 호출해야하는 경우)코드를 단순화하기 위해 ES2015 [전달인자 분해](https://github.com/lukehoban/es6features#destructuring)를 사용합니다.
 

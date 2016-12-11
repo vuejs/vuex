@@ -4,7 +4,6 @@ Vuex에서 단위 테스트를 하고자 하는 주요 부분은 변이와 액�
 
 ### 변이 테스팅
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you can also export the mutations as a named export:
 변이는 테스트하기 매우 간단합니다. 왜냐하면 변이는 전달인자에 완전히 의존하는 함수이기 때문입니다. 한 가지 트릭은 ES2015 모듈을 사용하고 `store.js` 파일에 변이를 넣는다면 기본 내보내기와 함께 변이를 명명된 내보내기로 내보낼 수 있다는 것입니다.
 
 ``` js
