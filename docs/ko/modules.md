@@ -1,8 +1,8 @@
-# Modules
+# 모듈
 
-Due to using a single state tree, all state of our application is contained inside one big object. However, as our application grows in scale, the store can get really bloated.
+단일 상태 트리를 사용하기 때문에 응용 프로그램의 모든 상태가 하나의 큰 객체 안에 포함됩니다. 그러나 규모가 커짐에 따라 저장소는 매우 비대해질 수 있습니다.
 
-To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
+이를 위해 Vuex는 저장소를 **모듈** 로 나눌 수 있습니다. 각 모듈은 자체 상태, 변이, 액션, 게터 및 심지어 중첩된 모듈을 포함 할 수 있습니다.
 
 ``` js
 const moduleA = {
@@ -25,20 +25,20 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA's state
-store.state.b // -> moduleB's state
+store.state.a // -> moduleA'의 상태
+store.state.b // -> moduleB'의 상태
 ```
 
-### Module Local State
+### 지역 상태 모듈
 
-Inside a module's mutations and getters, The first argument received will be **the module's local state**.
+모듈의 변이와 getter 내부에서 첫 번째 전달인자는 **모듈의 지역 상태** 가됩니다.
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment: (state) {
-      // state is the local module state
+      // state는 지역 모듈 상태 입니다
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
+유사하게 모듈 내부에서 `context.state`는 지역 상태를 노출시킬 것이고 루트 상태는 `context.rootState`로 노출 될 것입니다.
 
 ``` js
 const moduleA = {
@@ -66,7 +66,7 @@ const moduleA = {
 }
 ```
 
-Also, inside module getters, the root state will be exposed as their 3rd argument:
+또한, 모듈 getters 내부, 루트 상태는 그들의 세 번째 전달인자로 노출됩니다.
 
 ``` js
 const moduleA = {
@@ -79,15 +79,15 @@ const moduleA = {
 }
 ```
 
-### Namespacing
+### 네임스페이스
 
-Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing by prefixing or suffixing their names. And you probably should if you are writing a reusable Vuex module that will be used in unknown environments. For example, we want to create a `todos` module:
+모듈 내의 액션, 변이 및 getter는 여전히 **전역 네임 스페이스** 아래에 등록됩니다. 여러 모듈이 동일한 변이/액션 유형에 반응 할 수 있습니다. 이름 앞에 접두사 또는 접미사를 붙이면 이름 충돌을 피하기 위해 모듈 자신의 네임스페이스를 직접 지정할 수 있습니다. 그리고 알 수 없는 환경에서 사용될 재사용 가능한 Vuex 모듈을 작성하는 경우라면 반드시 사용해야 합니다. 예를 들어,`todos` 모듈을 만들고 싶은 경우
 
 ``` js
 // types.js
 
-// define names of getters, actions and mutations as constants
-// and they are prefixed by the module name `todos`
+// getter, 액션, 변이의 이름을 상수로 정의하고
+// 모듈 이름 `todos` 접두어를 붙입니다
 export const DONE_COUNT = 'todos/DONE_COUNT'
 export const FETCH_ALL = 'todos/FETCH_ALL'
 export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
@@ -97,7 +97,7 @@ export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
 // modules/todos.js
 import * as types from '../types'
 
-// define getters, actions and mutations using prefixed names
+// 접두어로 된 이름을 사용하여 getter, 액션 및 변이 정의
 const todosModule = {
   state: { todos: [] },
 
@@ -121,9 +121,9 @@ const todosModule = {
 }
 ```
 
-### Dynamic Module Registration
+### 동적 모듈 등록
 
-You can register a module **after** the store has been created with the `store.registerModule` method:
+`store.registerModule` 메소드로 저장소가 생성 된 **후에** 모듈을 등록 할 수 있습니다.
 
 ``` js
 store.registerModule('myModule', {
@@ -131,8 +131,8 @@ store.registerModule('myModule', {
 })
 ```
 
-The module's state will be exposed as `store.state.myModule`.
+모듈의 상태는`store.state.myModule`으로 노출 됩니다.
 
-Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
+동적 모듈 등록을 사용하면 다른 Vue 플러그인도 응용 프로그램의 저장소에 모듈을 연결하여 상태 관리에 Vuex를 활용할 수 있습니다. 예를 들어 [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) 라이브러리는 동적으로 연결된 모듈에서 응용 프로그램의 라우트 상태를 관리하여 vue-router와 vuex를 통합합니다.
 
-You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+`store.unregisterModule(moduleName)`을 사용하여 동적으로 등록 된 모듈을 제거할 수도 있습니다. 이 방법으로는 정적 모듈(저장소 생성시 선언 됨)을 제거 할 수 없습니다.
