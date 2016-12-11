@@ -1,19 +1,18 @@
-# Getting Started
+# 시작하기
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that makes a Vuex store different from a plain global object:
+모든 Vuex 애플리케이션의 중심에는 **store** 가 있습니다. "store"는 기본적으로 애플리케이션 **상태** 를 보유하고있는 컨테이너입니다. Vuex 저장소가 일반 전역 개체와 두 가지 다른 점이 있습니다.
 
-1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+1. Vuex store는 반응형 입니다. Vue 컴포넌트는 상태를 검색할 때 저장소의 상태가 변경되면 효율적으로 대응하고 업데이트합니다.
+2. 저장소의 상태를 직접 변경할 수 없습니다. 저장소의 상태를 변경하는 유일한 방법은 명시적인 **커밋을 이용한 Mutation** 입니다. 이렇게하면 모든 상태에 대한 추적이 가능한 기록이 남을 수 있으며 툴를 사용하여 앱을 더 잘 이해할 수 있습니다.
 
-2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
+### 가장 단순한 저장소
 
-### The Simplest Store
+> **참고:** 모든 예제는 ES2015 문법을 사용합니다. 사용하고 있지 않은 경우 [꼭 사용해야 합니다!](https://babeljs.io/docs/learn-es2015/)
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
-
-After [installing](installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
+Vuex를 [설치](installation.md)한 후 저장소를 만들어 봅시다. 매우 간단합니다. 초기 상태 객체와 일부 mutation을 제공하십시오.
 
 ``` js
-// Make sure to call Vue.use(Vuex) first if using a module system
+// 모듈 시스템을 사용하는 경우 Vue.use(Vuex)를 먼저 호출해야합니다.
 
 const store = new Vuex.Store({
   state: {
@@ -27,7 +26,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
+이제 state 객체에 `store.state`로 접근하여 `store.commit` 메소드로 상태 변경을 트리거 할 수 있습니다.
 
 ``` js
 store.commit('increment')
@@ -35,10 +34,10 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
+다시 말해, `store.state.count`를 직접 변경하는 대신 Mutation을 수행하는 이유는 명시적으로 추적을 하기 때문입니다. 이 간단한 규칙에 따라 의도를보다 명확하게 표현할 수 있으므로 코드를 읽을 때 상태 변화를 더 잘 지켜볼 수 있습니다. 또한 모든 Mutation을 기록하고 상태 스냅샷을 저장하거나 시간 흐름에 따라 디버깅을 할 수 있는 도구를 제공합니다.
 
-Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+컴포넌트 안에서 저장소 상태를 사용하는 것은 단순히 계산된 속성 내에서 상태를 반환하는 것입니다. 변경을 트리거하는 것은 컴포넌트 메소드에서 변경을 커밋하는 것을 의미합니다.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
+다음은 [가장 기본적인 Vuex 카운터 앱](https://jsfiddle.net/yyx990803/n9jmu5v7/)의 예입니다.
 
-Next, we will discuss each core concept in much finer details, starting with [State](state.md).
+이제, 우리는 각 핵심 개념에 대해 더 자세히 설명 할 것입니다. [State](state.md)부터 시작해 보겠습니다.
