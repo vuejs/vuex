@@ -124,7 +124,7 @@ class Store {
 
   watch (getter, cb, options) {
     assert(typeof getter === 'function', `store.watch only accepts a function.`)
-    return this._watcherVM.$watch(() => getter(this.state), cb, options)
+    return this._watcherVM.$watch(() => getter(this.state, this.getters), cb, options)
   }
 
   replaceState (state) {

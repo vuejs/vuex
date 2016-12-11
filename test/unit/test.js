@@ -5,7 +5,6 @@ import Vuex, { mapState, mapMutations, mapGetters, mapActions } from '../../dist
 Vue.use(Vuex)
 
 const TEST = 'TEST'
-const TEST2 = 'TEST2'
 
 describe('Vuex', () => {
   it('committing mutations', () => {
@@ -1278,6 +1277,38 @@ describe('Vuex', () => {
 
       Vue.nextTick(() => {
         expect(spy).toHaveBeenCalled()
+        done()
+      })
+    })
+  })
+
+  it('watch: getter function has access to store\'s getters object', done => {
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        [TEST]: state => state.count++
+      },
+      getters: {
+        getCount: state => state.count
+      }
+    })
+
+    const getter = function getter (state, getters) {
+      return state.count
+    }
+    const spy = spyOn({ getter }, 'getter').and.callThrough()
+    const spyCb = jasmine.createSpy()
+
+    store.watch(spy, spyCb)
+
+    Vue.nextTick(() => {
+      store.commit(TEST)
+      expect(store.state.count).toBe(1)
+
+      Vue.nextTick(() => {
+        expect(spy).toHaveBeenCalledWith(store.state, store.getters)
         done()
       })
     })
