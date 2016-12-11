@@ -1,11 +1,12 @@
-# Actions
+# 액션
 
 Actions are similar to mutations, the difference being that:
+액션은 변이와 유사합니다. 몇가지 다른 점은,
 
-- Instead of mutating the state, actions commit mutations.
-- Actions can contain arbitrary asynchronous operations.
+- 상태를 변이시키는 대신 액션으로 변이에 대한 커밋을 합니다.
+- 작업에는 임의의 비동기 작업이 포함될 수 있습니다.
 
-Let's register a simple action:
+간단한 액션을 등록합시다.
 
 ``` js
 const store = new Vuex.Store({
@@ -25,9 +26,9 @@ const store = new Vuex.Store({
 })
 ```
 
-Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
+액션 핸들러는 저장소 인스턴스의 같은 메소드들/프로퍼티 세트를 드러내는 컨텍스트 객체를 받습니다. 그래서 `context.commit`을 호출하여 변이를 커밋하거나 `context.state`와 `context.getters`를 통해 상태와 getters에 접근 할 수 있습니다. 나중에 [Modules](modules.md)에서 이 컨텍스트 객체가 저장소 인스턴스 자체가 아닌 이유를 알 수 있습니다.
 
-In practice, we often use ES2015 [argument destructuring](https://github.com/lukehoban/es6features#destructuring) to simplify the code a bit (especially when we need to call `commit` multiple times):
+실제로 (특히 `commit`를 여러 번 호출해야하는 경우)코드를 단순화하기 위해 ES2015 [전달인자 분해](https://github.com/lukehoban/es6features#destructuring)를 사용합니다.
 
 ``` js
 actions: {
@@ -37,15 +38,15 @@ actions: {
 }
 ```
 
-### Dispatching Actions
+### 디스패치 액션
 
-Actions are triggered with the `store.dispatch` method:
+액션은 `store.dispatch` 메소드로 시작됩니다.
 
 ``` js
 store.dispatch('increment')
 ```
 
-This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+처음 볼 때는 이상해 보일 수 있습니다. 카운트를 증가 시키려면 `store.commit('increment')`를 직접 호출하면 어떻습니까? 음, **돌연변이는 동기적** 이어야 한다는 것을 기억하십니까? 액션은 그렇지 않습니다. 액션 내에서 **비동기** 작업을 수행 할 수 있습니다.
 
 ``` js
 actions: {
@@ -57,48 +58,49 @@ actions: {
 }
 ```
 
-Actions support the same payload format and object-style dispatch:
+액션은 동일한 페이로드 타입과 객체 스타일의 디스패치를 지원합니다.
 
 ``` js
-// dispatch with a payload
+// 페이로드와 함께 디스패치
 store.dispatch('incrementAsync', {
   amount: 10
 })
 
-// dispatch with an object
+// 객체와 함께 디스패치
 store.dispatch({
   type: 'incrementAsync',
   amount: 10
 })
 ```
 
-A more practical example of real-world actions would be an action to checkout a shopping cart, which involves **calling an async API** and **committing multiple mutations**:
+액션의 좀 더 실용적인 예는 **비동기 API 호출** 과 **여러 개의 변이를 커밋** 하는 장바구니 결제입니다.
 
 ``` js
 actions: {
   checkout ({ commit, state }, products) {
-    // save the items currently in the cart
+    // 장바구니에 현재있는 항목을 저장하십시오.
     const savedCartItems = [...state.cart.added]
-    // send out checkout request, and optimistically
-    // clear the cart
+
+    // 결제 요청을 보낸 후 장바구니를 비웁니다.
     commit(types.CHECKOUT_REQUEST)
-    // the shop API accepts a success callback and a failure callback
+
+    // 상점 API는 성공 콜백 및 실패 콜백을 받습니다.
     shop.buyProducts(
       products,
-      // handle success
+      // 요청 성공 핸들러
       () => commit(types.CHECKOUT_SUCCESS),
-      // handle failure
+      // 요청 실패 핸들러
       () => commit(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }
 }
 ```
 
-Note we are performing a flow of asynchronous operations, and recording the side effects (state mutations) of the action by committing them.
+비동기 작업의 흐름을 수행하고 커밋하여 작업의 사이드이펙트(상태 변이)을 기록합니다.
 
-### Dispatching Actions in Components
+### 컴포넌트 내부에서 디스패치 액션 사용하기
 
-You can dispatch actions in components with `this.$store.dispatch('xxx')`, or use the `mapActions` helper which maps component methods to `store.dispatch` calls (requires root `store` injection):
+`this.$store.dispatch('xxx')`를 사용하여 컴포넌트에서 액션을 디스패치하거나 컴포넌트 메소드를 `store.dispatch` 호출에 매핑하는 `mapActions` 헬퍼를 사용할 수 있습니다 (루트 `store` 주입 필요) :
 
 ``` js
 import { mapActions } from 'vuex'
@@ -107,20 +109,20 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // map this.increment() to this.$store.dispatch('increment')
+      'increment' // this.increment()을 this.$store.dispatch('increment')에 매핑
     ]),
     ...mapActions({
-      add: 'increment' // map this.add() to this.$store.dispatch('increment')
+      add: 'increment' // this.add()을 this.$store.dispatch('increment')에 매핑
     })
   }
 }
 ```
 
-### Composing Actions
+### 액션 구성하기
 
-Actions are often asynchronous, so how do we know when an action is done? And more importantly, how can we compose multiple actions together to handle more complex async flows?
+액션은 종종 비동기적 입니다. 그러면 액션이 언제 완료되는지 어떻게 알 수 있습니까? 더 중요한 것은, 복잡한 비동기 흐름을 처리하기 위해 어떻게 여러 작업을 함께 구성 할 수 있습니까?
 
-The first thing to know is that `store.dispatch` can handle Promise returned by the triggered action handler and it also returns Promise:
+가장 먼저 알아야 할 점은 `store.dispatch`가 트리거 된 액션 핸들러에 의해 반환된 Promise를 처리 할 수 있으며 Promise를 반환한다는 것입니다.
 
 ``` js
 actions: {
@@ -135,7 +137,7 @@ actions: {
 }
 ```
 
-Now you can do:
+이렇게 할 수 있습니다.
 
 ``` js
 store.dispatch('actionA').then(() => {
@@ -143,7 +145,7 @@ store.dispatch('actionA').then(() => {
 })
 ```
 
-And also in another action:
+그리고 안에 또 다른 액션을 사용할 수 있습니다.
 
 ``` js
 actions: {
@@ -156,20 +158,19 @@ actions: {
 }
 ```
 
-Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), a JavaScript feature landing very soon, we can compose our actions like this:
+마지막으로, JavaScript 기능인 [async/await](https://tc39.github.io/ecmascript-asyncawait/)를 사용하면 다음과 같은 작업을 구성 할 수 있습니다.
 
 ``` js
-// assuming getData() and getOtherData() return Promises
-
+// getData() 및 getOtherData()가 Promise를 반환한다고 가정합니다.
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
   },
   async actionB ({ dispatch, commit }) {
-    await dispatch('actionA') // wait for actionA to finish
+    await dispatch('actionA') // actionA가 끝나기를 기다립니다.
     commit('gotOtherData', await getOtherData())
   }
 }
 ```
 
-> It's possible for a `store.dispatch` to trigger multiple action handlers in different modules. In such a case the returned value will be a Promise that resolves when all triggered handlers have been resolved.
+> `store.dispatch`가 다른 모듈에서 여러 액션 핸들러를 트리거하는 것이 가능합니다. 이 경우 반환 된 값은 모든 트리거 된 처리기가 완료 되었을 때 처리되는 Promise입니다.
