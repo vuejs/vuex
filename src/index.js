@@ -414,6 +414,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default {
   Store,
   install,
+  version: '__VERSION__',
   mapState,
   mapMutations,
   mapGetters,
