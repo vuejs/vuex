@@ -37,7 +37,7 @@ store.state.b // -> moduleB 的状态
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // state 模块的局部状态
       state.count++
     }
