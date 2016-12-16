@@ -23,6 +23,7 @@ class Store {
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
     this._modules = new ModuleCollection(options)
+    this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
     this._watcherVM = new Vue()
 
@@ -81,10 +82,7 @@ class Store {
     })
     this._subscribers.forEach(sub => sub(mutation, this.state))
 
-    if (
-      process.env.NODE_ENV !== 'production' &&
-      options && options.hasOwnProperty('silent')
-    ) {
+    if (options && options.silent) {
       console.warn(
         `[vuex] mutation type: ${type}. Silent option has been removed. ` +
         'Use the filter functionality in the vue-devtools'
@@ -170,6 +168,7 @@ function resetStore (store) {
   store._actions = Object.create(null)
   store._mutations = Object.create(null)
   store._wrappedGetters = Object.create(null)
+  store._modulesNamespaceMap = Object.create(null)
   const state = store.state
   // init all modules
   installModule(store, state, [], store._modules.root, true)
@@ -223,6 +222,11 @@ function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
   const namespace = store._modules.getNamespace(path)
 
+  // register in namespace map
+  if (namespace) {
+    store._modulesNamespaceMap[namespace] = module
+  }
+
   // set state
   if (!isRoot && !hot) {
     const parentState = getNestedState(rootState, path.slice(0, -1))
@@ -232,7 +236,7 @@ function installModule (store, rootState, path, module, hot) {
     })
   }
 
-  const local = makeLocalContext(store, namespace)
+  const local = module.context = makeLocalContext(store, namespace)
 
   module.forEachMutation((mutation, key) => {
     const namespacedType = namespace + key
