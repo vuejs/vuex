@@ -81,80 +81,128 @@ const moduleA = {
 
 ### Namespacing
 
-> This feature is not released yet! It will be out soon in vuex@2.1.0.
+By default, actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type.
 
-Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You probably should namespace your Vuex module if you are writing a reusable one that will be used in unknown environments. To support namespacing for avoiding name clashing, Vuex provides `namespace` option. If you specify string value to `namespace` option, module assets types are prefixed by the given value:
+If you want your modules to be more self-contained or resuable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
 
 ``` js
-export default {
-  namespace: 'account/',
-
-  // module assets
-  state: { ... }, // module state will not be changed by prefix option
-  getters: {
-    isAdmin () { ... } // -> getters['account/isAdmin']
-  },
-  actions: {
-    login () { ... } // -> dispatch('account/login')
-  },
-  mutations: {
-    login () { ... } // -> commit('account/login')
-  },
-
-  // nested modules
+const store = new Vuex.Store({
   modules: {
-    // inherit the namespace from parent module
-    myPage: {
-      state: { ... },
+    account: {
+      namespaced: true,
+
+      // module assets
+      state: { ... }, // module state is already nested and not affected by namespace option
       getters: {
-        profile () { ... } // -> getters['account/profile']
+        isAdmin () { ... } // -> getters['account/isAdmin']
+      },
+      actions: {
+        login () { ... } // -> dispatch('account/login')
+      },
+      mutations: {
+        login () { ... } // -> commit('account/login')
+      },
+
+      // nested modules
+      modules: {
+        // inherits the namespace from parent module
+        myPage: {
+          state: { ... },
+          getters: {
+            profile () { ... } // -> getters['account/profile']
+          }
+        },
+
+        // further nest the namespace
+        posts: {
+          namespaced: true,
+
+          state: { ... },
+          getters: {
+            popular () { ... } // -> getters['account/posts/popular']
+          }
+        }
       }
+    }
+  }
+})
+```
+
+Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. Toggling between namespaced or not does not affect the code inside the module.
+
+#### Accessing Global Assets in Namespaced Modules
+
+If you want to use global state and getters, `rootState` and `rootGetters` are passed as the 3rd and 4th arguments to getter functions, and also exposed as properties on the `context` object passed to action functions.
+
+To dispatch actions or commit mutations in the global namespace, pass `{ root: true }` as the 3rd argument to `dispatch` and `commit`.
+
+``` js
+modules: {
+  foo: {
+    namespaced: true,
+
+    getters: {
+      // `getters` is localized to this module's getters
+      // you can use rootGetters via 4th argument of getters
+      someGetter (state, getters, rootState, rootGetters) {
+        getters.someOtherGetter // -> 'foo/someOtherGetter'
+        rootGetters.someOtherGetter // -> 'someOtherGetter'
+      },
+      someOtherGetter: state => { ... }
     },
 
-    // nest the namespace
-    posts: {
-      namespace: 'posts/',
+    actions: {
+      // dispatch and commit are also localized for this module
+      // they will accept `root` option for the root dispatch/commit
+      someAction ({ dispatch, commit, getters, rootGetters }) {
+        getters.someGetter // -> 'foo/someGetter'
+        rootGetters.someGetter // -> 'someGetter'
 
-      state: { ... },
-      getters: {
-        popular () { ... } // -> getters['account/posts/popular']
-      }
+        dispatch('someOtherAction') // -> 'foo/someOtherAction'
+        dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
+        commit('someMutation') // -> 'foo/someMutation'
+        commit('someMutation', null, { root: true }) // -> 'someMutation'
+      },
+      someOtherAction (ctx, payload) { ... }
     }
   }
 }
 ```
 
-Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. If you want to use the global ones, `rootGetters` is passed to the 4th argument of getter functions and the property of the action context. In addition, `dispatch` and `commit` receives `root` option on their last argument.
+#### Binding Helpers with Namespace
+
+When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:
 
 ``` js
-export default {
-  namespace: 'prefix/',
+computed: {
+  ...mapState({
+    a: state => state.some.nested.module.a,
+    b: state => state.some.nested.module.b
+  })
+},
+methods: {
+  ...mapActions([
+    'some/nested/module/foo',
+    'some/nested/module/bar'
+  ])
+}
+```
 
-  getters: {
-    // `getters` is localized to this module's getters
-    // you can use rootGetters via 4th argument of getters
-    someGetter (state, getters, rootState, rootGetters) {
-      getters.someOtherGetter // -> 'prefix/someOtherGetter'
-      rootGetters.someOtherGetter // -> 'someOtherGetter'
-    },
-    someOtherGetter: state => { ... }
-  },
+In such cases, you can pass the module namespace string as the first argument to the helpers so that all bindings are done using that module as the context. The above can be simplified to:
 
-  actions: {
-    // dispatch and commit are also localized for this module
-    // they will accept `root` option for the root dispatch/commit
-    someAction ({ dispatch, commit, getters, rootGetters }) {
-      getters.someGetter // -> 'prefix/someGetter'
-      rootGetters.someGetter // -> 'someGetter'
-
-      dispatch('someOtherAction') // -> 'prefix/someOtherAction'
-      dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
-
-      commit('someMutation') // -> 'prefix/someMutation'
-      commit('someMutation', null, { root: true }) // -> 'someMutation'
-    },
-    someOtherAction (ctx, payload) { ... }
-  }
+``` js
+computed: {
+  ...mapState('some/nested/module', {
+    a: state => state.a,
+    b: state => state.b
+  })
+},
+methods: {
+  ...mapActions('some/nested/module', [
+    'foo',
+    'bar'
+  ])
 }
 ```
 
