@@ -251,7 +251,7 @@ describe('Vuex', () => {
     const store = new Vuex.Store({
       modules: {
         a: {
-          namespace: 'prefix/'
+          namespaced: true
         }
       }
     })
@@ -265,12 +265,12 @@ describe('Vuex', () => {
     })
 
     expect(store.state.a.b.value).toBe(1)
-    expect(store.getters['prefix/foo']).toBe(1)
+    expect(store.getters['a/foo']).toBe(1)
 
-    store.dispatch('prefix/foo')
+    store.dispatch('a/foo')
     expect(actionSpy).toHaveBeenCalled()
 
-    store.commit('prefix/foo')
+    store.commit('a/foo')
     expect(mutationSpy).toHaveBeenCalled()
   })
 
@@ -614,7 +614,7 @@ describe('Vuex', () => {
     const store = new Vuex.Store({
       modules: {
         a: {
-          namespace: 'prefix/',
+          namespaced: true,
           state: {
             a: 1
           },
@@ -632,10 +632,10 @@ describe('Vuex', () => {
     })
 
     expect(store.state.a.a).toBe(1)
-    expect(store.getters['prefix/b']).toBe(2)
-    store.dispatch('prefix/' + TEST)
+    expect(store.getters['a/b']).toBe(2)
+    store.dispatch('a/' + TEST)
     expect(actionSpy).toHaveBeenCalled()
-    store.commit('prefix/' + TEST)
+    store.commit('a/' + TEST)
     expect(mutationSpy).toHaveBeenCalled()
   })
 
@@ -643,7 +643,7 @@ describe('Vuex', () => {
     // mock module generator
     const actionSpys = []
     const mutationSpys = []
-    const createModule = (name, namespace, children) => {
+    const createModule = (name, namespaced, children) => {
       const actionSpy = jasmine.createSpy()
       const mutationSpy = jasmine.createSpy()
 
@@ -651,7 +651,7 @@ describe('Vuex', () => {
       mutationSpys.push(mutationSpy)
 
       return {
-        namespace,
+        namespaced,
         state: {
           [name]: true
         },
@@ -670,11 +670,11 @@ describe('Vuex', () => {
 
     // mock module
     const modules = {
-      a: createModule('a', 'a/', { // a/a
-        b: createModule('b', null, { // a/b - does not add namespace
-          c: createModule('c', 'c/') // a/c/c
+      a: createModule('a', true, { // a/a
+        b: createModule('b', false, { // a/b - does not add namespace
+          c: createModule('c', true) // a/c/c
         }),
-        d: createModule('d', 'd/'), // a/d/d
+        d: createModule('d', true), // a/d/d
       })
     }
 
@@ -714,7 +714,7 @@ describe('Vuex', () => {
       },
       modules: {
         a: {
-          namespace: 'prefix/',
+          namespaced: true,
           state: { value: 'module' },
           getters: {
             foo: state => state.value,
@@ -725,9 +725,9 @@ describe('Vuex', () => {
       }
     })
 
-    expect(store.getters['prefix/foo']).toBe('module')
-    expect(store.getters['prefix/bar']).toBe('module')
-    expect(store.getters['prefix/baz']).toBe('root')
+    expect(store.getters['a/foo']).toBe('module')
+    expect(store.getters['a/bar']).toBe('module')
+    expect(store.getters['a/baz']).toBe('root')
   })
 
   it('module: action context is namespaced in namespaced module', done => {
@@ -743,7 +743,7 @@ describe('Vuex', () => {
       mutations: { foo: rootMutationSpy },
       modules: {
         a: {
-          namespace: 'prefix/',
+          namespaced: true,
           state: { value: 'module' },
           getters: { foo: state => state.value },
           actions: {
@@ -770,7 +770,7 @@ describe('Vuex', () => {
       }
     })
 
-    store.dispatch('prefix/test')
+    store.dispatch('a/test')
   })
 
   it('module: use other module that has same namespace', done => {
@@ -780,7 +780,7 @@ describe('Vuex', () => {
     const store = new Vuex.Store({
       modules: {
         parent: {
-          namespace: 'prefix/',
+          namespaced: true,
 
           modules: {
             a: {
@@ -813,7 +813,7 @@ describe('Vuex', () => {
       }
     })
 
-    store.dispatch('prefix/test')
+    store.dispatch('parent/test')
   })
 
   it('dispatching multiple actions in different modules', done => {
@@ -1210,7 +1210,7 @@ describe('Vuex', () => {
     const store = new Vuex.Store({
       modules: {
         a: {
-          namespace: 'prefix/',
+          namespaced: true,
           state: { value: 1 },
           getters: { foo: state => state.value },
           actions: { foo: actionSpy },
@@ -1220,38 +1220,38 @@ describe('Vuex', () => {
     })
 
     expect(store.state.a.value).toBe(1)
-    expect(store.getters['prefix/foo']).toBe(1)
-    store.dispatch('prefix/foo')
+    expect(store.getters['a/foo']).toBe(1)
+    store.dispatch('a/foo')
     expect(actionSpy.calls.count()).toBe(1)
-    store.commit('prefix/foo')
+    store.commit('a/foo')
     expect(actionSpy.calls.count()).toBe(1)
 
     store.hotUpdate({
       modules: {
         a: {
-          namespace: 'prefix-changed/'
+          namespaced: false
         }
       }
     })
 
     expect(store.state.a.value).toBe(1)
-    expect(store.getters['prefix/foo']).toBe(undefined) // removed
-    expect(store.getters['prefix-changed/foo']).toBe(1) // renamed
+    expect(store.getters['a/foo']).toBe(undefined) // removed
+    expect(store.getters['foo']).toBe(1) // renamed
 
     // should not be called
-    store.dispatch('prefix/foo')
+    store.dispatch('a/foo')
     expect(actionSpy.calls.count()).toBe(1)
 
     // should be called
-    store.dispatch('prefix-changed/foo')
+    store.dispatch('foo')
     expect(actionSpy.calls.count()).toBe(2)
 
     // should not be called
-    store.commit('prefix/foo')
+    store.commit('a/foo')
     expect(mutationSpy.calls.count()).toBe(1)
 
     // should be called
-    store.commit('prefix-changed/foo')
+    store.commit('foo')
     expect(mutationSpy.calls.count()).toBe(2)
   })
 

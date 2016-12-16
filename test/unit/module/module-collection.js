@@ -25,20 +25,20 @@ describe('ModuleCollection', () => {
   })
 
   it('getNamespace', () => {
-    const module = (namespace, children) => {
+    const module = (namespaced, children) => {
       return {
-        namespace,
+        namespaced,
         modules: children
       }
     }
     const collection = new ModuleCollection({
       namespace: 'ignore/', // root module namespace should be ignored
       modules: {
-        a: module('a/', {
-          b: module(null, {
-            c: module('c/')
+        a: module(true, {
+          b: module(false, {
+            c: module(true)
           }),
-          d: module('d/')
+          d: module(true)
         })
       }
     })

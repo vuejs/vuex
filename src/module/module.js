@@ -11,8 +11,8 @@ export default class Module {
     return this._rawModule.state || {}
   }
 
-  get namespace () {
-    return this._rawModule.namespace || ''
+  get namespaced () {
+    return !!this._rawModule.namespaced
   }
 
   addChild (key, module) {
@@ -28,7 +28,7 @@ export default class Module {
   }
 
   update (rawModule) {
-    this._rawModule.namespace = rawModule.namespace
+    this._rawModule.namespaced = rawModule.namespaced
     if (rawModule.actions) {
       this._rawModule.actions = rawModule.actions
     }
