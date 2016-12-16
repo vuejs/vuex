@@ -37,7 +37,7 @@ store.state.b // -> moduleB のステート
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // state はモジュールのローカルステート
       state.count++
     }

@@ -37,7 +37,7 @@ store.state.b // -> moduleB'의 상태
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // state는 지역 모듈 상태 입니다
       state.count++
     }
