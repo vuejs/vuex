@@ -49,7 +49,7 @@ const store = new Vuex.Store({ ...options })
   - type: `{ [key: string]: Function }`
 
     Register getters on the store. The getter function receives the following arguments:
-    
+
     ```
     state,     // will be module local state if defined in a module.
     getters,   // same as store.getters
@@ -160,18 +160,26 @@ const store = new Vuex.Store({ ...options })
 
 ### Component Binding Helpers
 
-- **`mapState(map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
   Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
 
-- **`mapGetters(map: Array<string> | Object): Object`**
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
 
-- **`mapActions(map: Array<string> | Object): Object`**
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
 
-- **`mapMutations(map: Array<string> | Object): Object`**
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
+
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
