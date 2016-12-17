@@ -1,5 +1,5 @@
 /**
- * vuex v2.1.0
+ * vuex v2.1.1
  * (c) 2016 Evan You
  * @license MIT
  */
@@ -749,7 +749,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 var index = {
   Store: Store,
   install: install,
-  version: '2.1.0',
+  version: '2.1.1',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
