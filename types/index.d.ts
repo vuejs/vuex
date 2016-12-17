@@ -84,7 +84,7 @@ export type Mutation<S> = (state: S, payload: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
 export interface Module<S, R> {
-  namespace?: string;
+  namespaced?: boolean;
   state?: S;
   getters?: GetterTree<S, R>;
   actions?: ActionTree<S, R>;
