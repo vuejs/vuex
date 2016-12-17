@@ -5,9 +5,8 @@ export const mapState = normalizeNamespace((namespace, states) => {
       let state = this.$store.state
       let getters = this.$store.getters
       if (namespace) {
-        const module = this.$store._modulesNamespaceMap[namespace]
+        const module = getModuleByNamespace(this.$store, 'mapState', namespace)
         if (!module) {
-          warnNamespace('mapState', namespace)
           return
         }
         state = module.context.state
@@ -26,6 +25,9 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
   normalizeMap(mutations).forEach(({ key, val }) => {
     val = namespace + val
     res[key] = function mappedMutation (...args) {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapMutations', namespace)) {
+        return
+      }
       return this.$store.commit.apply(this.$store, [val].concat(args))
     }
   })
@@ -37,8 +39,12 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
   normalizeMap(getters).forEach(({ key, val }) => {
     val = namespace + val
     res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
       if (!(val in this.$store.getters)) {
         console.error(`[vuex] unknown getter: ${val}`)
+        return
       }
       return this.$store.getters[val]
     }
@@ -51,6 +57,9 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
   normalizeMap(actions).forEach(({ key, val }) => {
     val = namespace + val
     res[key] = function mappedAction (...args) {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapActions', namespace)) {
+        return
+      }
       return this.$store.dispatch.apply(this.$store, [val].concat(args))
     }
   })
@@ -75,6 +84,10 @@ function normalizeNamespace (fn) {
   }
 }
 
-function warnNamespace (helper, namespace) {
-  console.error(`[vuex] module namespace not found in ${helper}(): ${namespace}`)
+function getModuleByNamespace (store, helper, namespace) {
+  const module = store._modulesNamespaceMap[namespace]
+  if (!module) {
+    console.error(`[vuex] module namespace not found in ${helper}(): ${namespace}`)
+  }
+  return module
 }
