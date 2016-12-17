@@ -236,21 +236,21 @@ function installModule (store, rootState, path, module, hot) {
     })
   }
 
-  const local = module.context = makeLocalContext(store, namespace)
+  const local = module.context = makeLocalContext(store, namespace, path)
 
   module.forEachMutation((mutation, key) => {
     const namespacedType = namespace + key
-    registerMutation(store, namespacedType, mutation, path)
+    registerMutation(store, namespacedType, mutation, local)
   })
 
   module.forEachAction((action, key) => {
     const namespacedType = namespace + key
-    registerAction(store, namespacedType, action, local, path)
+    registerAction(store, namespacedType, action, local)
   })
 
   module.forEachGetter((getter, key) => {
     const namespacedType = namespace + key
-    registerGetter(store, namespacedType, getter, local, path)
+    registerGetter(store, namespacedType, getter, local)
   })
 
   module.forEachChild((child, key) => {
@@ -259,10 +259,10 @@ function installModule (store, rootState, path, module, hot) {
 }
 
 /**
- * make localized dispatch, commit and getters
+ * make localized dispatch, commit, getters and state
  * if there is no namespace, just use root ones
  */
-function makeLocalContext (store, namespace) {
+function makeLocalContext (store, namespace, path) {
   const noNamespace = namespace === ''
 
   const local = {
@@ -299,10 +299,17 @@ function makeLocalContext (store, namespace) {
     }
   }
 
-  // getters object must be gotten lazily
-  // because store.getters will be changed by vm update
-  Object.defineProperty(local, 'getters', {
-    get: noNamespace ? () => store.getters : () => makeLocalGetters(store, namespace)
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? () => store.getters
+        : () => makeLocalGetters(store, namespace)
+    },
+    state: {
+      get: () => getNestedState(store.state, path)
+    }
   })
 
   return local
@@ -331,21 +338,21 @@ function makeLocalGetters (store, namespace) {
   return gettersProxy
 }
 
-function registerMutation (store, type, handler, path) {
+function registerMutation (store, type, handler, local) {
   const entry = store._mutations[type] || (store._mutations[type] = [])
   entry.push(function wrappedMutationHandler (payload) {
-    handler(getNestedState(store.state, path), payload)
+    handler(local.state, payload)
   })
 }
 
-function registerAction (store, type, handler, local, path) {
+function registerAction (store, type, handler, local) {
   const entry = store._actions[type] || (store._actions[type] = [])
   entry.push(function wrappedActionHandler (payload, cb) {
     let res = handler({
       dispatch: local.dispatch,
       commit: local.commit,
       getters: local.getters,
-      state: getNestedState(store.state, path),
+      state: local.state,
       rootGetters: store.getters,
       rootState: store.state
     }, payload, cb)
@@ -363,14 +370,14 @@ function registerAction (store, type, handler, local, path) {
   })
 }
 
-function registerGetter (store, type, rawGetter, local, path) {
+function registerGetter (store, type, rawGetter, local) {
   if (store._wrappedGetters[type]) {
     console.error(`[vuex] duplicate getter key: ${type}`)
     return
   }
   store._wrappedGetters[type] = function wrappedGetter (store) {
     return rawGetter(
-      getNestedState(store.state, path), // local state
+      local.state, // local state
       local.getters, // local getters
       store.state, // root state
       store.getters // root getters

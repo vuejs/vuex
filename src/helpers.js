@@ -10,7 +10,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
           warnNamespace('mapState', namespace)
           return
         }
-        state = module.state
+        state = module.context.state
         getters = module.context.getters
       }
       return typeof val === 'function'

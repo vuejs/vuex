@@ -62,6 +62,10 @@ describe('Helpers', () => {
     expect(vm.a).toBe(3)
     store.state.foo.a++
     expect(vm.a).toBe(5)
+    store.replaceState({
+      foo: { a: 3 }
+    })
+    expect(vm.a).toBe(7)
   })
 
   it('mapMutations (array)', () => {
