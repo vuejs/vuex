@@ -236,7 +236,7 @@ function installModule (store, rootState, path, module, hot) {
     })
   }
 
-  const local = module.context = makeLocalContext(store, namespace)
+  const local = module.context = makeLocalContext(store, namespace, path)
 
   module.forEachMutation((mutation, key) => {
     const namespacedType = namespace + key
@@ -259,10 +259,10 @@ function installModule (store, rootState, path, module, hot) {
 }
 
 /**
- * make localized dispatch, commit and getters
+ * make localized dispatch, commit, getters and state
  * if there is no namespace, just use root ones
  */
-function makeLocalContext (store, namespace) {
+function makeLocalContext (store, namespace, path) {
   const noNamespace = namespace === ''
 
   const local = {
@@ -299,10 +299,17 @@ function makeLocalContext (store, namespace) {
     }
   }
 
-  // getters object must be gotten lazily
-  // because store.getters will be changed by vm update
-  Object.defineProperty(local, 'getters', {
-    get: noNamespace ? () => store.getters : () => makeLocalGetters(store, namespace)
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? () => store.getters
+        : () => makeLocalGetters(store, namespace)
+    },
+    state: {
+      get: () => getNestedState(store.state, path)
+    }
   })
 
   return local
