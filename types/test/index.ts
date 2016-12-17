@@ -135,14 +135,14 @@ namespace NamespacedModule {
     },
     modules: {
       a: {
-        namespace: "prefix/",
+        namespaced: true,
         state: { value: 1 },
         modules: {
           b: {
             state: { value: 2 }
           },
           c: {
-            namespace: "nested/",
+            namespaced: true,
             state: { value: 3 },
             getters: {
               constant: () => 10,
