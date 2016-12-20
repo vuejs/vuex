@@ -1,6 +1,6 @@
 # 插件
 
-Vuex 的 store 接受 `plugins` 选项，这个选项暴露出每次 mutation 的钩子。Vuex 插件就是一个函数，它接收 sotre 作为唯一参数：
+Vuex 的 store 接受 `plugins` 选项，这个选项暴露出每次 mutation 的钩子。Vuex 插件就是一个函数，它接收 store 作为唯一参数：
 
 ``` js
 const myPlugin = store => {
