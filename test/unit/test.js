@@ -3,7 +3,6 @@ import sinonChai from 'sinon-chai'
 import sinon from 'sinon'
 import Vue from 'vue'
 import Vuex from '../../src'
-import * as util from '../../src/util'
 
 Vue.use(Vuex)
 chai.use(sinonChai)

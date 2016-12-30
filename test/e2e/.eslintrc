@@ -1,0 +1,6 @@
+{
+  "globals": {
+    "casper": true,
+    "__utils__": true
+  }
+}
