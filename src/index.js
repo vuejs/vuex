@@ -109,7 +109,7 @@ class Store {
 
     if (typeof type !== 'string') {
       throw new Error(
-        `Expects string as the type, but found ${typeof type}.`
+        `[vuex] Expects string as the type, but found ${typeof type}.`
       )
     }
 
