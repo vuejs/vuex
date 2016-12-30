@@ -1,4 +1,3 @@
-import Vue from 'vue/dist/vue.common.js'
 import Vuex from '../../dist/vuex.js'
 
 const TEST = 'TEST'
@@ -298,7 +297,7 @@ describe('Modules', () => {
           b: createModule('b', false, { // a/b - does not add namespace
             c: createModule('c', true) // a/c/c
           }),
-          d: createModule('d', true), // a/d/d
+          d: createModule('d', true) // a/d/d
         })
       }
 

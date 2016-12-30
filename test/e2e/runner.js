@@ -1,4 +1,3 @@
-var path = require('path')
 var spawn = require('cross-spawn')
 var args = process.argv.slice(2)
 
