@@ -37,6 +37,23 @@ describe('Store', () => {
     expect(store.state.a).toBe(3)
   })
 
+  it('asserts committed type', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        undefined (state, n) {
+          state.a += n
+        }
+      }
+    })
+    expect(() => {
+      store.commit(undefined, 2)
+    }).toThrowError(/Expects string as the type, but found undefined/)
+    expect(store.state.a).toBe(1)
+  })
+
   it('dispatching actions, sync', () => {
     const store = new Vuex.Store({
       state: {
@@ -164,6 +181,28 @@ describe('Store', () => {
         expect(spy).toHaveBeenCalledWith('vuex:error', 'no')
         done()
       })
+  })
+
+  it('asserts dispatched type', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      },
+      actions: {
+        undefined ({ commit }, n) {
+          commit(TEST, n)
+        }
+      }
+    })
+    expect(() => {
+      store.dispatch(undefined, 2)
+    }).toThrowError(/Expects string as the type, but found undefined/)
+    expect(store.state.a).toBe(1)
   })
 
   it('getters', () => {
