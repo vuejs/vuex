@@ -62,7 +62,7 @@
     "sinon-chai": "^2.8.0",
     "todomvc-app-css": "^2.0.3",
     "uglify-js": "^2.6.2",
-    "vue": "^2.0.0-alpha.7",
+    "vue": "^2.1.8",
     "vue-loader": "^9.0.3",
     "webpack": "^1.12.8",
     "webpack-dev-server": "^1.12.1"
