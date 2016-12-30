@@ -43,6 +43,8 @@ describe('Store', () => {
         a: 1
       },
       mutations: {
+        // Maybe registered with undefined type accidentally
+        // if the user has typo in a constant type
         undefined (state, n) {
           state.a += n
         }
@@ -194,6 +196,8 @@ describe('Store', () => {
         }
       },
       actions: {
+        // Maybe registered with undefined type accidentally
+        // if the user has typo in a constant type
         undefined ({ commit }, n) {
           commit(TEST, n)
         }
