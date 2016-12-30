@@ -106,6 +106,13 @@ class Store {
       if (type.silent) silent = true
       type = type.type
     }
+
+    if (typeof type !== 'string') {
+      throw new Error(
+        `Expects string as the type, but found ${typeof type}.`
+      )
+    }
+
     const handler = this._mutations[type]
     const state = this.state
     if (handler) {
