@@ -162,18 +162,26 @@ const store = new Vuex.Store({ ...options })
 
 ### コンポーネントをバインドするヘルパー
 
-- **`mapState(map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
   ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](state.md#the-mapstate-helper)
 
-- **`mapGetters(map: Array<string> | Object): Object`**
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+
+- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](getters.md#the-mapgetters-helper)
 
-- **`mapActions(map: Array<string> | Object): Object`**
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+
+- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](actions.md#dispatching-actions-in-components)
 
-- **`mapMutations(map: Array<string> | Object): Object`**
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+
+- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
+
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
