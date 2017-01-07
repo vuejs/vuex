@@ -69,7 +69,8 @@ const store = new Vuex.Store({ ...options })
     {
       key: {
         state,
-        mutations,
+        namespaced?,
+        mutations?,
         actions?,
         getters?,
         modules?
@@ -160,18 +161,26 @@ const store = new Vuex.Store({ ...options })
 
 ### Вспомогательные функции для связывания с компонентами
 
-- **`mapState(map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
   Создаёт проксирующие вычисляемые свойства компонента, возвращающие поддерево state'а хранилища Vuex [Подробнее](state.md#the-mapstate-helper)
 
-- **`mapGetters(map: Array<string> | Object): Object`**
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
+
+- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   Создаёт проксирующие вычисляемые свойства компонента, проксирующие доступ к геттерам. [Подробнее](getters.md#the-mapgetters-helper)
 
-- **`mapActions(map: Array<string> | Object): Object`**
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
+
+- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   Создаёт проксирующие методы компонента, позволяющие диспетчеризировать действия. [Подробнее](actions.md#dispatching-actions-in-components)
 
-- **`mapMutations(map: Array<string> | Object): Object`**
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
+
+- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   Создаёт проксирующие методы компонента, позволяющие инициировать мутации. [Подробнее](mutations.md#commiting-mutations-in-components)
+
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
