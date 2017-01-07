@@ -33,7 +33,7 @@ describe('Plugins', () => {
     expect(mutations[0].payload).toBe(2)
   })
 
-  it('can inject into store context', async function (done) {
+  it('injects into store context', async function (done) {
     const store = new Vuex.Store({
       state: { a: 1 },
       actions: {
@@ -57,7 +57,7 @@ describe('Plugins', () => {
     done()
   })
 
-  it('can inject into modules context', async function (done) {
+  it('injects into modules context', async function (done) {
     const store = new Vuex.Store({
       state: { a: 1 },
       actions: {
@@ -78,6 +78,37 @@ describe('Plugins', () => {
     })
     expect(await store.dispatch('moduleAction')).toBe('foo')
     expect(await store.dispatch('useFoo')).toBe(undefined)
+    done()
+  })
+
+  it('injects actions bounded to root', async function (done) {
+    const store = new Vuex.Store({
+      state: { a: 1 },
+      plugins: [
+        (store, { registerAction }) => {
+          registerAction('stateA', ({ state }) => state.a)
+        }
+      ]
+    })
+    expect(await store.dispatch('stateA')).toBe(1)
+    done()
+  })
+
+  it('injects actions bounded to a module', async function (done) {
+    const store = new Vuex.Store({
+      state: { a: 1 },
+      modules: {
+        module: {
+          state: { a: 2 }
+        }
+      },
+      plugins: [
+        (store, { registerAction }) => {
+          registerAction('module', 'stateA', ({ state }) => state.a)
+        }
+      ]
+    })
+    expect(await store.dispatch('stateA')).toBe(2)
     done()
   })
 })
