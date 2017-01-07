@@ -465,34 +465,5 @@ describe('Modules', () => {
         done()
       })
     })
-
-    it('plugins', function () {
-      let initState
-      const mutations = []
-      const store = new Vuex.Store({
-        state: {
-          a: 1
-        },
-        mutations: {
-          [TEST] (state, n) {
-            state.a += n
-          }
-        },
-        plugins: [
-          store => {
-            initState = store.state
-            store.subscribe((mut, state) => {
-              expect(state).toBe(store.state)
-              mutations.push(mut)
-            })
-          }
-        ]
-      })
-      expect(initState).toBe(store.state)
-      store.commit(TEST, 2)
-      expect(mutations.length).toBe(1)
-      expect(mutations[0].type).toBe(TEST)
-      expect(mutations[0].payload).toBe(2)
-    })
   })
 })
