@@ -29,4 +29,4 @@
         └── products.js   # модуль товаров
 ```
 
-Для справки можено использовать [Пример корзины покупок](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+Для справки можно использовать [Пример корзины покупок](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
