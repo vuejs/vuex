@@ -37,7 +37,7 @@ store.state.b // -> состояние модуля moduleB
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // state указывает на локальное состояние модуля
       state.count++
     }

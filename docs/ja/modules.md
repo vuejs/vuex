@@ -37,7 +37,7 @@ store.state.b // -> moduleB のステート
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // state はモジュールのローカルステート
       state.count++
     }
@@ -81,42 +81,143 @@ const moduleA = {
 
 ### 名前空間
 
-特筆すべきこととして、モジュール内部のアクションやミューテーション、ゲッターは依然として**グローバル名前空間**の下に登録されます。これにより、複数のモジュールを同一のミューテーションやアクションタイプに反応させることができます。接頭語や接尾語を付けることで名前の衝突を回避できますし、再利用可能でかつどこで使われるか分からない Vuex のモジュールを書いているのならば、そうすべきです。例えば `todos` モジュールを作りたいときは以下のようにします:
+デフォルトでは、アクション、ミューテーション、そしてゲッター内部のモジュールは**グローバル名前空間**の元で登録されます - これにより、複数のモジュールが同じミューテーション/アクションタイプに反応することができます。
+
+モジュールをより自己完結型にまた再利用可能なものにしたい場合は、それを `namespaced: true` によって名前空間に分けることができます。モジュールが登録されると、そのゲッター、アクション、およびミューテーションのすべてが、モジュールが登録されているパスに基づいて自動的に名前空間に入れられます。例えば:
 
 ``` js
-// types.js
+const store = new Vuex.Store({
+  modules: {
+    account: {
+      namespaced: true,
 
-// ゲッター、アクション、ミューテーションの名前を定数として定義し、
-// それらにモジュール名である `todos` を接頭語として付ける
-export const DONE_COUNT = 'todos/DONE_COUNT'
-export const FETCH_ALL = 'todos/FETCH_ALL'
-export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
+      // モジュールのアセット
+      state: { ... }, // モジュールステートはすでにネストされており、名前空間のオプションによって影響を受けません
+      getters: {
+        isAdmin () { ... } // -> getters['account/isAdmin']
+      },
+      actions: {
+        login () { ... } // -> dispatch('account/login')
+      },
+      mutations: {
+        login () { ... } // -> commit('account/login')
+      },
+
+      // ネストされたモジュール
+      modules: {
+        // 親モジュールから名前空間を継承する
+        myPage: {
+          state: { ... },
+          getters: {
+            profile () { ... } // -> getters['account/profile']
+          }
+        },
+
+        // さらに名前空間をネストする
+        posts: {
+          namespaced: true,
+
+          state: { ... },
+          getters: {
+            popular () { ... } // -> getters['account/posts/popular']
+          }
+        }
+      }
+    }
+  }
+})
 ```
 
+名前空間のゲッターとアクションは、ローカライズされた `getters`、`dispatch`、`commit` を受け取ります。言い換えれば、同じモジュールに接頭辞 (prefix) を書き込まずに、モジュールアセットを使用することができます。名前空間オプションの切り替えは、モジュール内のコードには影響しません。
+
+#### 名前空間付きモジュールでのグローバルアセットへのアクセス
+
+グローバルステートとゲッターを使いたい場合、`rootState` と `rootGetters` はゲッター関数の第3引数と第4引数として渡され、アクション関数に渡される `context` オブジェクトのプロパティとしても公開されます。
+
+アクションをディスパッチするか、グローバル名前空間にミューテーションをコミットするには、`dispatch` と `commit` の3番目の引数として `{root: true}` を渡します。
+
 ``` js
-// modules/todos.js
-import * as types from '../types'
+modules: {
+  foo: {
+    namespaced: true,
 
-// 接頭語を付けたゲッター、アクション、ミューテーションを定義する
-const todosModule = {
-  state: { todos: [] },
+    getters: {
+      // `getters` はこのモジュールのゲッターにローカライズされています
+      // ゲッターの第4引数経由で rootGetters を使うことができます
+      someGetter (state, getters, rootState, rootGetters) {
+        getters.someOtherGetter // -> 'foo/someOtherGetter'
+        rootGetters.someOtherGetter // -> 'someOtherGetter'
+      },
+      someOtherGetter: state => { ... }
+    },
 
-  getters: {
-    [types.DONE_COUNT] (state) {
-      // ...
+    actions: {
+      // ディスパッチとコミットもこのモジュール用にローカライズされています
+      // ルートディスパッチ/コミットの `root` オプションを受け入れます
+      someAction ({ dispatch, commit, getters, rootGetters }) {
+        getters.someGetter // -> 'foo/someGetter'
+        rootGetters.someGetter // -> 'someGetter'
+
+        dispatch('someOtherAction') // -> 'foo/someOtherAction'
+        dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
+        commit('someMutation') // -> 'foo/someMutation'
+        commit('someMutation', null, { root: true }) // -> 'someMutation'
+      },
+      someOtherAction (ctx, payload) { ... }
     }
-  },
+  }
+}
+```
 
-  actions: {
-    [types.FETCH_ALL] (context, payload) {
-      // ...
-    }
-  },
+#### 名前空間によるバインディングヘルパー
 
-  mutations: {
-    [types.TOGGLE_DONE] (state, payload) {
-      // ...
-    }
+`mapState`、`mapGetters`、`mapActions`、そして `mapMutations` ヘルパーを使って名前空間付きモジュールをコンポーネントにバインディングするとき、少し冗長になります:
+
+``` js
+computed: {
+  ...mapState({
+    a: state => state.some.nested.module.a,
+    b: state => state.some.nested.module.b
+  })
+},
+methods: {
+  ...mapActions([
+    'some/nested/module/foo',
+    'some/nested/module/bar'
+  ])
+}
+```
+
+このような場合は、第1引数としてモジュールの名前空間文字列をヘルパーに渡すことで、そのモジュールをコンテキストとして使用してすべてのバインディングを行うことができます。上記は次のように単純化できます。
+
+``` js
+computed: {
+  ...mapState('some/nested/module', {
+    a: state => state.a,
+    b: state => state.b
+  })
+},
+methods: {
+  ...mapActions('some/nested/module', [
+    'foo',
+    'bar'
+  ])
+}
+```
+
+#### プラグイン開発者向けの注意事項
+
+モジュールを提供する[プラグイン](plugins.md)を作成し、ユーザーがそれらを Vuex ストアに追加できるようにすると、モジュールの予測できない名前空間が気になるかもしれません。あなたのモジュールは、プラグインユーザーが名前空間付きモジュールの元にモジュールを追加すると、その名前空間に属するようになります。この状況に適応するには、プラグインオプションを使用して名前空間の値を受け取る必要があります。
+
+``` js
+// プラグインオプションで名前空間値を取得し、
+// そして、Vuex プラグイン関数を返す
+export function createPlugin (options = {}) {
+  return function (store) {
+    /// 名前空間をプラグインモジュールの型に追加する
+    const namespace = options.namespace || ''
+    store.dispatch(namespace + 'pluginAction')
   }
 }
 ```
