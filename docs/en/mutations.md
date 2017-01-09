@@ -75,24 +75,6 @@ mutations: {
 }
 ```
 
-### Silent Commit
-
-> Note: This is a feature that will likely be deprecated once we implement mutation filtering in the devtools.
-
-By default, every committed mutation is sent to plugins (e.g. the devtools). However in some scenarios you may not want the plugins to record every state change. Multiple commits to the store in a short period or polled do not always need to be tracked. In such cases you can pass a third argument to `store.commit` to "silence" that specific mutation from plugins:
-
-``` js
-store.commit('increment', {
-  amount: 1
-}, { silent: true })
-
-// with object-style commit
-store.commit({
-  type: 'increment',
-  amount: 1
-}, { silent: true })
-```
-
 ### Mutations Follow Vue's Reactivity Rules
 
 Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
@@ -153,7 +135,7 @@ mutations: {
 
 Now imagine we are debugging the app and looking at the devtool's mutation logs. For every mutation logged, the devtool will need to capture a "before" and "after" snapshots of the state. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is committed, and there's no way for the devtool to know when the callback will actually be called - any state mutation performed in the callback is essentially un-trackable!
 
-### Commiting Mutations in Components
+### Committing Mutations in Components
 
 You can commit mutations in components with `this.$store.commit('xxx')`, or use the `mapMutations` helper which maps component methods to `store.commit` calls (requires root `store` injection):
 

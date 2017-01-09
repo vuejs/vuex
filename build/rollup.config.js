@@ -1,4 +1,5 @@
 const buble = require('rollup-plugin-buble')
+const replace = require('rollup-plugin-replace')
 const version = process.env.VERSION || require('../package.json').version
 
 module.exports = {
@@ -6,7 +7,10 @@ module.exports = {
   dest: 'dist/vuex.js',
   format: 'umd',
   moduleName: 'Vuex',
-  plugins: [buble()],
+  plugins: [
+    replace({ __VERSION__: version }),
+    buble()
+  ],
   banner:
 `/**
  * vuex v${version}

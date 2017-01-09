@@ -37,7 +37,7 @@ Inside a module's mutations and getters, The first argument received will be **t
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // state is the local module state
       state.count++
     }
@@ -81,42 +81,143 @@ const moduleA = {
 
 ### Namespacing
 
-Note that actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type. You can namespace the module assets yourself to avoid name clashing by prefixing or suffixing their names. And you probably should if you are writing a reusable Vuex module that will be used in unknown environments. For example, we want to create a `todos` module:
+By default, actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type.
+
+If you want your modules to be more self-contained or reusable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
 
 ``` js
-// types.js
+const store = new Vuex.Store({
+  modules: {
+    account: {
+      namespaced: true,
 
-// define names of getters, actions and mutations as constants
-// and they are prefixed by the module name `todos`
-export const DONE_COUNT = 'todos/DONE_COUNT'
-export const FETCH_ALL = 'todos/FETCH_ALL'
-export const TOGGLE_DONE = 'todos/TOGGLE_DONE'
+      // module assets
+      state: { ... }, // module state is already nested and not affected by namespace option
+      getters: {
+        isAdmin () { ... } // -> getters['account/isAdmin']
+      },
+      actions: {
+        login () { ... } // -> dispatch('account/login')
+      },
+      mutations: {
+        login () { ... } // -> commit('account/login')
+      },
+
+      // nested modules
+      modules: {
+        // inherits the namespace from parent module
+        myPage: {
+          state: { ... },
+          getters: {
+            profile () { ... } // -> getters['account/profile']
+          }
+        },
+
+        // further nest the namespace
+        posts: {
+          namespaced: true,
+
+          state: { ... },
+          getters: {
+            popular () { ... } // -> getters['account/posts/popular']
+          }
+        }
+      }
+    }
+  }
+})
 ```
 
+Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. Toggling between namespaced or not does not affect the code inside the module.
+
+#### Accessing Global Assets in Namespaced Modules
+
+If you want to use global state and getters, `rootState` and `rootGetters` are passed as the 3rd and 4th arguments to getter functions, and also exposed as properties on the `context` object passed to action functions.
+
+To dispatch actions or commit mutations in the global namespace, pass `{ root: true }` as the 3rd argument to `dispatch` and `commit`.
+
 ``` js
-// modules/todos.js
-import * as types from '../types'
+modules: {
+  foo: {
+    namespaced: true,
 
-// define getters, actions and mutations using prefixed names
-const todosModule = {
-  state: { todos: [] },
+    getters: {
+      // `getters` is localized to this module's getters
+      // you can use rootGetters via 4th argument of getters
+      someGetter (state, getters, rootState, rootGetters) {
+        getters.someOtherGetter // -> 'foo/someOtherGetter'
+        rootGetters.someOtherGetter // -> 'someOtherGetter'
+      },
+      someOtherGetter: state => { ... }
+    },
 
-  getters: {
-    [types.DONE_COUNT] (state) {
-      // ...
+    actions: {
+      // dispatch and commit are also localized for this module
+      // they will accept `root` option for the root dispatch/commit
+      someAction ({ dispatch, commit, getters, rootGetters }) {
+        getters.someGetter // -> 'foo/someGetter'
+        rootGetters.someGetter // -> 'someGetter'
+
+        dispatch('someOtherAction') // -> 'foo/someOtherAction'
+        dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
+        commit('someMutation') // -> 'foo/someMutation'
+        commit('someMutation', null, { root: true }) // -> 'someMutation'
+      },
+      someOtherAction (ctx, payload) { ... }
     }
-  },
+  }
+}
+```
 
-  actions: {
-    [types.FETCH_ALL] (context, payload) {
-      // ...
-    }
-  },
+#### Binding Helpers with Namespace
 
-  mutations: {
-    [types.TOGGLE_DONE] (state, payload) {
-      // ...
-    }
+When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:
+
+``` js
+computed: {
+  ...mapState({
+    a: state => state.some.nested.module.a,
+    b: state => state.some.nested.module.b
+  })
+},
+methods: {
+  ...mapActions([
+    'some/nested/module/foo',
+    'some/nested/module/bar'
+  ])
+}
+```
+
+In such cases, you can pass the module namespace string as the first argument to the helpers so that all bindings are done using that module as the context. The above can be simplified to:
+
+``` js
+computed: {
+  ...mapState('some/nested/module', {
+    a: state => state.a,
+    b: state => state.b
+  })
+},
+methods: {
+  ...mapActions('some/nested/module', [
+    'foo',
+    'bar'
+  ])
+}
+```
+
+#### Caveat for Plugin Developers
+
+You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
+
+``` js
+// get namespace value via plugin option
+// and returns Vuex plugin function
+export function createPlugin (options = {}) {
+  return function (store) {
+    // add namespace to plugin module's types
+    const namespace = options.namespace || ''
+    store.dispatch(namespace + 'pluginAction')
   }
 }
 ```

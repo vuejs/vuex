@@ -37,7 +37,7 @@ Dans les mutations et getters d'un module, le premier argument reçu sera le **s
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // state est le state du module local
       state.count++
     }
