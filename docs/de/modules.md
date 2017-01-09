@@ -37,7 +37,7 @@ In den Mutations und Getters eines Moduls ist das erste Argument der **lokale St
 const moduleA = {
   state: { count: 0 },
   mutations: {
-    increment: (state) {
+    increment (state) {
       // 'state' ist der lokale Modul-State
       state.count++
     }
