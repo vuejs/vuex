@@ -69,7 +69,8 @@ const store = new Vuex.Store({ ...options })
     {
       key: {
         state,
-        mutations,
+        namespaced?,
+        mutations?,
         actions?,
         getters?,
         modules?
