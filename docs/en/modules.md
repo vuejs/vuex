@@ -57,8 +57,8 @@ Similarly, inside module actions, `context.state` will expose the local state, a
 const moduleA = {
   // ...
   actions: {
-    incrementIfOdd ({ state, commit }) {
-      if (state.count % 2 === 1) {
+    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+      if (state.count + rootState.count % 2 === 1) {
         commit('increment')
       }
     }
