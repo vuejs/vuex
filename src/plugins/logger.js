@@ -5,6 +5,7 @@ import { deepCopy } from '../util'
 export default function createLogger ({
   collapsed = true,
   transformer = state => state,
+  ignored = type => false,
   mutationTransformer = mut => mut
 } = {}) {
   return store => {
@@ -12,6 +13,9 @@ export default function createLogger ({
 
     store.subscribe((mutation, state) => {
       if (typeof console === 'undefined') {
+        return
+      }
+      if (ignored(mutation.type)) {
         return
       }
       const nextState = deepCopy(state)
