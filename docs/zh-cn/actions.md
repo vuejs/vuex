@@ -119,7 +119,7 @@ export default {
 
 Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
 
-第一件事你需要清楚的是 `store.dispatch` 的返回的是被触发的 action 函数的返回值，因此你可以在 action 中返回 Promise：
+首先，你需要明白 `store.dispatch` 可以处理被触发的action的回调函数返回的Promise，并且store.dispatch仍旧返回Promise：
 
 ``` js
 actions: {
