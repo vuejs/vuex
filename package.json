@@ -52,6 +52,7 @@
     "css-loader": "^0.26.1",
     "eslint": "^3.13.1",
     "eslint-config-vue": "^2.0.1",
+    "eslint-plugin-vue": "^1.0.0",
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.7",
     "rollup": "^0.41.4",
