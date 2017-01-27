@@ -61,18 +61,12 @@ computed: {
 }
 ```
 
-You can also return functions in getters:
+You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
 ```js
 getters: {
   // ...
   getTodoById: (state, getters) => (id) => {
     return getters.todos.find(todo => todo.id === id)
-  }
-  // function syntax
-  getTodoById: function(state, getters){
-    return function(id){
-      return getters.todos.find(todo => todo.id === id)
-    }
   }
 }
 ```
