@@ -61,6 +61,21 @@ computed: {
 }
 ```
 
+You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+```js
+getters: {
+  // ...
+  getTodoById: (state, getters) => (id) => {
+    return getters.todos.find(todo => todo.id === id)
+  }
+}
+```
+
+``` js
+store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+```
+
+
 ### The `mapGetters` Helper
 
 The `mapGetters` helper simply maps store getters to local computed properties:
