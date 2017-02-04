@@ -82,7 +82,7 @@ module.exports = {
       .assert.count('.todo', 1)
       .assert.count('.todo.completed', 0)
       // add item with filter active
-      createNewItem('test')
+    createNewItem('test')
       .assert.count('.todo', 2)
 
     // complted filter

@@ -210,9 +210,9 @@ describe('Store', () => {
     const store = new Vuex.Store({
       mutations: {
         [TEST] () {}
-      },
+      }
     })
-    store.commit(TEST, {}, { silent: true });
+    store.commit(TEST, {}, { silent: true })
 
     expect(console.warn).toHaveBeenCalledWith(
       `[vuex] mutation type: ${TEST}. Silent option has been removed. ` +
