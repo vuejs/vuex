@@ -82,6 +82,28 @@ describe('Modules', () => {
     })
   })
 
+  // #524
+  it('should not fire an unrelated watcher', done => {
+    const spy = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          state: { value: 1 }
+        },
+        b: {}
+      }
+    })
+
+    store.watch(state => state.a, spy)
+    store.registerModule(['b', 'c'], {
+      state: { value: 2 }
+    })
+    Vue.nextTick(() => {
+      expect(spy).not.toHaveBeenCalled()
+      done()
+    })
+  })
+
   describe('modules usage', () => {
     it('module: mutation', function () {
       const mutations = {
