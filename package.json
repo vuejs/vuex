@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
   "typings": "types/index.d.ts",
