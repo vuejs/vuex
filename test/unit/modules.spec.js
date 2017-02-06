@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Vuex from '../../dist/vuex.js'
 
 const TEST = 'TEST'
