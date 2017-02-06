@@ -25,6 +25,25 @@ describe('Vuex', () => {
     expect(store.state.a).to.equal(3)
   })
 
+  it('throws for dispatch with undefined type', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        // Maybe registered with undefined type accidentally
+        // if the user has typo in a constant type
+        undefined (state, n) {
+          state.a += n
+        }
+      }
+    })
+    expect(() => {
+      store.dispatch(undefined, 2)
+    }).to.throw(/Expects string as the type, but found undefined/)
+    expect(store.state.a).to.equal(1)
+  })
+
   it('injecting state and action to components', function () {
     const store = new Vuex.Store({
       state: {
