@@ -403,6 +403,9 @@ function unifyObjectStyle (type, payload, options) {
     payload = type
     type = type.type
   }
+
+  assert(typeof type === 'string', `Expects string as the type, but found ${typeof type}.`)
+
   return { type, payload, options }
 }
 
