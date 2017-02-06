@@ -153,7 +153,7 @@ class Store {
 
   hotUpdate (newOptions) {
     this._modules.update(newOptions)
-    resetStore(this)
+    resetStore(this, true)
   }
 
   _withCommit (fn) {
@@ -164,7 +164,7 @@ class Store {
   }
 }
 
-function resetStore (store) {
+function resetStore (store, hot) {
   store._actions = Object.create(null)
   store._mutations = Object.create(null)
   store._wrappedGetters = Object.create(null)
@@ -173,10 +173,10 @@ function resetStore (store) {
   // init all modules
   installModule(store, state, [], store._modules.root, true)
   // reset vm
-  resetStoreVM(store, state)
+  resetStoreVM(store, state, hot)
 }
 
-function resetStoreVM (store, state) {
+function resetStoreVM (store, state, hot) {
   const oldVm = store._vm
 
   // bind store public getters
@@ -209,11 +209,13 @@ function resetStoreVM (store, state) {
   }
 
   if (oldVm) {
-    // dispatch changes in all subscribed watchers
-    // to force getter re-evaluation.
-    store._withCommit(() => {
-      oldVm.state = null
-    })
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(() => {
+        oldVm.state = null
+      })
+    }
     Vue.nextTick(() => oldVm.$destroy())
   }
 }
