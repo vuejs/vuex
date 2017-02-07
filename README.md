@@ -1,4 +1,4 @@
-# Vuex [![Build Status](https://img.shields.io/circleci/project/vuejs/vuex/dev.svg)](https://circleci.com/gh/vuejs/vuex)
+# Vuex [![Build Status](https://circleci.com/gh/vuejs/vuex/tree/dev.png?style=shield)](https://circleci.com/gh/vuejs/vuex)
 
 > Centralized State Management for Vue.js.
 
