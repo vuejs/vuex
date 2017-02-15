@@ -227,12 +227,18 @@ export function createPlugin (options = {}) {
 Вы можете зарегистрировать модуль уже и **после** того, как хранилище было создано, используя метод `store.registerModule`:
 
 ``` js
+// регистрация модуля `myModule`
 store.registerModule('myModule', {
+  // ...
+})
+
+// регистрация вложенного модуля `nested/myModule`
+store.registerModule(['nested', 'myModule'], {
   // ...
 })
 ```
 
-Состояние модуля будет доступно как `store.state.myModule`.
+Состояние модуля будет доступно как `store.state.myModule` и `store.state.nested.myModule`.
 
 Динамическая регистрация модулей позволяет другим плагинам Vue также использовать Vuex для управления своим состоянием, добавляя модуль к хранилищу данных приложения. Например, библиотека [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) интегрирует vue-router во vuex, отражая изменение текущего пути приложения в динамически присоединённом модуле.
 
