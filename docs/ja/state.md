@@ -13,7 +13,7 @@ Vuex は**単一ステートツリー (single state tree)**を使います。つ
 ``` js
 // Vue コンポーネントの定義
 computed: {
-count: function() {
+  count: function() {
     return store.state.count
   }
 }
