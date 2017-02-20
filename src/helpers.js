@@ -16,6 +16,8 @@ export const mapState = normalizeNamespace((namespace, states) => {
         ? val.call(this, state, getters)
         : state[val]
     }
+    // mark vuex getter for devtools
+    res[key].vuex = true
   })
   return res
 })
@@ -48,6 +50,8 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
       }
       return this.$store.getters[val]
     }
+    // mark vuex getter for devtools
+    res[key].vuex = true
   })
   return res
 })
