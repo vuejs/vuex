@@ -33,13 +33,13 @@ It is also possible to pass along arguments:
 ``` js
 // ...
 mutations: {
-  INCREMENT (state, n) {
-    state.count += n
+  INCREMENT_BY (state, amount) {
+    state.count += amount
   }
 }
 ```
 ``` js
-store.dispatch('INCREMENT', 10)
+store.dispatch('INCREMENT_BY', 10)
 ```
 
 Here `10` will be passed to the mutation handler as the second argument following `state`. Same for any additional arguments. These arguments are called the **payload** for the given mutation.
@@ -50,17 +50,17 @@ You can also dispatch mutations using objects:
 
 ``` js
 store.dispatch({
-  type: 'INCREMENT',
-  payload: 10
+  type: 'INCREMENT_BY',
+  payload: [ 10 ]
 })
 ```
 
-Note when using the object-style, you should include all arguments as properties on the dispatched object. The entire object will be passed as the second argument to mutation handlers:
+Note when using the object-style, the entire payload array will be spread after state to mutation handlers:
 
 ``` js
 mutations: {
-  INCREMENT (state, mutation) {
-    state.count += mutation.payload
+  INCREMENT_BY (state, amount) { // MUTATION_NAME (state, ...payload)
+    state.count += amount
   }
 }
 ```
@@ -81,11 +81,11 @@ Dispatching without hitting plugins can be achieved with a `silent` flag.
 export function start(store, options = {}) {
   let timer = setInterval(() => {
     store.dispatch({
-      type: INCREMENT,
+      type: INCREMENT_BY,
       silent: true,
-      payload: {
-        amount: 1,
-      },
+      payload: [
+        1, // amount
+      ],
     });
     if (store.state.progress === 100) {
       clearInterval(timer);
