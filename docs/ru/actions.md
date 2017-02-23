@@ -108,6 +108,9 @@ export default {
   methods: {
     ...mapActions([
       'increment' // проксирует this.increment() в this.$store.dispatch('increment')
+
+      // mapActions также поддерживают нагрузку (payloads):
+      'incrementBy' // проксирует this.incrementBy(amount) в this.$store.dispatch('incrementBy', amount)
     ]),
     ...mapActions({
       add: 'increment' // проксирует this.add() в this.$store.dispatch('increment')
@@ -120,7 +123,7 @@ export default {
 
 Раз действия зачастую асинхронны, то как узнать, что действие уже завершилось? И, что важнее, как быть со связанными между собой действиями при организации более сложных асинхронных потоков?
 
-Для начала стоит вспомнить, что `store.dispatch` возвращает значение, равное результату вызванного обработчика действия, что позволяет использовать Promise: 
+Для начала стоит вспомнить, что `store.dispatch` возвращает значение, равное результату вызванного обработчика действия, что позволяет использовать Promise:
 
 ``` js
 actions: {
