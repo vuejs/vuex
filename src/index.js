@@ -1,8 +1,8 @@
-import devtoolPlugin from './plugins/devtool'
 import applyMixin from './mixin'
-import { mapState, mapMutations, mapGetters, mapActions } from './helpers'
-import { forEachValue, isObject, isPromise, assert } from './util'
+import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
+import { forEachValue, isObject, isPromise, assert } from './util'
+import { mapState, mapMutations, mapGetters, mapActions } from './helpers'
 
 let Vue // bind on install
 
@@ -54,7 +54,7 @@ class Store {
   }
 
   get state () {
-    return this._vm.$data.state
+    return this._vm._data.$$state
   }
 
   set state (v) {
@@ -127,7 +127,7 @@ class Store {
 
   replaceState (state) {
     this._withCommit(() => {
-      this._vm.state = state
+      this._vm._data.$$state = state
     })
   }
 
@@ -198,7 +198,9 @@ function resetStoreVM (store, state, hot) {
   const silent = Vue.config.silent
   Vue.config.silent = true
   store._vm = new Vue({
-    data: { state },
+    data: {
+      $$state: state
+    },
     computed
   })
   Vue.config.silent = silent
@@ -213,7 +215,7 @@ function resetStoreVM (store, state, hot) {
       // dispatch changes in all subscribed watchers
       // to force getter re-evaluation for hot reloading.
       store._withCommit(() => {
-        oldVm.state = null
+        oldVm._data.$$state = null
       })
     }
     Vue.nextTick(() => oldVm.$destroy())
@@ -388,7 +390,7 @@ function registerGetter (store, type, rawGetter, local) {
 }
 
 function enableStrictMode (store) {
-  store._vm.$watch('state', () => {
+  store._vm.$watch(function () { return this._data.$$state }, () => {
     assert(store._committing, `Do not mutate vuex store state outside mutation handlers.`)
   }, { deep: true, sync: true })
 }

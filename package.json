@@ -67,7 +67,7 @@
     "typescript": "^2.1.5",
     "uglify-js": "^2.7.5",
     "vue": "^2.1.10",
-    "vue-loader": "^10.3.0",
+    "vue-loader": "^11.0.0",
     "vue-template-compiler": "^2.1.10",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
