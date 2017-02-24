@@ -49,8 +49,33 @@ class Store {
     // (also registers _wrappedGetters as computed properties)
     resetStoreVM(this, state)
 
+    // helper to make the first of 3 arguments optional
+    function shiftArguments (fn) {
+      return function (...args) {
+        while (args.length < 3) {
+          args.unshift(null)
+        }
+        fn.apply(null, args)
+      }
+    }
+
+    // allow plugins to register new properties in the context
+    const me = this
+    const registerInContext = shiftArguments(function (name, key, val) {
+      const context = name ? me._modules.get(name.split('.')).context : me.context
+      context[key] = val
+    })
+    // allow plugins to register new actions
+    const pluginRegisterAction = shiftArguments(function (name, type, handler) {
+      const context = name ? me._modules.get(name.split('.')).context : me.context
+      registerAction(store, type, handler, context)
+    })
+
     // apply plugins
-    plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
+    plugins.concat(devtoolPlugin).forEach(plugin => plugin(this, {
+      registerInContext,
+      registerAction: pluginRegisterAction
+    }))
   }
 
   get state () {
@@ -240,7 +265,7 @@ function installModule (store, rootState, path, module, hot) {
     })
   }
 
-  const local = module.context = makeLocalContext(store, namespace, path)
+  const local = (isRoot ? store : module).context = makeLocalContext(store, namespace, path)
 
   module.forEachMutation((mutation, key) => {
     const namespacedType = namespace + key
@@ -352,14 +377,18 @@ function registerMutation (store, type, handler, local) {
 function registerAction (store, type, handler, local) {
   const entry = store._actions[type] || (store._actions[type] = [])
   entry.push(function wrappedActionHandler (payload, cb) {
-    let res = handler({
-      dispatch: local.dispatch,
-      commit: local.commit,
+    const context = {
       getters: local.getters,
       state: local.state,
       rootGetters: store.getters,
       rootState: store.state
-    }, payload, cb)
+    }
+    // bring in commit, dispatch and any other added property
+    // Use this because IE doesn't supprot Object.assign
+    for (const key in local) {
+      context[key] = local[key]
+    }
+    let res = handler(context, payload, cb)
     if (!isPromise(res)) {
       res = Promise.resolve(res)
     }
