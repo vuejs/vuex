@@ -11,6 +11,8 @@ class Store {
     assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
     assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
 
+    if ( typeof options.state === 'function' ) options.state = options.state();
+
     const {
       state = {},
       plugins = [],
@@ -236,7 +238,11 @@ function installModule (store, rootState, path, module, hot) {
     const parentState = getNestedState(rootState, path.slice(0, -1))
     const moduleName = path[path.length - 1]
     store._withCommit(() => {
-      Vue.set(parentState, moduleName, module.state)
+      Vue.set(
+        parentState,
+        moduleName, 
+        ( typeof module.state === 'function' ) ? module.state() : module.state
+      )
     })
   }
 
