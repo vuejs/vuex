@@ -18,7 +18,7 @@ Vue のあとで `vuex` を取り込むと自動的に Vuex が導入されま�
 ### NPM
 
 ``` bash
-npm install vuex
+npm install vuex --save
 ```
 
 ### Yarn

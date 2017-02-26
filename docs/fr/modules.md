@@ -57,8 +57,8 @@ De façon similaire, dans les actions du module, `context.state` exposera le sta
 const moduleA = {
   // ...
   actions: {
-    incrementIfOdd ({ state, commit }) {
-      if (state.count % 2 === 1) {
+    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+      if ((state.count + rootState.count) % 2 === 1) {
         commit('increment')
       }
     }

@@ -1,7 +1,7 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.createVuexLogger = factory());
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.createVuexLogger = factory());
 }(this, (function () { 'use strict';
 
 /**
@@ -34,25 +34,29 @@ function deepCopy (obj, cache) {
   }
 
   // if obj is hit, it is in circular structure
-  var hit = find(cache, function (c) { return c.original === obj; })
+  var hit = find(cache, function (c) { return c.original === obj; });
   if (hit) {
     return hit.copy
   }
 
-  var copy = Array.isArray(obj) ? [] : {}
+  var copy = Array.isArray(obj) ? [] : {};
   // put the copy into cache at first
   // because we want to refer it in recursive deepCopy
   cache.push({
     original: obj,
     copy: copy
-  })
+  });
 
   Object.keys(obj).forEach(function (key) {
-    copy[key] = deepCopy(obj[key], cache)
-  })
+    copy[key] = deepCopy(obj[key], cache);
+  });
 
   return copy
 }
+
+/**
+ * forEach for object
+ */
 
 // Credits: borrowed code from fcomb/redux-logger
 
@@ -63,40 +67,40 @@ function createLogger (ref) {
   var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
 
   return function (store) {
-    var prevState = deepCopy(store.state)
+    var prevState = deepCopy(store.state);
 
     store.subscribe(function (mutation, state) {
       if (typeof console === 'undefined') {
         return
       }
-      var nextState = deepCopy(state)
-      var time = new Date()
-      var formattedTime = " @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3))
-      var formattedMutation = mutationTransformer(mutation)
-      var message = "mutation " + (mutation.type) + formattedTime
+      var nextState = deepCopy(state);
+      var time = new Date();
+      var formattedTime = " @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3));
+      var formattedMutation = mutationTransformer(mutation);
+      var message = "mutation " + (mutation.type) + formattedTime;
       var startMessage = collapsed
         ? console.groupCollapsed
-        : console.group
+        : console.group;
 
       // render
       try {
-        startMessage.call(console, message)
+        startMessage.call(console, message);
       } catch (e) {
-        console.log(message)
+        console.log(message);
       }
 
-      console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
-      console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
-      console.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
+      console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+      console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+      console.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
 
       try {
-        console.groupEnd()
+        console.groupEnd();
       } catch (e) {
-        console.log('—— log end ——')
+        console.log('—— log end ——');
       }
 
-      prevState = nextState
-    })
+      prevState = nextState;
+    });
   }
 }
 

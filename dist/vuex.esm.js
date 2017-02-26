@@ -3,12 +3,6 @@
  * (c) 2017 Evan You
  * @license MIT
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.Vuex = factory());
-}(this, (function () { 'use strict';
-
 var applyMixin = function (Vue) {
   var version = Number(Vue.version.split('.')[0]);
 
@@ -796,7 +790,7 @@ function getModuleByNamespace (store, helper, namespace) {
   return module
 }
 
-var index = {
+var index_esm = {
   Store: Store,
   install: install,
   version: '2.2.1',
@@ -806,6 +800,4 @@ var index = {
   mapActions: mapActions
 };
 
-return index;
-
-})));
+export { Store, mapState, mapMutations, mapGetters, mapActions };export default index_esm;

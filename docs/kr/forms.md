@@ -42,6 +42,9 @@ mutations: {
 
 틀림없이, 위의 내용은 `v-model` + 지역 상태보다 좀더 장황 해졌고, `v-model`의 유용한 기능 중 일부를 잃어 버렸습니다. 다른 방법은 setter를 사용하여 양방향 계산된 속성을 사용하는 것입니다.
 
+``` html
+<input v-model="message">
+```
 ``` js
 // ...
 computed: {

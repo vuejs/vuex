@@ -42,6 +42,9 @@ mutations: {
 
 確かに、上記の例は単純な `v-model` と ローカルステートよりもかなり冗長で、`v-model` のいくつかの有用な機能が使えません。代わりに、セッターで双方向算出プロパティを使うアプローチがあります。
 
+``` html
+<input v-model="message">
+```
 ``` js
 computed: {
   message: {

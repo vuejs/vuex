@@ -1,4 +1,4 @@
-import Vue from 'vue/dist/vue.common.js'
+import Vue from 'vue'
 import Vuex from '../../dist/vuex.js'
 
 const TEST = 'TEST'
@@ -79,6 +79,28 @@ describe('Modules', () => {
 
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
+    })
+  })
+
+  // #524
+  it('should not fire an unrelated watcher', done => {
+    const spy = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          state: { value: 1 }
+        },
+        b: {}
+      }
+    })
+
+    store.watch(state => state.a, spy)
+    store.registerModule(['b', 'c'], {
+      state: { value: 2 }
+    })
+    Vue.nextTick(() => {
+      expect(spy).not.toHaveBeenCalled()
+      done()
     })
   })
 
@@ -298,7 +320,7 @@ describe('Modules', () => {
           b: createModule('b', false, { // a/b - does not add namespace
             c: createModule('c', true) // a/c/c
           }),
-          d: createModule('d', true), // a/d/d
+          d: createModule('d', true) // a/d/d
         })
       }
 

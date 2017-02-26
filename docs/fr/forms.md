@@ -42,6 +42,9 @@ mutations: {
 
 Admettons tout de même que l'exemple ci-dessus est plus verbeux que le `v-model` couplé au state local, et on perd quelques fonctionnalités pratiques de `v-model` au passage. Une approche alternative consiste à utiliser une computed property bi-directionnelle avec un setter :
 
+``` html
+<input v-model="message">
+```
 ``` js
 // ...
 computed: {
