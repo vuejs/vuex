@@ -1,8 +1,13 @@
-import _Vue = require("vue");
+import _Vue from "vue";
 import { WatchOptions } from "vue";
 
 // augment typings of Vue.js
 import "./vue";
+
+export default {
+  Store,
+  install
+};
 
 export * from "./helpers";
 

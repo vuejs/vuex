@@ -1,4 +1,4 @@
-import Vue = require("vue");
+import Vue from "vue";
 
 type Dictionary<T> = { [key: string]: T };
 
