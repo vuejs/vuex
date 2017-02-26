@@ -1,4 +1,4 @@
-import { set } from 'vue'
+import Vue from 'vue'
 import * as types from './mutation-types'
 
 export default {
@@ -30,7 +30,7 @@ export default {
 }
 
 function createThread (state, id, name) {
-  set(state.threads, id, {
+  Vue.set(state.threads, id, {
     id,
     name,
     messages: [],
@@ -48,7 +48,7 @@ function addMessage (state, message) {
     thread.lastMessage = message
   }
   // add it to the messages map
-  set(state.messages, message.id, message)
+  Vue.set(state.messages, message.id, message)
 }
 
 function setCurrentThread (state, id) {
