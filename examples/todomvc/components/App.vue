@@ -18,7 +18,7 @@
         :checked="allChecked"
         @change="toggleAll({ done: !allChecked })">
       <ul class="todo-list">
-        <todo v-for="todo in filteredTodos" :todo="todo"></todo>
+        <todo v-for="(todo, index) in filteredTodos" :key="index" :todo="todo"></todo>
       </ul>
     </section>
     <!-- footer -->

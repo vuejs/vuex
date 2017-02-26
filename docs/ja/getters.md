@@ -61,6 +61,21 @@ computed: {
 }
 ```
 
+関数を返り値にすることで、ゲッターに引数を渡すこともできます。これは特にストアの中の配列を検索する時に役立ちます：
+```js
+getters: {
+  // ...
+  getTodoById: (state, getters) => (id) => {
+    return getters.todos.find(todo => todo.id === id)
+  }
+}
+```
+
+``` js
+store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+```
+
+
 ### `mapGetters` ヘルパー
 
 `mapGetters` ヘルパーはストアのゲッターをローカルの算出プロパティにマッピングさせます:

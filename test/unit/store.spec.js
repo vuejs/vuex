@@ -37,6 +37,25 @@ describe('Store', () => {
     expect(store.state.a).toBe(3)
   })
 
+  it('asserts committed type', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        // Maybe registered with undefined type accidentally
+        // if the user has typo in a constant type
+        undefined (state, n) {
+          state.a += n
+        }
+      }
+    })
+    expect(() => {
+      store.commit(undefined, 2)
+    }).toThrowError(/Expects string as the type, but found undefined/)
+    expect(store.state.a).toBe(1)
+  })
+
   it('dispatching actions, sync', () => {
     const store = new Vuex.Store({
       state: {
@@ -166,6 +185,30 @@ describe('Store', () => {
       })
   })
 
+  it('asserts dispatched type', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      },
+      actions: {
+        // Maybe registered with undefined type accidentally
+        // if the user has typo in a constant type
+        undefined ({ commit }, n) {
+          commit(TEST, n)
+        }
+      }
+    })
+    expect(() => {
+      store.dispatch(undefined, 2)
+    }).toThrowError(/Expects string as the type, but found undefined/)
+    expect(store.state.a).toBe(1)
+  })
+
   it('getters', () => {
     const store = new Vuex.Store({
       state: {
@@ -210,9 +253,9 @@ describe('Store', () => {
     const store = new Vuex.Store({
       mutations: {
         [TEST] () {}
-      },
+      }
     })
-    store.commit(TEST, {}, { silent: true });
+    store.commit(TEST, {}, { silent: true })
 
     expect(console.warn).toHaveBeenCalledWith(
       `[vuex] mutation type: ${TEST}. Silent option has been removed. ` +

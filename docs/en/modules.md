@@ -57,8 +57,8 @@ Similarly, inside module actions, `context.state` will expose the local state, a
 const moduleA = {
   // ...
   actions: {
-    incrementIfOdd ({ state, commit }) {
-      if (state.count % 2 === 1) {
+    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+      if ((state.count + rootState.count) % 2 === 1) {
         commit('increment')
       }
     }
@@ -227,12 +227,18 @@ export function createPlugin (options = {}) {
 You can register a module **after** the store has been created with the `store.registerModule` method:
 
 ``` js
+// register a module `myModule`
 store.registerModule('myModule', {
+  // ...
+})
+
+// register a nested module `nested/myModule`
+store.registerModule(['nested', 'myModule'], {
   // ...
 })
 ```
 
-The module's state will be exposed as `store.state.myModule`.
+The module's state will be exposed as `store.state.myModule` and `store.state.nested.myModule`.
 
 Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
 

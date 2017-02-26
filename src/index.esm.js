@@ -10,3 +10,11 @@ export default {
   mapGetters,
   mapActions
 }
+
+export {
+  Store,
+  mapState,
+  mapMutations,
+  mapGetters,
+  mapActions
+}

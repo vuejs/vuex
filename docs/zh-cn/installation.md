@@ -18,7 +18,7 @@
 ### NPM
 
 ``` bash
-npm install vuex
+npm install vuex --save
 ```
 
 ### Yarn

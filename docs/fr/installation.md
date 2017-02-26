@@ -18,7 +18,7 @@ Incluez `vuex` après Vue et l'installation sera automatique :
 ### NPM
 
 ``` bash
-npm install vuex
+npm install vuex --save
 ```
 
 ### Yarn
