@@ -32,7 +32,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      vuex: path.resolve(__dirname, '../build/dev-entry')
+      vuex: path.resolve(__dirname, '../src/index.esm.js')
     }
   },
 
