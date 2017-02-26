@@ -4,8 +4,8 @@ const version = process.env.VERSION || require('../package.json').version
 
 module.exports = {
   entry: 'src/index.js',
-  dest: 'dist/vuex.js',
-  format: 'umd',
+  dest: process.env.ESM ? 'dist/vuex.esm.js' : 'dist/vuex.js',
+  format: process.env.ESM ? 'es' : 'umd',
   moduleName: 'Vuex',
   plugins: [
     replace({ __VERSION__: version }),

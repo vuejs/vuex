@@ -3,6 +3,7 @@
   "version": "2.1.3",
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
+  "module": "dist/vuex.esm.js",
   "typings": "types/index.d.ts",
   "files": [
     "dist",
@@ -14,8 +15,9 @@
   "scripts": {
     "dev": "node examples/server.js",
     "dev:dist": "rollup -wm -c build/rollup.config.js",
-    "build": "npm run build:main && npm run build:logger",
+    "build": "npm run build:main && npm run build:esm && npm run build:logger",
     "build:main": "rollup -c build/rollup.config.js && uglifyjs dist/vuex.js -cm --comments -o dist/vuex.min.js",
+    "build:esm": "rollup -c build/rollup.config.js --environment ESM",
     "build:logger": "rollup -c build/rollup.logger.config.js",
     "lint": "eslint src test",
     "test": "npm run lint && npm run test:types && npm run test:unit && npm run test:e2e",
