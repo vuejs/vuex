@@ -37,6 +37,27 @@ describe('Store', () => {
     expect(store.state.a).toBe(3)
   })
 
+  it('committing with array style multiple mutations', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, payload) {
+          state.a += payload.amount
+        }
+      }
+    })
+    store.commit([{
+      type: TEST,
+      amount: 1
+    }, {
+      type: TEST,
+      amount: 2
+    }])
+    expect(store.state.a).toBe(4)
+  })
+
   it('asserts committed type', () => {
     const store = new Vuex.Store({
       state: {

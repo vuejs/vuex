@@ -61,6 +61,13 @@ export class Store {
   }
 
   commit (_type, _payload, _options) {
+    if (Array.isArray(_type)) {
+      _type.forEach(mutation => {
+        this.commit(mutation)
+      })
+      return
+    }
+
     // check object-style commit
     const {
       type,
