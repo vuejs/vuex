@@ -145,7 +145,7 @@ export default {
 
 Because getters are pure, getters shared across multiple components are efficiently cached: when dependencies change, they only re-evaluate once for all components that use them.
 
-> Flux reference: Vuex getters can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, because they leverage Vue's computed properties memoization under the hood, they are more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect).
+> Flux reference: Vuex getters can be roughly compared to [`mapStateToProps`](https://github.com/rackt/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) in Redux. However, because they leverage Vue's computed properties memorization under the hood, they are more efficient than `mapStateToProps`, and more similar to [reselect](https://github.com/reactjs/reselect).
 
 ### Components Are Not Allowed to Directly Mutate State
 
