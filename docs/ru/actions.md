@@ -108,6 +108,9 @@ export default {
   methods: {
     ...mapActions([
       'increment' // проксирует this.increment() в this.$store.dispatch('increment')
+
+      // mapActions также поддерживают нагрузку (payloads):
+      'incrementBy' // проксирует this.incrementBy(amount) в this.$store.dispatch('incrementBy', amount)
     ]),
     ...mapActions({
       add: 'increment' // проксирует this.add() в this.$store.dispatch('increment')
