@@ -14,6 +14,7 @@
 - [Plugins](plugins.md)
 - [Strict Mode](strict.md)
 - [Form Handling](forms.md)
+- [Handling Websockets](websockets.md)
 - [Testing](testing.md)
 - [Hot Reloading](hot-reload.md)
 - [API Reference](api.md)
