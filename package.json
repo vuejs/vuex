@@ -4,6 +4,7 @@
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
   "module": "dist/vuex.esm.js",
+  "unpkg": "dist/vuex.js",
   "typings": "types/index.d.ts",
   "files": [
     "dist",
