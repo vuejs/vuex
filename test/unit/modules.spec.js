@@ -408,6 +408,18 @@ describe('Modules', () => {
                 commit('foo', null, { root: true })
                 expect(rootMutationSpy.calls.count()).toBe(1)
 
+                moduleMutationSpy.calls.reset()
+                commit(['foo', 'foo'])
+                expect(moduleMutationSpy.calls.count()).toBe(2)
+
+                rootMutationSpy.calls.reset()
+                commit(['foo', 'foo'], { root: true })
+                expect(rootMutationSpy.calls.count()).toBe(2)
+
+                rootMutationSpy.calls.reset()
+                commit([{ type: 'foo' }, { type: 'foo' }], { root: true })
+                expect(rootMutationSpy.calls.count()).toBe(2)
+
                 done()
               }
             },

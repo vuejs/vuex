@@ -293,6 +293,16 @@ function makeLocalContext (store, namespace, path) {
     },
 
     commit: noNamespace ? store.commit : (_type, _payload, _options) => {
+      if (Array.isArray(_type)) {
+        _type.forEach(mutation => {
+          if (typeof mutation === 'string') {
+            local.commit(mutation, null, _payload)
+          } else {
+            local.commit(mutation, _payload)
+          }
+        })
+        return
+      }
       const args = unifyObjectStyle(_type, _payload, _options)
       const { payload, options } = args
       let { type } = args
