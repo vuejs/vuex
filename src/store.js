@@ -295,11 +295,7 @@ function makeLocalContext (store, namespace, path) {
     commit: noNamespace ? store.commit : (_type, _payload, _options) => {
       if (Array.isArray(_type)) {
         _type.forEach(mutation => {
-          if (typeof mutation === 'string') {
-            local.commit(mutation, null, _payload)
-          } else {
-            local.commit(mutation, _payload)
-          }
+          local.commit(mutation, _payload, _payload)
         })
         return
       }
