@@ -99,12 +99,15 @@ computed: mapState([
 Es importante saber que `mapState` retorna un objeto. ¿Como lo usamos en combinación con propiedades computadas locales? Normalmente tendríamos que mergear/combinar múltiples objetos en uno que finalmente podríamos pasar a `computed`. Sin embargo, si utilizamos [el Operador Spread para objetos](https://github.com/sebmarkbage/ecmascript-rest-spread) (el cual se encuentra en stage-3 de propuesta ECMAScript), podemos simplificar la sintaxis en gran medida:
 
 ``` js
-computed: {
-  localComputed () { /* ... */ },
-  // mezcla el objeto resultante de mapState con el resto de entradas
-  ...mapState({
-    // ...
-  })
+export default {
+  // ...
+  computed: {
+    localComputed () { /* ... */ },
+    // mezcla el objeto resultante de mapState con el resto de entradas
+    ...mapState({
+      // ...
+    })
+  }
 }
 ```
 

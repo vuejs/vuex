@@ -1,6 +1,6 @@
 # Getters
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+A veces necesitaremos computar estados derivados del estado almacenado. Por ejemplo, podemos necesitar filtrar una lista de items y contarlos:
 
 ``` js
 computed: {
@@ -10,9 +10,9 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+Si más de un componente tiene esta necesidad podemos acabar con una función duplicada ó teniendo que extraerla a un helper compartido e importarlo en múltiples lugares. Ambas són malas opciones.
 
-Vuex allows us to define "getters" in the store (think of them as computed properties for stores). Getters will receive the state as their 1st argument:
+Vuex nos permite definir "getters" en el almacén (consideralos propiedades computadas para el almacén). Los Getters recibirán el estado como el 1er argumento:
 
 ``` js
 const store = new Vuex.Store({
@@ -30,13 +30,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The getters will be exposed on the `store.getters` object:
+Los getters serán expuestos a través del objeto `store.getters`:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+Cada getter recibirá también los demás getters definidos como el 2º argumento:
 
 ``` js
 getters: {
@@ -51,7 +51,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+Ahora podemos hacer uso de ellos dentro de cualquier componente:
 
 ``` js
 computed: {
@@ -61,7 +61,8 @@ computed: {
 }
 ```
 
-You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+También puedes pasar argumentos al getter retornando una función del mismo. Esto es especialmente útil cuando quieres lanzar una 'query' sobre un array del almacén:
+
 ```js
 getters: {
   // ...
@@ -76,9 +77,9 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
 
-### The `mapGetters` Helper
+### El Helper `mapGetters`
 
-The `mapGetters` helper simply maps store getters to local computed properties:
+El helper `mapGetters` sencillamente mapea los getters del almacén al propiedades computadas locales:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -86,7 +87,8 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    localComputed () { /* ... */ },
+    // Mezcla los getters con las propiedades computadas locales
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -96,11 +98,11 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+Si quieres mapear un getter con un nombre diferente al del almacén, usa un objeto:
 
 ``` js
 ...mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+  // Mapea this.doneCount a store.getters.doneTodosCount
   doneCount: 'doneTodosCount'
 })
 ```
