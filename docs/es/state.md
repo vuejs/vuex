@@ -2,16 +2,16 @@
 
 ### Árbol de Estado Único
 
-Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
+Vuex utiliza un **árbol de estado único**. Esto quiere decir que es un único objeto el que contiene todo el estado de tu aplicación y sirve como **única fuente de verdad**. También implica que normalmente solo tendrás un almacén por aplicación. Un único árbol de estado facilita la localización de una parte del estado y permite hacer snapshots (copias) del estado actual con el fin de depurar tu aplicación.
 
-The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
+El árbol de estado único no entra en conflicto con la modularidad de la app. En capitulos posteriores veremos como estructurar el estado y mutaciones en submódulos.
 
-### Getting Vuex State into Vue Components
+### Utilizando el Estado de Vuex en Componentes Vue
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](http://vuejs.org/guide/computed.html):
+¿Cómo mostramos el estado del almacén dentro de nuestros componentes Vue? Dado que los almacenes Vuex son reactivos, la manera más sencilla de "extraer" al estado es retornándolo (o una parte del mismo) dentro de una [propiedad computada](http://vuejs.org/guide/computed.html):
 
 ``` js
-// let's create a Counter component
+// Creamos el componente Counter (contador)
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
@@ -22,17 +22,19 @@ const Counter = {
 }
 ```
 
-Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
+Siempre que `store.state.count` cambie, provocará que la propiedad computada sea re-evaluada, lanzando las actualizaciones del DOM asociadas al cambio.
 
-However, this pattern causes the component to rely on the global store singleton. When using a module system, it requires importing the store in every component that uses store state, and also requires mocking when testing the component.
+Sin embargo, este patrón impone una dependencia del single global del almacén. Cuando trabajamos con un sistema modular hay que importar el almacén en cada componente que se nutre de el. También tendrémos que mockear el almacén en los tests del componente.
 
 Vuex provides a mechanism to "inject" the store into all child components from the root component with the `store` option (enabled by `Vue.use(Vuex)`):
+
+Vuex nos provee con un mecanismo para "inyectar" el almacén en todos los componentes hijos del componente Root por medio de la opción `store` (habilitada por `Vue.use(Vuex)`):
 
 ``` js
 const app = new Vue({
   el: '#app',
-  // provide the store using the "store" option.
-  // this will inject the store instance to all child components.
+  // Pasar el almacén con la opción "store"
+  // Esto inyectará la instance del almacén en todos los componentes hijos
   store,
   components: { Counter },
   template: `
@@ -43,7 +45,7 @@ const app = new Vue({
 })
 ```
 
-By providing the `store` option to the root instance, the store will be injected into all child components of the root and will be available on them as `this.$store`. Let's update our `Counter` implementation:
+Al pasar la opción `store` a la instancia Root el almacén será inyectado en todos los componentes hijos y podrá ser accedido por medio de `this.$store`. Actualicemos nuestra implementación del `Counter`:
 
 ``` js
 const Counter = {
@@ -56,24 +58,26 @@ const Counter = {
 }
 ```
 
-### The `mapState` Helper
+### El Helper `mapState`
 
-When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us and help us save some keystrokes:
+Cuando un componente hace uso de multiples propiedades o getters del estado almacenado, declarar propiedades computadas una a una puede resultar repetitivo y verboso. Podemos hacer uso del helper `mapState` para facilitarnos la vida. Este genera funciones getter computadas y nos ahorra tiempo al teclado:
 
 ``` js
-// in standalone builds helpers are exposed as Vuex.mapState
+// En desarrollos con scripts gloables el helper esta expuesto como Vuex.mapState
 import { mapState } from 'vuex'
 
 export default {
   // ...
   computed: mapState({
-    // arrow functions can make the code very succinct!
+    // Con funciones arrow conseguimos un codigo muy limpio!
     count: state => state.count,
 
-    // passing the string value 'count' is same as `state => state.count`
+    // Declarar un alias con un valor String equivale a retornar la propiedad nombrada del almacén
+    // El ejemplo equivale a: `countAlias: state => state.count`
     countAlias: 'count',
 
-    // to access local state with `this`, a normal function must be used
+    // Si queremos acceder al estado loca con `this` debemos utilizar funciones normales
+    // en lugar de funciones arrow
     countPlusLocalState (state) {
       return state.count + this.localCount
     }
@@ -81,29 +85,29 @@ export default {
 }
 ```
 
-We can also pass a string array to `mapState` when the name of mapped computed property is same as state sub tree name.
+También podemos pasar un Array de strings a `mapState` cuando queremos que el nombre de la propiedad computada a mapear sea el mismo que utiliza el almacén:
 
 ``` js
 computed: mapState([
-  // map this.count to store.state.count
+  // Mapear this.count a store.state.count
   'count'
 ])
 ```
 
-### Object Spread Operator
+### Uso del Operador Spread
 
-Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (which is a stage-3 ECMAScript proposal), we can greatly simplify the syntax:
+Es importante saber que `mapState` retorna un objeto. ¿Como lo usamos en combinación con propiedades computadas locales? Normalmente tendríamos que mergear/combinar múltiples objetos en uno que finalmente podríamos pasar a `computed`. Sin embargo, si utilizamos [el Operador Spread para objetos](https://github.com/sebmarkbage/ecmascript-rest-spread) (el cual se encuentra en stage-3 de propuesta ECMAScript), podemos simplificar la sintaxis en gran medida:
 
 ``` js
 computed: {
   localComputed () { /* ... */ },
-  // mix this into the outer object with the object spread operator
+  // mezcla el objeto resultante de mapState con el resto de entradas
   ...mapState({
     // ...
   })
 }
 ```
 
-### Components Can Still Have Local State
+### Los Componentes Puede tener Estado Local
 
-Using Vuex doesn't mean you should put **all** the state in Vuex. Although putting more state into Vuex makes your state mutations more explicit and debuggable, sometimes it could also make the code more verbose and indirect. If a piece of state strictly belongs to a single component, it could be just fine leaving it as local state. You should weigh the trade-offs and make decisions that fit the development needs of your app.
+Usar Vuex no implica que debas poner **todo** el estado en Vuex. A pesar de que cuanto más estado almacenes en Vuex más explicitas y depurables serán tu mutaciones, a veces también puede hacer de tu código uno más verboso e indirecto. Si una parte del estado pertenece únicamente a un componente, sería perfectamente aceptable dejarlo como estado local al mismo. Deberás sopesar los beneficios y tomar la decisión que mejor se adapte a los requisitos de tu aplicación.
