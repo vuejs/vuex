@@ -1,6 +1,6 @@
-# Mutations
+# Mutaciones
 
-The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
+El único modo de realizar cambios en el estado de un almacén Vuex es lanzando (commiteando) una mutación. Las mutaciones Vuex se definien dentro de la propiedad `mutations` y són muy similares a eventos: cada mutación tiene un string **type** y un **handler** (función en la que definimos la acción). Será dentro del handler donde realicemos las modificaciones al estado y donde recibamos el estado como el 1er argumento:
 
 ``` js
 const store = new Vuex.Store({
@@ -9,22 +9,22 @@ const store = new Vuex.Store({
   },
   mutations: {
     increment (state) {
-      // mutate state
+      // modificación del estado
       state.count++
     }
   }
 })
 ```
 
-You cannot directly call a mutation handler. The options here is more like event registration: "When a mutation with type `increment` is triggered, call this handler." To invoke a mutation handler, you need to call **store.commit** with its type:
+Una mutación no se puede ejecutar directamente. El proceso se parece más al registro de un evento: "Cuando una mutación de tipo `increment` sea lanzada, ejecuta este handler". Deberás invocar **store.commit** con el tipo de la mutación para ejecutar su repspectivo handler:
 
 ``` js
 store.commit('increment')
 ```
 
-### Commit with Payload
+### Commit con Datos
 
-You can pass an additional argument to `store.commit`, which is called the **payload** for the mutation:
+Puedes pasar un argumento adicional a `store.commit`, el cual llamaremos el **payload** de la mutación:
 
 ``` js
 // ...
@@ -38,7 +38,7 @@ mutations: {
 store.commit('increment', 10)
 ```
 
-In most cases, the payload should be an object so that it can contain multiple fields, and the recorded mutation will also be more descriptive:
+En la mayoría de los casos el payload deberá ser un objeto con el que pasaremos múltiples campos. Esto también hará que la llamada a la mutación quede mejor descrita:
 
 ``` js
 // ...
@@ -54,9 +54,9 @@ store.commit('increment', {
 })
 ```
 
-### Object-Style Commit
+### Commit Estilo Objeto
 
-An alternative way to commit a mutation is by directly using an object that has a `type` property:
+Alternativamente podrás commitear una mutación pasando únicamente un objeto con una propiedad `type` cuyo valor será el nombre de la mutación:
 
 ``` js
 store.commit({
@@ -65,7 +65,7 @@ store.commit({
 })
 ```
 
-When using object-style commit, the entire object will be passed as the payload to mutation handlers, so the handler remains the same:
+Cuando hagas commits con este estilo el objeto completo será pasado como payload al handler de la mutación:
 
 ``` js
 mutations: {
@@ -75,25 +75,26 @@ mutations: {
 }
 ```
 
-### Mutations Follow Vue's Reactivity Rules
+### Las Mutaciones siguen las Reglas de Reactividad de Vue
 
-Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
+Dado que un estado almacenado por Vuex es reactivo gracias a Vue, cuando el estado cambie lo componentes que lo observan se actualizarán automaticamente. Esto implica que las mutaciones Vuex están sujetas a las mismas restricciones de reactividad que limitan a cualquier instancia Vue:
 
-1. Prefer initializing your store's initial state with all desired fields upfront.
+1. Trata de inicializar el estado inicial de tu almacén con todas las propiedades includas de primeras
 
-2. When adding new properties to an Object, you should either:
+2. Cuando añadas nuevas propiedades a un Objeto, deberías:
 
-  - Use `Vue.set(obj, 'newProp', 123)`, or -
+  - Usas `Vue.set(obj, 'newProp', 123)`, ó -
 
-  - Replace that Object with a fresh one. For example, using the stage-3 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
+  - Reemplazar el Objeto con uno nuevo. Por ejemplo, haciendo uso del stage-3 [operador spread](https://github.com/sebmarkbage/ecmascript-rest-spread) podemos escribir lo siguiente:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
     ```
 
 ### Using Constants for Mutation Types
+### Usar Constantes para definir Tipos de Mutaciones
 
-It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+El uso de constantes es un patrón común a varías implementaciones de Flux. Esto permite que el código pueda hacer uso de herramientas como linters. También permite que todos los colaboradores de un proyecto puedan sepan de un vistazo que mutaciones hay disponibles:
 
 ``` js
 // mutation-types.js
@@ -108,20 +109,21 @@ import { SOME_MUTATION } from './mutation-types'
 const store = new Vuex.Store({
   state: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature
-    // to use a constant as the function name
+    // Podemos usar sintaxis ES2015 para definir nombres computados de propiedades
+    // y así usar una constante como nombre de un método
     [SOME_MUTATION] (state) {
-      // mutate state
+      // modificar estado
     }
   }
 })
 ```
 
-Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
+Usar constantes o no es una cuestión de preferencias. Puede ser de ayuda en grandes proyectos con muchos desarrolladores, pero completamente opcional.
 
 ### Mutations Must Be Synchronous
+### Toda Mutación tiene que ser Síncrona
 
-One important rule to remember is that **mutation handler functions must be synchronous**. Why? Consider the following example:
+Una regla importante a recordar es que **el handler de una mutación tiene que ser síncrono**. ¿Por qué? Considera el siguiente ejemplo:
 
 ``` js
 mutations: {
@@ -133,11 +135,11 @@ mutations: {
 }
 ```
 
-Now imagine we are debugging the app and looking at the devtool's mutation logs. For every mutation logged, the devtool will need to capture a "before" and "after" snapshots of the state. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is committed, and there's no way for the devtool to know when the callback will actually be called - any state mutation performed in the callback is essentially un-trackable!
+Ahora imagina que estamos depurando la aplicación y miramos los registros de mutaciones realizadas en las devtools. Para cada mutación registrada, la devtool necesita capturar snapshots del estado antes y después de la modificación. Sin embargo, el callback asíncrono del ejemplo hace que sea imposible: el callback no se ha ejecutado cuando la mutación se ha completado y no hay manera de que las devtools sepan cuando se la callback será ejecutada. Cualquier mutación del estado realizada dentro de la callback es en esencia irrastreable!
 
-### Committing Mutations in Components
+### Commitear Mutaciones en Componentes
 
-You can commit mutations in components with `this.$store.commit('xxx')`, or use the `mapMutations` helper which maps component methods to `store.commit` calls (requires root `store` injection):
+Puedes commitear mutaciones en componentes con `this.$store.commit('xxx')` o haciendo uso del helper `mapMutations` el cual mapea métodos del componente a llamadas a `store.commit` (esto require de la inyección del `store` a nivel de Root):
 
 ``` js
 import { mapMutations } from 'vuex'
@@ -146,7 +148,7 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment' // map this.increment() to this.$store.commit('increment')
+      'increment' // Mapea this.increment() a this.$store.commit('increment')
     ]),
     ...mapMutations({
       add: 'increment' // map this.add() to this.$store.commit('increment')
@@ -155,14 +157,14 @@ export default {
 }
 ```
 
-### On to Actions
+### Y ... Acción!
 
-Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, **mutations are synchronous transactions**:
+Combinar asincronicidad con mutaciones de estado puede hacer que tu lógica de aplicación sea dificil de seguir. Por ejemplo, si ejecutas dos métodos asíncronos que mutan el estado, ¿cómo cuando terminan su rutina o cúal termina primero? Esta es la razón por la que queremos mantener los dos conceptos separados. En Vuex, **toda mutación es una transacción síncrona**:
 
 ``` js
 store.commit('increment')
-// any state change that the "increment" mutation may cause
-// should be done at this moment.
+// Cualquier modificación del estado que realice "increment"
+// debe ocurrir en este momento.
 ```
 
-To handle asynchronous operations, let's introduce [Actions](actions.md).
+Para administrar operaciones asíncronas haremos uso de [Acciones](actions.md).
