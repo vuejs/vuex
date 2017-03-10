@@ -15,31 +15,30 @@ Después de [instalar](installation.md) Vuex, vamos a crear un almacén. Es bast
 ``` js
 // Asegurate de invocar Vue.use(Vuex) primero si estas utilizando un sistema modular
 
-const almacen = new Vuex.Store({
+const store = new Vuex.Store({
   state: {
-    contador: 0
+    count: 0
   },
   mutations: {
-    incrementar (estado) {
-      estado.contador++
+    increment (state) {
+      state.count++
     }
   }
 })
 ```
 
-Ahora podrás acceder al objeto estado (state) por medio de `almacen.state` y lanzar mutaciones por medio del método `almacen.commit`:
+Ahora podrás acceder al objeto estado (state) por medio de `store.state` y lanzar mutaciones por medio del método `store.commit`:
 
 ``` js
-almacen.commit('incrementar')
+store.commit('increment')
 
-console.log(almacen.state.contador) // -> 1
+console.log(store.state.count) // -> 1
 ```
 
-La razón por la que lanzamos mutaciones en lugar de cambiar directamente el valor de `almacen.state.contador` es porque queremos rastrear todos los cambios de forma explicita. Esta sencilla convención hace que tu intención sea más explicita, facilitando tu comprensión de los cambios de estado mientras lees el código. Además nos ofrece la oportunidad de implementar herramientas con las que registrar todas las mutaciones, hacer snapshots del estado e incluso aplicar 'retroceso temporales' sobre el mismo.
+La razón por la que lanzamos mutaciones en lugar de cambiar directamente el valor de `store.state.count` es porque queremos rastrear todos los cambios de forma explicita. Esta sencilla convención hace que tu intención sea más explicita, facilitando tu comprensión de los cambios de estado mientras lees el código. Además nos ofrece la oportunidad de implementar herramientas con las que registrar todas las mutaciones, hacer snapshots del estado e incluso aplicar 'retroceso temporales' sobre el mismo.
 
 Dado que el estado almancenado es reactivo utlizarlo en un componente simplemente requiere retornar el estado dentro de una propiedad computada. Aplicar modificaciones de estado es tan sencillo como lanzar mutaciones desde los métodos del component.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/n9jmu5v7/341/).
 Aquí podéis ver un ejemplo de [un sencillo contador creado con Vuex](https://jsfiddle.net/n9jmu5v7/341/).
 
-A continuación veremos los conceptos básicos en mayor detalle, empezando por [El Estado](state.md).
+A continuación veremos los conceptos básicos en mayor detalle, empezando por [el Estado](state.md).

@@ -11,17 +11,17 @@ new Vue({
   // estado
   data () {
     return {
-      contador: 0
+      count: 0
     }
   },
   // vista
   template: `
-    <div>{{ contador }}</div>
+    <div>{{ count }}</div>
   `,
   // acciones
   methods: {
-    incrementar () {
-      this.contador++
+    increment () {
+      this.count++
     }
   }
 })
