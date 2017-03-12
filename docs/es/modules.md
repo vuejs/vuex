@@ -1,8 +1,8 @@
-# Modules
+# Módulos
 
-Due to using a single state tree, all state of our application is contained inside one big object. However, as our application grows in scale, the store can get really bloated.
+Debido al uso de un único árbol de estado, todo el estado de nuestra aplicación se encuentra dentro de un gran objeto. Sin embargo, a medida que nuestra aplicación crece, el almacén puede 'desbordarse'.
 
-To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
+Para aliviar esta situación, Vuex permite la división de nuestro almacén en **módulos**. Cada módulo puede contener su propio estado, mutaciones, acciones, getters e incluso módulos anidados:
 
 ``` js
 const moduleA = {
@@ -25,20 +25,20 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA's state
-store.state.b // -> moduleB's state
+store.state.a // -> Estado del módulo A
+store.state.b // -> Estado del módulo B
 ```
 
-### Module Local State
+### Estado Local de un Módulo
 
-Inside a module's mutations and getters, The first argument received will be **the module's local state**.
+En las mutaciones y getters de un módulo, el primer argumento recibido será el **estado local del módulo**.
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // state is the local module state
+      // state es el estado local del módulo
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
+De manera similar, en las acciones del módulo `context.state` expone el estado local y el estado root (estado del almacén raiz) estará expuesto en `context.rootState`:
 
 ``` js
 const moduleA = {
@@ -66,7 +66,7 @@ const moduleA = {
 }
 ```
 
-Also, inside module getters, the root state will be exposed as their 3rd argument:
+Asi mismo, en los getters de un módulo el estado root será recibido como el tercer argumento:
 
 ``` js
 const moduleA = {
@@ -81,9 +81,9 @@ const moduleA = {
 
 ### Namespacing
 
-By default, actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type.
+Por defecto, las acciones, mutaciones y getters de un módulo estarás registradas bajo el **namespace global**. Esto permite que múltiples módulos puedan reaccionas ante las mismas mutaciones/acciones.
 
-If you want your modules to be more self-contained or reusable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
+Si quieres que tu módulo está mejor auto-contenido y sea más reutilizable, puedes marcarlo como namespaced con la propiedad `namespaced: true`. Cuando un módulo es registrado de esta manera, todos sus getters, acciones y mutaciones serán automáticamente registradas bajo un namespace basado en el path del módulo. Por ejemplo:
 
 ``` js
 const store = new Vuex.Store({
@@ -91,8 +91,8 @@ const store = new Vuex.Store({
     account: {
       namespaced: true,
 
-      // module assets
-      state: { ... }, // module state is already nested and not affected by namespace option
+      // assets del módulo
+      state: { ... }, // el estado está anidado por defecto y no se verá afectado por el namespace
       getters: {
         isAdmin () { ... } // -> getters['account/isAdmin']
       },
@@ -103,9 +103,9 @@ const store = new Vuex.Store({
         login () { ... } // -> commit('account/login')
       },
 
-      // nested modules
+      // módulos anidados
       modules: {
-        // inherits the namespace from parent module
+        // hereda el namespace del padre
         myPage: {
           state: { ... },
           getters: {
@@ -113,7 +113,7 @@ const store = new Vuex.Store({
           }
         },
 
-        // further nest the namespace
+        // namespace anidado
         posts: {
           namespaced: true,
 
@@ -128,7 +128,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. Toggling between namespaced or not does not affect the code inside the module.
+Los getters y acciones bajo un namespace reciben `getters`, `dispatch` y `commit` localizados. En otras palabras, puedes usar el asset sin necesidad de usar escribir el prefijo dentro del mismo módulo. Así, cambiar entre estado namespaced y no-namespaced no afecta al código.
 
 #### Accessing Global Assets in Namespaced Modules
 

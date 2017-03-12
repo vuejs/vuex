@@ -12,7 +12,7 @@
   - [Getters](getters.md)
   - [Mutaciones](mutations.md)
   - [Acciones](actions.md)
-  - [Modulos](modules.md)
+  - [Módulos](modules.md)
 - [Estructura en aplicaciones](structure.md)
 - [Plugins](plugins.md)
 - [Modo Strict](strict.md)
