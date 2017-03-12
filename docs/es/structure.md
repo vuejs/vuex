@@ -1,32 +1,32 @@
-# Application Structure
+# Estructura en aplicaciones
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
+Vuex no impone restricciones a la hora de estructura tu código sino que se acoge a un conjunto de principios de alto nivel:
 
-1. Application-level state is centralized in the store.
+1. El estado a nivel de Aplicación se encuentra centralizado en el almacén.
 
-2. The only way to mutate the state is by committing **mutations**, which are synchronous transactions.
+2. La única manera de modificar el estado es por medio del uso de **mutaciones** commiteadas, las cuales son transaciones síncronas.
 
-3. Asynchronous logic should be encapsulated in, and can be composed with **actions**.
+3. Toda lógica asíncrona debe estar encapsulada en, o ser compuesta con, **acciones**.
 
-As long as you follow these rules, it's up to you how to structure your project. If your store file gets too big, simply start splitting the actions, mutations and getters into separate files.
+Siempre y cuando sigas estas reglas, la estructura que le des a tu proyecto es cosa tuya. Si el archivo en el que defines tu almacén vuelve demasiado grande puedes empezar por separar acciones, mutaciones y getters en archivos separados.
 
-For any non-trivial app, we will likely need to leverage modules. Here's an example project structure:
+En applicationes complejas o de gran escala, es muy probable que hagas uso de módulos. Aquí dejamos un ejemplo de como estructurar un proyecto:
 
 ``` bash
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # Abstracciones para generar llamadas a APIs
 ├── components
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── index.js          # where we assemble modules and export the store
-    ├── actions.js        # root actions
-    ├── mutations.js      # root mutations
+    ├── index.js          # Donde unimos nuestro módulos y exportamos el almacén
+    ├── actions.js        # Acciones de raiz
+    ├── mutations.js      # Mutaciones de raiz
     └── modules
-        ├── cart.js       # cart module
-        └── products.js   # products module
+        ├── cart.js       # Módulo Cart
+        └── products.js   # Módulo productos
 ```
 
-As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+Como referencia, puedes echarle un vistado al [ejemplo 'Shopping Cart'](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
