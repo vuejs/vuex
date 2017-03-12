@@ -1,14 +1,14 @@
-# Form Handling
+# Gestión de Formularios
 
-When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
+Cuando se usa Vuex en modo strict, puede resultar complicado el uso de `v-model` sobre una parte del estado que pertenezca a Vuex:
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in an error because the mutation is not performed inside an explicit Vuex mutation handler.
+Asuminedo que `obj` es una propiedad computada que devuelve un Objeto desde el almacén, el `v-model` intentará mutar directamente `obj.message` cuando el usuario escriba en el input. En modo strict, esto lanzará un error ya que la mutación no está siendo ejecutada dentro de un handler explicito definido para Vuex.
 
-The "Vuex way" to deal with it is binding the `<input>`'s value and call an action on the `input` or `change` event:
+La "manera Vuex" de tratar este caso es bindeando el valor del `<input>` y ejecutando una acción ante el el evento `input` ó `change`:
 
 ``` html
 <input :value="message" @input="updateMessage">
@@ -27,7 +27,7 @@ methods: {
 }
 ```
 
-And here's the mutation handler:
+Y este sería el handler de la mutación:
 
 ``` js
 // ...
@@ -38,9 +38,9 @@ mutations: {
 }
 ```
 
-### Two-way Computed Property
+### Propiedad Computada de Doble Sentido
 
-Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
+El ejemplo anterior resulta más verboso que el uso de `v-model` + estado local. Además, en el proceso perdemos parte de las utilidades de `v-model`. Una alternativa es unas propiedades computadas de doble sentido con un setter:
 
 ``` html
 <input v-model="message">
@@ -58,4 +58,3 @@ computed: {
   }
 }
 ```
-
