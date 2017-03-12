@@ -1,4 +1,4 @@
-# API Reference
+# Documentación de la API
 
 ### Vuex.Store
 
@@ -8,62 +8,62 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Vuex.Store Constructor Options
+### Vuex.Store - Opciones del Constructor
 
 - **state**
 
-  - type: `Object`
+  - tipo: `Object`
 
-    The root state object for the Vuex store.
+  El objeto estado del almacén Vuex.
 
-    [Details](state.md)
+    [Detalles](state.md)
 
 - **mutations**
 
-  - type: `{ [type: string]: Function }`
+  - tipo: `{ [type: string]: Function }`
 
-    Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
+    Registra mutaciones en el almacén. La función hanlder siempre recibe el `state` como primer argumento (será el estado local en un módulo) y el `payload` como segundo parámetro, si este existe.
 
-    [Details](mutations.md)
+    [Detalles](mutations.md)
 
 - **actions**
 
-  - type: `{ [type: string]: Function }`
+  - tipo: `{ [type: string]: Function }`
 
-    Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+    Registra acciones en el almacén. La función handler recibe un Objeto `context` que expone las siguientes propiedades:
 
     ``` js
     {
-      state,     // same as store.state, or local state if in modules
-      rootState, // same as store.state, only in modules
-      commit,    // same as store.commit
-      dispatch,  // same as store.dispatch
-      getters    // same as store.getters
+      state,     // igual a store.state, ó estado local en módulos
+      rootState, // igual a store.state, solo en módulos
+      commit,    // igual a store.commit
+      dispatch,  // igual a store.dispatch
+      getters    // igual a store.getters
     }
     ```
 
-    [Details](actions.md)
+    [Detalles](actions.md)
 
 - **getters**
 
-  - type: `{ [key: string]: Function }`
+  - tipo: `{ [key: string]: Function }`
 
-    Register getters on the store. The getter function receives the following arguments:
+    Registra getters en el almacén. La función getter recibe los siguientes argumentos:
 
     ```
-    state,     // will be module local state if defined in a module.
-    getters,   // same as store.getters
-    rootState  // same as store.state
+    state,     // será el estado local de un módulo si se usa dentro de uno
+    getters,   // igual a store.getters
+    rootState  // igual a store.state
     ```
-    Registered getters are exposed on `store.getters`.
+    Los getters registrados serán expuestos en `store.getters`.
 
-    [Details](getters.md)
+    [Detalles](getters.md)
 
 - **modules**
 
-  - type: `Object`
+  - tipo: `Object`
 
-    An object containing sub modules to be merged into the store, in the shape of:
+    Un objeto que contiene submódulos a mergear en el almacén, con la siguiente estructura:
 
     ``` js
     {
@@ -79,64 +79,64 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+    Cada módulo contiene `state` y `mutations` de forma similar a las opciones en la instacia root. El estado de un módulo estará vinculado al estado del almaceń root usando la clave del módulo. Las mutaciones y getters de un módulo solo recibirán el estado local del módulo como primer argumento. Las acciones recibirán el estado local en `context.state`.
 
-    [Details](modules.md)
+    [Detalles](modules.md)
 
 - **plugins**
 
-  - type: `Array<Function>`
+  - tipo: `Array<Function>`
 
-    An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+    Un array de funciones plugin a aplicar al almacén. El plugin recibe el almacén como único argmuento y puede escuchar a mutaciones (para persistir datos, logs o depuración) o ejecutar mutaciones (entrada de datos).
 
-    [Details](plugins.md)
+    [Detalles](plugins.md)
 
 - **strict**
 
-  - type: `Boolean`
+  - tipo: `Boolean`
   - default: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+    Forzar al almacén Vuex a trabajar en modo strict. En modo strict cualquier mutación del estado Vuex fuera de un handler de mutación registrado lanzará un Error.
 
-    [Details](strict.md)
+    [Detalles](strict.md)
 
-### Vuex.Store Instance Properties
+### Vuex.Store - Propiedades de Instancia
 
 - **state**
 
-  - type: `Object`
+  - tipo: `Object`
 
-    The root state. Read only.
+    El estado root. Solo lectura.
 
 - **getters**
 
-  - type: `Object`
+  - tipo: `Object`
 
-    Exposes registered getters. Read only.
+    Expone los getters registrados. Solo lectura.
 
-### Vuex.Store Instance Methods
+### Vuex.Store - Métodos de Instancia
 
 - **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-  Commit a mutation. [Details](mutations.md)
+  Commitear una mutación. [Detalles](mutations.md)
 
 - **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
-  Dispatch an action. Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
+  Ejecutar una acción. Devuelve una Promesa que resuelve todos los handlers ejecutados. [Detalles](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  Reemplaza el estado del almacén root. Usar solo para hidratar el estado / 'regreso en el tiempo'.
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Observar de manera reactiva el valor retornado por un getter y ejecutar una callback cuando el valor cambie. El getter recibe el estado del almacén como único argumento. Acepta un Objeto de valores opcionales que utiliza los mismos values que el método `vm.$watch` de Vue.
 
-  To stop watching, call the returned handle function.
+  Para dejar de observar, ejecutar la función retornada.
 
 - **`subscribe(handler: Function)`**
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Subscribirse a mutaciones del almacén. El `handler` es ejecutado después de cada mutación y recibe la descripción de la mutación y un estado por mutación como argumentos:
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -145,42 +145,42 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Comunmente utilizado en plugins. [Detalles](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-  Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Registrar un módulo dinámicamente. [Detalles](modules.md#dynamic-module-registration)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Desregistrar un módulo dinámicamente. [Detalles](modules.md#dynamic-module-registration)
 
 - **`hotUpdate(newOptions: Object)`**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  Cambiar acciones y mutaciones en caliente. [Detalles](hot-reload.md)
 
-### Component Binding Helpers
+### Helpers de Bindeo en Componentes
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
+  Crear opciones computadas en un componente que devuelven un sub-árbol del almacén Vuex. [Detalles](state.md#the-mapstate-helper)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
+  Crear opciones computadas en un componete que devuelven el valor evaluado de un getter. [Detalles](getters.md#the-mapgetters-helper)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
-  Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
+  Crear opciones computadas en un componete que ejecutan una acción. [Detalles](actions.md#dispatching-actions-in-components)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
+  Crear opciones computadas en un componete que commitean una mutación. [Detalles](mutations.md#commiting-mutations-in-components)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
