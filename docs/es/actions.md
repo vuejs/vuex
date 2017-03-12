@@ -1,11 +1,11 @@
-# Actions
+# Acciones
 
-Actions are similar to mutations, the difference being that:
+Las acciones son similares a las mutaciones. Las diferencias son:
 
-- Instead of mutating the state, actions commit mutations.
-- Actions can contain arbitrary asynchronous operations.
+- En lugar de mutar el estado, las acciones commitean mutaciones.
+- Un acción puede contener operaciones asíncronas.
 
-Let's register a simple action:
+Registremos una acción sencilla:
 
 ``` js
 const store = new Vuex.Store({
@@ -25,9 +25,9 @@ const store = new Vuex.Store({
 })
 ```
 
-Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
+La función handler de una acción recive un Objeto contexto que expone los mismos métodos y propiedades disponibles en una instancia de almacén. Por lo tanto puedes ejecutar `context.commit` para commitear una mutación o acceder al estado ó getters a través de `context.state` ó `context.getters`. Veremos porque este Objeto contexto no es la instancia del almacén en sí cuando presentemos los [Modules](modules.md).
 
-In practice, we often use ES2015 [argument destructuring](https://github.com/lukehoban/es6features#destructuring) to simplify the code a bit (especially when we need to call `commit` multiple times):
+En la práctica usaremos con frecuencia la [destructuración de argumentos](https://github.com/lukehoban/es6features#destructuring) de ES2015 para simplificar nuestro código (especialmente cuando tengamos que llamar a `commit` múltiples veces).
 
 ``` js
 actions: {
@@ -37,15 +37,15 @@ actions: {
 }
 ```
 
-### Dispatching Actions
+### Ejectuar Acciones
 
-Actions are triggered with the `store.dispatch` method:
+Las acciones pueden ser ejecutadas con el método `store.dispatch`:
 
 ``` js
 store.dispatch('increment')
 ```
 
-This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+Esto puede parecer algo inútil a primera vista: si queremos incrementar el contador, ¿por qué no llamar a `store.commit('increment')` directamente? Recordemos que **las mutaciones deben ser síncronas**. Las acciones no se acogen a esta limitación por lo tanto pueden contener operaciones asíncronas:
 
 ``` js
 actions: {
@@ -57,48 +57,49 @@ actions: {
 }
 ```
 
-Actions support the same payload format and object-style dispatch:
+Las acciones pueden ser ejecutadas con el mismo formado de payload y estilo-objeto que las mutaciones:
 
 ``` js
-// dispatch with a payload
+// Ejecutar con payload
 store.dispatch('incrementAsync', {
   amount: 10
 })
 
-// dispatch with an object
+// Ejecutar con un object
 store.dispatch({
   type: 'incrementAsync',
   amount: 10
 })
 ```
 
-A more practical example of real-world actions would be an action to checkout a shopping cart, which involves **calling an async API** and **committing multiple mutations**:
+Un ejemplo más real puede ser una acción de confirmación de un carrito de compra, el cual puede incluir **llamas asíncronas a APIs** y **commitear múltiples mutaciones**.
 
 ``` js
 actions: {
   checkout ({ commit, state }, products) {
-    // save the items currently in the cart
+    // Guardar referencia de los productos actualmente en el carrito
     const savedCartItems = [...state.cart.added]
-    // send out checkout request, and optimistically
-    // clear the cart
+    // Enviar una petición de confirmación, modo optimista
+    // Limpiar el carrito
     commit(types.CHECKOUT_REQUEST)
     // the shop API accepts a success callback and a failure callback
+    // La API accepta callbacks de error y éxito
     shop.buyProducts(
       products,
-      // handle success
+      // Gestión caso éxito
       () => commit(types.CHECKOUT_SUCCESS),
-      // handle failure
+      // Gestión caso error
       () => commit(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }
 }
 ```
 
-Note we are performing a flow of asynchronous operations, and recording the side effects (state mutations) of the action by committing them.
+Hagase notar que estamos ejecutando un flujo de operaciones asíncronas y registrando los efectos laterales (modificaciones de estado) de la acción por medio de commits.
 
-### Dispatching Actions in Components
+### Ejecutar Acciones en Componentes
 
-You can dispatch actions in components with `this.$store.dispatch('xxx')`, or use the `mapActions` helper which maps component methods to `store.dispatch` calls (requires root `store` injection):
+Puedes ejecutar acciones en componentes con `this.$store.dispatch('xxx')` ó hacer uso del helper `mapActions` para mapear métodos del componente a llamadas tipo `store.dispatch` (esto require de la inyección de `store` en el Root).
 
 ``` js
 import { mapActions } from 'vuex'
@@ -107,10 +108,10 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment', // map this.increment() to this.$store.dispatch('increment')
+      'increment', // Mapear this.increment() a this.$store.dispatch('increment')
       
-      // mapActions also supports payloads:
-      'incrementBy' // this.incrementBy(amount) maps to this.$store.dispatch('incrementBy', amount)
+      // mapActions también acepta payloads:
+      'incrementBy' // this.incrementBy(amount) se mapea a this.$store.dispatch('incrementBy', amount)
     ]),
     ...mapActions({
       add: 'increment' // map this.add() to this.$store.dispatch('increment')
@@ -119,11 +120,11 @@ export default {
 }
 ```
 
-### Composing Actions
+### Composición de Acciones
 
-Actions are often asynchronous, so how do we know when an action is done? And more importantly, how can we compose multiple actions together to handle more complex async flows?
+Las acciones son a menudo asíncronas. ¿Como sabremos que han terminado su rutina? Es más, ¿como compondremos múltiples acciones juntas para gestionar un flujo asíncrono más complejo?
 
-The first thing to know is that `store.dispatch` can handle Promise returned by the triggered action handler and it also returns Promise:
+Lo primero que hay que saber es que `store.dispatch` puede manejar Promesas (Promise) retornadas por el hanlder ejecutado, devolviendo a su vez una Promesa.
 
 ``` js
 actions: {
@@ -138,7 +139,7 @@ actions: {
 }
 ```
 
-Now you can do:
+Ahora puedes hacer:
 
 ``` js
 store.dispatch('actionA').then(() => {
@@ -146,7 +147,7 @@ store.dispatch('actionA').then(() => {
 })
 ```
 
-And also in another action:
+Y en otra acción:
 
 ``` js
 actions: {
@@ -159,10 +160,10 @@ actions: {
 }
 ```
 
-Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), a JavaScript feature landing very soon, we can compose our actions like this:
+Finalmente puedes hacer uso de [async / await](https://tc39.github.io/ecmascript-asyncawait/), nueva funcionalidad de JavaScript que llegará muy pronto. Con ella podemos componer acciones de la siguiente manera:
 
 ``` js
-// assuming getData() and getOtherData() return Promises
+// Asimuendo que getData() y getOtherData() devuelven Promesas
 
 actions: {
   async actionA ({ commit }) {
@@ -175,4 +176,4 @@ actions: {
 }
 ```
 
-> It's possible for a `store.dispatch` to trigger multiple action handlers in different modules. In such a case the returned value will be a Promise that resolves when all triggered handlers have been resolved.
+> Es posible que `store.dispatch` lance múltiples acciones en diferentes módulos. En ese caso, el valor devuelto será una Promesa que se resolverá cuando todos los handlers de las acciones se hayan resuelto.
