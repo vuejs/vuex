@@ -130,11 +130,11 @@ const store = new Vuex.Store({
 
 Los getters y acciones bajo un namespace reciben `getters`, `dispatch` y `commit` localizados. En otras palabras, puedes usar el asset sin necesidad de usar escribir el prefijo dentro del mismo módulo. Así, cambiar entre estado namespaced y no-namespaced no afecta al código.
 
-#### Accessing Global Assets in Namespaced Modules
+#### Acceso a Assets Globales desde un Módulo con Namespace
 
-If you want to use global state and getters, `rootState` and `rootGetters` are passed as the 3rd and 4th arguments to getter functions, and also exposed as properties on the `context` object passed to action functions.
+Si quieres usar estado y getters globales, `rootState` y `rootGetters` son pasados como tercer y cuarto argumentos a las funciones getter de un módulo. También son expuestos como propiedades en el objeto `context` que reciben las acciones.
 
-To dispatch actions or commit mutations in the global namespace, pass `{ root: true }` as the 3rd argument to `dispatch` and `commit`.
+Para ejecutar acciones ó commitear mutaciones en el namespace globa, pasa `{ root: true }` como tercer argumento a `dispatch` y `commit`.
 
 ``` js
 modules: {
@@ -142,8 +142,8 @@ modules: {
     namespaced: true,
 
     getters: {
-      // `getters` is localized to this module's getters
-      // you can use rootGetters via 4th argument of getters
+      // `getters` se limita a los getters de este módulo
+      // Puedes user rootGetters a través del 4º argumento de un getter
       someGetter (state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
         rootGetters.someOtherGetter // -> 'someOtherGetter'
@@ -152,8 +152,8 @@ modules: {
     },
 
     actions: {
-      // dispatch and commit are also localized for this module
-      // they will accept `root` option for the root dispatch/commit
+      // dispatch y commit también están limitados a este módulo.
+      // Aceptan la opción `root` para ejectuar dispatch/commit root
       someAction ({ dispatch, commit, getters, rootGetters }) {
         getters.someGetter // -> 'foo/someGetter'
         rootGetters.someGetter // -> 'someGetter'
@@ -170,9 +170,9 @@ modules: {
 }
 ```
 
-#### Binding Helpers with Namespace
+#### Helpers de Mapeo con Namespaces
 
-When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:
+Cuando mapeamos un módulo con namespace en componentes mediante el uso de `mapState`, `mapGetters`, `mapActions` y `mapMutations`, puede resultar algo verboso:
 
 ``` js
 computed: {
@@ -189,7 +189,7 @@ methods: {
 }
 ```
 
-In such cases, you can pass the module namespace string as the first argument to the helpers so that all bindings are done using that module as the context. The above can be simplified to:
+En estos casos puedes pasar el namespace del módulo como primer argumento al helper. De este modo, todas los mapeos usarán ese módulo como contexto. El ejemplo anterior quedaría simplificado de la siguiente manera:
 
 ``` js
 computed: {
@@ -206,40 +206,40 @@ methods: {
 }
 ```
 
-#### Caveat for Plugin Developers
+#### Advertencia para Desarrolladores de Plugins
 
-You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
+Es posible que al crear un [plugin](plugins.md) que provee módulos quieras tener en cuenta lo imprevisible que puede ser el nombre de un namespace. Si un usuario añade tu módulo dentro de otro con un namespace, tu módulo será registrado bajo el mismo namespace que el padre. Para adaptar a estar situación tal vez necesites recibir el valor del namespace a través de la opción plugin:
 
 ``` js
-// get namespace value via plugin option
-// and returns Vuex plugin function
+// Obtener el valor del namespace a través de la opción plugin
+// y devolver la función plugin Vuex
 export function createPlugin (options = {}) {
   return function (store) {
-    // add namespace to plugin module's types
+    // Añadir namespace donde sea requerido dentro del módulo
     const namespace = options.namespace || ''
     store.dispatch(namespace + 'pluginAction')
   }
 }
 ```
 
-### Dynamic Module Registration
+### Registro Dinámico de Módulos
 
-You can register a module **after** the store has been created with the `store.registerModule` method:
+Puedes registrar un módulo **después** de haber creado el almacén por medio del método `store.registerModule`:
 
 ``` js
-// register a module `myModule`
+// Registrar un módulo `myModule`
 store.registerModule('myModule', {
   // ...
 })
 
-// register a nested module `nested/myModule`
+// Registrar un módulo anidado `nested/myModule`
 store.registerModule(['nested', 'myModule'], {
   // ...
 })
 ```
 
-The module's state will be exposed as `store.state.myModule` and `store.state.nested.myModule`.
+El estado del módulo será expuesto como `store.state.myModule` y `store.state.nested.myModule`.
 
-Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
+El registro dinámico de Vuex permite que otros plugins de Vue puedan hacer uso de Vuex en la gestión de estado al adherir un módulo al almacén de la aplicación. Por ejemplo, la librería [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra vue-router con vuex, gestionando el estado de ruta de la aplicación con un módulo creado dinámicamente.
 
-You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+Tambień puedes eliminar dinámicamente modulos registrados con `store.unregisterModule(moduleName)`. Esto no es posible con módulos estáticos (declarados en la creación del almaceń).
