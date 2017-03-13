@@ -85,9 +85,9 @@ El plugin se utilizará por defecto. En producción necesitarás un [DefinePlugi
 
 ### Plugin Logger Incluido
 
-> Si estas usando las herramientas de desarrollo [vue-devtools](https://github.com/vuejs/vue-devtools) probablemente no necesites esto.
+> Si estás usando las herramientas de desarrollo [vue-devtools](https://github.com/vuejs/vue-devtools) probablemente no necesites esto.
 
-Vuex tiene incluido un plugin de logging para situaciones comunes de depuración:
+Vuex tiene incluido un plugin de logs para situaciones comunes de depuración:
 
 ``` js
 import createLogger from 'vuex/dist/logger'

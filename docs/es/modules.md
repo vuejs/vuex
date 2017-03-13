@@ -66,7 +66,7 @@ const moduleA = {
 }
 ```
 
-Asi mismo, en los getters de un módulo el estado root será recibido como el tercer argumento:
+Así mismo, en los getters de un módulo el estado root será recibido como el tercer argumento:
 
 ``` js
 const moduleA = {

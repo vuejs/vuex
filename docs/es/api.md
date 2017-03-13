@@ -79,7 +79,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Cada módulo contiene `state` y `mutations` de forma similar a las opciones en la instacia root. El estado de un módulo estará vinculado al estado del almaceń root usando la clave del módulo. Las mutaciones y getters de un módulo solo recibirán el estado local del módulo como primer argumento. Las acciones recibirán el estado local en `context.state`.
+    Cada módulo contiene `state` y `mutations` de forma similar a las opciones en la instancia root. El estado de un módulo estará vinculado al estado del almaceń root usando la clave del módulo. Las mutaciones y getters de un módulo solo recibirán el estado local del módulo como primer argumento. Las acciones recibirán el estado local en `context.state`.
 
     [Detalles](modules.md)
 

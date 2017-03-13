@@ -25,9 +25,9 @@ const store = new Vuex.Store({
 })
 ```
 
-La función handler de una acción recive un Objeto contexto que expone los mismos métodos y propiedades disponibles en una instancia de almacén. Por lo tanto puedes ejecutar `context.commit` para commitear una mutación o acceder al estado ó getters a través de `context.state` ó `context.getters`. Veremos porque este Objeto contexto no es la instancia del almacén en sí cuando presentemos los [Modules](modules.md).
+La función handler de una acción recibe un Objeto contexto que expone los mismos métodos y propiedades disponibles en una instancia de almacén. Por lo tanto puedes ejecutar `context.commit` para commitear una mutación o acceder al estado ó getters a través de `context.state` ó `context.getters`. Veremos porque este Objeto contexto no es la instancia del almacén en sí cuando presentemos los [Modules](modules.md).
 
-En la práctica usaremos con frecuencia la [destructuración de argumentos](https://github.com/lukehoban/es6features#destructuring) de ES2015 para simplificar nuestro código (especialmente cuando tengamos que llamar a `commit` múltiples veces).
+En la práctica usaremos con frecuencia la [desestructuración de argumentos](https://github.com/lukehoban/es6features#destructuring) de ES2015 para simplificar nuestro código (especialmente cuando tengamos que llamar a `commit` múltiples veces).
 
 ``` js
 actions: {
@@ -37,7 +37,7 @@ actions: {
 }
 ```
 
-### Ejectuar Acciones
+### Ejecutar Acciones
 
 Las acciones pueden ser ejecutadas con el método `store.dispatch`:
 
@@ -82,7 +82,6 @@ actions: {
     // Enviar una petición de confirmación, modo optimista
     // Limpiar el carrito
     commit(types.CHECKOUT_REQUEST)
-    // the shop API accepts a success callback and a failure callback
     // La API accepta callbacks de error y éxito
     shop.buyProducts(
       products,

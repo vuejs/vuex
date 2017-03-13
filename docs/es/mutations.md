@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Una mutación no se puede ejecutar directamente. El proceso se parece más al registro de un evento: "Cuando una mutación de tipo `increment` sea lanzada, ejecuta este handler". Deberás invocar **store.commit** con el tipo de la mutación para ejecutar su repspectivo handler:
+Una mutación no se puede ejecutar directamente. El proceso se parece más al registro de un evento: "Cuando una mutación de tipo `increment` sea lanzada, ejecuta este handler". Deberás invocar **store.commit** con el tipo de la mutación para ejecutar su respectivo handler:
 
 ``` js
 store.commit('increment')
@@ -77,7 +77,7 @@ mutations: {
 
 ### Las Mutaciones siguen las Reglas de Reactividad de Vue
 
-Dado que un estado almacenado por Vuex es reactivo gracias a Vue, cuando el estado cambie lo componentes que lo observan se actualizarán automaticamente. Esto implica que las mutaciones Vuex están sujetas a las mismas restricciones de reactividad que limitan a cualquier instancia Vue:
+Dado que un estado almacenado por Vuex es reactivo gracias a Vue, cuando el estado cambie lo componentes que lo observan se actualizarán automáticamente. Esto implica que las mutaciones Vuex están sujetas a las mismas restricciones de reactividad que limitan a cualquier instancia Vue:
 
 1. Trata de inicializar el estado inicial de tu almacén con todas las propiedades includas de primeras
 
@@ -159,7 +159,7 @@ export default {
 
 ### Y ... Acción!
 
-Combinar asincronicidad con mutaciones de estado puede hacer que tu lógica de aplicación sea dificil de seguir. Por ejemplo, si ejecutas dos métodos asíncronos que mutan el estado, ¿cómo cuando terminan su rutina o cúal termina primero? Esta es la razón por la que queremos mantener los dos conceptos separados. En Vuex, **toda mutación es una transacción síncrona**:
+Combinar asincronicidad con mutaciones de estado puede hacer que tu lógica de aplicación sea difícil de seguir. Por ejemplo, si ejecutas dos métodos asíncronos que mutan el estado, ¿cómo cuando terminan su rutina o cúal termina primero? Esta es la razón por la que queremos mantener los dos conceptos separados. En Vuex, **toda mutación es una transacción síncrona**:
 
 ``` js
 store.commit('increment')

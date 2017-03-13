@@ -1,6 +1,6 @@
 # Vuex
 
-> Note: This is docs for vuex@2.x.
+> Nota: Esta es la documentación de vuex@2.x.
 
 - [¿Buscas la docu de Vuex 1.0?](https://github.com/vuejs/vuex/tree/1.0/docs)
 - [Notas de versión](https://github.com/vuejs/vuex/releases)

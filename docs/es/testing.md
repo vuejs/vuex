@@ -4,7 +4,7 @@ Las partes que principalmente querremos testear en Vuex serán las mutaciones y 
 
 ### Testear Mutaciones
 
-Las mutaciones són muy sencillas de testear ya que solo son funciones que dependen completamente de sus argumentos. Un truco, si estás usando módulos ES2015 y tienes tu mutaciones dentro del archivo `store.js`, es exportar además del `store` como `export default` exportar las mutaciones con un nombre:
+Las mutaciones son muy sencillas de testear ya que solo son funciones que dependen completamente de sus argumentos. Un truco, si estás usando módulos ES2015 y tienes tu mutaciones dentro del archivo `store.js`, es exportar además del `store` como `export default` exportar las mutaciones con un nombre:
 
 ``` js
 const state = { ... }
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// Asiganción por destructuración de mutaciones
+// Asiganción por desestructuración de mutaciones
 const { increment } = mutations
 
 describe('mutations', () => {

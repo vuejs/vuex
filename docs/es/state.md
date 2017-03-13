@@ -4,7 +4,7 @@
 
 Vuex utiliza un **árbol de estado único**. Esto quiere decir que es un único objeto el que contiene todo el estado de tu aplicación y sirve como **única fuente de verdad**. También implica que normalmente solo tendrás un almacén por aplicación. Un único árbol de estado facilita la localización de una parte del estado y permite hacer snapshots (copias) del estado actual con el fin de depurar tu aplicación.
 
-El árbol de estado único no entra en conflicto con la modularidad de la app. En capitulos posteriores veremos como estructurar el estado y mutaciones en submódulos.
+El árbol de estado único no entra en conflicto con la modularidad de la app. En capítulos posteriores veremos como estructurar el estado y mutaciones en submódulos.
 
 ### Utilizando el Estado de Vuex en Componentes Vue
 
@@ -25,8 +25,6 @@ const Counter = {
 Siempre que `store.state.count` cambie, provocará que la propiedad computada sea re-evaluada, lanzando las actualizaciones del DOM asociadas al cambio.
 
 Sin embargo, este patrón impone una dependencia del single global del almacén. Cuando trabajamos con un sistema modular hay que importar el almacén en cada componente que se nutre de el. También tendrémos que mockear el almacén en los tests del componente.
-
-Vuex provides a mechanism to "inject" the store into all child components from the root component with the `store` option (enabled by `Vue.use(Vuex)`):
 
 Vuex nos provee con un mecanismo para "inyectar" el almacén en todos los componentes hijos del componente Root por medio de la opción `store` (habilitada por `Vue.use(Vuex)`):
 
@@ -60,7 +58,7 @@ const Counter = {
 
 ### El Helper `mapState`
 
-Cuando un componente hace uso de multiples propiedades o getters del estado almacenado, declarar propiedades computadas una a una puede resultar repetitivo y verboso. Podemos hacer uso del helper `mapState` para facilitarnos la vida. Este genera funciones getter computadas y nos ahorra tiempo al teclado:
+Cuando un componente hace uso de múltiples propiedades o getters del estado almacenado, declarar propiedades computadas una a una puede resultar repetitivo y verboso. Podemos hacer uso del helper `mapState` para facilitarnos la vida. Este genera funciones getter computadas y nos ahorra tiempo al teclado:
 
 ``` js
 // En desarrollos con scripts gloables el helper esta expuesto como Vuex.mapState
@@ -113,4 +111,4 @@ export default {
 
 ### Los Componentes Puede tener Estado Local
 
-Usar Vuex no implica que debas poner **todo** el estado en Vuex. A pesar de que cuanto más estado almacenes en Vuex más explicitas y depurables serán tu mutaciones, a veces también puede hacer de tu código uno más verboso e indirecto. Si una parte del estado pertenece únicamente a un componente, sería perfectamente aceptable dejarlo como estado local al mismo. Deberás sopesar los beneficios y tomar la decisión que mejor se adapte a los requisitos de tu aplicación.
+Usar Vuex no implica que debas poner **todo** el estado en Vuex. A pesar de que cuanto más estado almacenes en Vuex más explícitas y depurables serán tu mutaciones, a veces también puede hacer de tu código uno más verboso e indirecto. Si una parte del estado pertenece únicamente a un componente, sería perfectamente aceptable dejarlo como estado local al mismo. Deberás sopesar los beneficios y tomar la decisión que mejor se adapte a los requisitos de tu aplicación.

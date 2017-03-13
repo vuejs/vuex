@@ -27,7 +27,7 @@ npm install vuex --save
 yarn add vuex
 ```
 
-En caso de utilizar un sistema modular, deberás instalar Vuex de manera explicita por medio de `Vue.use()`:
+En caso de utilizar un sistema modular, deberás instalar Vuex de manera explícita por medio de `Vue.use()`:
 
 ``` js
 import Vue from 'vue'

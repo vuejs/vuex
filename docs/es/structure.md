@@ -10,7 +10,7 @@ Vuex no impone restricciones a la hora de estructura tu código sino que se acog
 
 Siempre y cuando sigas estas reglas, la estructura que le des a tu proyecto es cosa tuya. Si el archivo en el que defines tu almacén vuelve demasiado grande puedes empezar por separar acciones, mutaciones y getters en archivos separados.
 
-En applicationes complejas o de gran escala, es muy probable que hagas uso de módulos. Aquí dejamos un ejemplo de como estructurar un proyecto:
+En applicaciones complejas o de gran escala, es muy probable que hagas uso de módulos. Aquí dejamos un ejemplo de como estructurar un proyecto:
 
 ``` bash
 ├── index.html
