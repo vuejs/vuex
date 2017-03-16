@@ -104,6 +104,6 @@ computed: {
 }
 ```
 
-### Les composants peuvent toujours avec un state local
+### Les composants peuvent toujours avoir un state local
 
 Utiliser Vuex ne signifie pas que vous devez mettre **tout** votre state dans Vuex. Bien que le fait de mettre plus de state dans Vuex rende vos mutations de state plus explicites et plus debuggables, parfois il peut aussi rendre le code plus verbeux et indirect. Si une partie de state appartient directement à un seul composant, il est parfaitement sain de la laisser dans le state local. Assurez vous de prendre en compte les avantages et inconvénients d'une telle décision afin de vous adaptez le mieux aux besoins de votre application.
