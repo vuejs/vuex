@@ -333,4 +333,10 @@ describe('Store', () => {
       })
     })
   })
+
+  it('asserts the call with the new operator', () => {
+    expect(() => {
+      Vuex.Store({})
+    }).toThrowError(/Store must be called with the new operator/)
+  })
 })

@@ -250,6 +250,7 @@ var Store = function Store (options) {
 
   assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
   assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+  assert(this instanceof Store, "Store must be called with the new operator.");
 
   var state = options.state; if ( state === void 0 ) state = {};
   var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
