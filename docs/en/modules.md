@@ -31,7 +31,7 @@ store.state.b // -> moduleB's state
 
 ### Module Local State
 
-Inside a module's mutations and getters, The first argument received will be **the module's local state**.
+Inside a module's mutations and getters, the first argument received will be **the module's local state**.
 
 ``` js
 const moduleA = {
