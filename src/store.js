@@ -140,6 +140,8 @@ export class Store {
   registerModule (path, rawModule) {
     if (typeof path === 'string') path = [path]
     assert(Array.isArray(path), `module path must be a string or an Array.`)
+    assert(path.length > 0, 'cannot register the root module by using registerModule.')
+
     this._modules.register(path, rawModule)
     installModule(this, this.state, path, this._modules.get(path))
     // reset store to update getters...
