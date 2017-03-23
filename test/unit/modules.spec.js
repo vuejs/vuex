@@ -517,4 +517,94 @@ describe('Modules', () => {
       expect(mutations[0].payload).toBe(2)
     })
   })
+
+  it('asserts a mutation should be a function', () => {
+    expect(() => {
+      new Vuex.Store({
+        mutations: {
+          test: null
+        }
+      })
+    }).toThrowError(
+      /mutations should be function but "mutations\.test" is null/
+    )
+
+    expect(() => {
+      new Vuex.Store({
+        modules: {
+          foo: {
+            modules: {
+              bar: {
+                mutations: {
+                  test: 123
+                }
+              }
+            }
+          }
+        }
+      })
+    }).toThrowError(
+      /mutations should be function but "mutations\.test" in module "foo\.bar" is 123/
+    )
+  })
+
+  it('asserts an action should be a function', () => {
+    expect(() => {
+      new Vuex.Store({
+        actions: {
+          test: 'test'
+        }
+      })
+    }).toThrowError(
+      /actions should be function but "actions\.test" is "test"/
+    )
+
+    expect(() => {
+      new Vuex.Store({
+        modules: {
+          foo: {
+            modules: {
+              bar: {
+                actions: {
+                  test: 'error'
+                }
+              }
+            }
+          }
+        }
+      })
+    }).toThrowError(
+      /actions should be function but "actions\.test" in module "foo\.bar" is "error"/
+    )
+  })
+
+  it('asserts a getter should be a function', () => {
+    expect(() => {
+      new Vuex.Store({
+        getters: {
+          test: undefined
+        }
+      })
+    }).toThrowError(
+      /getters should be function but "getters\.test" is undefined/
+    )
+
+    expect(() => {
+      new Vuex.Store({
+        modules: {
+          foo: {
+            modules: {
+              bar: {
+                getters: {
+                  test: true
+                }
+              }
+            }
+          }
+        }
+      })
+    }).toThrowError(
+      /getters should be function but "getters\.test" in module "foo\.bar" is true/
+    )
+  })
 })
