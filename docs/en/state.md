@@ -33,7 +33,7 @@ const app = new Vue({
   el: '#app',
   // provide the store using the "store" option.
   // this will inject the store instance to all child components.
-  store,
+  store: store,
   components: { Counter },
   template: `
     <div class="app">
