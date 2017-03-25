@@ -102,6 +102,11 @@ const store = new Vuex.Store({
 ``` js
 const logger = createLogger({
   collapsed: false, // автоматически раскрывать залогированные мутации
+  filter(mutation, stateBefore, stateAfter) {
+    // returns true if a mutation should be logged
+    // `mutation` is a { type, payload }
+    return mutation.type !== "aBlacklistedMutation"
+  },
   transformer (state) {
     // обработать состояние перед логированием
     // например, позволяет рассматривать только конкретное поддерево

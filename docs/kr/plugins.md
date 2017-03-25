@@ -103,6 +103,11 @@ const store = new Vuex.Store({
 ``` js
 const logger = createLogger({
   collapsed: false, // 로그를 가지는 변이 자동 확장
+  filter(mutation, stateBefore, stateAfter) {
+    // returns true if a mutation should be logged
+    // `mutation` is a { type, payload }
+    return mutation.type !== "aBlacklistedMutation"
+  },
   transformer (state) {
     // 로깅하기전 상태를 변이 하십시오.
     // 예를 들어 특정 하위 트리만 반환합니다.
