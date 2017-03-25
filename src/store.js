@@ -226,9 +226,7 @@ function installModule (store, rootState, path, module, hot) {
   const namespace = store._modules.getNamespace(path)
 
   // register in namespace map
-  // it should not be registered if namespaced === false
-  // because nested modules can have the same namespace as a parent module
-  if (module.namespaced && namespace) {
+  if (module.namespaced) {
     store._modulesNamespaceMap[namespace] = module
   }
 
