@@ -102,7 +102,7 @@ const store = new Vuex.Store({
 ``` js
 const logger = createLogger({
   collapsed: false, // 自动展开记录的 mutation
-  filter(mutation, stateBefore, stateAfter) {
+  filter (mutation, stateBefore, stateAfter) {
     // returns true if a mutation should be logged
     // `mutation` is a { type, payload }
     return mutation.type !== "aBlacklistedMutation"

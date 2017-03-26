@@ -102,7 +102,7 @@ La fonction `createLogger` prend quelques options :
 ``` js
 const logger = createLogger({
   collapsed: false, // auto-expand logged mutations
-  filter(mutation, stateBefore, stateAfter) {
+  filter (mutation, stateBefore, stateAfter) {
     // returns true if a mutation should be logged
     // `mutation` is a { type, payload }
     return mutation.type !== "aBlacklistedMutation"
