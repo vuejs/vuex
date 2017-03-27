@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.common.js'
 import Vuex from '../../dist/vuex.js'
+import { Observable } from 'rxjs/Observable'
 
 const TEST = 'TEST'
 
@@ -127,6 +128,37 @@ describe('Store', () => {
     })
   })
 
+  it('dispatching actions, with returned Observable', done => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      },
+      actions: {
+        [TEST] ({ commit }, n) {
+          return new Observable(observer => {
+            setTimeout(() => {
+              commit(TEST, n)
+              observer.next()
+              observer.complete()
+            }, 0)
+          })
+        }
+      }
+    })
+    expect(store.state.a).toBe(1)
+    const observable = store.dispatch(TEST, 2)
+    expect(observable instanceof Observable).toBeTruthy()
+    observable.subscribe(() => {
+      expect(store.state.a).toBe(3)
+      done()
+    })
+  })
+
   it('composing actions with async/await', done => {
     const store = new Vuex.Store({
       state: {
@@ -183,6 +215,30 @@ describe('Store', () => {
         expect(spy).toHaveBeenCalledWith('vuex:error', 'no')
         done()
       })
+  })
+
+  it('detecting action Observable errors', done => {
+    const store = new Vuex.Store({
+      actions: {
+        [TEST] () {
+          return new Observable(observer => {
+            observer.error('no')
+          })
+        }
+      }
+    })
+    const spy = jasmine.createSpy()
+    store._devtoolHook = {
+      emit: spy
+    }
+    const nextSpy = jasmine.createSpy()
+    const observable = store.dispatch(TEST)
+    observable.subscribe(nextSpy, err => {
+      expect(nextSpy).not.toHaveBeenCalled()
+      expect(err).toBe('no')
+      expect(spy).toHaveBeenCalledWith('vuex:error', 'no')
+      done()
+    })
   })
 
   it('asserts dispatched type', () => {
