@@ -333,4 +333,55 @@ describe('Store', () => {
       })
     })
   })
+  
+  it('getter: Check its updated after settings object', done => {
+    function typeData() {
+      return {
+        filter: {},
+        view: 0,
+      }
+    }
+    const ADD = 'ADD'
+    const SET = 'SET'
+    const FILTERED = 'FILTERED'
+    
+    const store = new Vuex.Store({
+      state: {
+        type: 'none',
+        data: {
+          none: typeData()
+        }
+      },
+      actions: {
+        changeType({commit, state}, type) {
+          if(state.type == type) return
+          if(!state.data[type])
+            commit(ADD, type)
+          commit(SET, type)
+        },
+        filter({commit, state}, filter) {
+          commit(FILTERED, filter)
+        }
+      },
+      mutations: {
+        [ADD](state, type) {
+          state.data[type] = typeData()
+        },
+        [SET](state, type) {
+          state.type = type
+        },
+        [FILTERED](state, filter) {
+          state.data[state.type].filter = filter
+        }
+      },
+      getters: {
+        filter(state) {
+          return state.data[state.type].filter
+        }
+      }
+    })
+    Store.dispatch('changeType','test');
+    Store.dispatch('filter',{text:'test'});
+    expect(store.getters.filter.text).toBe('test')                       
+  })
 })
