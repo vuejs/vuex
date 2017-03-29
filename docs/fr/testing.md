@@ -4,7 +4,7 @@ Les parties principales que l'on veut couvrir par des tests unitaires en Vuex so
 
 ### Tester les mutations
 
-Les mutations sont très simples à tester, parce que ce sont juste des fonctions qui se passent complètement sur leurs arguments. Une astuce est que si vous utilisez les modules ES2015 et mettez vos mutations dans votre fichier `store.js`, en plus de l'export par défaut, vous pouvez également vos mutations avec un export nommé :
+Les mutations sont très simples à tester, puisque ce sont de simples fonctions qui se basent uniquement sur leurs arguments. Une astuce est que si vous utilisez les modules ES2015 et mettez vos mutations dans votre fichier `store.js`, en plus de l'export par défaut, vous pouvez également exporter vos mutations avec un export nommé :
 
 ``` js
 const state = { ... }
