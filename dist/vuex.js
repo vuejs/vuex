@@ -311,8 +311,8 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
     var type = ref.type;
     var payload = ref.payload;
     var options = ref.options;
+    var mutation = ref.mutation;
 
-  var mutation = { type: type, payload: payload };
   var entry = this._mutations[type];
   if (!entry) {
     console.error(("[vuex] unknown mutation type: " + type));
@@ -476,7 +476,7 @@ function installModule (store, rootState, path, module, hot) {
   var namespace = store._modules.getNamespace(path);
 
   // register in namespace map
-  if (namespace) {
+  if (module.namespaced) {
     store._modulesNamespaceMap[namespace] = module;
   }
 
@@ -653,7 +653,9 @@ function getNestedState (state, path) {
 }
 
 function unifyObjectStyle (type, payload, options) {
+  var mutation = { type: type, payload: payload };
   if (isObject(type) && type.type) {
+    mutation = type;
     options = payload;
     payload = type;
     type = type.type;
@@ -661,7 +663,7 @@ function unifyObjectStyle (type, payload, options) {
 
   assert(typeof type === 'string', ("Expects string as the type, but found " + (typeof type) + "."));
 
-  return { type: type, payload: payload, options: options }
+  return { type: type, payload: payload, options: options, mutation: mutation }
 }
 
 function install (_Vue) {

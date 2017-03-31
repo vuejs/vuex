@@ -37,6 +37,31 @@ describe('Store', () => {
     expect(store.state.a).toBe(3)
   })
 
+  it('should call the subscribers with the committed mutation after committing with object style', () => {
+    const store = new Vuex.Store({
+      state: {
+      },
+      mutations: {
+        [TEST] () {
+        }
+      }
+    })
+
+    let subscriberMutation
+
+    store.subscribe((mutation) => {
+      subscriberMutation = mutation
+    })
+
+    const committedMutation = {
+      type: TEST,
+      amount: 2
+    }
+
+    store.commit(committedMutation)
+    expect(subscriberMutation).toEqual(committedMutation)
+  })
+
   it('asserts committed type', () => {
     const store = new Vuex.Store({
       state: {
