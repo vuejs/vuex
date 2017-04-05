@@ -26,7 +26,7 @@ $ npm install
 $ npm run counter # run the counter example
 ```
 
-See [npm scripts](https://github.com/vuejs/vuex/blob/master/package.json#L11-L15) for all example npm scripts.
+See [npm scripts](https://github.com/vuejs/vuex/blob/master/package.json#L16-L20) for all example npm scripts.
 
 ## Principles
 
