@@ -42,7 +42,7 @@ mutations: {
 store.dispatch('INCREMENT', 10)
 ```
 
-这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 所有额外的参数被称为该 mutation 的 payload.
+这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 所有额外的参数被称为该 mutation 的 **payload**.
 
 ### Object 风格的 Dispatch
 
@@ -64,6 +64,37 @@ mutations: {
   INCREMENT (state, mutation) {
     state.count += mutation.payload
   }
+}
+```
+
+### 静默 Dispatch
+
+> 需要版本 >=0.6.3
+
+在某些情景中，你也许并不想中间件去记录 state 的变化。在短周期内对 state 的多次 disptach 或轮询并非总需要被追踪。在这种情况下，可以考虑静默掉这些 mutations。  
+
+*注意：* 在关键时应该避免这样使用。静默 mutations 破坏了所有 state 变化都会被 devtool 追踪的约定。请在必须的情况下少量使用。
+
+`silent` 标志可以使得 dispatch 不去命中中间件。
+
+``` js
+/**
+ * 示例: 进度 action.
+ * 不必被追踪改变的频繁 Dispatch
+ **/
+export function start(store, options = {}) {
+  let timer = setInterval(() => {
+    store.dispatch({
+      type: INCREMENT,
+      silent: true,
+      payload: {
+        amount: 1,
+      },
+    });
+    if (store.state.progress === 100) {
+      clearInterval(timer);
+    }
+  }, 10);
 }
 ```
 
