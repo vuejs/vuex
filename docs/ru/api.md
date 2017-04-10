@@ -149,11 +149,11 @@ const store = new Vuex.Store({ ...options })
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-  Регистрирует динамический модуль. [Подробнее](modules.md#dynamic-module-registration)
+  Регистрирует динамический модуль. [Подробнее](modules.md#динамическая-регистрация-модулей)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Разрегистрирует динамический модуль. [Подробнее](modules.md#dynamic-module-registration)
+  Разрегистрирует динамический модуль. [Подробнее](modules.md#динамическая-регистрация-модулей)
 
 - **`hotUpdate(newOptions: Object)`**
 
@@ -163,24 +163,24 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Создаёт проксирующие вычисляемые свойства компонента, возвращающие поддерево state'а хранилища Vuex [Подробнее](state.md#the-mapstate-helper)
+  Создаёт проксирующие вычисляемые свойства компонента, возвращающие поддерево state'а хранилища Vuex [Подробнее](state.md#вспомогательная-функция-mapstate)
 
-  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#подключение-с-помощью-вспомогательных-функций-к-пространству-имён)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Создаёт проксирующие вычисляемые свойства компонента, проксирующие доступ к геттерам. [Подробнее](getters.md#the-mapgetters-helper)
+  Создаёт проксирующие вычисляемые свойства компонента, проксирующие доступ к геттерам. [Подробнее](getters.md#вспомогательная-функция-mapgetters)
 
-  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#подключение-с-помощью-вспомогательных-функций-к-пространству-имён)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
-  Создаёт проксирующие методы компонента, позволяющие диспетчеризировать действия. [Подробнее](actions.md#dispatching-actions-in-components)
+  Создаёт проксирующие методы компонента, позволяющие диспетчеризировать действия. [Подробнее](actions.md#диспетчеризация-действий-в-компонентах)
 
-  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#подключение-с-помощью-вспомогательных-функций-к-пространству-имён)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  Создаёт проксирующие методы компонента, позволяющие инициировать мутации. [Подробнее](mutations.md#commiting-mutations-in-components)
+  Создаёт проксирующие методы компонента, позволяющие инициировать мутации. [Подробнее](mutations.md#вызов-мутаций-из-компонентов)
 
-  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#binding-helpers-with-namespace)
+  Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#подключение-с-помощью-вспомогательных-функций-к-пространству-имён)
