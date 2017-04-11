@@ -3,7 +3,7 @@
 Las acciones son similares a las mutaciones. Las diferencias son:
 
 - En lugar de mutar el estado, las acciones commitean mutaciones.
-- Un acción puede contener operaciones asíncronas.
+- Una acción puede contener operaciones asíncronas.
 
 Registremos una acción sencilla:
 
@@ -25,9 +25,9 @@ const store = new Vuex.Store({
 })
 ```
 
-La función handler de una acción recibe un Objeto contexto que expone los mismos métodos y propiedades disponibles en una instancia de almacén. Por lo tanto puedes ejecutar `context.commit` para commitear una mutación o acceder al estado ó getters a través de `context.state` ó `context.getters`. Veremos porque este Objeto contexto no es la instancia del almacén en sí cuando presentemos los [Modules](modules.md).
+La función handler de una acción recibe un Objeto contexto que expone los mismos métodos y propiedades disponibles en una instancia de store. Por lo tanto puedes ejecutar `context.commit` para commitear una mutación o acceder al estado o getters a través de `context.state` o `context.getters`. Veremos porque este Objeto contexto no es la instancia del almacén en sí cuando presentemos los [Módulos](modules.md).
 
-En la práctica usaremos con frecuencia la [desestructuración de argumentos](https://github.com/lukehoban/es6features#destructuring) de ES2015 para simplificar nuestro código (especialmente cuando tengamos que llamar a `commit` múltiples veces).
+En la práctica usaremos con frecuencia la [desestructuración de argumentos](https://github.com/lukehoban/es6features#destructuring) de ES2015 para simplificar nuestro código (especialmente cuando tengamos que ejecutar `commit` múltiples veces).
 
 ``` js
 actions: {
@@ -45,7 +45,7 @@ Las acciones pueden ser ejecutadas con el método `store.dispatch`:
 store.dispatch('increment')
 ```
 
-Esto puede parecer algo inútil a primera vista: si queremos incrementar el contador, ¿por qué no llamar a `store.commit('increment')` directamente? Recordemos que **las mutaciones deben ser síncronas**. Las acciones no se acogen a esta limitación por lo tanto pueden contener operaciones asíncronas:
+Esto puede parecer algo inútil a primera vista: si queremos incrementar el contador, ¿por qué no ejecutar `store.commit('increment')` directamente? Recordemos que **las mutaciones deben ser síncronas**. Las acciones no se acogen a esta limitación por lo tanto pueden contener operaciones asíncronas:
 
 ``` js
 actions: {
@@ -72,17 +72,17 @@ store.dispatch({
 })
 ```
 
-Un ejemplo más real puede ser una acción de confirmación de un carrito de compra, el cual puede incluir **llamas asíncronas a APIs** y **commitear múltiples mutaciones**.
+Un ejemplo más real puede ser una acción de confirmación de un carrito de compra, el cual puede incluir **llamadas asíncronas a APIs** y **commitear múltiples mutaciones**.
 
 ``` js
 actions: {
   checkout ({ commit, state }, products) {
-    // Guardar referencia de los productos actualmente en el carrito
+    // Guardar una copia de los productos actualmente en el carrito
     const savedCartItems = [...state.cart.added]
     // Enviar una petición de confirmación, modo optimista
     // Limpiar el carrito
     commit(types.CHECKOUT_REQUEST)
-    // La API accepta callbacks de error y éxito
+    // La API accepta callbacks de éxito y error
     shop.buyProducts(
       products,
       // Gestión caso éxito
@@ -94,11 +94,11 @@ actions: {
 }
 ```
 
-Hagase notar que estamos ejecutando un flujo de operaciones asíncronas y registrando los efectos laterales (modificaciones de estado) de la acción por medio de commits.
+Hágase notar que estamos ejecutando un flujo de operaciones asíncronas y registrando los efectos laterales (modificaciones de estado) de la acción por medio de commits.
 
 ### Ejecutar Acciones en Componentes
 
-Puedes ejecutar acciones en componentes con `this.$store.dispatch('xxx')` ó hacer uso del helper `mapActions` para mapear métodos del componente a llamadas tipo `store.dispatch` (esto require de la inyección de `store` en el Root).
+Puedes ejecutar acciones en componentes con `this.$store.dispatch('xxx')` o hacer uso del helper `mapActions` para mapear métodos del componente a llamadas tipo `store.dispatch` (esto requiere de la inyección de `store` en el Root).
 
 ``` js
 import { mapActions } from 'vuex'
@@ -110,10 +110,10 @@ export default {
       'increment', // Mapear this.increment() a this.$store.dispatch('increment')
       
       // mapActions también acepta payloads:
-      'incrementBy' // this.incrementBy(amount) se mapea a this.$store.dispatch('incrementBy', amount)
+      'incrementBy' // Mapear this.incrementBy(amount) a this.$store.dispatch('incrementBy', amount)
     ]),
     ...mapActions({
-      add: 'increment' // map this.add() to this.$store.dispatch('increment')
+      add: 'increment' // Mapear this.add() a this.$store.dispatch('increment')
     })
   }
 }
