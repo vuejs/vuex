@@ -34,7 +34,7 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,     // igual a store.state, ó estado local en módulos
+      state,     // igual a store.state, o estado local en módulos
       rootState, // igual a store.state, solo en módulos
       commit,    // igual a store.commit
       dispatch,  // igual a store.dispatch
@@ -63,7 +63,7 @@ const store = new Vuex.Store({ ...options })
 
   - tipo: `Object`
 
-    Un objeto que contiene submódulos a mergear en el almacén, con la siguiente estructura:
+    Un objeto contenedor de submódulos a combinar en el almacén, con la siguiente estructura:
 
     ``` js
     {
@@ -130,13 +130,13 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Observar de manera reactiva el valor retornado por un getter y ejecutar una callback cuando el valor cambie. El getter recibe el estado del almacén como único argumento. Acepta un Objeto de valores opcionales que utiliza los mismos values que el método `vm.$watch` de Vue.
+  Observar de manera reactiva el valor retornado por un getter y ejecutar una callback cuando el valor cambie. El getter recibe el estado del almacén como único argumento. Acepta un Objeto de valores opcionales idéntico al aceptado por el método `vm.$watch` de Vue.
 
   Para dejar de observar, ejecutar la función retornada.
 
 - **`subscribe(handler: Function)`**
 
-  Subscribirse a mutaciones del almacén. El `handler` es ejecutado después de cada mutación y recibe la descripción de la mutación y un estado por mutación como argumentos:
+  Subscribirse a mutaciones del almacén. El `handler` es ejecutado después de cada mutación. Este recibe el objeto descriptor de cada mutación y el estado resultante después de la misma como argumentos:
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -159,28 +159,28 @@ const store = new Vuex.Store({ ...options })
 
   Cambiar acciones y mutaciones en caliente. [Detalles](hot-reload.md)
 
-### Helpers de Bindeo en Componentes
+### Helpers de Binding en Componentes
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Crear opciones computadas en un componente que devuelven un sub-árbol del almacén Vuex. [Detalles](state.md#the-mapstate-helper)
+  Crear opciones computadas para un componente que devuelven un sub-árbol del almacén Vuex. [Detalles](state.md#the-mapstate-helper)
 
-  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
+  El primer argumento, opcional, es un namespace (string). [Detalles](modules.md#binding-helpers-with-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Crear opciones computadas en un componete que devuelven el valor evaluado de un getter. [Detalles](getters.md#the-mapgetters-helper)
+  Crear opciones computadas para un componete que devuelven el valor evaluado de un getter. [Detalles](getters.md#the-mapgetters-helper)
 
-  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
+  El primer argumento, opcional, es un namespace (string). [Detalles](modules.md#binding-helpers-with-namespace)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
-  Crear opciones computadas en un componete que ejecutan una acción. [Detalles](actions.md#dispatching-actions-in-components)
+  Crea un objeto de métodos para un componente que ejecuta acciones. [Detalles](actions.md#dispatching-actions-in-components)
 
-  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
+  El primer argumento, opcional, es un namespace (string). [Detalles](modules.md#binding-helpers-with-namespace)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  Crear opciones computadas en un componete que commitean una mutación. [Detalles](mutations.md#commiting-mutations-in-components)
+  Crea un objeto de métodos para un componente que commitea mutaciones. [Detalles](mutations.md#commiting-mutations-in-components)
 
-  El primer argumento puede ser opcionalmente el nombre string de un namespace. [Detalles](modules.md#binding-helpers-with-namespace)
+  El primer argumento, opcional, es un namespace (string). [Detalles](modules.md#binding-helpers-with-namespace)
