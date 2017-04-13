@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "state management for Vue.js",
   "main": "dist/vuex.js",
   "module": "dist/vuex.esm.js",
