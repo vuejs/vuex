@@ -52,7 +52,7 @@ const store = new Vuex.Store({ ...options })
 
     ```
     state,     // will be module local state if defined in a module.
-    getters,   // same as store.getters
+    getters   // same as store.getters
     ```
     
     Specific when defined in a module
@@ -60,7 +60,7 @@ const store = new Vuex.Store({ ...options })
     ```
     state,       // will be module local state if defined in a module.
     getters,     // module local getters of the current module
-    rootState    // global state
+    rootState,   // global state
     rootGetters  // all getters
     ```
     
