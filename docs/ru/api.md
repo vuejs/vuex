@@ -60,7 +60,7 @@ const store = new Vuex.Store({ ...options })
     ```
     state,       // при использовании модулей — локальный state модуля
     getters,     // локальные геттеры текущего модуля
-    rootState    // глобальный state
+    rootState,   // глобальный state
     rootGetters  // все геттеры
     ```
 
