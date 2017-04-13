@@ -52,9 +52,18 @@ const store = new Vuex.Store({ ...options })
 
     ```
     state,     // при использовании модулей — локальный state модуля
-    getters,   // то же, что и store.getters
-    rootState  // то же, что и store.state
+    getters    // то же, что и store.getters
     ```
+
+    При определении в модуле
+    
+    ```
+    state,       // при использовании модулей — локальный state модуля
+    getters,     // локальные геттеры текущего модуля
+    rootState    // глобальный state
+    rootGetters  // все геттеры
+    ```
+
     Зарегистрированные геттеры далее доступны в `store.getters`.
 
     [Подробнее](getters.md)
