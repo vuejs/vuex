@@ -146,7 +146,10 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment' // map this.increment() to this.$store.commit('increment')
+      'increment', // map this.increment() to this.$store.commit('increment')
+      
+      // mapMutations also supports payloads:
+      'incrementBy' // this.incrementBy(amount) maps to this.$store.commit('incrementBy', amount)
     ]),
     ...mapMutations({
       add: 'increment' // map this.add() to this.$store.commit('increment')
