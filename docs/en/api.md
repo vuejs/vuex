@@ -49,7 +49,7 @@ const store = new Vuex.Store({ ...options })
   - type: `{ [key: string]: Function }`
 
     Register getters on the store. The getter function receives the following arguments:
-    
+
     ```
     state,     // will be module local state if defined in a module.
     getters,   // same as store.getters
