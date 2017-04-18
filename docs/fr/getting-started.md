@@ -41,4 +41,4 @@ Utiliser le state du store dans un composant implique simplement de retourner le
 
 Voici un exemple de la [plus basique app Vuex de compteur](https://jsfiddle.net/n9jmu5v7/341/).
 
-Ensuite, nous allons examiner chaque concept de base plus en détails, et commençon avec le [State](state.md).
+Ensuite, nous allons examiner chaque concept de base plus en détails, et commençons avec le [State](state.md).
