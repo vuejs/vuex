@@ -103,8 +103,8 @@ const store = new Vuex.Store({
 const logger = createLogger({
   collapsed: false, // автоматически раскрывать залогированные мутации
   filter (mutation, stateBefore, stateAfter) {
-    // returns true if a mutation should be logged
-    // `mutation` is a { type, payload }
+    // возвращает true если мутация должна быть залогирована
+    // `mutation` это объект { type, payload }
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {

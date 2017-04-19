@@ -125,13 +125,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Методы инстанса Vuex.Store
 
-- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
+- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Запускает мутацию. [Подробнее](mutations.md)
+  Запускает мутацию. `options` может содержать опцию `root: true` что разрешает совершать корневые (root) мутации [в модулях со своим пространством имён](modules.md#пространства-имён). [Подробнее](mutations.md)
 
-- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Инициирует действие. Возвращает то же значение, что и вызванный обработчик действия, или Promise, если вызывается несколько обработчиков. [Подробнее](actions.md)
+  Инициирует действие. `options` может содержать опцию `root: true` что разрешает совершать корневые (root)  действия [в модулях со своим пространством имён](modules.md#пространства-имён). Возвращает Promise который разрешает все обработчики инициируемых действий. [Подробнее](actions.md)
 
 - **`replaceState(state: Object)`**
 
