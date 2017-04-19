@@ -93,7 +93,7 @@ computed: mapState([
 
 ```js
 computed: {
-  localComputed () { /* ... */ }.
+  localComputed () { /* ... */ },
   // オブジェクトスプレット演算子で、外のオブジェクトとこのオブジェクトを混ぜる
   ...mapState({
     // ...

@@ -31,7 +31,7 @@ store.state.b // -> moduleB's state
 
 ### Module Local State
 
-Inside a module's mutations and getters, The first argument received will be **the module's local state**.
+Inside a module's mutations and getters, the first argument received will be **the module's local state**.
 
 ``` js
 const moduleA = {
@@ -243,3 +243,25 @@ The module's state will be exposed as `store.state.myModule` and `store.state.ne
 Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
 
 You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+
+### Module Reuse
+
+Sometimes we may need to create multiple instances of a module, for example:
+
+- Creating multiple stores that uses the same module;
+- Register the same module multiple times in the same store.
+
+If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
+
+This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
+
+``` js
+const MyReusableModule = {
+  state () {
+    return {
+      foo: 'bar'
+    }
+  },
+  // mutations, actions, getters...
+}
+```

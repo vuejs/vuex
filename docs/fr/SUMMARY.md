@@ -1,6 +1,8 @@
 # Vuex
 
+<!--email_off-->
 > Note : Ceci est la documentation pour vuex@2.x.
+<!--/email_off-->
 
 - [Vous cherchez la documentation de la v1.0 ?](https://github.com/vuejs/vuex/tree/1.0/docs)
 - [Release Notes](https://github.com/vuejs/vuex/releases)

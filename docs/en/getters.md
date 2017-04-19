@@ -66,7 +66,7 @@ You can also pass arguments to getters by returning a function. This is particul
 getters: {
   // ...
   getTodoById: (state, getters) => (id) => {
-    return getters.todos.find(todo => todo.id === id)
+    return state.todos.find(todo => todo.id === id)
   }
 }
 ```

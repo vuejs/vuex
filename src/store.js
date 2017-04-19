@@ -11,10 +11,16 @@ export class Store {
     assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
 
     const {
-      state = {},
       plugins = [],
       strict = false
     } = options
+
+    let {
+      state = {}
+    } = options
+    if (typeof state === 'function') {
+      state = state()
+    }
 
     // store internal state
     this._committing = false
@@ -226,7 +232,7 @@ function installModule (store, rootState, path, module, hot) {
   const namespace = store._modules.getNamespace(path)
 
   // register in namespace map
-  if (namespace) {
+  if (module.namespaced) {
     store._modulesNamespaceMap[namespace] = module
   }
 
