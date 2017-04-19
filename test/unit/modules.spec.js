@@ -105,6 +105,69 @@ describe('Modules', () => {
   })
 
   describe('modules usage', () => {
+    it('state as function (multiple module in same store)', () => {
+      const module = {
+        state () {
+          return { a: 0 }
+        },
+        mutations: {
+          [TEST] (state, n) {
+            state.a += n
+          }
+        }
+      }
+
+      const store = new Vuex.Store({
+        modules: {
+          one: module,
+          two: module
+        }
+      })
+
+      expect(store.state.one.a).toBe(0)
+      expect(store.state.two.a).toBe(0)
+
+      store.commit(TEST, 1)
+      expect(store.state.one.a).toBe(1)
+      expect(store.state.two.a).toBe(1)
+    })
+
+    it('state as function (same module in multiple stores)', () => {
+      const module = {
+        state () {
+          return { a: 0 }
+        },
+        mutations: {
+          [TEST] (state, n) {
+            state.a += n
+          }
+        }
+      }
+
+      const storeA = new Vuex.Store({
+        modules: {
+          foo: module
+        }
+      })
+
+      const storeB = new Vuex.Store({
+        modules: {
+          bar: module
+        }
+      })
+
+      expect(storeA.state.foo.a).toBe(0)
+      expect(storeB.state.bar.a).toBe(0)
+
+      storeA.commit(TEST, 1)
+      expect(storeA.state.foo.a).toBe(1)
+      expect(storeB.state.bar.a).toBe(0)
+
+      storeB.commit(TEST, 2)
+      expect(storeA.state.foo.a).toBe(1)
+      expect(storeB.state.bar.a).toBe(2)
+    })
+
     it('module: mutation', function () {
       const mutations = {
         [TEST] (state, n) {

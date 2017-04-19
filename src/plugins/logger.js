@@ -4,6 +4,7 @@ import { deepCopy } from '../util'
 
 export default function createLogger ({
   collapsed = true,
+  filter = (mutation, stateBefore, stateAfter) => true,
   transformer = state => state,
   mutationTransformer = mut => mut
 } = {}) {
@@ -15,29 +16,32 @@ export default function createLogger ({
         return
       }
       const nextState = deepCopy(state)
-      const time = new Date()
-      const formattedTime = ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
-      const formattedMutation = mutationTransformer(mutation)
-      const message = `mutation ${mutation.type}${formattedTime}`
-      const startMessage = collapsed
-        ? console.groupCollapsed
-        : console.group
 
-      // render
-      try {
-        startMessage.call(console, message)
-      } catch (e) {
-        console.log(message)
-      }
+      if (filter(mutation, prevState, nextState)) {
+        const time = new Date()
+        const formattedTime = ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
+        const formattedMutation = mutationTransformer(mutation)
+        const message = `mutation ${mutation.type}${formattedTime}`
+        const startMessage = collapsed
+          ? console.groupCollapsed
+          : console.group
 
-      console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
-      console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
-      console.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
+        // render
+        try {
+          startMessage.call(console, message)
+        } catch (e) {
+          console.log(message)
+        }
 
-      try {
-        console.groupEnd()
-      } catch (e) {
-        console.log('—— log end ——')
+        console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
+        console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
+        console.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
+
+        try {
+          console.groupEnd()
+        } catch (e) {
+          console.log('—— log end ——')
+        }
       }
 
       prevState = nextState

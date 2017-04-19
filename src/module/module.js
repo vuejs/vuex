@@ -5,10 +5,8 @@ export default class Module {
     this.runtime = runtime
     this._children = Object.create(null)
     this._rawModule = rawModule
-  }
-
-  get state () {
-    return this._rawModule.state || {}
+    const rawState = rawModule.state
+    this.state = (typeof rawState === 'function' ? rawState() : rawState) || {}
   }
 
   get namespaced () {
