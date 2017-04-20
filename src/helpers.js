@@ -4,7 +4,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
     res[key] = function mappedState () {
       let state = this.$store.state
       let getters = this.$store.getters
-      let ns = namespace(this);
+      const ns = namespace(this)
       if (ns) {
         const module = getModuleByNamespace(this.$store, 'mapState', ns)
         if (!module) {
@@ -27,8 +27,8 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
   const res = {}
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
-      let ns = namespace(this);
-      let nval = ns + val;
+      const ns = namespace(this)
+      const nval = ns + val
       if (ns && !getModuleByNamespace(this.$store, 'mapMutations', ns)) {
         return
       }
@@ -42,8 +42,8 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
   normalizeMap(getters).forEach(({ key, val }) => {
     res[key] = function mappedGetter () {
-      let ns = namespace(this);
-      let nval = ns + val;
+      const ns = namespace(this)
+      const nval = ns + val
       if (ns && !getModuleByNamespace(this.$store, 'mapGetters', ns)) {
         return
       }
@@ -63,8 +63,8 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
   const res = {}
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
-      let ns = namespace(this);
-      let nval = ns + val;
+      const ns = namespace(this)
+      const nval = ns + val
       if (ns && !getModuleByNamespace(this.$store, 'mapActions', ns)) {
         return
       }
@@ -82,14 +82,14 @@ function normalizeMap (map) {
 
 function normalizeNamespace (fn) {
   return (namespace, map) => {
-    if(typeof namespace === 'function'){
+    if (typeof namespace === 'function') {
       return fn((vm) => {
-        let ns = namespace(vm);
+        let ns = namespace(vm)
         if (ns && ns.charAt(ns.length - 1) !== '/') {
-            ns += '/';
+          ns += '/'
         }
-        return ns;
-      }, map);
+        return ns
+      }, map)
     } else if (typeof namespace !== 'string') {
       map = namespace
       namespace = ''
