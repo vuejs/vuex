@@ -98,9 +98,9 @@ computed: mapState([
 computed: {
   localComputed () { /* ... */ },
   // 이것을 객체 전파 연산자를 사용하여 외부 객체에 추가 하십시오.
-  ...mapState({
+  ...mapState([
     // ...
-  })
+  ])
 }
 ```
 
