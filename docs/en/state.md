@@ -81,7 +81,7 @@ export default {
 }
 ```
 
-We can also pass a string array to `mapState` when the name of mapped computed property is same as state sub tree name.
+We can also pass a string array to `mapState` when the name of a mapped computed property is same as a state sub tree name.
 
 ``` js
 computed: mapState([
