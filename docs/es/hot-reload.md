@@ -1,6 +1,6 @@
-# Reload en caliente
+# Hot Reload
 
-Vuex tiene soporte para el Reload en Caliente de mutaciones, módulos, acciones y getters durante desarrollo, usando el [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) de Webpack. También lo puedes usar con Browserify con el pluggin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
+Vuex tiene soporte para Hot Reload de mutaciones, módulos, acciones y getters durante desarrollo, usando el [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) de Webpack. También lo puedes usar con Browserify con el plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
 Para mutaciones y módulos, tienes que hacer uso del método `store.hotUpdate()`:
 
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // Aceptar acciones y mutaciones como calientes
+  // Aceptar acciones y mutaciones como calientes (hot)
   module.hot.accept(['./mutations', './modules/a'], () => {
     // Incluye los módulos actualizados
     // El uso de .default se debe a como se tratan los modulos con babel 6
@@ -41,4 +41,4 @@ if (module.hot) {
 }
 ```
 
-Échale un vistazo al [ejemplo contador-caliente](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) y juega con el reload en caliente.
+Échale un vistazo al [ejemplo counter-hot](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) y juega con el hot reload.

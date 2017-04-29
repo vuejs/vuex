@@ -18,5 +18,5 @@
 - [Modo Strict](strict.md)
 - [Gestión de Formularios](forms.md)
 - [Testing](testing.md)
-- [Reload en caliente](hot-reload.md)
+- [Hot Reload](hot-reload.md)
 - [Documentación de la API](api.md)

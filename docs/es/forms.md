@@ -6,9 +6,9 @@ Cuando se usa Vuex en modo strict puede resultar complicado el uso de `v-model` 
 <input v-model="obj.message">
 ```
 
-Asuminedo que `obj` es una propiedad computada que devuelve un Objeto desde el almacén, el `v-model` intentará mutar directamente `obj.message` cuando el usuario escriba en el input. En modo strict, esto lanzará un error ya que la mutación no está siendo ejecutada dentro de un handler explicito definido para Vuex.
+Asuminedo que `obj` es una propiedad computada que devuelve un Objeto desde el almacén, el `v-model` intentará mutar directamente `obj.message` cuando el usuario escriba en el input. En modo strict, esto lanzará un error ya que la mutación no está siendo ejecutada dentro de un handler explícito definido para Vuex.
 
-La "manera Vuex" de tratar este caso es bindeando el valor del `<input>` y ejecutando una acción ante el evento `input` ó `change`:
+La "manera Vuex" de tratar este caso es bindeando el valor del `<input>` y ejecutando una acción ante el evento `input` o `change`:
 
 ``` html
 <input :value="message" @input="updateMessage">

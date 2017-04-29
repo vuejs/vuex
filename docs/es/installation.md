@@ -40,7 +40,7 @@ Esto no será necesario si tus scripts son globales.
 
 ### Build de Desarrollo
 
-Deberás clonar Vuex directamente de GitHub y lanzar el build tu mism@ si quieres tener acceso a la última versión en desarrollo.
+Deberás clonar Vuex directamente de GitHub y lanzar el build tú mism@ si quieres tener acceso a la última versión en desarrollo.
 
 ``` bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex

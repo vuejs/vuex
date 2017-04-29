@@ -4,7 +4,7 @@ En el centro de toda aplicación Vuex está el **almacén** (store). Un "almacé
 
 1. Un almacén Vuex es **reactivo**. Cuando un componente Vue accede al estado contenido en el almacén se actulizará de forma eficiente y reactiva ante cambios del mismo.
 
-2. El estado del almacén **no puede ser modificado directamente**. La única manera de modificar el estado del almacén es **lanzando mutaciones** de forma explícita ('commits'). Esto asegura que todo cambio en el estado deja un registro rastreable, permitiendo también la creación de herramientas con las que evaluar y entender nuestras aplicaciones.
+2. El estado del almacén **no puede ser modificado directamente**. La única manera de modificar el estado del almacén es **comiteando mutaciones** de forma explícita ('commits'). Esto asegura que todo cambio en el estado deje un registro rastreable, permitiendo también la creación de herramientas con las que evaluar y entender nuestras aplicaciones.
 
 ### El Almacén más Sencillo
 
@@ -35,9 +35,9 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-La razón por la que lanzamos mutaciones en lugar de cambiar directamente el valor de `store.state.count` es porque queremos rastrear todos los cambios de forma explícita. Esta sencilla convención hace que tu intención sea más explícita, facilitando tu comprensión de los cambios de estado mientras lees el código. Además nos ofrece la oportunidad de implementar herramientas con las que registrar todas las mutaciones, hacer snapshots del estado e incluso aplicar 'retroceso temporales' sobre el mismo.
+La razón por la que lanzamos mutaciones en lugar de cambiar directamente el valor de `store.state.count` es porque queremos rastrear todos los cambios de forma explícita. Esta sencilla convención hace que tu intención sea más explícita, facilitando tu comprensión de los cambios de estado mientras lees el código. Además nos ofrece la oportunidad de implementar herramientas con las que registrar todas las mutaciones, hacer snapshots del estado e incluso 'viajar en el tiempo' (volver a estados previos) para depurar más facilmente.
 
-Dado que el estado almancenado es reactivo utlizarlo en un componente simplemente requiere retornar el estado dentro de una propiedad computada. Aplicar modificaciones de estado es tan sencillo como lanzar mutaciones desde los métodos del component.
+Dado que el estado almancenado es reactivo utlizarlo en un componente simplemente requiere retornar el estado dentro de una propiedad computada. Aplicar modificaciones de estado es tan sencillo como lanzar mutaciones desde los métodos del componente.
 
 Aquí podéis ver un ejemplo de [un sencillo contador creado con Vuex](https://jsfiddle.net/n9jmu5v7/341/).
 

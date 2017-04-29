@@ -1,6 +1,6 @@
 # Módulos
 
-Debido al uso de un único árbol de estado, todo el estado de nuestra aplicación se encuentra dentro de un gran objeto. Sin embargo, a medida que nuestra aplicación crece, el almacén puede 'desbordarse'.
+Debido al uso de un único árbol de estado, todo el estado de nuestra aplicación se encuentra dentro de un gran objeto. Sin embargo, a medida que nuestra aplicación crece, el almacén puede _'desbordarse'_.
 
 Para aliviar esta situación, Vuex permite la división de nuestro almacén en **módulos**. Cada módulo puede contener su propio estado, mutaciones, acciones, getters e incluso módulos anidados:
 
@@ -128,13 +128,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Los getters y acciones bajo un namespace reciben `getters`, `dispatch` y `commit` localizados. En otras palabras, puedes usar el asset sin necesidad de usar escribir el prefijo dentro del mismo módulo. Así, cambiar entre estado namespaced y no-namespaced no afecta al código.
+Los getters y acciones bajo un namespace reciben `getters`, `dispatch` y `commit` localizados. En otras palabras, puedes usar el asset sin necesidad de escribir el prefijo dentro del mismo módulo. Así, cambiar entre estado namespaced y no-namespaced no afecta al código.
 
 #### Acceso a Assets Globales desde un Módulo con Namespace
 
 Si quieres usar estado y getters globales, `rootState` y `rootGetters` son pasados como tercer y cuarto argumentos a las funciones getter de un módulo. También son expuestos como propiedades en el objeto `context` que reciben las acciones.
 
-Para ejecutar acciones ó commitear mutaciones en el namespace globa, pasa `{ root: true }` como tercer argumento a `dispatch` y `commit`.
+Para ejecutar acciones ó commitear mutaciones en el namespace global, pasa `{ root: true }` como tercer argumento a `dispatch` y `commit`.
 
 ``` js
 modules: {
@@ -242,4 +242,4 @@ El estado del módulo será expuesto como `store.state.myModule` y `store.state.
 
 El registro dinámico de Vuex permite que otros plugins de Vue puedan hacer uso de Vuex en la gestión de estado al adherir un módulo al almacén de la aplicación. Por ejemplo, la librería [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra vue-router con vuex, gestionando el estado de ruta de la aplicación con un módulo creado dinámicamente.
 
-Tambień puedes eliminar dinámicamente modulos registrados con `store.unregisterModule(moduleName)`. Esto no es posible con módulos estáticos (declarados en la creación del almaceń).
+También puedes eliminar dinámicamente modulos registrados con `store.unregisterModule(moduleName)`. Esto no es posible con módulos estáticos (declarados en la creación del almaceń).

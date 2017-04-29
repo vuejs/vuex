@@ -12,7 +12,7 @@ computed: {
 
 Si más de un componente tiene esta necesidad podemos acabar con una función duplicada ó teniendo que extraerla a un helper compartido e importarlo en múltiples lugares. Ambas són malas opciones.
 
-Vuex nos permite definir "getters" en el almacén (consideralos propiedades computadas para el almacén). Los Getters recibirán el estado como el 1er argumento:
+Vuex nos permite definir "getters" en el almacén (consideralos propiedades computadas del almacén). Los Getters recibirán el estado como el 1er argumento:
 
 ``` js
 const store = new Vuex.Store({
@@ -61,7 +61,7 @@ computed: {
 }
 ```
 
-También puedes pasar argumentos al getter retornando una función del mismo. Esto es especialmente útil cuando quieres lanzar una 'query' sobre un array del almacén:
+También puedes pasar argumentos al getter haciendo que este devuelva una función. Esto es especialmente útil cuando quieres lanzar una 'query' sobre un array del almacén:
 
 ```js
 getters: {
@@ -79,7 +79,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 
 ### El Helper `mapGetters`
 
-El helper `mapGetters` sencillamente mapea los getters del almacén al propiedades computadas locales:
+El helper `mapGetters` sencillamente mapea los getters del almacén a las propiedades computadas locales:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -98,7 +98,7 @@ export default {
 }
 ```
 
-Si quieres mapear un getter con un nombre diferente al del almacén, usa un objeto:
+Si quieres mapear un getter con un nombre diferente al usado en el almacén, usa un objeto:
 
 ``` js
 ...mapGetters({
