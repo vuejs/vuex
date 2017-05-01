@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="262px" height="279px" viewBox="0 0 262 279" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>vuex-logo</title>
+    <defs></defs>
+    <g id="vuex" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="vuex-logo" fill-rule="nonzero">
+            <polygon id="path14-copy-4" fill="#435466" transform="translate(130.879997, 165.344664) scale(-1, -1) rotate(-180.000000) translate(-130.879997, -165.344664) " points="161.105329 278.689328 130.879997 226.337329 100.654664 278.689328 0 278.689328 130.879997 52 261.759993 278.689328"></polygon>
+            <polygon id="path18-copy-5" fill="#BABABA" transform="translate(130.527998, 211.006665) scale(-1, -1) rotate(-180.000000) translate(-130.527998, -211.006665) " points="160.753331 279.01333 130.527998 226.661331 100.302665 279.01333 52 279.01333 130.527998 143 209.055996 279.01333"></polygon>
+            <polygon id="path14" fill="#4DBA87" transform="translate(130.879997, 113.344664) scale(-1, 1) rotate(-180.000000) translate(-130.879997, -113.344664) " points="161.105329 226.689328 130.879997 174.337329 100.654664 226.689328 0 226.689328 130.879997 0 261.759993 226.689328"></polygon>
+            <polygon id="path18" fill="#435466" transform="translate(130.527998, 68.006665) scale(-1, 1) rotate(-180.000000) translate(-130.527998, -68.006665) " points="160.753331 136.01333 130.527998 83.6613312 100.302665 136.01333 52 136.01333 130.527998 0 209.055996 136.01333"></polygon>
+            <path d="M131.409058,225.089134 L131.348999,224.985429 L130.590946,226.294384 L80.5,139.801577 L131.348999,52 L181.5,138.596334 L131.409058,225.089134 Z" id="Combined-Shape-Copy-2" fill-opacity="0.210000008" fill="#4DBA87" style="mix-blend-mode: multiply;"></path>
+            <polygon id="path18-copy-6" fill="#435466" transform="translate(130.527998, 68.006665) scale(-1, 1) rotate(-180.000000) translate(-130.527998, -68.006665) " points="160.753331 136.01333 130.527998 83.6613312 100.302665 136.01333 52 136.01333 130.527998 0 209.055996 136.01333"></polygon>
+        </g>
+    </g>
+</svg>
