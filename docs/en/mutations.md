@@ -93,7 +93,7 @@ Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vu
 
 ### Using Constants for Mutation Types
 
-It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allows the code to take advantage of tooling like linters, and putting all constants in a single file and further allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allows the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
 
 ``` js
 // mutation-types.js
