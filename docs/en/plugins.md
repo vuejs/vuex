@@ -116,7 +116,8 @@ const logger = createLogger({
     // mutations are logged in the format of { type, payload }
     // we can format it any way we want.
     return mutation.type
-  }
+  },
+  logger: console, // implementation of the `console` API, default `console`
 })
 ```
 

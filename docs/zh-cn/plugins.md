@@ -116,7 +116,8 @@ const logger = createLogger({
     // mutation 按照 { type, payload } 格式记录
     // 我们可以按任意方式格式化
     return mutation.type
-  }
+  },
+  logger: console, // 自定义 console 实现，默认为 `console`
 })
 ```
 

@@ -6,13 +6,14 @@ export default function createLogger ({
   collapsed = true,
   filter = (mutation, stateBefore, stateAfter) => true,
   transformer = state => state,
-  mutationTransformer = mut => mut
+  mutationTransformer = mut => mut,
+  logger = console,
 } = {}) {
   return store => {
     let prevState = deepCopy(store.state)
 
     store.subscribe((mutation, state) => {
-      if (typeof console === 'undefined') {
+      if (typeof logger === 'undefined') {
         return
       }
       const nextState = deepCopy(state)
@@ -23,24 +24,24 @@ export default function createLogger ({
         const formattedMutation = mutationTransformer(mutation)
         const message = `mutation ${mutation.type}${formattedTime}`
         const startMessage = collapsed
-          ? console.groupCollapsed
-          : console.group
+          ? logger.groupCollapsed
+          : logger.group
 
         // render
         try {
-          startMessage.call(console, message)
+          startMessage.call(logger, message)
         } catch (e) {
           console.log(message)
         }
 
-        console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
-        console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
-        console.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
+        logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
+        logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
+        logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
 
         try {
-          console.groupEnd()
+          logger.groupEnd()
         } catch (e) {
-          console.log('—— log end ——')
+          logger.log('—— log end ——')
         }
       }
 
