@@ -7,7 +7,7 @@ export default function createLogger ({
   filter = (mutation, stateBefore, stateAfter) => true,
   transformer = state => state,
   mutationTransformer = mut => mut,
-  logger = console,
+  logger = console
 } = {}) {
   return store => {
     let prevState = deepCopy(store.state)
