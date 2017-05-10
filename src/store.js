@@ -98,11 +98,16 @@ export class Store {
       const re = /.+?\//g
       const matched = namespace.match(re)
       if (matched) {
+        // remove namespace from type
+        const _mutation = {
+          type: type.substring(namespace.length),
+          payload
+        }
         // get parents' subscriptions
         matched.reduce((a, b) => {
           const _namespace = a + b
           const subs = this._modulesSubscribersMap[_namespace]
-          subs && subs.forEach(sub => sub(mutation, this.state))
+          subs && subs.forEach(sub => sub(_mutation, this.state))
           return _namespace
         }, '')
       }

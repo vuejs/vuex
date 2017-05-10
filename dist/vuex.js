@@ -1,5 +1,5 @@
 /**
- * vuex v2.3.0
+ * vuex v2.3.1
  * (c) 2017 Evan You
  * @license MIT
  */
@@ -139,6 +139,9 @@ Module.prototype.update = function update (rawModule) {
   if (rawModule.getters) {
     this._rawModule.getters = rawModule.getters;
   }
+  if (rawModule.plugins) {
+    this._rawModule.plugins = rawModule.plugins;
+  }
 };
 
 Module.prototype.forEachChild = function forEachChild (fn) {
@@ -160,6 +163,12 @@ Module.prototype.forEachAction = function forEachAction (fn) {
 Module.prototype.forEachMutation = function forEachMutation (fn) {
   if (this._rawModule.mutations) {
     forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Module.prototype.forEachPlugin = function forEachPlugin (fn) {
+  if (this._rawModule.plugins) {
+    forEachValue(this._rawModule.plugins, fn);
   }
 };
 
@@ -193,6 +202,14 @@ ModuleCollection.prototype.getNamespace = function getNamespace (path) {
   }, '')
 };
 
+ModuleCollection.prototype.getParent = function getParent (path) {
+  return this.get(path.slice(0, -1))
+};
+
+ModuleCollection.prototype.getKey = function getKey (path) {
+  return path[path.length - 1]
+};
+
 ModuleCollection.prototype.update = function update$1 (rawRootModule) {
   update(this.root, rawRootModule);
 };
@@ -201,9 +218,9 @@ ModuleCollection.prototype.register = function register (path, rawModule, runtim
     var this$1 = this;
     if ( runtime === void 0 ) runtime = true;
 
-  var parent = this.get(path.slice(0, -1));
+  var parent = this.getParent(path);
   var newModule = new Module(rawModule, runtime);
-  parent.addChild(path[path.length - 1], newModule);
+  parent.addChild(this.getKey(path), newModule);
 
   // register nested modules
   if (rawModule.modules) {
@@ -214,8 +231,8 @@ ModuleCollection.prototype.register = function register (path, rawModule, runtim
 };
 
 ModuleCollection.prototype.unregister = function unregister (path) {
-  var parent = this.get(path.slice(0, -1));
-  var key = path[path.length - 1];
+  var parent = this.getParent(path);
+  var key = this.getKey(path);
   if (!parent.getChild(key).runtime) { return }
 
   parent.removeChild(key);
@@ -249,18 +266,24 @@ var Store = function Store (options) {
   assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
   assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
 
-  var state = options.state; if ( state === void 0 ) state = {};
   var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
   var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  var state = options.state; if ( state === void 0 ) state = {};
+  if (typeof state === 'function') {
+    state = state();
+  }
 
   // store internal state
   this._committing = false;
   this._actions = Object.create(null);
   this._mutations = Object.create(null);
   this._wrappedGetters = Object.create(null);
+  this._subscribers = [];
   this._modules = new ModuleCollection(options);
   this._modulesNamespaceMap = Object.create(null);
-  this._subscribers = [];
+  this._modulesPluginsMap = Object.create(null);
+  this._modulesSubscribersMap = Object.create(null);
   this._watcherVM = new Vue();
 
   // bind commit and dispatch to self
@@ -268,11 +291,15 @@ var Store = function Store (options) {
   var ref = this;
   var dispatch = ref.dispatch;
   var commit = ref.commit;
-  this.dispatch = function boundDispatch (type, payload) {
-    return dispatch.call(store, type, payload)
+  var subscribe = ref.subscribe;
+  this.dispatch = function boundDispatch (type, payload, namespace) {
+    return dispatch.call(store, type, payload, namespace)
   };
-  this.commit = function boundCommit (type, payload, options) {
-    return commit.call(store, type, payload, options)
+  this.commit = function boundCommit (type, payload, options, namespace) {
+    return commit.call(store, type, payload, options, namespace)
+  };
+  this.subscribe = function boundSubscribe (fn, namespace) {
+    return subscribe.call(store, fn, namespace)
   };
 
   // strict mode
@@ -289,6 +316,7 @@ var Store = function Store (options) {
 
   // apply plugins
   plugins.concat(devtoolPlugin).forEach(function (plugin) { return plugin(this$1); });
+  applyModulePlugins(this);
 };
 
 var prototypeAccessors = { state: {} };
@@ -301,7 +329,7 @@ prototypeAccessors.state.set = function (v) {
   assert(false, "Use store.replaceState() to explicit replace store state.");
 };
 
-Store.prototype.commit = function commit (_type, _payload, _options) {
+Store.prototype.commit = function commit (_type, _payload, _options, namespace) {
     var this$1 = this;
 
   // check object-style commit
@@ -321,7 +349,27 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
       handler(payload);
     });
   });
+  // root subscriptions
   this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
+  // modules' subscriptions
+  if (namespace) {
+    var re = /.+?\//g;
+    var matched = namespace.match(re);
+    if (matched) {
+      // remove namespace from type
+      var _mutation = {
+        type: type.substring(namespace.length),
+        payload: payload
+      };
+      // get parents' subscriptions
+      matched.reduce(function (a, b) {
+        var _namespace = a + b;
+        var subs = this$1._modulesSubscribersMap[_namespace];
+        subs && subs.forEach(function (sub) { return sub(_mutation, this$1.state); });
+        return _namespace
+      }, '');
+    }
+  }
 
   if (options && options.silent) {
     console.warn(
@@ -331,7 +379,7 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
   }
 };
 
-Store.prototype.dispatch = function dispatch (_type, _payload) {
+Store.prototype.dispatch = function dispatch (_type, _payload, namespace) {
   // check object-style dispatch
   var ref = unifyObjectStyle(_type, _payload);
     var type = ref.type;
@@ -347,8 +395,16 @@ Store.prototype.dispatch = function dispatch (_type, _payload) {
     : entry[0](payload)
 };
 
-Store.prototype.subscribe = function subscribe (fn) {
-  var subs = this._subscribers;
+Store.prototype.subscribe = function subscribe (fn, namespace) {
+  var subs;
+  if (namespace) {
+    subs = this._modulesSubscribersMap[namespace];
+    if (!subs) {
+      subs = this._modulesSubscribersMap[namespace] = [];
+    }
+  } else {
+    subs = this._subscribers;
+  }
   if (subs.indexOf(fn) < 0) {
     subs.push(fn);
   }
@@ -416,6 +472,8 @@ function resetStore (store, hot) {
   store._mutations = Object.create(null);
   store._wrappedGetters = Object.create(null);
   store._modulesNamespaceMap = Object.create(null);
+  store._modulesPluginsMap = Object.create(null);
+  store._modulesSubscribersMap = Object.create(null);
   var state = store.state;
   // init all modules
   installModule(store, state, [], store._modules.root, true);
@@ -507,6 +565,19 @@ function installModule (store, rootState, path, module, hot) {
   module.forEachChild(function (child, key) {
     installModule(store, rootState, path.concat(key), child, hot);
   });
+
+  if (namespace) {
+    module.forEachPlugin(function (plugin) {
+      registerPlugin(store, namespace, plugin, local);
+    });
+  }
+}
+
+function applyModulePlugins (store) {
+  var _modulesPluginsMap = store._modulesPluginsMap;
+  Object.keys(_modulesPluginsMap).forEach(function (key) {
+    _modulesPluginsMap[key].forEach(function (plugin) { return plugin(); });
+  });
 }
 
 /**
@@ -531,7 +602,7 @@ function makeLocalContext (store, namespace, path) {
         }
       }
 
-      return store.dispatch(type, payload)
+      return store.dispatch(type, payload, namespace)
     },
 
     commit: noNamespace ? store.commit : function (_type, _payload, _options) {
@@ -548,7 +619,11 @@ function makeLocalContext (store, namespace, path) {
         }
       }
 
-      store.commit(type, payload, options);
+      store.commit(type, payload, options, namespace);
+    },
+
+    subscribe: noNamespace ? store.subscribe : function (fn) {
+      store.subscribe(fn, namespace);
     }
   };
 
@@ -595,6 +670,13 @@ function registerMutation (store, type, handler, local) {
   var entry = store._mutations[type] || (store._mutations[type] = []);
   entry.push(function wrappedMutationHandler (payload) {
     handler(local.state, payload);
+  });
+}
+
+function registerPlugin (store, namespace, handler, local) {
+  var entry = store._modulesPluginsMap[namespace] || (store._modulesPluginsMap[namespace] = []);
+  entry.push(function wrappedPluginHandler () {
+    handler(local);
   });
 }
 
@@ -797,7 +879,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index = {
   Store: Store,
   install: install,
-  version: '2.3.0',
+  version: '2.3.1',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,

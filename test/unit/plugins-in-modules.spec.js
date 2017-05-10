@@ -12,7 +12,8 @@ describe('Modules', () => {
       }
       let total = 0
       const plugins = [
-        store => store.subscribe(({ payload }, state) => {
+        store => store.subscribe(({ type, payload }, state) => {
+          expect(type).toBe(TEST)
           total += payload
         })
       ]
@@ -24,6 +25,80 @@ describe('Modules', () => {
       store.commit(TEST, 1)
       expect(store.state.a).toBe(2)
       expect(total).toBe(1)
+    })
+
+    it('just in child', function () {
+      const mutations = {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      }
+      let total = 0
+      const plugins = [
+        store => store.subscribe(({ payload }, state) => {
+          total += payload
+        })
+      ]
+      const store = new Vuex.Store({
+        state: { a: 1 },
+        modules: {
+          one: {
+            namespaced: true,
+            state: { a: 2 },
+            mutations,
+            plugins // +1
+          }
+        }
+      })
+      // mocking local commit
+      store.commit(`one/${TEST}`, 1, null, 'one/')
+      expect(store.state.one.a).toBe(3)
+      expect(total).toBe(1)
+    })
+
+    it('in both root and child', function () {
+      const mutations = {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      }
+      let total = 0
+      const plugins = [
+        store => store.subscribe(({ type, payload }, state) => {
+          // should remove namespace from type
+          switch (total) {
+            case 0:
+              // always call root subscriptions
+              // mutation type should have namespace
+              expect(type).toBe(`one/${TEST}`)
+              break
+            case 1:
+              // should remove namespace from type
+              expect(type).toBe(TEST)
+              break
+            default:
+              break
+          }
+          total += payload
+        })
+      ]
+      const store = new Vuex.Store({
+        state: { a: 1 },
+        mutations,
+        plugins, // +1 +1
+        modules: {
+          one: {
+            namespaced: true,
+            state: { a: 2 },
+            mutations,
+            plugins // +1
+          }
+        }
+      })
+      // mocking local commit
+      store.commit(`one/${TEST}`, 1, null, 'one/')
+      expect(store.state.one.a).toBe(3)
+      expect(total).toBe(2)
     })
 
     it('always call root subscriptions', function () {
