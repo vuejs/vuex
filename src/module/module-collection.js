@@ -28,14 +28,22 @@ export default class ModuleCollection {
     }, '')
   }
 
+  getParent (path) {
+    return this.get(path.slice(0, -1))
+  }
+
+  getKey (path) {
+    return path[path.length - 1]
+  }
+
   update (rawRootModule) {
     update(this.root, rawRootModule)
   }
 
   register (path, rawModule, runtime = true) {
-    const parent = this.get(path.slice(0, -1))
+    const parent = this.getParent(path)
     const newModule = new Module(rawModule, runtime)
-    parent.addChild(path[path.length - 1], newModule)
+    parent.addChild(this.getKey(path), newModule)
 
     // register nested modules
     if (rawModule.modules) {
@@ -46,8 +54,8 @@ export default class ModuleCollection {
   }
 
   unregister (path) {
-    const parent = this.get(path.slice(0, -1))
-    const key = path[path.length - 1]
+    const parent = this.getParent(path)
+    const key = this.getKey(path)
     if (!parent.getChild(key).runtime) return
 
     parent.removeChild(key)

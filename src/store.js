@@ -27,19 +27,24 @@ export class Store {
     this._actions = Object.create(null)
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
+    this._subscribers = []
     this._modules = new ModuleCollection(options)
     this._modulesNamespaceMap = Object.create(null)
-    this._subscribers = []
+    this._modulesPluginsMap = Object.create(null)
+    this._modulesSubscribersMap = Object.create(null)
     this._watcherVM = new Vue()
 
     // bind commit and dispatch to self
     const store = this
-    const { dispatch, commit } = this
-    this.dispatch = function boundDispatch (type, payload) {
-      return dispatch.call(store, type, payload)
+    const { dispatch, commit, subscribe } = this
+    this.dispatch = function boundDispatch (type, payload, namespace) {
+      return dispatch.call(store, type, payload, namespace)
     }
-    this.commit = function boundCommit (type, payload, options) {
-      return commit.call(store, type, payload, options)
+    this.commit = function boundCommit (type, payload, options, namespace) {
+      return commit.call(store, type, payload, options, namespace)
+    }
+    this.subscribe = function boundSubscribe (fn, namespace) {
+      return subscribe.call(store, fn, namespace)
     }
 
     // strict mode
@@ -56,6 +61,7 @@ export class Store {
 
     // apply plugins
     plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
+    applyModulePlugins(this)
   }
 
   get state () {
@@ -66,7 +72,7 @@ export class Store {
     assert(false, `Use store.replaceState() to explicit replace store state.`)
   }
 
-  commit (_type, _payload, _options) {
+  commit (_type, _payload, _options, namespace) {
     // check object-style commit
     const {
       type,
@@ -85,7 +91,22 @@ export class Store {
         handler(payload)
       })
     })
+    // root subscriptions
     this._subscribers.forEach(sub => sub(mutation, this.state))
+    // modules' subscriptions
+    if (namespace) {
+      const re = /.+?\//g
+      const matched = namespace.match(re)
+      if (matched) {
+        // get parents' subscriptions
+        matched.reduce((a, b) => {
+          const _namespace = a + b
+          const subs = this._modulesSubscribersMap[_namespace]
+          subs && subs.forEach(sub => sub(mutation, this.state))
+          return _namespace
+        }, '')
+      }
+    }
 
     if (options && options.silent) {
       console.warn(
@@ -95,7 +116,7 @@ export class Store {
     }
   }
 
-  dispatch (_type, _payload) {
+  dispatch (_type, _payload, namespace) {
     // check object-style dispatch
     const {
       type,
@@ -112,8 +133,16 @@ export class Store {
       : entry[0](payload)
   }
 
-  subscribe (fn) {
-    const subs = this._subscribers
+  subscribe (fn, namespace) {
+    let subs
+    if (namespace) {
+      subs = this._modulesSubscribersMap[namespace]
+      if (!subs) {
+        subs = this._modulesSubscribersMap[namespace] = []
+      }
+    } else {
+      subs = this._subscribers
+    }
     if (subs.indexOf(fn) < 0) {
       subs.push(fn)
     }
@@ -174,6 +203,8 @@ function resetStore (store, hot) {
   store._mutations = Object.create(null)
   store._wrappedGetters = Object.create(null)
   store._modulesNamespaceMap = Object.create(null)
+  store._modulesPluginsMap = Object.create(null)
+  store._modulesSubscribersMap = Object.create(null)
   const state = store.state
   // init all modules
   installModule(store, state, [], store._modules.root, true)
@@ -265,6 +296,19 @@ function installModule (store, rootState, path, module, hot) {
   module.forEachChild((child, key) => {
     installModule(store, rootState, path.concat(key), child, hot)
   })
+
+  if (namespace) {
+    module.forEachPlugin(plugin => {
+      registerPlugin(store, namespace, plugin, local)
+    })
+  }
+}
+
+function applyModulePlugins (store) {
+  const { _modulesPluginsMap } = store
+  Object.keys(_modulesPluginsMap).forEach(key => {
+    _modulesPluginsMap[key].forEach(plugin => plugin())
+  })
 }
 
 /**
@@ -288,7 +332,7 @@ function makeLocalContext (store, namespace, path) {
         }
       }
 
-      return store.dispatch(type, payload)
+      return store.dispatch(type, payload, namespace)
     },
 
     commit: noNamespace ? store.commit : (_type, _payload, _options) => {
@@ -304,7 +348,11 @@ function makeLocalContext (store, namespace, path) {
         }
       }
 
-      store.commit(type, payload, options)
+      store.commit(type, payload, options, namespace)
+    },
+
+    subscribe: noNamespace ? store.subscribe : fn => {
+      store.subscribe(fn, namespace)
     }
   }
 
@@ -351,6 +399,13 @@ function registerMutation (store, type, handler, local) {
   const entry = store._mutations[type] || (store._mutations[type] = [])
   entry.push(function wrappedMutationHandler (payload) {
     handler(local.state, payload)
+  })
+}
+
+function registerPlugin (store, namespace, handler, local) {
+  const entry = store._modulesPluginsMap[namespace] || (store._modulesPluginsMap[namespace] = [])
+  entry.push(function wrappedPluginHandler () {
+    handler(local)
   })
 }
 

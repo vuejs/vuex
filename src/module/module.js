@@ -36,6 +36,9 @@ export default class Module {
     if (rawModule.getters) {
       this._rawModule.getters = rawModule.getters
     }
+    if (rawModule.plugins) {
+      this._rawModule.plugins = rawModule.plugins
+    }
   }
 
   forEachChild (fn) {
@@ -57,6 +60,12 @@ export default class Module {
   forEachMutation (fn) {
     if (this._rawModule.mutations) {
       forEachValue(this._rawModule.mutations, fn)
+    }
+  }
+
+  forEachPlugin (fn) {
+    if (this._rawModule.plugins) {
+      forEachValue(this._rawModule.plugins, fn)
     }
   }
 }
