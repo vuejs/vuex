@@ -1,6 +1,6 @@
 # Mutaciones
 
-El único modo de realizar cambios en el estado de un almacén Vuex es lanzando (commiteando) una mutación. Las mutaciones Vuex se definien dentro de la propiedad `mutations` y són muy similares a eventos: cada mutación tiene un string **type** y un **handler** (función en la que definimos la acción). Será dentro del handler donde realicemos las modificaciones al estado y donde recibamos el estado como el 1er argumento:
+El único modo de realizar cambios en el estado de un almacén Vuex es lanzando (commiteando) una mutación. Las mutaciones Vuex se definien dentro de la propiedad `mutations` y són muy similares a eventos: cada mutación se define con un **type (string)** y un **handler** (función en la que definimos la acción). Será dentro del handler donde realicemos las modificaciones al estado y donde recibamos el estado como el 1er argumento:
 
 ``` js
 const store = new Vuex.Store({
@@ -15,6 +15,8 @@ const store = new Vuex.Store({
   }
 })
 ```
+
+En este caso hemos definido una mutación con tipo `increment` en la que incrementamos el valor de `count` del estado recibido.
 
 Una mutación no se puede ejecutar directamente. El proceso se parece más al registro de un evento: "Cuando una mutación de tipo `increment` sea lanzada, ejecuta este handler". Deberás invocar **store.commit** con el tipo de la mutación para ejecutar su respectivo handler:
 
@@ -77,9 +79,9 @@ mutations: {
 
 ### Las Mutaciones siguen las Reglas de Reactividad de Vue
 
-Dado que un estado almacenado por Vuex es reactivo gracias a Vue, cuando el estado cambie lo componentes que lo observan se actualizarán automáticamente. Esto implica que las mutaciones Vuex están sujetas a las mismas restricciones de reactividad que limitan a cualquier instancia Vue:
+Dado que un estado almacenado por Vuex es reactivo gracias a Vue, cuando el estado cambie los componentes que lo observan se actualizarán automáticamente. Esto implica que las mutaciones Vuex están sujetas a las mismas restricciones de reactividad que limitan a cualquier instancia Vue:
 
-1. Trata de inicializar el estado inicial de tu almacén con todas las propiedades includas de primeras
+1. Trata de inicializar el estado inicial de tu almacén con todas las propiedades
 
 2. Cuando añadas nuevas propiedades a un Objeto, deberías:
 
@@ -91,10 +93,9 @@ Dado que un estado almacenado por Vuex es reactivo gracias a Vue, cuando el esta
     state.obj = { ...state.obj, newProp: 123 }
     ```
 
-### Using Constants for Mutation Types
 ### Usar Constantes para definir Tipos de Mutaciones
 
-El uso de constantes es un patrón común a varías implementaciones de Flux. Esto permite que el código pueda hacer uso de herramientas como linters. También permite que todos los colaboradores de un proyecto puedan sepan de un vistazo que mutaciones hay disponibles:
+El uso de constantes es un patrón común a varias implementaciones de Flux. Esto permite que el código pueda hacer uso de herramientas como linters. También permite que todos los colaboradores de un proyecto puedan saber, rápidamente, que mutaciones hay disponibles:
 
 ``` js
 // mutation-types.js
@@ -120,7 +121,7 @@ const store = new Vuex.Store({
 
 Usar constantes o no es una cuestión de preferencias. Puede ser de ayuda en grandes proyectos con muchos desarrolladores, pero completamente opcional.
 
-### Mutations Must Be Synchronous
+
 ### Toda Mutación tiene que ser Síncrona
 
 Una regla importante a recordar es que **el handler de una mutación tiene que ser síncrono**. ¿Por qué? Considera el siguiente ejemplo:
@@ -159,7 +160,7 @@ export default {
 
 ### Y ... Acción!
 
-Combinar asincronicidad con mutaciones de estado puede hacer que tu lógica de aplicación sea difícil de seguir. Por ejemplo, si ejecutas dos métodos asíncronos que mutan el estado, ¿cómo cuando terminan su rutina o cúal termina primero? Esta es la razón por la que queremos mantener los dos conceptos separados. En Vuex, **toda mutación es una transacción síncrona**:
+Combinar asincronismo con mutaciones de estado puede hacer que tu lógica de aplicación sea difícil de seguir. Por ejemplo, si ejecutas dos métodos asíncronos que mutan el estado, ¿cuándo terminan su rutina o cúal termina primero? Esta es la razón por la que queremos mantener los dos conceptos separados. En Vuex, **toda mutación es una transacción síncrona**:
 
 ``` js
 store.commit('increment')
