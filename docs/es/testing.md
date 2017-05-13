@@ -4,12 +4,12 @@ Las partes que principalmente querremos testear en Vuex serán las mutaciones y 
 
 ### Testear Mutaciones
 
-Las mutaciones son muy sencillas de testear ya que solo son funciones que dependen completamente de sus argumentos. Un truco, si estás usando módulos ES2015 y tienes tu mutaciones dentro del archivo `store.js`, es exportar además del `store` como `export default` exportar las mutaciones con un nombre:
+Las mutaciones son muy sencillas de testear ya que solo son funciones que dependen completamente de sus argumentos. Un truco, si estás usando módulos ES2015 y defines las mutaciones dentro del archivo `store.js`, es exportar, además del `store`, las mutaciones:
 
 ``` js
 const state = { ... }
 
-// Exporta mutaciones con nombre
+// Exporta mutaciones con nombre específico
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Eejmplo de testeo de una mutación usando Mocha + Chai (puedes usar cualquier framework/librería de aserciones):
+Ejemplo de testeo de una mutación usando Mocha + Chai (puedes usar cualquier framework/librería de aserciones):
 
 ``` js
 // mutations.js
@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### Testear Acciones
 
-Las acciones pueden ser un poco más complicadas ya que puede incluir el uso de APIs externas. En el testeo de acciones, habitualmente necesitaremos mockear algo - por ejemplo, podemos abstraer las llamadas a APIs en un servicio y mockear ese servicio en nuestros tests. Con el fin de poder mockear con facilidad las dependencias, podemos usar Webpack y [inject-loader](https://github.com/plasticine/inject-loader) para empaquetar nuestros tests.
+Las acciones pueden ser un poco más complicadas de testear ya que pueden hacer uso de APIs externas. En el testeo de acciones, habitualmente necesitaremos mockear algo - por ejemplo, podemos abstraer las llamadas a APIs en un servicio y mockear ese servicio en nuestros tests. Con el fin de poder mockear con facilidad las dependencias, podemos usar Webpack y [inject-loader](https://github.com/plasticine/inject-loader) para empaquetar nuestros tests.
 
 Ejemplo de testeo de una acción asíncrona:
 
@@ -85,7 +85,7 @@ const actions = actionsInjector({
   }
 })
 
-// helper para el testeo de acciones con mutaciones esperadas
+// helper para el testeo de acciones con mutaciones previstas
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
@@ -207,7 +207,6 @@ mocha test-bundle.js
 #### Ejecutar en Browser
 
 1. Instalar `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
 2. Cambiar `entry` de la configuración webpack anterior a `'mocha!babel!./test.js'`.
 3. Iniciar `webpack-dev-server` usando la configuración
 4. Ir a `localhost:8080/webpack-dev-server/test-bundle`.

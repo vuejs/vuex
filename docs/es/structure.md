@@ -1,6 +1,6 @@
 # Estructura en aplicaciones
 
-Vuex no impone restricciones a la hora de estructura tu código sino que se acoge a un conjunto de principios de alto nivel:
+Vuex no impone restricciones a la hora de estructurar tu código sino que se acoge a un conjunto de principios de alto nivel:
 
 1. El estado a nivel de Aplicación se encuentra centralizado en el almacén.
 
@@ -8,7 +8,7 @@ Vuex no impone restricciones a la hora de estructura tu código sino que se acog
 
 3. Toda lógica asíncrona debe estar encapsulada en, o ser compuesta con, **acciones**.
 
-Siempre y cuando sigas estas reglas, la estructura que le des a tu proyecto es cosa tuya. Si el archivo en el que defines tu almacén vuelve demasiado grande puedes empezar por separar acciones, mutaciones y getters en archivos separados.
+Siempre y cuando sigas estas reglas, la estructura que le des a tu proyecto es cosa tuya. Si el archivo en el que defines tu almacén se vuelve demasiado grande puedes empezar por separar acciones, mutaciones y getters en archivos separados.
 
 En applicaciones complejas o de gran escala, es muy probable que hagas uso de módulos. Aquí dejamos un ejemplo de como estructurar un proyecto:
 
@@ -29,4 +29,4 @@ En applicaciones complejas o de gran escala, es muy probable que hagas uso de m�
         └── products.js   # Módulo productos
 ```
 
-Como referencia, puedes echarle un vistado al [ejemplo 'Shopping Cart'](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+Como referencia, puedes echarle un vistazo al [ejemplo 'Shopping Cart'](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
