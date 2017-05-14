@@ -4244,13 +4244,13 @@ selenium-server@^2.53.1:
   version "2.53.1"
   resolved "https://registry.yarnpkg.com/selenium-server/-/selenium-server-2.53.1.tgz#d681528812f3c2e0531a6b7e613e23bb02cce8a6"
 
-"semver@2 || 3 || 4 || 5", semver@~5.0.1:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.0.3.tgz#77466de589cd5d3c95f138aa78bc569a3cb5d27a"
-
-semver@~5.3.0:
+"semver@2 || 3 || 4 || 5", semver@~5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+
+semver@~5.0.1:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.0.3.tgz#77466de589cd5d3c95f138aa78bc569a3cb5d27a"
 
 send@0.14.2:
   version "0.14.2"
@@ -4609,9 +4609,9 @@ to-fast-properties@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.2.tgz#f3f5c0c3ba7299a7ef99427e44633257ade43320"
 
-todomvc-app-css@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/todomvc-app-css/-/todomvc-app-css-2.0.6.tgz#0b3667c5e189f1568d9a9bf7947ebd928406961d"
+todomvc-app-css@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/todomvc-app-css/download/todomvc-app-css-2.1.0.tgz#b6f2716d339afa2e5f799347d2a48b05396242a5"
 
 tough-cookie@~2.3.0:
   version "2.3.2"
