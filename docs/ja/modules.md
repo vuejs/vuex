@@ -252,7 +252,6 @@ store.registerModule(['nested', 'myModule'], {
 - 同じストアに同じモジュールを複数回登録する
 
 モジュールの状態を宣言するために単純なオブジェクトを使用すると、その状態オブジェクトは参照によって共有され、変更時にクロスストア/モジュールの状態汚染を引き起こします。
-If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
 
 これは、実際には Vue コンポーネント内部の `data` と全く同じ問題です。従って解決策も同じです。モジュールの状態を宣言するために関数を使用してください (2.3.0 以降でサポートされます):
 
