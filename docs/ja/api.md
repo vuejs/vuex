@@ -125,13 +125,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store インスタンスメソッド
 
-- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
+- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  ミューテーションをコミットします。[詳細](mutations.md)
+  ミューテーションをコミットします。`options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [詳細](mutations.md)
 
-- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
+  アクションをディスパッチします。`options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
 
 - **`replaceState(state: Object)`**
 
