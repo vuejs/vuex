@@ -55,13 +55,13 @@ const store = new Vuex.Store({ ...options })
     getters,   // store.getters と同じ
     ```
 
-    Specific when defined in a module
+    モジュールで定義されたときの仕様
     
     ```
-    state,       // will be module local state if defined in a module.
-    getters,     // module local getters of the current module
-    rootState    // global state
-    rootGetters  // all getters
+    state,       // モジュールで定義された場合、モジュールのローカルステート
+    getters,     // 現在のモジュールのモジュールのローカルゲッター
+    rootState    // グローバルステート
+    rootGetters  // 全てのゲッター
     ```
 
     登録されたゲッターは `store.getters` 上に公開されます。
