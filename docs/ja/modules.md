@@ -244,16 +244,17 @@ store.registerModule(['nested', 'myModule'], {
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
 
-### Module Reuse
+### モジュールの再利用
 
-Sometimes we may need to create multiple instances of a module, for example:
+時どき、モジュールの複数インスタンスを作成する必要があるかもしれません。例えば:
 
-- Creating multiple stores that uses the same module;
-- Register the same module multiple times in the same store.
+- 同じモジュールを使用する複数のストアを作成する;
+- 同じストアに同じモジュールを複数回登録する
 
+モジュールの状態を宣言するために単純なオブジェクトを使用すると、その状態オブジェクトは参照によって共有され、変更時にクロスストア/モジュールの状態汚染を引き起こします。
 If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
 
-This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
+これは、実際には Vue コンポーネント内部の `data` と全く同じ問題です。従って解決策も同じです。モジュールの状態を宣言するために関数を使用してください (2.3.0 以降でサポートされます):
 
 ``` js
 const MyReusableModule = {
@@ -262,6 +263,6 @@ const MyReusableModule = {
       foo: 'bar'
     }
   },
-  // mutations, actions, getters...
+  // ミューテーション、アクション、ゲッター...
 }
 ```
