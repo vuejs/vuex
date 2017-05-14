@@ -66,14 +66,13 @@ function update (path, targetModule, newModule) {
   // update nested modules
   if (newModule.modules) {
     for (const key in newModule.modules) {
-      if (
-        process.env.NODE_ENV !== 'production' &&
-        !targetModule.getChild(key)
-      ) {
-        console.warn(
-          `[vuex] trying to add a new module '${key}' on hot reloading, ` +
-          'manual reload is needed'
-        )
+      if (!targetModule.getChild(key)) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn(
+            `[vuex] trying to add a new module '${key}' on hot reloading, ` +
+            'manual reload is needed'
+          )
+        }
         return
       }
       update(

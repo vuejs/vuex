@@ -81,8 +81,10 @@ export class Store {
 
     const mutation = { type, payload }
     const entry = this._mutations[type]
-    if (process.env.NODE_ENV !== 'production' && !entry) {
-      console.error(`[vuex] unknown mutation type: ${type}`)
+    if (!entry) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error(`[vuex] unknown mutation type: ${type}`)
+      }
       return
     }
     this._withCommit(() => {
@@ -111,8 +113,10 @@ export class Store {
     } = unifyObjectStyle(_type, _payload)
 
     const entry = this._actions[type]
-    if (process.env.NODE_ENV !== 'production' && !entry) {
-      console.error(`[vuex] unknown action type: ${type}`)
+    if (!entry) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error(`[vuex] unknown action type: ${type}`)
+      }
       return
     }
     return entry.length > 1
@@ -399,8 +403,10 @@ function registerAction (store, type, handler, local) {
 }
 
 function registerGetter (store, type, rawGetter, local) {
-  if (process.env.NODE_ENV !== 'production' && store._wrappedGetters[type]) {
-    console.error(`[vuex] duplicate getter key: ${type}`)
+  if (store._wrappedGetters[type]) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(`[vuex] duplicate getter key: ${type}`)
+    }
     return
   }
   store._wrappedGetters[type] = function wrappedGetter (store) {
@@ -442,10 +448,12 @@ function unifyObjectStyle (type, payload, options) {
 }
 
 export function install (_Vue) {
-  if (process.env.NODE_ENV !== 'production' && Vue) {
-    console.error(
-      '[vuex] already installed. Vue.use(Vuex) should be called only once.'
-    )
+  if (Vue) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      )
+    }
     return
   }
   Vue = _Vue
