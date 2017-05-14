@@ -1,5 +1,5 @@
 import Vue from 'vue/dist/vue.common.js'
-import Vuex, { mapState, mapMutations, mapGetters, mapActions } from '../../dist/vuex.js'
+import Vuex, { mapState, mapMutations, mapGetters, mapActions } from '../../dist/vuex.common.js'
 
 describe('Helpers', () => {
   it('mapState (array)', () => {
