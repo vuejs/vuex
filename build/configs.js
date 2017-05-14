@@ -12,13 +12,13 @@ const banner =
 const resolve = _path => path.resolve(__dirname, '../', _path)
 
 const configs = {
-  browserDev: {
+  umdDev: {
     entry: resolve('src/index.js'),
     dest: resolve('dist/vuex.js'),
     format: 'umd',
     env: 'development'
   },
-  browserProd: {
+  umdProd: {
     entry: resolve('src/index.js'),
     dest: resolve('dist/vuex.min.js'),
     format: 'umd',
