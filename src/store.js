@@ -4,6 +4,24 @@ import ModuleCollection from './module/module-collection'
 import { forEachValue, isObject, isPromise, assert } from './util'
 
 let Vue // bind on install
+let Observable
+
+function isObservable (x) {
+  return !!Observable && x instanceof Observable
+}
+
+function toObservable (promise) {
+  return new Observable(observer => {
+    promise.then(val => {
+      observer.next(val)
+      observer.complete()
+    })
+      .catch(err => {
+        observer.error(err)
+        observer.complete()
+      })
+  })
+}
 
 export class Store {
   constructor (options = {}) {
@@ -108,9 +126,51 @@ export class Store {
       console.error(`[vuex] unknown action type: ${type}`)
       return
     }
-    return entry.length > 1
-      ? Promise.all(entry.map(handler => handler(payload)))
-      : entry[0](payload)
+    if (entry.length === 1) {
+      return entry[0](payload)
+    }
+    const result = entry.map(handler => handler(payload))
+    if (result.every(one => isPromise(one))) {
+      return Promise.all(result)
+    }
+    const result$ = result.map(one =>
+      isPromise(one) ? toObservable(one) : one
+    )
+    return new Observable(observer => {
+      const length = result$.length
+      const result = new Array(length)
+      const resolved = new Array(length)
+      let pendingCount = length
+      let activeCount = length
+      const subscriptions = result$.map((one$, index) =>
+        one$.subscribe({
+          next (val) {
+            result[index] = val
+            if (!resolved[index]) {
+              resolved[index] = true
+              pendingCount--
+            }
+            if (pendingCount === 0) {
+              observer.next(result)
+            }
+          },
+          error (err) {
+            observer.error(err)
+          },
+          complete () {
+            activeCount--
+            if (activeCount === 0) {
+              observer.complete()
+            }
+          }
+        })
+      )
+      return () => {
+        subscriptions.forEach(one => {
+          one.unsubscribe()
+        })
+      }
+    })
   }
 
   subscribe (fn) {
@@ -366,10 +426,22 @@ function registerAction (store, type, handler, local) {
       rootGetters: store.getters,
       rootState: store.state
     }, payload, cb)
-    if (!isPromise(res)) {
+    if (!isPromise(res) && !isObservable(res)) {
       res = Promise.resolve(res)
     }
     if (store._devtoolHook) {
+      if (isObservable(res)) {
+        return new Observable(observer =>
+          res.subscribe({
+            next: observer.next.bind(observer),
+            complete: observer.complete.bind(observer),
+            error (err) {
+              store._devtoolHook.emit('vuex:error', err)
+              observer.error(err)
+            }
+          })
+        )
+      }
       return res.catch(err => {
         store._devtoolHook.emit('vuex:error', err)
         throw err
@@ -419,7 +491,7 @@ function unifyObjectStyle (type, payload, options) {
   return { type, payload, options }
 }
 
-export function install (_Vue) {
+export function install (_Vue, _Observable) {
   if (Vue) {
     console.error(
       '[vuex] already installed. Vue.use(Vuex) should be called only once.'
@@ -427,6 +499,7 @@ export function install (_Vue) {
     return
   }
   Vue = _Vue
+  Observable = _Observable
   applyMixin(Vue)
 }
 

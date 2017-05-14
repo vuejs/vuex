@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from '../../dist/vuex.js'
+import { Observable } from 'rxjs/Observable'
 
 const TEST = 'TEST'
 
@@ -548,6 +549,95 @@ describe('Modules', () => {
         expect(res[0]).toBe(1)
         expect(res[1]).toBe(2)
         done()
+      })
+    })
+
+    it('dispatching multiple actions in different modules, with returned Observable', done => {
+      const store = new Vuex.Store({
+        modules: {
+          a: {
+            actions: {
+              [TEST] () {
+                return new Observable(observer => {
+                  observer.next(1)
+                  observer.complete()
+                })
+              }
+            }
+          },
+          b: {
+            actions: {
+              [TEST] () {
+                return new Observable(observer => {
+                  observer.next(2)
+                  observer.complete()
+                })
+              }
+            }
+          }
+        }
+      })
+      const observable = store.dispatch(TEST)
+      expect(observable instanceof Observable).toBeTruthy()
+      const nextSpy = jasmine.createSpy()
+        .and
+        .callFake(res => {
+          expect(res[0]).toBe(1)
+          expect(res[1]).toBe(2)
+        })
+      observable.subscribe({
+        next: nextSpy,
+        complete () {
+          expect(nextSpy).toHaveBeenCalled()
+          done()
+        }
+      })
+    })
+
+    it('dispatching multiple actions in different modules, with returned Observable/Promise', done => {
+      const store = new Vuex.Store({
+        modules: {
+          a: {
+            actions: {
+              [TEST] () {
+                return 1
+              }
+            }
+          },
+          b: {
+            actions: {
+              [TEST] () {
+                return Promise.resolve(2)
+              }
+            }
+          },
+          c: {
+            actions: {
+              [TEST] () {
+                return new Observable(observer => {
+                  observer.next(3)
+                  observer.complete()
+                })
+              }
+            }
+          }
+        }
+      })
+      const observable = store.dispatch(TEST)
+      expect(observable instanceof Observable).toBeTruthy()
+      const nextSpy = jasmine.createSpy()
+        .and
+        .callFake(res => {
+          expect(res[0]).toBe(1)
+          expect(res[1]).toBe(2)
+          expect(res[2]).toBe(3)
+        })
+      observable.subscribe({
+        next: nextSpy,
+        complete () {
+          expect(nextSpy).toHaveBeenCalled()
+          done()
+        }
       })
     })
 
