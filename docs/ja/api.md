@@ -52,7 +52,7 @@ const store = new Vuex.Store({ ...options })
 
     ```
     state,     // モジュール内で定義されていればモジュールのローカルステート
-    getters,   // store.getters と同じ
+    getters    // store.getters と同じ
     ```
 
     モジュールで定義されたときの仕様
@@ -60,7 +60,7 @@ const store = new Vuex.Store({ ...options })
     ```
     state,       // モジュールで定義された場合、モジュールのローカルステート
     getters,     // 現在のモジュールのモジュールのローカルゲッター
-    rootState    // グローバルステート
+    rootState,   // グローバルステート
     rootGetters  // 全てのゲッター
     ```
 
