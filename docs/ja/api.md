@@ -127,11 +127,11 @@ const store = new Vuex.Store({ ...options })
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  ミューテーションをコミットします。`options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [詳細](mutations.md)
+  ミューテーションをコミットします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なミューテーションにコミットできる `root: true` を持つことできます。[詳細](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  アクションをディスパッチします。`options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
+  アクションをディスパッチします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
 
 - **`replaceState(state: Object)`**
 
