@@ -68,6 +68,32 @@ describe('Helpers', () => {
     expect(vm.a).toBe(7)
   })
 
+  // #708
+  it('mapState (with namespace and a nested module)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { a: 1 },
+          modules: {
+            bar: {
+              state: { b: 2 }
+            }
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState('foo', {
+        value: state => state
+      })
+    })
+    expect(vm.value.a).toBe(1)
+    expect(vm.value.bar.b).toBe(2)
+    expect(vm.value.b).toBeUndefined()
+  })
+
   it('mapMutations (array)', () => {
     const store = new Vuex.Store({
       state: { count: 0 },

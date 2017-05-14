@@ -247,7 +247,7 @@ describe('Store', () => {
     expect(child.$store).toBe(store)
   })
 
-  it('should warn silent option depreciation', function () {
+  it('should warn silent option depreciation', () => {
     spyOn(console, 'warn')
 
     const store = new Vuex.Store({
@@ -263,7 +263,7 @@ describe('Store', () => {
     )
   })
 
-  it('strict mode: warn mutations outside of handlers', function () {
+  it('strict mode: warn mutations outside of handlers', () => {
     const store = new Vuex.Store({
       state: {
         a: 1
@@ -332,5 +332,27 @@ describe('Store', () => {
         done()
       })
     })
+  })
+
+  it('asserts the call with the new operator', () => {
+    expect(() => {
+      Vuex.Store({})
+    }).toThrowError(/Store must be called with the new operator/)
+  })
+
+  it('should accept state as function', () => {
+    const store = new Vuex.Store({
+      state: () => ({
+        a: 1
+      }),
+      mutations: {
+        [TEST] (state, n) {
+          state.a += n
+        }
+      }
+    })
+    expect(store.state.a).toBe(1)
+    store.commit(TEST, 2)
+    expect(store.state.a).toBe(3)
   })
 })
