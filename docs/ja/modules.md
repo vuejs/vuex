@@ -243,3 +243,25 @@ store.registerModule(['nested', 'myModule'], {
 動的なモジュール登録があることで、他の Vue プラグインが、モジュールをアプリケーションのストアに付属させることで、状態の管理に Vuex を活用できることができます。例えば [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) ライブラリは、動的に付属させたモジュール内部でアプリケーションのルーティングのステートを管理することで vue-router と vuex を統合しています。
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
+
+### Module Reuse
+
+Sometimes we may need to create multiple instances of a module, for example:
+
+- Creating multiple stores that uses the same module;
+- Register the same module multiple times in the same store.
+
+If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
+
+This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
+
+``` js
+const MyReusableModule = {
+  state () {
+    return {
+      foo: 'bar'
+    }
+  },
+  // mutations, actions, getters...
+}
+```
