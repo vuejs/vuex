@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../dist/vuex.js'
+import Vuex from '../../dist/vuex.common.js'
 
 const TEST = 'TEST'
 
