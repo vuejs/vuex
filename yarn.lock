@@ -4244,13 +4244,13 @@ selenium-server@^2.53.1:
   version "2.53.1"
   resolved "https://registry.yarnpkg.com/selenium-server/-/selenium-server-2.53.1.tgz#d681528812f3c2e0531a6b7e613e23bb02cce8a6"
 
-"semver@2 || 3 || 4 || 5", semver@~5.0.1:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.0.3.tgz#77466de589cd5d3c95f138aa78bc569a3cb5d27a"
-
-semver@~5.3.0:
+"semver@2 || 3 || 4 || 5", semver@~5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+
+semver@~5.0.1:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.0.3.tgz#77466de589cd5d3c95f138aa78bc569a3cb5d27a"
 
 send@0.14.2:
   version "0.14.2"
