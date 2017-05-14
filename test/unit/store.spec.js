@@ -334,6 +334,12 @@ describe('Store', () => {
     })
   })
 
+  it('asserts the call with the new operator', () => {
+    expect(() => {
+      Vuex.Store({})
+    }).toThrowError(/Store must be called with the new operator/)
+  })
+
   it('should accept state as function', () => {
     const store = new Vuex.Store({
       state: () => ({
