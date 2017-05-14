@@ -65,7 +65,7 @@ store.commit({
 })
 ```
 
-Lors de l'utlisation de l'object-style commit, l'objet entier sera fournit comme payload aux handlers de mutation, donc le handler reste inchangé :
+Lors de l'utlisation de l'object-style commit, l'objet entier sera fourni comme payload aux handlers de mutation, donc le handler reste inchangé :
 
 ``` js
 mutations: {
@@ -79,7 +79,7 @@ mutations: {
 
 Puisqu'un state de store de Vuex est rendu réactif par Vue, lorsque nous mutons le state, les composants Vue observant ce state seront automatiquement mis à jour. Cela signifie également que les mutations Vuex sont sujettes aux mêmes inconvénients que lorsqu'on travaille avec Vue :
 
-1. Initialisez de préférences le state initial de votre state avec tous les champs désirés auparavant.
+1. Initialisez de préférence le state initial de votre state avec tous les champs désirés auparavant.
 
 2. Lorsque vous ajoutez de nouvelles propriétés à un Object, vous devriez soit :
 
@@ -157,7 +157,7 @@ export default {
 
 ### En avant vers les actions
 
-L'asynchronisme combiné à la mutation du state peut rendre votre program très difficile à comprendre. Par exemple, lorsque vous appelez deux méthodes avec toutes les deux des callbacks asynchrones qui changent le state, comment savez-vous quand elles sont appelées et quel callback est appelé en premier ? C'est exactement la raison pour laquelle nous voulons séparer les deux concepts. Avec Vuex, **les mutations sont des transactions synchrones** :
+L'asynchronisme combiné à la mutation du state peut rendre votre programme très difficile à comprendre. Par exemple, lorsque vous appelez deux méthodes avec toutes les deux des callbacks asynchrones qui changent le state, comment savez-vous quand elles sont appelées et quel callback est appelé en premier ? C'est exactement la raison pour laquelle nous voulons séparer les deux concepts. Avec Vuex, **les mutations sont des transactions synchrones** :
 
 ``` js
 store.commit('increment')

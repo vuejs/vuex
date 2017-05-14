@@ -52,9 +52,18 @@ const store = new Vuex.Store({ ...options })
 
     ```
     state,     // will be module local state if defined in a module.
-    getters,   // same as store.getters
-    rootState  // same as store.state
+    getters    // same as store.getters
     ```
+
+    Specific when defined in a module
+
+    ```
+    state,       // will be module local state if defined in a module.
+    getters,     // module local getters of the current module
+    rootState,   // global state
+    rootGetters  // all getters
+    ```
+
     Registered getters are exposed on `store.getters`.
 
     [Details](getters.md)
@@ -116,13 +125,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store Instance Methods
 
-- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
+- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Commit a mutation. [Details](mutations.md)
+  Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [Details](mutations.md)
 
-- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Dispatch an action. Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
+  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
 
 - **`replaceState(state: Object)`**
 

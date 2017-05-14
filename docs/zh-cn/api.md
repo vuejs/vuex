@@ -140,7 +140,7 @@ const store = new Vuex.Store({ ...options })
 
   ``` js
   store.subscribe((mutation, state) => {
-    console.log(mutation.类型)
+    console.log(mutation.type)
     console.log(mutation.payload)
   })
   ```

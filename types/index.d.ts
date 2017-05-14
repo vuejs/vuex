@@ -85,7 +85,7 @@ export type Plugin<S> = (store: Store<S>) => any;
 
 export interface Module<S, R> {
   namespaced?: boolean;
-  state?: S;
+  state?: S | (() => S);
   getters?: GetterTree<S, R>;
   actions?: ActionTree<S, R>;
   mutations?: MutationTree<S>;
