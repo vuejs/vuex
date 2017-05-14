@@ -26,7 +26,9 @@ export default class ModuleCollection {
   }
 
   register (path, rawModule, runtime = true) {
-    assertRawModule(path, rawModule)
+    if (process.env.NODE_ENV !== 'production') {
+      assertRawModule(path, rawModule)
+    }
 
     const newModule = new Module(rawModule, runtime)
     if (path.length === 0) {
@@ -54,7 +56,9 @@ export default class ModuleCollection {
 }
 
 function update (path, targetModule, newModule) {
-  assertRawModule(path, newModule)
+  if (process.env.NODE_ENV !== 'production') {
+    assertRawModule(path, newModule)
+  }
 
   // update target module
   targetModule.update(newModule)
@@ -62,7 +66,10 @@ function update (path, targetModule, newModule) {
   // update nested modules
   if (newModule.modules) {
     for (const key in newModule.modules) {
-      if (!targetModule.getChild(key)) {
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        !targetModule.getChild(key)
+      ) {
         console.warn(
           `[vuex] trying to add a new module '${key}' on hot reloading, ` +
           'manual reload is needed'
