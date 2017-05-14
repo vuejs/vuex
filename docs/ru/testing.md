@@ -92,10 +92,16 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   // поддельная функция вызова мутаций
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    expect(mutation.type).to.equal(type)
-    if (payload) {
-      expect(mutation.payload).to.deep.equal(payload)
+
+    try {
+      expect(mutation.type).to.equal(type)
+      if (payload) {
+        expect(mutation.payload).to.deep.equal(payload)
+      }
+    } catch (error) {
+      done(error)
     }
+
     count++
     if (count >= expectedMutations.length) {
       done()

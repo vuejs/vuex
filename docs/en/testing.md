@@ -92,16 +92,16 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   // mock commit
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    
+
     try {
       expect(mutation.type).to.equal(type)
       if (payload) {
         expect(mutation.payload).to.deep.equal(payload)
       }
-    } catch(error) {
+    } catch (error) {
       done(error)
     }
-    
+
     count++
     if (count >= expectedMutations.length) {
       done()
