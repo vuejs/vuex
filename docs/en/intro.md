@@ -1,6 +1,6 @@
 # Vuex, qu'est-ce que c'est ?
 
-Vuex est un ***gestionnaire d'état (« state management pattern »)* et une bibliothèque** pour des applications Vue.js. pour des applications Vue.js. Il sert de zone de stockage de données centralisée pour tous les composants dans une application, avec des règles pour s'assurer que l'état ne puisse subir de mutations que d'une manière prévisible. Il s'intègre également avec [l'extension officielle](https://github.com/vuejs/vue-devtools) de Vue afin de fournir des fonctionnalités avancées comme de la visualisation d'état dans le temps et des exports et imports d’instantanés (« snapshot ») d'état.
+Vuex est un **_gestionnaire d'état (« state management pattern »)_ et une bibliothèque** pour des applications Vue.js. pour des applications Vue.js. Il sert de zone de stockage de données centralisée pour tous les composants dans une application, avec des règles pour s'assurer que l'état ne puisse subir de mutations que d'une manière prévisible. Il s'intègre également avec [l'extension officielle](https://github.com/vuejs/vue-devtools) de Vue afin de fournir des fonctionnalités avancées comme de la visualisation d'état dans le temps et des exports et imports d’instantanés (« snapshot ») d'état.
 
 ### Un « gestionnaire d'état », qu'est-ce que c'est ?
 
