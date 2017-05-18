@@ -8,7 +8,7 @@
 - [Release Notes](https://github.com/vuejs/vuex/releases)
 - [Installation](installation.md)
 - [Qu'est-ce que Vuex ?](intro.md)
-- [Débuter](getting-started.md)
+- [Pour commencer](getting-started.md)
 - Concepts de base
   - [State](state.md)
   - [Getters](getters.md)
