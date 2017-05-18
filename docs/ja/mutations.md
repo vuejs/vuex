@@ -165,7 +165,10 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment' // this.increment() を this.$store.commit('increment') にマッピングする
+      'increment', // this.increment() を this.$store.commit('increment') にマッピングする
+
+      // mapMutations はペイロードサポートする:
+      'incrementBy' // this.incrementBy(amount) を this.$store.commit('incrementBy', amount) にマッピングする
     ]),
     ...mapMutations({
       add: 'increment' // this.add() を this.$store.commit('increment') にマッピングする

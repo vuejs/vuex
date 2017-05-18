@@ -52,8 +52,16 @@ const store = new Vuex.Store({ ...options })
 
     ```
     state,     // モジュール内で定義されていればモジュールのローカルステート
-    getters,   // store.getters と同じ
-    rootState  // store.state と同じ
+    getters    // store.getters と同じ
+    ```
+
+    モジュールで定義されたときの仕様
+    
+    ```
+    state,       // モジュールで定義された場合、モジュールのローカルステート
+    getters,     // 現在のモジュールのモジュールのローカルゲッター
+    rootState,   // グローバルステート
+    rootGetters  // 全てのゲッター
     ```
 
     登録されたゲッターは `store.getters` 上に公開されます。
@@ -117,13 +125,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store インスタンスメソッド
 
-- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
+- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  ミューテーションをコミットします。[詳細](mutations.md)
+  ミューテーションをコミットします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なミューテーションにコミットできる `root: true` を持つことできます。[詳細](mutations.md)
 
-- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  アクションをディスパッチします。すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
+  アクションをディスパッチします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
 
 - **`replaceState(state: Object)`**
 

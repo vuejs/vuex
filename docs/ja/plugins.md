@@ -103,8 +103,9 @@ const store = new Vuex.Store({
 const logger = createLogger({
   collapsed: false, // ログ出力されたミューテーションを自動で展開します
   filter (mutation, stateBefore, stateAfter) {
+    // ミューテーションを記録する必要がある場合は、true を返します
     // returns true if a mutation should be logged
-    // `mutation` is a { type, payload }
+    // `mutation` は { type, payload } です
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
