@@ -1,6 +1,7 @@
-# Getters
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+# Accesseurs
+
+Parfois nous avons besoin de calculer des valeurs basées sur le state du store, par exemple pour filtrer une liste d'éléments et les compter :
 
 ``` js
 computed: {
@@ -10,9 +11,9 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+Si plus d'un composant a besoin d'utiliser cela, il nous faut ou bien dupliquer cette fonction, ou bien l'extraire dans un helper séparé et l'importer aux endroits nécessaires &mdash; les deux idées sont loin d'être idéales.
 
-Vuex allows us to define "getters" in the store (think of them as computed properties for stores). Getters will receive the state as their 1st argument:
+Vuex nous permet de définir des "getters" dans le store (voyez-les comme les computed properties des store). Les getters prennent le state en premier argument :
 
 ``` js
 const store = new Vuex.Store({
@@ -30,13 +31,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The getters will be exposed on the `store.getters` object:
+Les getters seront exposé sur l'objet `store.getters` :
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+Les getters recevront également les autres getters en second argument :
 
 ``` js
 getters: {
@@ -51,7 +52,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+Nous pouvons maintenant facilement les utiliser dans n'importe quel composant :
 
 ``` js
 computed: {
@@ -61,24 +62,9 @@ computed: {
 }
 ```
 
-You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
-```js
-getters: {
-  // ...
-  getTodoById: (state, getters) => (id) => {
-    return state.todos.find(todo => todo.id === id)
-  }
-}
-```
+### Le helper `mapGetters`
 
-``` js
-store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
-```
-
-
-### The `mapGetters` Helper
-
-The `mapGetters` helper simply maps store getters to local computed properties:
+Le helper `mapGetters` attache simplement vos getters du store aux computed properties locales :
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -86,7 +72,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // rajouter les getters dans computed avec l'object spread operator
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -96,11 +82,11 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+Si vous voulez attacher un getter avec un nom différent, utilisez un objet :
 
 ``` js
-...mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+mapGetters({
+  // attacher this.doneCount à store.getters.doneTodosCount
   doneCount: 'doneTodosCount'
 })
 ```
