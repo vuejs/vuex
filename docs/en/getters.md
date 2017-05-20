@@ -1,4 +1,3 @@
-
 # Accesseurs
 
 Parfois nous avons besoin de calculer des valeurs basées sur le state du store, par exemple pour filtrer une liste d'éléments et les compter :
