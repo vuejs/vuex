@@ -24,7 +24,7 @@ const Counter = {
 
 Lorsque `store.state.count` change, cela entraînera la ré-évaluation de la propriété calculée, et déclenchera les actions associées au DOM.
 
-Cependant, ce modèle oblige le composant à compter sur le singleton global du store. Lorsqu'on utilise un système de module, il est nécessaire d'importer le store dans tous les composants qui utilisent l'état du store, et il est également nécessaire de créer un jeu de test lorsque l'on teste le composant.
+Cependant, ce modèle oblige le composant à compter sur le singleton global du store. Lorsqu'on utilise un système de module, il est nécessaire d'importer le store dans tous les composants qui utilisent l'état du store, et il est également nécessaire de le simuler lorsque l'on teste le composant.
 
 Vuex fournit un méchanisme pour « injecter » le store dans tous les composants enfants du composant racine avec l'option `store` (activée par `Vue.use(Vuex)`) :
 
