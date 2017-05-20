@@ -1,10 +1,10 @@
 # Pour commencer
 
-Au cœur de chaque application Vuex, il y a la **zone de stockage (« store »)**. Un « store » est tout simplement un conteneur avec l'**état (« state »)** de votre application. Il y a deux choses qui différencient un store Vuex d'un simple objet global :
+Au cœur de chaque application Vuex, il y a la **zone de stockage (« store »)**. Un « store » est tout simplement un conteneur avec l'**état** de votre application. Il y a deux choses qui différencient un store Vuex d'un simple objet global :
 
 1. Les stores Vuex sont réactifs. Quand les composants Vue y récupèrent l'état, ils se mettront à jour de façon réactive et efficace si l'état du store a changé.
 
-2. Vous ne pouvez pas muter directement l'état du store. La seule façon de modifier l'état d'un store est d'**acter (« commit »)** explicitement des **mutations**. Cela assure que chaque état laisse un enregistrement traçable, et permet à des outils de nous aider à mieux appréhender nos applications.
+2. Vous ne pouvez pas muter directement l'état du store. La seule façon de modifier l'état d'un store est d'**acter** explicitement des **mutations**. Cela assure que chaque état laisse un enregistrement traçable, et permet à des outils de nous aider à mieux appréhender nos applications.
 
 ### Le store le plus simple
 
