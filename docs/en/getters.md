@@ -101,7 +101,7 @@ If you want to map a getter to a different name, use an object:
 
 ``` js
 ...mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+  // map `this.doneCount` to `store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```
