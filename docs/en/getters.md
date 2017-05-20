@@ -62,6 +62,7 @@ computed: {
 ```
 
 You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+
 ```js
 getters: {
   // ...
