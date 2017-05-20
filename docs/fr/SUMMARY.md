@@ -10,7 +10,7 @@
 - [Qu'est-ce que Vuex ?](intro.md)
 - [Pour commencer](getting-started.md)
 - Concepts de base
-  - [State](state.md)
+  - [État](state.md)
   - [Getters](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
