@@ -11,7 +11,7 @@
 - [Pour commencer](getting-started.md)
 - Concepts de base
   - [État](state.md)
-  - [Getters](getters.md)
+  - [Accesseurs](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
   - [Modules](modules.md)
