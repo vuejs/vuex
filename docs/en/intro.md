@@ -36,7 +36,7 @@ C'est une application auto-suffisante avec les parties suivantes :
 Voici une représentation extrèmement simple du concept de « flux de donnée unidirectionnel » :
 
 <p style="text-align: center; margin: 2em">
-  <img style="max-width:450px;" src="./images/flow.png">
+  <img style="width:100%;max-width:450px;" src="./images/flow.png">
 </p>
 
 Cependant, la simplicité s'évapore rapidement lorsque nous avons **de multiples composants qui partagent un même état global** :

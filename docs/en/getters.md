@@ -99,7 +99,7 @@ export default {
 Si vous voulez attacher un accesseur avec un nom différent, utilisez un objet :
 
 ``` js
-mapGetters({
+...mapGetters({
   // attacher `this.doneCount` à `store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
