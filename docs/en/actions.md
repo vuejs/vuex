@@ -110,7 +110,7 @@ export default {
       'increment' // attacher `this.increment()` à `this.$store.dispatch('increment')`
 
       // `mapActions` also supports payloads:
-      'incrementBy' // map `this.incrementBy(amount)` à `this.$store.dispatch('incrementBy', amount)`
+      'incrementBy' // attacher `this.incrementBy(amount)` à `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
       add: 'increment' // attacher `this.add()` à `this.$store.dispatch('increment')`
