@@ -1,6 +1,6 @@
-# Getters
+# Accesseurs
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+Parfois nous avons besoin de calculer des valeurs basées sur l'état du store, par exemple pour filtrer une liste d'éléments et les compter :
 
 ``` js
 computed: {
@@ -10,9 +10,9 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+Si plus d'un composant a besoin d'utiliser cela, il nous faut ou bien dupliquer cette fonction, ou bien l'extraire dans une fonction utilitaire séparée et l'importer aux endroits nécessaires. Les deux idées sont loin d'être idéales.
 
-Vuex allows us to define "getters" in the store (think of them as computed properties for stores). Getters will receive the state as their 1st argument:
+Vuex nous permet de définir des accesseurs (« getters ») dans le store (oyez-les comme les propriétés calculées des stores). Les accesseurs prennent l'état en premier argument :
 
 ``` js
 const store = new Vuex.Store({
@@ -30,13 +30,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The getters will be exposed on the `store.getters` object:
+Les accesseurs seront exposés sur l'objet `store.getters` :
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+Les accesseurs recevront également les autres accesseurs en second argument :
 
 ``` js
 getters: {
@@ -51,7 +51,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+Nous pouvons maintenant facilement les utiliser dans n'importe quel composant :
 
 ``` js
 computed: {
@@ -61,7 +61,7 @@ computed: {
 }
 ```
 
-You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+Vous pouvez aussi passer des arguments aux accesseurs en retournant une fonction. Cela est particulièrement utile quand vous souhaitez interroger un tableau dans le store :
 
 ```js
 getters: {
@@ -76,10 +76,9 @@ getters: {
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
+### La fonction utilitaire `mapGetters`
 
-### The `mapGetters` Helper
-
-The `mapGetters` helper simply maps store getters to local computed properties:
+La fonction utilitaire `mapGetters` attache simplement vos accesseurs du store aux propriétés calculées locales :
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -87,7 +86,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // rajouter les accesseurs dans `computed` avec l'opérateur de décomposition
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -97,11 +96,11 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+Si vous voulez attacher un accesseur avec un nom différent, utilisez un objet :
 
 ``` js
 ...mapGetters({
-  // map `this.doneCount` to `store.getters.doneTodosCount`
+  // attacher `this.doneCount` à `store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```
