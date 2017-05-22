@@ -244,16 +244,16 @@ L'enregistrement dynamique de module permet aux autres plugins Vue de bénéfici
 
 Vous pouvez aussi supprimer un module enregistré dynamiquement avec `store.unregisterModule(moduleName)`. Notez que vous ne pouvez pas supprimer des modules statiques (déclarés à la création du store) avec cette méthode.
 
-### Module Reuse
+### Ré-utiliser un module
 
-Sometimes we may need to create multiple instances of a module, for example:
+Parfois nous devrons créer de multiples instances d'un module pour par exemple :
 
-- Creating multiple stores that uses the same module;
-- Register the same module multiple times in the same store.
+- créer plusieurs stores qui utilisent le même module ou
+- enregistrer le même module plusieurs fois dans le même store.
 
-If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
+Si nous utilisons un objet pour déclarer l'état du module, alors cet objet d'état sera partagé par référence et causera de contamination inter store/module quand il sera muté.
 
-This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
+C'est exactement le même problème qu'avec `data` dans un composant Vue. Ainsi la solution est là même, utiliser une fonction pour déclarer notre état de module (supporté par la 2.3.0+) :
 
 ``` js
 const MyReusableModule = {
@@ -262,6 +262,6 @@ const MyReusableModule = {
       foo: 'bar'
     }
   },
-  // mutations, actions, getters...
+  // mutations, actions, accesseurs...
 }
 ```
