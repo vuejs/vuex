@@ -27,7 +27,7 @@ const store = new Vuex.Store({
 
 Les handlers d'action reçoivent un objet contexte qui expose le même set de méthodes/propriétés que l'instance du store, donc vous pouvez appeler `context.commit` pour commiter une mutation, ou accéder au state et aux getters via `context.state` et `context.getters`. Nous verrons pourquoi cet objet contexte n'est pas l'instance du store elle-même lorsque nous présenterons les [Modules](moduels.md) plus tard.
 
-En pratique, nous utilisons souvent la [destructuration d'argument](https://github.com/lukehoban/es6features#destructuring) (*argument destructuring*) pour simplifier quelque peu le code (particulièrement si nous avons besoin d'appeler `commit` plusieurs fois) :
+En pratique, nous utilisons souvent la [destructuration d'argument](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Affecter_par_d%C3%A9composition) pour simplifier quelque peu le code (particulièrement si nous avons besoin d'appeler `commit` plusieurs fois) :
 
 ``` js
 actions: {
@@ -79,7 +79,8 @@ actions: {
   checkout ({ commit, state }, products) {
     // sauvegarder les articles actuellement dans le panier
     const savedCartItems = [...state.cart.added]
-    // envoyer la requête de checkout, et vider le panier
+    // envoyer la requête de checkout,
+    // et vider le panier
     commit(types.CHECKOUT_REQUEST)
     // l'API du shop prend un callback success et un callback failure
     shop.buyProducts(
