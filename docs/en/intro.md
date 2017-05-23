@@ -36,7 +36,7 @@ It is a self-contained app with the following parts:
 This is an extremely simple representation of the concept of "one-way data flow":
 
 <p style="text-align: center; margin: 2em">
-  <img style="width:100%;max-width:450px;" src="./images/flow.png">
+  <img style="width:100%; max-width:450px;" src="./images/flow.png">
 </p>
 
 However, the simplicity quickly breaks down when we have **multiple components that share common state**:
