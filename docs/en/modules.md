@@ -1,8 +1,8 @@
 # Modules
 
-Parce qu'il utilise un _single state tree_, tout le state de notre application est contenu dans un seul et même gros objet. Cependant, au fur et à mesure que notre application grandit, le store peut devenir très engorgé.
+Du fait de l'utilisation d'un arbre d'état unique, tout l'état de notre application est contenu dans un seul et même gros objet. Cependant, au fur et à mesure que notre application grandit, le store peut devenir très engorgé.
 
-Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir son propre state, mutations, actions, getters, et même d'autres modules.
+Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir ses propres état, mutations, actions, accesseurs. Il peut même contenir ses propres modules internes.
 
 ``` js
 const moduleA = {
@@ -25,20 +25,20 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> le state du module A
-store.state.b // -> le state du module B
+store.state.a // -> l'état du `moduleA`
+store.state.b // -> l'état du `moduleB`
 ```
 
-### State local d'un module
+### État local d'un module
 
-Dans les mutations et getters d'un module, le premier argument reçu sera le **state local du module**.
+Dans les mutations et accesseurs d'un module, le premier argument reçu sera **l'état local du module**.
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // state est le state du module local
+      // `state` est l'état du module local
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-De façon similaire, dans les actions du module, `context.state` exposera le state local, et le state racine sera disponible avec `context.rootState` :
+De façon similaire, dans les actions du module, `context.state` exposera l'état local, et l'état racine sera disponible avec `context.rootState` :
 
 ``` js
 const moduleA = {
@@ -66,7 +66,7 @@ const moduleA = {
 }
 ```
 
-Également, dans les getters du module, le state racine sera exposé en troisième argument :
+Également, dans les accesseurs du module, l'état racine sera exposé en troisième argument :
 
 ``` js
 const moduleA = {
@@ -81,9 +81,9 @@ const moduleA = {
 
 ### Espace de nom
 
-Par défaut, les actions, mutations et accesseurs à l'intérieur d'un module son toujours enregistré sous l'**espace de nom global**. Cela permet a de multiple module d'être réactif au même type de mutation et action.
+Par défaut, les actions, mutations et accesseurs à l'intérieur d'un module sont toujours enregistrés sous l'**espace de nom global**. Cela permet à de multiples modules d'être réactifs au même type de mutation et d'action.
 
-Si vous souhaitez que votre module soit auto-suffisant et réutilisable, vous pouvez le ranger sous un espace de nom avec `namespaced: true`. Quand le module est enregistré, tous ses accesseurs, actions et mutations seront automatiquement basé sur l'espace de nom du module dans lesquels ils sont rangés. Par exemple :
+Si vous souhaitez que votre module soit auto-suffisant et réutilisable, vous pouvez le ranger sous un espace de nom avec `namespaced: true`. Quand le module est enregistré, tous ses accesseurs, actions et mutations seront automatiquement basés sur l'espace de nom du module dans lesquels ils sont rangés. Par exemple :
 
 ```js
 const store = new Vuex.Store({
@@ -128,11 +128,11 @@ const store = new Vuex.Store({
 })
 ```
 
-Les accesseurs et actions sous espace de nom reçoivent des `getters`, `dispatch` et `commit` localisé. En d'autres termes, vous pouvez utiliser les paramètres de module sans écrire de prefix dans le même module. Permuter entre un espace de nom ou pas n'affecte pas le code à l'intérieur du module.
+Les accesseurs et actions sous espace de nom reçoivent des `getters`, `dispatch` et `commit` localisés. En d'autres termes, vous pouvez utiliser les paramètres de module sans écrire de prefix dans ce même module. Permuter entre un espace de nom ou non n'affecte pas le code à l'intérieur du module.
 
 #### Accéder aux propriétés globales dans les modules à espace de nom
 
-Si vous voulez utiliser des état et accesseurs globaux, `rootState` et `rootGetters` sont passés en 3ième et 4ième arguments des fonctions accès et sont également exposés en tant que propriété de l'objet `context` passé aux fonctions d'action.
+Si vous voulez utiliser des états et accesseurs globaux, `rootState` et `rootGetters` sont passés en 3ième et 4ième arguments des fonctions d'accès et sont également exposés en tant que propriété de l'objet `context` passé aux fonctions d'action.
 
 Pour propager les actions ou les mutations actées dans l'espace de nom global, passez `{ root: true }` en 3ième argument à `dispatch` et `commit`.
 
@@ -142,7 +142,7 @@ modules: {
     namespaced: true,
 
     getters: {
-      // Les `getters` sont localisé dans le module des accesseurs
+      // Les `getters` sont localisés dans le module des accesseurs
       // vous pouvez utiliser `rootGetters` via le 4ième argument des accesseurs
       someGetter (state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
@@ -172,7 +172,7 @@ modules: {
 
 #### Fonctions utilitaires liées avec espace de nom
 
-Quand nous lions un module à espace de nom à un composant avec les fonctions utilitaires `mapState`, `mapGetters`, `mapActions` and `mapMutations`, cela peut être légèrement verbeux :
+Quand nous lions un module sous espace de nom à un composant avec les fonctions utilitaires `mapState`, `mapGetters`, `mapActions` and `mapMutations`, cela peut être légèrement verbeux :
 
 ``` js
 computed: {
@@ -206,9 +206,9 @@ methods: {
 }
 ```
 
-#### Limitations pour les plugins de développeurs
+#### Limitations pour les plugins des développeurs
 
-Vous devez faire attention ou nom d'espace imprévisible pour vos modules quand vous créez un [plugin](plugins.md) qui fournit les modules et laisser les utilisateurs les ajouter au store de Vuex. Vos modules seront également sous espace de nom si l'utilisateur du plugin l'ajoute sous un module sous espace de nom. Pour vous adaptez à la situation, vous devez recevoir la valeur de l'espace de nom via vos options de plugin :
+Vous devez faire attention au nom d'espace imprévisible pour vos modules quand vous créez un [plugin](plugins.md) qui fournit les modules et laisser les utilisateurs les ajouter au store de Vuex. Vos modules seront également sous espace de nom si l'utilisateur du plugin l'ajoute sous un module sous espace de nom. Pour vous adaptez à la situation, vous devez recevoir la valeur de l'espace de nom via vos options de plugin :
 
 ```js
 // passer la valeur d'espace de nom via une option du plugin
@@ -238,7 +238,7 @@ store.registerModule(['nested', 'myModule'], {
 })
 ```
 
-L'état des modules seront disponibles dans `store.state.myModule` et `store.state.nested.myModule`.
+L'état des modules est disponible dans `store.state.myModule` et `store.state.nested.myModule`.
 
 L'enregistrement dynamique de module permet aux autres plugins Vue de bénéficier de la gestion de l'état de Vuex en attachant un module au store de l'application. Par exemple, la bibliothèque [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) intègre vue-router avec vuex en gérant l'état de la route d'application dans un module enregistré dynamiquement.
 
@@ -246,7 +246,7 @@ Vous pouvez aussi supprimer un module enregistré dynamiquement avec `store.unre
 
 ### Ré-utiliser un module
 
-Parfois nous devrons créer de multiples instances d'un module pour par exemple :
+Parfois nous devrons créer de multiples instances d'un module pour, par exemple :
 
 - créer plusieurs stores qui utilisent le même module ou
 - enregistrer le même module plusieurs fois dans le même store.
