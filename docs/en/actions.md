@@ -2,7 +2,7 @@
 
 Les actions sont similaires aux mutations, à la différence que :
 
-- Au lieu de modifier le state, les actions committent des mutations.
+- Au lieu de modifier l'état, les actions actent des mutations.
 - Les actions peuvent contenir des opérations asynchrones.
 
 Enregistrons une simple action :
@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Les handlers d'action reçoivent un objet contexte qui expose le même set de méthodes/propriétés que l'instance du store, donc vous pouvez appeler `context.commit` pour commiter une mutation, ou accéder au state et aux getters via `context.state` et `context.getters`. Nous verrons pourquoi cet objet contexte n'est pas l'instance du store elle-même lorsque nous présenterons les [Modules](moduels.md) plus tard.
+Les gestionnaires d'action reçoivent un objet contexte qui expose le même ensemble de méthodes et propriétés que l'instance du store, donc vous pouvez appeler `context.commit` pour acter une mutation, ou accéder à l'état et aux accesseurs via `context.state` et `context.getters`. Nous verrons pourquoi cet objet contexte n'est pas l'instance du store elle-même lorsque nous présenterons les [Modules](modules.md) plus tard.
 
 En pratique, nous utilisons souvent la [destructuration d'argument](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Affecter_par_d%C3%A9composition) pour simplifier quelque peu le code (particulièrement si nous avons besoin d'appeler `commit` plusieurs fois) :
 
@@ -37,7 +37,7 @@ actions: {
 }
 ```
 
-### Dispatcher des actions dans les composants
+### Propager des actions dans les composants
 
 Les actions sont déclenchées par la méthode `store.dispatch` :
 
@@ -57,22 +57,22 @@ actions: {
 }
 ```
 
-Les actions prennent en charge le même format de payload et *object-style dispatch* :
+Les actions prennent également en charge les paramètres additionnels (« payload ») et les objets pour propager :
 
 ``` js
-// dispatcher avec un payload
+// propager avec un paramètre additionnel
 store.dispatch('incrementAsync', {
   amount: 10
 })
 
-// dispatcher avec un object
+// propager avec un objet
 store.dispatch({
   type: 'incrementAsync',
   amount: 10
 })
 ```
 
-Un exemple plus pratique d'une application du monde réel serait une action pour check-out un panier d'achats, ce qui implique **d'appeler une API asynchrone** et de **comitter de multiples mutations** :
+Un exemple concret d'application serait une action pour vider un panier d'achats, ce qui implique **d'appeler une API asynchrone** et d'**acter de multiples mutations** :
 
 ``` js
 actions: {
@@ -82,23 +82,23 @@ actions: {
     // envoyer la requête de checkout,
     // et vider le panier
     commit(types.CHECKOUT_REQUEST)
-    // l'API du shop prend un callback success et un callback failure
+    // l'API de la boutique en ligne prend une fonction de rappel en cas de succès et une autre en cas d'échec
     shop.buyProducts(
       products,
-      // handle success
+      // gérer le succès
       () => commit(types.CHECKOUT_SUCCESS),
-      // handle failure
+      // gérer l'échec
       () => commit(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }
 }
 ```
 
-Notez que nous procédons à un flux d'opérations asynchrones, et enregistrons les effets de bord (mutation du state) de l'action en les committant.
+Notez que nous procédons à un flux d'opérations asynchrones, et enregistrons les effets de bord (mutation de l'état) de l'action en les actant.
 
-### Dispatcher des actions dans les composants
+### Propager des actions dans les composants
 
-Vous pouvez dispatcher des actions dans les composants avec `this.$store.dispatch('xxx')`, ou en utilisant le helper `mapActions` qui attache les méthodes du composant aux appels de `store.dispatch` (nécessite l'injection de `store` à la racine) :
+Vous pouvez propager des actions dans les composants avec `this.$store.dispatch('xxx')`, ou en utilisant la fonction utilitaire `mapActions` qui attache les méthodes du composant aux appels de `store.dispatch` (nécessite l'injection de `store` à la racine) :
 
 ``` js
 import { mapActions } from 'vuex'
@@ -109,7 +109,7 @@ export default {
     ...mapActions([
       'increment' // attacher `this.increment()` à `this.$store.dispatch('increment')`
 
-      // `mapActions` also supports payloads:
+      // `mapActions` supporte également les paramètres additionnels :
       'incrementBy' // attacher `this.incrementBy(amount)` à `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
@@ -123,7 +123,7 @@ export default {
 
 Les actions sont souvent asynchrones, donc comment savoir lorsqu'une action est terminée ? Et plus important, comment composer plusieurs actions ensemble pour manipuler des flux asynchrones plus complexes ?
 
-La première chose à savoir est que `store.dispatch` retourne la valeur retournée par le handler de l'action déclenchée, vous pouvez donc retourner une Promise :
+La première chose à savoir est que `store.dispatch` peut gérer la Promesse (« Promise ») retournée par le gestionnaire d'action déclenché et par conséquent vous pouvez également retourner une Promesse :
 
 ``` js
 actions: {
@@ -162,17 +162,17 @@ actions: {
 Pour finir, nous pouvons utiliser de [async / await](https://tc39.github.io/ecmascript-asyncawait/), une fonctionnalité JavaScript qui sera disponible très bientôt, nous pouvons composer nos actions ainsi :
 
 ``` js
-// sachant que getData() et getOtherData() retournent des Promises
+// sachant que `getData()` et `getOtherData()` retournent des Promesses.
 
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
   },
   async actionB ({ dispatch, commit }) {
-    await dispatch('actionA') // wait for actionA to finish
+    await dispatch('actionA') // attendre que `actionA` soit finie
     commit('gotOtherData', await getOtherData())
   }
 }
 ```
 
-> Il est possible pour un `store.dispatch` de déclencher plusieurs handlers d'action dans différents modules. Dans ce genre de cas, la valeur retournée sera une Promise qui se résoud quand tous les handlers déclenchés ont été résolus.
+> Il est possible pour un `store.dispatch` de déclencher plusieurs gestionnaires d'action dans différents modules. Dans ce genre de cas, la valeur retournée sera une Promesse qui se résoud quand tous les gestionnaires déclenchés ont été résolus.
