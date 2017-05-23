@@ -4,10 +4,10 @@ Les stores Vuex prennent une option `plugins` qui expose des hooks pour chaque m
 
 ``` js
 const myPlugin = store => {
-  // called when the store is initialized
+  // appelé quand le store est initialisé
   store.subscribe((mutation, state) => {
-    // called after every mutation.
-    // The mutation comes in the format of { type, payload }.
+    // appelé après chaque mutation.
+    // Les mutation arrivent au format `{ type, payload }`.
   })
 }
 ```
@@ -21,11 +21,11 @@ const store = new Vuex.Store({
 })
 ```
 
-### Commiter des mutations dans des plugins
+### Acter des mutations dans des plugins
 
-Les plugins ne sont pas autorisés à muter directement le state &mdash; tout comme vos composants, ils peuvent simplement déclencher des changements en committant des mutations.
+Les plugins ne sont pas autorisés à muter directement l'état. Tout comme vos composants, ils peuvent simplement déclencher des changements en actant des mutations.
 
-En commitant des mutations, un plugin peut être utilisé pour synchroniser la source de données avec le store. Par exemple, pour synchroniser la source de données d'un websocket vers le store (c'est juste un exemple artificiel, en réalité la fonction `createPlugin` peut prendre des options additionnelles pour des tâches plus complexes) :
+En actant des mutations, un plugin peut être utilisé pour synchroniser la source de données avec le store. Par exemple, pour synchroniser la source de données d'une websocket vers le store (c'est juste un exemple artificiel, en réalité la fonction `createPlugin` peut prendre des options additionnelles pour des tâches plus complexes) :
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -52,9 +52,9 @@ const store = new Vuex.Store({
 })
 ```
 
-### Prendre des instantanés du state
+### Prendre des instantanés de l'état
 
-Parfois un plugin peut vouloir reçevoir des "instantanés" du state, et également comparer le state post-mutation avec le state pre-mutation. Pour faire ceci, vous aurez besoin d'effectuer une deep-copy sur l'objet du state :
+Parfois un plugin peut vouloir recevoir des « instantanés » de l'état, et également comparer l'état post-mutation avec l'état pré-mutation. Pour faire ceci, vous aurez besoin d'effectuer une copie complète de l'état :
 
 ``` js
 const myPluginWithSnapshot = store => {
@@ -70,7 +70,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**Les plugins qui peuvent prendre des instantanés ne devraient être utilisés que pendant le développement.** Lorsqu'on utilise Webpack ou Browserify, on peut laisser nos devtools s'occuper de ça pour nous :
+**Les plugins qui peuvent prendre des instantanés ne devraient être utilisés que pendant le développement.** Lorsqu'on utilise webpack ou Browserify, on peut laisser nos outils de développement (« devtools ») s'occuper de ça pour nous :
 
 ``` js
 const store = new Vuex.Store({
@@ -81,13 +81,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Le plugin sera utilisé par défaut. Pour la production, vous aurez besoin de [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) pour Webpack ou de [envify](https://github.com/hughsk/envify) pour Browserify pour convertir la valeur de `process.env.NODE_ENV !== 'production'` à `false` pour le build final.
+Le plugin sera utilisé par défaut. Pour la production, vous aurez besoin de [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) pour webpack ou de [envify](https://github.com/hughsk/envify) pour Browserify pour convertir la valeur de `process.env.NODE_ENV !== 'production'` à `false` pour le build final.
 
-### Plugin logger intégré
+### Plugin de logs intégré
 
 > Si vous utilisez [vue-devtools](https://github.com/vuejs/vue-devtools) vous n'avez probablement pas besoin de ça.
 
-Vuex fournit un plugin de logger à des fins de debugging :
+Vuex fournit un plugin de logs à des fins de débogage :
 
 ``` js
 import createLogger from 'vuex/dist/logger'
@@ -103,23 +103,23 @@ La fonction `createLogger` prend quelques options :
 const logger = createLogger({
   collapsed: false, // auto-expand logged mutations
   filter (mutation, stateBefore, stateAfter) {
-    // returns true if a mutation should be logged
-    // `mutation` is a { type, payload }
+    // retourne `true` si une mutation devrait être logguée
+    // `mutation` est un `{ type, payload }`
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // transforme l'état avant de le logguer.
+    // retourne par exemple seulement un sous-arbre spécifique
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of { type, payload }
-    // we can format it any way we want.
+    // les mutations sont logguées au format `{ type, payload }`
+    // nous pouvons les formater comme nous le souhaitons.
     return mutation.type
   }
 })
 ```
 
-Le fichier logger peut aussi être inclus directement via une balise `script`, et exposera la fonction `createVuexLogger` globalement.
+Le fichier de logs peut aussi être inclus directement via une balise `script`, et exposera la fonction `createVuexLogger` globalement.
 
-Notez que le plugin logger peut prendre des instantanés du state, ne l'utilisez donc que durant le développement.
+Notez que le plugin de logs peut prendre des instantanés de l'état, ne l'utilisez donc que durant le développement.
