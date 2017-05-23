@@ -62,6 +62,7 @@ computed: {
 ```
 
 You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+
 ```js
 getters: {
   // ...
@@ -100,7 +101,7 @@ If you want to map a getter to a different name, use an object:
 
 ``` js
 ...mapGetters({
-  // map this.doneCount to store.getters.doneTodosCount
+  // map `this.doneCount` to `store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```

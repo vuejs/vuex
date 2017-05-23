@@ -36,7 +36,7 @@ new Vue({
 이것은 "단방향 데이터 흐름" 개념의 매우 단순한 도표입니다.
 
 <p style="text-align: center; margin: 2em">
-  <img style="max-width:450px;" src="./images/flow.png">
+  <img style="width:100%;max-width:450px;" src="./images/flow.png">
 </p>
 
 그러나 **공통의 상태를 공유하는 여러 컴포넌트** 가 있는 경우 단순함이 빠르게 저하됩니다.
