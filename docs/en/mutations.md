@@ -91,7 +91,7 @@ Puisqu'un état de store de Vuex est rendu réactif par Vue, lorsque nous mutons
     state.obj = { ...state.obj, newProp: 123 }
     ```
 
-### Utilisation de constante pour les noms de mutation
+### Utilisation de constante pour les types de mutation
 
 C'est une façon de faire régulière que d'utiliser des constantes pour les types de mutations dans diverses implémentations de Flux. Cela permet au code de bénéficier d'outils comme les linters (des outils d'aide à l'analyse syntaxique), et écrire toutes ces constantes dans un seul fichier permet à vos collaborateurs d'avoir un aperçu de quelles mutations sont possibles dans toute l'application :
 
