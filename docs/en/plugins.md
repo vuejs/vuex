@@ -62,9 +62,9 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // compare prevState and nextState...
+    // comparer `prevState` et `nextState`...
 
-    // save state for next mutation
+    // sauver l'état pour la prochaine mutation
     prevState = nextState
   })
 }
