@@ -70,6 +70,13 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
   return res
 })
 
+export const createNamespacedHelpers = (namespace) => ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+})
+
 function normalizeMap (map) {
   return Array.isArray(map)
     ? map.map(key => ({ key, val: key }))
