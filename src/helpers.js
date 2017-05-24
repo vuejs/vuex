@@ -2,8 +2,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
-      let state = this.$store.state
-      let getters = this.$store.getters
+      let { state, getters } = this.$store
       if (namespace) {
         const module = getModuleByNamespace(this.$store, 'mapState', namespace)
         if (!module) {
@@ -18,20 +17,6 @@ export const mapState = normalizeNamespace((namespace, states) => {
     }
     // mark vuex getter for devtools
     res[key].vuex = true
-  })
-  return res
-})
-
-export const mapMutations = normalizeNamespace((namespace, mutations) => {
-  const res = {}
-  normalizeMap(mutations).forEach(({ key, val }) => {
-    val = namespace + val
-    res[key] = function mappedMutation (...args) {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapMutations', namespace)) {
-        return
-      }
-      return this.$store.commit.apply(this.$store, [val].concat(args))
-    }
   })
   return res
 })
@@ -52,6 +37,20 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
     }
     // mark vuex getter for devtools
     res[key].vuex = true
+  })
+  return res
+})
+
+export const mapMutations = normalizeNamespace((namespace, mutations) => {
+  const res = {}
+  normalizeMap(mutations).forEach(({ key, val }) => {
+    val = namespace + val
+    res[key] = function mappedMutation (...args) {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapMutations', namespace)) {
+        return
+      }
+      return this.$store.commit.apply(this.$store, [val].concat(args))
+    }
   })
   return res
 })

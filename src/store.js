@@ -271,18 +271,15 @@ function installModule (store, rootState, path, module, hot) {
   const local = module.context = makeLocalContext(store, namespace, path)
 
   module.forEachMutation((mutation, key) => {
-    const namespacedType = namespace + key
-    registerMutation(store, namespacedType, mutation, local)
+    registerMutation(store, namespace + key, mutation, local)
   })
 
   module.forEachAction((action, key) => {
-    const namespacedType = namespace + key
-    registerAction(store, namespacedType, action, local)
+    registerAction(store, namespace + key, action, local)
   })
 
   module.forEachGetter((getter, key) => {
-    const namespacedType = namespace + key
-    registerGetter(store, namespacedType, getter, local)
+    registerGetter(store, namespace + key, getter, local)
   })
 
   module.forEachChild((child, key) => {
@@ -299,35 +296,41 @@ function makeLocalContext (store, namespace, path) {
 
   const local = {
     dispatch: noNamespace ? store.dispatch : (_type, _payload, _options) => {
-      const args = unifyObjectStyle(_type, _payload, _options)
-      const { payload, options } = args
-      let { type } = args
+      const {
+        type,
+        payload,
+        options
+      } = unifyObjectStyle(_type, _payload, _options)
+      let namespacedType = type
 
       if (!options || !options.root) {
-        type = namespace + type
-        if (process.env.NODE_ENV !== 'production' && !store._actions[type]) {
-          console.error(`[vuex] unknown local action type: ${args.type}, global type: ${type}`)
+        namespacedType = namespace + type
+        if (process.env.NODE_ENV !== 'production' && !store._actions[namespacedType]) {
+          console.error(`[vuex] unknown local action type: ${type}, global type: ${namespacedType}`)
           return
         }
       }
 
-      return store.dispatch(type, payload)
+      return store.dispatch(namespacedType, payload)
     },
 
     commit: noNamespace ? store.commit : (_type, _payload, _options) => {
-      const args = unifyObjectStyle(_type, _payload, _options)
-      const { payload, options } = args
-      let { type } = args
+      const {
+        type,
+        payload,
+        options
+      } = unifyObjectStyle(_type, _payload, _options)
+      let namespacedType = type
 
       if (!options || !options.root) {
-        type = namespace + type
-        if (process.env.NODE_ENV !== 'production' && !store._mutations[type]) {
-          console.error(`[vuex] unknown local mutation type: ${args.type}, global type: ${type}`)
+        namespacedType = namespace + type
+        if (process.env.NODE_ENV !== 'production' && !store._mutations[namespacedType]) {
+          console.error(`[vuex] unknown local mutation type: ${type}, global type: ${namespacedType}`)
           return
         }
       }
 
-      store.commit(type, payload, options)
+      store.commit(namespacedType, payload, options)
     }
   }
 

@@ -102,7 +102,7 @@ function makeAssertionMessage (path, key, type, value) {
   if (path.length > 0) {
     buf += ` in module "${path.join('.')}"`
   }
-  buf += ` is ${JSON.stringify(value)}.`
+  buf += ` is ${typeof value}.`
 
   return buf
 }
