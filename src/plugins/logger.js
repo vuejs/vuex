@@ -20,7 +20,6 @@ export default function createLogger ({
       if (filter(mutation, prevState, nextState)) {
         const time = new Date()
         const formattedTime = ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
-        const formattedMutation = mutationTransformer(mutation)
         const message = `mutation ${mutation.type}${formattedTime}`
         const startMessage = collapsed
           ? console.groupCollapsed
@@ -34,7 +33,7 @@ export default function createLogger ({
         }
 
         console.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
-        console.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
+        console.log('%c mutation', 'color: #03A9F4; font-weight: bold', mutationTransformer(mutation))
         console.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
 
         try {
