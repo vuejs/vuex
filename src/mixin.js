@@ -24,6 +24,9 @@ export default function (Vue) {
     const options = this.$options
     // store injection
     if (options.store) {
+      if (typeof options.store === 'function') {
+        options.store = options.store();
+      }
       this.$store = options.store
     } else if (options.parent && options.parent.$store) {
       this.$store = options.parent.$store
