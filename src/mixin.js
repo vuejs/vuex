@@ -25,7 +25,7 @@ export default function (Vue) {
     // store injection
     if (options.store) {
       if (typeof options.store === 'function') {
-        options.store = options.store();
+        options.store = options.store()
       }
       this.$store = options.store
     } else if (options.parent && options.parent.$store) {
