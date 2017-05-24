@@ -589,7 +589,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /mutations should be function but "mutations\.test" is null/
+      /mutations should be function but type of "mutations\.test" is object/
     )
 
     expect(() => {
@@ -607,7 +607,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /mutations should be function but "mutations\.test" in module "foo\.bar" is 123/
+      /mutations should be function but type of "mutations\.test" in module "foo\.bar" is number/
     )
   })
 
@@ -619,7 +619,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /actions should be function but "actions\.test" is "test"/
+      /actions should be function but type of "actions\.test" is string/
     )
 
     expect(() => {
@@ -637,7 +637,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /actions should be function but "actions\.test" in module "foo\.bar" is "error"/
+      /actions should be function but type of "actions\.test" in module "foo\.bar" is string/
     )
   })
 
@@ -649,7 +649,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /getters should be function but "getters\.test" is undefined/
+      /getters should be function but type of "getters\.test" is undefined/
     )
 
     expect(() => {
@@ -667,7 +667,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /getters should be function but "getters\.test" in module "foo\.bar" is true/
+      /getters should be function but type of "getters\.test" in module "foo\.bar" is boolean/
     )
   })
 })

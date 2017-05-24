@@ -98,7 +98,7 @@ function assertRawModule (path, rawModule) {
 }
 
 function makeAssertionMessage (path, key, type, value) {
-  let buf = `${key} should be function but "${key}.${type}"`
+  let buf = `${key} should be function but type of "${key}.${type}"`
   if (path.length > 0) {
     buf += ` in module "${path.join('.')}"`
   }
