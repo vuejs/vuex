@@ -25,8 +25,8 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> состояние модуля moduleA
-store.state.b // -> состояние модуля moduleB
+store.state.a // -> состояние модуля `moduleA`
+store.state.b // -> состояние модуля `moduleB`
 ```
 
 ### Локальное состояние модулей
@@ -38,7 +38,7 @@ const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // state указывает на локальное состояние модуля
+      // `state` указывает на локальное состояние модуля
       state.count++
     }
   },
