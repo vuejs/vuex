@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../src'
+import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
@@ -12,26 +12,47 @@ const state = {
 // mutations are operations that actually mutates the state.
 // each mutation handler gets the entire state tree as the
 // first argument, followed by additional payload arguments.
-// mutations must be synchronous and can be recorded by middlewares
+// mutations must be synchronous and can be recorded by plugins
 // for debugging purposes.
 const mutations = {
-  INCREMENT (state) {
+  increment (state) {
     state.count++
   },
-  DECREMENT (state) {
+  decrement (state) {
     state.count--
   }
 }
 
-// A Vuex instance is created by combining the state, the actions,
-// and the mutations. Because the actions and mutations are just
-// functions that do not depend on the instance itself, they can
-// be easily tested or even hot-reloaded (see counter-hot example).
-//
-// You can also provide middlewares, which is just an array of
-// objects containing some hooks to be called at initialization
-// and after each mutation.
+// actions are functions that causes side effects and can involve
+// asynchronous operations.
+const actions = {
+  increment: ({ commit }) => commit('increment'),
+  decrement: ({ commit }) => commit('decrement'),
+  incrementIfOdd ({ commit, state }) {
+    if ((state.count + 1) % 2 === 0) {
+      commit('increment')
+    }
+  },
+  incrementAsync ({ commit }) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        commit('increment')
+        resolve()
+      }, 1000)
+    })
+  }
+}
+
+// getters are functions
+const getters = {
+  evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
+}
+
+// A Vuex instance is created by combining the state, mutations, actions,
+// and getters.
 export default new Vuex.Store({
   state,
+  getters,
+  actions,
   mutations
 })

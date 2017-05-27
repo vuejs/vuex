@@ -15,14 +15,14 @@ The "Vuex way" to deal with it is binding the `<input>`'s value and call an acti
 ```
 ``` js
 // ...
-vuex: {
-  state: {
+computed: {
+  ...mapState({
     message: state => state.obj.message
-  },
-  actions: {
-    updateMessage: ({ dispatch }, e) => {
-      dispatch('UPDATE_MESSAGE', e.target.value)
-    }
+  })
+},
+methods: {
+  updateMessage (e) {
+    this.$store.commit('updateMessage', e.target.value)
   }
 }
 ```
@@ -32,10 +32,30 @@ And here's the mutation handler:
 ``` js
 // ...
 mutations: {
-  UPDATE_MESSAGE (state, message) {
+  updateMessage (state, message) {
     state.obj.message = message
   }
 }
 ```
 
-Admittedly, this is quite a bit more verbose than a simple `v-model`, but such is the cost of making state changes explicit and track-able. At the same time, do note that Vuex doesn't demand putting all your state inside a Vuex store - if you do not wish to track the mutations for form interactions at all, you can simply keep the form state outside of Vuex as component local state, which allows you to freely leverage `v-model`.
+### Two-way Computed Property
+
+Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
+
+``` html
+<input v-model="message">
+```
+``` js
+// ...
+computed: {
+  message: {
+    get () {
+      return this.$store.state.obj.message
+    },
+    set (value) {
+      this.$store.commit('updateMessage', value)
+    }
+  }
+}
+```
+

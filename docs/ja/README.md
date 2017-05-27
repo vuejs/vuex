@@ -1,1 +1,1 @@
-SUMMARY.md
+{% include "./SUMMARY.md" %}

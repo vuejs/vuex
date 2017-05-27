@@ -1,137 +1,174 @@
 # アクション
 
-アクションはミューテーションをディスパッチする機能です。アクションは非同期にすることができ、単一アクションは複数のミューテーションをディスパッチできます。
+アクションはミューテーションと似ていますが、下記の点で異なります:
 
-アクションは何かが起こるための意向を表しており、それを呼び出すコンポーネントから離れて詳細を抽象化します。コンポーネントが何かしたい場合アクション呼び出します。アクションはステート変化をもたらすため、コールバックまたは戻り値について心配する必要はなく、そしてステート変化は更新するコンポーネントの DOM をトリガします。コンポーネントは、アクションが実際に行われている方法から、完全に切り離されます。
+- アクションは、状態を変更するのではなく、ミューテーションをコミットします。
+- アクションは任意の非同期処理を含むことができます。
 
-それゆえ、通常アクション内部のデータエンドポイントへの API 呼び出しを行い、そしてアクションを呼び出すコンポーネントの両方から非同期に詳細を隠し、さらにミューテーションはアクションによってトリガされます。
-
-> Vuex のアクションは純粋な Flux の定義では実際には "アクションクリエータ (action creators)" ですが、私はその用語は便利よりも混乱していると見ています。
-
-### 単純なアクション
-
-アクションは単純に単一のミューテーションをトリガするのが一般的です。Vuex はそのようなアクションの定義するために省略記法を提供します:
+シンプルなアクションを登録してみましょう:
 
 ``` js
 const store = new Vuex.Store({
   state: {
-    count: 1
+    count: 0
   },
   mutations: {
-    INCREMENT (state, x) {
-      state.count += x
+    increment (state) {
+      state.count++
     }
   },
   actions: {
-    // 省略記法
-    // ミューテーション名を提供する
-    increment: 'INCREMENT'
-  }
-})
-```
-
-今、アクションを呼び出すとき:
-
-``` js
-store.actions.increment(1)
-```
-
-単純に私たちに対して以下を呼び出します:
-
-``` js
-store.dispatch('INCREMENT', 1)
-```
-
-アクションに渡される任意の引数は、ミューテーションハンドラに渡されることに注意してください。
-
-### 標準なアクション
-
-現在のステートに依存しているロジック、または非同期な操作を必要とするアクションについては、それらを関数として定義します。アクション関数は常に第1引数として呼び出す store を取得します:
-
-``` js
-const vuex = new Vuex({
-  state: {
-    count: 1
-  },
-  mutations: {
-    INCREMENT (state, x) {
-      state += x
-    }
-  },
-  actions: {
-    incrementIfOdd: (store, x) => {
-      if ((store.state.count + 1) % 2 === 0) {
-        store.dispatch('INCREMENT', x)
-      }
+    increment (context) {
+      context.commit('increment')
     }
   }
 })
 ```
 
+アクションハンドラはストアインスタンスのメソッドやプロパティのセットと同じものを呼び出せるコンテキストオブジェクトを受け取ります。したがって `context.commit` を呼び出すことでミューテーションをコミットできます。あるいは `context.state` や `context.getters` で、状態やゲッターにアクセスできます。なぜコンテキストオブジェクトがストアインスタンスそのものではないのかは、後ほど[モジュール](modules.md)で説明します。
 
-関数本体それほど冗長にしない ES6 の argument destructuring を使用するのが一般的です(ここでは、`dispatch` 関数は store インスタンスに事前にバインドされているように、それをメソッドとして呼び出す必要はありません):
+実際にはコードを少しシンプルにするために ES2015 の[引数分割束縛（argument destructuring）](https://github.com/lukehoban/es6features#destructuring)がよく使われます（特に `commit` を複数回呼び出す必要があるとき）:
 
 ``` js
-// ...
 actions: {
-  incrementIfOdd: ({ dispatch, state }, x) => {
-    if ((state.count + 1) % 2 === 0) {
-      dispatch('INCREMENT', x)
-    }
+  increment ({ commit }) {
+    commit('increment')
   }
 }
 ```
 
-以下のように、文字列省略記法は基本的に糖衣構文 (syntax sugar) です:
+### アクションのディスパッチ
+
+アクションは `store.dispatch` がトリガーとなって実行されます:
 
 ``` js
-actions: {
-  increment: 'INCREMENT'
-}
-// 以下に相当 ... :
-actions: {
-  increment: ({ dispatch }, ...payload) => {
-    dispatch('INCREMENT', ...payload)
-  }
-}
+store.dispatch('increment')
 ```
 
-### 非同期なアクション
-
-非同期なアクションの定義に対して同じ構文を使用することができます:
+これは一見ばかげて見えるかもしれません。つまり、カウントをインクリメントしたいときに、どうして直接 `store.commit('increment')` を呼び出してミューテーションをコミットしないのか、と。**ミューテーションは同期的でなければならない**というのを覚えていますか？アクションはそうではありません。アクションの中では**非同期**の操作を行うことができます。
 
 ``` js
-// ...
 actions: {
-  incrementAsync: ({ dispatch }, x) => {
+  incrementAsync ({ commit }) {
     setTimeout(() => {
-      dispatch('INCREMENT', x)
+      commit('increment')
     }, 1000)
   }
 }
 ```
 
-より実践的な例はショッピングカートをチェックアウトする場合です。複数のミューテーションをトリガする必要がある場合があります。チェックアウトを開始されたとき、成功、そして失敗の例を示します:
+アクションはペイロード形式とオブジェクトスタイルのディスパッチをサポートします:
 
 ``` js
-// ...
+// ペイロードを使ってディスパッチする
+store.dispatch('incrementAsync', {
+  amount: 10
+})
+
+// オブジェクトを使ってディスパッチする
+store.dispatch({
+  type: 'incrementAsync',
+  amount: 10
+})
+```
+
+より実践的な例として、ショッピングカートをチェックアウトするアクションを挙げます。このアクションは**非同期な API の呼び出し**と、**複数のミューテーションのコミット**をします:
+
+``` js
 actions: {
-  checkout: ({ dispatch, state }, products) => {
-    // カートアイテムで現在のアイテムを保存する
+  checkout ({ commit, state }, products) {
+    // 現在のカート内の商品を保存する
     const savedCartItems = [...state.cart.added]
-    // チェックアウトリクエストを送り出し、
-    // 楽観的にカートをクリアします
-    dispatch(types.CHECKOUT_REQUEST)
-    // shop API は成功コールバックと失敗コールバックを受け入れます
+    // チェックアウトのリクエストを送信し、楽観的にカート内をクリアする
+    commit(types.CHECKOUT_REQUEST)
+    // shop API は成功時のコールバックと失敗時のコールバックを受け取る
     shop.buyProducts(
       products,
-      // 成功処理
-      () => dispatch(types.CHECKOUT_SUCCESS),
-      // 失敗処理
-      () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
+      // 成功時の処理
+      () => commit(types.CHECKOUT_SUCCESS),
+      // 失敗時の処理
+      () => commit(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }
 }
 ```
 
-また、全てのコンポーネントは全体のチェックアウトを行うために `store.actions.checkout(products)` を呼び出す必要があります。
+一連の非同期の処理を実行しつつ、ミューテーションのコミットによってのみ副作用（状態の変更）を与えていることに注意してください。
+
+### コンポーネント内でのアクションのディスパッチ
+
+`this.$store.dispatch('xxx')` でコンポーネント内でアクションをディスパッチできます。あるいはコンポーネントのメソッドを `store.dispatch` にマッピングする `mapActions` ヘルパーを使うこともできます（ルートの `store` の注入が必要です）:
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions([
+      'increment' // this.increment() を this.$store.dispatch('increment') にマッピングする
+    ]),
+    ...mapActions({
+      add: 'increment' // this.add() を this.$store.dispatch('increment') にマッピングする
+    })
+  }
+}
+```
+
+### アクションを構成する
+
+アクションはしばしば非同期処理を行いますが、アクションが完了したことをどうやって知れば良いのでしょう？そしてもっと重要なことは、さらに複雑な非同期処理を取り扱うために、どうやって複数のアクションを構成させるかということです。
+
+まず知っておくべきことは `store.dispatch` がトリガーされたアクションハンドラによって返された Promise を処理できることと、`store.dispatch` もまた Promise を返すことです。
+
+``` js
+actions: {
+  actionA ({ commit }) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        commit('someMutation')
+        resolve()
+      }, 1000)
+    })
+  }
+}
+```
+
+すると次のようにできます:
+
+``` js
+store.dispatch('actionA').then(() => {
+  // ...
+})
+```
+
+また別のアクションで下記のように書くと:
+
+``` js
+actions: {
+  // ...
+  actionB ({ dispatch, commit }) {
+    return dispatch('actionA').then(() => {
+      commit('someOtherMutation')
+    })
+  }
+}
+```
+
+最終的に JavaScript の機能として近く導入される [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使用することで、次のようにアクションを組み合わせることができます:
+
+``` js
+// getData() と getOtherData() が Promise を返すことを想定している
+
+actions: {
+  async actionA ({ commit }) {
+    commit('gotData', await getData())
+  },
+  async actionB ({ dispatch, commit }) {
+    await dispatch('actionA') // actionA が完了するのを待機する
+    commit('gotOtherData', await getOtherData())
+  }
+}
+```
+
+> `store.dispatch` で異なるモジュール内の複数のアクションハンドラをトリガーすることができます。そのようなケースでは、全てのトリガーされたハンドラが解決されたときに解決する Promise が戻り値として返ってくることになります。

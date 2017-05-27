@@ -1,17 +1,24 @@
-# Table of Contents
+# Vuex
 
-> 注意：中文版文档目前只更新到 0.2.x 版本，最新版本的文档请看英文版。
+<!--email_off-->
+> 注意：本文档针对的是 vuex@2.x。
+<!--/email_off-->
 
-- [什么是 Vuex?](intro.md)
-- [核心概念](concepts.md)
+- [寻找 1.0 文档？](https://github.com/vuejs/vuex/tree/1.0/docs)
+- [更新记录](https://github.com/vuejs/vuex/releases)
+- [安装](installation.md)
+- [Vuex 是什么？](intro.md)
+- [开始](getting-started.md)
+- 核心概念
   - [State](state.md)
+  - [Getters](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
-- [数据流](data-flow.md)
-- [应用结构](structure.md)
-- [中间件](middlewares.md)
+  - [Modules](modules.md)
+- [项目结构](structure.md)
+- [插件](plugins.md)
 - [严格模式](strict.md)
 - [表单处理](forms.md)
 - [测试](testing.md)
 - [热重载](hot-reload.md)
-- [API Reference](api.md)
+- [API 文档](api.md)

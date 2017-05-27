@@ -1,4 +1,4 @@
-# API
+# API 参考
 
 ### Vuex.Store
 
@@ -8,86 +8,171 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Vuex.Store 构造选项
+### Vuex.Store 构造器选项
 
 - **state**
 
-  - type: `Object`
+  - 类型: `Object`
 
-    Vuex 实例中 state 对象的根。
+    Vuex store 实例的根 state 对象。
 
-    [详细](state.md)
+    [详细介绍](state.md)
 
 - **mutations**
 
-  - type: `Object | Array<Object>`
+  - 类型: `{ [type: string]: Function }`
 
-    一个以 mutation 名为 key, mutation handler 为 value 的对象。Handler function 接受的第一个参数是 `state` 和在后面的所有 dispatch 传来的参数。
+    在 store 上注册 mutation，处理函数总是接受 `state` 作为第一个参数（如果定义在模块中，则为模块的局部状态），`payload` 作为第二个参数（可选）。
 
-    如果传来一个对象数组，这些对象会自动合并到一个对象中。
-
-    [详细](mutations.md)
+    [详细介绍](mutations.md)
 
 - **actions**
 
-  - type: `Object | Array<Object>`
+  - 类型: `{ [type: string]: Function }`
 
-    一个以 action 名为 key 的对象，value 可能为
-
-    1. 一个 mutation 名字的 string, 或
-    2. 一个函数。该函数将获取 store 实例为第一个参数，以及其他可能的 payload 参数。
-
-    Vuex 会将他们转化为可以被调用的 action 函数，并暴露到 store 实例的 `actions` 对象上。
-
-    如果传来一个对象数组，这些对象会自动合并到一个对象中。
-
-    [详细](actions.md)
-
-- **middlewares**
-
-  - type: `Array<Object>`
-
-    中间件对象的数组。中间件对象是这样的：
+    在 store 上注册 action。处理函数接受一个 `context` 对象，包含以下属性：
 
     ``` js
     {
-      snapshot: Boolean, // default: false
-      onInit: Function,
-      onMutation: Function
+      state,     // 等同于 store.state, 若在模块中则为局部状态
+      rootState, // 等同于 store.state, 只存在于模块中
+      commit,    // 等同于 store.commit
+      dispatch,  // 等同于 store.dispatch
+      getters    // 等同于 store.getters
     }
     ```
 
-    所有属性都是可选的. [详细](middlewares.md)
+    [详细介绍](actions.md)
+
+- **getters**
+
+  - 类型: `{ [key: string]: Function }`
+
+  在 store 上注册 getter，getter 方法接受以下参数：
+
+    ```
+    state,     // 如果在模块中定义则为模块的局部状态
+    getters,   // 等同于 store.getters
+    rootState  // 等同于 store.state
+    ```
+    注册的 getter 暴露为 `store.getters`。
+
+    [详细介绍](getters.md)
+
+- **modules**
+
+  - 类型: `Object`
+
+    包含了子模块的对象，会被合并到 store，大概长这样：
+
+    ``` js
+    {
+      key: {
+        state,
+        mutations,
+        actions?,
+        getters?,
+        modules?
+      },
+      ...
+    }
+    ```
+
+    与根模块的选项一样，每个模块也包含 `state` 和 `mutations` 选项。模块的状态使用 key 关联到 store 的根状态。模块的 mutation 和 getter 只会接收 module 的局部状态作为第一个参数，而不是根状态，并且模块 action 的 `context.state` 同样指向局部状态。
+
+    [详细介绍](modules.md)
+
+- **plugins**
+
+  - 类型: `Array<Function>`
+
+    一个数组，包含应用在 store 上的插件方法。这些插件直接接收 store 作为唯一参数，可以监听 mutation（用于外部地数据持久化、记录或调试）或者提交 mutation （用于内部数据，例如 websocket 或 某些观察者）
+
+    [详细介绍](plugins.md)
 
 - **strict**
 
-  - type: `Boolean`
-  - default: `false`
+  - 类型: `Boolean`
+  - 默认值: `false`
 
-    使 Vuex store 实例进入严格模式。严格模式中，在 mutation handler 外部对该 store 的 state 做任何操作均会抛出错误。
+    使 Vuex store 进入严格模式，在严格模式下，任何 mutation 处理函数以外修改 Vuex state 都会抛出错误。
 
-    [详细](strict.md)
+    [详细介绍](strict.md)
 
 ### Vuex.Store 实例属性
 
 - **state**
 
-  - type: `Object`
+  - 类型: `Object`
 
-    根 state，只读。
+    根状态，只读。
 
-- **actions**
+- **getters**
 
-  - type: `Object`
+  - 类型: `Object`
 
-    可被调用的 action 函数。
+    暴露出注册的 getter，只读。
 
 ### Vuex.Store 实例方法
 
-- **dispatch(mutationName: String, ...args)**
+- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
 
-  直接触发一个 mutation。在一些特殊情况下会需要用到这个方法，但通常来说，在组件中应当尽量通过调用 actions 来触发 mutation。
+  提交 mutation。 [详细介绍](mutations.md)
 
-- **hotUpdate(newOptions: Object)**
+- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
 
-  热更新 actions 和 mutations. [详细](hot-reload.md)
+  分发 action。返回 action 方法的返回值，如果多个处理函数被触发，那么返回一个 Pormise。 [详细介绍](actions.md)
+
+
+- **`replaceState(state: Object)`**
+
+  替换 store 的根状态，仅用状态合并或 time-travel 调试。
+
+- **`watch(getter: Function, cb: Function, options?: Object)`**
+
+  响应式地监测一个 getter 方法的返回值，当值改变时调用回调函数。getter 接收 store 的状态作为唯一参数。接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
+
+  要停止监测，直接调用返回的处理函数。
+
+- **`subscribe(handler: Function)`**
+
+  注册监听 store 的 mutation。`handler` 会在每个 mutation 完成后调用，接收 mutation 和经过 mutation 后的状态作为参数：
+
+  ``` js
+  store.subscribe((mutation, state) => {
+    console.log(mutation.type)
+    console.log(mutation.payload)
+  })
+  ```
+
+  通常用于插件。 [详细介绍](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module)`**
+
+  注册一个动态模块。 [详细介绍](modules.md#dynamic-module-registration)
+
+- **`unregisterModule(path: string | Array<string>)`**
+
+  卸载一个动态模块。 [详细介绍](modules.md#dynamic-module-registration)
+
+- **`hotUpdate(newOptions: Object)`**
+
+  热替换新的 action 和 mutation。 [详细介绍](hot-reload.md)
+
+### 组件绑定的辅助函数
+
+- **`mapState(map: Array<string> | Object): Object`**
+
+  创建组件的计算属性返回 Vuex store 中的状态。 [详细介绍](state.md#the-mapstate-helper)
+
+- **`mapGetters(map: Array<string> | Object): Object`**
+
+  创建组件的计算属性返回 getter 的返回值。 [详细介绍](getters.md#the-mapgetters-helper)
+
+- **`mapActions(map: Array<string> | Object): Object`**
+
+  创建组件方法分发 action。 [详细介绍](actions.md#dispatching-actions-in-components)
+
+- **`mapMutations(map: Array<string> | Object): Object`**
+
+  创建组件方法提交 mutation。 [详细介绍](mutations.md#commiting-mutations-in-components)

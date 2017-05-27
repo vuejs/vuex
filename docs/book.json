@@ -1,9 +1,9 @@
 {
-  "gitbook": "2.x.x",
-  "plugins": ["edit-link", "prism", "-highlight", "github"],
+  "gitbook": ">3.0.0",
+  "plugins": ["edit-link", "prism", "theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git", "-fontsettings", "-highlight", "github"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/vuejs/vuex/tree/master/docs",
+      "base": "https://github.com/vuejs/vuex/tree/dev/docs",
       "label": "Edit This Page"
     },
     "github": {

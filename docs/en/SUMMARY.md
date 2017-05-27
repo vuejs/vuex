@@ -1,16 +1,22 @@
-# Table of Contents
+# Vuex
 
-> Make sure you read the sections in order.
+<!--email_off-->
+> Note: This is docs for vuex@2.x.
+<!--/email_off-->
 
+- [Looking for 1.0 Docs?](https://github.com/vuejs/vuex/tree/1.0/docs)
+- [Release Notes](https://github.com/vuejs/vuex/releases)
+- [Installation](installation.md)
 - [What is Vuex?](intro.md)
 - [Getting Started](getting-started.md)
 - Core Concepts
   - [State](state.md)
+  - [Getters](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
-- [Data Flow](data-flow.md)
+  - [Modules](modules.md)
 - [Application Structure](structure.md)
-- [Middlewares](middlewares.md)
+- [Plugins](plugins.md)
 - [Strict Mode](strict.md)
 - [Form Handling](forms.md)
 - [Testing](testing.md)

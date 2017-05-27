@@ -1,49 +1,66 @@
 /**
- * Merge an array of objects into one.
+ * Get the first item that pass the test
+ * by second argument function
  *
- * @param {Array<Object>} arr
- * @return {Object}
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
  */
-
-export function mergeObjects (arr) {
-  return arr.reduce((prev, obj) => {
-    Object.keys(obj).forEach(key => {
-      const existing = prev[key]
-      if (existing) {
-        // allow multiple mutation objects to contain duplicate
-        // handlers for the same mutation type
-        if (Array.isArray(existing)) {
-          existing.push(obj[key])
-        } else {
-          prev[key] = [prev[key], obj[key]]
-        }
-      } else {
-        prev[key] = obj[key]
-      }
-    })
-    return prev
-  }, {})
+function find (list, f) {
+  return list.filter(f)[0]
 }
 
 /**
- * Deep clone an object. Faster than JSON.parse(JSON.stringify()).
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
  *
  * @param {*} obj
+ * @param {Array<Object>} cache
  * @return {*}
  */
-
-export function deepClone (obj) {
-  if (Array.isArray(obj)) {
-    return obj.map(deepClone)
-  } else if (obj && typeof obj === 'object') {
-    var cloned = {}
-    var keys = Object.keys(obj)
-    for (var i = 0, l = keys.length; i < l; i++) {
-      var key = keys[i]
-      cloned[key] = deepClone(obj[key])
-    }
-    return cloned
-  } else {
+export function deepCopy (obj, cache = []) {
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
     return obj
   }
+
+  // if obj is hit, it is in circular structure
+  const hit = find(cache, c => c.original === obj)
+  if (hit) {
+    return hit.copy
+  }
+
+  const copy = Array.isArray(obj) ? [] : {}
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy
+  })
+
+  Object.keys(obj).forEach(key => {
+    copy[key] = deepCopy(obj[key], cache)
+  })
+
+  return copy
+}
+
+/**
+ * forEach for object
+ */
+export function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(key => fn(obj[key], key))
+}
+
+export function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+export function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+export function assert (condition, msg) {
+  if (!condition) throw new Error(`[vuex] ${msg}`)
 }

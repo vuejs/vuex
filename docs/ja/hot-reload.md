@@ -1,29 +1,44 @@
 # ホットリローディング
 
-Vuex は開発においてホットリローディングなアクションとミューテーションをサポートします。Webpack は [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) を使用します。Browserify においても [browserify-hmr](https://github.com/AgentME/browserify-hmr/) プラグインによって使用することができます。
+Vuex は Webpack の [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) を使用することで、アプリケーションの開発を行っている間のミューテーション、モジュール、アクション、ゲッターのホットリローディングをサポートします。Browserify では [browserify-hmr](https://github.com/AgentME/browserify-hmr/) プラグインを使用することができます。
 
-新しいアクションとミューテーションによって `store.hotUpdate()` として呼び出すのと同じくらい簡単です:
+ミューテーションとモジュールのホットリローディングのために、`store.hotUpdate()`  API メソッドを利用する必要があります:
 
 ``` js
-// ...
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import mutations from './mutations'
+import moduleA from './modules/a'
+
+Vue.use(Vuex)
+
+const state = { ... }
+
 const store = new Vuex.Store({
   state,
-  actions,
-  mutations
+  mutations,
+  modules: {
+    a: moduleA
+  }
 })
 
 if (module.hot) {
-  // ホットモジュールとしてアクションとモジュールを受け付ける
-  module.hot.accept(['./actions', './mutations'], () => {
+  // ホットモジュールとしてアクションとモジュールを受け付けます
+  module.hot.accept(['./mutations', './modules/a'], () => {
     // 更新されたモジュールをインポートする
-    // babel 6 モジュール出力のため、ここでは .default を追加しなければならない
+    // babel 6 のモジュール出力のため、ここでは .default を追加しなければならない
     const newActions = require('./actions').default
     const newMutations = require('./mutations').default
     // 新しいアクションとミューテーションにスワップ
     store.hotUpdate({
-      actions: newActions,
-      mutations: newMutations
+      mutations: newMutations,
+      modules: {
+        a: newModuleA
+      }
     })
   })
 }
 ```
+
+ホットリローディングを試したい場合は、[counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot)をチェックアウトしてください。

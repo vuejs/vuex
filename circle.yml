@@ -1,3 +1,5 @@
 machine:
   node:
-    version: 4
+    version: 5
+  environment:
+    BABEL_ENV: development

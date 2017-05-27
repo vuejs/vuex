@@ -8,8 +8,10 @@
     <ul class="thread-list">
       <thread
         v-for="thread in threads"
-        track-by="id"
-        :thread="thread">
+        :key="thread.id"
+        :thread="thread"
+        :active="thread.id === currentThread.id"
+        @switch-thread="switchThread">
       </thread>
     </ul>
   </div>
@@ -17,15 +19,16 @@
 
 <script>
 import Thread from './Thread.vue'
+import { mapGetters } from 'vuex'
 
 export default {
+  name: 'ThreadSection',
   components: { Thread },
-  vuex: {
-    state: {
-      threads: state => state.threads
-    }
-  },
   computed: {
+    ...mapGetters([
+      'threads',
+      'currentThread'
+    ]),
     unreadCount () {
       const threads = this.threads
       return Object.keys(threads).reduce((count, id) => {
@@ -33,6 +36,11 @@ export default {
           ? count
           : count + 1
       }, 0)
+    }
+  },
+  methods: {
+    switchThread (id) {
+      this.$store.dispatch('switchThread', { id })
     }
   }
 }

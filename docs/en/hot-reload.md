@@ -41,4 +41,4 @@ if (module.hot) {
 }
 ```
 
-You don't need to do anything specific for actions and getters. Webpack's hot module replacement system will "bubble" changes up the dependency chain - and changes in actions and getters will bubble up to the Vue components that imported them. Because Vue components loaded via `vue-loader` are automatically hot-reloadable, these affected components will hot-reload themselves and use the updated actions and getters.
+Checkout the [counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) to play with hot-reload.

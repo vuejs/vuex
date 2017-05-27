@@ -1,50 +1,51 @@
 <template>
   <div class="message-section">
     <h3 class="message-thread-heading">{{ thread.name }}</h3>
-    <ul class="message-list" v-el:list>
+    <ul class="message-list" ref="list">
       <message
-        v-for="message in messages | orderBy 'timestamp'"
-        track-by="id"
+        v-for="message in sortedMessages"
+        :key="message.id"
         :message="message">
       </message>
     </ul>
-    <textarea class="message-composer" @keyup.enter="trySendMessage"></textarea>
+    <textarea class="message-composer" @keyup.enter="sendMessage"></textarea>
   </div>
 </template>
 
 <script>
 import Message from './Message.vue'
-import { sendMessage } from '../vuex/actions'
+import { mapGetters } from 'vuex'
 
 export default {
+  name: 'MessageSection',
   components: { Message },
-  vuex: {
-    state: {
-      thread ({ currentThreadID, threads }) {
-        return currentThreadID ? threads[currentThreadID] : {}
-      },
-      messages ({ messages }) {
-        const messageIds = this.thread.messages
-        return messageIds && messageIds.map(id => messages[id])
-      }
-    },
-    actions: {
-      sendMessage
+  computed: {
+    ...mapGetters({
+      thread: 'currentThread',
+      messages: 'currentMessages'
+    }),
+    sortedMessages () {
+      return this.messages
+        .slice()
+        .sort((a, b) => a.timestamp - b.timestamp)
     }
   },
   watch: {
     'thread.lastMessage': function () {
       this.$nextTick(() => {
-        const ul = this.$els.list
+        const ul = this.$refs.list
         ul.scrollTop = ul.scrollHeight
       })
     }
   },
   methods: {
-    trySendMessage (e) {
+    sendMessage (e) {
       const text = e.target.value
       if (text.trim()) {
-        this.sendMessage(text, this.thread)
+        this.$store.dispatch('sendMessage', {
+          text,
+          thread: this.thread
+        })
         e.target.value = ''
       }
     }

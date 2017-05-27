@@ -14,24 +14,23 @@
 </template>
 
 <script>
-import { checkout } from '../vuex/actions'
-import { cartProducts } from '../vuex/getters'
+import { mapGetters } from 'vuex'
 
 export default {
-  vuex: {
-    state: {
-      products: cartProducts,
-      checkoutStatus: ({ cart }) => cart.lastCheckout
-    },
-    actions: {
-      checkout
-    }
-  },
   computed: {
+    ...mapGetters({
+      products: 'cartProducts',
+      checkoutStatus: 'checkoutStatus'
+    }),
     total () {
       return this.products.reduce((total, p) => {
         return total + p.price * p.quantity
       }, 0)
+    }
+  },
+  methods: {
+    checkout (products) {
+      this.$store.dispatch('checkout', products)
     }
   }
 }

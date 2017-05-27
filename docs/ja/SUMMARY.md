@@ -1,17 +1,24 @@
-# Table of Contents
+# Vuex
 
-> Note: The Japanese docs are currently for 0.2.x only. For the latest version please see the English docs instead.
+<!--email_off-->
+> 注意: これは vuex@2.x のドキュメントです
+<!--/email_off-->
 
-- [Vuex は何ですか？](intro.md)
-- [中核概念](concepts.md)
+- [1.0のドキュメントをお探しですか？](https://github.com/vuejs/vuex/tree/1.0/docs/ja)
+- [リリースノート](https://github.com/vuejs/vuex/releases)
+- [インストール](installation.md)
+- [Vuex とは何か?](intro.md)
+- [Vuex 入門](getting-started.md)
+- コアコンセプト 
   - [ステート](state.md)
+  - [ゲッター](getters.md)
   - [ミューテーション](mutations.md)
   - [アクション](actions.md)
-- [データフロー](data-flow.md)
+  - [モジュール](modules.md)
 - [アプリケーションの構造](structure.md)
-- [ミドルウェア](middlewares.md)
+- [プラグイン](plugins.md)
 - [厳格モード](strict.md)
-- [フォームのハンドリング](forms.md)
+- [フォームの扱い](forms.md)
 - [テスト](testing.md)
 - [ホットリローディング](hot-reload.md)
 - [API リファレンス](api.md)

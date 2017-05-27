@@ -1,135 +1,174 @@
 # Actions
 
-Actions 是用于 dispatch mutations 的函数。Actions 可以是异步的，一个 action 可以 dispatch 多个 mutations.
+Action 类似于 mutation，不同在于：
 
-一个 action 描述了有什么事情应该发生，把本应该在组件中调用的逻辑细节抽象出来。当一个组件需要做某件事时，只需要调用一个 action —— 组件本身并不需要关心具体的后果：不需要提供回调函数也不需要期待返回值，因为 actions 的结果一定是 state 产生了变化，而 state 一旦变化，便会触发组件的 DOM 更新。 这样，组件便完全和 action 的具体逻辑解耦了。
+- Action 提交的是 mutation，而不是直接变更状态。
+- Action 可以包含任意异步操作。
 
-因此，我们通常在 actions 中做 API 相关的请求。通过 actions 的封装，我们使得组件和 mutations 都不需要关心这些异步逻辑。
-
-> Vuex actions 和 Flux 中的 "action creators" 是等同的概念，但是我觉得这个定义常让人感到困惑（比如分不清 actions 和 action creators）。
-
-### 简单的 Actions
-
-最简单的情况下，一个 action 即触发一个 mutation。Vuex 提供一个快捷的方式去定义这样的 actions:
+让我们来注册一个简单的 action：
 
 ``` js
 const store = new Vuex.Store({
   state: {
-    count: 1
+    count: 0
   },
   mutations: {
-    INCREMENT (state, x) {
-      state += x
+    increment (state) {
+      state.count++
     }
   },
   actions: {
-    // 快捷定义
-    // 只要提供 mutation 名
-    increment: 'INCREMENT'
-  }
-})
-```
-
-调用 action:
-
-``` js
-store.actions.increment(1)
-```
-
-这相当于调用：
-
-``` js
-store.dispatch('INCREMENT', 1)
-```
-
-注意所有传递给 action 的参数同样会传递给 mutation handler.
-
-### 正常 Actions
-
-对于包含逻辑或是异步操作的 actions，则用函数来定义。Actions 函数获得的第一个参数永远是其所属的 store 实例：
-
-``` js
-const store = new Vuex.Store({
-  state: {
-    count: 1
-  },
-  mutations: {
-    INCREMENT (state, x) {
-      state += x
-    }
-  },
-  actions: {
-    incrementIfOdd: (store, x) => {
-      if ((store.state.count + 1) % 2 === 0) {
-        store.dispatch('INCREMENT', x)
-      }
+    increment (context) {
+      context.commit('increment')
     }
   }
 })
 ```
 
-通常我们会用 ES6 的参数解构 (arguments destructuring) 语法来使得函数体更简洁：
+Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 `context.commit` 提交一个 mutation，或者通过 `context.state` 和 `context.getters` 来获取 state 和 getters。当我们在之后介绍到 [Modules](modules.md) 时，你就知道 context 对象为什么不是 store 实例本身了。
+
+实践中，我们会经常会用到 ES2015 的 [参数解构](https://github.com/lukehoban/es6features#destructuring) 来简化代码（特别是我们需要调用 `commit` 很多次的时候）：
 
 ``` js
-// ...
 actions: {
-  incrementIfOdd: ({ dispatch, state }, x) => {
-    if ((state.count + 1) % 2 === 0) {
-      dispatch('INCREMENT', x)
-    }
+  increment ({ commit }) {
+    commit('increment')
   }
 }
 ```
 
-同时，简单 actions 的快捷定义其实只是如下函数的语法糖：
+### 分发 Action
+
+Action 通过 `store.dispatch` 方法触发：
 
 ``` js
-actions: {
-  increment: 'INCREMENT'
-}
-// ... 上面的定义等同于：
-actions: {
-  increment: ({ dispatch }, ...payload) => {
-    dispatch('INCREMENT', ...payload)
-  }
-}
+store.dispatch('increment')
 ```
 
-### 异步 Actions
-
-异步 actions 同样使用函数定义：
+乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 **mutation 必须同步执行**这个限制么？Action 就不受约束！我们可以在 action 内部执行**异步**操作：
 
 ``` js
-// ...
 actions: {
-  incrementAsync: ({ dispatch }, x) => {
+  incrementAsync ({ commit }) {
     setTimeout(() => {
-      dispatch('INCREMENT', x)
+      commit('increment')
     }, 1000)
   }
 }
 ```
 
-举个更实在的例子，比如一个购物车。当用户结账时，我们可能需要在 checkout 这一个 action 中触发多个不同的 mutations：一个在开始检查购物车时触发，一个在成功后触发，还有一个在失败时触发。
+Actions 支持同样的载荷方式和对象方式进行分发：
 
 ``` js
-// ...
+// 以载荷形式分发
+store.dispatch('incrementAsync', {
+  amount: 10
+})
+
+// 以对象形式分发
+store.dispatch({
+  type: 'incrementAsync',
+  amount: 10
+})
+```
+
+来看一个更加实际的购物车示例，涉及到**调用异步 API** 和 **分发多重 mutations**：
+
+``` js
 actions: {
-  checkout: ({ dispatch, state }, products) => {
-    // 保存结账前的购物车内容
+  checkout ({ commit, state }, products) {
+    // 把当前购物车的物品备份起来
     const savedCartItems = [...state.cart.added]
-    // 发出结账的请求，并且清空购物车
-    dispatch(types.CHECKOUT_REQUEST)
-    // 假设我们的后台 API 接受一个成功回调和一个错误回调
+    // 发出结账请求，然后乐观地清空购物车
+    commit(types.CHECKOUT_REQUEST)
+    // 购物 API 接受一个成功回调和一个失败回调
     shop.buyProducts(
       products,
-      // 结账成功
-      () => dispatch(types.CHECKOUT_SUCCESS),
-      // 结账失败，将购物车恢复到结账之前的状态
-      () => dispatch(types.CHECKOUT_FAILURE, savedCartItems)
+      // 成功操作
+      () => commit(types.CHECKOUT_SUCCESS),
+      // 失败操作
+      () => commit(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }
 }
 ```
 
-这里有相对复杂的异步逻辑，但是购物车的组件依然只需要简单地调用 `store.actions.checkout(products)` 即可.
+注意我们正在进行一系列的异步操作，并且通过提交 mutation 来记录 action 产生的副作用（即状态变更）。
+
+### 在组件中分发 Action
+
+你在组件中使用 `this.$store.dispatch('xxx')` 分发 action，或者使用 `mapActions` 辅助函数将组件的 methods 映射为 `store.dispatch` 调用（需要先在根节点注入 `store`）：
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions([
+      'increment' // 映射 this.increment() 为 this.$store.dispatch('increment')
+    ]),
+    ...mapActions({
+      add: 'increment' // 映射 this.add() 为 this.$store.dispatch('increment')
+    })
+  }
+}
+```
+
+### 组合 Actions
+
+Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
+
+首先，你需要明白 `store.dispatch` 可以处理被触发的action的回调函数返回的Promise，并且store.dispatch仍旧返回Promise：
+
+``` js
+actions: {
+  actionA ({ commit }) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        commit('someMutation')
+        resolve()
+      }, 1000)
+    })
+  }
+}
+```
+
+现在你可以：
+
+``` js
+store.dispatch('actionA').then(() => {
+  // ...
+})
+```
+
+在另外一个 action 中也可以：
+
+``` js
+actions: {
+  // ...
+  actionB ({ dispatch, commit }) {
+    return dispatch('actionA').then(() => {
+      commit('someOtherMutation')
+    })
+  }
+}
+```
+
+最后，如果我们利用 [async / await](https://tc39.github.io/ecmascript-asyncawait/) 这个 JavaScript 即将到来的新特性，我们可以像这样组合 action：
+
+``` js
+// 假设 getData() 和 getOtherData() 返回的是 Promise
+
+actions: {
+  async actionA ({ commit }) {
+    commit('gotData', await getData())
+  },
+  async actionB ({ dispatch, commit }) {
+    await dispatch('actionA') // 等待 actionA 完成
+    commit('gotOtherData', await getOtherData())
+  }
+}
+```
+
+> 一个 `store.dispatch` 在不同模块中可以触发多个 action 函数。在这种情况下，只有当所有触发函数完成后，返回的 Promise 才会执行。

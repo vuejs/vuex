@@ -1,8 +1,8 @@
 <template>
   <li
     class="thread-list-item"
-    :class="{ active: isCurrentThread }"
-    @click="switchThread(thread.id)">
+    :class="{ active: active }"
+    @click="$emit('switch-thread', thread.id)">
     <h5 class="thread-name">{{ thread.name }}</h5>
     <div class="thread-time">
       {{ thread.lastMessage.timestamp | time }}
@@ -14,19 +14,11 @@
 </template>
 
 <script>
-import { switchThread } from '../vuex/actions'
-
 export default {
-  props: ['thread'],
-  vuex: {
-    state: {
-      isCurrentThread ({ currentThreadID }) {
-        return this.thread.id === currentThreadID
-      }
-    },
-    actions: {
-      switchThread
-    }
+  name: 'Thread',
+  props: {
+    thread: Object,
+    active: Boolean
   }
 }
 </script>
