@@ -107,13 +107,13 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment', // map this.increment() to this.$store.dispatch('increment')
+      'increment', // map `this.increment()` to `this.$store.dispatch('increment')`
       
-      // mapActions also supports payloads:
-      'incrementBy' // this.incrementBy(amount) maps to this.$store.dispatch('incrementBy', amount)
+      // `mapActions` also supports payloads:
+      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
-      add: 'increment' // map this.add() to this.$store.dispatch('increment')
+      add: 'increment' // map `this.add()` to `this.$store.dispatch('increment')`
     })
   }
 }
@@ -162,14 +162,14 @@ actions: {
 Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), a JavaScript feature landing very soon, we can compose our actions like this:
 
 ``` js
-// assuming getData() and getOtherData() return Promises
+// assuming `getData()` and `getOtherData()` return Promises
 
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
   },
   async actionB ({ dispatch, commit }) {
-    await dispatch('actionA') // wait for actionA to finish
+    await dispatch('actionA') // wait for `actionA` to finish
     commit('gotOtherData', await getOtherData())
   }
 }

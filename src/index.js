@@ -1,5 +1,5 @@
 import { Store, install } from './store'
-import { mapState, mapMutations, mapGetters, mapActions } from './helpers'
+import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from './helpers'
 
 export default {
   Store,
@@ -8,5 +8,6 @@ export default {
   mapState,
   mapMutations,
   mapGetters,
-  mapActions
+  mapActions,
+  createNamespacedHelpers
 }
