@@ -100,7 +100,7 @@ export default {
 
 ``` js
 ...mapGetters({
-  // проксируем this.doneCount в store.getters.doneTodosCount
+  // проксируем `this.doneCount` в `store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```

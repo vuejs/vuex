@@ -107,13 +107,13 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // проксирует this.increment() в this.$store.dispatch('increment')
+      'increment' // проксирует `this.increment()` в `this.$store.dispatch('increment')`
 
-      // mapActions также поддерживают нагрузку (payloads):
-      'incrementBy' // проксирует this.incrementBy(amount) в this.$store.dispatch('incrementBy', amount)
+      // `mapActions` также поддерживают нагрузку (payloads):
+      'incrementBy' // проксирует `this.incrementBy(amount)` в `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
-      add: 'increment' // проксирует this.add() в this.$store.dispatch('increment')
+      add: 'increment' // проксирует `this.add()` в `this.$store.dispatch('increment')`
     })
   }
 }
@@ -162,14 +162,14 @@ actions: {
 И, в конце концов, используя [async / await](https://tc39.github.io/ecmascript-asyncawait/) — возможности, которые вот-вот станут общедоступны - можно компоновать действия таким образом:
 
 ``` js
-// предположим, что getData() и getOtherData() возвращают промисы
+// предположим, что `getData()` и `getOtherData()` возвращают промисы
 
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
   },
   async actionB ({ dispatch, commit }) {
-    await dispatch('actionA') // дожидаемся завершения действия actionA
+    await dispatch('actionA') // дожидаемся завершения действия `actionA`
     commit('gotOtherData', await getOtherData())
   }
 }
