@@ -126,7 +126,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`replaceState(state: Object)`**
 
-  替换 store 的根状态，仅用状态合并或 time-travel 调试。
+  替换 store 的根状态，仅用状态合并或时光旅行调试。
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
