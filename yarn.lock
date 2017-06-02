@@ -1687,9 +1687,9 @@ eslint-plugin-html@^2.0.0:
   dependencies:
     htmlparser2 "^3.8.2"
 
-eslint-plugin-vue-libs@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue-libs/-/eslint-plugin-vue-libs-1.1.0.tgz#f4d4ae44fa074a5035221687ba7b72b1c9c2d7a8"
+eslint-plugin-vue-libs@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue-libs/-/eslint-plugin-vue-libs-1.2.0.tgz#eff85ecd66e8f1c9538d668205fa8d65136f1eac"
   dependencies:
     eslint-plugin-html "^2.0.0"
 
