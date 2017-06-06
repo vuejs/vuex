@@ -1,6 +1,6 @@
 # Estado 
 
-### Àrvore de Estado Único
+### Árvore de Estado Único
 
 Vuex usa uma  **árvore de estado único** - que é o único objeto que contém todo o estado a nível de aplicação e serve como a "fonte única da verdade". Também significa que geralmente você só vai ter uma única store para cada aplicação. A árvore de estado único torna direto o processo de localização de um pedaço específico do estado, e nos permite facilmente tirar snapshots do estado atual da aplicação para fins de debug.
 
@@ -95,7 +95,7 @@ computed: mapState([
 
 ### Operador de Espalhamento de Objeto (ou Object Spread Operator)
 
-Perceba que `mapState` retorna um objeto. Como usamos ele em combinação com outras propriedades computadas locais? Normalmente teríamos que usar um utilitário para combinar múltiplos objetos em um só para que possamos passar o objeto final para `computed`. Entretanto, com o [óperador de espalhamento de objeto](https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta ECMAScript em estágio 3), podemos simplificar muito a sintaxe:
+Perceba que `mapState` retorna um objeto. Como usamos ele em combinação com outras propriedades computadas locais? Normalmente teríamos que usar um utilitário para combinar múltiplos objetos em um só para que possamos passar o objeto final para `computed`. Entretanto, com o [operador de espalhamento de objeto](https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta ECMAScript em estágio 3), podemos simplificar muito a sintaxe:
 
 ``` js
 computed: {

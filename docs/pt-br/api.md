@@ -132,15 +132,15 @@ const store = new Vuex.Store({ ...options })
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Comita uma mutação. `options` podem ter `root: true` que permite comitar mutações da raiz em [módulos com namespace](modules.md#namespacing). [Detalhes](mutations.md)
+  Comita uma mutação. `options` podem ter `root: true` que permite cometer mutações da raiz em [módulos com namespace](modules.md#namespacing). [Detalhes](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Despacha uma ação. `options` podem ter `root: true` que permitem despachar ações da raiz em  [módulos com namespace](modules.md#namespacing). Retorna uma Promise que dispara todos os handles das ações disparadas. [Detalhes](actions.md)
+  Despacha uma ação. `options` podem ter `root: true` que permitem despachar ações da raiz em [módulos com namespace](modules.md#namespacing). Retorna uma Promise que dispara todos os handlers das ações disparadas. [Detalhes](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Substitui o estado da raiz da Store. Use isso apenas pra fins de hidratação / time travel.
+  Substitui o estado da raiz da store. Use isso apenas pra fins de hidratação / time travel.
   
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 

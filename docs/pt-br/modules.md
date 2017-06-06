@@ -116,7 +116,7 @@ const store = new Vuex.Store({
           }
         },
 
-        // aninha mais distate o namespace
+        // aninha mais distante o namespace
         posts: {
           namespaced: true,
 

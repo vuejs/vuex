@@ -26,9 +26,9 @@ const store = new Vuex.Store({
 })
 ```
 
-Os handlers de ações recebem um objeto de contexto que expõe a mesma quantidade de métodos/propriedades na instância da store, portanto, você pode chamar `context.commit` para cometer uma mutação, ou acessar o estado e getters via `context.state` e `context.getters`. Vamos  ver por que esse objeto de contexto não é a própria instância quando formos ver sobre [Módulos](modules.md) mais tarde.
+Os handlers de ações recebem um objeto de contexto que expõe a mesma quantidade de métodos/propriedades na instância da store, portanto, você pode chamar `context.commit` para cometer uma mutação, ou acessar o estado e getters via `context.state` e `context.getters`. Vamos ver por que esse objeto de contexto não é a própria instância quando formos ver sobre [Módulos](modules.md) mais tarde.
 
-Na prática, geralmente usamos  [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) do ES2015 para simplificar um pouco o código (especialmente quando precisamos chamar `commit` várias vezes):
+Na prática, geralmente usamos [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) do ES2015 para simplificar um pouco o código (especialmente quando precisamos chamar `commit` várias vezes):
 
 ``` js
 actions: {
@@ -63,7 +63,6 @@ actions: {
 
 Ações suportam o mesmo formato de payload e despachamento no estilo objeto:
 
-Actions support the same payload format and object-style dispatch:
 
 ``` js
 // despachando com payload
@@ -167,7 +166,7 @@ actions: {
   }
 }
 ```
-Por fim, se fizermos uso  de [async / await](https://tc39.github.io/ecmascript-asyncawait/), um recurso do Javascript que vai chegar em breve, podemos compor nossas ações assim:
+Por fim, se fizermos uso  de [async / await](https://tc39.github.io/ecmascript-asyncawait/), um recurso do JavaScript que vai chegar em breve, podemos compor nossas ações assim:
 
 ``` js
 // assumindo que  `getData()` e `getOtherData()` retornam Promises

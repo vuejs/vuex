@@ -180,7 +180,7 @@ describe('getters', () => {
 
 ### Rodando Testes
 
-Se suas mutações e ações são escritas de forma apropriada, os testes não devem ter dependências diretas à API do navegador depois de fazer as devidas imitações. Portanto, você pode simplesmente agrupar os testes com Webpack e reodar diretamente pelo Node. Alterantivamente, você pode usar `mocha-loader` ou Karma + `karma-webpack` para rodar os testes em navegadores reais.
+Se suas mutações e ações são escritas de forma apropriada, os testes não devem ter dependências diretas à API do navegador depois de fazer as devidas imitações. Portanto, você pode simplesmente agrupar os testes com Webpack e rodar diretamente pelo Node. Alterativamente, você pode usar `mocha-loader` ou Karma + `karma-webpack` para rodar os testes em navegadores reais.
 
 #### Rodando no Node
 

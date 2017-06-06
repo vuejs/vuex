@@ -4,7 +4,7 @@ Vuex não restringe de fato como você deve estruturar seu código. Ao invés di
 
 1. Estado a nível de aplicação é centralizado na store.
 
-2. A única forma de mutar os estados é comitando **mutações**, que são transações síncronas.
+2. A única forma de mutar os estados é cometendo **mutações**, que são transações síncronas.
 
 3. Lógica assíncrona deve ser encapsulada em, e composta por **ações**.
 

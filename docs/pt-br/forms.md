@@ -7,7 +7,7 @@ Quando estamos usando strict mode no Vuex, pode ser um pouco complicado usar `v-
 <input v-model="obj.message">
 ```
 
-Assumindo que `obj` é uma propriedade computada que retorna um Object da store, o `v-model` vai tentar mutar diretametne `obj.message` quando o usuário digitar no input. No strict mode, isso vai resultar em um erro por que a mutação não é performada dentro de um handler de mutação explícito.
+Assumindo que `obj` é uma propriedade computada que retorna um Object da store, o `v-model` vai tentar mutar diretamente `obj.message` quando o usuário digitar no input. No strict mode, isso vai resultar em um erro por que a mutação não é performada dentro de um handler de mutação explícito.
 
 O "jeito Vuex"  de lidar com isso é amarrar o valor do `<input>` e chamar uma ação no evento `input` ou `change`:
 

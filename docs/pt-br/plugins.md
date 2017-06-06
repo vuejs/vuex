@@ -85,7 +85,7 @@ const store = new Vuex.Store({
 })
 ```
 
-O plugni vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor de  `process.env.NODE_ENV !== 'production'` para `false` na build final.
+O plugin vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor de  `process.env.NODE_ENV !== 'production'` para `false` na build final.
 
 ### Plugin de Log Embutido
 
@@ -125,6 +125,6 @@ const logger = createLogger({
 })
 ```
 
-O arquivo de log também pode ser incluido diretamente via tag `<script>` e vai expor a função `createVuexLogger` globalmente.
+O arquivo de log também pode ser incluído diretamente via tag `<script>` e vai expor a função `createVuexLogger` globalmente.
 
 Perceba que esses plugins tiram snapshots do estado, então use-os apenas durante o desenvolvimento.

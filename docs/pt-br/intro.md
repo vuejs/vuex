@@ -1,6 +1,6 @@
 # O que é Vuex?
 
-Vuex é um **padrão + biblioteca de gerenciamento de estados**  para aplicações em Vue.js. Serve como um armázem centralizado para todos os componentes de uma aplicação, com regras que asseguram que o estado pode ser alterado apenas de uma forma previsível. Também se integra com a [devtools extension](https://github.com/vuejs/vue-devtools) oficial do Vue para fornecer recursos avançados, como debug do tipo time-travel com zero configuraçõesnecessárias e exportação/importação de estados.
+Vuex é um **padrão + biblioteca de gerenciamento de estados**  para aplicações em Vue.js. Serve como um armazém centralizado para todos os componentes de uma aplicação, com regras que asseguram que o estado pode ser alterado apenas de uma forma previsível. Também se integra com a [extensão devtools](https://github.com/vuejs/vue-devtools) oficial do Vue para fornecer recursos avançados, como debug do tipo time-travel com zero configurações necessárias e exportação/importação de estados.
 
 ### O que é um "Padrão de Gerenciamento de Estado"?
 
@@ -45,13 +45,13 @@ Entretanto, a simplicidade cai rapidamente por agua abaixo quando nós temos **m
 - Múltiplas views podem depender da mesma parte do estado.
 - Ações de views diferentes podem precisar alterar a mesma parte do estado.
 
-Para o primeiro problema, passar props pode ser um processo entediante se você for lidar com componentes profundamente aninhados, e não funciona quando se trata de componentes irmãos. Para o problema dois, geralmente nos encontramos recorrendo a soluções como alcançar referências diretas de pai/filhos ou tentar alterar e sincronizar mĺtiplas copias do estado via eventos. Ambos os métodos são fŕageis e rapidamente tornam o código impossível de se manter. 
+Para o primeiro problema, passar props pode ser um processo entediante se você for lidar com componentes profundamente aninhados, e não funciona quando se trata de componentes irmãos. Para o problema dois, geralmente nos encontramos recorrendo a soluções como alcançar referências diretas de pai/filhos ou tentar alterar e sincronizar múltiplas copias do estado via eventos. Ambos os métodos são frágeis e rapidamente tornam o código impossível de se manter. 
 
 Então por que não extraímos o estado compartilhado dos componentes e o gerenciamos em um singleton global? Com isso, nossa árvore de componentes se torna uma "view" gigante, e qualquer componente pode acessar o estado ou disparar ações, independente de onde eles estiverem na árvore!
 
 Além disso, ao definir e separar os conceitos envolvidos no gerenciamento de estados e forçando certas regras, também damos mias estrutura e facilidade de manutenção ao nosso código.
 
-Essa é a idéia básica por trás do Vuex, inspirado pelo [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) e [A Arquitetura Elm](https://guide.elm-lang.org/architecture/). Diferente de outros padrões, Vuex também é uma biblioteca já implementada, adaptada especificamente para o Vue.js tirar vantagem do seu sistema de reatividade granular para atualizações eficientes. 
+Essa é a ideia básica por trás do Vuex, inspirado pelo [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) e [A Arquitetura Elm](https://guide.elm-lang.org/architecture/). Diferente de outros padrões, Vuex também é uma biblioteca já implementada, adaptada especificamente para o Vue.js tirar vantagem do seu sistema de reatividade granular para atualizações eficientes. 
 
 ![vuex](./images/vuex.png)
 

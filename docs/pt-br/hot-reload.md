@@ -2,7 +2,7 @@
 
 Vuex suporta hot-reloading em mutações, módulos, ações e getters durante o desenvolvimento, usando a [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html) do Webpack. Você também pode usar o Browserify com o plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
-Para mutações e módulos, você preicsa usar o método da API `store.hotUpdate()`:
+Para mutações e módulos, você preicia usar o método da API `store.hotUpdate()`:
 
 ``` js
 // store.js
