@@ -1,4 +1,4 @@
-# Manipulação de Módulos
+# Manipulação de Formulários
 
 Quando estamos usando strict mode no Vuex, pode ser um pouco complicado usar `v-model` em um pedaço do estado que pertence ao Vuex:
 

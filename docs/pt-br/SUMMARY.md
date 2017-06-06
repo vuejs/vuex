@@ -1,24 +1,24 @@
 # Vuex
 
 <!--email_off-->
-> Note: This is docs for vuex@2.x.
+> Nota: Essa é a documentação do vuex@2.x.
 <!--/email_off-->
 
-- [Looking for 1.0 Docs?](https://github.com/vuejs/vuex/tree/1.0/docs)
-- [Release Notes](https://github.com/vuejs/vuex/releases)
-- [Installation](installation.md)
-- [What is Vuex?](intro.md)
-- [Getting Started](getting-started.md)
-- Core Concepts
-  - [State](state.md)
+- [Procurando pela documentação 1.0?](https://github.com/vuejs/vuex/tree/1.0/docs)
+- [Notas de Distribuição](https://github.com/vuejs/vuex/releases)
+- [Instalação](installation.md)
+- [O que é o Vuex?](intro.md)
+- [Começando](getting-started.md)
+- Conceitos Fundamentais
+  - [Estado](state.md)
   - [Getters](getters.md)
-  - [Mutations](mutations.md)
-  - [Actions](actions.md)
-  - [Modules](modules.md)
-- [Application Structure](structure.md)
+  - [Mutações](mutations.md)
+  - [Ações](actions.md)
+  - [Módulos](modules.md)
+- [Estrutura da Aplicação](structure.md)
 - [Plugins](plugins.md)
 - [Strict Mode](strict.md)
-- [Form Handling](forms.md)
-- [Testing](testing.md)
+- [Manipulação de Formulários](forms.md)
+- [Testando](testing.md)
 - [Hot Reloading](hot-reload.md)
-- [API Reference](api.md)
+- [Referência da API](api.md)
