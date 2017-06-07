@@ -98,9 +98,9 @@ Note that `mapState` returns an object. How do we use it in combination with oth
 computed: {
   localComputed () { /* ... */ },
   // mix this into the outer object with the object spread operator
-  ...mapState({
+  ...mapState([
     // ...
-  })
+  ])
 }
 ```
 

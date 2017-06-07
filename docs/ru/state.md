@@ -98,9 +98,9 @@ computed: mapState([
 computed: {
   localComputed () { /* ... */ },
   // результаты работы mapState будут добавлены в уже существующий объект
-  ...mapState({
+  ...mapState([
     // ...
-  })
+  ])
 }
 ```
 

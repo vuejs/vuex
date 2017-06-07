@@ -98,9 +98,9 @@ Notez que `mapState` renvoie un objet. Comment l'utiliser en complément des aut
 computed: {
   localComputed () { /* ... */ },
   // rajouter cet objet dans l'objet `computed` avec l'object spread operator
-  ...mapState({
+  ...mapState([
     // ...
-  })
+  ])
 }
 ```
 
