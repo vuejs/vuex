@@ -76,10 +76,10 @@ export class Store {
     const {
       type,
       payload,
-      options
+      options,
+      mutation
     } = unifyObjectStyle(_type, _payload, _options)
 
-    const mutation = { type, payload }
     const entry = this._mutations[type]
     if (!entry) {
       if (process.env.NODE_ENV !== 'production') {
@@ -434,7 +434,9 @@ function getNestedState (state, path) {
 }
 
 function unifyObjectStyle (type, payload, options) {
+  let mutation = { type, payload }
   if (isObject(type) && type.type) {
+    mutation = type
     options = payload
     payload = type
     type = type.type
@@ -444,7 +446,7 @@ function unifyObjectStyle (type, payload, options) {
     assert(typeof type === 'string', `Expects string as the type, but found ${typeof type}.`)
   }
 
-  return { type, payload, options }
+  return { type, payload, options, mutation }
 }
 
 export function install (_Vue) {
