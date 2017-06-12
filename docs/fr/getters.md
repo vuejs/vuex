@@ -12,7 +12,9 @@ computed: {
 
 Si plus d'un composant a besoin d'utiliser cela, il nous faut ou bien dupliquer cette fonction, ou bien l'extraire dans une fonction utilitaire séparée et l'importer aux endroits nécessaires. Les deux idées sont loin d'être idéales.
 
-Vuex nous permet de définir des accesseurs (« getters ») dans le store (oyez-les comme les propriétés calculées des stores). Les accesseurs prennent l'état en premier argument :
+Vuex nous permet de définir des accesseurs (« getters ») dans le store. Voyez-les comme les propriétés calculées des stores. Comme pour les propriétés calculées, le résultat de l'accesseur est mis en cache en se basant sur ses dépendances et il ne sera ré-évalué quand l'une de ses dépendances aura changé.
+
+Les accesseurs prennent l'état en premier argument :
 
 ``` js
 const store = new Vuex.Store({
@@ -99,7 +101,7 @@ export default {
 Si vous voulez attacher un accesseur avec un nom différent, utilisez un objet :
 
 ``` js
-mapGetters({
+...mapGetters({
   // attacher `this.doneCount` à `store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
