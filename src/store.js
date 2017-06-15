@@ -186,7 +186,7 @@ export class Store {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
     }
 
-    this._modules.isRegistered(path)
+    return this._modules.isRegistered(path)
   }
 
   hotUpdate (newOptions) {
