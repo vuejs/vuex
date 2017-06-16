@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### Testing Actions
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
 
 Example testing an async action:
 
@@ -177,7 +177,7 @@ describe('getters', () => {
 
 ### Running Tests
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
 
 #### Running in Node
 
@@ -213,7 +213,7 @@ mocha test-bundle.js
 #### Running in Browser
 
 1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
+2. Change the `entry` from the webpack config above to `'mocha!babel!./test.js'`.
 3. Start `webpack-dev-server` using the config
 4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
 
