@@ -182,12 +182,14 @@ const store = new Vuex.Store({ ...options })
 
   Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
-- **`mapActions(map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des méthodes de composant qui propagent une action. [Détails](actions.md#propager-des-actions-dans-les-composants)
 
   Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
-- **`mapMutations(map: Array<string> | Object): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des méthodes de composant qui actent une mutation. [Détails](mutations.md#acter-des-mutations-dans-les-composants)
+
+  Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
