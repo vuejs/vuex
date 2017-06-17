@@ -1,4 +1,4 @@
-# Formulaires
+# Gestion des formulaires
 
 Lorsque l'on utilise Vuex en mode strict, il peut être compliqué d'utiliser `v-model` sur une partie de l'état qui appartient à Vuex :
 
@@ -8,7 +8,7 @@ Lorsque l'on utilise Vuex en mode strict, il peut être compliqué d'utiliser `v
 
 Supposons que `obj` est une propriété calculée qui retourne un objet depuis le store, le `v-model` tentera de muter directement `obj.message` lorsque l'utilisateur saisit du texte dans le champ. En mode strict, cela produira une erreur car la mutation n'est pas effectuée dans un gestionnaire de mutation Vuex explicite.
 
-La « façon Vuex » de gérer ça est de lier la valeur de l'`input` et d'appeler une action sur l'évènement `input` ou `change` :
+La Vuex peut gérer ça en liant la valeur de l'`input` et en appelant une action sur l'évènement `input` ou `change` :
 
 ``` html
 <input :value="message" @input="updateMessage">
