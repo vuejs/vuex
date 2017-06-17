@@ -9,11 +9,11 @@ const store = new Vuex.Store({
 })
 ```
 
-En mode strict, lorsque l'état de Vuex est modifié en dehors des gestionnaires de mutation, une erreur sera lancée. Cela permet de s'assurer que toutes les mutations de l'état peuvent être explicitement tracées par les outils de debugging.
+En mode strict, lorsque l'état de Vuex est modifié en dehors des gestionnaires de mutation, une erreur sera lancée. Cela permet de s'assurer que toutes les mutations de l'état peuvent être explicitement tracées par les outils de débogage.
 
 ### Développement vs. production
 
-**N'activez pas le mode strict lorsque vous déployez en production !** Le mode strict lance une observation récursive de l'état de l'arbre pour détecter des mutations inappropriées. Assurrez-vous de l'avoir désactivé en production pour éviter un coût sur les performances.
+**N'activez pas le mode strict lorsque vous déployez en production !** Le mode strict lance une observation récursive de l'arbre d'état pour détecter des mutations inappropriées. Assurrez-vous de l'avoir désactivé en production pour éviter un coût sur les performances.
 
 Tout comme les plugins, nous pouvons laisser nos outils de build gérer ça :
 
