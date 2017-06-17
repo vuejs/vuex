@@ -174,16 +174,18 @@ const store = new Vuex.Store({ ...options })
 
   Créer des propriétés calculées qui retournent le sous arbre du store Vuex au composant. [Détails](state.md#le-helper-mapstate)
 
-  Le premier argument peut être de façon optionnel un chaîne d'espace de nom [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
-- **`mapGetters(map: Array<string> | Object): Object`**
+- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Créer des computed properties qui retournent la valeur calculée d'un getter. [Détails](getters.md#le-helper-mapgetters)
+  Créer des propriétés calculées qui retournent la valeur calculée d'un accesseur. [Détails](getters.md#la-function-utilitaire-mapgetters)
+
+  Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapActions(map: Array<string> | Object): Object`**
 
-  Créer des méthodes de composant qui dispatchent une action. [Détails](actions.md#dispatcher-des-actions-dans-les-composants)
+  Créer des méthodes de composant qui propagent une action. [Détails](actions.md#propager-des-actions-dans-les-composants)
 
 - **`mapMutations(map: Array<string> | Object): Object`**
 
-  Créer des méthodes de composant qui committent une mutation. [Détails](mutations.md#commiter-des-mutations-dans-les-composants)
+  Créer des méthodes de composant qui actent une mutation. [Détails](mutations.md#acter-des-mutations-dans-les-composants)
