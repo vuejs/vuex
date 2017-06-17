@@ -1,8 +1,8 @@
-# Hot Reloading
+# Rechargement à chaud
 
-Vuex supports hot-reloading mutations, modules, actions and getters during development, using webpack's [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+Vuex prend en charge le `hot-reloading` des mutations, modules, actions et getters durant le développement, en utilisant l'[API Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html) de webpack. Vous pouvez également utiliser Browserify avec le plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
-For mutations and modules, you need to use the `store.hotUpdate()` API method:
+Pour les mutations et les modules, vous aurez besoin d'utiliser la méthode d'API `store.hotUpdate()` :
 
 ``` js
 // store.js
@@ -41,4 +41,4 @@ if (module.hot) {
 }
 ```
 
-Checkout the [counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) to play with hot-reload.
+Jetez un œil à [l'exemple counter-hot](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) pour jouer avec le hot-reload.

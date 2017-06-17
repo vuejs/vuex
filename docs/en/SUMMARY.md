@@ -20,5 +20,5 @@
 - [Strict Mode](strict.md)
 - [Formulaires](forms.md)
 - [Tests](testing.md)
-- [Hot Reloading](hot-reload.md)
+- [Rechargement à chaud](hot-reload.md)
 - [Documentation API](api.md)
