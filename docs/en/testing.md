@@ -1,6 +1,6 @@
 # Tests
 
-Les parties principales que l'on veut couvrir par des tests unitaires en Vuex sont les mutations et les actions.
+Les parties principales que l'on veut couvrir par des tests unitaires avec Vuex sont les mutations et les actions.
 
 ### Tester les mutations
 
@@ -9,7 +9,7 @@ Les mutations sont très simples à tester, puisque ce sont de simples fonctions
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// exporter les mutations en tant qu'export nommé
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,16 +32,16 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// destructure assign mutations
+// assginement des mutations par destructuration
 const { increment } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // jeu d'état de test
     const state = { count: 0 }
-    // apply mutation
+    // appliquer la mutation
     increment(state)
-    // assert result
+    // tester le résultat
     expect(state.count).to.equal(1)
   })
 })
@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### Tester les actions
 
-Les actions sont un peu plus compliquées car elles peuvent faire appel à des APIs externes. Lorsque l'on teste des actions, on a souvent besoin de faire du mocking &mdash; par exemple, on peut abstraire l'appel API dans un service et mocker ce service dans nos tests. Afin de mocker facilement les dépendances, on peut utiliser webpack et [inject-loader](https://github.com/plasticine/inject-loader) pour regrouper nos fichiers de test.
+Les actions sont un peu plus compliquées car elles peuvent faire appel à des APIs externes. Lorsque l'on teste des actions, on a souvent besoin de faire des jeux de test dédiés. Par exemple, on peut abstraire l'appel API dans un service et simuler ce service dans nos tests. Afin de simuler facilement les dépendances, on peut utiliser webpack et [inject-loader](https://github.com/plasticine/inject-loader) pour regrouper nos fichiers de test.
 
 Exemple de test d'une action asynchrone :
 
@@ -68,28 +68,28 @@ export const getAllProducts = ({ commit }) => {
 ``` js
 // actions.spec.js
 
-// use require syntax for inline loaders.
-// with inject-loader, this returns a module factory
-// that allows us to inject mocked dependencies.
+// étulisation de la syntaxe `require` pour les loaders.
+// avec inject-loader, cela retourne un module le fabrique
+// cela nous permet d'injecter les dépendances simulées.
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
 
-// create the module with our mocks
+// créer un module avec nos simulations
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
       setTimeout(() => {
-        cb([ /* mocked response */ ])
+        cb([ /* réponse simulée */ ])
       }, 100)
     }
   }
 })
 
-// helper for testing action with expected mutations
+// fonction utilitaire pour tester des actions avec les mutations attendues
 const testAction = (action, args, state, expectedMutations, done) => {
   let count = 0
 
-  // mock commit
+  // acter une simulation
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
 
@@ -108,7 +108,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
     }
   }
 
-  // call the action with mocked store and arguments
+  // appler l'action avec le store simulé et les arguments
   action({ commit, state }, ...args)
 
   // check if no mutations should have been dispatched
@@ -128,11 +128,11 @@ describe('actions', () => {
 })
 ```
 
-### Tester les getters
+### Tester les accesseurs
 
-Si vos getters font des calculs compliqués, il peut être judicieux de les tester. Les getters sont également très simples à tester, pour les mêmes raisons que les mutations.
+Si vos accesseurs font des calculs compliqués, il peut être judicieux de les tester. Les accesseurs sont également très simples à tester, pour les mêmes raisons que les mutations.
 
-Exemple de test d'un getter :
+Exemple de test d'un accesseur :
 
 ``` js
 // getters.js
@@ -152,7 +152,7 @@ import { getters } from './getters'
 
 describe('getters', () => {
   it('filteredProducts', () => {
-    // mock state
+    // état simulé
     const state = {
       products: [
         { id: 1, title: 'Apple', category: 'fruit' },
@@ -160,13 +160,13 @@ describe('getters', () => {
         { id: 3, title: 'Carrot', category: 'vegetable' }
       ]
     }
-    // mock getter
+    // accesseur simulé
     const filterCategory = 'fruit'
 
-    // get the result from the getter
+    // obterir le résultat depuis l'accesseur
     const result = getters.filteredProducts(state, { filterCategory })
 
-    // assert the result
+    // tester le résultat
     expect(result).to.deep.equal([
       { id: 1, title: 'Apple', category: 'fruit' },
       { id: 2, title: 'Orange', category: 'fruit' }
@@ -177,9 +177,9 @@ describe('getters', () => {
 
 ### Lancer les tests
 
-Si vos mutations et actions sont écrites comme il se doit, les tests ne devraient pas avoir de dépendance directe sur les APIs navigateur après un mocking préalable. Cela signifie que vous pouvez simplement regrouper les tests avec webpack et les lancer directement dans Node. De façon alternative, vous pouvez utiliser `mocha-loader` ou Karma + `karma-webpack` afin d'effectuer les tests dans des vrais navigateurs.
+Si vos mutations et actions sont écrites comme il se doit, les tests ne devraient pas avoir de dépendance directe sur les APIs navigateur après un simulation préalable. Cela signifie que vous pouvez simplement regrouper les tests avec webpack et les lancer directement dans Node.js. De façon alternative, vous pouvez utiliser `mocha-loader` ou Karma + `karma-webpack` afin d'effectuer les tests dans des vrais navigateurs.
 
-#### Lancer dans Node
+#### Lancer dans Node.js
 
 Créez la configuration webpack suivante (ainsi que le fichier [`.babelrc`](https://babeljs.io/docs/usage/babelrc/) qui correspond) :
 
