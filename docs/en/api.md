@@ -1,4 +1,4 @@
-# Documentation API
+# Documentation de l'API
 
 ### Vuex.Store
 
@@ -8,37 +8,37 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Options de constructeur de Vuex.Store
+### Options du constructeur de Vuex.Store
 
 - **state**
 
-  - type: `Object`
+  - type : `Object`
 
-    L'objet state racine pour le store Vuex.
+    L'objet état racine pour le store Vuex.
 
     [Détails](state.md)
 
 - **mutations**
 
-  - type: `{ [type: string]: Function }`
+  - type : `{ [type : string]: Function }`
 
-    Enregistrer les mutations sur le store. La fonction handler reçoit toujours `state` comme premier argument (sera le state local du module si défini dans un module), et reçoit le `payload` en second argument s'il y en a un.
+    Enregistrer les mutations sur le store. La fonction gestionnaire reçoit toujours `state` comme premier argument (sera l'état local du module si défini dans un module), et reçoit le `payload` en second argument s'il y en a un.
 
     [Détails](mutations.md)
 
 - **actions**
 
-  - type: `{ [type: string]: Function }`
+  - type : `{ [type : string]: Function }`
 
-    Enregistrer les actions sur le store. La fonction handler reçoit un objet `context` qui expose les propriétés suivantes :
+    Enregistrer les actions sur le store. La fonction gestionnaire reçoit un objet `context` qui expose les propriétés suivantes :
 
     ``` js
     {
-      state,     // identique à store.state, ou au state local si dans des modules
-      rootState, // identique à store.state, seulement dans des modules
-      commit,    // identique à store.commit
-      dispatch,  // identique à store.dispatch
-      getters    // identique à store.getters
+      state,     // identique à `store.state`, ou à l'état local si dans des modules
+      rootState, // identique à `store.state`, seulement dans des modules
+      commit,    // identique à `store.commit`
+      dispatch,  // identique à `store.dispatch`
+      getters    // identique à `store.getters`
     }
     ```
 
@@ -46,22 +46,31 @@ const store = new Vuex.Store({ ...options })
 
 - **getters**
 
-  - type: `{ [key: string]: Function }`
+  - type : `{ [key: string]: Function }`
 
-    Enregistrer les getters sur le store. La fonction getter reçoit les arguments suivants :
+    Enregistrer les accesseurs sur le store. La fonction accesseur reçoit les arguments suivants :
 
     ```
-    state,     // sera le state local du module si défini dans un module.
-    getters,   // indentique à store.getters
-    rootState  // indentique à store.state
+    state,     // sera l'état local du module si défini dans un module.
+    getters,   // indentique à `store.getters`
     ```
+
+    Spécifique quand défini dans un module.
+
+    ```
+
+
+    rootState  // indentique à `store.state`
+
+    ```
+
     Les getters enregistrés sont exposés sur `store.getters`.
 
     [Détails](getters.md)
 
 - **modules**
 
-  - type: `Object`
+  - type : `Object`
 
     Un objet contenant des sous-modules qui seront regroupés dans le store, de la forme suivante :
 
@@ -84,7 +93,7 @@ const store = new Vuex.Store({ ...options })
 
 - **plugins**
 
-  - type: `Array<Function>`
+  - type : `Array<Function>`
 
     Un tableau de fonctions plugin qui seront appliqués au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, logging ou debugging) ou dispatcher des mutations (pour les données internes, i.e. websockets ou observables).
 
@@ -92,7 +101,7 @@ const store = new Vuex.Store({ ...options })
 
 - **strict**
 
-  - type: `Boolean`
+  - type : `Boolean`
   - default: `false`
 
     Force le store Vuex en mode strict. En mode strict, toute mutation du state en dehors des handlers de mutation lancera une Error.
@@ -103,23 +112,23 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - type: `Object`
+  - type : `Object`
 
     Le state racine. Lecture seule.
 
 - **getters**
 
-  - type: `Object`
+  - type : `Object`
 
     Expose les getters enregistrés. Lecture seule.
 
 ### Méthodes d'instance de Vuex.Store
 
-- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
+- **`commit(type : string, payload?: any) | commit(mutation: Object)`**
 
   commiter une mutation. [Détails](mutations.md)
 
-- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
+- **`dispatch(type : string, payload?: any) | dispatch(action: Object)`**
 
   Dispatcher une action. Retourne la valeur renvoyée par le handler d'action déclenché, ou une Promise si plusieurs handlers ont été déclenchés. [Détails](actions.md)
 
