@@ -21,4 +21,4 @@
 - [Formulaires](forms.md)
 - [Tests](testing.md)
 - [Hot Reloading](hot-reload.md)
-- [Documentation API](api.md)
+- [Documentation de l'API](api.md)
