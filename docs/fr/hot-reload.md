@@ -1,6 +1,6 @@
 # Hot Reloading
 
-Vuex prend en charge le `hot-reloading` des mutations, modules, actions et getters durant le développement, en utilisant l'[API Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html) de Webpack. Vous pouvez également utiliser Browserify avec le plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
+Vuex prend en charge le `hot-reloading` des mutations, modules, actions et getters durant le développement, en utilisant l'[API Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html) de webpack. Vous pouvez également utiliser Browserify avec le plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
 Pour les mutations et les modules, vous aurez besoin d'utiliser la méthode d'API `store.hotUpdate()` :
 
