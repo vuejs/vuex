@@ -51,17 +51,17 @@ const store = new Vuex.Store({ ...options })
     Enregistrer les accesseurs sur le store. La fonction accesseur reçoit les arguments suivants :
 
     ```
-    state,     // sera l'état local du module si défini dans un module.
-    getters,   // indentique à `store.getters`
+    state,    // sera l'état local du module si défini dans un module.
+    getters   // indentique à `store.getters`
     ```
 
-    Spécifique quand défini dans un module.
+    Spécifiquement quand défini dans un module
 
     ```
-
-
-    rootState  // indentique à `store.state`
-
+    state,       // sera l'état local du module si défini dans un module.
+    getters,     // module local getters of the current module
+    rootState    // état global
+    rootGetters  // tous les accesseurs
     ```
 
     Les getters enregistrés sont exposés sur `store.getters`.
@@ -72,13 +72,14 @@ const store = new Vuex.Store({ ...options })
 
   - type : `Object`
 
-    Un objet contenant des sous-modules qui seront regroupés dans le store, de la forme suivante :
+    Un objet contenant des sous-modules qui seront regroupés dans le store, sous la forme suivante :
 
     ``` js
     {
       key: {
         state,
-        mutations,
+        namespaced?,
+        mutations?,
         actions?,
         getters?,
         modules?
