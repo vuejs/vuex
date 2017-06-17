@@ -60,7 +60,7 @@ const store = new Vuex.Store({ ...options })
     ```
     state,       // sera l'état local du module si défini dans un module.
     getters,     // module local getters of the current module
-    rootState    // état global
+    rootState,   // état global
     rootGetters  // tous les accesseurs
     ```
 
