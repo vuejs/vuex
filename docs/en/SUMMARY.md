@@ -17,7 +17,7 @@
   - [Modules](modules.md)
 - [Structure d'une application](structure.md)
 - [Plugins](plugins.md)
-- [Strict Mode](strict.md)
+- [Mode strict](strict.md)
 - [Formulaires](forms.md)
 - [Tests](testing.md)
 - [Hot Reloading](hot-reload.md)
