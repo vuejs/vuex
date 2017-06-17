@@ -1,6 +1,6 @@
 # Documentation de l'API
 
-### Vuex.Store
+### `Vuex.Store`
 
 ``` js
 import Vuex from 'vuex'
@@ -8,7 +8,7 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Options du constructeur de Vuex.Store
+### Options du constructeur de `Vuex.Store`
 
 - **state**
 
@@ -88,7 +88,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Chaque module peut contenir `state` et `mutations`, tout comme les options racine. Le state d'un module sera attaché au state racine du store en utilisant la clé du module. Les mutations et getters d'un module recevront seulement le state local du module en premier argument au lieu du state racine, et le `context.state` des actions du module pointeront également vers le state local.
+    Chaque module peut contenir `state` et `mutations`, tout comme les options racine. L'état d'un module sera attaché à l'état racine du store en utilisant la clé du module. Les mutations et accesseurs d'un module recevront seulement l'état local du module en premier argument au lieu de l'état racine, et le `context.state` des actions du module pointeront également vers l'état local.
 
     [Détails](modules.md)
 
@@ -96,7 +96,7 @@ const store = new Vuex.Store({ ...options })
 
   - type : `Array<Function>`
 
-    Un tableau de fonctions plugin qui seront appliqués au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, logging ou debugging) ou dispatcher des mutations (pour les données internes, i.e. websockets ou observables).
+    Un tableau de fonctions plugin qui seront appliqués au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, les logs ou le débogage) ou propager des mutations (pour les données internes, c.-à-d. websockets ou observables).
 
     [Détails](plugins.md)
 
@@ -105,47 +105,47 @@ const store = new Vuex.Store({ ...options })
   - type : `Boolean`
   - default: `false`
 
-    Force le store Vuex en mode strict. En mode strict, toute mutation du state en dehors des handlers de mutation lancera une Error.
+    Force le store Vuex en mode strict. En mode strict, toute mutation de l'état en dehors des gestionnaires de mutation lancera une erreur.
 
     [Détails](strict.md)
 
-### Propriétés d'instance de Vuex.Store
+### Propriétés d'instance de `Vuex.Store`
 
 - **state**
 
   - type : `Object`
 
-    Le state racine. Lecture seule.
+    L'état racine. Lecture seule.
 
 - **getters**
 
   - type : `Object`
 
-    Expose les getters enregistrés. Lecture seule.
+    Expose les accesseurs enregistrés. Lecture seule.
 
-### Méthodes d'instance de Vuex.Store
+### Méthodes d'instance de `Vuex.Store`
 
-- **`commit(type : string, payload?: any) | commit(mutation: Object)`**
+- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  commiter une mutation. [Détails](mutations.md)
+  Acter une mutation. `options` peut avoir `root: true` ce qui permet d'acter des mutations racines dans des [modules sous espace de nom](modules.md#namespacing). [Détails](mutations.md)
 
-- **`dispatch(type : string, payload?: any) | dispatch(action: Object)`**
+- **`dispatch(type : string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Dispatcher une action. Retourne la valeur renvoyée par le handler d'action déclenché, ou une Promise si plusieurs handlers ont été déclenchés. [Détails](actions.md)
+  Propager une action. Retourne la valeur renvoyée par le gestionnaire d'action déclenché, ou une Promesse si plusieurs gestionnaire ont été déclenchés. [Détails](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Remplacer le state racine du store. Utiliser seulement pour hydrater le state ou voir le state dans le temps.
+  Remplacer l'état racine du store. Utiliser seulement pour hydrater l'état ou voir l'état dans le temps.
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Observer de façon réactive la valeur de retour d'une fonction getter, et appeler le callback lorsque la valeur change. Le getter reçoit le state du store comme unique argument. Accepte un objet options optionnel qui prend les mêmes options que la méthode `vm.$watch` de Vue.
+  Observer de façon réactive la valeur de retour d'une fonction accesseur, et appeler la fonction de rappel lorsque la valeur change. L'accesseur reçoit l'état du store comme unique argument. Accepte un objet options optionnel qui prend les mêmes options que la méthode `vm.$watch` de Vue.
 
-  Pour arrêter d'observer, appeler la fonction retournée.
+  Pour arrêter d'observer, appeler la fonction gestionnaire retournée.
 
 - **`subscribe(handler: Function)`**
 
-  S'abonner aux mutations du store. Le `handler` est appelé après chaque mutation et reçoit le descripteur de mutation et le state post-mutation comme arguments :
+  S'abonner aux mutations du store. Le `handler` est appelé après chaque mutation et reçoit le descripteur de mutation et l'état post-mutation comme arguments :
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -168,11 +168,13 @@ const store = new Vuex.Store({ ...options })
 
   Remplacement à la volée des nouvelles actions et mutations. [Détails](hot-reload.md)
 
-### Helpers d'attachement au composant
+### Fonctions utilitaires d'attachement au composant
 
-- **`mapState(map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Créer des computed properties qui retournent le sub tree du store Vuex au composant. [Détails](state.md#le-helper-mapstate)
+  Créer des propriétés calculées qui retournent le sous arbre du store Vuex au composant. [Détails](state.md#le-helper-mapstate)
+
+  Le premier argument peut être de façon optionnel un chaîne d'espace de nom [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapGetters(map: Array<string> | Object): Object`**
 
