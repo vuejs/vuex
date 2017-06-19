@@ -5,7 +5,7 @@
 <!--/email_off-->
 
 - [Vous cherchez la documentation de la v1.0 ?](https://github.com/vuejs/vuex/tree/1.0/docs)
-- [Release Notes](https://github.com/vuejs/vuex/releases)
+- [Notes de version](https://github.com/vuejs/vuex/releases)
 - [Installation](installation.md)
 - [Vuex, qu'est-ce que c'est ?](intro.md)
 - [Pour commencer](getting-started.md)
