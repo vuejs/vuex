@@ -150,7 +150,7 @@ export class Store {
     })
   }
 
-  registerModule (path, rawModule) {
+  registerModule (path, rawModule, options = {}) {
     if (typeof path === 'string') path = [path]
 
     if (process.env.NODE_ENV !== 'production') {
@@ -159,7 +159,7 @@ export class Store {
     }
 
     this._modules.register(path, rawModule)
-    installModule(this, this.state, path, this._modules.get(path))
+    installModule(this, this.state, path, this._modules.get(path), options.preserveState)
     // reset store to update getters...
     resetStoreVM(this, this.state)
   }

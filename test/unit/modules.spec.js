@@ -80,6 +80,28 @@ describe('Modules', () => {
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
     })
+
+    it('dynamic module registration preserving hydration', () => {
+      const store = new Vuex.Store({})
+      store.replaceState({ a: { foo: 'state' }})
+      const actionSpy = jasmine.createSpy()
+      const mutationSpy = jasmine.createSpy()
+      store.registerModule('a', {
+        namespaced: true,
+        getters: { foo: state => state.foo },
+        actions: { foo: actionSpy },
+        mutations: { foo: mutationSpy }
+      }, { preserveState: true })
+
+      expect(store.state.a.foo).toBe('state')
+      expect(store.getters['a/foo']).toBe('state')
+
+      store.dispatch('a/foo')
+      expect(actionSpy).toHaveBeenCalled()
+
+      store.commit('a/foo')
+      expect(mutationSpy).toHaveBeenCalled()
+    })
   })
 
   // #524

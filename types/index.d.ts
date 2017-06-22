@@ -20,8 +20,8 @@ export declare class Store<S> {
   subscribe<P extends Payload>(fn: (mutation: P, state: S) => any): () => void;
   watch<T>(getter: (state: S) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): void;
 
-  registerModule<T>(path: string, module: Module<T, S>): void;
-  registerModule<T>(path: string[], module: Module<T, S>): void;
+  registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
+  registerModule<T>(path: string[], module: Module<T, S>, options?: ModuleOptions): void;
 
   unregisterModule(path: string): void;
   unregisterModule(path: string[]): void;
@@ -90,6 +90,10 @@ export interface Module<S, R> {
   actions?: ActionTree<S, R>;
   mutations?: MutationTree<S>;
   modules?: ModuleTree<R>;
+}
+
+export interface ModuleOptions{
+  preserveState?: boolean
 }
 
 export interface GetterTree<S, R> {
