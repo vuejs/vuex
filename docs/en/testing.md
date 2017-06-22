@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Exemple de test de mutation utilisant Mocha + Chai (vous pouvez utiliser n'importe quel framework/bibliothèque d'assertion selon votre préférence) :
+Exemple de test de mutation utilisant Mocha + Chai (vous pouvez utiliser n'importe quel framework/bibliothèque d'assertion selon vos préférences) :
 
 ``` js
 // mutations.js
@@ -32,12 +32,12 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// assginement des mutations par destructuration
+// assignement des mutations par déstructuration
 const { increment } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // jeu d'état de test
+    // état simulé
     const state = { count: 0 }
     // appliquer la mutation
     increment(state)
@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### Tester les actions
 
-Les actions sont un peu plus compliquées car elles peuvent faire appel à des APIs externes. Lorsque l'on teste des actions, on a souvent besoin de faire des jeux de test dédiés. Par exemple, on peut abstraire l'appel API dans un service et simuler ce service dans nos tests. Afin de simuler facilement les dépendances, on peut utiliser webpack et [inject-loader](https://github.com/plasticine/inject-loader) pour regrouper nos fichiers de test.
+Les actions sont un peu plus compliquées car elles peuvent faire appel à des APIs externes. Lorsque l'on teste des actions, on a souvent besoin de faire plusieurs niveaux de simulation. Par exemple, on peut abstraire l'appel API dans un service et simuler ce service dans nos tests. Afin de simuler facilement les dépendances, on peut utiliser webpack et [inject-loader](https://github.com/plasticine/inject-loader) pour regrouper nos fichiers de test.
 
 Exemple de test d'une action asynchrone :
 
@@ -68,8 +68,8 @@ export const getAllProducts = ({ commit }) => {
 ``` js
 // actions.spec.js
 
-// étulisation de la syntaxe `require` pour les loaders.
-// avec inject-loader, cela retourne un module le fabrique
+// utilisation de la syntaxe `require` pour les loaders.
+// avec inject-loader, cela retourne un module de fabrique
 // cela nous permet d'injecter les dépendances simulées.
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
@@ -108,10 +108,10 @@ const testAction = (action, args, state, expectedMutations, done) => {
     }
   }
 
-  // appler l'action avec le store simulé et les arguments
+  // appeler l'action avec le store simulé et les arguments
   action({ commit, state }, ...args)
 
-  // check if no mutations should have been dispatched
+  // virifier qu'aucune mutations n'ai été propagée
   if (expectedMutations.length === 0) {
     expect(count).to.equal(0)
     done()
@@ -177,7 +177,7 @@ describe('getters', () => {
 
 ### Lancer les tests
 
-Si vos mutations et actions sont écrites comme il se doit, les tests ne devraient pas avoir de dépendance directe sur les APIs navigateur après un simulation préalable. Cela signifie que vous pouvez simplement regrouper les tests avec webpack et les lancer directement dans Node.js. De façon alternative, vous pouvez utiliser `mocha-loader` ou Karma + `karma-webpack` afin d'effectuer les tests dans des vrais navigateurs.
+Si vos mutations et actions sont écrites comme il se doit, les tests ne devraient pas avoir de dépendance directe sur les APIs navigateur après une simulation préalable. Cela signifie que vous pouvez simplement regrouper les tests avec webpack et les lancer directement dans Node.js. De façon alternative, vous pouvez utiliser `mocha-loader` ou Karma + `karma-webpack` afin d'effectuer les tests dans des vrais navigateurs.
 
 #### Lancer dans Node.js
 
@@ -212,10 +212,10 @@ mocha test-bundle.js
 
 #### Lancer dans un navigateur
 
-1. Installez `mocha-loader`
+1. Installez `mocha-loader`.
 2. Changez l'option `entry` de la configuration webpack ci-dessus pour `'mocha!babel!./test.js'`.
 3. Démarrez `webpack-dev-server` en utilisant cette configuration.
-4. Pointez votre navigateur sur `localhost:8080/webpack-dev-server/test-bundle`.
+4. Rendez-vous avec votre navigateur sur `localhost:8080/webpack-dev-server/test-bundle`.
 
 #### Lancer dans un navigateur avec Karma + karma-webpack
 
