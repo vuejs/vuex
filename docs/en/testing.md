@@ -111,7 +111,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
   // appeler l'action avec le store simulé et les arguments
   action({ commit, state }, ...args)
 
-  // virifier qu'aucune mutations n'ai été propagée
+  // vérifier qu'aucune mutations n'ai été propagée
   if (expectedMutations.length === 0) {
     expect(count).to.equal(0)
     done()
