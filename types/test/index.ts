@@ -199,6 +199,11 @@ namespace RegisterModule {
     state: { value: 2 }
   });
 
+  const asyncModule = () => Promise.resolve({ state: { value: 1 }})
+  store.registerModule("a", asyncModule)
+    .then(() => {})
+    .catch(error => {})
+
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");
 }
