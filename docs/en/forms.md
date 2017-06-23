@@ -1,14 +1,14 @@
-# Form Handling
+# Gestion des formulaires
 
-When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
+Lorsque l'on utilise Vuex en mode strict, il peut être compliqué d'utiliser `v-model` sur une partie de l'état qui appartient à Vuex :
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in an error because the mutation is not performed inside an explicit Vuex mutation handler.
+Supposons que `obj` est une propriété calculée qui retourne un objet depuis le store, le `v-model` tentera de muter directement `obj.message` lorsque l'utilisateur saisit du texte dans le champ. En mode strict, cela produira une erreur car la mutation n'est pas effectuée dans un gestionnaire de mutation Vuex explicite.
 
-The "Vuex way" to deal with it is binding the `<input>`'s value and call an action on the `input` or `change` event:
+La « méthode Vuex » pour gérer ça est de lier la valeur de l'`input` et d'appeler une action sur l'évènement `input` ou `change` :
 
 ``` html
 <input :value="message" @input="updateMessage">
@@ -27,7 +27,7 @@ methods: {
 }
 ```
 
-And here's the mutation handler:
+Et voici le gestionnaire de mutation :
 
 ``` js
 // ...
@@ -38,9 +38,9 @@ mutations: {
 }
 ```
 
-### Two-way Computed Property
+### Propriété calculée bidirectionnelle
 
-Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
+Admettons tout de même que l'exemple ci-dessus est plus verbeux que le `v-model` couplé à l'état local (tout en perdant quelques fonctionnalités pratiques de `v-model` au passage). Une approche alternative consiste à utiliser une propriété calculée bidirectionnelle avec un mutateur :
 
 ``` html
 <input v-model="message">
@@ -58,4 +58,3 @@ computed: {
   }
 }
 ```
-

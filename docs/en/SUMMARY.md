@@ -18,7 +18,7 @@
 - [Structure d'une application](structure.md)
 - [Plugins](plugins.md)
 - [Strict Mode](strict.md)
-- [Formulaires](forms.md)
+- [Gestion des formulaires](forms.md)
 - [Tests](testing.md)
 - [Hot Reloading](hot-reload.md)
 - [Documentation API](api.md)
