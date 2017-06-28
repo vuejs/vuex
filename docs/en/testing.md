@@ -1,15 +1,15 @@
-# Testing
+# Tests
 
-The main parts we want to unit test in Vuex are mutations and actions.
+Les parties principales que l'on veut couvrir par des tests unitaires avec Vuex sont les mutations et les actions.
 
-### Testing Mutations
+### Tester les mutations
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you can also export the mutations as a named export:
+Les mutations sont très simples à tester, puisque ce sont de simples fonctions qui se basent uniquement sur leurs arguments. Une astuce est que si vous utilisez les modules ES2015 et mettez vos mutations dans votre fichier `store.js`, en plus de l'export par défaut, vous pouvez également exporter vos mutations avec un export nommé :
 
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// exporter les mutations en tant qu'export nommé
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+Exemple de test de mutation utilisant Mocha + Chai (vous pouvez utiliser n'importe quel framework/bibliothèque d'assertion selon vos préférences) :
 
 ``` js
 // mutations.js
@@ -32,26 +32,26 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// destructure assign mutations
+// assignement des mutations par déstructuration
 const { increment } = mutations
 
 describe('mutations', () => {
   it('INCREMENT', () => {
-    // mock state
+    // état simulé
     const state = { count: 0 }
-    // apply mutation
+    // appliquer la mutation
     increment(state)
-    // assert result
+    // tester le résultat
     expect(state.count).to.equal(1)
   })
 })
 ```
 
-### Testing Actions
+### Tester les actions
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Les actions sont un peu plus compliquées car elles peuvent faire appel à des APIs externes. Lorsque l'on teste des actions, on a souvent besoin de faire plusieurs niveaux de simulation. Par exemple, on peut abstraire l'appel API dans un service et simuler ce service dans nos tests. Afin de simuler facilement les dépendances, on peut utiliser webpack et [inject-loader](https://github.com/plasticine/inject-loader) pour regrouper nos fichiers de test.
 
-Example testing an async action:
+Exemple de test d'une action asynchrone :
 
 ``` js
 // actions.js
@@ -68,28 +68,28 @@ export const getAllProducts = ({ commit }) => {
 ``` js
 // actions.spec.js
 
-// use require syntax for inline loaders.
-// with inject-loader, this returns a module factory
-// that allows us to inject mocked dependencies.
+// utilisation de la syntaxe `require` pour les loaders.
+// avec inject-loader, cela retourne un module de fabrique
+// cela nous permet d'injecter les dépendances simulées.
 import { expect } from 'chai'
 const actionsInjector = require('inject!./actions')
 
-// create the module with our mocks
+// créer un module avec nos simulations
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
       setTimeout(() => {
-        cb([ /* mocked response */ ])
+        cb([ /* réponse simulée */ ])
       }, 100)
     }
   }
 })
 
-// helper for testing action with expected mutations
-const testAction = (action, payload, state, expectedMutations, done) => {
+// fonction utilitaire pour tester des actions avec les mutations attendues
+const testAction = (action, args, state, expectedMutations, done) => {
   let count = 0
 
-  // mock commit
+  // acter une simulation
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
 
@@ -108,10 +108,10 @@ const testAction = (action, payload, state, expectedMutations, done) => {
     }
   }
 
-  // call the action with mocked store and arguments
-  action({ commit, state }, payload)
+  // appeler l'action avec le store simulé et les arguments
+  action({ commit, state }, ...args)
 
-  // check if no mutations should have been dispatched
+  // vérifier qu'aucune mutations n'ai été propagée
   if (expectedMutations.length === 0) {
     expect(count).to.equal(0)
     done()
@@ -120,7 +120,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, null, {}, [
+    testAction(actions.getAllProducts, [], {}, [
       { type: 'REQUEST_PRODUCTS' },
       { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)
@@ -128,11 +128,11 @@ describe('actions', () => {
 })
 ```
 
-### Testing Getters
+### Tester les accesseurs
 
-If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+Si vos accesseurs font des calculs compliqués, il peut être judicieux de les tester. Les accesseurs sont également très simples à tester, pour les mêmes raisons que les mutations.
 
-Example testing a getter:
+Exemple de test d'un accesseur :
 
 ``` js
 // getters.js
@@ -152,7 +152,7 @@ import { getters } from './getters'
 
 describe('getters', () => {
   it('filteredProducts', () => {
-    // mock state
+    // état simulé
     const state = {
       products: [
         { id: 1, title: 'Apple', category: 'fruit' },
@@ -160,13 +160,13 @@ describe('getters', () => {
         { id: 3, title: 'Carrot', category: 'vegetable' }
       ]
     }
-    // mock getter
+    // accesseur simulé
     const filterCategory = 'fruit'
 
-    // get the result from the getter
+    // obterir le résultat depuis l'accesseur
     const result = getters.filteredProducts(state, { filterCategory })
 
-    // assert the result
+    // tester le résultat
     expect(result).to.deep.equal([
       { id: 1, title: 'Apple', category: 'fruit' },
       { id: 2, title: 'Orange', category: 'fruit' }
@@ -175,13 +175,13 @@ describe('getters', () => {
 })
 ```
 
-### Running Tests
+### Lancer les tests
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+Si vos mutations et actions sont écrites comme il se doit, les tests ne devraient pas avoir de dépendance directe sur les APIs navigateur après une simulation préalable. Cela signifie que vous pouvez simplement regrouper les tests avec webpack et les lancer directement dans Node.js. De façon alternative, vous pouvez utiliser `mocha-loader` ou Karma + `karma-webpack` afin d'effectuer les tests dans des vrais navigateurs.
 
-#### Running in Node
+#### Lancer dans Node.js
 
-Create the following webpack config (together with proper [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
+Créez la configuration webpack suivante (ainsi que le fichier [`.babelrc`](https://babeljs.io/docs/usage/babelrc/) qui correspond) :
 
 ``` js
 // webpack.config.js
@@ -203,20 +203,20 @@ module.exports = {
 }
 ```
 
-Then:
+Puis :
 
 ``` bash
 webpack
 mocha test-bundle.js
 ```
 
-#### Running in Browser
+#### Lancer dans un navigateur
 
-1. Install `mocha-loader`
-2. Change the `entry` from the webpack config above to `'mocha!babel!./test.js'`.
-3. Start `webpack-dev-server` using the config
-4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+1. Installez `mocha-loader`.
+2. Changez l'option `entry` de la configuration webpack ci-dessus pour `'mocha!babel!./test.js'`.
+3. Démarrez `webpack-dev-server` en utilisant cette configuration.
+4. Rendez-vous avec votre navigateur sur `localhost:8080/webpack-dev-server/test-bundle`.
 
-#### Running in Browser with Karma + karma-webpack
+#### Lancer dans un navigateur avec Karma + karma-webpack
 
-Consult the setup in [vue-loader documentation](http://vue-loader.vuejs.org/en/workflow/testing.html).
+Consultez la procédure sur la [documentation vue-loader](http://vue-loader.vuejs.org/en/workflow/testing.html).
