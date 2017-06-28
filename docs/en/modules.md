@@ -265,3 +265,40 @@ const MyReusableModule = {
   // mutations, actions, getters...
 }
 ```
+
+
+### Module creation on the fly
+
+If you desire to create modules for multiple components that follow
+the same architecture but with a different state for each of them,
+like a list of interactives charts, you have to instantiate a new
+state for each module.
+
+It means not only you must _return_ your state, but also _instantiate_
+a new one.
+
+```js
+	// storeModel.js
+	// create a factory
+	let state = function(){
+		this.data1 = ...
+		this.data1 = ...
+		...
+	}
+	// declare a model with all getters, setters, actions etc.
+	var Model = {
+		getters: getters, mutations:mutations, // and so on....
+		state : return { new state() } // with 'new'
+		}
+	// finally export model
+   	export default Model
+```
+
+```js
+	// in your main.js
+	import Model from './storeModel'
+	var nb = 4;
+	for( var i=0; i < nb; i++){
+		store.registerModule(''+i,Model) // each Model will have its own namespace and state
+	}
+```
