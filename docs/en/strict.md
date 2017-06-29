@@ -1,6 +1,6 @@
 # Mode strict
 
-Pour activer le mode strict, passez simplement l'option `strict: true` lorsque vous créez un store Vuex :
+Pour activer le mode strict, passez simplement l'option `strict: true` pendant la création d'un store Vuex :
 
 ``` js
 const store = new Vuex.Store({
