@@ -1,18 +1,18 @@
 # Plugins
 
-Vuex stores accept the `plugins` option that exposes hooks for each mutation. A Vuex plugin is simply a function that receives the store as the only argument:
+Les stores Vuex prennent une option `plugins` qui expose des hooks pour chaque mutation. Un plugin Vuex est simplement une fonction qui reçoit un store comme unique argument :
 
 ``` js
 const myPlugin = store => {
-  // called when the store is initialized
+  // appelé quand le store est initialisé
   store.subscribe((mutation, state) => {
-    // called after every mutation.
-    // The mutation comes in the format of `{ type, payload }`.
+    // appelé après chaque mutation.
+    // Les mutation arrivent au format `{ type, payload }`.
   })
 }
 ```
 
-And can be used like this:
+Et peut être utilisé ainsi :
 
 ``` js
 const store = new Vuex.Store({
@@ -21,11 +21,11 @@ const store = new Vuex.Store({
 })
 ```
 
-### Committing Mutations Inside Plugins
+### Acter des mutations dans des plugins
 
-Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by committing mutations.
+Les plugins ne sont pas autorisés à muter directement l'état. Tout comme vos composants, ils peuvent simplement déclencher des changements en actant des mutations.
 
-By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
+En actant des mutations, un plugin peut être utilisé pour synchroniser la source de données avec le store. Par exemple, pour synchroniser la source de données d'une websocket vers le store (c'est juste un exemple artificiel, en réalité la fonction `createPlugin` peut prendre des options additionnelles pour des tâches plus complexes) :
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -52,9 +52,9 @@ const store = new Vuex.Store({
 })
 ```
 
-### Taking State Snapshots
+### Prendre des instantanés de l'état
 
-Sometimes a plugin may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. To achieve that, you will need to perform a deep-copy on the state object:
+Parfois un plugin peut vouloir recevoir des « instantanés » de l'état, et également comparer l'état post-mutation avec l'état pré-mutation. Pour faire ceci, vous aurez besoin d'effectuer une copie complète de l'état :
 
 ``` js
 const myPluginWithSnapshot = store => {
@@ -62,15 +62,15 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // compare `prevState` and `nextState`...
+    // comparer `prevState` et `nextState`...
 
-    // save state for next mutation
+    // sauver l'état pour la prochaine mutation
     prevState = nextState
   })
 }
 ```
 
-**Plugins that take state snapshots should be used only during development.** When using webpack or Browserify, we can let our build tools handle that for us:
+**Les plugins qui peuvent prendre des instantanés ne devraient être utilisés que pendant le développement.** Lorsqu'on utilise webpack ou Browserify, on peut laisser nos outils de développement (« devtools ») s'occuper de ça pour nous :
 
 ``` js
 const store = new Vuex.Store({
@@ -81,13 +81,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The plugin will be used by default. For production, you will need [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) for webpack or [envify](https://github.com/hughsk/envify) for Browserify to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
+Le plugin sera utilisé par défaut. Pour la production, vous aurez besoin de [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) pour webpack ou de [envify](https://github.com/hughsk/envify) pour Browserify pour convertir la valeur de `process.env.NODE_ENV !== 'production'` à `false` pour le build final.
 
-### Built-in Logger Plugin
+### Plugin de logs intégré
 
-> If you are using [vue-devtools](https://github.com/vuejs/vue-devtools) you probably don't need this.
+> Si vous utilisez [vue-devtools](https://github.com/vuejs/vue-devtools) vous n'avez probablement pas besoin de ça.
 
-Vuex comes with a logger plugin for common debugging usage:
+Vuex fournit un plugin de logs à des fins de débogage :
 
 ``` js
 import createLogger from 'vuex/dist/logger'
@@ -97,29 +97,29 @@ const store = new Vuex.Store({
 })
 ```
 
-The `createLogger` function takes a few options:
+La fonction `createLogger` prend quelques options :
 
 ``` js
 const logger = createLogger({
   collapsed: false, // auto-expand logged mutations
   filter (mutation, stateBefore, stateAfter) {
-    // returns `true` if a mutation should be logged
-    // `mutation` is a `{ type, payload }`
+    // retourne `true` si une mutation devrait être logguée
+    // `mutation` est un `{ type, payload }`
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // transforme l'état avant de le logguer.
+    // retourne par exemple seulement un sous-arbre spécifique
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of `{ type, payload }`
-    // we can format it any way we want.
+    // les mutations sont logguées au format `{ type, payload }`
+    // nous pouvons les formater comme nous le souhaitons.
     return mutation.type
   }
 })
 ```
 
-The logger file can also be included directly via a `<script>` tag, and will expose the `createVuexLogger` function globally.
+Le fichier de logs peut aussi être inclus directement via une balise `script`, et exposera la fonction `createVuexLogger` globalement.
 
-Note the logger plugin takes state snapshots, so use it only during development.
+Notez que le plugin de logs peut prendre des instantanés de l'état, ne l'utilisez donc que durant le développement.
