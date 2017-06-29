@@ -5,7 +5,7 @@
 <!--/email_off-->
 
 - [Vous cherchez la documentation de la v1.0 ?](https://github.com/vuejs/vuex/tree/1.0/docs)
-- [Release Notes](https://github.com/vuejs/vuex/releases)
+- [Notes de version](https://github.com/vuejs/vuex/releases)
 - [Installation](installation.md)
 - [Vuex, qu'est-ce que c'est ?](intro.md)
 - [Pour commencer](getting-started.md)
@@ -17,8 +17,8 @@
   - [Modules](modules.md)
 - [Structure d'une application](structure.md)
 - [Plugins](plugins.md)
-- [Strict Mode](strict.md)
-- [Formulaires](forms.md)
+- [Mode strict](strict.md)
+- [Gestion des formulaires](forms.md)
 - [Tests](testing.md)
-- [Hot Reloading](hot-reload.md)
-- [Documentation API](api.md)
+- [Rechargement à chaud](hot-reload.md)
+- [Documentation de l'API](api.md)
