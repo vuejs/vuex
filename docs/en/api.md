@@ -14,13 +14,13 @@ const store = new Vuex.Store({ ...options })
 
   - type : `Object`
 
-    L'objet état racine pour le store Vuex.
+    L'objet d'état racine pour le store Vuex.
 
     [Détails](state.md)
 
 - **mutations**
 
-  - type : `{ [type : string]: Function }`
+  - type : `{ [type: string]: Function }`
 
     Enregistrer les mutations sur le store. La fonction gestionnaire reçoit toujours `state` comme premier argument (sera l'état local du module si défini dans un module), et reçoit le `payload` en second argument s'il y en a un.
 
@@ -28,7 +28,7 @@ const store = new Vuex.Store({ ...options })
 
 - **actions**
 
-  - type : `{ [type : string]: Function }`
+  - type : `{ [type: string]: Function }`
 
     Enregistrer les actions sur le store. La fonction gestionnaire reçoit un objet `context` qui expose les propriétés suivantes :
 
@@ -55,7 +55,7 @@ const store = new Vuex.Store({ ...options })
     getters   // indentique à `store.getters`
     ```
 
-    Spécifiquement quand défini dans un module
+    Arguments spécifiques quand défini dans un module
 
     ```
     state,       // sera l'état local du module si défini dans un module.
@@ -64,7 +64,7 @@ const store = new Vuex.Store({ ...options })
     rootGetters  // tous les accesseurs
     ```
 
-    Les getters enregistrés sont exposés sur `store.getters`.
+    Les accesseurs enregistrés sont exposés sur `store.getters`.
 
     [Détails](getters.md)
 
@@ -96,7 +96,7 @@ const store = new Vuex.Store({ ...options })
 
   - type : `Array<Function>`
 
-    Un tableau de fonctions plugin qui seront appliqués au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, les logs ou le débogage) ou propager des mutations (pour les données internes, c.-à-d. websockets ou observables).
+    Un tableau de fonctions plugins qui seront appliquées au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, les logs ou le débogage) ou propager des mutations (pour les données internes, c.-à-d. websockets ou observables).
 
     [Détails](plugins.md)
 
@@ -131,15 +131,15 @@ const store = new Vuex.Store({ ...options })
 
 - **`dispatch(type : string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Propager une action. Retourne la valeur renvoyée par le gestionnaire d'action déclenché, ou une Promesse si plusieurs gestionnaire ont été déclenchés. [Détails](actions.md)
+  Propager une action. Retourne la valeur renvoyée par le gestionnaire d'action déclenché, ou une Promesse si plusieurs gestionnaires ont été déclenchés. [Détails](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Remplacer l'état racine du store. Utiliser seulement pour hydrater l'état ou voir l'état dans le temps.
+  Remplacer l'état racine du store. Utiliser seulement pour hydrater l'état ou dans le but de voyager dans le temps.
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Observer de façon réactive la valeur de retour d'une fonction accesseur, et appeler la fonction de rappel lorsque la valeur change. L'accesseur reçoit l'état du store comme unique argument. Accepte un objet options optionnel qui prend les mêmes options que la méthode `vm.$watch` de Vue.
+  Observer de façon réactive la valeur de retour d'une fonction accesseur, et appeler la fonction de rappel lorsque la valeur change. L'accesseur reçoit l'état du store comme unique argument. Accepte un objet optionnel d'options qui prend les mêmes options que la méthode `vm.$watch` de Vue.
 
   Pour arrêter d'observer, appeler la fonction gestionnaire retournée.
 
@@ -174,22 +174,22 @@ const store = new Vuex.Store({ ...options })
 
   Créer des propriétés calculées qui retournent le sous arbre du store Vuex au composant. [Détails](state.md#le-helper-mapstate)
 
-  Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des propriétés calculées qui retournent la valeur calculée d'un accesseur. [Détails](getters.md#la-function-utilitaire-mapgetters)
 
-  Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des méthodes de composant qui propagent une action. [Détails](actions.md#propager-des-actions-dans-les-composants)
 
-  Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des méthodes de composant qui actent une mutation. [Détails](mutations.md#acter-des-mutations-dans-les-composants)
 
-  Le premier argument peut être de façon optionnel un chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
