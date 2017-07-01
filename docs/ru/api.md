@@ -56,7 +56,7 @@ const store = new Vuex.Store({ ...options })
     ```
 
     При определении в модуле
-    
+
     ```
     state,       // при использовании модулей — локальный state модуля
     getters,     // локальные геттеры текущего модуля
@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options })
 
     [Подробнее](strict.md)
 
-### Свойства инстанса Vuex.Store
+### Свойства экземпляра Vuex.Store
 
 - **state**
 
@@ -123,7 +123,7 @@ const store = new Vuex.Store({ ...options })
 
     Зарегистрированные геттеры. Только для чтения.
 
-### Методы инстанса Vuex.Store
+### Методы экземпляра Vuex.Store
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
