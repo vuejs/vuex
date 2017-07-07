@@ -1,4 +1,5 @@
 {
+  "title": "Vuex",
   "gitbook": ">3.0.0",
   "plugins": ["edit-link", "prism", "theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git", "-fontsettings", "-highlight", "github"],
   "pluginsConfig": {
