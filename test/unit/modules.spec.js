@@ -25,8 +25,6 @@ describe('Modules', () => {
           getters: { a: state => state.a }
         })
       }).not.toThrow()
-      
-      expect(store.hasModule('hi')).toBe(true)
 
       expect(store._mutations.inc.length).toBe(2)
       expect(store.state.hi.a).toBe(1)
@@ -45,7 +43,6 @@ describe('Modules', () => {
 
       // unregister
       store.unregisterModule('hi')
-      expect(store.hasModule('hi')).toBe(false)
       expect(store.state.hi).toBeUndefined()
       expect(store.getters.a).toBeUndefined()
       expect(store._mutations.inc.length).toBe(1)
@@ -83,6 +80,18 @@ describe('Modules', () => {
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
     })
+    
+    it('dynamic module existance test', () => {
+      
+        store.registerModule('bonjour', {
+          state: { a: 1 },
+        })
+        
+        expect(store.hasModule('bonjour')).toBe(true)
+        store.unregisterModule('bonjour')
+        expect(store.hasModule('bonjour')).toBe(false)
+    })
+    
   })
 
   // #524
