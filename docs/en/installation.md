@@ -38,6 +38,21 @@ Vue.use(Vuex)
 
 You don't need to do this when using global script tags.
 
+### Setup
+
+Just pass the store object as the argument to the project's root component.
+
+```js
+const store = new Vuex.Store({ ... })
+
+new Vue({
+  store: store,
+  el: '#app'
+})
+```
+
+It is recommended to keep the store instance in a separate file.
+
 ### Dev Build
 
 You will have to clone directly from GitHub and build `vuex` yourself if
