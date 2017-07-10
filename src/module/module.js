@@ -26,7 +26,7 @@ export default class Module {
   }
 
   hasChild (key) {
-    return key in this._children;
+    return key in this._children
   }
 
   update (rawModule) {

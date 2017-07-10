@@ -57,8 +57,8 @@ export default class ModuleCollection {
   isRegistered (path) {
     const parent = this.get(path.slice(0, -1))
     const key = path[path.length - 1]
-    
-    return parent.hasChild(key);
+
+    return parent.hasChild(key)
   }
 
 }

@@ -80,18 +80,18 @@ describe('Modules', () => {
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
     })
-    
+
     it('dynamic module existance test', () => {
-      
-        store.registerModule('bonjour', {
-          state: { a: 1 },
-        })
-        
-        expect(store.hasModule('bonjour')).toBe(true)
-        store.unregisterModule('bonjour')
-        expect(store.hasModule('bonjour')).toBe(false)
+      const store = new Vuex.Store({
+      })
+
+      store.registerModule('bonjour', {
+      })
+
+      expect(store.hasModule('bonjour')).toBe(true)
+      store.unregisterModule('bonjour')
+      expect(store.hasModule('bonjour')).toBe(false)
     })
-    
   })
 
   // #524
