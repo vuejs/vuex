@@ -25,8 +25,8 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA's state
-store.state.b // -> moduleB's state
+store.state.a // -> `moduleA`'s state
+store.state.b // -> `moduleB`'s state
 ```
 
 ### Module Local State
@@ -38,7 +38,7 @@ const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // state is the local module state
+      // `state` is the local module state
       state.count++
     }
   },
@@ -248,7 +248,7 @@ You can also remove a dynamically registered module with `store.unregisterModule
 
 Sometimes we may need to create multiple instances of a module, for example:
 
-- Creating multiple stores that uses the same module;
+- Creating multiple stores that use the same module (e.g. To [avoid stateful singletons in the SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) when the `runInNewContext` option is `false` or `'once'`);
 - Register the same module multiple times in the same store.
 
 If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.

@@ -70,7 +70,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**Плагины, снимающие слепки, должны использоваться только на этапе разработки.** При использовании Webpack или Browserify, мы можем отдать этот момент на их откуп:
+**Плагины, снимающие слепки, должны использоваться только на этапе разработки.** При использовании webpack или Browserify, мы можем отдать этот момент на их откуп:
 
 ``` js
 const store = new Vuex.Store({
@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для Webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
+Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
 
 ### Встроенный плагин логирования
 

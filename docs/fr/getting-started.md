@@ -39,6 +39,6 @@ Encore une fois, la raison pour laquelle nous committons une mutation au lieu de
 
 Utiliser le state du store dans un composant implique simplement de retourner le state dans une *computed property*, car le state du store est réactif. Déclencher des changements signifie simplement commiter des mutations dans les méthodes du composant.
 
-Voici un exemple de la [plus basique app Vuex de compteur](https://jsfiddle.net/n9jmu5v7/341/).
+Voici un exemple de la [plus basique app Vuex de compteur](https://jsfiddle.net/n9jmu5v7/1269/).
 
 Ensuite, nous allons examiner chaque concept de base plus en détails, et commençons avec le [State](state.md).

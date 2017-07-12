@@ -36,7 +36,7 @@ new Vue({
 以下是一个表示“单向数据流”理念的极简示意：
 
 <p style="text-align: center; margin: 2em">
-  <img style="max-width:450px;" src="./images/flow.png">
+  <img style="width:100%;max-width:450px;" src="./images/flow.png">
 </p>
 
 但是，当我们的应用遇到**多个组件共享状态**时，单向数据流的简洁性很容易被破坏：

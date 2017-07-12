@@ -1,5 +1,5 @@
 import Vue from 'vue/dist/vue.common.js'
-import Vuex from '../../dist/vuex.js'
+import Vuex from '../../dist/vuex.common.js'
 
 const TEST = 'TEST'
 
@@ -332,6 +332,12 @@ describe('Store', () => {
         done()
       })
     })
+  })
+
+  it('asserts the call with the new operator', () => {
+    expect(() => {
+      Vuex.Store({})
+    }).toThrowError(/Store must be called with the new operator/)
   })
 
   it('should accept state as function', () => {

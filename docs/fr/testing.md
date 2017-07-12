@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### Tester les actions
 
-Les actions sont un peu plus compliquées car elles peuvent faire appel à des APIs externes. Lorsque l'on teste des actions, on a souvent besoin de faire du mocking &mdash; par exemple, on peut abstraire l'appel API dans un service et mocker ce service dans nos tests. Afin de mocker facilement les dépendances, on peut utiliser Webpack et [inject-loader](https://github.com/plasticine/inject-loader) pour regrouper nos fichiers de test.
+Les actions sont un peu plus compliquées car elles peuvent faire appel à des APIs externes. Lorsque l'on teste des actions, on a souvent besoin de faire du mocking &mdash; par exemple, on peut abstraire l'appel API dans un service et mocker ce service dans nos tests. Afin de mocker facilement les dépendances, on peut utiliser webpack et [inject-loader](https://github.com/plasticine/inject-loader) pour regrouper nos fichiers de test.
 
 Exemple de test d'une action asynchrone :
 
@@ -92,10 +92,16 @@ const testAction = (action, args, state, expectedMutations, done) => {
   // mock commit
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    expect(mutation.type).to.equal(type)
-    if (payload) {
-      expect(mutation.payload).to.deep.equal(payload)
+
+    try {
+      expect(mutation.type).to.equal(type)
+      if (payload) {
+        expect(mutation.payload).to.deep.equal(payload)
+      }
+    } catch (error) {
+      done(error)
     }
+
     count++
     if (count >= expectedMutations.length) {
       done()
@@ -171,7 +177,7 @@ describe('getters', () => {
 
 ### Lancer les tests
 
-Si vos mutations et actions sont écrites comme il se doit, les tests ne devraient pas avoir de dépendance directe sur les APIs navigateur après un mocking préalable. Cela signifie que vous pouvez simplement regrouper les tests avec Webpack et les lancer directement dans Node. De façon alternative, vous pouvez utiliser `mocha-loader` ou Karma + `karma-webpack` afin d'effectuer les tests dans des vrais navigateurs.
+Si vos mutations et actions sont écrites comme il se doit, les tests ne devraient pas avoir de dépendance directe sur les APIs navigateur après un mocking préalable. Cela signifie que vous pouvez simplement regrouper les tests avec webpack et les lancer directement dans Node. De façon alternative, vous pouvez utiliser `mocha-loader` ou Karma + `karma-webpack` afin d'effectuer les tests dans des vrais navigateurs.
 
 #### Lancer dans Node
 

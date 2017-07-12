@@ -39,6 +39,6 @@ console.log(store.state.count) // -> 1
 
 由于 store 中的状态是响应式的，在组件中调用 store 中的状态简单到仅需要在计算属性中返回即可。触发变化也仅仅是在组件的 methods 中提交 mutations。
 
-这是一个[最基本的 Vuex 记数应用](https://jsfiddle.net/n9jmu5v7/341/)示例。
+这是一个[最基本的 Vuex 记数应用](https://jsfiddle.net/n9jmu5v7/1269/)示例。
 
 接下来，我们将会更深入地探讨一些核心概念。让我们先从 [State](state.md) 概念开始。

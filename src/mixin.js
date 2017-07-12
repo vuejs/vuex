@@ -2,8 +2,7 @@ export default function (Vue) {
   const version = Number(Vue.version.split('.')[0])
 
   if (version >= 2) {
-    const usesInit = Vue.config._lifecycleHooks.indexOf('init') > -1
-    Vue.mixin(usesInit ? { init: vuexInit } : { beforeCreate: vuexInit })
+    Vue.mixin({ beforeCreate: vuexInit })
   } else {
     // override init and inject vuex init procedure
     // for 1.x backwards compatibility.
@@ -24,7 +23,9 @@ export default function (Vue) {
     const options = this.$options
     // store injection
     if (options.store) {
-      this.$store = options.store
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store
     } else if (options.parent && options.parent.$store) {
       this.$store = options.parent.$store
     }
