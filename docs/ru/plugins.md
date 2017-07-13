@@ -7,7 +7,7 @@ const myPlugin = store => {
   // вызывается после инициализации хранилища
   store.subscribe((mutation, state) => {
     // вызывается после каждой мутации
-    // мутация передаётся в формате { type, payload }.
+    // мутация передаётся в формате `{ type, payload }`.
   })
 }
 ```
@@ -62,7 +62,7 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // сравнение prevState и nextState...
+    // сравнение `prevState` и `nextState`...
 
     // сохранение состояния для следующей мутации
     prevState = nextState
@@ -103,8 +103,8 @@ const store = new Vuex.Store({
 const logger = createLogger({
   collapsed: false, // автоматически раскрывать залогированные мутации
   filter (mutation, stateBefore, stateAfter) {
-    // возвращает true если мутация должна быть залогирована
-    // `mutation` это объект { type, payload }
+    // возвращает `true` если мутация должна быть залогирована
+    // `mutation` это объект `{ type, payload }`
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
@@ -113,7 +113,7 @@ const logger = createLogger({
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // мутации логируются в формате { type, payload },
+    // мутации логируются в формате `{ type, payload }`,
     // но это можно изменить
     return mutation.type
   }

@@ -72,7 +72,7 @@ export const getAllProducts = ({ commit }) => {
 // avec inject-loader, cela retourne un module de fabrique
 // cela nous permet d'injecter les dépendances simulées.
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // créer un module avec nos simulations
 const actions = actionsInjector({
@@ -213,7 +213,7 @@ mocha test-bundle.js
 #### Lancer dans un navigateur
 
 1. Installez `mocha-loader`.
-2. Changez l'option `entry` de la configuration webpack ci-dessus pour `'mocha!babel!./test.js'`.
+2. Changez l'option `entry` de la configuration webpack ci-dessus pour `'mocha-loader!babel-loader!./test.js'`.
 3. Démarrez `webpack-dev-server` en utilisant cette configuration.
 4. Rendez-vous avec votre navigateur sur `localhost:8080/webpack-dev-server/test-bundle`.
 

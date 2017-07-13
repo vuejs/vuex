@@ -72,7 +72,7 @@ export const getAllProducts = ({ commit }) => {
 // и inject-loader, возвращающий фабрику модулей, помогающую
 // подменять зависимости
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // создаём поддельную зависимость
 const actions = actionsInjector({
@@ -213,7 +213,7 @@ mocha test-bundle.js
 #### Запуск в браузерах
 
 1. Установите `mocha-loader`
-2. Измените `entry` в приведённой выше конфигурации webpack на `'mocha!babel!./test.js'`.
+2. Измените `entry` в приведённой выше конфигурации Webpack на `'mocha-loader!babel-loader!./test.js'`.
 3. Запустите `webpack-dev-server`, используя эту конфигурацию
 4. Откройте в браузере `localhost:8080/webpack-dev-server/test-bundle`.
 

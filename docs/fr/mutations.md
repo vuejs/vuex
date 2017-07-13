@@ -133,7 +133,7 @@ mutations: {
 }
 ```
 
-Maintenant imaginons que nous debuggons l'application et que nous regardons dans les logs de mutation des devtools. Pour chaque mutation enregistrée, le devtool aura besoin de capturer un instantané du state "avant" et un instantané "après". Cependant, le callback asynchrone du l'exemple ci-dessus rend l'opération impossible : le callback n'est pas encore appelé lorsque la mutation est committée, et il n'y a aucun moyen pour le devtool de savoir quand le callback sera véritablement appelé &mdash; toute mutation du state effectuée dans le callack est essentiellement intraçable !
+Maintenant imaginons que nous debuggons l'application et que nous regardons dans les logs de mutation des devtools. Pour chaque mutation enregistrée, le devtool aura besoin de capturer un instantané du state "avant" et un instantané "après". Cependant, le callback asynchrone de l'exemple ci-dessus rend l'opération impossible : le callback n'est pas encore appelé lorsque la mutation est committée, et il n'y a aucun moyen pour le devtool de savoir quand le callback sera véritablement appelé &mdash; toute mutation du state effectuée dans le callback est essentiellement intraçable !
 
 ### commiter des mutations dans les composants
 

@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Вызывать функцию-обработчик напрямую — нельзя. Это больше похоже на обработку события: "Когда мутация типа `increment` инициирована, вызывается этот обработчик". Чтобы инициировать обработку мутации, необходимо вызвать **store.commit**, указав её тип:
+Вызывать функцию-обработчик напрямую — нельзя. Это больше похоже на обработку события: "Когда мутация типа `increment` инициирована, вызывается этот обработчик". Чтобы инициировать обработку мутации, необходимо вызвать `store.commit`, указав её тип:
 
 ``` js
 store.commit('increment')
@@ -146,13 +146,13 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment', // this.increment() будет вызывать this.$store.commit('increment')
+      'increment', // `this.increment()` будет вызывать `this.$store.commit('increment')`
 
       // mapMutations также поддерживает нагрузку:
-      'incrementBy' // this.incrementBy(amount) будет вызывать this.$store.commit('incrementBy', amount)
+      'incrementBy' // `this.incrementBy(amount)` будет вызывать `this.$store.commit('incrementBy', amount)`
     ]),
     ...mapMutations({
-      add: 'increment' // this.add() будет вызывать this.$store.commit('increment')
+      add: 'increment' // `this.add()` будет вызывать `this.$store.commit('increment')`
     })
   }
 }
