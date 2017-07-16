@@ -57,7 +57,7 @@ export interface ActionContext<S, R> {
 
 export interface Payload {
   type: string;
-  payload: any;
+  payload?: any;
 }
 
 export interface DispatchOptions {
