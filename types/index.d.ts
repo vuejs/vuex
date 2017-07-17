@@ -20,6 +20,8 @@ export declare class Store<S> {
   subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any): () => void;
   watch<T>(getter: (state: S) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): void;
 
+  registerModule<T>(path: string, module: () => Promise<Module<T, S>>): Promise<void>;
+  registerModule<T>(path: string[], module: () => Promise<Module<T, S>>): Promise<void>;
   registerModule<T>(path: string, module: Module<T, S>): void;
   registerModule<T>(path: string[], module: Module<T, S>): void;
 

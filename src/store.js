@@ -158,10 +158,15 @@ export class Store {
       assert(path.length > 0, 'cannot register the root module by using registerModule.')
     }
 
-    this._modules.register(path, rawModule)
-    installModule(this, this.state, path, this._modules.get(path))
-    // reset store to update getters...
-    resetStoreVM(this, this.state)
+    const moduleResolved = module => {
+      this._modules.register(path, module.default || module)
+      installModule(this, this.state, path, this._modules.get(path))
+      // reset store to update getters...
+      resetStoreVM(this, this.state)
+    }
+
+    if (typeof rawModule === 'function') return rawModule().then(moduleResolved)
+    moduleResolved(rawModule)
   }
 
   unregisterModule (path) {

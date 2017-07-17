@@ -158,8 +158,12 @@ const store = new Vuex.Store({ ...options })
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
+  **`registerModule(path: string | Array<string>, module: () => Promise<Module>): Promise<void>`**
+
   Register a dynamic module. [Details](modules.md#dynamic-module-registration)
 
+  Lazy load a dynamic module. [Details](modules.md#lazy-load-dynamic-modules)
+  
 - **`unregisterModule(path: string | Array<string>)`**
 
   Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)

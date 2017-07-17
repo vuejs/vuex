@@ -82,6 +82,36 @@ describe('Modules', () => {
     })
   })
 
+  it('dynamic module registration with promise (dynamic import)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        a: {
+          namespaced: true
+        }
+      }
+    })
+    const actionSpy = jasmine.createSpy()
+    const mutationSpy = jasmine.createSpy()
+    const module = () => Promise.resolve({
+      state: { value: 1 },
+      getters: { foo: state => state.value },
+      actions: { foo: actionSpy },
+      mutations: { foo: mutationSpy }
+    })
+
+    store.registerModule(['a', 'b'], module)
+      .then(() => {
+        expect(store.state.a.b.value).toBe(1)
+        expect(store.getters['a/foo']).toBe(1)
+
+        store.dispatch('a/foo')
+        expect(actionSpy).toHaveBeenCalled()
+
+        store.commit('a/foo')
+        expect(mutationSpy).toHaveBeenCalled()
+      })
+  })
+
   // #524
   it('should not fire an unrelated watcher', done => {
     const spy = jasmine.createSpy()
