@@ -35,6 +35,7 @@ namespace StoreInstance {
 
   store.subscribe((mutation, state) => {
     mutation.type;
+    mutation.payload;
     state.value;
   });
 
