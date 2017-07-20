@@ -81,7 +81,7 @@ export default {
 }
 ```
 
-Il est également possible de fournir un tableau de chaînes de caractères à `mapState` lorsque le nom de la propriété de l'état du store est la même que celui du composant.
+Il est également possible de fournir un tableau de chaînes de caractères à `mapState` lorsque le nom de la propriété de l'état du store est le même que celui du composant.
 
 ``` js
 computed: mapState([
