@@ -7,7 +7,7 @@ const myPlugin = store => {
   // ストアが初期化されたときに呼ばれます
   store.subscribe((mutation, state) => {
     // それぞれのミューテーションの後に呼ばれます
-    // ミューテーションは { type, payload } の形式で提供されます
+    // ミューテーションは `{ type, payload }` の形式で提供されます
   })
 }
 ```
@@ -62,7 +62,7 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // 以前の状態と以後の状態を比較...
+    // `prevState` と `nextState` を比較...
 
     // 次のミューテーションのために状態を保存
     prevState = nextState
@@ -103,9 +103,8 @@ const store = new Vuex.Store({
 const logger = createLogger({
   collapsed: false, // ログ出力されたミューテーションを自動で展開します
   filter (mutation, stateBefore, stateAfter) {
-    // ミューテーションを記録する必要がある場合は、true を返します
-    // returns true if a mutation should be logged
-    // `mutation` は { type, payload } です
+    // ミューテーションを記録する必要がある場合は、`true` を返します
+    // `mutation` は `{ type, payload }` です
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
@@ -114,7 +113,7 @@ const logger = createLogger({
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // ミューテーションは、{ type, payload } の形式でログ出力されます
+    // ミューテーションは、`{ type, payload }` の形式でログ出力されます
     // 任意の方法でそれをフォーマットできます
     return mutation.type
   }
