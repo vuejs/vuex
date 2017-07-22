@@ -71,7 +71,7 @@ export const getAllProducts = ({ commit }) => {
 // inline loader のために require 構文を使用する
 // ここでは inject-loader を使って、モック化された依存関係を注入できるようにするモジュールファクトリーを返す
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // モックによってモジュールを作成する
 const actions = actionsInjector({
@@ -212,7 +212,7 @@ mocha test-bundle.js
 #### ブラウザでの実行
 
 1. `mocha-loader` をインストールする
-2. 上記 webpack 設定から `entry` を `'mocha!babel!./test.js'` に変更する
+2. 上記 webpack 設定から `entry` を `'mocha-loader!babel-loader!./test.js'` に変更する
 3. 設定を使用して `webpack-dev-server` を開始する
 4. ブラウザで `localhost:8080/webpack-dev-server/test-bundle` を開く 
 
