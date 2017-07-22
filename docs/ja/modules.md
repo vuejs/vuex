@@ -25,8 +25,8 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA のステート
-store.state.b // -> moduleB のステート
+store.state.a // -> `moduleA` のステート
+store.state.b // -> `moduleB` のステート
 ```
 
 ### モジュールのローカルステート
@@ -38,7 +38,7 @@ const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // state はモジュールのローカルステート
+      // `state` はモジュールのローカルステート
       state.count++
     }
   },
