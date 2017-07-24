@@ -58,7 +58,11 @@ export class Store {
     resetStoreVM(this, state)
 
     // apply plugins
-    plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
+    plugins.forEach(plugin => plugin(this))
+
+    if (Vue.config.devtools) {
+      devtoolPlugin(this)
+    }
   }
 
   get state () {
