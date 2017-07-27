@@ -23,7 +23,7 @@ For any non-trivial app, we will likely need to leverage modules. Here's an exam
 └── store
     ├── index.js          # where we assemble modules and export the store
     ├── actions.js        # root actions
-    ├── mutations.js      # root mutations
+    ├── mutation-types.js      # root mutations
     └── modules
         ├── cart.js       # cart module
         └── products.js   # products module
