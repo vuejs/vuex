@@ -17,13 +17,20 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: mapGetters({
-    products: 'allProducts'
+    products: 'product/list'
   }),
-  methods: mapActions([
-    'addToCart'
-  ]),
+  methods: {
+    ...mapActions({
+      addItemToCart: 'cart/addItem',
+      decreaseProductInventory: 'product/decreaseInventory'
+    }),
+    addToCart(product) {
+      this.addItemToCart(product);
+      this.decreaseProductInventory(product);
+    }
+  },
   created () {
-    this.$store.dispatch('getAllProducts')
+    this.$store.dispatch('product/getAll')
   }
 }
 </script>
