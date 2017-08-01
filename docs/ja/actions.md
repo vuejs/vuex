@@ -106,10 +106,12 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // this.increment() を this.$store.dispatch('increment') にマッピングする
+      'increment', // `this.increment()` を `this.$store.dispatch('increment')` にマッピングする
+      // `mapActions` もペイロードをサポートする:
+      'incrementBy' // `this.incrementBy(amount)` を `this.$store.dispatch('incrementBy', amount)` にマッピングする
     ]),
     ...mapActions({
-      add: 'increment' // this.add() を this.$store.dispatch('increment') にマッピングする
+      add: 'increment' // `this.add()` を `this.$store.dispatch('increment')` にマッピングする
     })
   }
 }
@@ -158,14 +160,14 @@ actions: {
 最終的に JavaScript の機能として近く導入される [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使用することで、次のようにアクションを組み合わせることができます:
 
 ``` js
-// getData() と getOtherData() が Promise を返すことを想定している
+// `getData()` と `getOtherData()` が Promise を返すことを想定している
 
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
   },
   async actionB ({ dispatch, commit }) {
-    await dispatch('actionA') // actionA が完了するのを待機する
+    await dispatch('actionA') // `actionA` が完了するのを待機する
     commit('gotOtherData', await getOtherData())
   }
 }
