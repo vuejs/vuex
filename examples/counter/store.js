@@ -23,7 +23,7 @@ const mutations = {
   }
 }
 
-// actions are functions that causes side effects and can involve
+// actions are functions that cause side effects and can involve
 // asynchronous operations.
 const actions = {
   increment: ({ commit }) => commit('increment'),
