@@ -251,6 +251,59 @@ describe('Helpers', () => {
     expect(vm.b).toBe(true)
   })
 
+  it('mapGetters (with namespace and nested module)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          modules: {
+            bar: {
+              namespaced: true,
+              state: { count: 0 },
+              mutations: {
+                inc: state => state.count++,
+                dec: state => state.count--
+              },
+              getters: {
+                hasAny: ({ count }) => count > 0,
+                negative: ({ count }) => count < 0
+              }
+            },
+            cat: {
+              state: { count: 9 },
+              getters: {
+                count: ({ count }) => count
+              }
+            }
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: {
+        ...mapGetters('foo/bar', [
+          'hasAny',
+          'negative'
+        ]),
+        ...mapGetters('foo', [
+          'count'
+        ])
+      }
+    })
+    expect(vm.hasAny).toBe(false)
+    expect(vm.negative).toBe(false)
+    store.commit('foo/bar/inc')
+    expect(vm.hasAny).toBe(true)
+    expect(vm.negative).toBe(false)
+    store.commit('foo/bar/dec')
+    store.commit('foo/bar/dec')
+    expect(vm.hasAny).toBe(false)
+    expect(vm.negative).toBe(true)
+
+    expect(vm.count).toBe(9)
+  })
+
   it('mapActions (array)', () => {
     const a = jasmine.createSpy()
     const b = jasmine.createSpy()
