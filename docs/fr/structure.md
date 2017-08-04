@@ -16,7 +16,7 @@ Pour une application non-triviale, nous aurons probablement besoin de faire appe
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # abstractions pour créer des requêtes API
 ├── components
 │   ├── App.vue
 │   └── ...
