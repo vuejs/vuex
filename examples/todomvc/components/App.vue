@@ -13,12 +13,13 @@
     </header>
     <!-- main section -->
     <section class="main" v-show="todos.length">
-      <input class="toggle-all"
+      <input class="toggle-all" id="toggle-all"
         type="checkbox"
         :checked="allChecked"
         @change="toggleAll({ done: !allChecked })">
+      <label for="toggle-all"></label>
       <ul class="todo-list">
-        <todo v-for="todo in filteredTodos" :todo="todo"></todo>
+        <todo v-for="(todo, index) in filteredTodos" :key="index" :todo="todo"></todo>
       </ul>
     </section>
     <!-- footer -->

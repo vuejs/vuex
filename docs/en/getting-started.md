@@ -1,6 +1,6 @@
 # Getting Started
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that makes a Vuex store different from a plain global object:
+At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that make a Vuex store different from a plain global object:
 
 1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
 
@@ -39,6 +39,6 @@ Again, the reason we are committing a mutation instead of changing `store.state.
 
 Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/yyx990803/n9jmu5v7/).
+Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/n9jmu5v7/1269/).
 
 Next, we will discuss each core concept in much finer details, starting with [State](state.md).

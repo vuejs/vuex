@@ -1,9 +1,11 @@
 # Vuex
 
+<!--email_off-->
 > Внимание: это — документация для версии vuex@2.x.
+<!--/email_off-->
 
-- [Ищете документацию для 1.0?](https://github.com/vuejs/vuex/tree/1.0/docs)
-- [Release Notes](https://github.com/vuejs/vuex/releases)
+- [Нужна документация для 1.0?](https://github.com/vuejs/vuex/tree/1.0/docs)
+- [История изменений](https://github.com/vuejs/vuex/releases)
 - [Установка](installation.md)
 - [Что такое Vuex?](intro.md)
 - [Начало работы](getting-started.md)

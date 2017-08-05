@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### 测试 Actions
 
-Actions 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 actions 的时候，我们需要增加一个 mocking 服务层 —— 例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 Webpack 和  [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
+Actions 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 actions 的时候，我们需要增加一个 mocking 服务层 —— 例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 webpack 和  [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
 
 下面是一个测试异步 action 的例子：
 
@@ -57,10 +57,10 @@ Actions 应对起来略微棘手，因为它们可能需要调用外部的 API�
 // actions.js
 import shop from '../api/shop'
 
-export const getAllProducts = ({ dispatch }) => {
-  dispatch('REQUEST_PRODUCTS')
+export const getAllProducts = ({ commit }) => {
+  commit('REQUEST_PRODUCTS')
   shop.getProducts(products => {
-    dispatch('RECEIVE_PRODUCTS', products)
+    commit('RECEIVE_PRODUCTS', products)
   })
 }
 ```
@@ -91,10 +91,16 @@ const testAction = (action, args, state, expectedMutations, done) => {
   // 模拟提交
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    expect(mutation.type).to.equal(type)
-    if (payload) {
-      expect(mutation.payload).to.deep.equal(payload)
+
+    try {
+      expect(mutation.type).to.equal(type)
+      if (payload) {
+        expect(mutation.payload).to.deep.equal(payload)
+      }
+    } catch (error) {
+      done(error)
     }
+
     count++
     if (count >= expectedMutations.length) {
       done()
@@ -170,7 +176,7 @@ describe('getters', () => {
 
 ### 执行测试
 
-如果你的 mutations 和 actions 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 Webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 `Karma` + `karma-webpack`在真实浏览器环境中进行测试。
+如果你的 mutations 和 actions 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 `Karma` + `karma-webpack`在真实浏览器环境中进行测试。
 
 #### 在 Node 中执行测试
 
@@ -188,7 +194,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/
       }
     ]

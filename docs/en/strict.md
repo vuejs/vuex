@@ -13,7 +13,7 @@ In strict mode, whenever Vuex state is mutated outside of mutation handlers, an 
 
 ### Development vs. Production
 
-**Do not enable strict mode when deploying for production!** Strict mode runs a deep watch on the state tree for detecting inappropriate mutations - make sure to turn it off in production to avoid the performance cost.
+**Do not enable strict mode when deploying for production!** Strict mode runs a synchronous deep watcher on the state tree for detecting inappropriate mutations, and it can be quite expensive when you make large amount of mutations to the state. Make sure to turn it off in production to avoid the performance cost.
 
 Similar to plugins, we can let the build tools handle that:
 

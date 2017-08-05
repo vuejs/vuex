@@ -18,7 +18,13 @@ Include `vuex` after Vue and it will install itself automatically:
 ### NPM
 
 ``` bash
-npm install vuex
+npm install vuex --save
+```
+
+### Yarn
+
+``` bash
+yarn add vuex
 ```
 
 When used with a module system, you must explicitly install Vuex via `Vue.use()`:

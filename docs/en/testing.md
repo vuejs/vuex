@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### Testing Actions
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
 
 Example testing an async action:
 
@@ -57,10 +57,10 @@ Example testing an async action:
 // actions.js
 import shop from '../api/shop'
 
-export const getAllProducts = ({ dispatch }) => {
-  dispatch('REQUEST_PRODUCTS')
+export const getAllProducts = ({ commit }) => {
+  commit('REQUEST_PRODUCTS')
   shop.getProducts(products => {
-    dispatch('RECEIVE_PRODUCTS', products)
+    commit('RECEIVE_PRODUCTS', products)
   })
 }
 ```
@@ -72,7 +72,7 @@ export const getAllProducts = ({ dispatch }) => {
 // with inject-loader, this returns a module factory
 // that allows us to inject mocked dependencies.
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // create the module with our mocks
 const actions = actionsInjector({
@@ -92,10 +92,16 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   // mock commit
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    expect(mutation.type).to.equal(type)
-    if (payload) {
-      expect(mutation.payload).to.deep.equal(payload)
+
+    try {
+      expect(mutation.type).to.equal(type)
+      if (payload) {
+        expect(mutation.payload).to.deep.equal(payload)
+      }
+    } catch (error) {
+      done(error)
     }
+
     count++
     if (count >= expectedMutations.length) {
       done()
@@ -171,7 +177,7 @@ describe('getters', () => {
 
 ### Running Tests
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
 
 #### Running in Node
 
@@ -189,7 +195,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/
       }
     ]
@@ -207,7 +213,7 @@ mocha test-bundle.js
 #### Running in Browser
 
 1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
+2. Change the `entry` from the webpack config above to `'mocha-loader!babel-loader!./test.js'`.
 3. Start `webpack-dev-server` using the config
 4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
 

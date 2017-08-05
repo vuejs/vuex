@@ -22,9 +22,9 @@ const store = new Vuex.Store({
 store.commit('increment')
 ```
 
-### 提交载荷（Playload）
+### 提交载荷（Payload）
 
-你可以向 `store.commit` 传入额外的参数，即 mutation 的 **载荷（playload）**：
+你可以向 `store.commit` 传入额外的参数，即 mutation 的 **载荷（payload）**：
 
 ``` js
 // ...
@@ -73,24 +73,6 @@ mutations: {
     state.count += payload.amount
   }
 }
-```
-
-### 静默提交
-
-> 注意：当我们在 devtools 中实现了 mutation 过滤功能后，此项功能将会被废弃。
-
-默认情况下，每个提交的 mutation 都会发送至插件（如 devtools）。但是在有些场景下，你可能不希望插件去记录每一个状态变更。在一个很短时间内向 store 的多个提交不总是需要被追踪的。在这种情况下，你可以向 `store.commit` 传第三个参数来对插件静默该 mutation：
-
-``` js
-store.commit('increment', {
-  amount: 1
-}, { silent: true })
-
-// 使用对象风格方式提交
-store.commit({
-  type: 'increment',
-  amount: 1
-}, { silent: true })
 ```
 
 ### Mutations 需遵守 Vue 的响应规则
@@ -150,7 +132,7 @@ mutations: {
 }
 ```
 
-现在想象，我们正在 debug 一个 app 并且观察 devtool 中的 mutation 日志。每一条 mutation 被记录，devtools 都需要捕捉到前一状态和后一状态的快照。然而，在上面的例子中 mutation 中的异步函数中的回调让这不可能完成：因为当 mutation 触发的时候，回掉函数还没有被调用，devtools 不知道什么时候回调函数实际上被调用 —— 实质上任何在回调函数中进行的的状态的改变都是不可追踪的。
+现在想象，我们正在 debug 一个 app 并且观察 devtool 中的 mutation 日志。每一条 mutation 被记录，devtools 都需要捕捉到前一状态和后一状态的快照。然而，在上面的例子中 mutation 中的异步函数中的回调让这不可能完成：因为当 mutation 触发的时候，回调函数还没有被调用，devtools 不知道什么时候回调函数实际上被调用 —— 实质上任何在回调函数中进行的的状态的改变都是不可追踪的。
 
 ### 在组件中提交 Mutations
 

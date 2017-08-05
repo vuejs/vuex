@@ -5,7 +5,7 @@
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
 <!--email_off-->
-[Unpkg.com](https://unpkg.com) fournit des liens CDN basés sur NPM. Le lien ci-dessus pointera toujours vers la dernière release sur NPM. Vous pouvez aussi utiliser un tag ou une version spécifique comme `https://unpkg.com/vuex@2.0.0`.
+[Unpkg.com](https://unpkg.com) fournit des liens CDN basés sur NPM. Le lien ci-dessus pointera toujours vers la dernière release sur NPM. Vous pouvez aussi utiliser un tag ou une version spécifique via une URL comme `https://unpkg.com/vuex@2.0.0`.
 <!--/email_off-->
 
 Incluez `vuex` après Vue et l'installation sera automatique :
@@ -18,10 +18,16 @@ Incluez `vuex` après Vue et l'installation sera automatique :
 ### NPM
 
 ``` bash
-npm install vuex
+npm install vuex --save
 ```
 
-Lorsque vous utilisez un système de modules, vous devez explicitement installer le router via `Vue.use()`:
+### Yarn
+
+``` bash
+yarn add vuex
+```
+
+Lorsqu'il est utilisé avec un système de module, vous devez explicitement installer Vuex via `Vue.use()`:
 
 ``` js
 import Vue from 'vue'
@@ -30,12 +36,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 ```
 
-Il n'est pas nécessaire de faire ceci lorsque vous utilisez des balises de script globales.
+Vous n'avez pas besoin de faire cela lors de l'utilisation des balises de script globales (`<script>`).
 
-### Environnement de dev
+### Build de développement
 
-Vous devrez cloner directement depuis GitHub et compiler `vuex` vous-même si
-vous souhaitez utiliser la dernière version de dev.
+Vous aurez besoin de cloner directement vuex depuis GitHub et le compiler vous-même si vous souhaitez utiliser le dernier build de développement.
 
 ``` bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex

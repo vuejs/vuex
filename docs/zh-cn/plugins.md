@@ -1,6 +1,6 @@
 # 插件
 
-Vuex 的 store 接受 `plugins` 选项，这个选项暴露出每次 mutation 的钩子。Vuex 插件就是一个函数，它接收 sotre 作为唯一参数：
+Vuex 的 store 接受 `plugins` 选项，这个选项暴露出每次 mutation 的钩子。Vuex 插件就是一个函数，它接收 store 作为唯一参数：
 
 ``` js
 const myPlugin = store => {
@@ -70,7 +70,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**生成状态快照的插件应该只在开发阶段使用**，使用 Webpack 或 Browserify，让构建工具帮我们处理：
+**生成状态快照的插件应该只在开发阶段使用**，使用 webpack 或 Browserify，让构建工具帮我们处理：
 
 ``` js
 const store = new Vuex.Store({
@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-上面插件会默认启用。在发布阶段，你需要使用 Webpack 的 [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 或者是 Browserify 的 [envify](https://github.com/hughsk/envify) 使 `process.env.NODE_ENV !== 'production'` 为 `false`。
+上面插件会默认启用。在发布阶段，你需要使用 webpack 的 [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 或者是 Browserify 的 [envify](https://github.com/hughsk/envify) 使 `process.env.NODE_ENV !== 'production'` 为 `false`。
 
 ### 内置 Logger 插件
 
@@ -102,6 +102,11 @@ const store = new Vuex.Store({
 ``` js
 const logger = createLogger({
   collapsed: false, // 自动展开记录的 mutation
+  filter (mutation, stateBefore, stateAfter) {
+    // 若 mutation 需要被记录，就让它返回 true 即可
+    // 顺便，`mutation` 是个 { type, payload } 对象
+    return mutation.type !== "aBlacklistedMutation"
+  },
   transformer (state) {
     // 在开始记录之前转换状态
     // 例如，只返回指定的子树

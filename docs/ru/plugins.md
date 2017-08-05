@@ -7,7 +7,7 @@ const myPlugin = store => {
   // вызывается после инициализации хранилища
   store.subscribe((mutation, state) => {
     // вызывается после каждой мутации
-    // мутация передаётся в формате { type, payload }.
+    // мутация передаётся в формате `{ type, payload }`.
   })
 }
 ```
@@ -62,7 +62,7 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // сравнение prevState и nextState...
+    // сравнение `prevState` и `nextState`...
 
     // сохранение состояния для следующей мутации
     prevState = nextState
@@ -70,7 +70,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**Плагины, снимающие слепки, должны использоваться только на этапе разработки.** При использовании Webpack или Browserify, мы можем отдать этот момент на их откуп:
+**Плагины, снимающие слепки, должны использоваться только на этапе разработки.** При использовании webpack или Browserify, мы можем отдать этот момент на их откуп:
 
 ``` js
 const store = new Vuex.Store({
@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для Webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
+Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
 
 ### Встроенный плагин логирования
 
@@ -102,13 +102,18 @@ const store = new Vuex.Store({
 ``` js
 const logger = createLogger({
   collapsed: false, // автоматически раскрывать залогированные мутации
+  filter (mutation, stateBefore, stateAfter) {
+    // возвращает `true` если мутация должна быть залогирована
+    // `mutation` это объект `{ type, payload }`
+    return mutation.type !== "aBlacklistedMutation"
+  },
   transformer (state) {
     // обработать состояние перед логированием
     // например, позволяет рассматривать только конкретное поддерево
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // мутации логируются в формате { type, payload },
+    // мутации логируются в формате `{ type, payload }`,
     // но это можно изменить
     return mutation.type
   }

@@ -20,11 +20,11 @@ namespace StoreInstance {
     amount: 1
   }).then(() => {});
 
-  store.commit("foo", { amount: 1 }, { silent: true });
+  store.commit("foo", { amount: 1 });
   store.commit({
     type: "foo",
     amount: 1
-  }, { silent: true });
+  });
 
   store.watch(state => state.value, value => {
     value = value + 1;
@@ -35,6 +35,7 @@ namespace StoreInstance {
 
   store.subscribe((mutation, state) => {
     mutation.type;
+    mutation.payload;
     state.value;
   });
 
@@ -55,7 +56,7 @@ namespace RootModule {
         state.value;
         getters.count;
         dispatch("bar", {});
-        commit("bar", {}, { silent: true });
+        commit("bar", {});
       }
     },
     mutations: {
@@ -115,6 +116,59 @@ namespace NestedModules {
         modules: {
           c: module,
           d: module
+        }
+      }
+    }
+  });
+}
+
+namespace NamespacedModule {
+  const store = new Vuex.Store({
+    state: { value: 0 },
+    getters: {
+      rootValue: state => state.value
+    },
+    actions: {
+      foo () {}
+    },
+    mutations: {
+      foo () {}
+    },
+    modules: {
+      a: {
+        namespaced: true,
+        state: { value: 1 },
+        modules: {
+          b: {
+            state: { value: 2 }
+          },
+          c: {
+            namespaced: true,
+            state: { value: 3 },
+            getters: {
+              constant: () => 10,
+              count (state, getters, rootState, rootGetters) {
+                getters.constant;
+                rootGetters.rootValue;
+              }
+            },
+            actions: {
+              test ({ dispatch, commit, getters, rootGetters }) {
+                getters.constant;
+                rootGetters.rootValue;
+
+                dispatch("foo");
+                dispatch("foo", null, { root: true });
+
+                commit("foo");
+                commit("foo", null, { root: true });
+              },
+              foo () {}
+            },
+            mutations: {
+              foo () {}
+            }
+          }
         }
       }
     }

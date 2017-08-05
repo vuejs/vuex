@@ -65,7 +65,7 @@ store.commit({
 })
 ```
 
-Lors de l'utlisation de l'object-style commit, l'objet entier sera fournit comme payload aux handlers de mutation, donc le handler reste inchangé :
+Lors de l'utlisation de l'object-style commit, l'objet entier sera fourni comme payload aux handlers de mutation, donc le handler reste inchangé :
 
 ``` js
 mutations: {
@@ -75,29 +75,11 @@ mutations: {
 }
 ```
 
-### Commit silencieux
-
-> Note : Cette fonctionnalité sera probablement dépréciée une fois que nous aurons implémenté le filtrage des mutations dans les devtools.
-
-Par défaut, chaque mutation committée est envoyée aux plugins (i.e. les devtools). Cependant dans certains scénarios vous pourriez ne pas vouloir que les plugins enregistrent chaque changement de state. Plusieurs commits dans le store en un court laps de temps n'ont pas toujours besoin d'être tracés. Dans ce genre de cas, vous pouvez passer un troisième argument à `store.commit` afin de rendre cette mutation silencieuse aux yeux des plugins :
-
-``` js
-store.commit('increment', {
-  amount: 1
-}, { silent: true })
-
-// with object-style dispatch
-store.commit({
-  type: 'increment',
-  amount: 1
-}, { silent: true })
-```
-
 ### Les mutations suivent les règles de réactivité de Vue
 
 Puisqu'un state de store de Vuex est rendu réactif par Vue, lorsque nous mutons le state, les composants Vue observant ce state seront automatiquement mis à jour. Cela signifie également que les mutations Vuex sont sujettes aux mêmes inconvénients que lorsqu'on travaille avec Vue :
 
-1. Initialisez de préférences le state initial de votre state avec tous les champs désirés auparavant.
+1. Initialisez de préférence le state initial de votre state avec tous les champs désirés auparavant.
 
 2. Lorsque vous ajoutez de nouvelles propriétés à un Object, vous devriez soit :
 
@@ -151,7 +133,7 @@ mutations: {
 }
 ```
 
-Maintenant imaginons que nous debuggons l'application et que nous regardons dans les logs de mutation des devtools. Pour chaque mutation enregistrée, le devtool aura besoin de capturer un instantané du state "avant" et un instantané "après". Cependant, le callback asynchrone du l'exemple ci-dessus rend l'opération impossible : le callback n'est pas encore appelé lorsque la mutation est committée, et il n'y a aucun moyen pour le devtool de savoir quand le callback sera véritablement appelé &mdash; toute mutation du state effectuée dans le callack est essentiellement intraçable !
+Maintenant imaginons que nous debuggons l'application et que nous regardons dans les logs de mutation des devtools. Pour chaque mutation enregistrée, le devtool aura besoin de capturer un instantané du state "avant" et un instantané "après". Cependant, le callback asynchrone de l'exemple ci-dessus rend l'opération impossible : le callback n'est pas encore appelé lorsque la mutation est committée, et il n'y a aucun moyen pour le devtool de savoir quand le callback sera véritablement appelé &mdash; toute mutation du state effectuée dans le callback est essentiellement intraçable !
 
 ### commiter des mutations dans les composants
 
@@ -175,7 +157,7 @@ export default {
 
 ### En avant vers les actions
 
-L'asynchronisme combiné à la mutation du state peut rendre votre program très difficile à comprendre. Par exemple, lorsque vous appelez deux méthodes avec toutes les deux des callbacks asynchrones qui changent le state, comment savez-vous quand elles sont appelées et quel callback est appelé en premier ? C'est exactement la raison pour laquelle nous voulons séparer les deux concepts. Avec Vuex, **les mutations sont des transactions synchrones** :
+L'asynchronisme combiné à la mutation du state peut rendre votre programme très difficile à comprendre. Par exemple, lorsque vous appelez deux méthodes avec toutes les deux des callbacks asynchrones qui changent le state, comment savez-vous quand elles sont appelées et quel callback est appelé en premier ? C'est exactement la raison pour laquelle nous voulons séparer les deux concepts. Avec Vuex, **les mutations sont des transactions synchrones** :
 
 ``` js
 store.commit('increment')
