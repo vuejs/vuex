@@ -78,6 +78,116 @@ const moduleA = {
 }
 ```
 
+### 组件中 使用模块下的state、getter、mutations、actions
+
+```js
+//page.vue
+<script type="text/babel">
+import store from '../store/index.js';
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
+export default{
+    data(){
+        return {
+            msg: 'vuex with modules',
+        }
+    },
+    computed:{
+        local(){
+            return store.state.yourModule.prop;//module state
+            //or this.$store.state.yourModule.prop; 
+            //or this.$store.state.prop [this for root state] 
+        },
+        cptData(){
+            return store.getters['yourModule/moduleGetter'];//it`s unfriendly,use mapGetters is better
+            //or store.getters.rootGetter; 
+            //or this.$store.getters['yourModule/moduleGetter']; //it`s unfriendly,use mapGetters is better
+            //or this.$store.getters.rootGetter [this for root getter] 
+        },
+        ...mapState('yourmodule', ['moduleState']),
+        ...mapGetters('yourmodule', [moduleGetter])
+    },
+    methods:{
+       localFunc(){
+            //dosomething.... 
+       },
+       ...mapMutations('yourmodule', ['moduleMutation']),
+       ...mapActions('yourmodule', ['moduleAction'])
+    },
+    created(){
+        let _data={};
+        //vuex mutation
+        this.$store.commit('rootMutation',_data);
+        //vuex module mutation
+        this.$store.commit('yourmodule/moduleMutation',_data);
+        //vuex action
+        this.$store.dispatch('rootAction',_data);
+        //vuex module actions
+        this.$store.dispatch('yourmodule/moduleAction',_data);
+
+        //or use store if instead of this.$store
+    }
+}
+</script>
+```
+
+### vuex子模块中调用root总的mutation、actions
+```js
+//store.js
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+// 导入各个模块的初始状态和 mutations
+import yourmodule from './modules/yourmodule'; //better
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+    strict: true,//仅在开发环境中检测
+    state: {
+        
+    },
+    getters:{
+    
+    },
+    mutations:{
+        rootMutation(){
+
+        }
+    },
+    actions:{
+        rootActions(){
+        
+        }
+    },
+    modules:{
+       yourmodule,
+       othermodule:{
+          state: {
+
+          },
+          getters:{
+
+          },
+          mutations:{
+              moduleMutation(){
+              
+              }
+          },
+          actions:{
+              moduleAction(context,data){
+                  setTimeout(()=>{
+                      context.commit('moduleMutation',data);
+                      //调用root 的 actions 或者 mutations
+                      context.commit('rootMutation',data,{root:true});
+                      context.dispatch('rootAction',data,{root:true});
+                  },10);
+              }
+          }
+       }
+    }
+})
+```
+
 ### 命名空间
 
 默认情况下，模块内部的 action、mutation 和 getter 是注册在**全局命名空间**的——这样使得多个模块能够对同一 mutation 或 action 作出响应。如果希望你的模块更加自包含或提高可重用性，你可以通过添加 `namespaced: true` 的方式使其成为命名空间模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：
