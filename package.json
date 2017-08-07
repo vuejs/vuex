@@ -8,7 +8,6 @@
   "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "src",
     "types/index.d.ts",
     "types/helpers.d.ts",
     "types/vue.d.ts"

@@ -58,7 +58,11 @@ export class Store {
     resetStoreVM(this, state)
 
     // apply plugins
-    plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
+    plugins.forEach(plugin => plugin(this))
+
+    if (Vue.config.devtools) {
+      devtoolPlugin(this)
+    }
   }
 
   get state () {
@@ -373,14 +377,14 @@ function makeLocalGetters (store, namespace) {
 function registerMutation (store, type, handler, local) {
   const entry = store._mutations[type] || (store._mutations[type] = [])
   entry.push(function wrappedMutationHandler (payload) {
-    handler(local.state, payload)
+    handler.call(store, local.state, payload)
   })
 }
 
 function registerAction (store, type, handler, local) {
   const entry = store._actions[type] || (store._actions[type] = [])
   entry.push(function wrappedActionHandler (payload, cb) {
-    let res = handler({
+    let res = handler.call(store, {
       dispatch: local.dispatch,
       commit: local.commit,
       getters: local.getters,

@@ -212,9 +212,9 @@ mocha test-bundle.js
 
 #### Running in Browser
 
-1. Install `mocha-loader`
+1. Install `mocha-loader`.
 2. Change the `entry` from the webpack config above to `'mocha-loader!babel-loader!./test.js'`.
-3. Start `webpack-dev-server` using the config
+3. Start `webpack-dev-server` using the config.
 4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
 
 #### Running in Browser with Karma + karma-webpack
