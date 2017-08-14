@@ -83,7 +83,7 @@ mutations: {
 
 2. 当需要在对象上添加新属性时，你应该
 
-  - 使用 `Vue.set(obj, 'newProp', 123)`, 或者 -
+  - 使用 `Vue.set(obj, 'newProp', 123)`, 或者
 
   - 以新对象替换老对象。例如，利用 stage-3 的[对象展开运算符](https://github.com/sebmarkbage/ecmascript-rest-spread)我们可以这样写：
 
