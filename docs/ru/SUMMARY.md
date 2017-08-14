@@ -9,7 +9,7 @@
 - [Установка](installation.md)
 - [Что такое Vuex?](intro.md)
 - [Начало работы](getting-started.md)
-- Основные концепции
+- [Основные концепции](core-concepts.md)
   - [Состояние](state.md)
   - [Геттеры](getters.md)
   - [Мутации](mutations.md)
