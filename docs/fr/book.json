@@ -4,7 +4,7 @@
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/vuejs/vuex/tree/dev/docs",
-      "label": "Éditer cette page"
+      "label": "Éditer la page"
     },
     "github": {
       "url": "https://github.com/vuejs/vuex/"
