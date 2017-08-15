@@ -1,0 +1,19 @@
+{
+  "gitbook": "2.x.x",
+  "plugins": ["edit-link", "prism", "-highlight", "github"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/vuejs/vuex/tree/dev/docs",
+      "label": "Éditer cette page"
+    },
+    "github": {
+      "url": "https://github.com/vuejs/vuex/"
+    }
+  },
+  "links": {
+    "sharing": {
+      "facebook": false,
+      "twitter": false
+    }
+  }
+}
