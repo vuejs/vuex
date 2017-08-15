@@ -83,7 +83,7 @@ Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vu
 
 2. When adding new properties to an Object, you should either:
 
-  - Use `Vue.set(obj, 'newProp', 123)`, or -
+  - Use `Vue.set(obj, 'newProp', 123)`, or
 
   - Replace that Object with a fresh one. For example, using the stage-3 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
 
