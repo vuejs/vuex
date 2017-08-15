@@ -1,5 +1,4 @@
-import _Vue = require("vue");
-import { WatchOptions } from "vue";
+import _Vue, { WatchOptions } from "vue";
 
 // augment typings of Vue.js
 import "./vue";
@@ -111,3 +110,8 @@ export interface MutationTree<S> {
 export interface ModuleTree<R> {
   [key: string]: Module<any, R>;
 }
+
+export default {
+  Store,
+  install
+};

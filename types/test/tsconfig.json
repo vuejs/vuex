@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
     "lib": [
       "es5",
       "dom",
       "es2015.promise",
       "es2015.core"
     ],
-    "noImplicitAny": true,
-    "strictNullChecks": true,
+    "strict": true,
     "noEmit": true
   },
   "include": [
