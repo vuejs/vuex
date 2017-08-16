@@ -5,28 +5,28 @@ type Computed = () => any;
 type MutationMethod = (...args: any[]) => void;
 type ActionMethod = (...args: any[]) => Promise<any>;
 
-type Mapper<R> = {
+interface Mapper<R> {
   (map: string[]): Dictionary<R>;
   (map: Dictionary<string>): Dictionary<R>;
-};
+}
 
-type MapperWithNamespace<R> = {
+interface MapperWithNamespace<R> {
   (namespace: string, map: string[]): Dictionary<R>;
   (namespace: string, map: Dictionary<string>): Dictionary<R>;
-};
+}
 
-type MapperForState = {
+interface MapperForState {
   <S>(
     map: Dictionary<(this: typeof Vue, state: S, getters: any) => any>
   ): Dictionary<Computed>;
-};
+}
 
-type MapperForStateWithNamespace = {
+interface MapperForStateWithNamespace {
   <S>(
     namespace: string,
     map: Dictionary<(this: typeof Vue, state: S, getters: any) => any>
   ): Dictionary<Computed>;
-};
+}
 
 interface NamespacedMappers {
   mapState: Mapper<Computed> & MapperForState;
