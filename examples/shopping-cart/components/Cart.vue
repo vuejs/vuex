@@ -18,9 +18,9 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters({
-      products: 'cart/items',
-      checkoutStatus: 'cart/checkoutStatus'
+    ...mapGetters('cart', {
+      products: 'items',
+      checkoutStatus: 'checkoutStatus'
     }),
     total () {
       return this.products.reduce((total, p) => {
@@ -28,8 +28,6 @@ export default {
       }, 0)
     }
   },
-  methods: mapActions({
-    checkout: 'cart/checkout'
-  })
+  methods: mapActions('cart', ['checkout'])
 }
 </script>

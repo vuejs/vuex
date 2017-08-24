@@ -22,15 +22,14 @@ export default {
   methods: {
     ...mapActions({
       addItemToCart: 'cart/addItem',
-      decreaseProductInventory: 'product/decreaseInventory'
+      getAllProducts: 'product/getAll'
     }),
     addToCart(product) {
       this.addItemToCart(product);
-      this.decreaseProductInventory(product);
     }
   },
   created () {
-    this.$store.dispatch('product/getAll')
+    this.getAllProducts();
   }
 }
 </script>

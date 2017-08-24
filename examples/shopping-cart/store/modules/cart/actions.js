@@ -1,11 +1,13 @@
 import shop from '../../../api/shop'
 import * as types from './types'
+import * as productTypes from '../product/types'
 
 export const addItem = ({ commit }, product) => {
   if (product.inventory > 0) {
     commit(types.ADD_ITEM, {
       id: product.id
     })
+    commit(`product/${productTypes.DECREASE_INVENTORY}`, product, { root: true })
   }
 }
 
