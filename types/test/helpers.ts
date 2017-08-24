@@ -4,8 +4,11 @@ import {
   mapState,
   mapGetters,
   mapActions,
-  mapMutations
+  mapMutations,
+  createNamespacedHelpers
 } from "../index";
+
+const helpers = createNamespacedHelpers('foo');
 
 new Vue({
   computed: Object.assign({},
@@ -33,6 +36,19 @@ new Vue({
       e: "e"
     }),
 
+    helpers.mapState(["k"]),
+    helpers.mapState({
+      k: "k"
+    }),
+    helpers.mapState({
+      k: (state: any, getters: any) => state.k + getters.k
+    }),
+
+    helpers.mapGetters(["l"]),
+    helpers.mapGetters({
+      l: "l"
+    }),
+
     {
       otherComputed () {
         return "f";
@@ -57,6 +73,16 @@ new Vue({
     mapMutations('foo', ["i"]),
     mapMutations('foo', {
       j: "j"
+    }),
+
+    helpers.mapActions(["m"]),
+    helpers.mapActions({
+      m: "m"
+    }),
+
+    helpers.mapMutations(["n"]),
+    helpers.mapMutations({
+      n: "n"
     }),
 
     {

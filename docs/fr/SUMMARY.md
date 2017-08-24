@@ -9,7 +9,7 @@
 - [Installation](installation.md)
 - [Vuex, qu'est-ce que c'est ?](intro.md)
 - [Pour commencer](getting-started.md)
-- Concepts de base
+- [Concepts de base](core-concepts.md)
   - [État](state.md)
   - [Accesseurs](getters.md)
   - [Mutations](mutations.md)
