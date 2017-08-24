@@ -196,4 +196,4 @@ const store = new Vuex.Store({ ...options })
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Créer des composants utilitaires liés avec espace de nom. L'objet retourné contient `mapState`, `mapGetters`, `mapActions` et `mapMutations` qui sont liés avec le nom donné. [Plus de détails](modules.md#fonctions-utilitaires-liées-avec-espace-de-nom)
+  Créer des fonctions utilitaires liées avec espace de nom. L'objet retourné contient `mapState`, `mapGetters`, `mapActions` et `mapMutations` qui sont liées à l'espace de nom fourni. [Plus de détails](modules.md#fonctions-utilitaires-liées-avec-espace-de-nom)
