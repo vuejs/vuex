@@ -16,7 +16,7 @@ const store = new Vuex.Store({ ...options })
 
     L'objet d'état racine pour le store Vuex.
 
-    [Détails](state.md)
+    [Plus de détails](state.md)
 
 - **mutations**
 
@@ -24,7 +24,7 @@ const store = new Vuex.Store({ ...options })
 
     Enregistrer les mutations sur le store. La fonction gestionnaire reçoit toujours `state` comme premier argument (sera l'état local du module si défini dans un module), et reçoit le `payload` en second argument s'il y en a un.
 
-    [Détails](mutations.md)
+    [Plus de détails](mutations.md)
 
 - **actions**
 
@@ -42,7 +42,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    [Détails](actions.md)
+    [Plus de détails](actions.md)
 
 - **getters**
 
@@ -66,7 +66,7 @@ const store = new Vuex.Store({ ...options })
 
     Les accesseurs enregistrés sont exposés sur `store.getters`.
 
-    [Détails](getters.md)
+    [Plus de détails](getters.md)
 
 - **modules**
 
@@ -90,7 +90,7 @@ const store = new Vuex.Store({ ...options })
 
     Chaque module peut contenir `state` et `mutations`, tout comme les options racine. L'état d'un module sera attaché à l'état racine du store en utilisant la clé du module. Les mutations et accesseurs d'un module recevront seulement l'état local du module en premier argument au lieu de l'état racine, et le `context.state` des actions du module pointeront également vers l'état local.
 
-    [Détails](modules.md)
+    [Plus de détails](modules.md)
 
 - **plugins**
 
@@ -98,7 +98,7 @@ const store = new Vuex.Store({ ...options })
 
     Un tableau de fonctions plugins qui seront appliquées au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, les logs ou le débogage) ou propager des mutations (pour les données internes, c.-à-d. websockets ou observables).
 
-    [Détails](plugins.md)
+    [Plus de détails](plugins.md)
 
 - **strict**
 
@@ -107,7 +107,7 @@ const store = new Vuex.Store({ ...options })
 
     Force le store Vuex en mode strict. En mode strict, toute mutation de l'état en dehors des gestionnaires de mutation lancera une erreur.
 
-    [Détails](strict.md)
+    [Plus de détails](strict.md)
 
 ### Propriétés d'instance de `Vuex.Store`
 
@@ -127,11 +127,11 @@ const store = new Vuex.Store({ ...options })
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Acter une mutation. `options` peut avoir `root: true` ce qui permet d'acter des mutations racines dans des [modules sous espace de nom](modules.md#namespacing). [Détails](mutations.md)
+  Acter une mutation. `options` peut avoir `root: true` ce qui permet d'acter des mutations racines dans des [modules sous espace de nom](modules.md#namespacing). [Plus de détails](mutations.md)
 
 - **`dispatch(type : string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Propager une action. Retourne la valeur renvoyée par le gestionnaire d'action déclenché, ou une Promesse si plusieurs gestionnaires ont été déclenchés. [Détails](actions.md)
+  Propager une action. Retourne la valeur renvoyée par le gestionnaire d'action déclenché, ou une Promesse si plusieurs gestionnaires ont été déclenchés. [Plus de détails](actions.md)
 
 - **`replaceState(state: Object)`**
 
@@ -154,42 +154,46 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  Utilisé plus communément dans les plugins. [Détails](plugins.md)
+  Utilisé plus communément dans les plugins. [Plus de détails](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-  Enregistrer un module dynamique. [Détails](modules.md#enregistrement-dynamique-de-module)
+  Enregistrer un module dynamique. [Plus de détails](modules.md#enregistrement-dynamique-de-module)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Supprimer un module dynamique. [Détails](modules.md#enregistrement-dynamique-de-module)
+  Supprimer un module dynamique. [Plus de détails](modules.md#enregistrement-dynamique-de-module)
 
 - **`hotUpdate(newOptions: Object)`**
 
-  Remplacement à la volée des nouvelles actions et mutations. [Détails](hot-reload.md)
+  Remplacement à la volée des nouvelles actions et mutations. [Plus de détails](hot-reload.md)
 
 ### Fonctions utilitaires d'attachement au composant
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Créer des propriétés calculées qui retournent le sous arbre du store Vuex au composant. [Détails](state.md#le-helper-mapstate)
+  Créer des propriétés calculées qui retournent le sous arbre du store Vuex au composant. [Plus de détails](state.md#le-helper-mapstate)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Créer des propriétés calculées qui retournent la valeur calculée d'un accesseur. [Détails](getters.md#la-function-utilitaire-mapgetters)
+  Créer des propriétés calculées qui retournent la valeur calculée d'un accesseur. [Plus de détails](getters.md#la-function-utilitaire-mapgetters)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
-  Créer des méthodes de composant qui propagent une action. [Détails](actions.md#propager-des-actions-dans-les-composants)
+  Créer des méthodes de composant qui propagent une action. [Plus de détails](actions.md#propager-des-actions-dans-les-composants)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  Créer des méthodes de composant qui actent une mutation. [Détails](mutations.md#acter-des-mutations-dans-les-composants)
+  Créer des méthodes de composant qui actent une mutation. [Plus de détails](mutations.md#acter-des-mutations-dans-les-composants)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Details](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+
+- **`createNamespacedHelpers(namespace: string): Object`**
+
+  Créer des fonctions utilitaires liées avec espace de nom. L'objet retourné contient `mapState`, `mapGetters`, `mapActions` et `mapMutations` qui sont liées à l'espace de nom fourni. [Plus de détails](modules.md#fonctions-utilitaires-liées-avec-espace-de-nom)

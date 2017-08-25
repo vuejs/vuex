@@ -206,6 +206,31 @@ methods: {
 }
 ```
 
+De plus, vous pouvez créer des fonctions utilitaires liées avec espace de nom en utilisant `createNamespacedHelpers`. Cela retourne un objet qui a les nouvelles fonctions utilitaires ratachées à la valeur d'espace de nom fournie :
+
+``` js
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+  computed: {
+    // vérifie dans `some/nested/module`
+    ...mapState({
+      a: state => state.a,
+      b: state => state.b
+    })
+  },
+  methods: {
+    // vérifie dans `some/nested/module`
+    ...mapActions([
+      'foo',
+      'bar'
+    ])
+  }
+}
+```
+
 #### Limitations pour les plugins des développeurs
 
 Vous devez faire attention au nom d'espace imprévisible pour vos modules quand vous créez un [plugin](plugins.md) qui fournit les modules et laisser les utilisateurs les ajouter au store de Vuex. Vos modules seront également sous espace de nom si l'utilisateur du plugin l'ajoute sous un module sous espace de nom. Pour vous adaptez à la situation, vous devez recevoir la valeur de l'espace de nom via vos options de plugin :
