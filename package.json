@@ -24,7 +24,7 @@
     "test:e2e": "node test/e2e/runner.js",
     "test:types": "tsc -p types/test",
     "release": "bash build/release.sh",
-    "docs": "cd docs && gitbook serve",
+    "docs": "cd docs && gitbook install && gitbook serve",
     "docs:deploy": "cd docs && ./deploy.sh"
   },
   "repository": {
