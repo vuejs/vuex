@@ -58,7 +58,7 @@ const Counter = {
 
 ### The `mapState` Helper
 
-When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us to help us save some keystrokes:
+When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us, saving us some keystrokes:
 
 ``` js
 // in full builds helpers are exposed as Vuex.mapState
