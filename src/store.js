@@ -22,11 +22,7 @@ export class Store {
       state = {}
     } = options
     if (typeof state === 'function') {
-      state = state()
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      assert(state != null, `State must be an object.`)
+      state = state() || {}
     }
 
     // store internal state
