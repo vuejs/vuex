@@ -1,7 +1,7 @@
 import applyMixin from './mixin'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
-import { forEachValue, isObject, isPromise, assert } from './util'
+import { compose, forEachValue, isObject, isPromise, assert } from './util'
 
 let Vue // bind on install
 
@@ -21,6 +21,7 @@ export class Store {
     }
 
     const {
+      actionEnhancers = [],
       plugins = [],
       strict = false
     } = options
@@ -42,9 +43,14 @@ export class Store {
     this._subscribers = []
     this._watcherVM = new Vue()
 
-    // bind commit and dispatch to self
     const store = this
-    const { dispatch, commit } = this
+    const { commit } = this
+    let { dispatch } = this
+
+    const actionEnhancerChain = getActionEnhancerChain(store, state, actionEnhancers)
+    dispatch = compose(...actionEnhancerChain)(dispatch.bind(store))
+
+    // bind commit and dispatch to self
     this.dispatch = function boundDispatch (type, payload) {
       return dispatch.call(store, type, payload)
     }
@@ -436,6 +442,15 @@ function enableStrictMode (store) {
       assert(store._committing, `Do not mutate vuex store state outside mutation handlers.`)
     }
   }, { deep: true, sync: true })
+}
+
+function getActionEnhancerChain (store, state, actionEnhancers) {
+  return actionEnhancers.map(actionEnhancer => actionEnhancer({
+    dispatch: store.dispatch,
+    commit: store.commit,
+    getters: store.getters,
+    state
+  }))
 }
 
 function getNestedState (state, path) {
