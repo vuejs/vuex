@@ -287,19 +287,9 @@ function installModule (store, rootState, path, module, hot) {
   })
 
   module.forEachAction((action, key) => {
-    let finalType, finalAction
-    if (typeof action === 'function') {
-      finalType = namespace + key
-      finalAction = action
-    } else {
-      finalAction = action.handler
-      if (action.root) {
-        finalType = key
-      } else {
-        finalType = namespace + key
-      }
-    }
-    registerAction(store, finalType, finalAction, local)
+    const type = action.root ? key : namespace + key
+    const handler = action.handler || action
+    registerAction(store, type, handler, local)
   })
 
   module.forEachGetter((getter, key) => {
