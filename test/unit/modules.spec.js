@@ -551,6 +551,61 @@ describe('Modules', () => {
       })
     })
 
+    it('root actions dispatched in namespaced modules', done => {
+      const store = new Vuex.Store({
+        modules: {
+          a: {
+            namespaced: true,
+            actions: {
+              [TEST]: {
+                root: true,
+                handler () {
+                  return 1
+                }
+              }
+            }
+          },
+          b: {
+            namespaced: true,
+            actions: {
+              [TEST]: {
+                root: true,
+                handler () {
+                  return new Promise(r => r(2))
+                }
+              }
+            }
+          },
+          c: {
+            namespaced: true,
+            actions: {
+              [TEST]: {
+                handler () {
+                  // Should not be called
+                  return 3
+                }
+              }
+            }
+          },
+          d: {
+            namespaced: true,
+            actions: {
+              [TEST] () {
+                // Should not be called
+                return 4
+              }
+            }
+          }
+        }
+      })
+      store.dispatch(TEST).then(res => {
+        expect(res.length).toBe(2)
+        expect(res[0]).toBe(1)
+        expect(res[1]).toBe(2)
+        done()
+      })
+    })
+
     it('plugins', function () {
       let initState
       const mutations = []
@@ -619,7 +674,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /actions should be function but "actions\.test" is "test"/
+      /actions should be function or object with "handler" function but "actions\.test" is "test"/
     )
 
     expect(() => {
@@ -637,7 +692,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /actions should be function but "actions\.test" in module "foo\.bar" is "error"/
+      /actions should be function or object with "handler" function but "actions\.test" in module "foo\.bar" is "error"/
     )
   })
 
