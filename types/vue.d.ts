@@ -6,7 +6,7 @@ import Vue, { ComponentOptions } from "vue";
 import { Store } from "./index";
 
 declare module "vue/types/options" {
-  interface ComponentOptions<Data, Methods, Computed, Props> {
+  interface ComponentOptions<V extends Vue> {
     store?: Store<any>;
   }
 }
