@@ -1,17 +1,17 @@
 # State
 
-### Single State Tree
+### Arbre d'état unique
 
-Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
+Vuex utilise un **arbre d'état unique**, c'est-à-dire que cet unique objet contient tout l'état au niveau applicatif et sert de « source de vérité unique ». Cela signifie également que vous n'aurez qu'un seul store pour chaque application. Un arbre d'état unique rend rapide la localisation d'une partie spécifique de l'état et permet de facilement prendre des instantanés de l'état actuel de l'application à des fins de débogage.
 
-The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
+L'arbre d'état unique n'entre pas en conflit avec la modularité. Dans les prochains chapitres, nous examinerons comment séparer votre état et vos mutations dans des sous-modules.
 
-### Getting Vuex State into Vue Components
+### Récupération d'état Vuex dans des composants Vue
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](http://vuejs.org/guide/computed.html):
+Alors, comment affichons-nous l'état du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple d'y « récupérer » l'état est tout simplement de retourner une partie de l'état depuis une [une propriété calculée](https://fr.vuejs.org/guide/computed.html) :
 
 ``` js
-// let's create a Counter component
+// créons un composant Counter
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
@@ -22,17 +22,17 @@ const Counter = {
 }
 ```
 
-Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
+Lorsque `store.state.count` change, cela entraînera la ré-évaluation de la propriété calculée, et déclenchera les actions associées au DOM.
 
-However, this pattern causes the component to rely on the global store singleton. When using a module system, it requires importing the store in every component that uses store state, and also requires mocking when testing the component.
+Cependant, ce modèle oblige le composant à compter sur le singleton global du store. Lorsqu'on utilise un système de module, il est nécessaire d'importer le store dans tous les composants qui utilisent l'état du store, et il est également nécessaire de le simuler lorsque l'on teste le composant.
 
-Vuex provides a mechanism to "inject" the store into all child components from the root component with the `store` option (enabled by `Vue.use(Vuex)`):
+Vuex fournit un méchanisme pour « injecter » le store dans tous les composants enfants du composant racine avec l'option `store` (activée par `Vue.use(Vuex)`) :
 
 ``` js
 const app = new Vue({
   el: '#app',
-  // provide the store using the "store" option.
-  // this will inject the store instance to all child components.
+  // fournit le store avec l'option `store`.
+  // cela injectera l'instance du store dans tous les composants enfants.
   store,
   components: { Counter },
   template: `
@@ -43,7 +43,7 @@ const app = new Vue({
 })
 ```
 
-By providing the `store` option to the root instance, the store will be injected into all child components of the root and will be available on them as `this.$store`. Let's update our `Counter` implementation:
+En fournissant l'option `store` à l'instance racine, le store sera injecté dans tous les composants enfants de la racine et sera disponible dans ces derniers avec `this.$store`. Mettons à jour notre implémentation de `Counter` :
 
 ``` js
 const Counter = {
@@ -56,24 +56,24 @@ const Counter = {
 }
 ```
 
-### The `mapState` Helper
+### La fonction utilitaire `mapState`
 
-When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us, saving us some keystrokes:
+Lorsqu'un composant a besoin d'utiliser plusieurs accesseurs ou propriétés de l'état du store, déclarer toutes ces propriétés calculées peut devenir répétitif et verbeux. Afin de palier à ça, nous pouvons utiliser la fonction utilitaire `mapState` qui génère des fonctions d'accession pour nous et nous épargne quelques coups de clavier :
 
 ``` js
-// in full builds helpers are exposed as Vuex.mapState
+// dans la version complète, des fonctions utilitaires sont exposées tel que `Vuex.mapState`
 import { mapState } from 'vuex'
 
 export default {
   // ...
   computed: mapState({
-    // arrow functions can make the code very succinct!
+    // les fonctions fléchées peuvent rendre le code très succinct !
     count: state => state.count,
 
-    // passing the string value 'count' is same as `state => state.count`
+    // passer la valeur littérale 'count' revient à écrire `state => state.count`
     countAlias: 'count',
 
-    // to access local state with `this`, a normal function must be used
+    // pour accéder à l'état local avec `this`, une fonction normale doit être utilisée
     countPlusLocalState (state) {
       return state.count + this.localCount
     }
@@ -81,29 +81,29 @@ export default {
 }
 ```
 
-We can also pass a string array to `mapState` when the name of a mapped computed property is same as a state sub tree name.
+Il est également possible de fournir un tableau de chaînes de caractères à `mapState` lorsque le nom de la propriété de l'état du store est le même que celui du composant.
 
 ``` js
 computed: mapState([
-  // map this.count to store.state.count
+  // attacher `this.count` à `store.state.count`
   'count'
 ])
 ```
 
-### Object Spread Operator
+### Opérateur de décomposition
 
-Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (which is a stage-3 ECMAScript proposal), we can greatly simplify the syntax:
+Notez que `mapState` renvoie un objet. Comment l'utiliser en complément des autres propriétés calculées locales ? Normalement, il faudrait utiliser un outil pour fusionner les multiples objets en un seul afin de passer cet objet final à `computed`. Cependant avec l'[opérateur de décomposition](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Op%C3%A9rateur_de_d%C3%A9composition) (qui est une proposition stage-3 ECMASCript), nous pouvons grandement simplifier la syntaxe :
 
 ``` js
 computed: {
   localComputed () { /* ... */ },
-  // mix this into the outer object with the object spread operator
+  // rajouter cet objet dans l'objet `computed` avec l'opérateur de décomposition
   ...mapState({
     // ...
   })
 }
 ```
 
-### Components Can Still Have Local State
+### Les composants peuvent toujours avoir un état local
 
-Using Vuex doesn't mean you should put **all** the state in Vuex. Although putting more state into Vuex makes your state mutations more explicit and debuggable, sometimes it could also make the code more verbose and indirect. If a piece of state strictly belongs to a single component, it could be just fine leaving it as local state. You should weigh the trade-offs and make decisions that fit the development needs of your app.
+Utiliser Vuex ne signifie pas que vous devez mettre **tout** votre état dans Vuex. Bien que le fait de mettre plus d'état dans Vuex rende vos mutation d'état plus explicites et plus débogable, parfois il peut aussi rendre le code plus verbeux et indirect. Si une partie de l'état appartient directement à un seul composant, il est parfaitement sain de la laisser dans l'état local. Assurez vous de prendre en compte les avantages et inconvénients d'une telle décision afin de vous adapter au mieux aux besoins de votre application.

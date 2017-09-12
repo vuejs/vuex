@@ -1,12 +1,12 @@
-# Core Concepts
+# Concepts de base
 
-We will be learning the core concepts in Vuex in this chapters. They are
-  - [State](state.md)
-  - [Getters](getters.md)
+Nous allons apprendre les concepts de base dans Vuex avec ce chapitre. Ces concepts sont
+  - [État](state.md)
+  - [Accesseurs](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
   - [Modules](modules.md)
 
-A deep understanding of all these concepts is essential for using vuex. 
+Une compréhension profonde de ces concepts est essentielle pour l'utilisation de Vuex.
 
-Let's get started.
+C'est parti.
