@@ -193,3 +193,7 @@ const store = new Vuex.Store({ ...options })
   Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`createNamespacedHelpers(namespace: string): Object`**
+
+  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](modules.md#binding-helpers-with-namespace)

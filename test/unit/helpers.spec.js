@@ -133,6 +133,27 @@ describe('Helpers', () => {
     expect(store.state.count).toBe(0)
   })
 
+  it('mapMutations (function)', () => {
+    const store = new Vuex.Store({
+      state: { count: 0 },
+      mutations: {
+        inc (state, amount) {
+          state.count += amount
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapMutations({
+        plus (commit, amount) {
+          commit('inc', amount + 1)
+        }
+      })
+    })
+    vm.plus(42)
+    expect(store.state.count).toBe(43)
+  })
+
   it('mapMutations (with namespace)', () => {
     const store = new Vuex.Store({
       modules: {
@@ -157,6 +178,32 @@ describe('Helpers', () => {
     expect(store.state.foo.count).toBe(1)
     vm.minus()
     expect(store.state.foo.count).toBe(0)
+  })
+
+  it('mapMutations (function with namepsace)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          mutations: {
+            inc (state, amount) {
+              state.count += amount
+            }
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapMutations('foo', {
+        plus (commit, amount) {
+          commit('inc', amount + 1)
+        }
+      })
+    })
+    vm.plus(42)
+    expect(store.state.foo.count).toBe(43)
   })
 
   it('mapGetters (array)', () => {
@@ -347,6 +394,23 @@ describe('Helpers', () => {
     expect(b).toHaveBeenCalled()
   })
 
+  it('mapActions (function)', () => {
+    const a = jasmine.createSpy()
+    const store = new Vuex.Store({
+      actions: { a }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapActions({
+        foo (dispatch, arg) {
+          dispatch('a', arg + 'bar')
+        }
+      })
+    })
+    vm.foo('foo')
+    expect(a.calls.argsFor(0)[1]).toBe('foobar')
+  })
+
   it('mapActions (with namespace)', () => {
     const a = jasmine.createSpy()
     const b = jasmine.createSpy()
@@ -373,6 +437,28 @@ describe('Helpers', () => {
     expect(b).not.toHaveBeenCalled()
     vm.bar()
     expect(b).toHaveBeenCalled()
+  })
+
+  it('mapActions (function with namespace)', () => {
+    const a = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          actions: { a }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapActions('foo/', {
+        foo (dispatch, arg) {
+          dispatch('a', arg + 'bar')
+        }
+      })
+    })
+    vm.foo('foo')
+    expect(a.calls.argsFor(0)[1]).toBe('foobar')
   })
 
   it('createNamespacedHelpers', () => {
