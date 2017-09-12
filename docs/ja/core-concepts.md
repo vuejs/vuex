@@ -1,11 +1,11 @@
 # コアコンセプト
 
-この章では、Vuex のコアコンセプトについて学習します。それらは、
-  - [State](state.md)
-  - [Getters](getters.md)
-  - [Mutations](mutations.md)
-  - [Actions](actions.md)
-  - [Modules](modules.md)
+この章では、Vuex のコアコンセプトに以下のついて学習します。
+  - [ステート](state.md)
+  - [ゲッター](getters.md)
+  - [ミューテーション](mutations.md)
+  - [アクション](actions.md)
+  - [モジュール](modules.md)
 
 これらのコンセプトを深く理解することは、vuex を使用するにあたって不可欠です。
 
