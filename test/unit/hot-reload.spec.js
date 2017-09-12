@@ -2,6 +2,7 @@ import Vue from 'vue/dist/vue.common.js'
 import Vuex from '../../dist/vuex.common.js'
 
 const TEST = 'TEST'
+const isSSR = process.env.VUE_ENV === 'server'
 
 describe('Hot Reload', () => {
   it('mutations', function () {
@@ -278,10 +279,14 @@ describe('Hot Reload', () => {
     expect(vm.a).toBe(10)
     store.dispatch('check', 10)
 
-    Vue.nextTick(() => {
-      expect(spy).toHaveBeenCalled()
+    if (isSSR) {
       done()
-    })
+    } else {
+      Vue.nextTick(() => {
+        expect(spy).toHaveBeenCalled()
+        done()
+      })
+    }
   })
 
   it('provide warning if a new module is given', () => {

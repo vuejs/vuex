@@ -25,12 +25,18 @@ export const mapState = normalizeNamespace((namespace, states) => {
 export const mapMutations = normalizeNamespace((namespace, mutations) => {
   const res = {}
   normalizeMap(mutations).forEach(({ key, val }) => {
-    val = namespace + val
     res[key] = function mappedMutation (...args) {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapMutations', namespace)) {
-        return
+      let commit = this.$store.commit
+      if (namespace) {
+        const module = getModuleByNamespace(this.$store, 'mapMutations', namespace)
+        if (!module) {
+          return
+        }
+        commit = module.context.commit
       }
-      return this.$store.commit.apply(this.$store, [val].concat(args))
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
     }
   })
   return res
@@ -59,12 +65,18 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
 export const mapActions = normalizeNamespace((namespace, actions) => {
   const res = {}
   normalizeMap(actions).forEach(({ key, val }) => {
-    val = namespace + val
     res[key] = function mappedAction (...args) {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapActions', namespace)) {
-        return
+      let dispatch = this.$store.dispatch
+      if (namespace) {
+        const module = getModuleByNamespace(this.$store, 'mapActions', namespace)
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch
       }
-      return this.$store.dispatch.apply(this.$store, [val].concat(args))
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
     }
   })
   return res
