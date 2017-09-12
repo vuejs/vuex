@@ -14,6 +14,7 @@ export default {
 
 export {
   Store,
+  install,
   mapState,
   mapMutations,
   mapGetters,
