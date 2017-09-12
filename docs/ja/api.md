@@ -196,4 +196,4 @@ const store = new Vuex.Store({ ...options })
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](modules.md#binding-helpers-with-namespace)
+  名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](modules.md#binding-helpers-with-namespace)

@@ -206,7 +206,7 @@ methods: {
 }
 ```
 
-Furthermore, you can create namespaced helpers by using `createNamespacedHelpers`. It returns an object having new component binding helpers that are bound with the given namespace value:
+さらに、`createNamespacedHelpers` を使用することによって名前空間付けされたヘルパーを作成できます。指定された名前空間の値にバインドされた新しいコンポーネントバインディングヘルパーを持つオブジェクトを返します:
 
 ``` js
 import { createNamespacedHelpers } from 'vuex'
@@ -215,14 +215,14 @@ const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
 
 export default {
   computed: {
-    // look up in `some/nested/module`
+    // `some/nested/module` を調べます
     ...mapState({
       a: state => state.a,
       b: state => state.b
     })
   },
   methods: {
-    // look up in `some/nested/module`
+    // `some/nested/module` を調べます
     ...mapActions([
       'foo',
       'bar'
