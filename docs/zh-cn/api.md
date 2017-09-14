@@ -53,8 +53,17 @@ const store = new Vuex.Store({ ...options })
     ```
     state,     // 如果在模块中定义则为模块的局部状态
     getters,   // 等同于 store.getters
-    rootState  // 等同于 store.state
     ```
+
+    当定义在一个模块里时会特别一些
+
+    ```
+    state,       // 如果在模块中定义则为模块的局部状态
+    getters,     // 等同于 store.getters
+    rootState    // 等同于 store.state
+    rootGetters  // 所有 getters
+    ```
+
     注册的 getter 暴露为 `store.getters`。
 
     [详细介绍](getters.md)
@@ -69,6 +78,7 @@ const store = new Vuex.Store({ ...options })
     {
       key: {
         state,
+        namespaced?,
         mutations,
         actions?,
         getters?,
@@ -115,14 +125,19 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store 实例方法
 
-- **`commit(type: string, payload?: any) | commit(mutation: Object)`**
+- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  提交 mutation。 [详细介绍](mutations.md)
+<!-- todo translation -->
 
-- **`dispatch(type: string, payload?: any) | dispatch(action: Object)`**
+  提交 mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [详细介绍](mutations.md)
+
+- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
   分发 action。返回 action 方法的返回值，如果多个处理函数被触发，那么返回一个 Pormise。 [详细介绍](actions.md)
 
+<!-- todo translation -->
+
+  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
 
 - **`replaceState(state: Object)`**
 
@@ -161,18 +176,32 @@ const store = new Vuex.Store({ ...options })
 
 ### 组件绑定的辅助函数
 
-- **`mapState(map: Array<string> | Object): Object`**
+<!-- todo translation -->
+
+- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
   创建组件的计算属性返回 Vuex store 中的状态。 [详细介绍](state.md#the-mapstate-helper)
 
-- **`mapGetters(map: Array<string> | Object): Object`**
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   创建组件的计算属性返回 getter 的返回值。 [详细介绍](getters.md#the-mapgetters-helper)
 
-- **`mapActions(map: Array<string> | Object): Object`**
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   创建组件方法分发 action。 [详细介绍](actions.md#dispatching-actions-in-components)
 
-- **`mapMutations(map: Array<string> | Object): Object`**
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   创建组件方法提交 mutation。 [详细介绍](mutations.md#commiting-mutations-in-components)
+
+  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`createNamespacedHelpers(namespace: string): Object`**
+
+  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](modules.md#binding-helpers-with-namespace)

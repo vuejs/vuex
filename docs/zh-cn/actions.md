@@ -106,7 +106,10 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // 映射 this.increment() 为 this.$store.dispatch('increment')
+      'increment', // 映射 this.increment() 为 this.$store.dispatch('increment')
+
+      // `mapActions` 也支持载荷：
+      'incrementBy' // 映射 `this.incrementBy(amount)` 为 `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
       add: 'increment' // 映射 this.add() 为 this.$store.dispatch('increment')
