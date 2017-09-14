@@ -219,4 +219,4 @@ mocha test-bundle.js
 
 #### Lancer dans un navigateur avec Karma + karma-webpack
 
-Consultez la procédure sur la [documentation vue-loader](http://vue-loader.vuejs.org/en/workflow/testing.html).
+Consultez la procédure sur la [documentation vue-loader](https://vue-loader.vuejs.org/en/workflow/testing.html).
