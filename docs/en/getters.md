@@ -78,7 +78,6 @@ getters: {
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
-
 ### The `mapGetters` Helper
 
 The `mapGetters` helper simply maps store getters to local computed properties:
