@@ -65,7 +65,7 @@
     "uglify-js": "^2.7.5",
     "vue": "HerringtonDarkholme/vue#8901752",
     "vue-loader": "^12.0.0",
-    "vue-template-compiler": "^2.4.2",
+    "vue-template-compiler": "^2.4.3",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1"
