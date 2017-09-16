@@ -1,14 +1,12 @@
 # 核心概念
 
-<!-- todo translation -->
-
-We will be learning the core concepts in Vuex in this chapters. They are
+在这一章，我们将会学到 Vue 的这些核心概念。他们是：
   - [State](state.md)
   - [Getters](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
   - [Modules](modules.md)
 
-A deep understanding of all these concepts is essential for using vuex. 
+深入理解所有的概念对于使用 Vuex 来说是必要的。
 
-Let's get started.
+让我们开始吧。

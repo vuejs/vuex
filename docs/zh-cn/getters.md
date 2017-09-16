@@ -64,9 +64,7 @@ computed: {
 }
 ```
 
-<!-- todo translation -->
-
-You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+你也可以返回一个函数并作为参数传递给 getters。当你希望在 store 里查询一个数组时非常有用。
 
 ```js
 getters: {
