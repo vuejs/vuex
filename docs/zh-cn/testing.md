@@ -218,4 +218,4 @@ mocha test-bundle.js
 
 #### 使用 Karma + karma-webpack 在浏览器中执行测试
 
-详见 [vue-loader documentation](http://vuejs.github.io/vue-loader/workflow/testing.html)。
+详见 [vue-loader documentation](https://vuejs.github.io/vue-loader/workflow/testing.html)。
