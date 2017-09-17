@@ -72,7 +72,7 @@ store.dispatch({
 })
 ```
 
-来看一个更加实际的购物车示例，涉及到**调用异步 API** 和 **分发多重 mutations**：
+来看一个更加实际的购物车示例，涉及到**调用异步 API** 和**分发多重 mutations**：
 
 ``` js
 actions: {
@@ -106,13 +106,13 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment', // 将 this.increment() 映射为 this.$store.dispatch('increment')
+      'increment', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
 
       // `mapActions` 也支持载荷：
       'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
-      add: 'increment' // 将 this.add() 映射为 this.$store.dispatch('increment')
+      add: 'increment' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
     })
   }
 }
@@ -122,7 +122,7 @@ export default {
 
 Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
 
-首先，你需要明白 `store.dispatch` 可以处理被触发的action的回调函数返回的Promise，并且store.dispatch仍旧返回Promise：
+首先，你需要明白 `store.dispatch` 可以处理被触发的 action 的回调函数返回的 Promise，并且 `store.dispatch` 仍旧返回 Promise：
 
 ``` js
 actions: {

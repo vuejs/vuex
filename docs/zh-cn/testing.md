@@ -211,10 +211,10 @@ mocha test-bundle.js
 
 #### 在浏览器中测试
 
-1. 安装 `mocha-loader`
-2. 把上述 webpack 配置中的 `entry` 改成 `'mocha!babel!./test.js'`
-3. 用以上配置启动 `webpack-dev-server`
-4. 访问 `localhost:8080/webpack-dev-server/test-bundle`.
+1. 安装 `mocha-loader`。
+2. 把上述 webpack 配置中的 `entry` 改成 `'mocha!babel!./test.js'`。
+3. 用以上配置启动 `webpack-dev-server`。
+4. 访问 `localhost:8080/webpack-dev-server/test-bundle`。
 
 #### 使用 Karma + karma-webpack 在浏览器中执行测试
 

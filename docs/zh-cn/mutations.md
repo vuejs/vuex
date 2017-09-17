@@ -146,13 +146,13 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment', // 将 this.increment() 映射为 this.$store.commit('increment')
+      'increment', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
 
       // `mapMutations` 也支持载荷：
       'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
     ]),
     ...mapMutations({
-      add: 'increment' // 将 this.add() 映射为 this.$store.commit('increment')
+      add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
     })
   }
 }

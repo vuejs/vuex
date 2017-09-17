@@ -30,4 +30,4 @@ Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的
         └── products.js   # 产品模块
 ```
 
-请参考[购物车示例](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)
+请参考[购物车示例](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)。

@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-同样，对于模块内部的 action，局部状态通过 `context.state` 暴露出来， 根节点状态则为 `context.rootState`：
+同样，对于模块内部的 action，局部状态通过 `context.state` 暴露出来，根节点状态则为 `context.rootState`：
 
 ``` js
 const moduleA = {
