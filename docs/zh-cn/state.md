@@ -8,7 +8,7 @@ Vuex 使用 **单一状态树** —— 是的，用一个对象就包含了全�
 
 ### 在 Vue 组件中获得 Vuex 状态
 
-那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在[计算属性](http://cn.vuejs.org/guide/computed.html)中返回某个状态：
+那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在[计算属性](https://cn.vuejs.org/guide/computed.html)中返回某个状态：
 
 ``` js
 // 创建一个 Counter 组件
