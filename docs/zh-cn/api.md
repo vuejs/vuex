@@ -127,7 +127,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  提交 mutation. `options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#namespacing)里提交根的 mutation。[详细介绍](mutations.md)
+  提交 mutation。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#namespacing)里提交根的 mutation。[详细介绍](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
@@ -172,13 +172,13 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  创建组件的计算属性返回 Vuex store 中的状态。[详细介绍](state.md#the-mapstate-helper)
+  为组件创建计算属性以返回 Vuex store 中的状态。[详细介绍](state.md#the-mapstate-helper)
 
   第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#binding-helpers-with-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  创建组件的计算属性返回 getter 的返回值。[详细介绍](getters.md#the-mapgetters-helper)
+  为组件创建计算属性以返回 getter 的返回值。[详细介绍](getters.md#the-mapgetters-helper)
 
   第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#binding-helpers-with-namespace)
 

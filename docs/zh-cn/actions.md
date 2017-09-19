@@ -106,13 +106,13 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment', // 映射 this.increment() 为 this.$store.dispatch('increment')
+      'increment', // 将 this.increment() 映射为 this.$store.dispatch('increment')
 
       // `mapActions` 也支持载荷：
-      'incrementBy' // 映射 `this.incrementBy(amount)` 为 `this.$store.dispatch('incrementBy', amount)`
+      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
-      add: 'increment' // 映射 this.add() 为 this.$store.dispatch('increment')
+      add: 'increment' // 将 this.add() 映射为 this.$store.dispatch('increment')
     })
   }
 }
