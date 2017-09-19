@@ -553,7 +553,9 @@ describe('Modules', () => {
 
     it('plugins', function () {
       let initState
+      const actionSpy = jasmine.createSpy()
       const mutations = []
+      const subscribeActionSpy = jasmine.createSpy()
       const store = new Vuex.Store({
         state: {
           a: 1
@@ -563,21 +565,31 @@ describe('Modules', () => {
             state.a += n
           }
         },
+        actions: {
+          [TEST]: actionSpy
+        },
         plugins: [
           store => {
             initState = store.state
             store.subscribe((mut, state) => {
-              expect(state).toBe(store.state)
+              expect(state).toBe(state)
               mutations.push(mut)
             })
+            store.subscribeAction(subscribeActionSpy)
           }
         ]
       })
       expect(initState).toBe(store.state)
       store.commit(TEST, 2)
+      store.dispatch(TEST, 2)
       expect(mutations.length).toBe(1)
       expect(mutations[0].type).toBe(TEST)
       expect(mutations[0].payload).toBe(2)
+      expect(actionSpy).toHaveBeenCalled()
+      expect(subscribeActionSpy).toHaveBeenCalledWith(
+        { type: TEST, payload: 2 },
+        store.state
+      )
     })
   })
 
