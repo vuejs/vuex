@@ -1,6 +1,6 @@
 # 热重载
 
-使用 webpack 的 [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html)，Vuex 支持在开发过程中热重载 mutation、modules、actions、和getters。你也可以在 Browserify 中使用 [browserify-hmr](https://github.com/AgentME/browserify-hmr/) 插件。
+使用 webpack 的 [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html)，Vuex 支持在开发过程中热重载 mutation、module、action、和 getter。你也可以在 Browserify 中使用 [browserify-hmr](https://github.com/AgentME/browserify-hmr/) 插件。
 
 对于 mutation 和模块，你需要使用 `store.hotUpdate()` 方法：
 
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // 使 actions 和 mutations 成为可热重载模块
+  // 使 action 和 mutation 成为可热重载模块
   module.hot.accept(['./mutations', './modules/a'], () => {
     // 获取更新后的模块
     // 因为 babel 6 的模块编译格式问题，这里需要加上 `.default`

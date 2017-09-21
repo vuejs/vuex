@@ -1,6 +1,6 @@
-# Mutations
+# Mutation
 
-更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutations 非常类似于事件：每个 mutation 都有一个字符串的 **事件类型 (type)** 和 一个 **回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
+更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 **事件类型 (type)** 和 一个 **回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
 
 ``` js
 const store = new Vuex.Store({
@@ -76,7 +76,7 @@ mutations: {
 }
 ```
 
-### Mutations 需遵守 Vue 的响应规则
+### Mutation 需遵守 Vue 的响应规则
 
 既然 Vuex 的 store 中的状态是响应式的，那么当我们变更状态时，监视状态的 Vue 组件也会自动更新。这也意味着 Vuex 中的 mutation 也需要与使用 Vue 一样遵守一些注意事项：
 
@@ -135,7 +135,7 @@ mutations: {
 
 现在想象，我们正在 debug 一个 app 并且观察 devtool 中的 mutation 日志。每一条 mutation 被记录，devtools 都需要捕捉到前一状态和后一状态的快照。然而，在上面的例子中 mutation 中的异步函数中的回调让这不可能完成：因为当 mutation 触发的时候，回调函数还没有被调用，devtools 不知道什么时候回调函数实际上被调用 —— 实质上任何在回调函数中进行的的状态的改变都是不可追踪的。
 
-### 在组件中提交 Mutations
+### 在组件中提交 Mutation
 
 你可以在组件中使用 `this.$store.commit('xxx')` 提交 mutation，或者使用 `mapMutations` 辅助函数将组件中的 methods 映射为 `store.commit` 调用（需要在根节点注入 `store`）。
 
@@ -158,7 +158,7 @@ export default {
 }
 ```
 
-### 下一步：Actions
+### 下一步：Action
 
 在 mutation 中混合异步调用会导致你的程序很难调试。例如，当你能调用了两个包含异步回调的 mutation 来改变状态，你怎么知道什么时候回调和哪个先回调呢？这就是为什么我们要区分这两个概念。在 Vuex 中，**mutation 都是同步事务**：
 
@@ -167,4 +167,4 @@ store.commit('increment')
 // 任何由 "increment" 导致的状态变更都应该在此刻完成。
 ```
 
-为了处理异步操作，让我们来看一看 [Actions](actions.md)。
+为了处理异步操作，让我们来看一看 [Action](actions.md)。

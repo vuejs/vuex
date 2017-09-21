@@ -190,7 +190,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  创建组件方法提交 mutation。[详细介绍](mutations.md#在组件中提交-mutations)
+  创建组件方法提交 mutation。[详细介绍](mutations.md#在组件中提交-mutation)
 
   第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 

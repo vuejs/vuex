@@ -1,15 +1,15 @@
 # 测试
 
-我们主要想针对 Vuex 中的 mutations 和 actions 进行单元测试。
+我们主要想针对 Vuex 中的 mutation 和 action 进行单元测试。
 
-### 测试 Mutations
+### 测试 Mutation
 
-Mutations 很容易被测试，因为它们仅仅是一些完全依赖参数的函数。这里有一个小技巧，如果你在 `store.js` 文件中定义了 mutations，并且使用 ES2015 模块功能默认输出了 Vuex.Store 的实例，那么你仍然可以给 mutation 取个变量名然后把它输出去：
+Mutation 很容易被测试，因为它们仅仅是一些完全依赖参数的函数。这里有一个小技巧，如果你在 `store.js` 文件中定义了 mutation，并且使用 ES2015 模块功能默认输出了 Vuex.Store 的实例，那么你仍然可以给 mutation 取个变量名然后把它输出去：
 
 ``` js
 const state = { ... }
 
-// mutations 作为命名输出对象
+// `mutations` 作为命名输出对象
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// 解构 mutations
+// 解构 `mutations`
 const { increment } = mutations
 
 describe('mutations', () => {
@@ -47,9 +47,9 @@ describe('mutations', () => {
 })
 ```
 
-### 测试 Actions
+### 测试 Action
 
-Actions 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 actions 的时候，我们需要增加一个 mocking 服务层 —— 例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 webpack 和  [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
+Action 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 action 的时候，我们需要增加一个 mocking 服务层 —— 例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 webpack 和  [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
 
 下面是一个测试异步 action 的例子：
 
@@ -127,7 +127,7 @@ describe('actions', () => {
 })
 ```
 
-### 测试 Getters
+### 测试 Getter
 
 如果你的 getter 包含很复杂的计算过程，很有必要测试它们。Getter 的测试与 mutation 一样直截了当。
 
@@ -176,7 +176,7 @@ describe('getters', () => {
 
 ### 执行测试
 
-如果你的 mutations 和 actions 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 `Karma` + `karma-webpack`在真实浏览器环境中进行测试。
+如果你的 mutation 和 action 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 `Karma` + `karma-webpack`在真实浏览器环境中进行测试。
 
 #### 在 Node 中执行测试
 

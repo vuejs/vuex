@@ -1,4 +1,4 @@
-# Actions
+# Action
 
 Action 类似于 mutation，不同在于：
 
@@ -72,7 +72,7 @@ store.dispatch({
 })
 ```
 
-来看一个更加实际的购物车示例，涉及到**调用异步 API** 和**分发多重 mutations**：
+来看一个更加实际的购物车示例，涉及到**调用异步 API** 和**分发多重 mutation**：
 
 ``` js
 actions: {
@@ -118,7 +118,7 @@ export default {
 }
 ```
 
-### 组合 Actions
+### 组合 Action
 
 Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
 
