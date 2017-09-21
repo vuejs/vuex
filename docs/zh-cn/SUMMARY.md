@@ -9,7 +9,7 @@
 - [安装](installation.md)
 - [Vuex 是什么？](intro.md)
 - [开始](getting-started.md)
-- 核心概念
+- [核心概念](core-concepts.md)
   - [State](state.md)
   - [Getters](getters.md)
   - [Mutations](mutations.md)

@@ -48,6 +48,7 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', {
   amount: 10
@@ -118,9 +119,9 @@ const store = new Vuex.Store({
 
 用不用常量取决于你 —— 在需要多人协作的大型项目中，这会很有帮助。但如果你不喜欢，你完全可以不这样做。
 
-### mutation 必须是同步函数
+### Mutation 必须是同步函数
 
-一条重要的原则就是要记住** mutation 必须是同步函数**。为什么？请参考下面的例子：
+一条重要的原则就是要记住 **mutation 必须是同步函数**。为什么？请参考下面的例子：
 
 ``` js
 mutations: {
@@ -145,10 +146,13 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment' // 映射 this.increment() 为 this.$store.commit('increment')
+      'increment', // 将 this.increment() 映射为 this.$store.commit('increment')
+
+      // `mapMutations` 也支持载荷：
+      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
     ]),
     ...mapMutations({
-      add: 'increment' // 映射 this.add() 为 this.$store.commit('increment')
+      add: 'increment' // 将 this.add() 映射为 this.$store.commit('increment')
     })
   }
 }

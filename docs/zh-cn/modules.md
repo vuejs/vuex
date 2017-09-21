@@ -1,4 +1,5 @@
 # Modules
+
 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。
 
 为了解决以上问题，Vuex 允许我们将 store 分割成**模块（module）**。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：
@@ -80,13 +81,16 @@ const moduleA = {
 
 ### 命名空间
 
-默认情况下，模块内部的 action、mutation 和 getter 是注册在**全局命名空间**的——这样使得多个模块能够对同一 mutation 或 action 作出响应。如果希望你的模块更加自包含或提高可重用性，你可以通过添加 `namespaced: true` 的方式使其成为命名空间模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：
+默认情况下，模块内部的 action、mutation 和 getter 是注册在**全局命名空间**的——这样使得多个模块能够对同一 mutation 或 action 作出响应。
+
+如果希望你的模块具有更高的封装度和复用性，你可以通过添加 `namespaced: true` 的方式使其成为命名空间模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：
 
 ``` js
 const store = new Vuex.Store({
   modules: {
     account: {
       namespaced: true,
+
       // 模块内容（module assets）
       state: { ... }, // 模块内的状态已经是嵌套的了，使用 `namespaced` 属性不会对其产生影响
       getters: {
@@ -98,6 +102,7 @@ const store = new Vuex.Store({
       mutations: {
         login () { ... } // -> commit('account/login')
       },
+
       // 嵌套模块
       modules: {
         // 继承父模块的命名空间
@@ -107,9 +112,11 @@ const store = new Vuex.Store({
             profile () { ... } // -> getters['account/profile']
           }
         },
+
         // 进一步嵌套命名空间
         posts: {
           namespaced: true,
+
           state: { ... },
           getters: {
             popular () { ... } // -> getters['account/posts/popular']
@@ -133,6 +140,7 @@ const store = new Vuex.Store({
 modules: {
   foo: {
     namespaced: true,
+
     getters: {
       // 在这个模块的 getter 中，`getters` 被局部化了
       // 你可以使用 getter 的第四个参数来调用 `rootGetters`
@@ -142,14 +150,17 @@ modules: {
       },
       someOtherGetter: state => { ... }
     },
+
     actions: {
       // 在这个模块中， dispatch 和 commit 也被局部化了
       // 他们可以接受 `root` 属性以访问根 dispatch 或 commit
       someAction ({ dispatch, commit, getters, rootGetters }) {
         getters.someGetter // -> 'foo/someGetter'
         rootGetters.someGetter // -> 'someGetter'
+
         dispatch('someOtherAction') // -> 'foo/someOtherAction'
         dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
         commit('someMutation') // -> 'foo/someMutation'
         commit('someMutation', null, { root: true }) // -> 'someMutation'
       },
@@ -195,6 +206,31 @@ methods: {
 }
 ```
 
+而且，你可以通过使用 `createNamespacedHelpers` 创建基于某个命名空间辅助工具。它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助工具：
+
+``` js
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+  computed: {
+    // 在 `some/nested/module` 中查找
+    ...mapState({
+      a: state => state.a,
+      b: state => state.b
+    })
+  },
+  methods: {
+    // 在 `some/nested/module` 中查找
+    ...mapActions([
+      'foo',
+      'bar'
+    ])
+  }
+}
+```
+
 #### 给插件开发者的注意事项
 
 如果你开发的[插件（Plugin）](plugins.md)提供了模块并允许用户将其添加到 Vuex store，可能需要考虑模块的空间名称问题。对于这种情况，你可以通过插件的参数对象来允许用户指定空间名称：
@@ -236,8 +272,8 @@ store.registerModule(['nested', 'myModule'], {
 
 有时我们可能需要创建一个模块的多个实例，例如：
 
-- 创建多个 store，他们公用同一个模块
-- 在一个 store 中多次注册同一个模块  
+- 创建多个 store，他们公用同一个模块 (例如当 `runInNewContext` 选项是 `false` 或 `'once'` 时，为了[在服务端渲染中避免有状态的单例](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons))
+- 在一个 store 中多次注册同一个模块
 
 如果我们使用一个纯对象来声明模块的状态，那么这个状态对象会通过引用被共享，导致状态对象被修改时 store 或模块间数据互相污染的问题。
 

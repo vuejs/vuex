@@ -64,6 +64,21 @@ computed: {
 }
 ```
 
+你也可以通过让 getter 返回一个函数，来实现给 getter 传参。在你对 store 里的数组进行查询时非常有用。
+
+```js
+getters: {
+  // ...
+  getTodoById: (state, getters) => (id) => {
+    return state.todos.find(todo => todo.id === id)
+  }
+}
+```
+
+``` js
+store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+```
+
 ### `mapGetters` 辅助函数
 
 `mapGetters` 辅助函数仅仅是将 store 中的 getters 映射到局部计算属性：
