@@ -64,7 +64,7 @@ computed: {
 }
 ```
 
-你也可以返回一个函数并作为参数传递给 getter。当你希望在 store 里查询一个数组时非常有用。
+你也可以通过让 getter 返回一个函数，来实现给 getter 传参。在你对 store 里的数组进行查询时非常有用。
 
 ```js
 getters: {
