@@ -196,4 +196,4 @@ const store = new Vuex.Store({ ...options })
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  创建基于命名空间的组件绑定辅助工具。其返回一个包含 `mapState`、`mapGetters`、`mapActions` 和 `mapMutations` 的对象。它们都已经绑定在了给定的命名空间上。[详细介绍](modules.md#带命名空间的绑定函数)
+  创建基于命名空间的组件绑定辅助函数。其返回一个包含 `mapState`、`mapGetters`、`mapActions` 和 `mapMutations` 的对象。它们都已经绑定在了给定的命名空间上。[详细介绍](modules.md#带命名空间的绑定函数)
