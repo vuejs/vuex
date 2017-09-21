@@ -215,14 +215,14 @@ const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
 
 export default {
   computed: {
-    // look up in `some/nested/module`
+    // 在 `some/nested/module` 中查找
     ...mapState({
       a: state => state.a,
       b: state => state.b
     })
   },
   methods: {
-    // look up in `some/nested/module`
+    // 在 `some/nested/module` 中查找
     ...mapActions([
       'foo',
       'bar'
