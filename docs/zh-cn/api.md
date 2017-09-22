@@ -127,11 +127,11 @@ const store = new Vuex.Store({ ...options })
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  提交 mutation。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#namespacing)里提交根的 mutation。[详细介绍](mutations.md)
+  提交 mutation。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#命名空间)里提交根的 mutation。[详细介绍](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  分发 action。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#namespacing)里分发根的 action。返回一个解析所有被触发的 action 处理器的 Promise。[详细介绍](actions.md)
+  分发 action。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#命名空间)里分发根的 action。返回一个解析所有被触发的 action 处理器的 Promise。[详细介绍](actions.md)
 
 - **`replaceState(state: Object)`**
 
@@ -158,11 +158,11 @@ const store = new Vuex.Store({ ...options })
 
 - **`registerModule(path: string | Array<string>, module: Module)`**
 
-  注册一个动态模块。[详细介绍](modules.md#dynamic-module-registration)
+  注册一个动态模块。[详细介绍](modules.md#模块动态注册)
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  卸载一个动态模块。[详细介绍](modules.md#dynamic-module-registration)
+  卸载一个动态模块。[详细介绍](modules.md#模块动态注册)
 
 - **`hotUpdate(newOptions: Object)`**
 
@@ -172,28 +172,28 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  为组件创建计算属性以返回 Vuex store 中的状态。[详细介绍](state.md#the-mapstate-helper)
+  为组件创建计算属性以返回 Vuex store 中的状态。[详细介绍](state.md#mapstate-辅助函数)
 
-  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#binding-helpers-with-namespace)
+  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  为组件创建计算属性以返回 getter 的返回值。[详细介绍](getters.md#the-mapgetters-helper)
+  为组件创建计算属性以返回 getter 的返回值。[详细介绍](getters.md#mapgetters-辅助函数)
 
-  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#binding-helpers-with-namespace)
+  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
-  创建组件方法分发 action。[详细介绍](actions.md#dispatching-actions-in-components)
+  创建组件方法分发 action。[详细介绍](actions.md#在组件中分发-action)
 
-  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#binding-helpers-with-namespace)
+  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  创建组件方法提交 mutation。[详细介绍](mutations.md#commiting-mutations-in-components)
+  创建组件方法提交 mutation。[详细介绍](mutations.md#在组件中提交-mutation)
 
-  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#binding-helpers-with-namespace)
+  第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  创建基于命名空间的组件绑定辅助工具。其返回一个包含 `mapState`、`mapGetters`、`mapActions` 和 `mapMutations` 的对象。它们都已经绑定在了给定的命名空间上。[详细介绍](modules.md#binding-helpers-with-namespace)
+  创建基于命名空间的组件绑定辅助函数。其返回一个包含 `mapState`、`mapGetters`、`mapActions` 和 `mapMutations` 的对象。它们都已经绑定在了给定的命名空间上。[详细介绍](modules.md#带命名空间的绑定函数)

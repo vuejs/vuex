@@ -1,4 +1,4 @@
-# Modules
+# Module
 
 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。
 
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-同样，对于模块内部的 action，局部状态通过 `context.state` 暴露出来， 根节点状态则为 `context.rootState`：
+同样，对于模块内部的 action，局部状态通过 `context.state` 暴露出来，根节点状态则为 `context.rootState`：
 
 ``` js
 const moduleA = {
@@ -206,7 +206,7 @@ methods: {
 }
 ```
 
-而且，你可以通过使用 `createNamespacedHelpers` 创建基于某个命名空间辅助工具。它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助工具：
+而且，你可以通过使用 `createNamespacedHelpers` 创建基于某个命名空间辅助函数。它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助函数：
 
 ``` js
 import { createNamespacedHelpers } from 'vuex'
