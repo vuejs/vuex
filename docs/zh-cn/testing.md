@@ -71,7 +71,7 @@ export const getAllProducts = ({ commit }) => {
 // 使用 require 语法处理内联 loaders。
 // inject-loader 返回一个允许我们注入 mock 依赖的模块工厂
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // 使用 mocks 创建模块
 const actions = actionsInjector({
@@ -212,7 +212,7 @@ mocha test-bundle.js
 #### 在浏览器中测试
 
 1. 安装 `mocha-loader`。
-2. 把上述 webpack 配置中的 `entry` 改成 `'mocha!babel!./test.js'`。
+2. 把上述 webpack 配置中的 `entry` 改成 `'mocha-loader!babel-loader!./test.js'`。
 3. 用以上配置启动 `webpack-dev-server`。
 4. 访问 `localhost:8080/webpack-dev-server/test-bundle`。
 
