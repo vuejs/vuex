@@ -9,7 +9,7 @@
 - [インストール](installation.md)
 - [Vuex とは何か?](intro.md)
 - [Vuex 入門](getting-started.md)
-- コアコンセプト 
+- [コアコンセプト](core-concepts.md)
   - [ステート](state.md)
   - [ゲッター](getters.md)
   - [ミューテーション](mutations.md)

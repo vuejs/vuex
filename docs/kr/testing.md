@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### 액션 테스팅
 
-액션은 외부 API를 호출 할 수 있기 때문에 좀 더 까다로울 수 있습니다. 액션을 테스트 할 때 우리는 일반적으로 조작을 어느 정도 해야합니다. 예를 들어 API 호출을 서비스로 추상화하고 테스트 내에서 해당 서비스를 조작 할 수 있습니다. 의존성을 쉽게 모방하기 위해 Webpack과 [inject-loader](https://github.com/plasticine/inject-loader)를 사용하여 테스트 파일을 묶을 수 있습니다.
+액션은 외부 API를 호출 할 수 있기 때문에 좀 더 까다로울 수 있습니다. 액션을 테스트 할 때 우리는 일반적으로 조작을 어느 정도 해야합니다. 예를 들어 API 호출을 서비스로 추상화하고 테스트 내에서 해당 서비스를 조작 할 수 있습니다. 의존성을 쉽게 모방하기 위해 webpack과 [inject-loader](https://github.com/plasticine/inject-loader)를 사용하여 테스트 파일을 묶을 수 있습니다.
 
 비동기 액션 테스트 예제:
 
@@ -72,7 +72,7 @@ export const getAllProducts = ({ commit }) => {
 // inject-loader를 사용하면 조작된 의존성을
 // 주입 할 수있는 모듈 팩토리가 반환됩니다.
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // 조작된 모의 응답과 함께 모듈 생성
 const actions = actionsInjector({
@@ -92,10 +92,16 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   // 모의 커밋
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    expect(mutation.type).to.equal(type)
-    if (payload) {
-      expect(mutation.payload).to.deep.equal(payload)
+
+    try {
+      expect(mutation.type).to.equal(type)
+      if (payload) {
+        expect(mutation.payload).to.deep.equal(payload)
+      }
+    } catch (error) {
+      done(error)
     }
+
     count++
     if (count >= expectedMutations.length) {
       done()
@@ -171,7 +177,7 @@ describe('getters', () => {
 
 ### 테스트 실행
 
-변이와 액션이 제대로 작성되면 적절한 모의 조작을 한 후 브라우저 API에 직접적인 의존성이 없어야합니다. 따라서 Webpack을 사용하여 테스트를 번들로 묶어 Node를 이용해 직접 실행할 수 있습니다. 또는, `mocha-loader` 나 Karma + `karma-webpack`을 사용하여 실제 브라우저에서 테스트를 실행할 수 있습니다.
+변이와 액션이 제대로 작성되면 적절한 모의 조작을 한 후 브라우저 API에 직접적인 의존성이 없어야합니다. 따라서 webpack을 사용하여 테스트를 번들로 묶어 Node를 이용해 직접 실행할 수 있습니다. 또는, `mocha-loader` 나 Karma + `karma-webpack`을 사용하여 실제 브라우저에서 테스트를 실행할 수 있습니다.
 
 #### Node를 이용한 실행
 
@@ -207,7 +213,7 @@ mocha test-bundle.js
 #### 브라우저에서 테스팅
 
 1. `mocha-loader`를 설치하세요.
-2. Webpack 설정에서 `entry`를 `'mocha!babel!./test.js'`로 변경하세요.
+2. webpack 설정에서 `entry`를 `'mocha!babel!./test.js'`로 변경하세요.
 3. 설정을 이용하여 `webpack-dev-server`를 실행하세요.
 4. `localhost:8080/webpack-dev-server/test-bundle`로 가세요.
 

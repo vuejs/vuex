@@ -1,7 +1,8 @@
 import Vue from 'vue/dist/vue.common.js'
-import Vuex from '../../dist/vuex.js'
+import Vuex from '../../dist/vuex.common.js'
 
 const TEST = 'TEST'
+const isSSR = process.env.VUE_ENV === 'server'
 
 describe('Store', () => {
   it('committing mutations', () => {
@@ -263,75 +264,10 @@ describe('Store', () => {
     )
   })
 
-  it('strict mode: warn mutations outside of handlers', () => {
-    const store = new Vuex.Store({
-      state: {
-        a: 1
-      },
-      strict: true
-    })
-    Vue.config.silent = true
-    expect(() => { store.state.a++ }).toThrow()
-    Vue.config.silent = false
-  })
-
-  it('watch: with resetting vm', done => {
-    const store = new Vuex.Store({
-      state: {
-        count: 0
-      },
-      mutations: {
-        [TEST]: state => state.count++
-      }
-    })
-
-    const spy = jasmine.createSpy()
-    store.watch(state => state.count, spy)
-
-    // reset store vm
-    store.registerModule('test', {})
-
-    Vue.nextTick(() => {
-      store.commit(TEST)
-      expect(store.state.count).toBe(1)
-
-      Vue.nextTick(() => {
-        expect(spy).toHaveBeenCalled()
-        done()
-      })
-    })
-  })
-
-  it('watch: getter function has access to store\'s getters object', done => {
-    const store = new Vuex.Store({
-      state: {
-        count: 0
-      },
-      mutations: {
-        [TEST]: state => state.count++
-      },
-      getters: {
-        getCount: state => state.count
-      }
-    })
-
-    const getter = function getter (state, getters) {
-      return state.count
-    }
-    const spy = spyOn({ getter }, 'getter').and.callThrough()
-    const spyCb = jasmine.createSpy()
-
-    store.watch(spy, spyCb)
-
-    Vue.nextTick(() => {
-      store.commit(TEST)
-      expect(store.state.count).toBe(1)
-
-      Vue.nextTick(() => {
-        expect(spy).toHaveBeenCalledWith(store.state, store.getters)
-        done()
-      })
-    })
+  it('asserts the call with the new operator', () => {
+    expect(() => {
+      Vuex.Store({})
+    }).toThrowError(/Store must be called with the new operator/)
   })
 
   it('should accept state as function', () => {
@@ -349,4 +285,78 @@ describe('Store', () => {
     store.commit(TEST, 2)
     expect(store.state.a).toBe(3)
   })
+
+  // store.watch should only be asserted in non-SSR environment
+  if (!isSSR) {
+    it('strict mode: warn mutations outside of handlers', () => {
+      const store = new Vuex.Store({
+        state: {
+          a: 1
+        },
+        strict: true
+      })
+      Vue.config.silent = true
+      expect(() => { store.state.a++ }).toThrow()
+      Vue.config.silent = false
+    })
+
+    it('watch: with resetting vm', done => {
+      const store = new Vuex.Store({
+        state: {
+          count: 0
+        },
+        mutations: {
+          [TEST]: state => state.count++
+        }
+      })
+
+      const spy = jasmine.createSpy()
+      store.watch(state => state.count, spy)
+
+      // reset store vm
+      store.registerModule('test', {})
+
+      Vue.nextTick(() => {
+        store.commit(TEST)
+        expect(store.state.count).toBe(1)
+
+        Vue.nextTick(() => {
+          expect(spy).toHaveBeenCalled()
+          done()
+        })
+      })
+    })
+
+    it('watch: getter function has access to store\'s getters object', done => {
+      const store = new Vuex.Store({
+        state: {
+          count: 0
+        },
+        mutations: {
+          [TEST]: state => state.count++
+        },
+        getters: {
+          getCount: state => state.count
+        }
+      })
+
+      const getter = function getter (state, getters) {
+        return state.count
+      }
+      const spy = spyOn({ getter }, 'getter').and.callThrough()
+      const spyCb = jasmine.createSpy()
+
+      store.watch(spy, spyCb)
+
+      Vue.nextTick(() => {
+        store.commit(TEST)
+        expect(store.state.count).toBe(1)
+
+        Vue.nextTick(() => {
+          expect(spy).toHaveBeenCalledWith(store.state, store.getters)
+          done()
+        })
+      })
+    })
+  }
 })

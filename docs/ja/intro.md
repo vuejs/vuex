@@ -38,7 +38,7 @@ new Vue({
 これらは"単方向データフロー"のコンセプトの極めてシンプルな責務です:
 
 <p style="text-align: center; margin: 2em">
-  <img style="max-width:450px;" src="./images/flow.png">
+  <img style="width:100%;max-width:450px;" src="./images/flow.png">
 </p>
 
 しかし、単純さは、**共通の状態を共有する複数のコンポーネントを持ったときに**、すぐに破綻します:

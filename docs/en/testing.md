@@ -9,7 +9,7 @@ Mutations are very straightforward to test, because they are just functions that
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// export `mutations` as a named export
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// destructure assign mutations
+// destructure assign `mutations`
 const { increment } = mutations
 
 describe('mutations', () => {
@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### Testing Actions
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use Webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
 
 Example testing an async action:
 
@@ -72,7 +72,7 @@ export const getAllProducts = ({ commit }) => {
 // with inject-loader, this returns a module factory
 // that allows us to inject mocked dependencies.
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // create the module with our mocks
 const actions = actionsInjector({
@@ -92,10 +92,16 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   // mock commit
   const commit = (type, payload) => {
     const mutation = expectedMutations[count]
-    expect(mutation.type).to.equal(type)
-    if (payload) {
-      expect(mutation.payload).to.deep.equal(payload)
+
+    try {
+      expect(mutation.type).to.equal(type)
+      if (payload) {
+        expect(mutation.payload).to.deep.equal(payload)
+      }
+    } catch (error) {
+      done(error)
     }
+
     count++
     if (count >= expectedMutations.length) {
       done()
@@ -171,7 +177,7 @@ describe('getters', () => {
 
 ### Running Tests
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with Webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
 
 #### Running in Node
 
@@ -206,11 +212,11 @@ mocha test-bundle.js
 
 #### Running in Browser
 
-1. Install `mocha-loader`
-2. Change the `entry` from the Webpack config above to `'mocha!babel!./test.js'`.
-3. Start `webpack-dev-server` using the config
+1. Install `mocha-loader`.
+2. Change the `entry` from the webpack config above to `'mocha-loader!babel-loader!./test.js'`.
+3. Start `webpack-dev-server` using the config.
 4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
 
 #### Running in Browser with Karma + karma-webpack
 
-Consult the setup in [vue-loader documentation](http://vue-loader.vuejs.org/en/workflow/testing.html).
+Consult the setup in [vue-loader documentation](https://vue-loader.vuejs.org/en/workflow/testing.html).

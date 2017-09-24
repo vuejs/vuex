@@ -25,8 +25,8 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA's state
-store.state.b // -> moduleB's state
+store.state.a // -> `moduleA`'s state
+store.state.b // -> `moduleB`'s state
 ```
 
 ### Module Local State
@@ -38,7 +38,7 @@ const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // state is the local module state
+      // `state` is the local module state
       state.count++
     }
   },
@@ -206,6 +206,31 @@ methods: {
 }
 ```
 
+Furthermore, you can create namespaced helpers by using `createNamespacedHelpers`. It returns an object having new component binding helpers that are bound with the given namespace value:
+
+``` js
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+  computed: {
+    // look up in `some/nested/module`
+    ...mapState({
+      a: state => state.a,
+      b: state => state.b
+    })
+  },
+  methods: {
+    // look up in `some/nested/module`
+    ...mapActions([
+      'foo',
+      'bar'
+    ])
+  }
+}
+```
+
 #### Caveat for Plugin Developers
 
 You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
@@ -248,7 +273,7 @@ You can also remove a dynamically registered module with `store.unregisterModule
 
 Sometimes we may need to create multiple instances of a module, for example:
 
-- Creating multiple stores that uses the same module;
+- Creating multiple stores that use the same module (e.g. To [avoid stateful singletons in the SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) when the `runInNewContext` option is `false` or `'once'`);
 - Register the same module multiple times in the same store.
 
 If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.

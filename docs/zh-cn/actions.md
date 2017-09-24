@@ -1,4 +1,4 @@
-# Actions
+# Action
 
 Action 类似于 mutation，不同在于：
 
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
 
 Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 `context.commit` 提交一个 mutation，或者通过 `context.state` 和 `context.getters` 来获取 state 和 getters。当我们在之后介绍到 [Modules](modules.md) 时，你就知道 context 对象为什么不是 store 实例本身了。
 
-实践中，我们会经常会用到 ES2015 的 [参数解构](https://github.com/lukehoban/es6features#destructuring) 来简化代码（特别是我们需要调用 `commit` 很多次的时候）：
+实践中，我们会经常用到 ES2015 的 [参数解构](https://github.com/lukehoban/es6features#destructuring) 来简化代码（特别是我们需要调用 `commit` 很多次的时候）：
 
 ``` js
 actions: {
@@ -72,7 +72,7 @@ store.dispatch({
 })
 ```
 
-来看一个更加实际的购物车示例，涉及到**调用异步 API** 和 **分发多重 mutations**：
+来看一个更加实际的购物车示例，涉及到**调用异步 API** 和**分发多重 mutation**：
 
 ``` js
 actions: {
@@ -106,20 +106,23 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment' // 映射 this.increment() 为 this.$store.dispatch('increment')
+      'increment', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
+
+      // `mapActions` 也支持载荷：
+      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
-      add: 'increment' // 映射 this.add() 为 this.$store.dispatch('increment')
+      add: 'increment' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
     })
   }
 }
 ```
 
-### 组合 Actions
+### 组合 Action
 
 Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
 
-首先，你需要明白 `store.dispatch` 可以处理被触发的action的回调函数返回的Promise，并且store.dispatch仍旧返回Promise：
+首先，你需要明白 `store.dispatch` 可以处理被触发的 action 的处理函数返回的 Promise，并且 `store.dispatch` 仍旧返回 Promise：
 
 ``` js
 actions: {

@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 })
 ```
 
-You cannot directly call a mutation handler. The options here is more like event registration: "When a mutation with type `increment` is triggered, call this handler." To invoke a mutation handler, you need to call **store.commit** with its type:
+You cannot directly call a mutation handler. Think of it more like event registration: "When a mutation with type `increment` is triggered, call this handler." To invoke a mutation handler, you need to call `store.commit` with its type:
 
 ``` js
 store.commit('increment')
@@ -48,6 +48,7 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', {
   amount: 10
@@ -83,7 +84,7 @@ Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vu
 
 2. When adding new properties to an Object, you should either:
 
-  - Use `Vue.set(obj, 'newProp', 123)`, or -
+  - Use `Vue.set(obj, 'newProp', 123)`, or
 
   - Replace that Object with a fresh one. For example, using the stage-3 [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
 
@@ -93,7 +94,7 @@ Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vu
 
 ### Using Constants for Mutation Types
 
-It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allow the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allows the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
 
 ``` js
 // mutation-types.js
@@ -146,13 +147,13 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment', // map this.increment() to this.$store.commit('increment')
-      
-      // mapMutations also supports payloads:
-      'incrementBy' // this.incrementBy(amount) maps to this.$store.commit('incrementBy', amount)
+      'increment', // map `this.increment()` to `this.$store.commit('increment')`
+
+      // `mapMutations` also supports payloads:
+      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
     ]),
     ...mapMutations({
-      add: 'increment' // map this.add() to this.$store.commit('increment')
+      add: 'increment' // map `this.add()` to `this.$store.commit('increment')`
     })
   }
 }

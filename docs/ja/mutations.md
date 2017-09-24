@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 })
 ```
 
-直接ミューテーションハンドラを呼び出すことはできません。この mutations オプションは、どちらかいうと "タイプが `increment` のミューテーションがトリガーされたときに、このハンドラが呼ばれる" といったイベント登録のようなものです。ミューテーションハンドラを起動するためにはミューテーションのタイプを指定して **store.commit** を呼び出す必要があります:
+直接ミューテーションハンドラを呼び出すことはできません。この mutations オプションは、どちらかいうと "タイプが `increment` のミューテーションがトリガーされたときに、このハンドラが呼ばれる" といったイベント登録のようなものです。ミューテーションハンドラを起動するためにはミューテーションのタイプを指定して `store.commit` を呼び出す必要があります:
 
 ``` js
 store.commit('increment')
@@ -165,10 +165,13 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment' // this.increment() を this.$store.commit('increment') にマッピングする
+      'increment', // `this.increment()` を `this.$store.commit('increment')` にマッピングする
+
+      // mapMutations はペイロードサポートする:
+      'incrementBy' // `this.incrementBy(amount)` を `this.$store.commit('incrementBy', amount)` にマッピングする
     ]),
     ...mapMutations({
-      add: 'increment' // this.add() を this.$store.commit('increment') にマッピングする
+      add: 'increment' // `this.add()` を `this.$store.commit('increment')` にマッピングする
     })
   }
 }
@@ -176,7 +179,7 @@ export default {
 
 ### アクションへ向けて
 
-状態変更を非同期に組み合わせることは、プログラムの動きを予測することを非常に困難にします。例えば、状態を変更する非同期コールバックを持った 2つのメソッドを両方呼び出しとき、それらがいつ呼び出されたか、どちらが先に呼び出されたかを、どうやって知ればよいのでしょう？これがまさに、状態変更と非同期の 2つの概念を分離したいという理由です。Vuex では**全てのミューテーションは同期的に行う**という作法になっています:
+状態変更を非同期に組み合わせることは、プログラムの動きを予測することを非常に困難にします。例えば、状態を変更する非同期コールバックを持った 2つのメソッドを両方呼び出すとき、それらがいつ呼び出されたか、どちらが先に呼び出されたかを、どうやって知ればよいのでしょう？これがまさに、状態変更と非同期の 2つの概念を分離したいという理由です。Vuex では**全てのミューテーションは同期的に行う**という作法になっています:
 
 ``` js
 store.commit('increment')

@@ -7,7 +7,7 @@ const myPlugin = store => {
   // ストアが初期化されたときに呼ばれます
   store.subscribe((mutation, state) => {
     // それぞれのミューテーションの後に呼ばれます
-    // ミューテーションは { type, payload } の形式で提供されます
+    // ミューテーションは `{ type, payload }` の形式で提供されます
   })
 }
 ```
@@ -62,7 +62,7 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // 以前の状態と以後の状態を比較...
+    // `prevState` と `nextState` を比較...
 
     // 次のミューテーションのために状態を保存
     prevState = nextState
@@ -70,7 +70,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**状態のスナップショットを撮るプラグインはアプリケーションの開発の間だけ使われるべきです。**  Webpack や Browserify を使っていれば、ビルドツールにそれを処理させることができます:
+**状態のスナップショットを撮るプラグインはアプリケーションの開発の間だけ使われるべきです。**  webpack や Browserify を使っていれば、ビルドツールにそれを処理させることができます:
 
 ``` js
 const store = new Vuex.Store({
@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-上のように記述すれば、プラグインはデフォルトで利用されることになります。本番環境( production ) では、 `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 Webpack では[DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
+上のように記述すれば、プラグインはデフォルトで利用されることになります。本番環境( production ) では、 `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 webpack では[DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
 
 ### ビルトインロガープラグイン
 
@@ -103,8 +103,8 @@ const store = new Vuex.Store({
 const logger = createLogger({
   collapsed: false, // ログ出力されたミューテーションを自動で展開します
   filter (mutation, stateBefore, stateAfter) {
-    // returns true if a mutation should be logged
-    // `mutation` is a { type, payload }
+    // ミューテーションを記録する必要がある場合は、`true` を返します
+    // `mutation` は `{ type, payload }` です
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
@@ -113,7 +113,7 @@ const logger = createLogger({
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // ミューテーションは、{ type, payload } の形式でログ出力されます
+    // ミューテーションは、`{ type, payload }` の形式でログ出力されます
     // 任意の方法でそれをフォーマットできます
     return mutation.type
   }

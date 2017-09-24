@@ -56,7 +56,7 @@ const store = new Vuex.Store({ ...options })
     ```
 
     При определении в модуле
-    
+
     ```
     state,       // при использовании модулей — локальный state модуля
     getters,     // локальные геттеры текущего модуля
@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options })
 
     [Подробнее](strict.md)
 
-### Свойства инстанса Vuex.Store
+### Свойства экземпляра Vuex.Store
 
 - **state**
 
@@ -123,7 +123,7 @@ const store = new Vuex.Store({ ...options })
 
     Зарегистрированные геттеры. Только для чтения.
 
-### Методы инстанса Vuex.Store
+### Методы экземпляра Vuex.Store
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
@@ -193,3 +193,7 @@ const store = new Vuex.Store({ ...options })
   Создаёт проксирующие методы компонента, позволяющие инициировать мутации. [Подробнее](mutations.md#вызов-мутаций-из-компонентов)
 
   Первый аргумент опционально может быть строкой с указанным namespace. [Подробнее](modules.md#подключение-с-помощью-вспомогательных-функций-к-пространству-имён)
+
+- **`createNamespacedHelpers(namespace: string): Object`**
+
+  Создаёт вспомогательные функции для связывания с компонентами для указанного пространства имён. Возвращаемый объект содержит `mapState`, `mapGetters`, `mapActions` и `mapMutations`, которые связаны с указанным пространством имён. [Подробнее](modules.md#подключение-с-помощью-вспомогательных-функций-к-пространству-имён)

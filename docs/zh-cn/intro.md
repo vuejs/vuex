@@ -30,13 +30,13 @@ new Vue({
 这个状态自管理应用包含以下几个部分：
 
 - **state**，驱动应用的数据源；
-- **view**，以声明方式将**state**映射到视图；
-- **actions**，响应在**view**上的用户输入导致的状态变化。
+- **view**，以声明方式将 **state** 映射到视图；
+- **actions**，响应在 **view** 上的用户输入导致的状态变化。
 
 以下是一个表示“单向数据流”理念的极简示意：
 
-<p style="text-align: center; margin: 2em">
-  <img style="max-width:450px;" src="./images/flow.png">
+<p style="text-align: center; margin: 2em;">
+  <img style="width: 100%; max-width: 450px;" src="./images/flow.png">
 </p>
 
 但是，当我们的应用遇到**多个组件共享状态**时，单向数据流的简洁性很容易被破坏：
@@ -58,6 +58,6 @@ new Vue({
 
 虽然 Vuex 可以帮助我们管理共享状态，但也附带了更多的概念和框架。这需要对短期和长期效益进行权衡。
 
-如果您不打算开发大型单页应用，使用 Vuex 可能是繁琐冗余的。确实是如此——如果您的应用够简单，您最好不要使用 Vuex。一个简单的 [global event bus](http://vuejs.org/guide/components.html#Non-Parent-Child-Communication) 就足够您所需了。但是，如果您需要构建是一个中大型单页应用，您很可能会考虑如何更好地在组件外部管理状态，Vuex 将会成为自然而然的选择。引用 Redux 的作者 Dan Abramov 的话说就是：
+如果您不打算开发大型单页应用，使用 Vuex 可能是繁琐冗余的。确实是如此——如果您的应用够简单，您最好不要使用 Vuex。一个简单的 [global event bus](https://cn.vuejs.org/v2/guide/components.html#非父子组件通信) 就足够您所需了。但是，如果您需要构建是一个中大型单页应用，您很可能会考虑如何更好地在组件外部管理状态，Vuex 将会成为自然而然的选择。引用 Redux 的作者 Dan Abramov 的话说就是：
 
 > Flux 架构就像眼镜：您自会知道什么时候需要它。

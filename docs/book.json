@@ -1,6 +1,7 @@
 {
+  "title": "Vuex",
   "gitbook": ">3.0.0",
-  "plugins": ["edit-link", "prism", "theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git", "-fontsettings", "-highlight", "github"],
+  "plugins": ["edit-link", "prism", "theme-vuejs", "-fontsettings", "-highlight", "github"],
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/vuejs/vuex/tree/dev/docs",
