@@ -8,7 +8,7 @@ Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的
 
 3. 异步逻辑都应该封装到 **action** 里面。
 
-只要你遵守以上规则，如何组织代码随你便。如果你的 store 文件太大，只需将 action、mutation、和 getters 分割到单独的文件。
+只要你遵守以上规则，如何组织代码随你便。如果你的 store 文件太大，只需将 action、mutation 和 getter 分割到单独的文件。
 
 对于大型应用，我们会希望把 Vuex 相关代码分割到模块中。下面是项目结构示例：
 
@@ -30,4 +30,4 @@ Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的
         └── products.js   # 产品模块
 ```
 
-请参考[购物车示例](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)
+请参考[购物车示例](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)。

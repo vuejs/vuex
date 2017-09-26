@@ -30,13 +30,13 @@ new Vue({
 这个状态自管理应用包含以下几个部分：
 
 - **state**，驱动应用的数据源；
-- **view**，以声明方式将**state**映射到视图；
-- **actions**，响应在**view**上的用户输入导致的状态变化。
+- **view**，以声明方式将 **state** 映射到视图；
+- **actions**，响应在 **view** 上的用户输入导致的状态变化。
 
 以下是一个表示“单向数据流”理念的极简示意：
 
-<p style="text-align: center; margin: 2em">
-  <img style="width:100%;max-width:450px;" src="./images/flow.png">
+<p style="text-align: center; margin: 2em;">
+  <img style="width: 100%; max-width: 450px;" src="./images/flow.png">
 </p>
 
 但是，当我们的应用遇到**多个组件共享状态**时，单向数据流的简洁性很容易被破坏：

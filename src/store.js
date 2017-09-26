@@ -7,6 +7,13 @@ let Vue // bind on install
 
 export class Store {
   constructor (options = {}) {
+    // Auto install if it is not done yet and `window` has `Vue`.
+    // To allow users to avoid auto-installation in some cases,
+    // this code should be placed here. See #731
+    if (!Vue && typeof window !== 'undefined' && window.Vue) {
+      install(window.Vue)
+    }
+
     if (process.env.NODE_ENV !== 'production') {
       assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
@@ -452,7 +459,7 @@ function unifyObjectStyle (type, payload, options) {
 }
 
 export function install (_Vue) {
-  if (Vue) {
+  if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(
         '[vuex] already installed. Vue.use(Vuex) should be called only once.'
@@ -462,9 +469,4 @@ export function install (_Vue) {
   }
   Vue = _Vue
   applyMixin(Vue)
-}
-
-// auto install in dist mode
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
 }

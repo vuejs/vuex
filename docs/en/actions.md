@@ -108,7 +108,7 @@ export default {
   methods: {
     ...mapActions([
       'increment', // map `this.increment()` to `this.$store.dispatch('increment')`
-      
+
       // `mapActions` also supports payloads:
       'incrementBy' // map `this.incrementBy(amount)` to `this.$store.dispatch('incrementBy', amount)`
     ]),

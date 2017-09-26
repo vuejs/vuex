@@ -8,7 +8,7 @@ The single state tree does not conflict with modularity - in later chapters we w
 
 ### Getting Vuex State into Vue Components
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](http://vuejs.org/guide/computed.html):
+So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](https://vuejs.org/guide/computed.html):
 
 ``` js
 // let's create a Counter component
@@ -58,7 +58,7 @@ const Counter = {
 
 ### The `mapState` Helper
 
-When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us to help us save some keystrokes:
+When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us, saving us some keystrokes:
 
 ``` js
 // in full builds helpers are exposed as Vuex.mapState
