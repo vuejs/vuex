@@ -48,6 +48,7 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', {
   amount: 10
