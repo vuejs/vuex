@@ -9,7 +9,7 @@ Les mutations sont très simples à tester, puisque ce sont de simples fonctions
 ``` js
 const state = { ... }
 
-// exporter les mutations en tant qu'export nommé
+// exporter `mutations` en tant qu'export nommé
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// assignement des mutations par déstructuration
+// assignement de `mutations` par déstructuration
 const { increment } = mutations
 
 describe('mutations', () => {

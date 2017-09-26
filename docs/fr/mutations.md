@@ -48,6 +48,7 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', {
   amount: 10
@@ -160,7 +161,7 @@ export default {
 
 ### En avant vers les actions
 
-L'asynchronisme combiné à la mutation de l'état peut rendre votre programme très difficile à comprendre. Par exemple, lorsque vous appelez deux méthodes avec toutes les deux des fonctions de rappel asynchrones qui changent l'état, comment savez-vous quelle fonction de rappel est appelée en première ? C'est exactement la raison pour laquelle nous voulons séparer les deux concepts. Avec Vuex, **les mutations sont des transactions synchrones** :
+L'asynchronisme combiné à la mutation de l'état peut rendre votre programme très difficile à comprendre. Par exemple, lorsque vous appelez deux méthodes avec toutes les deux des foncitons de rappel asynchrones qui changent l'état, comment savez-vous quelle fonction de rappel est appelée en première ? C'est exactement la raison pour laquelle nous voulons séparer les deux concepts. Avec Vuex, **les mutations sont des transactions synchrones** :
 
 ``` js
 store.commit('increment')
