@@ -27,24 +27,23 @@ function build (builds) {
 }
 
 function buildEntry (config) {
-  const isProd = /min\.js$/.test(config.dest)
-  return rollup.rollup(config).then(bundle => {
-    const code = bundle.generate(config).code
-    if (isProd) {
-      var minified = (config.banner ? config.banner + '\n' : '') + uglify.minify(code, {
-        fromString: true,
-        output: {
-          /* eslint-disable camelcase */
-          screw_ie8: true,
-          ascii_only: true
-          /* eslint-enable camelcase */
-        }
-      }).code
-      return write(config.dest, minified, true)
-    } else {
-      return write(config.dest, code)
-    }
-  })
+  const isProd = /min\.js$/.test(config.file)
+  return rollup.rollup(config)
+    .then(bundle => bundle.generate(config))
+    .then(({ code }) => {
+      if (isProd) {
+        var minified = (config.banner ? config.banner + '\n' : '') + uglify.minify(code, {
+          output: {
+            /* eslint-disable camelcase */
+            ascii_only: true
+            /* eslint-enable camelcase */
+          }
+        }).code
+        return write(config.file, minified, true)
+      } else {
+        return write(config.file, code)
+      }
+    })
 }
 
 function write (dest, code, zip) {
