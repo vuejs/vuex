@@ -193,3 +193,7 @@ const store = new Vuex.Store({ ...options })
   ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+
+- **`createNamespacedHelpers(namespace: string): Object`**
+
+  名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](modules.md#binding-helpers-with-namespace)

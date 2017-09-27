@@ -8,7 +8,7 @@ L'arbre d'état unique n'entre pas en conflit avec la modularité. Dans les proc
 
 ### Récupération d'état Vuex dans des composants Vue
 
-Alors, comment affichons-nous l'état du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple d'y « récupérer » l'état est tout simplement de retourner une partie de l'état depuis une [une propriété calculée](http://fr.vuejs.org/guide/computed.html) :
+Alors, comment affichons-nous l'état du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple d'y « récupérer » l'état est tout simplement de retourner une partie de l'état depuis une [une propriété calculée](https://fr.vuejs.org/guide/computed.html) :
 
 ``` js
 // créons un composant Counter
