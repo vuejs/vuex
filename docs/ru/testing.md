@@ -9,7 +9,7 @@
 ``` js
 const state = { ... }
 
-// именованный экспорт мутаций отдельно от самого хранилища
+// именованный экспорт `mutations` отдельно от самого хранилища
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// деструктурирующее присваивание из mutations
+// деструктурирующее присваивание из `mutations`
 const { increment } = mutations
 
 describe('mutations', () => {
