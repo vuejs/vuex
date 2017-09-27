@@ -9,7 +9,7 @@
 ``` js
 const state = { ... }
 
-// именованный экспорт мутаций отдельно от самого хранилища
+// именованный экспорт `mutations` отдельно от самого хранилища
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// деструктурирующее присваивание из mutations
+// деструктурирующее присваивание из `mutations`
 const { increment } = mutations
 
 describe('mutations', () => {
@@ -219,4 +219,4 @@ mocha test-bundle.js
 
 #### Запуск в браузерах при помощи Karma и karma-webpack
 
-Обратитесь к [документации vue-loader](http://vue-loader.vuejs.org/en/workflow/testing.html).
+Обратитесь к [документации vue-loader](https://vue-loader.vuejs.org/en/workflow/testing.html).
