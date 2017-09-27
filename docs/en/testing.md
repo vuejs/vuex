@@ -9,7 +9,7 @@ Mutations are very straightforward to test, because they are just functions that
 ``` js
 const state = { ... }
 
-// export mutations as a named export
+// export `mutations` as a named export
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// destructure assign mutations
+// destructure assign `mutations`
 const { increment } = mutations
 
 describe('mutations', () => {
@@ -219,4 +219,4 @@ mocha test-bundle.js
 
 #### Running in Browser with Karma + karma-webpack
 
-Consult the setup in [vue-loader documentation](http://vue-loader.vuejs.org/en/workflow/testing.html).
+Consult the setup in [vue-loader documentation](https://vue-loader.vuejs.org/en/workflow/testing.html).

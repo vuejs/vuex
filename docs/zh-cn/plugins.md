@@ -54,7 +54,7 @@ const store = new Vuex.Store({
 
 ### 生成 State 快照
 
-有时候插件需要获得状态的『快照』，比较改变的前后状态。想要实现这项功能，你需要对状态对象进行深拷贝：
+有时候插件需要获得状态的“快照”，比较改变的前后状态。想要实现这项功能，你需要对状态对象进行深拷贝：
 
 ``` js
 const myPluginWithSnapshot = store => {
