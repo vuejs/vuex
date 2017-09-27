@@ -38,21 +38,25 @@ const configs = {
 
 function genConfig (opts) {
   const config = {
-    input: opts.input,
-    file: opts.file,
-    format: opts.format,
-    banner,
-    name: 'Vuex',
-    plugins: [
-      replace({
-        __VERSION__: version
-      }),
-      buble()
-    ]
+    input: {
+      input: opts.input,
+      plugins: [
+        replace({
+          __VERSION__: version
+        }),
+        buble()
+      ]
+    },
+    output: {
+      banner,
+      file: opts.file,
+      format: opts.format,
+      name: 'Vuex'
+    }
   }
 
   if (opts.env) {
-    config.plugins.unshift(replace({
+    config.input.plugins.unshift(replace({
       'process.env.NODE_ENV': JSON.stringify(opts.env)
     }))
   }
