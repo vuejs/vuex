@@ -2,7 +2,7 @@
 
 Du fait de l'utilisation d'un arbre d'état unique, tout l'état de notre application est contenu dans un seul et même gros objet. Cependant, au fur et à mesure que notre application grandit, le store peut devenir très engorgé.
 
-Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir ses propres état, mutations, actions, accesseurs. Il peut même contenir ses propres modules internes.
+Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir ses propres états, mutations, actions, accesseurs. Il peut même contenir ses propres modules internes.
 
 ``` js
 const moduleA = {
@@ -83,7 +83,7 @@ const moduleA = {
 
 Par défaut, les actions, mutations et accesseurs à l'intérieur d'un module sont toujours enregistrés sous l'**espace de nom global**. Cela permet à de multiples modules d'être réactifs au même type de mutation et d'action.
 
-Si vous souhaitez que votre module soit auto-suffisant et réutilisable, vous pouvez le ranger sous un espace de nom avec `namespaced: true`. Quand le module est enregistré, tous ses accesseurs, actions et mutations seront automatiquement basés sur l'espace de nom du module dans lesquels ils sont rangés. Par exemple :
+Si vous souhaitez que votre module soit autosuffisant et réutilisable, vous pouvez le ranger sous un espace de nom avec `namespaced: true`. Quand le module est enregistré, tous ses accesseurs, actions et mutations seront automatiquement basés sur l'espace de nom du module dans lesquels ils sont rangés. Par exemple :
 
 ```js
 const store = new Vuex.Store({
@@ -128,13 +128,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Les accesseurs et actions sous espace de nom reçoivent des `getters`, `dispatch` et `commit` localisés. En d'autres termes, vous pouvez utiliser les paramètres de module sans écrire de prefix dans ce même module. Permuter entre un espace de nom ou non n'affecte pas le code à l'intérieur du module.
+Les accesseurs et actions sous espace de nom reçoivent des `getters`, `dispatch` et `commit` localisés. En d'autres termes, vous pouvez utiliser les paramètres de module sans écrire de préfixe dans ce même module. Permuter entre un espace de nom ou non n'affecte pas le code à l'intérieur du module.
 
 #### Accéder aux propriétés globales dans les modules à espace de nom
 
-Si vous voulez utiliser des états et accesseurs globaux, `rootState` et `rootGetters` sont passés en 3ième et 4ième arguments des fonctions d'accès et sont également exposés en tant que propriété de l'objet `context` passé aux fonctions d'action.
+Si vous voulez utiliser des états et accesseurs globaux, `rootState` et `rootGetters` sont passés en 3ᵉ et 4ᵉ arguments des fonctions d'accès et sont également exposés en tant que propriété de l'objet `context` passé aux fonctions d'action.
 
-Pour propager les actions ou les mutations actées dans l'espace de nom global, passez `{ root: true }` en 3ième argument à `dispatch` et `commit`.
+Pour propager les actions ou les mutations actées dans l'espace de nom global, passez `{ root: true }` en 3ᵉ argument à `dispatch` et `commit`.
 
 ``` js
 modules: {
@@ -143,7 +143,7 @@ modules: {
 
     getters: {
       // Les `getters` sont localisés dans le module des accesseurs
-      // vous pouvez utiliser `rootGetters` via le 4ième argument des accesseurs
+      // vous pouvez utiliser `rootGetters` via le 4ᵉ argument des accesseurs
       someGetter (state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
         rootGetters.someOtherGetter // -> 'someOtherGetter'
@@ -189,7 +189,7 @@ methods: {
 }
 ```
 
-Dans ces cas là, vous pouvez passer une chaîne de caractère représentant le nom d'espace en tant que premier argument aux fonctions utilitaires ainsi toutes les liaisons seront faites en utilisant le module comme contexte. Cela peut être simplifié comme ci-dessous :
+Dans ces cas-là, vous pouvez passer une chaine de caractère représentant le nom d'espace en tant que premier argument aux fonctions utilitaires ainsi toutes les liaisons seront faites en utilisant le module comme contexte. Cela peut être simplifié comme ci-dessous :
 
 ``` js
 computed: {
@@ -206,7 +206,7 @@ methods: {
 }
 ```
 
-De plus, vous pouvez créer des fonctions utilitaires liées avec espace de nom en utilisant `createNamespacedHelpers`. Cela retourne un objet qui a les nouvelles fonctions utilitaires ratachées à la valeur d'espace de nom fournie :
+De plus, vous pouvez créer des fonctions utilitaires liées avec espace de nom en utilisant `createNamespacedHelpers`. Cela retourne un objet qui a les nouvelles fonctions utilitaires rattachées à la valeur d'espace de nom fournie :
 
 ``` js
 import { createNamespacedHelpers } from 'vuex'
@@ -233,7 +233,7 @@ export default {
 
 #### Limitations pour les plugins des développeurs
 
-Vous devez faire attention au nom d'espace imprévisible pour vos modules quand vous créez un [plugin](plugins.md) qui fournit les modules et laisser les utilisateurs les ajouter au store de Vuex. Vos modules seront également sous espace de nom si l'utilisateur du plugin l'ajoute sous un module sous espace de nom. Pour vous adaptez à la situation, vous devez recevoir la valeur de l'espace de nom via vos options de plugin :
+Vous devez faire attention au nom d'espace imprévisible pour vos modules quand vous créez un [plugin](plugins.md) qui fournit les modules et laisser les utilisateurs les ajouter au store de Vuex. Vos modules seront également sous espace de nom si l'utilisateur du plugin l'ajoute sous un module sous espace de nom. Pour vous adapter à la situation, vous devez recevoir la valeur de l'espace de nom via vos options de plugin :
 
 ```js
 // passer la valeur d'espace de nom via une option du plugin
@@ -269,7 +269,7 @@ L'enregistrement dynamique de module permet aux autres plugins Vue de bénéfici
 
 Vous pouvez aussi supprimer un module enregistré dynamiquement avec `store.unregisterModule(moduleName)`. Notez que vous ne pouvez pas supprimer des modules statiques (déclarés à la création du store) avec cette méthode.
 
-### Ré-utiliser un module
+### Réutiliser un module
 
 Parfois nous devrons créer de multiples instances d'un module pour, par exemple :
 

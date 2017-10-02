@@ -7,7 +7,7 @@ const myPlugin = store => {
   // appelé quand le store est initialisé
   store.subscribe((mutation, state) => {
     // appelé après chaque mutation.
-    // Les mutation arrivent au format `{ type, payload }`.
+    // Les mutations arrivent au format `{ type, payload }`.
   })
 }
 ```
@@ -54,7 +54,7 @@ const store = new Vuex.Store({
 
 ### Prendre des instantanés de l'état
 
-Parfois un plugin peut vouloir recevoir des « instantanés » de l'état, et également comparer l'état post-mutation avec l'état pré-mutation. Pour faire ceci, vous aurez besoin d'effectuer une copie complète de l'état :
+Parfois un plugin peut vouloir recevoir des « instantanés » de l'état, et également comparer l'état post mutation avec l'état prémutation. Pour faire ceci, vous aurez besoin d'effectuer une copie complète de l'état :
 
 ``` js
 const myPluginWithSnapshot = store => {

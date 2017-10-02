@@ -22,11 +22,11 @@ const Counter = {
 }
 ```
 
-Lorsque `store.state.count` change, cela entraînera la ré-évaluation de la propriété calculée, et déclenchera les actions associées au DOM.
+Lorsque `store.state.count` change, cela entrainera la réévaluation de la propriété calculée, et déclenchera les actions associées au DOM.
 
 Cependant, ce modèle oblige le composant à compter sur le singleton global du store. Lorsqu'on utilise un système de module, il est nécessaire d'importer le store dans tous les composants qui utilisent l'état du store, et il est également nécessaire de le simuler lorsque l'on teste le composant.
 
-Vuex fournit un méchanisme pour « injecter » le store dans tous les composants enfants du composant racine avec l'option `store` (activée par `Vue.use(Vuex)`) :
+Vuex fournit un mécanisme pour « injecter » le store dans tous les composants enfants du composant racine avec l'option `store` (activée par `Vue.use(Vuex)`) :
 
 ``` js
 const app = new Vue({
@@ -58,10 +58,10 @@ const Counter = {
 
 ### La fonction utilitaire `mapState`
 
-Lorsqu'un composant a besoin d'utiliser plusieurs accesseurs ou propriétés de l'état du store, déclarer toutes ces propriétés calculées peut devenir répétitif et verbeux. Afin de palier à ça, nous pouvons utiliser la fonction utilitaire `mapState` qui génère des fonctions d'accession pour nous et nous épargne quelques coups de clavier :
+Lorsqu'un composant a besoin d'utiliser plusieurs accesseurs ou propriétés de l'état du store, déclarer toutes ces propriétés calculées peut devenir répétitif et verbeux. Afin de pallier à ça, nous pouvons utiliser la fonction utilitaire `mapState` qui génère des fonctions d'accession pour nous et nous épargne quelques coups de clavier :
 
 ``` js
-// dans la version complète, des fonctions utilitaires sont exposées tel que `Vuex.mapState`
+// dans la version complète, des fonctions utilitaires sont exposées telles que `Vuex.mapState`
 import { mapState } from 'vuex'
 
 export default {
@@ -81,7 +81,7 @@ export default {
 }
 ```
 
-Il est également possible de fournir un tableau de chaînes de caractères à `mapState` lorsque le nom de la propriété de l'état du store est le même que celui du composant.
+Il est également possible de fournir un tableau de chaines de caractères à `mapState` lorsque le nom de la propriété de l'état du store est le même que celui du composant.
 
 ``` js
 computed: mapState([
@@ -106,4 +106,4 @@ computed: {
 
 ### Les composants peuvent toujours avoir un état local
 
-Utiliser Vuex ne signifie pas que vous devez mettre **tout** votre état dans Vuex. Bien que le fait de mettre plus d'état dans Vuex rende vos mutation d'état plus explicites et plus débogable, parfois il peut aussi rendre le code plus verbeux et indirect. Si une partie de l'état appartient directement à un seul composant, il est parfaitement sain de la laisser dans l'état local. Assurez vous de prendre en compte les avantages et inconvénients d'une telle décision afin de vous adapter au mieux aux besoins de votre application.
+Utiliser Vuex ne signifie pas que vous devez mettre **tout** votre état dans Vuex. Bien que le fait de mettre plus d'états dans Vuex rende vos mutations d'état plus explicites et plus débogable, parfois il peut aussi rendre le code plus verbeux et indirect. Si une partie de l'état appartient directement à un seul composant, il est parfaitement sain de la laisser dans l'état local. Assurez-vous de prendre en compte les avantages et inconvénients d'une telle décision afin de vous adapter au mieux aux besoins de votre application.
