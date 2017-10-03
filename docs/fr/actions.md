@@ -27,7 +27,7 @@ const store = new Vuex.Store({
 
 Les gestionnaires d'action reçoivent un objet contexte qui expose le même ensemble de méthodes et propriétés que l'instance du store, donc vous pouvez appeler `context.commit` pour acter une mutation, ou accéder à l'état et aux accesseurs via `context.state` et `context.getters`. Nous verrons pourquoi cet objet contexte n'est pas l'instance du store elle-même lorsque nous présenterons les [Modules](modules.md) plus tard.
 
-En pratique, nous utilisons souvent la [destructuration d'argument](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Affecter_par_d%C3%A9composition) pour simplifier quelque peu le code (particulièrement si nous avons besoin d'appeler `commit` plusieurs fois) :
+En pratique, nous utilisons souvent la [déstructuration d'argument](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Affecter_par_d%C3%A9composition) pour simplifier quelque peu le code (particulièrement si nous avons besoin d'appeler `commit` plusieurs fois) :
 
 ``` js
 actions: {
@@ -175,4 +175,4 @@ actions: {
 }
 ```
 
-> Il est possible pour un `store.dispatch` de déclencher plusieurs gestionnaires d'action dans différents modules. Dans ce genre de cas, la valeur retournée sera une Promesse qui se résoud quand tous les gestionnaires déclenchés ont été résolus.
+> Il est possible pour un `store.dispatch` de déclencher plusieurs gestionnaires d'action dans différents modules. Dans ce genre de cas, la valeur retournée sera une Promesse qui se résout quand tous les gestionnaires déclenchés ont été résolus.
