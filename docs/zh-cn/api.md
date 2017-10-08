@@ -30,9 +30,9 @@ const store = new Vuex.Store({ ...options })
 
   - 类型: `{ [type: string]: Function }`
 
-    在 store 上注册 action。处理函数总是接受 `context` 作为第一个参数（如果定义在模块中，则为模块的局部状态），`payload` 作为第二个参数（可选）。
+    在 store 上注册 action。处理函数总是接受 `context` 作为第一个参数，`payload` 作为第二个参数（可选）。
 
-    `context` 对象，包含以下属性：
+    `context` 对象包含以下属性：
 
     ``` js
     {
