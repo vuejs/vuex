@@ -27,13 +27,13 @@ new Vue({
 })
 ```
 
-C'est une application auto-suffisante avec les parties suivantes :
+C'est une application autosuffisante avec les parties suivantes :
 
 - L'**état**, qui est la source de vérité qui pilotant votre application,
 - La **vue**, qui est une réflexion déclarative de l'**état**,
 - Les **actions**, qui sont les façons possibles pour l'état de changer en réaction aux actions utilisateurs depuis la **vue**.
 
-Voici une représentation extrèmement simple du concept de « flux de donnée unidirectionnel » :
+Voici une représentation extrêmement simple du concept de « flux de donnée unidirectionnel » :
 
 <p style="text-align: center; margin: 2em">
   <img style="width:100%;max-width:450px;" src="./images/flow.png">
@@ -56,8 +56,8 @@ Voilà l'idée de base derrière Vuex, inspiré par [Flux](https://facebook.gith
 
 ### Quand l'utiliser ?
 
-Bien que Vuex nous aide à gérer un état global partagé, il apporte aussi le coût de nouveaux concepts et _abstraction de code_ (« boilerplate »). C'est un compromis entre la productivité à court terme et à long terme.
+Bien que Vuex nous aide à gérer un état global partagé, il apporte aussi le cout de nouveaux concepts et _abstraction de code_ (« boilerplate »). C'est un compromis entre la productivité à court terme et à long terme.
 
-Si vous n'avez jamais créé une _application monopage_ à grande échelle et que vous sautez directement dans Vuex, cela peut paraître verbeux et intimidant. C'est parfaitement normal ; si votre application est simple, vous vous en sortirez sans doute très bien sans Vuex. Un simple [canal d'évènement global](https://fr.vuejs.org/v2/guide/components.html#Communication-non-parent-enfant) pourrait très bien vous suffire. Mais si vous devez créer une application monopage à moyenne ou grande échelle, il y a des chances que vous vous trouviez dans des situations qui vous feront vous interroger sur une meilleure gestion de l'état global, détaché de votre composant Vue, et Vuex sera naturellement la prochaine étape pour vous. Voici une bonne citation de Dan Abramov, l'auteur de Redux :
+Si vous n'avez jamais créé une _application monopage_ à grande échelle et que vous sautez directement dans Vuex, cela peut paraitre verbeux et intimidant. C'est parfaitement normal ; si votre application est simple, vous vous en sortirez sans doute très bien sans Vuex. Un simple [canal d'évènement global](https://fr.vuejs.org/v2/guide/components.html#Communication-non-parent-enfant) pourrait très bien vous suffire. Mais si vous devez créer une application monopage à moyenne ou grande échelle, il y a des chances que vous vous trouviez dans des situations qui vous feront vous interroger sur une meilleure gestion de l'état global, détaché de votre composant Vue, et Vuex sera naturellement la prochaine étape pour vous. Voici une bonne citation de Dan Abramov, l'auteur de Redux :
 
 > « Les librairies Flux, c'est comme les lunettes : vous saurez quand vous en aurez besoin. »

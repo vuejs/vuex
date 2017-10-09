@@ -9,7 +9,7 @@ Les mutations sont très simples à tester, puisque ce sont de simples fonctions
 ``` js
 const state = { ... }
 
-// exporter les mutations en tant qu'export nommé
+// exporter `mutations` en tant qu'export nommé
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export const mutations = {
 import { expect } from 'chai'
 import { mutations } from './store'
 
-// assignement des mutations par déstructuration
+// assignement de `mutations` par déstructuration
 const { increment } = mutations
 
 describe('mutations', () => {
@@ -111,7 +111,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
   // appeler l'action avec le store simulé et les arguments
   action({ commit, state }, ...args)
 
-  // vérifier qu'aucune mutations n'ai été propagée
+  // vérifier qu'aucune mutation n'ait été propagée
   if (expectedMutations.length === 0) {
     expect(count).to.equal(0)
     done()
@@ -163,7 +163,7 @@ describe('getters', () => {
     // accesseur simulé
     const filterCategory = 'fruit'
 
-    // obterir le résultat depuis l'accesseur
+    // obtenir le résultat depuis l'accesseur
     const result = getters.filteredProducts(state, { filterCategory })
 
     // tester le résultat

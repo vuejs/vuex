@@ -72,7 +72,7 @@ export const getAllProducts = ({ commit }) => {
 // inject-loader를 사용하면 조작된 의존성을
 // 주입 할 수있는 모듈 팩토리가 반환됩니다.
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // 조작된 모의 응답과 함께 모듈 생성
 const actions = actionsInjector({
