@@ -67,9 +67,9 @@
     "todomvc-app-css": "^2.1.0",
     "typescript": "^2.1.5",
     "uglify-js": "^3.1.2",
-    "vue": "HerringtonDarkholme/vue#8901752",
+    "vue": "github:vuejs/vue#96b9744",
     "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.3",
+    "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1"
