@@ -1,4 +1,4 @@
-import Vue = require("vue");
+import Vue from "vue";
 import * as Vuex from "../index";
 
 const store = new Vuex.Store({
