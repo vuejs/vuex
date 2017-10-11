@@ -200,6 +200,10 @@ namespace RegisterModule {
     state: { value: 2 }
   });
 
+  store.registerModule(["a", "b"], {
+    state: { value: 2 }
+  }, { preserveState: true });
+
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");
 }

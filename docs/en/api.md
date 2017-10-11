@@ -156,9 +156,11 @@ const store = new Vuex.Store({ ...options })
 
   Most commonly used in plugins. [Details](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+
+  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
