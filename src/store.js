@@ -29,7 +29,7 @@ export class Store {
       state = {}
     } = options
     if (typeof state === 'function') {
-      state = state()
+      state = state() || {}
     }
 
     // store internal state
