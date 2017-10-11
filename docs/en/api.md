@@ -156,6 +156,21 @@ const store = new Vuex.Store({ ...options })
 
   Most commonly used in plugins. [Details](plugins.md)
 
+- **`subscribeAction(handler: Function)`**
+
+  > New in 2.5.0
+
+  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
+  })
+  ```
+
+  Most commonly used in plugins. [Details](plugins.md)
+
 - **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   Register a dynamic module. [Details](modules.md#dynamic-module-registration)
