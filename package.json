@@ -65,7 +65,7 @@
     "rollup-watch": "^4.3.1",
     "selenium-server": "^2.53.1",
     "todomvc-app-css": "^2.1.0",
-    "typescript": "^2.1.5",
+    "typescript": "^2.5.3",
     "uglify-js": "^3.1.2",
     "vue": "github:vuejs/vue#dev",
     "vue-loader": "^13.0.5",
