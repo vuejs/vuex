@@ -44,7 +44,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.22.0",
     "babel-preset-env": "^1.5.1",
-    "chromedriver": "^2.27.2",
+    "chromedriver": "^2.32.3",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.7",
     "eslint": "^3.19.0",
@@ -72,6 +72,6 @@
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
     "webpack-dev-middleware": "^1.10.0",
-    "webpack-hot-middleware": "^2.16.1"
+    "webpack-hot-middleware": "^2.19.1"
   }
 }

@@ -19,8 +19,8 @@ export declare class Store<S> {
   subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any): () => void;
   watch<T>(getter: (state: S) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
-  registerModule<T>(path: string, module: Module<T, S>): void;
-  registerModule<T>(path: string[], module: Module<T, S>): void;
+  registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
+  registerModule<T>(path: string[], module: Module<T, S>, options?: ModuleOptions): void;
 
   unregisterModule(path: string): void;
   unregisterModule(path: string[]): void;
@@ -81,8 +81,14 @@ export interface StoreOptions<S> {
   strict?: boolean;
 }
 
+type ActionHandler<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
+interface ActionObject<S, R> {
+  root?: boolean;
+  handler: ActionHandler<S, R>;
+}
+
 export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
-export type Action<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
+export type Action<S, R> = ActionHandler<S, R> | ActionObject<S, R>;
 export type Mutation<S> = (state: S, payload: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
@@ -93,6 +99,10 @@ export interface Module<S, R> {
   actions?: ActionTree<S, R>;
   mutations?: MutationTree<S>;
   modules?: ModuleTree<R>;
+}
+
+export interface ModuleOptions{
+  preserveState?: boolean
 }
 
 export interface GetterTree<S, R> {

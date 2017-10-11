@@ -12,11 +12,11 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - type: `Object`
+  - type: `Object | Function`
 
-    The root state object for the Vuex store.
+    The root state object for the Vuex store. [Details](state.md)
 
-    [Details](state.md)
+    If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](modules.md#module-reuse)
 
 - **mutations**
 
@@ -156,9 +156,11 @@ const store = new Vuex.Store({ ...options })
 
   Most commonly used in plugins. [Details](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+
+  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
 
 - **`unregisterModule(path: string | Array<string>)`**
 

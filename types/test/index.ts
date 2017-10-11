@@ -138,6 +138,19 @@ namespace NamespacedModule {
       a: {
         namespaced: true,
         state: { value: 1 },
+        actions: {
+          test: {
+            root: true,
+            handler ({ dispatch }) {
+              dispatch('foo')
+            }
+          },
+          test2: {
+            handler ({ dispatch }) {
+              dispatch('foo')
+            }
+          }
+        },
         modules: {
           b: {
             state: { value: 2 }
@@ -199,6 +212,10 @@ namespace RegisterModule {
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   });
+
+  store.registerModule(["a", "b"], {
+    state: { value: 2 }
+  }, { preserveState: true });
 
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");
