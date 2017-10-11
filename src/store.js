@@ -287,8 +287,9 @@ function installModule (store, rootState, path, module, hot) {
   })
 
   module.forEachAction((action, key) => {
-    const namespacedType = namespace + key
-    registerAction(store, namespacedType, action, local)
+    const type = action.root ? key : namespace + key
+    const handler = action.handler || action
+    registerAction(store, type, handler, local)
   })
 
   module.forEachGetter((getter, key) => {

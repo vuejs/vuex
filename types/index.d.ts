@@ -82,8 +82,14 @@ export interface StoreOptions<S> {
   strict?: boolean;
 }
 
+type ActionHandler<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
+interface ActionObject<S, R> {
+  root?: boolean;
+  handler: ActionHandler<S, R>;
+}
+
 export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
-export type Action<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
+export type Action<S, R> = ActionHandler<S, R> | ActionObject<S, R>;
 export type Mutation<S> = (state: S, payload: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 

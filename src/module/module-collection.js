@@ -84,25 +84,43 @@ function update (path, targetModule, newModule) {
   }
 }
 
+const functionAssert = {
+  assert: value => typeof value === 'function',
+  expected: 'function'
+}
+
+const objectAssert = {
+  assert: value => typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'),
+  expected: 'function or object with "handler" function'
+}
+
+const assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+}
+
 function assertRawModule (path, rawModule) {
-  ['getters', 'actions', 'mutations'].forEach(key => {
+  Object.keys(assertTypes).forEach(key => {
     if (!rawModule[key]) return
+
+    const assertOptions = assertTypes[key]
 
     forEachValue(rawModule[key], (value, type) => {
       assert(
-        typeof value === 'function',
-        makeAssertionMessage(path, key, type, value)
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
       )
     })
   })
 }
 
-function makeAssertionMessage (path, key, type, value) {
-  let buf = `${key} should be function but "${key}.${type}"`
+function makeAssertionMessage (path, key, type, value, expected) {
+  let buf = `${key} should be ${expected} but "${key}.${type}"`
   if (path.length > 0) {
     buf += ` in module "${path.join('.')}"`
   }
   buf += ` is ${JSON.stringify(value)}.`
-
   return buf
 }
