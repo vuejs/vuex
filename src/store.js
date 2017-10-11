@@ -35,6 +35,7 @@ export class Store {
     // store internal state
     this._committing = false
     this._actions = Object.create(null)
+    this._actionSubscribers = []
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
     this._modules = new ModuleCollection(options)
@@ -123,6 +124,7 @@ export class Store {
       payload
     } = unifyObjectStyle(_type, _payload)
 
+    const action = { type, payload }
     const entry = this._actions[type]
     if (!entry) {
       if (process.env.NODE_ENV !== 'production') {
@@ -130,22 +132,20 @@ export class Store {
       }
       return
     }
+
+    this._actionSubscribers.forEach(sub => sub(action, this.state))
+
     return entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
   }
 
   subscribe (fn) {
-    const subs = this._subscribers
-    if (subs.indexOf(fn) < 0) {
-      subs.push(fn)
-    }
-    return () => {
-      const i = subs.indexOf(fn)
-      if (i > -1) {
-        subs.splice(i, 1)
-      }
-    }
+    return genericSubscribe(fn, this._subscribers)
+  }
+
+  subscribeAction (fn) {
+    return genericSubscribe(fn, this._actionSubscribers)
   }
 
   watch (getter, cb, options) {
@@ -200,6 +200,18 @@ export class Store {
     this._committing = true
     fn()
     this._committing = committing
+  }
+}
+
+function genericSubscribe (fn, subs) {
+  if (subs.indexOf(fn) < 0) {
+    subs.push(fn)
+  }
+  return () => {
+    const i = subs.indexOf(fn)
+    if (i > -1) {
+      subs.splice(i, 1)
+    }
   }
 }
 
