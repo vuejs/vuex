@@ -219,4 +219,4 @@ mocha test-bundle.js
 
 #### Запуск в браузерах при помощи Karma и karma-webpack
 
-Обратитесь к [документации vue-loader](https://vue-loader.vuejs.org/en/workflow/testing.html).
+Обратитесь к [документации vue-loader](https://vue-loader.vuejs.org/ru/workflow/testing.html).
