@@ -1,6 +1,6 @@
 # Mutations
 
-La seule façon de vraiment modifier l'état dans un store Vuex est d'acter une mutation. Les mutations Vuex sont très similaires aux évènements : chaque mutation a un **type** sous forme de chaîne de caractères et un **gestionnaire**. La fonction de gestion est en charge de procéder aux véritables modifications de l'état, et elle reçoit l'état en premier argument :
+La seule façon de vraiment modifier l'état dans un store Vuex est d'acter une mutation. Les mutations Vuex sont très similaires aux évènements : chaque mutation a un **type** sous forme de chaine de caractères et un **gestionnaire**. La fonction de gestion est en charge de procéder aux véritables modifications de l'état, et elle reçoit l'état en premier argument :
 
 ``` js
 const store = new Vuex.Store({
@@ -134,7 +134,7 @@ mutations: {
 }
 ```
 
-Maintenant imaginons que nous deboguons l'application et que nous regardons dans les logs de mutation des outils de développement (« devtools »). Pour chaque mutation enregistrée, le devtool aura besoin de capturer un instantané de l'état « avant » et un instantané « après ». Cependant, la fonction de rappel asynchrone de l'exemple ci-dessus rend l'opération impossible : la fonction de rappel n'est pas encore appelée lorsque la mutation est actée, et il n'y a aucun moyen pour le devtool de savoir quand la fonction de rappel sera véritablement appelée. Toute mutation d'état effectuée dans la fonction de rappel est essentiellement intraçable !
+Maintenant imaginons que nous déboguons l'application et que nous regardons dans les logs de mutation des outils de développement (« devtools »). Pour chaque mutation enregistrée, le devtool aura besoin de capturer un instantané de l'état « avant » et un instantané « après ». Cependant, la fonction de rappel asynchrone de l'exemple ci-dessus rend l'opération impossible : la fonction de rappel n'est pas encore appelée lorsque la mutation est actée, et il n'y a aucun moyen pour le devtool de savoir quand la fonction de rappel sera véritablement appelée. Toute mutation d'état effectuée dans la fonction de rappel est essentiellement intraçable !
 
 ### Acter des mutations dans les composants
 

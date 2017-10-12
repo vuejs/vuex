@@ -2,7 +2,7 @@
  * Extends interfaces in Vue.js
  */
 
-import Vue = require("vue");
+import Vue, { ComponentOptions } from "vue";
 import { Store } from "./index";
 
 declare module "vue/types/options" {

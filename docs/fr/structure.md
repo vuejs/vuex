@@ -10,7 +10,7 @@ Vuex ne vous restreint pas quand à la structure de code à utiliser. Il impose 
 
 Tant que vous suivez ces règles, c'est à vous de structurer votre projet. Si votre fichier de store devient trop gros, commencez dès lors à séparer les actions, mutations et accesseurs dans des fichiers séparés.
 
-Pour une application non-triviale, nous aurons probablement besoin de faire appel à des modules. Voici un exemple de structure de projet :
+Pour une application non triviale, nous aurons probablement besoin de faire appel à des modules. Voici un exemple de structure de projet :
 
 ``` bash
 ├── index.html
@@ -29,4 +29,4 @@ Pour une application non-triviale, nous aurons probablement besoin de faire appe
         └── products.js   # module de produit
 ```
 
-Vous pouvez jeter à un œil à l'[exemple de panier d'achat](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+Vous pouvez jeter à un œil à l'[exemple de panier d'achats](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).

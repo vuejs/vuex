@@ -52,7 +52,7 @@ const store = new Vuex.Store({ ...options })
 
     ```
     state,    // sera l'état local du module si défini dans un module.
-    getters   // indentique à `store.getters`
+    getters   // identique à `store.getters`
     ```
 
     Arguments spécifiques quand défini dans un module
@@ -88,7 +88,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Chaque module peut contenir `state` et `mutations`, tout comme les options racine. L'état d'un module sera attaché à l'état racine du store en utilisant la clé du module. Les mutations et accesseurs d'un module recevront seulement l'état local du module en premier argument au lieu de l'état racine, et le `context.state` des actions du module pointeront également vers l'état local.
+    Chaque module peut contenir `state` et `mutations`, tout comme les options racines. L'état d'un module sera attaché à l'état racine du store en utilisant la clé du module. Les mutations et accesseurs d'un module recevront seulement l'état local du module en premier argument au lieu de l'état racine, et le `context.state` des actions du module pointeront également vers l'état local.
 
     [Plus de détails](modules.md)
 
@@ -96,7 +96,7 @@ const store = new Vuex.Store({ ...options })
 
   - type : `Array<Function>`
 
-    Un tableau de fonctions plugins qui seront appliquées au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistence de données, les logs ou le débogage) ou propager des mutations (pour les données internes, c.-à-d. websockets ou observables).
+    Un tableau de fonctions plugins qui seront appliquées au store. Un plugin reçoit simplement le store comme seul argument et peut soit écouter les mutations (pour la persistance de données, les logs ou le débogage) ou propager des mutations (pour les données internes, c.-à-d. websockets ou observables).
 
     [Plus de détails](plugins.md)
 
@@ -145,7 +145,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`subscribe(handler: Function)`**
 
-  S'abonner aux mutations du store. Le `handler` est appelé après chaque mutation et reçoit le descripteur de mutation et l'état post-mutation comme arguments :
+  S'abonner aux mutations du store. Le `handler` est appelé après chaque mutation et reçoit le descripteur de mutation et l'état post mutation comme arguments :
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -172,27 +172,27 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Créer des propriétés calculées qui retournent le sous arbre du store Vuex au composant. [Plus de détails](state.md#le-helper-mapstate)
+  Créer des propriétés calculées qui retournent le sous-arbre du store Vuex au composant. [Plus de détails](state.md#le-helper-mapstate)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnelle une chaine d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des propriétés calculées qui retournent la valeur calculée d'un accesseur. [Plus de détails](getters.md#la-function-utilitaire-mapgetters)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnelle une chaine d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des méthodes de composant qui propagent une action. [Plus de détails](actions.md#propager-des-actions-dans-les-composants)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnelle une chaine d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   Créer des méthodes de composant qui actent une mutation. [Plus de détails](mutations.md#acter-des-mutations-dans-les-composants)
 
-  Le premier argument peut être de façon optionnel une chaîne d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
+  Le premier argument peut être de façon optionnelle une chaine d'espace de nom. [Plus de détails](modules.md#Fonctions-utilitaires-liées-avec-espace-de-nom)
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
