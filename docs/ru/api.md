@@ -145,12 +145,27 @@ const store = new Vuex.Store({ ...options })
 
 - **`subscribe(handler: Function)`**
 
-  Подписывается на мутации хранилища. `handler` вызывается после каждой мутации и получает в качестве параметров дескриптор мутации и состояние после мутации:
+  Подписывается на мутации хранилища. Обработчик `handler` вызывается после каждой мутации и получает в качестве параметров дескриптор мутации и состояние после мутации:
 
   ``` js
   store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
+  })
+  ```
+
+  Чаще всего используется в плагинах. [Подробнее](plugins.md)
+
+- **`subscribeAction(handler: Function)`**
+
+  > Добавлено в версии 2.5.0
+
+  Подписывается на действие хранилища. Обработчик `handler` вызывается после каждого дейсвтия и получает в качестве параметров дескриптов действия и текущее состояние хранилища:
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
   })
   ```
 
