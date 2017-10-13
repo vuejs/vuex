@@ -116,7 +116,8 @@ const logger = createLogger({
     // ミューテーションは、`{ type, payload }` の形式でログ出力されます
     // 任意の方法でそれをフォーマットできます
     return mutation.type
-  }
+  },
+  logger: console, // implementation of the `console` API, default `console`
 })
 ```
 

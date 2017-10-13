@@ -12,11 +12,11 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - 型: `Object`
+  - 型: `Object | Function`
 
-    ストアのための ルートステートオブジェクトです。
+    ストアのための ルートステートオブジェクトです。[Details](state.md)
 
-    [詳細](state.md)
+    If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](modules.md#module-reuse)
 
 - **mutations**
 
@@ -156,9 +156,27 @@ const store = new Vuex.Store({ ...options })
 
   プラグインの中でもっともよく利用されます。[詳細](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`subscribeAction(handler: Function)`**
+
+  > New in 2.5.0
+
+  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
+  })
+  ```
+
+  Most commonly used in plugins. [Details](plugins.md)
+
+
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   動的なモジュールを登録します。[詳細](modules.md#dynamic-module-registration)
+
+  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
