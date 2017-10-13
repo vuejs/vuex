@@ -1,10 +1,7 @@
 # Vuex
 
-<!--email_off-->
-> Внимание: это — документация для версии vuex@2.x.
-<!--/email_off-->
+> Примечание: для пользователей TypeScript, vuex@>= 3.0 требует версии vue@>=2.5, и наоборот.
 
-- [Нужна документация для 1.0?](https://github.com/vuejs/vuex/tree/1.0/docs)
 - [История изменений](https://github.com/vuejs/vuex/releases)
 - [Установка](installation.md)
 - [Что такое Vuex?](intro.md)
