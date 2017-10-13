@@ -117,7 +117,7 @@ const logger = createLogger({
     // 任意の方法でそれをフォーマットできます
     return mutation.type
   },
-  logger: console, // implementation of the `console` API, default `console`
+  logger: console, // `console` API の実装, デフォルトは `console`
 })
 ```
 
