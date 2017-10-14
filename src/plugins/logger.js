@@ -9,7 +9,7 @@ export default function createLogger ({
   mutationTransformer = mut => mut,
   actionFilter = (action, state) => true,
   actionTransformer = act => act,
-  logActions = false,
+  logActions = true,
   logMutations = true,
   logger = console
 } = {}) {
@@ -42,9 +42,7 @@ export default function createLogger ({
 
     if (logActions) {
       store.subscribeAction((action, state) => {
-        const currentState = deepCopy(state)
-
-        if (actionFilter(action, currentState)) {
+        if (actionFilter(action, state)) {
           const formattedTime = getFormattedTime()
           const formattedAction = actionTransformer(action)
           const message = `action ${action.type}${formattedTime}`

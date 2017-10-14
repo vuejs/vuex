@@ -128,7 +128,7 @@ const logger = createLogger({
     // Same as mutationTransformer but for actions
     return action.type
   },
-  logActions: false, // Log Actions
+  logActions: true, // Log Actions
   logMutations: true, // Log mutations
   logger: console, // implementation of the `console` API, default `console`
 })
