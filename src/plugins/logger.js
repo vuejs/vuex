@@ -7,47 +7,81 @@ export default function createLogger ({
   filter = (mutation, stateBefore, stateAfter) => true,
   transformer = state => state,
   mutationTransformer = mut => mut,
+  actionFilter = (action, state) => true,
+  actionTransformer = act => act,
+  logActions = false,
+  logMutations = true,
   logger = console
 } = {}) {
   return store => {
     let prevState = deepCopy(store.state)
 
-    store.subscribe((mutation, state) => {
-      if (typeof logger === 'undefined') {
-        return
-      }
-      const nextState = deepCopy(state)
+    if (typeof logger === 'undefined') {
+      return
+    }
 
-      if (filter(mutation, prevState, nextState)) {
-        const time = new Date()
-        const formattedTime = ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
-        const formattedMutation = mutationTransformer(mutation)
-        const message = `mutation ${mutation.type}${formattedTime}`
-        const startMessage = collapsed
-          ? logger.groupCollapsed
-          : logger.group
+    if (logMutations) {
+      store.subscribe((mutation, state) => {
+        const nextState = deepCopy(state)
 
-        // render
-        try {
-          startMessage.call(logger, message)
-        } catch (e) {
-          console.log(message)
+        if (filter(mutation, prevState, nextState)) {
+          const formattedTime = getFormattedTime()
+          const formattedMutation = mutationTransformer(mutation)
+          const message = `mutation ${mutation.type}${formattedTime}`
+
+          startMessage(logger, message, collapsed)
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
+          endMessage(logger)
         }
 
-        logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState))
-        logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation)
-        logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState))
+        prevState = nextState
+      })
+    }
 
-        try {
-          logger.groupEnd()
-        } catch (e) {
-          logger.log('—— log end ——')
+    if (logActions) {
+      store.subscribeAction((action, state) => {
+        const currentState = deepCopy(state)
+
+        if (actionFilter(action, currentState)) {
+          const formattedTime = getFormattedTime()
+          const formattedAction = actionTransformer(action)
+          const message = `action ${action.type}${formattedTime}`
+
+          startMessage(logger, message, collapsed)
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction)
+          endMessage(logger)
         }
-      }
-
-      prevState = nextState
-    })
+      })
+    }
   }
+}
+
+function startMessage (logger, message, collapsed) {
+  const startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group
+
+  // render
+  try {
+    startMessage.call(logger, message)
+  } catch (e) {
+    logger.log(message)
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd()
+  } catch (e) {
+    logger.log('—— log end ——')
+  }
+}
+
+function getFormattedTime () {
+  const time = new Date()
+  return ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
 }
 
 function repeat (str, times) {
