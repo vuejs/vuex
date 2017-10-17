@@ -125,4 +125,5 @@ export const _default: {
   Store: typeof Store;
   install: typeof install;
 }
-export default _default;
+// export default _default;
+export default { Store, install };

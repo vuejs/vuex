@@ -66,6 +66,30 @@ namespace RootModule {
   });
 }
 
+namespace RootDefaultModule {
+  const store = new Vuex.default.Store({
+    state: {
+      value: 0
+    },
+    getters: {
+      count: state => state.value,
+      plus10: (_, { count }) => count + 10
+    },
+    actions: {
+      foo ({ state, getters, dispatch, commit }, payload) {
+        state.value;
+        getters.count;
+        dispatch("bar", {});
+        commit("bar", {});
+      }
+    },
+    mutations: {
+      bar (state, payload) {}
+    },
+    strict: true
+  });
+}
+
 namespace NestedModules {
   interface RootState {
     a: {
