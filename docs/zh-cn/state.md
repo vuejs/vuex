@@ -80,10 +80,57 @@ export default {
 }
 ```
 
+使用常规函数时，除暴露state参数外，还会暴露getters：
+
+``` js
+// 在单独构建的版本中辅助函数为 Vuex.mapState
+import { mapState } from 'vuex'
+
+export default {
+  // ...
+  computed: mapState({
+    // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+    countPlusLocalState (state, getters) {
+      return state.count + this.localCount + getters.annother
+    }
+  })
+}
+```
+
 当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 `mapState` 传一个字符串数组。
 
 ``` js
 computed: mapState([
+  // 映射 this.count 为 store.state.count
+  'count'
+])
+```
+
+以上几种方式都支持给mapState函数提交模块名称作为第一个参数，从而获取带命名空间模块的状态：
+
+``` js
+// 在单独构建的版本中辅助函数为 Vuex.mapState
+import { mapState } from 'vuex'
+
+export default {
+  // ...
+  computed: mapState('moduleName', {
+    // 箭头函数可使代码更简练
+    count: state => state.count,
+
+    // 传字符串参数 'count' 等同于 `state => state.count`
+    countAlias: 'count',
+
+    // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+    countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+  })
+}
+```
+
+``` js
+computed: mapState('moduleName', [
   // 映射 this.count 为 store.state.count
   'count'
 ])
