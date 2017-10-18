@@ -38,7 +38,8 @@ const store = new Vuex.Store({ ...options })
       rootState, // то же, что и store.state, только при использовании модулей
       commit,    // то же, что и store.commit
       dispatch,  // то же, что и store.dispatch
-      getters    // то же, что и store.getters
+      getters,    // то же, что и store.getters
+      rootGetters // то же, что и store.getters, только в модулях
     }
     ```
 
