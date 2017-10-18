@@ -269,6 +269,8 @@ store.registerModule(['nested', 'myModule'], {
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
 
+サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション(`store.registerModule('a', module, { preserveState: true })`)でこれを実現できます。
+
 ### モジュールの再利用
 
 時どき、モジュールの複数インスタンスを作成する必要があるかもしれません。例えば:

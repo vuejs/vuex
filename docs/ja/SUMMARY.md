@@ -1,10 +1,7 @@
 # Vuex
 
-<!--email_off-->
-> 注意: これは vuex@2.x のドキュメントです
-<!--/email_off-->
+> 注意: TypeScript ユーザ向けは、vuex@>= 3.0 と vue@>=2.5 が必須、逆もまた同様です。
 
-- [1.0のドキュメントをお探しですか？](https://github.com/vuejs/vuex/tree/1.0/docs/ja)
 - [リリースノート](https://github.com/vuejs/vuex/releases)
 - [インストール](installation.md)
 - [Vuex とは何か?](intro.md)

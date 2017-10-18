@@ -218,4 +218,4 @@ mocha test-bundle.js
 
 #### Karma + karma-webpack を使ったブラウザでの実行
 
-[vue-loader documentation](http://vue-loader.vuejs.org/en/workflow/testing.html) 内のセットアップ方法を参考にしてください。
+[vue-loader ドキュメント](https://vue-loader.vuejs.org/ja/workflow/testing.html) 内のセットアップ方法を参考にしてください。
