@@ -118,6 +118,49 @@ export default {
 }
 ```
 
+使用 mapActions 辅助函数进行映射时也可以采用下面这种方式：
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions({
+      addAlias: function (dispatch) {
+        dispatch('increment') // 将 `this.addAlias(amount)` 映射为 `this.$store.dispatch('increment', amount)`
+      }
+    })
+  }
+}
+```
+上面这几种映射方式也都支持传递模块名称给mapActions第一个参数，从而提交Action至带命名空间的模块：
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions('moduleName', [
+      'increment', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
+
+      // `mapActions` 也支持载荷：
+      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
+    ]),
+    ...mapActions('moduleName', {
+      add: 'increment' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+    }),
+    ...mapActions('moduleName', {
+      addAlias: function (dispatch) {
+        dispatch('increment') // 将 `this.addAlias(amount)` 映射为 `this.$store.dispatch('increment', amount)`
+      }
+    })
+  }
+}
+```
+
+
 ### 组合 Action
 
 Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？
