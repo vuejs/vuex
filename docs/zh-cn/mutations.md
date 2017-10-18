@@ -157,6 +157,49 @@ export default {
   }
 }
 ```
+使用 `mapMutations` 辅助函数进行映射时也可以采用下面这种方式：
+
+``` js
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapMutations({
+      addAlias: function(commit) {
+          commit('increment') //将 `this.addAlias(amount)` 映射为 `this.$store.commit('increment', amount)`
+      }
+    })
+  }
+}
+```
+
+上面这几种映射方式也都支持传递模块名称给mapMutations第一个参数，从而提交Mutattion至带命名空间的模块：
+
+``` js
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapMutations('moduleName', [
+      'increment', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+
+      // `mapMutations` 也支持载荷：
+      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+    ]),
+    ...mapMutations('moduleName', {
+      add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+    }),
+    ...mapMutations('moduleName', {
+      addAlias: function(commit) {
+          commit('increment') //将 `this.addAlias(amount)` 映射为 `this.$store.commit('increment', amount)`
+      }
+    })
+  }
+}
+```
+
 
 ### 下一步：Action
 
