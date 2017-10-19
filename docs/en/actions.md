@@ -119,6 +119,49 @@ export default {
 }
 ```
 
+You can also use the mapActions helper to map component methods like this:
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions({
+      addAlias: function (dispatch) {
+        dispatch('increment') // map `this.addAlias(amount)` to `this.$store.dispatch('increment', amount)`
+      }
+    })
+  }
+}
+```
+
+mapActions can also receive a module name as the first argument so as to commit action to a module with namespace:
+
+``` js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions('moduleName', [
+      'increment', // map `this.increment()` to `this.$store.dispatch('increment')`
+
+      // `mapActions` 也支持载荷：
+      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.dispatch('incrementBy', amount)`
+    ]),
+    ...mapActions('moduleName', {
+      add: 'increment' // map `this.add()` to `this.$store.dispatch('increment')`
+    }),
+    ...mapActions('moduleName', {
+      addAlias: function (dispatch) {
+        dispatch('increment') // map `this.addAlias(amount)` to `this.$store.dispatch('increment', amount)`
+      }
+    })
+  }
+}
+```
+
 ### Composing Actions
 
 Actions are often asynchronous, so how do we know when an action is done? And more importantly, how can we compose multiple actions together to handle more complex async flows?
