@@ -158,7 +158,7 @@ export default {
   }
 }
 ```
-You can also use the `mapMutations` helper to maps component methods like this:
+You can also use the `mapMutations` helper to map component methods like this:
 
 ``` js
 import { mapMutations } from 'vuex'
