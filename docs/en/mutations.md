@@ -158,6 +158,47 @@ export default {
   }
 }
 ```
+You can also use the `mapMutations` helper to maps component methods like this:
+
+``` js
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapMutations({
+      addAlias: function(commit) {
+          commit('increment') //map `this.addAlias(amount)` to `this.$store.commit('increment', amount)`
+      }
+    })
+  }
+}
+```
+mapMutations can also receive a module name as the first argument so as to commit mutattion to a module with namespace:
+
+``` js
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapMutations('moduleName', [
+      'increment', // map `this.increment()` to `this.$store.commit('increment')`
+
+      // `mapMutations` also supports payloads:
+      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
+    ]),
+    ...mapMutations('moduleName', {
+      add: 'increment' // map `this.add()` to `this.$store.commit('increment')`
+    }),
+    ...mapMutations('moduleName', {
+      addAlias: function(commit) {
+          commit('increment') //map `this.addAlias(amount)` to `this.$store.commit('increment', amount)`
+      }
+    })
+  }
+}
+```
 
 ### On to Actions
 
