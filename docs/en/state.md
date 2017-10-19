@@ -81,10 +81,57 @@ export default {
 }
 ```
 
+When using a normal function in above exapmle, the normal function also exposes `getters` as the second argument in addition to the first `state` parameter:
+
+``` js
+// in full builds helpers are exposed as Vuex.mapState
+import { mapState } from 'vuex'
+
+export default {
+  // ...
+  computed: mapState({
+    // to access local state with `this`, a normal function must be used
+    countPlusLocalState (state, getters) {
+      return state.count + this.localCount + getters.annother
+    }
+  })
+}
+```
+
 We can also pass a string array to `mapState` when the name of a mapped computed property is same as a state sub tree name.
 
 ``` js
 computed: mapState([
+  // map this.count to store.state.count
+  'count'
+])
+```
+
+`mapState` can also receive a module name as the first argument so as to access state of module with namespace:
+
+``` js
+// 在单独构建的版本中辅助函数为 Vuex.mapState
+import { mapState } from 'vuex'
+
+export default {
+  // ...
+  computed: mapState('moduleName', {
+    // arrow functions can make the code very succinct!
+    count: state => state.count,
+
+    // passing the string value 'count' is same as `state => state.count`
+    countAlias: 'count',
+
+    // to access local state with `this`, a normal function must be used
+    countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+  })
+}
+```
+
+``` js
+computed: mapState('moduleName', [
   // map this.count to store.state.count
   'count'
 ])
