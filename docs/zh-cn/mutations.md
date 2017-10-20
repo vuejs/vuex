@@ -193,7 +193,7 @@ export default {
     }),
     ...mapMutations('moduleName', {
       addAlias: function(commit) {
-          commit('increment') //将 `this.addAlias(amount)` 映射为 `this.$store.commit('increment', amount)`
+          commit('increment') //将 `this.addAlias()` 映射为 `this.$store.commit('increment')`
       }
     })
   }
