@@ -12,11 +12,11 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - 类型: `Object`
+  - 类型: `Object | Function`
 
-    Vuex store 实例的根 state 对象。
+    Vuex store 实例的根 state 对象。[详细介绍](state.md)
 
-    [详细介绍](state.md)
+    如果你传入返回一个对象的函数，其返回的对象会被用做根 state。这在你想要重用 state 对象，尤其是重用 module 来说非常有用。[详细介绍](modules.md#模块重用)
 
 - **mutations**
 
@@ -158,9 +158,26 @@ const store = new Vuex.Store({ ...options })
 
   通常用于插件。[详细介绍](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`subscribeAction(handler: Function)`**
+
+  > 2.5.0 新增
+
+  订阅 store 的 action。`handler` 会在每个 action 分发的时候调用并接收 action 描述和当前的 store 的 state 这两个参数：
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
+  })
+  ```
+
+  该功能常用于插件。[详细介绍](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   注册一个动态模块。[详细介绍](modules.md#模块动态注册)
+
+  `options` 可以包含 `preserveState: true` 以允许保留之前的 state。用于服务端渲染。
 
 - **`unregisterModule(path: string | Array<string>)`**
 
