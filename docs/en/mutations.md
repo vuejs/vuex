@@ -168,7 +168,7 @@ export default {
   methods: {
     ...mapMutations({
       addAlias: function(commit) {
-          commit('increment') //map `this.addAlias(amount)` to `this.$store.commit('increment', amount)`
+          commit('increment') //map `this.addAlias()` to `this.$store.commit('increment')`
       }
     })
   }
