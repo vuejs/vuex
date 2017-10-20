@@ -128,7 +128,7 @@ export default {
   methods: {
     ...mapActions({
       addAlias: function (dispatch) {
-        dispatch('increment') // 将 `this.addAlias(amount)` 映射为 `this.$store.dispatch('increment', amount)`
+        dispatch('increment') // 将 `this.addAlias()` 映射为 `this.$store.dispatch('increment')`
       }
     })
   }
@@ -153,7 +153,7 @@ export default {
     }),
     ...mapActions('moduleName', {
       addAlias: function (dispatch) {
-        dispatch('increment') // 将 `this.addAlias(amount)` 映射为 `this.$store.dispatch('increment', amount)`
+        dispatch('increment') // 将 `this.addAlias()` 映射为 `this.$store.dispatch('increment')`
       }
     })
   }
