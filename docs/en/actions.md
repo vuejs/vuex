@@ -129,7 +129,7 @@ export default {
   methods: {
     ...mapActions({
       addAlias: function (dispatch) {
-        dispatch('increment') // map `this.addAlias(amount)` to `this.$store.dispatch('increment', amount)`
+        dispatch('increment') // map `this.addAlias()` to `this.$store.dispatch('increment')`
       }
     })
   }
@@ -155,7 +155,7 @@ export default {
     }),
     ...mapActions('moduleName', {
       addAlias: function (dispatch) {
-        dispatch('increment') // map `this.addAlias(amount)` to `this.$store.dispatch('increment', amount)`
+        dispatch('increment') // map `this.addAlias()` to `this.$store.dispatch('increment')`
       }
     })
   }
