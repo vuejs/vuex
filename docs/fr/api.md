@@ -12,11 +12,11 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - type : `Object`
+  - type : `Object | Function`
 
-    L'objet d'état racine pour le store Vuex.
+    L'objet d'état racine pour le store Vuex. [Plus de détails](state.md)
 
-    [Plus de détails](state.md)
+    Si vous passez une fonction qui retourne un objet, l'objet retourné est utilisé en tant qu'état racine. Ceci est utile quand vous voulez réutiliser un objet d'état surtout dans un cas de réutilisation de module. [Plus de détails](modules.md#réutiliser-un-module)
 
 - **mutations**
 
@@ -39,6 +39,7 @@ const store = new Vuex.Store({ ...options })
       commit,    // identique à `store.commit`
       dispatch,  // identique à `store.dispatch`
       getters    // identique à `store.getters`
+      rootGetters // identique à `store.getters`, seulement dans les modules
     }
     ```
 
@@ -156,9 +157,26 @@ const store = new Vuex.Store({ ...options })
 
   Utilisé plus communément dans les plugins. [Plus de détails](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`subscribeAction(handler: Function)`**
+
+  > Nouveau dans la 2.5.0+
+
+  S'abonner au actions du store. Le `handler` est appelé pour chaque action propagée et reçoit chaque description d'action et l'état du store courant en arguments :
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
+  })
+  ```
+
+  Souvent utiliser dans les plugins. [Pour plus de détails](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   Enregistrer un module dynamique. [Plus de détails](modules.md#enregistrement-dynamique-de-module)
+
+  `options` peut avoir `preserveState: true` qui lui permet de préserver l'état précédent. Utile pour du rendu côté serveur.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
