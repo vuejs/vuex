@@ -34,11 +34,11 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,     // identique à `store.state`, ou à l'état local si dans des modules
-      rootState, // identique à `store.state`, seulement dans des modules
-      commit,    // identique à `store.commit`
-      dispatch,  // identique à `store.dispatch`
-      getters    // identique à `store.getters`
+      state,      // identique à `store.state`, ou à l'état local si dans des modules
+      rootState,  // identique à `store.state`, seulement dans des modules
+      commit,     // identique à `store.commit`
+      dispatch,   // identique à `store.dispatch`
+      getters,    // identique à `store.getters`
       rootGetters // identique à `store.getters`, seulement dans les modules
     }
     ```
