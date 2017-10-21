@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "2.4.1",
+  "version": "3.0.0",
   "description": "state management for Vue.js",
   "main": "dist/vuex.common.js",
   "module": "dist/vuex.esm.js",
@@ -25,7 +25,7 @@
     "test:ssr": "rollup -c build/rollup.dev.config.js && VUE_ENV=server jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
     "test:types": "tsc -p types/test",
     "release": "bash build/release.sh",
-    "docs": "cd docs && gitbook serve",
+    "docs": "cd docs && gitbook install && gitbook serve",
     "docs:deploy": "cd docs && ./deploy.sh"
   },
   "repository": {
@@ -44,12 +44,16 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.22.0",
     "babel-preset-env": "^1.5.1",
-    "chromedriver": "^2.27.2",
+    "chromedriver": "^2.32.3",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.7",
     "eslint": "^3.19.0",
     "eslint-plugin-vue-libs": "^1.2.0",
     "express": "^4.14.1",
+    "gitbook-plugin-edit-link": "^2.0.2",
+    "gitbook-plugin-github": "^3.0.0",
+    "gitbook-plugin-prism": "^2.3.0",
+    "gitbook-plugin-theme-vuejs": "^1.1.0",
     "jasmine": "2.8.0",
     "jasmine-core": "2.8.0",
     "nightwatch": "^0.9.12",
@@ -61,13 +65,13 @@
     "rollup-watch": "^4.3.1",
     "selenium-server": "^2.53.1",
     "todomvc-app-css": "^2.1.0",
-    "typescript": "^2.1.5",
+    "typescript": "^2.5.3",
     "uglify-js": "^3.1.2",
-    "vue": "^2.4.3",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.3",
-    "webpack": "^3.6.0",
+    "vue": "^2.5.0",
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.0",
+    "webpack": "^3.7.1",
     "webpack-dev-middleware": "^1.10.0",
-    "webpack-hot-middleware": "^2.16.1"
+    "webpack-hot-middleware": "^2.19.1"
   }
 }

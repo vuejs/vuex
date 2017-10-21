@@ -12,11 +12,11 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - 型: `Object`
+  - 型: `Object | Function`
 
-    ストアのための ルートステートオブジェクトです。
+    ストアのための ルートステートオブジェクトです。[詳細](state.md)
 
-    [詳細](state.md)
+    オブジェクトを返す関数を渡す場合、返されたオブジェクトはルートステートとして使用されます。これは特にモジュールの再利用のためにステートオブジェクトを再利用する場合に便利です。[詳細](modules.md#モジュールの再利用)
 
 - **mutations**
 
@@ -34,11 +34,12 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,     // store.state と同じか、モジュール内にあればローカルステート
-      rootState, // store.state と同じ。ただしモジュール内に限る
-      commit,    // store.commit と同じ
-      dispatch,  // store.dispatch と同じ
-      getters    // store.getters と同じ
+      state,      // store.state と同じか、モジュール内にあればローカルステート
+      rootState,  // store.state と同じ。ただしモジュール内に限る
+      commit,     // store.commit と同じ
+      dispatch,   // store.dispatch と同じ
+      getters,    // store.getters と同じか、モジュール内にあればローカルゲッター
+      rootGetters // store.getters と同じ。ただしモジュール内に限る
     }
     ```
 
@@ -156,9 +157,26 @@ const store = new Vuex.Store({ ...options })
 
   プラグインの中でもっともよく利用されます。[詳細](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`subscribeAction(handler: Function)`**
+
+  > 2.5.0 で新規追加
+
+  ストアアクションを購読します。`handler` はディスパッチされたアクションごとに呼び出され、アクション記述子と現在のストア状態を引数として受け取ります:
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
+  })
+  ```
+
+　プラグインで最も一般的に使用されます。[Details](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   動的なモジュールを登録します。[詳細](modules.md#dynamic-module-registration)
+
+  `options` は前の状態を保存する `preserveState: true` を持つことができます。サーバサイドレンダリングに役立ちます。
 
 - **`unregisterModule(path: string | Array<string>)`**
 

@@ -12,11 +12,11 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - тип: `Object`
+  - тип: `Object | Function`
 
-    Корневой объект состояния хранилища Vuex.
+    Корневой объект состояния хранилища Vuex. [Подробнее](state.md)
 
-    [Подробнее](state.md)
+    Если вы передаёте функцию, возвращающую объект, то возвращаемый объект будет использован в качестве корневого состояния. Это может быть полезным, если вы хотите повторно использовать объект состояния, особенно при повтоном использовании модулей. [Подробнее](modules.md#повторное-использование-модулей)
 
 - **mutations**
 
@@ -38,7 +38,8 @@ const store = new Vuex.Store({ ...options })
       rootState, // то же, что и store.state, только при использовании модулей
       commit,    // то же, что и store.commit
       dispatch,  // то же, что и store.dispatch
-      getters    // то же, что и store.getters
+      getters,    // то же, что и store.getters
+      rootGetters // то же, что и store.getters, только в модулях
     }
     ```
 
@@ -145,7 +146,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`subscribe(handler: Function)`**
 
-  Подписывается на мутации хранилища. `handler` вызывается после каждой мутации и получает в качестве параметров дескриптор мутации и состояние после мутации:
+  Подписывается на мутации хранилища. Обработчик `handler` вызывается после каждой мутации и получает в качестве параметров дескриптор мутации и состояние после мутации:
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -156,9 +157,26 @@ const store = new Vuex.Store({ ...options })
 
   Чаще всего используется в плагинах. [Подробнее](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`subscribeAction(handler: Function)`**
+
+  > Добавлено в версии 2.5.0
+
+  Подписывается на действие хранилища. Обработчик `handler` вызывается после каждого дейсвтия и получает в качестве параметров дескриптов действия и текущее состояние хранилища:
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
+  })
+  ```
+
+  Чаще всего используется в плагинах. [Подробнее](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   Регистрирует динамический модуль. [Подробнее](modules.md#динамическая-регистрация-модулей)
+
+  `options` может иметь опцию `preserveState: true`, что позволяет сохранить предыдущее состояние. Полезно с рендерингом на стороне сервера.
 
 - **`unregisterModule(path: string | Array<string>)`**
 

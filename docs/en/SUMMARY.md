@@ -1,10 +1,7 @@
 # Vuex
 
-<!--email_off-->
-> Note: This is docs for vuex@2.x.
-<!--/email_off-->
+> Note: for TypeScript users, vuex@>= 3.0 requires vue@>=2.5, and vice versa.
 
-- [Looking for 1.0 Docs?](https://github.com/vuejs/vuex/tree/1.0/docs)
 - [Release Notes](https://github.com/vuejs/vuex/releases)
 - [Installation](installation.md)
 - [What is Vuex?](intro.md)

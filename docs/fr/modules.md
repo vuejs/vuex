@@ -271,8 +271,6 @@ Vous pouvez aussi supprimer un module enregistré dynamiquement avec `store.unre
 
 Il est possible que vous souhaitiez préserver un état précédent quand vous abonnez un nouveau module. Par exemple préserver l'état depuis l'application rendue côté serveur. Vous pouvez réaliser ceci avec l'option `preserveState` : `store.registerModule('a', module, { preserveState: true })`.
 
-### Réutiliser un module
-
 Parfois nous devrons créer de multiples instances d'un module pour, par exemple :
 
 - créer plusieurs stores qui utilisent le même module (par ex. pour [éviter les singletons d'état avec du SSR](https://ssr.vuejs.org/fr/structure.html#avoid-stateful-singletons) quand l'option `runInNewContext` est à `false` ou `'once'`) ou
