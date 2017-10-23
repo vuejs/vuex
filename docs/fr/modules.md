@@ -269,6 +269,8 @@ L'enregistrement dynamique de module permet aux autres plugins Vue de bénéfici
 
 Vous pouvez aussi supprimer un module enregistré dynamiquement avec `store.unregisterModule(moduleName)`. Notez que vous ne pouvez pas supprimer des modules statiques (déclarés à la création du store) avec cette méthode.
 
+Il est possible que vous souhaitiez préserver un état précédent quand vous abonnez un nouveau module. Par exemple préserver l'état depuis l'application rendue côté serveur. Vous pouvez réaliser ceci avec l'option `preserveState` : `store.registerModule('a', module, { preserveState: true })`.
+
 ### Réutiliser un module
 
 Parfois nous devrons créer de multiples instances d'un module pour, par exemple :
