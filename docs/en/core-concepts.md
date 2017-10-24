@@ -1,6 +1,6 @@
 # Core Concepts
 
-We will be learning the core concepts in Vuex in this chapters. They are
+We will be learning the core concepts of Vuex in these chapters. They are
   - [State](state.md)
   - [Getters](getters.md)
   - [Mutations](mutations.md)
