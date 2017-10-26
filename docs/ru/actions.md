@@ -159,10 +159,10 @@ actions: {
 }
 ```
 
-И, в конце концов, используя [async / await](https://tc39.github.io/ecmascript-asyncawait/) — возможности, которые вот-вот станут общедоступны - можно компоновать действия таким образом:
+Наконец, если мы используем [async / await](https://tc39.github.io/ecmascript-asyncawait/), мы можем компоновать наши действия следующим образом:
 
 ``` js
-// предположим, что `getData()` и `getOtherData()` возвращают промисы
+// предположим, что `getData()` и `getOtherData()` возвращают Promise
 
 actions: {
   async actionA ({ commit }) {
