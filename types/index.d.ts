@@ -121,7 +121,8 @@ export interface ModuleTree<R> {
   [key: string]: Module<any, R>;
 }
 
-export default {
-  Store,
-  install
-};
+declare const _default: {
+  Store: typeof Store;
+  install: typeof install;
+}
+export default _default;

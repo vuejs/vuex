@@ -117,7 +117,7 @@ const logger = createLogger({
     // nous pouvons les formater comme nous le souhaitons.
     return mutation.type
   },
-  logger: console, // implementation of the `console` API, default `console`
+  logger: console, // implementation de l'API `console`, par défaut `console`
 })
 ```
 

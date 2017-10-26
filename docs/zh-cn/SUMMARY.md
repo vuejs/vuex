@@ -1,10 +1,7 @@
 # Vuex
 
-<!--email_off-->
-> 注意：本文档针对的是 vuex@2.x。
-<!--/email_off-->
+> 注意：对于 TypeScript 用户来说 vuex@>= 3.0 依赖 vue@>=2.5，反之亦然。
 
-- [寻找 1.0 文档？](https://github.com/vuejs/vuex/tree/1.0/docs)
 - [更新记录](https://github.com/vuejs/vuex/releases)
 - [安装](installation.md)
 - [Vuex 是什么？](intro.md)
