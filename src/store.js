@@ -25,13 +25,6 @@ export class Store {
       strict = false
     } = options
 
-    let {
-      state = {}
-    } = options
-    if (typeof state === 'function') {
-      state = state() || {}
-    }
-
     // store internal state
     this._committing = false
     this._actions = Object.create(null)
@@ -55,6 +48,8 @@ export class Store {
 
     // strict mode
     this.strict = strict
+
+    const state = this._modules.root.state
 
     // init root module.
     // this also recursively registers all sub-modules
