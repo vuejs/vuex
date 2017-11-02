@@ -158,7 +158,7 @@ actions: {
 }
 ```
 
-最后，如果我们利用 [async / await](https://tc39.github.io/ecmascript-asyncawait/) 这个 JavaScript 即将到来的新特性，我们可以像这样组合 action：
+最后，如果我们利用 [async / await](https://tc39.github.io/ecmascript-asyncawait/)，我们可以如下组合 action：
 
 ``` js
 // 假设 getData() 和 getOtherData() 返回的是 Promise
