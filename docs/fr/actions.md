@@ -37,7 +37,7 @@ actions: {
 }
 ```
 
-### Propager des actions dans les composants
+### Propager des actions
 
 Les actions sont déclenchées par la méthode `store.dispatch` :
 

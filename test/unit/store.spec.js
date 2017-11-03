@@ -286,6 +286,14 @@ describe('Store', () => {
     expect(store.state.a).toBe(3)
   })
 
+  it('should not call root state function twice', () => {
+    const spy = jasmine.createSpy().and.returnValue(1)
+    new Vuex.Store({
+      state: spy
+    })
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
   it('subscribe: should handle subscriptions / unsubscriptions', () => {
     const subscribeSpy = jasmine.createSpy()
     const secondSubscribeSpy = jasmine.createSpy()
