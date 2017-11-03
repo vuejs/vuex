@@ -378,7 +378,9 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
     var payload = ref.payload;
     var options = ref.options;
 
-  var mutation = { type: type, payload: payload };
+  var meta = options ? options.meta : {};
+
+  var mutation = { type: type, payload: payload, meta: meta };
   var entry = this._mutations[type];
   if (!entry) {
     if (process.env.NODE_ENV !== 'production') {

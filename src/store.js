@@ -91,7 +91,9 @@ export class Store {
       options
     } = unifyObjectStyle(_type, _payload, _options)
 
-    const mutation = { type, payload }
+    const meta = options ? options.meta : {}
+
+    const mutation = { type, payload, meta }
     const entry = this._mutations[type]
     if (!entry) {
       if (process.env.NODE_ENV !== 'production') {
