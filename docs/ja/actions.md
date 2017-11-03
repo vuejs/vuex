@@ -157,7 +157,7 @@ actions: {
 }
 ```
 
-最終的に JavaScript の機能として近く導入される [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使用することで、次のようにアクションを組み合わせることができます:
+最終的に [async / await](https://tc39.github.io/ecmascript-asyncawait/) を使用することで、次のようにアクションを組み合わせることができます:
 
 ``` js
 // `getData()` と `getOtherData()` が Promise を返すことを想定している
