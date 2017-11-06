@@ -152,7 +152,6 @@ const store = new Vuex.Store({ ...options })
   store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
-    console.log(mutation.meta)
   })
   ```
 

@@ -290,9 +290,6 @@ describe('Store', () => {
     const subscribeSpy = jasmine.createSpy()
     const secondSubscribeSpy = jasmine.createSpy()
     const testPayload = 2
-    const testMeta = {
-      log: true
-    }
     const store = new Vuex.Store({
       state: {},
       mutations: {
@@ -302,12 +299,12 @@ describe('Store', () => {
 
     const unsubscribe = store.subscribe(subscribeSpy)
     store.subscribe(secondSubscribeSpy)
-    store.commit(TEST, testPayload, { meta: testMeta })
+    store.commit(TEST, testPayload)
     unsubscribe()
-    store.commit(TEST, testPayload, { meta: testMeta })
+    store.commit(TEST, testPayload)
 
     expect(subscribeSpy).toHaveBeenCalledWith(
-      { type: TEST, payload: testPayload, meta: testMeta },
+      { type: TEST, payload: testPayload },
       store.state
     )
     expect(secondSubscribeSpy).toHaveBeenCalled()
