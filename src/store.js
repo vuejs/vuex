@@ -92,7 +92,7 @@ export class Store {
     } = unifyObjectStyle(_type, _payload, _options)
 
     const mutation = { type, payload }
-    
+
     if (options && options.meta) {
       mutation.meta = options.meta
     }
