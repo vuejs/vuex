@@ -5,6 +5,8 @@ export const mapState = normalizeNamespace((namespace, states) => {
       let state = this.$store.state
       let getters = this.$store.getters
       if (namespace) {
+        if (typeof namespace === 'function') namespace = namespace.apply(this, [this])
+        if (namespace.charAt(namespace.length - 1) !== '/') namespace += '/'
         const module = getModuleByNamespace(this.$store, 'mapState', namespace)
         if (!module) {
           return
@@ -28,6 +30,8 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
     res[key] = function mappedMutation (...args) {
       let commit = this.$store.commit
       if (namespace) {
+        if (typeof namespace === 'function') namespace = namespace.apply(this, [this])
+        if (namespace.charAt(namespace.length - 1) !== '/') namespace += '/'
         const module = getModuleByNamespace(this.$store, 'mapMutations', namespace)
         if (!module) {
           return
@@ -45,6 +49,8 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
   normalizeMap(getters).forEach(({ key, val }) => {
+    if (typeof namespace === 'function') namespace = namespace.apply(this, [this])
+    if (namespace && namespace.charAt(namespace.length - 1) !== '/') namespace += '/'
     val = namespace + val
     res[key] = function mappedGetter () {
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
@@ -98,8 +104,11 @@ function normalizeMap (map) {
 function normalizeNamespace (fn) {
   return (namespace, map) => {
     if (typeof namespace !== 'string') {
-      map = namespace
-      namespace = ''
+      // only if map hasn't been defined, otherwise roll with it
+      if (typeof map === 'undefined') {
+        map = namespace;
+        namespace = '';
+      }
     } else if (namespace.charAt(namespace.length - 1) !== '/') {
       namespace += '/'
     }
