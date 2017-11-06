@@ -106,8 +106,8 @@ function normalizeNamespace (fn) {
     if (typeof namespace !== 'string') {
       // only if map hasn't been defined, otherwise roll with it
       if (typeof map === 'undefined') {
-        map = namespace;
-        namespace = '';
+        map = namespace
+        namespace = ''
       }
     } else if (namespace.charAt(namespace.length - 1) !== '/') {
       namespace += '/'
