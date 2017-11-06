@@ -312,6 +312,29 @@ describe('Store', () => {
     expect(secondSubscribeSpy.calls.count()).toBe(2)
   })
 
+  it('subscribe: should pass meta properties on the mutation', () => {
+    const subscribeSpy = jasmine.createSpy()
+    const testPayload = 2
+    const testMeta = {
+      log: true
+    }
+    const store = new Vuex.Store({
+      state: {},
+      mutations: {
+        [TEST]: () => {}
+      }
+    })
+
+    store.subscribe(subscribeSpy)
+    store.commit(TEST, testPayload, { meta: testMeta })
+
+    expect(subscribeSpy).toHaveBeenCalledWith(
+      { type: TEST, payload: testPayload, meta: testMeta },
+      store.state
+    )
+    expect(subscribeSpy.calls.count()).toBe(1)
+  })
+
   // store.watch should only be asserted in non-SSR environment
   if (!isSSR) {
     it('strict mode: warn mutations outside of handlers', () => {

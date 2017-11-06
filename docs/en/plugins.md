@@ -7,7 +7,7 @@ const myPlugin = store => {
   // called when the store is initialized
   store.subscribe((mutation, state) => {
     // called after every mutation.
-    // The mutation comes in the format of `{ type, payload }`.
+    // The mutation comes in the format of `{ type, payload, meta }`.
   })
 }
 ```
@@ -19,6 +19,22 @@ const store = new Vuex.Store({
   // ...
   plugins: [myPlugin]
 })
+```
+
+### Passing Meta Information
+
+There may be times when your plugin needs to know more information about a mutation in order to decide what kind of action to take. In order to pass this 'meta' information to the plugin, the user can supply the meta property to the options argument on a commit: `commit(TYPE, payload, { meta: { cache: true } })`. This meta information is passed along with the type and payload to the subscribe function:
+
+``` js
+const myPlugin = store => {
+  // called when the store is initialized
+  store.subscribe((mutation, state) => {
+    // The mutation comes in the format of `{ type, payload, meta }`.
+    if (mutation.meta.cache) {
+        // cache the mutation
+    }
+  })
+}
 ```
 
 ### Committing Mutations Inside Plugins
