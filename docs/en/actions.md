@@ -45,7 +45,7 @@ Actions are triggered with the `store.dispatch` method:
 store.dispatch('increment')
 ```
 
-This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Remember that **mutations have to be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
 
 ``` js
 actions: {
