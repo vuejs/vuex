@@ -68,7 +68,7 @@ computed: {
 ```js
 getters: {
   // ...
-  getTodoById: (state, getters) => (id) => {
+  getTodoById: (state) => (id) => {
     return state.todos.find(todo => todo.id === id)
   }
 }

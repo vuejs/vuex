@@ -1,5 +1,5 @@
 /**
- * vuex v3.0.0
+ * vuex v3.0.1
  * (c) 2017 Evan You
  * @license MIT
  */
@@ -919,7 +919,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store: Store,
   install: install,
-  version: '3.0.0',
+  version: '3.0.1',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,

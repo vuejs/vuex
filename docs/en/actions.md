@@ -45,7 +45,7 @@ Actions are triggered with the `store.dispatch` method:
 store.dispatch('increment')
 ```
 
-This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Well, remember that **mutations must be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Remember that **mutations have to be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
 
 ``` js
 actions: {
@@ -159,7 +159,7 @@ actions: {
 }
 ```
 
-Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), a JavaScript feature landing very soon, we can compose our actions like this:
+Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), we can compose our actions like this:
 
 ``` js
 // assuming `getData()` and `getOtherData()` return Promises
