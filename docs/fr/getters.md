@@ -12,7 +12,7 @@ computed: {
 
 Si plus d'un composant a besoin d'utiliser cela, il nous faut ou bien dupliquer cette fonction, ou bien l'extraire dans une fonction utilitaire séparée et l'importer aux endroits nécessaires. Les deux idées sont loin d'être idéales.
 
-Vuex nous permet de définir des accesseurs (« getters ») dans le store. Voyez-les comme les propriétés calculées des stores. Comme pour les propriétés calculées, le résultat de l'accesseur est mis en cache en se basant sur ses dépendances et il ne sera réévalué quand l'une de ses dépendances aura changé.
+Vuex nous permet de définir des accesseurs (« getters ») dans le store. Voyez-les comme les propriétés calculées des stores. Comme pour les propriétés calculées, le résultat de l'accesseur est mis en cache en se basant sur ses dépendances et il ne sera réévalué que lorsque l'une de ses dépendances aura changée.
 
 Les accesseurs prennent l'état en premier argument :
 
