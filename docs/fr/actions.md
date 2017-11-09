@@ -37,7 +37,7 @@ actions: {
 }
 ```
 
-### Propager des actions dans les composants
+### Propager des actions
 
 Les actions sont déclenchées par la méthode `store.dispatch` :
 
@@ -45,7 +45,7 @@ Les actions sont déclenchées par la méthode `store.dispatch` :
 store.dispatch('increment')
 ```
 
-Cela peut sembler idiot au premier abord : si nous avons besoin d'incrémenter le compteur, pourquoi ne pas simplement appeler `store.commit('increment')` directement ? Rappelez-vous que **les mutations doivent être synchrones** ? Les actions ne suivent pas cette règle. Il est possible de procéder à des opérations **asynchrones** dans une action :
+Cela peut sembler idiot au premier abord : si nous avons besoin d'incrémenter le compteur, pourquoi ne pas simplement appeler `store.commit('increment')` directement ? Vous rappelez-vous que **les mutations doivent être synchrones** ? Les actions ne suivent pas cette règle. Il est possible de procéder à des opérations **asynchrones** dans une action :
 
 ``` js
 actions: {
