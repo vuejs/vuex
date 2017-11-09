@@ -37,7 +37,7 @@ actions: {
 }
 ```
 
-### Propager des actions
+### Propager des actions dans les composants
 
 Les actions sont déclenchées par la méthode `store.dispatch` :
 
@@ -45,7 +45,7 @@ Les actions sont déclenchées par la méthode `store.dispatch` :
 store.dispatch('increment')
 ```
 
-Cela peut sembler idiot au premier abord : si nous avons besoin d'incrémenter le compteur, pourquoi ne pas simplement appeler `store.commit('increment')` directement ? Et bien, vous rappelez-vous que **les mutations doivent être synchrones** ? Les actions ne suivent pas cette règle. Il est possible de procéder à des opérations **asynchrones** dans une action :
+Cela peut sembler idiot au premier abord : si nous avons besoin d'incrémenter le compteur, pourquoi ne pas simplement appeler `store.commit('increment')` directement ? Rappelez-vous que **les mutations doivent être synchrones** ? Les actions ne suivent pas cette règle. Il est possible de procéder à des opérations **asynchrones** dans une action :
 
 ``` js
 actions: {
@@ -159,7 +159,7 @@ actions: {
 }
 ```
 
-Pour finir, nous pouvons utiliser de [async / await](https://tc39.github.io/ecmascript-asyncawait/), une fonctionnalité JavaScript qui sera disponible très bientôt, nous pouvons composer nos actions ainsi :
+Pour finir, si nous utilisons [`async` / `await`](https://tc39.github.io/ecmascript-asyncawait/), nous pouvons composer nos actions ainsi :
 
 ``` js
 // sachant que `getData()` et `getOtherData()` retournent des Promesses.
