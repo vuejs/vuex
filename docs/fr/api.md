@@ -38,7 +38,7 @@ const store = new Vuex.Store({ ...options })
       rootState,  // identique à `store.state`, seulement dans des modules
       commit,     // identique à `store.commit`
       dispatch,   // identique à `store.dispatch`
-      getters,    // identique à `store.getters`
+      getters,    // identique à `store.getters`, ou les accesseurs locaux dans les modules
       rootGetters // identique à `store.getters`, seulement dans les modules
     }
     ```
@@ -140,7 +140,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Observer de façon réactive la valeur de retour d'une fonction accesseur, et appeler la fonction de rappel lorsque la valeur change. L'accesseur reçoit l'état du store comme unique argument. Accepte un objet optionnel d'options qui prend les mêmes options que la méthode `vm.$watch` de Vue.
+  Observer de façon réactive la valeur de retour d'une fonction accesseur, et appeler la fonction de rappel lorsque la valeur change. L'accesseur reçoit l'état du store en premier argument, et les accesseurs en second argument. Accepte un objet optionnel d'options qui prend les mêmes options que la méthode `vm.$watch` de Vue.
 
   Pour arrêter d'observer, appeler la fonction gestionnaire retournée.
 

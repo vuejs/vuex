@@ -1,6 +1,6 @@
 # Vuex
 
-> Note aux utilisateurs de TypeScript : vuex@3.0+ nécessite vue@2.5+, et inverssement.
+> Note aux utilisateurs de TypeScript : vuex@3.0+ nécessite vue@2.5+, et inversement.
 
 - [Notes de version](https://github.com/vuejs/vuex/releases)
 - [Installation](installation.md)
