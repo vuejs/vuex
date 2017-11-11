@@ -14,6 +14,22 @@ If more than one component needs to make use of this, we have to either duplicat
 
 Vuex allows us to define "getters" in the store. You can think of them as computed properties for stores. Like computed properties, a getter's result is cached based on its dependencies, and will only re-evaluate when some of its dependencies have changed.
 
+Getters are defined as functions, but they are accessed as properties.  Vuex `getters` follow a similar principle to regular JavaScript `get` functions defined using `Reflect.defineProperty`. 
+
+``` js
+//Example of regular JavaScript get function
+Reflect.defineProperty(foo, 'bar', { 
+  get(){ 
+    return 'baz'; 
+  } 
+  //... 
+});
+
+``` 
+When the property is accessed (e.g as `foo.bar`), the value is retrieved by invoking the defined getter function.  In the example above, the value `baz` is returned every time for `foo.bar`.
+
+While `get` functions defined using JavaScript reflectivity are invoked every time the property is accessed, Vuex caches the value to improve performance.  It only recalculates the cached value when its dependencies change. This allows complex property retrievals to be more performant.  
+
 Getters will receive the state as their 1st argument:
 
 ``` js
@@ -31,6 +47,10 @@ const store = new Vuex.Store({
   }
 })
 ```
+
+On initialization, Vuex calls the function you defined for the `getter` to calculate the initial value.  During this first call, it determines the dependencies 'touched' during evaluation.  It then caches this initial value.  
+
+If any of the getter's dependencies change, the function you provided is invoked again and the new value is cached.  
 
 The getters will be exposed on the `store.getters` object:
 
@@ -80,7 +100,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 
 ### The `mapGetters` Helper
 
-The `mapGetters` helper simply maps store getters to local computed properties:
+To access getters inside Vue templates, mix them into your components as computed properties.  Then you can access your getters inside your components like you would any computed property.  The `mapGetters` helper simply maps store getters to local computed properties:
 
 ``` js
 import { mapGetters } from 'vuex'
