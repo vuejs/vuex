@@ -138,8 +138,70 @@ Now imagine we are debugging the app and looking at the devtool's mutation logs.
 
 ### Committing Mutations in Components
 
-You can commit mutations in components with `this.$store.commit('xxx')`, or use the `mapMutations` helper which maps component methods to `store.commit` calls (requires root `store` injection):
+Vuex mutations are not directly available as callable methods inside your Vue templates. To trigger mutations from your templates, expose them via your methods.
 
+One way to do this is to trigger regular Vue methods that commit Vuex mutations.  The Vue method can call `this.$store.commit('xxx')`:
+
+``` html
+<button @click="incrementMethod">Increment</button>
+```
+``` js
+export default {
+  // ...
+  methods: {    
+    incrementMethod(){
+      this.$store.commit('increment');
+    }
+  }
+}
+```
+
+In this example, the Vue method 'incrementMethod' exists just to trigger the Vuex mutation named 'increment'.
+
+Because this is a common pattern (and somewhat verbose), the `mapMutations` helper simplifies it.  It allows your mutations to 'pass through' to the component so you can simply invoke them like regular Vue methods. 
+
+Under the hood, the `mapMutations` helper returns an array of Vue methods that call the mutations using `store.commit` (this requires root `store` injection). The above could equivalently be achieved like this:
+
+``` html
+<button @click="increment">Increment</button>
+```
+``` js
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {    
+    ...mapMutations(['increment'])
+  }
+}
+```
+
+Instead of explicitly creating a `incrementMethod` to call the `increment` mutation, the `mapMutations` helper did this for us.
+
+This becomes much more concise when there are a number of mutations that should be mapped directly to methods:
+
+
+``` js
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapMutations(['increment', 'decrement', 'reset', 'double'])
+  }
+}
+```
+
+Now you can call any one of these Vuex mutations (`increment`, `decrement`, etc.) from your template, just as you would call an ordinary Vue method.
+
+The `mapMutations` method also supports payloads passing through the methods to the mutations they call:
+
+
+``` html
+<button @click="increment">Increment</button>
+
+<button @click="incrementBy(2)">Increment by 2</button>
+```
 ``` js
 import { mapMutations } from 'vuex'
 
