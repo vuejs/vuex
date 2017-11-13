@@ -34,12 +34,12 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,      // store.state と同じか、モジュール内にあればローカルステート
-      rootState,  // store.state と同じ。ただしモジュール内に限る
-      commit,     // store.commit と同じ
-      dispatch,   // store.dispatch と同じ
-      getters,    // store.getters と同じか、モジュール内にあればローカルゲッター
-      rootGetters // store.getters と同じ。ただしモジュール内に限る
+      state,      // `store.state` と同じか、モジュール内にあればローカルステート
+      rootState,  // `store.state` と同じ。ただしモジュール内に限る
+      commit,     // `store.commit` と同じ
+      dispatch,   // `store.dispatch` と同じ
+      getters,    // `store.getters` と同じか、モジュール内にあればローカルゲッター
+      rootGetters // `store.getters` と同じ。ただしモジュール内に限る
     }
     ```
 
