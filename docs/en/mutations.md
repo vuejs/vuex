@@ -55,6 +55,20 @@ store.commit('increment', {
 })
 ```
 
+You can also use the `mapStoreSetters` method to initialize setters if all you need is to set the value of the state:
+
+``` js
+mutations: {
+  ...mapStoreSetters(['amount']),
+  ...mapStoreSetters({ setName: 'name' })
+}
+```
+
+``` js
+store.commit('amount', 100)
+store.commit('setName', 'John Doe')
+```
+
 ### Object-Style Commit
 
 An alternative way to commit a mutation is by directly using an object that has a `type` property:

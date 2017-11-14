@@ -309,11 +309,6 @@ var Store = function Store (options) {
   var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
   var strict = options.strict; if ( strict === void 0 ) strict = false;
 
-  var state = options.state; if ( state === void 0 ) state = {};
-  if (typeof state === 'function') {
-    state = state() || {};
-  }
-
   // store internal state
   this._committing = false;
   this._actions = Object.create(null);
@@ -339,6 +334,8 @@ var Store = function Store (options) {
 
   // strict mode
   this.strict = strict;
+
+  var state = this._modules.root.state;
 
   // init root module.
   // this also recursively registers all sub-modules
