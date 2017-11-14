@@ -78,6 +78,20 @@ getters: {
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
+You can also use the `mapStoreGetters` method to initialize getters if all you need is to get the value of a state variable:
+
+``` js
+getters: {
+  ...mapStoreGetters(['amount']),
+  ...mapStoreGetters({ getID: 'id' })
+}
+```
+
+``` js
+store.getters.amount // equivalent to `store.state.amount`
+store.getters.getID // equivalent to `store.state.id`
+```
+
 ### The `mapGetters` Helper
 
 The `mapGetters` helper simply maps store getters to local computed properties:

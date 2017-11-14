@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.common.js'
 import Vuex from '../../dist/vuex.common.js'
+import { mapStoreSetters, mapStoreGetters } from '../../dist/vuex.esm.js'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
@@ -36,6 +37,19 @@ describe('Store', () => {
       amount: 2
     })
     expect(store.state.a).toBe(3)
+  })
+
+  it('committing with mapStoreSetters', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: mapStoreSetters({
+        [TEST]: 'a'
+      })
+    })
+    store.commit(TEST, 20)
+    expect(store.state.a).toBe(20)
   })
 
   it('asserts committed type', () => {
@@ -216,7 +230,8 @@ describe('Store', () => {
         a: 0
       },
       getters: {
-        state: state => state.a > 0 ? 'hasAny' : 'none'
+        state: state => state.a > 0 ? 'hasAny' : 'none',
+        ...mapStoreGetters(['a'])
       },
       mutations: {
         [TEST] (state, n) {
@@ -235,6 +250,7 @@ describe('Store', () => {
 
     store.commit(TEST, 1)
 
+    expect(store.getters.a).toBe(1)
     expect(store.getters.state).toBe('hasAny')
     store.dispatch('check', 'hasAny')
   })

@@ -307,11 +307,6 @@ var Store = function Store (options) {
   var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
   var strict = options.strict; if ( strict === void 0 ) strict = false;
 
-  var state = options.state; if ( state === void 0 ) state = {};
-  if (typeof state === 'function') {
-    state = state() || {};
-  }
-
   // store internal state
   this._committing = false;
   this._actions = Object.create(null);
@@ -337,6 +332,8 @@ var Store = function Store (options) {
 
   // strict mode
   this.strict = strict;
+
+  var state = this._modules.root.state;
 
   // init root module.
   // this also recursively registers all sub-modules
@@ -916,6 +913,45 @@ function getModuleByNamespace (store, helper, namespace) {
   return module
 }
 
+var mapStoreGetters = function (getters) {
+  var res = {};
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedGetter (state) {
+      if (process.env.NODE_ENV !== 'production' && !(val in state)) {
+        console.error(("[vuex] unknown state: " + val));
+        return
+      }
+      return state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+};
+
+var mapStoreSetters = function (setters) {
+  var res = {};
+  normalizeMap(setters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedSetter (state, setVal) {
+      if (process.env.NODE_ENV !== 'production' && !(val in state)) {
+        console.error(("[vuex] unknown state: " + val));
+        return
+      }
+      state[val] = setVal;
+      return true
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+};
+
 var index_esm = {
   Store: Store,
   install: install,
@@ -927,5 +963,5 @@ var index_esm = {
   createNamespacedHelpers: createNamespacedHelpers
 };
 
-export { Store, install, mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers };
+export { Store, install, mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers, mapStoreGetters, mapStoreSetters };
 export default index_esm;

@@ -114,3 +114,36 @@ function getModuleByNamespace (store, helper, namespace) {
   }
   return module
 }
+
+export const mapStoreGetters = function (getters) {
+  const res = {}
+  normalizeMap(getters).forEach(({ key, val }) => {
+    res[key] = function mappedGetter (state) {
+      if (process.env.NODE_ENV !== 'production' && !(val in state)) {
+        console.error(`[vuex] unknown state: ${val}`)
+        return
+      }
+      return state[val]
+    }
+    // mark vuex getter for devtools
+    res[key].vuex = true
+  })
+  return res
+}
+
+export const mapStoreSetters = function (setters) {
+  const res = {}
+  normalizeMap(setters).forEach(({ key, val }) => {
+    res[key] = function mappedSetter (state, setVal) {
+      if (process.env.NODE_ENV !== 'production' && !(val in state)) {
+        console.error(`[vuex] unknown state: ${val}`)
+        return
+      }
+      state[val] = setVal
+      return true
+    }
+    // mark vuex getter for devtools
+    res[key].vuex = true
+  })
+  return res
+}
