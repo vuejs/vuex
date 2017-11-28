@@ -67,7 +67,7 @@ import { mapState } from 'vuex'
 export default {
   // ...
   computed: mapState({
-    // arrow-функции позволяют писать код очень лаконично
+    // стрелочные функции позволяют писать код очень лаконично
     count: state => state.count,
 
     // передача строки 'count' эквивалентна записи `state => state.count`
