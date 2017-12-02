@@ -85,7 +85,7 @@ const actions = actionsInjector({
   }
 })
 
-// вспомогательная фукнция для тестирования действия, которое должно вызывать известные мутации
+// вспомогательная функция для тестирования действия, которое должно вызывать известные мутации
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
@@ -181,7 +181,7 @@ describe('getters', () => {
 
 #### Запуск в Node
 
-Используйте следующий конфиг webpack (в сочетании с соответствующим [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
+Используйте следующую конфигурацию webpack (в сочетании с соответствующим [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
 
 ``` js
 // webpack.config.js
