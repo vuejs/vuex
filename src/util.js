@@ -53,6 +53,10 @@ export function forEachValue (obj, fn) {
   Object.keys(obj).forEach(key => fn(obj[key], key))
 }
 
+export function isDebug () {
+  return process.env.NODE_ENV !== 'production'
+}
+
 export function isObject (obj) {
   return obj !== null && typeof obj === 'object'
 }
