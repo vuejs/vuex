@@ -1,3 +1,5 @@
+import { isDebug } from './util'
+
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
   normalizeMap(states).forEach(({ key, val }) => {
@@ -50,7 +52,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
         return
       }
-      if (process.env.NODE_ENV !== 'production' && !(val in this.$store.getters)) {
+      if (isDebug() && !(val in this.$store.getters)) {
         console.error(`[vuex] unknown getter: ${val}`)
         return
       }
@@ -109,7 +111,7 @@ function normalizeNamespace (fn) {
 
 function getModuleByNamespace (store, helper, namespace) {
   const module = store._modulesNamespaceMap[namespace]
-  if (process.env.NODE_ENV !== 'production' && !module) {
+  if (isDebug() && !module) {
     console.error(`[vuex] module namespace not found in ${helper}(): ${namespace}`)
   }
   return module
