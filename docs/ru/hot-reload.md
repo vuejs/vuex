@@ -1,6 +1,6 @@
 # Горячая замена
 
-Vuex поддерживает горячую замену мутаций, модулей, действий и геттеров в момент разработки с помощью [webpack Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). Аналогичный функционал в Browserify достижим при использовании плагина [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
+Vuex поддерживает горячую замену мутаций, модулей, действий и геттеров в момент разработки с помощью [webpack Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html). Аналогичная функциональность в Browserify достижима при использовании плагина [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
 Для мутаций и модулей необходимо использовать метод API `store.hotUpdate()`:
 
