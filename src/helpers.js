@@ -89,12 +89,24 @@ export const createNamespacedHelpers = (namespace) => ({
   mapActions: mapActions.bind(null, namespace)
 })
 
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
 function normalizeMap (map) {
   return Array.isArray(map)
     ? map.map(key => ({ key, val: key }))
     : Object.keys(map).map(key => ({ key, val: map[key] }))
 }
 
+/**
+ * Return a function expect two param contains namepsace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
 function normalizeNamespace (fn) {
   return (namespace, map) => {
     if (typeof namespace !== 'string') {
@@ -107,6 +119,13 @@ function normalizeNamespace (fn) {
   }
 }
 
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namepsace
+ * @return {Object}
+ */
 function getModuleByNamespace (store, helper, namespace) {
   const module = store._modulesNamespaceMap[namespace]
   if (process.env.NODE_ENV !== 'production' && !module) {
