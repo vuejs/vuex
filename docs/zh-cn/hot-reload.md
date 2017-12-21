@@ -1,6 +1,6 @@
 # 热重载
 
-使用 webpack 的 [Hot Module Replacement API](https://webpack.github.io/docs/hot-module-replacement.html)，Vuex 支持在开发过程中热重载 mutation、module、action 和 getter。你也可以在 Browserify 中使用 [browserify-hmr](https://github.com/AgentME/browserify-hmr/) 插件。
+使用 webpack 的 [Hot Module Replacement API](https://webpack.js.org/guides/hot-module-replacement/)，Vuex 支持在开发过程中热重载 mutation、module、action 和 getter。你也可以在 Browserify 中使用 [browserify-hmr](https://github.com/AgentME/browserify-hmr/) 插件。
 
 对于 mutation 和模块，你需要使用 `store.hotUpdate()` 方法：
 
