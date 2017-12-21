@@ -6,7 +6,7 @@
  * @param {Function} f
  * @return {*}
  */
-function find (list, f) {
+export function find (list, f) {
   return list.filter(f)[0]
 }
 
