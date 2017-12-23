@@ -1,3 +1,9 @@
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} namepsace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
   normalizeMap(states).forEach(({ key, val }) => {
@@ -22,10 +28,17 @@ export const mapState = normalizeNamespace((namespace, states) => {
   return res
 })
 
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} namepsace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
 export const mapMutations = normalizeNamespace((namespace, mutations) => {
   const res = {}
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
+      // Get the commit method from store
       let commit = this.$store.commit
       if (namespace) {
         const module = getModuleByNamespace(this.$store, 'mapMutations', namespace)
@@ -42,9 +55,16 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
   return res
 })
 
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
   normalizeMap(getters).forEach(({ key, val }) => {
+    // thie namespace has been mutate by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
@@ -62,10 +82,17 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
   return res
 })
 
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
 export const mapActions = normalizeNamespace((namespace, actions) => {
   const res = {}
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
+      // get dispatch function from store
       let dispatch = this.$store.dispatch
       if (namespace) {
         const module = getModuleByNamespace(this.$store, 'mapActions', namespace)
@@ -82,6 +109,11 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
   return res
 })
 
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namepsace
+ * @return {Object}
+ */
 export const createNamespacedHelpers = (namespace) => ({
   mapState: mapState.bind(null, namespace),
   mapGetters: mapGetters.bind(null, namespace),
