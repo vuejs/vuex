@@ -3,8 +3,8 @@
     <h2>Your Cart</h2>
     <p v-show="!products.length"><i>Please add some products to cart.</i></p>
     <ul>
-      <li v-for="p in products">
-        {{ p.title }} - {{ p.price | currency }} x {{ p.quantity }}
+      <li v-for="product in products">
+        {{ product.title }} - {{ product.price | currency }} x {{ product.quantity }}
       </li>
     </ul>
     <p>Total: {{ total | currency }}</p>
@@ -23,8 +23,8 @@ export default {
       checkoutStatus: 'checkoutStatus'
     }),
     total () {
-      return this.products.reduce((total, p) => {
-        return total + p.price * p.quantity
+      return this.products.reduce((total, product) => {
+        return total + product.price * product.quantity
       }, 0)
     }
   },
