@@ -1,3 +1,5 @@
+import { isFunction, isString } from './util'
+
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
   normalizeMap(states).forEach(({ key, val }) => {
@@ -12,7 +14,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
         state = module.context.state
         getters = module.context.getters
       }
-      return typeof val === 'function'
+      return isFunction(val)
         ? val.call(this, state, getters)
         : state[val]
     }
@@ -34,7 +36,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
         }
         commit = module.context.commit
       }
-      return typeof val === 'function'
+      return isFunction(val)
         ? val.apply(this, [commit].concat(args))
         : commit.apply(this.$store, [val].concat(args))
     }
@@ -74,7 +76,7 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
         }
         dispatch = module.context.dispatch
       }
-      return typeof val === 'function'
+      return isFunction(val)
         ? val.apply(this, [dispatch].concat(args))
         : dispatch.apply(this.$store, [val].concat(args))
     }
@@ -97,7 +99,7 @@ function normalizeMap (map) {
 
 function normalizeNamespace (fn) {
   return (namespace, map) => {
-    if (typeof namespace !== 'string') {
+    if (!isString(namespace)) {
       map = namespace
       namespace = ''
     } else if (namespace.charAt(namespace.length - 1) !== '/') {

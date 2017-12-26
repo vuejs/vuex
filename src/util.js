@@ -53,12 +53,20 @@ export function forEachValue (obj, fn) {
   Object.keys(obj).forEach(key => fn(obj[key], key))
 }
 
+export function isFunction (val) {
+  return val !== null && typeof val === 'function'
+}
+
 export function isObject (obj) {
   return obj !== null && typeof obj === 'object'
 }
 
 export function isPromise (val) {
-  return val && typeof val.then === 'function'
+  return val && typeof isFunction(val.then)
+}
+
+export function isString (val) {
+  return typeof val === 'string'
 }
 
 export function assert (condition, msg) {

@@ -1,7 +1,7 @@
 import applyMixin from './mixin'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
-import { forEachValue, isObject, isPromise, assert } from './util'
+import { forEachValue, isFunction, isObject, isPromise, isString, assert } from './util'
 
 let Vue // bind on install
 
@@ -145,7 +145,7 @@ export class Store {
 
   watch (getter, cb, options) {
     if (process.env.NODE_ENV !== 'production') {
-      assert(typeof getter === 'function', `store.watch only accepts a function.`)
+      assert(isFunction(getter), `store.watch only accepts a function.`)
     }
     return this._watcherVM.$watch(() => getter(this.state, this.getters), cb, options)
   }
@@ -157,7 +157,7 @@ export class Store {
   }
 
   registerModule (path, rawModule, options = {}) {
-    if (typeof path === 'string') path = [path]
+    if (isString(path)) path = [path]
 
     if (process.env.NODE_ENV !== 'production') {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
@@ -171,7 +171,7 @@ export class Store {
   }
 
   unregisterModule (path) {
-    if (typeof path === 'string') path = [path]
+    if (isString(path)) path = [path]
 
     if (process.env.NODE_ENV !== 'production') {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
@@ -460,7 +460,7 @@ function unifyObjectStyle (type, payload, options) {
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    assert(typeof type === 'string', `Expects string as the type, but found ${typeof type}.`)
+    assert(isString(type), `Expects string as the type, but found ${typeof type}.`)
   }
 
   return { type, payload, options }

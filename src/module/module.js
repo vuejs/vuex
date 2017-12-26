@@ -1,4 +1,4 @@
-import { forEachValue } from '../util'
+import { forEachValue, isFunction } from '../util'
 
 export default class Module {
   constructor (rawModule, runtime) {
@@ -6,7 +6,7 @@ export default class Module {
     this._children = Object.create(null)
     this._rawModule = rawModule
     const rawState = rawModule.state
-    this.state = (typeof rawState === 'function' ? rawState() : rawState) || {}
+    this.state = (isFunction(rawState) ? rawState() : rawState) || {}
   }
 
   get namespaced () {
