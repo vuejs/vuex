@@ -5,52 +5,6 @@
  */
 'use strict';
 
-/**
- * Get the first item that pass the test
- * by second argument function
- *
- * @param {Array} list
- * @param {Function} f
- * @return {*}
- */
-/**
- * Deep copy the given object considering circular structure.
- * This function caches all nested objects and its copies.
- * If it detects circular structure, use cached copy to avoid infinite loop.
- *
- * @param {*} obj
- * @param {Array<Object>} cache
- * @return {*}
- */
-
-
-/**
- * forEach for object
- */
-function forEachValue (obj, fn) {
-  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
-}
-
-function isFunction (val) {
-  return val !== null && typeof val === 'function'
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-function isPromise (val) {
-  return val && typeof isFunction(val.then)
-}
-
-function isString (val) {
-  return typeof val === 'string'
-}
-
-function assert (condition, msg) {
-  if (!condition) { throw new Error(("[vuex] " + msg)) }
-}
-
 var applyMixin = function (Vue) {
   var version = Number(Vue.version.split('.')[0]);
 
@@ -73,11 +27,12 @@ var applyMixin = function (Vue) {
   /**
    * Vuex init hook, injected into each instances init hooks list.
    */
+
   function vuexInit () {
     var options = this.$options;
     // store injection
     if (options.store) {
-      this.$store = isFunction(options.store)
+      this.$store = typeof options.store === 'function'
         ? options.store()
         : options.store;
     } else if (options.parent && options.parent.$store) {
@@ -106,12 +61,50 @@ function devtoolPlugin (store) {
   });
 }
 
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
 var Module = function Module (rawModule, runtime) {
   this.runtime = runtime;
   this._children = Object.create(null);
   this._rawModule = rawModule;
   var rawState = rawModule.state;
-  this.state = (isFunction(rawState) ? rawState() : rawState) || {};
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
 };
 
 var prototypeAccessors$1 = { namespaced: { configurable: true } };
@@ -254,12 +247,13 @@ function update (path, targetModule, newModule) {
 }
 
 var functionAssert = {
-  assert: function (value) { return isFunction(value); },
+  assert: function (value) { return typeof value === 'function'; },
   expected: 'function'
 };
 
 var objectAssert = {
-  assert: function (value) { return isFunction(value) || (isObject(value) && isFunction(value.handler)); },
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
   expected: 'function or object with "handler" function'
 };
 
@@ -315,6 +309,11 @@ var Store = function Store (options) {
   var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
   var strict = options.strict; if ( strict === void 0 ) strict = false;
 
+  var state = options.state; if ( state === void 0 ) state = {};
+  if (typeof state === 'function') {
+    state = state() || {};
+  }
+
   // store internal state
   this._committing = false;
   this._actions = Object.create(null);
@@ -340,8 +339,6 @@ var Store = function Store (options) {
 
   // strict mode
   this.strict = strict;
-
-  var state = this._modules.root.state;
 
   // init root module.
   // this also recursively registers all sub-modules
@@ -443,7 +440,7 @@ Store.prototype.watch = function watch (getter, cb, options) {
     var this$1 = this;
 
   if (process.env.NODE_ENV !== 'production') {
-    assert(isFunction(getter), "store.watch only accepts a function.");
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
   }
   return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
 };
@@ -459,7 +456,7 @@ Store.prototype.replaceState = function replaceState (state) {
 Store.prototype.registerModule = function registerModule (path, rawModule, options) {
     if ( options === void 0 ) options = {};
 
-  if (isString(path)) { path = [path]; }
+  if (typeof path === 'string') { path = [path]; }
 
   if (process.env.NODE_ENV !== 'production') {
     assert(Array.isArray(path), "module path must be a string or an Array.");
@@ -475,7 +472,7 @@ Store.prototype.registerModule = function registerModule (path, rawModule, optio
 Store.prototype.unregisterModule = function unregisterModule (path) {
     var this$1 = this;
 
-  if (isString(path)) { path = [path]; }
+  if (typeof path === 'string') { path = [path]; }
 
   if (process.env.NODE_ENV !== 'production') {
     assert(Array.isArray(path), "module path must be a string or an Array.");
@@ -767,7 +764,7 @@ function unifyObjectStyle (type, payload, options) {
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    assert(isString(type), ("Expects string as the type, but found " + (typeof type) + "."));
+    assert(typeof type === 'string', ("Expects string as the type, but found " + (typeof type) + "."));
   }
 
   return { type: type, payload: payload, options: options }
@@ -803,7 +800,7 @@ var mapState = normalizeNamespace(function (namespace, states) {
         state = module.context.state;
         getters = module.context.getters;
       }
-      return isFunction(val)
+      return typeof val === 'function'
         ? val.call(this, state, getters)
         : state[val]
     };
@@ -831,7 +828,7 @@ var mapMutations = normalizeNamespace(function (namespace, mutations) {
         }
         commit = module.context.commit;
       }
-      return isFunction(val)
+      return typeof val === 'function'
         ? val.apply(this, [commit].concat(args))
         : commit.apply(this.$store, [val].concat(args))
     };
@@ -880,7 +877,7 @@ var mapActions = normalizeNamespace(function (namespace, actions) {
         }
         dispatch = module.context.dispatch;
       }
-      return isFunction(val)
+      return typeof val === 'function'
         ? val.apply(this, [dispatch].concat(args))
         : dispatch.apply(this.$store, [val].concat(args))
     };
@@ -903,7 +900,7 @@ function normalizeMap (map) {
 
 function normalizeNamespace (fn) {
   return function (namespace, map) {
-    if (!isString(namespace)) {
+    if (typeof namespace !== 'string') {
       map = namespace;
       namespace = '';
     } else if (namespace.charAt(namespace.length - 1) !== '/') {
