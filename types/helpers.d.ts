@@ -1,43 +1,47 @@
 import Vue from 'vue';
 import { Dispatch, Commit } from './index';
 
-type Dictionary<T> = { [key: string]: T };
+type CompleteObject = { [key: string]: string };
 type Computed = () => any;
 type MutationMethod = (...args: any[]) => void;
 type ActionMethod = (...args: any[]) => Promise<any>;
 
 interface Mapper<R> {
-  (map: string[]): Dictionary<R>;
-  (map: Dictionary<string>): Dictionary<R>;
+  <T extends CompleteObject, K extends keyof T>(map: K[]): { [key in K]: R };
+  <T extends CompleteObject, K extends keyof T>(map: { [key in K]: string }): { [key in K]: R };
 }
 
 interface MapperWithNamespace<R> {
-  (namespace: string, map: string[]): Dictionary<R>;
-  (namespace: string, map: Dictionary<string>): Dictionary<R>;
+  <T extends CompleteObject, K extends keyof T>(namespace: string, map: K[]): { [key in K]: R };
+  <T extends CompleteObject, K extends keyof T>(namespace: string, map: { [key in K]: string }): { [key in K]: R };
 }
 
+type MappingFunction<F> = (this: typeof Vue, fn: F, ...args: any[]) => any
+
 interface FunctionMapper<F, R> {
-  (map: Dictionary<(this: typeof Vue, fn: F, ...args: any[]) => any>): Dictionary<R>;
+  <T extends CompleteObject, K extends keyof T>(map: { [key in K]: MappingFunction<F> }): { [key in K]: R };
 }
 
 interface FunctionMapperWithNamespace<F, R> {
-  (
+  <T extends CompleteObject, K extends keyof T>(
     namespace: string,
-    map: Dictionary<(this: typeof Vue, fn: F, ...args: any[]) => any>
-  ): Dictionary<R>;
+    map: { [key in K]: MappingFunction<F> }
+  ): { [key in K]: R };
 }
 
+type StateMappingFunction<S> = (this: typeof Vue, state: S, getters: any) => any
+
 interface MapperForState {
-  <S>(
-    map: Dictionary<(this: typeof Vue, state: S, getters: any) => any>
-  ): Dictionary<Computed>;
+  <S, T extends CompleteObject, K extends keyof T>(
+    map: { [key in K]: StateMappingFunction<S> }
+  ): { [key in K]: Computed };
 }
 
 interface MapperForStateWithNamespace {
-  <S>(
+  <S, T extends CompleteObject, K extends keyof T>(
     namespace: string,
-    map: Dictionary<(this: typeof Vue, state: S, getters: any) => any>
-  ): Dictionary<Computed>;
+    map: { [key in K]: StateMappingFunction<S> }
+  ): { [key in K]: Computed };
 }
 
 interface NamespacedMappers {
