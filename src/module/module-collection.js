@@ -1,5 +1,5 @@
 import Module from './module'
-import { assert, forEachValue } from '../util'
+import { assert, forEachValue, isFunction, isObject } from '../util'
 
 export default class ModuleCollection {
   constructor (rawRootModule) {
@@ -85,13 +85,12 @@ function update (path, targetModule, newModule) {
 }
 
 const functionAssert = {
-  assert: value => typeof value === 'function',
+  assert: value => isFunction(value),
   expected: 'function'
 }
 
 const objectAssert = {
-  assert: value => typeof value === 'function' ||
-    (typeof value === 'object' && typeof value.handler === 'function'),
+  assert: value => isFunction(value) || (isObject(value) && isFunction(value.handler)),
   expected: 'function or object with "handler" function'
 }
 

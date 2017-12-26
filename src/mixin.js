@@ -1,3 +1,5 @@
+import { isFunction } from './util'
+
 export default function (Vue) {
   const version = Number(Vue.version.split('.')[0])
 
@@ -18,12 +20,11 @@ export default function (Vue) {
   /**
    * Vuex init hook, injected into each instances init hooks list.
    */
-
   function vuexInit () {
     const options = this.$options
     // store injection
     if (options.store) {
-      this.$store = typeof options.store === 'function'
+      this.$store = isFunction(options.store)
         ? options.store()
         : options.store
     } else if (options.parent && options.parent.$store) {
