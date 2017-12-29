@@ -20,13 +20,9 @@ export default {
   computed: {
     ...mapGetters({
       products: 'cartProducts',
-      checkoutStatus: 'checkoutStatus'
-    }),
-    total () {
-      return this.products.reduce((total, product) => {
-        return total + product.price * product.quantity
-      }, 0)
-    }
+      checkoutStatus: 'checkoutStatus',
+      total: 'cartTotalPrice'
+    })
   },
   methods: {
     checkout (products) {

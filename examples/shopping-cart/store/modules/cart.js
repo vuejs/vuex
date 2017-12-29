@@ -21,6 +21,12 @@ const getters = {
         quantity
       }
     })
+  },
+
+  cartTotalPrice: (state, getters) => {
+    return getters.cartProducts.reduce((total, product) => {
+      return total + product.price * product.quantity
+    }, 0)
   }
 }
 
