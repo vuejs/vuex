@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-플러그인은 기본적으로 사용됩니다. 배포를 위해서는 webpack의 [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 또는 [envify](https://github.com/hughsk/envify)가 필요합니다. Browserify가 `process.env.NODE_ENV !== 'production'`의 값을 최종 빌드를 위해 `false`로 변환합니다.
+플러그인은 기본적으로 사용됩니다. 배포를 위해서는 webpack의 [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) 또는 [envify](https://github.com/hughsk/envify)가 필요합니다. Browserify가 `process.env.NODE_ENV !== 'production'`의 값을 최종 빌드를 위해 `false`로 변환합니다.
 
 
 ### 내장 로거 플러그인

@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
+Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) для webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
 
 ### Встроенный плагин логирования
 
