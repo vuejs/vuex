@@ -34,12 +34,12 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,      // store.state と同じか、モジュール内にあればローカルステート
-      rootState,  // store.state と同じ。ただしモジュール内に限る
-      commit,     // store.commit と同じ
-      dispatch,   // store.dispatch と同じ
-      getters,    // store.getters と同じか、モジュール内にあればローカルゲッター
-      rootGetters // store.getters と同じ。ただしモジュール内に限る
+      state,      // `store.state` と同じか、モジュール内にあればローカルステート
+      rootState,  // `store.state` と同じ。ただしモジュール内に限る
+      commit,     // `store.commit` と同じ
+      dispatch,   // `store.dispatch` と同じ
+      getters,    // `store.getters` と同じか、モジュール内にあればローカルゲッター
+      rootGetters // `store.getters` と同じ。ただしモジュール内に限る
     }
     ```
 
@@ -140,7 +140,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  リアクティブにゲッター関数の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの状態のみを引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
+  リアクティブにゲッター関数の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの `state` を最初の引数として、 `getters` を2番目の引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
 
   監視を止める場合は、ハンドラ関数の返り値を関数として呼び出します。
 
