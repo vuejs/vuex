@@ -674,7 +674,7 @@ describe('Modules', () => {
       const afterSpy = jasmine.createSpy()
       const store = new Vuex.Store({
         actions: {
-          [TEST]: () => new Promise(resolve => resolve())
+          [TEST]: () => Promise.resolve()
         },
         plugins: [
           store => {
