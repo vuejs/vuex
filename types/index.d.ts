@@ -17,7 +17,7 @@ export declare class Store<S> {
   commit: Commit;
 
   subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any): () => void;
-  subscribeAction<P extends ActionPayload>(fn: (action: P, state: S) => any): () => void;
+  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>): () => void;
   watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
   registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
@@ -66,6 +66,15 @@ export interface MutationPayload extends Payload {
 export interface ActionPayload extends Payload {
   payload: any;
 }
+
+export type ActionSubscriber<P, S> = (action: P, state: S) => any;
+
+export interface ActionSubscribersObject<P, S> {
+  before?: ActionSubscriber<P, S>;
+  after?: ActionSubscriber<P, S>;
+}
+
+export type SubscribeActionOptions<P, S> = ActionSubscriber<P, S> | ActionSubscribersObject<P, S>;
 
 export interface DispatchOptions {
   root?: boolean;
