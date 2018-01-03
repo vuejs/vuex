@@ -128,11 +128,19 @@ export class Store {
       return
     }
 
-    this._actionSubscribers.forEach(sub => sub(action, this.state))
+    this._actionSubscribers
+      .filter(sub => sub.before)
+      .forEach(sub => sub.before(action, this.state))
 
-    return entry.length > 1
+    const result = entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
+
+    result.then(() => this._actionSubscribers
+      .filter(sub => sub.after)
+      .forEach(sub => sub.after(action, this.state)))
+
+    return result
   }
 
   subscribe (fn) {
@@ -140,7 +148,8 @@ export class Store {
   }
 
   subscribeAction (fn) {
-    return genericSubscribe(fn, this._actionSubscribers)
+    const subs = typeof fn === 'function' ? { before: fn } : fn
+    return genericSubscribe(subs, this._actionSubscribers)
   }
 
   watch (getter, cb, options) {
