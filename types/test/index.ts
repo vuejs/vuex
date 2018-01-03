@@ -39,6 +39,12 @@ namespace StoreInstance {
     state.value;
   });
 
+  store.subscribeAction((mutation, state) => {
+    mutation.type;
+    mutation.payload;
+    state.value;
+  });
+
   store.replaceState({ value: 10 });
 }
 
