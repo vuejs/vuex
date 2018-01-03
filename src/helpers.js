@@ -1,6 +1,6 @@
 /**
  * Reduce the code which written in Vue.js for getting the state.
- * @param {String} namepsace
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
  * @param {Object}
  */
@@ -30,7 +30,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
 
 /**
  * Reduce the code which written in Vue.js for committing the mutation
- * @param {String} namepsace
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
@@ -57,7 +57,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
 
 /**
  * Reduce the code which written in Vue.js for getting the getters
- * @param {String} namespace
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} getters
  * @return {Object}
  */
@@ -84,7 +84,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
 
 /**
  * Reduce the code which written in Vue.js for dispatch the action
- * @param {String} namespace
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
@@ -111,7 +111,7 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
 
 /**
  * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
- * @param {String} namepsace
+ * @param {String} namespace
  * @return {Object}
  */
 export const createNamespacedHelpers = (namespace) => ({
@@ -135,7 +135,7 @@ function normalizeMap (map) {
 }
 
 /**
- * Return a function expect two param contains namepsace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
  * @param {Function} fn
  * @return {Function}
  */
@@ -155,7 +155,7 @@ function normalizeNamespace (fn) {
  * Search a special module from store by namespace. if module not exist, print error message.
  * @param {Object} store
  * @param {String} helper
- * @param {String} namepsace
+ * @param {String} namespace
  * @return {Object}
  */
 function getModuleByNamespace (store, helper, namespace) {
