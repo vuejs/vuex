@@ -53,7 +53,7 @@ computed: {
       return this.$store.state.obj.message
     },
     set (value) {
-      this.$store.commit('updateMessage', value)
+      this.$store.disaptch('updateMessage', value)
     }
   }
 }
