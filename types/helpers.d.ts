@@ -6,39 +6,45 @@ type Computed = () => any;
 type MutationMethod = (...args: any[]) => void;
 type ActionMethod = (...args: any[]) => Promise<any>;
 type CustomVue = Vue & Dictionary<any>
+type TypedDictionary<K extends string, V> = { [key in K]: V }
+type CompleteObject = { [key: string]: string };
 
 interface Mapper<R> {
-  (map: string[]): Dictionary<R>;
-  (map: Dictionary<string>): Dictionary<R>;
+  <T extends CompleteObject, K extends keyof T>(map: K[]): TypedDictionary<K, R>;
+  <T extends CompleteObject, K extends keyof T>(map: { [key in K]: string }): TypedDictionary<K, R>;
 }
 
 interface MapperWithNamespace<R> {
-  (namespace: string, map: string[]): Dictionary<R>;
-  (namespace: string, map: Dictionary<string>): Dictionary<R>;
+  <T extends CompleteObject, K extends keyof T>(namespace: string, map: K[]): TypedDictionary<K, R>;
+  <T extends CompleteObject, K extends keyof T>(namespace: string, map: { [key in K]: string }): TypedDictionary<K, R>;
 }
 
+type MappingFunction<F> = (this: CustomVue, fn: F, ...args: any[]) => any
+
 interface FunctionMapper<F, R> {
-  (map: Dictionary<(this: CustomVue, fn: F, ...args: any[]) => any>): Dictionary<R>;
+  <T extends CompleteObject, K extends keyof T>(map: { [key in K]: MappingFunction<F> }): TypedDictionary<K, R>;
 }
 
 interface FunctionMapperWithNamespace<F, R> {
-  (
+  <T extends CompleteObject, K extends keyof T>(
     namespace: string,
-    map: Dictionary<(this: CustomVue, fn: F, ...args: any[]) => any>
-  ): Dictionary<R>;
+    map: { [key in K]: MappingFunction<F> }
+  ): TypedDictionary<K, R>;
 }
 
+type StateMappingFunction<S> = (this: CustomVue, state: S, getters: any) => any
+
 interface MapperForState {
-  <S>(
-    map: Dictionary<(this: CustomVue, state: S, getters: any) => any>
-  ): Dictionary<Computed>;
+  <S, T extends CompleteObject, K extends keyof T>(
+    map: { [key in K]: StateMappingFunction<S> }
+  ): TypedDictionary<K, Computed>;
 }
 
 interface MapperForStateWithNamespace {
-  <S>(
+  <S, T extends CompleteObject, K extends keyof T>(
     namespace: string,
-    map: Dictionary<(this: CustomVue, state: S, getters: any) => any>
-  ): Dictionary<Computed>;
+    map: { [key in K]: StateMappingFunction<S> }
+  ): TypedDictionary<K, Computed>;
 }
 
 interface NamespacedMappers {

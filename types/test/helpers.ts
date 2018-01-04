@@ -5,7 +5,9 @@ import {
   mapGetters,
   mapActions,
   mapMutations,
-  createNamespacedHelpers
+  createNamespacedHelpers,
+  Commit,
+  Dispatch
 } from "../index";
 
 const helpers = createNamespacedHelpers('foo');
@@ -65,7 +67,7 @@ new Vue({
       h: "h"
     }),
     mapActions({
-      g (dispatch, a: string, b: number, c: boolean): void {
+      g (dispatch: Dispatch, a: string, b: number, c: boolean): void {
         dispatch('g', { a, b, c })
         dispatch({
           type: 'g',
@@ -80,7 +82,7 @@ new Vue({
       h: "h"
     }),
     mapActions('foo', {
-      g (dispatch, a: string, b: number, c: boolean): void {
+      g (dispatch: Dispatch, a: string, b: number, c: boolean): void {
         dispatch('g', { a, b, c })
         dispatch({
           type: 'g',
@@ -96,7 +98,7 @@ new Vue({
       j: "j"
     }),
     mapMutations({
-      i (commit, a: string, b: number, c: boolean): void {
+      i (commit: Commit, a: string, b: number, c: boolean): void {
         commit('i', { a, b, c })
         commit({
           type: 'i',
@@ -111,7 +113,7 @@ new Vue({
       j: "j"
     }),
     mapMutations('foo', {
-      i (commit, a: string, b: number, c: boolean): void {
+      i (commit: Commit, a: string, b: number, c: boolean): void {
         commit('i', { a, b, c })
         commit({
           type: 'i',
@@ -127,7 +129,7 @@ new Vue({
       m: "m"
     }),
     helpers.mapActions({
-      m (dispatch, value: string) {
+      m (dispatch: Dispatch, value: string) {
         dispatch('m', value)
       }
     }),
@@ -137,9 +139,13 @@ new Vue({
       n: "n"
     }),
     helpers.mapMutations({
-      n (commit, value: string) {
+      n (commit: Commit, value: string) {
         commit('m', value)
       }
+    }),
+    helpers.mapMutations({
+      n: "n",
+      m: "m"
     }),
 
     {
@@ -147,3 +153,21 @@ new Vue({
     }
   )
 });
+
+const actions = mapActions({
+  mAlias: "m"
+})
+
+actions.mAlias()
+
+const actionsNamespaced = mapActions('namespace', {
+  mAlias: "m"
+})
+
+actionsNamespaced.mAlias()
+
+const actionsNamespaced2 = helpers.mapActions({
+  mAlias: "m"
+})
+
+actionsNamespaced2.mAlias()
