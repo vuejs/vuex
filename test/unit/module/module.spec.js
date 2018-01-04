@@ -45,6 +45,7 @@ describe('Module', () => {
 
     module.addChild('v1', new Module({}))
     module.addChild('v2', new Module({}))
+    expect(Object.keys(module._children)).toEqual(['v1', 'v2'])
     module.removeChild('v2')
     module.removeChild('abc')
     expect(Object.keys(module._children)).toEqual(['v1'])
@@ -104,7 +105,6 @@ describe('Module', () => {
     expect(module._rawModule).toEqual(originObject)
 
     module.update(newObject)
-    expect(module._rawModule).not.toEqual(newObject)
     expect(module._rawModule.actions).toEqual(newObject.actions)
     expect(module._rawModule.mutations).toEqual(newObject.mutations)
     expect(module._rawModule.getters).toEqual(newObject.getters)
