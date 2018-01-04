@@ -3,7 +3,19 @@ import _Vue, { WatchOptions } from "vue";
 // augment typings of Vue.js
 import "./vue";
 
-export * from "./helpers";
+export {
+  mapState,
+  mapGetters,
+  mapActions,
+  mapMutations,
+  createNamespacedHelpers
+} from "./helpers";
+
+export {
+  DefineGetters,
+  DefineMutations,
+  DefineActions
+} from './utils'
 
 export declare class Store<S> {
   constructor(options: StoreOptions<S>);
@@ -35,39 +47,85 @@ export declare class Store<S> {
 
 export declare function install(Vue: typeof _Vue): void;
 
-export interface Dispatch {
-  (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
-  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
+export interface Dispatch<Actions = Record<string, any>, RootActions = Record<string, any>> {
+  // Local
+  <K extends keyof Actions>(type: K, payload?: Actions[K], options?: LocalDispatchOptions): Promise<any>;
+  <K extends keyof Actions>(payloadWithType: Payload<K, Actions>, options?: LocalDispatchOptions): Promise<any>;
+
+  // Root
+  <K extends keyof RootActions>(type: K, options: RootDispatchOptions): Promise<any>;
+  <K extends keyof RootActions>(type: K, payload: RootActions[K], options: RootDispatchOptions): Promise<any>;
+  <K extends keyof RootActions>(payloadWithType: Payload<K, RootActions>, options: RootDispatchOptions): Promise<any>;
 }
 
-export interface Commit {
-  (type: string, payload?: any, options?: CommitOptions): void;
-  <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
+export interface Commit<Mutations = Record<string, any>, RootMutations = Record<string, any>> {
+  // Local
+  <K extends keyof Mutations>(type: K, payload?: Mutations[K], options?: LocalCommitOptions): void;
+  <K extends keyof Mutations>(payloadWithType: Payload<K, Mutations>, options?: LocalCommitOptions): void;
+
+  // Root
+  <K extends keyof RootMutations>(type: K, options: RootCommitOptions): void;
+  <K extends keyof RootMutations>(type: K, payload: RootMutations[K], options: RootCommitOptions): void;
+  <K extends keyof RootMutations>(payloadWithType: Payload<K, RootMutations>, options: RootCommitOptions): void;
 }
 
-export interface ActionContext<S, R> {
-  dispatch: Dispatch;
-  commit: Commit;
+export interface ActionContext<
+  S,
+  RS,
+  G = any,
+  RG = any,
+  M = Record<string, any>,
+  RM = Record<string, any>,
+  A = Record<string, any>,
+  RA = Record<string, any>
+> {
+  dispatch: Dispatch<A, RA>;
+  commit: Commit<M, RM>;
   state: S;
-  getters: any;
-  rootState: R;
-  rootGetters: any;
+  getters: G;
+  rootState: RS;
+  rootGetters: RG;
 }
 
-export interface Payload {
+export interface BasePayload {
   type: string;
 }
 
-export interface MutationPayload extends Payload {
+type Payload<K extends keyof P, P> = { type: K } & P[K]
+
+export interface MutationPayload extends BasePayload {
   payload: any;
 }
 
-export interface DispatchOptions {
+interface BaseDispatchOptions {}
+
+interface LocalDispatchOptions extends BaseDispatchOptions {
+  root?: false
+}
+
+interface RootDispatchOptions extends BaseDispatchOptions {
+  root: true
+}
+
+interface BaseCommitOptions {
+  silent?: boolean
+}
+
+interface LocalCommitOptions extends BaseCommitOptions {
+  root?: false
+}
+
+interface RootCommitOptions extends BaseCommitOptions {
+  root: true
+}
+
+// Leave for backward compatibility
+export interface DispatchOptions extends BaseDispatchOptions {
   root?: boolean;
 }
 
-export interface CommitOptions {
-  silent?: boolean;
+// Leave for backward compatibility
+export interface CommitOptions extends BaseCommitOptions {
   root?: boolean;
 }
 
