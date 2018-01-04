@@ -5,6 +5,7 @@ type CompleteObject = { [key: string]: string };
 type Computed = () => any;
 type MutationMethod = (...args: any[]) => void;
 type ActionMethod = (...args: any[]) => Promise<any>;
+type CustomVue = Vue & { [key: string]: any }
 
 interface Mapper<R> {
   <T extends CompleteObject, K extends keyof T>(map: K[]): { [key in K]: R };
@@ -16,7 +17,7 @@ interface MapperWithNamespace<R> {
   <T extends CompleteObject, K extends keyof T>(namespace: string, map: { [key in K]: string }): { [key in K]: R };
 }
 
-type MappingFunction<F> = (this: typeof Vue, fn: F, ...args: any[]) => any
+type MappingFunction<F> = (this: CustomVue, fn: F, ...args: any[]) => any
 
 interface FunctionMapper<F, R> {
   <T extends CompleteObject, K extends keyof T>(map: { [key in K]: MappingFunction<F> }): { [key in K]: R };
@@ -29,7 +30,7 @@ interface FunctionMapperWithNamespace<F, R> {
   ): { [key in K]: R };
 }
 
-type StateMappingFunction<S> = (this: typeof Vue, state: S, getters: any) => any
+type StateMappingFunction<S> = (this: CustomVue, state: S, getters: any) => any
 
 interface MapperForState {
   <S, T extends CompleteObject, K extends keyof T>(

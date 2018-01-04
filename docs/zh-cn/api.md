@@ -16,7 +16,7 @@ const store = new Vuex.Store({ ...options })
 
     Vuex store 实例的根 state 对象。[详细介绍](state.md)
 
-    如果你传入返回一个对象的函数，其返回的对象会被用做根 state。这在你想要重用 state 对象，尤其是重用 module 来说非常有用。[详细介绍](modules.md#模块重用)
+    如果你传入返回一个对象的函数，其返回的对象会被用作根 state。这在你想要重用 state 对象，尤其是对于重用 module 来说非常有用。[详细介绍](modules.md#模块重用)
 
 - **mutations**
 
@@ -58,7 +58,7 @@ const store = new Vuex.Store({ ...options })
     getters,   // 等同于 store.getters
     ```
 
-    当定义在一个模块里时会特别一些
+    当定义在一个模块里时会特别一些：
 
     ```
     state,       // 如果在模块中定义则为模块的局部状态
