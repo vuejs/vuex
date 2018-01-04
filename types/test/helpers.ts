@@ -28,6 +28,9 @@ new Vue({
     ...mapState('foo', {
       f: (state: any, getters: any) => {
         return state.c + getters.c
+      },
+      useThis (state: any, getters: any) {
+        return state.c + getters.c + this.whatever
       }
     }),
 
@@ -36,10 +39,7 @@ new Vue({
       h: "h"
     }),
     ...helpers.mapState({
-      i: (state: any, getters: any) => state.k + getters.k,
-      useThis (state: any, getters: any) {
-        return state.k + getters.k + this.whatever
-      }
+      i: (state: any, getters: any) => state.k + getters.k
     }),
 
   },

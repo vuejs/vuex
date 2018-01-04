@@ -7,7 +7,7 @@ new Vue({
 
   computed: {
     ...cartHelpers.mapState({
-      added: state => state.cart.added
+      added: state => state.added
     }),
     ...cartHelpers.mapGetters(['checkoutStatus'])
   },
