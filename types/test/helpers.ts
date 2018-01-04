@@ -36,7 +36,10 @@ new Vue({
       h: "h"
     }),
     ...helpers.mapState({
-      i: (state: any, getters: any) => state.k + getters.k
+      i: (state: any, getters: any) => state.k + getters.k,
+      useThis (state: any, getters: any) {
+        return state.k + getters.k + this.whatever
+      }
     }),
 
   },

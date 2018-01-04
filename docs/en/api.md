@@ -34,12 +34,12 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,      // same as store.state, or local state if in modules
-      rootState,  // same as store.state, only in modules
-      commit,     // same as store.commit
-      dispatch,   // same as store.dispatch
-      getters,    // same as store.getters, or local getters if in modules
-      rootGetters // same as store.getters, only in modules
+      state,      // same as `store.state`, or local state if in modules
+      rootState,  // same as `store.state`, only in modules
+      commit,     // same as `store.commit`
+      dispatch,   // same as `store.dispatch`
+      getters,    // same as `store.getters`, or local getters if in modules
+      rootGetters // same as `store.getters`, only in modules
     }
     ```
 
@@ -140,7 +140,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
   To stop watching, call the returned handle function.
 

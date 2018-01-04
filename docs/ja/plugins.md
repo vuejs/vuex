@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-上のように記述すれば、プラグインはデフォルトで利用されることになります。本番環境( production ) では、 `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 webpack では[DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
+上のように記述すれば、プラグインはデフォルトで利用されることになります。本番環境( production ) では、 `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 webpack では[DefinePlugin](https://webpack.js.org/plugins/define-plugin/) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
 
 ### ビルトインロガープラグイン
 

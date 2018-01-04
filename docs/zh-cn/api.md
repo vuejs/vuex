@@ -16,7 +16,7 @@ const store = new Vuex.Store({ ...options })
 
     Vuex store 实例的根 state 对象。[详细介绍](state.md)
 
-    如果你传入返回一个对象的函数，其返回的对象会被用做根 state。这在你想要重用 state 对象，尤其是重用 module 来说非常有用。[详细介绍](modules.md#模块重用)
+    如果你传入返回一个对象的函数，其返回的对象会被用作根 state。这在你想要重用 state 对象，尤其是对于重用 module 来说非常有用。[详细介绍](modules.md#模块重用)
 
 - **mutations**
 
@@ -36,11 +36,12 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,     // 等同于 store.state, 若在模块中则为局部状态
-      rootState, // 等同于 store.state, 只存在于模块中
-      commit,    // 等同于 store.commit
-      dispatch,  // 等同于 store.dispatch
-      getters    // 等同于 store.getters
+      state,      // 等同于 `store.state`，若在模块中则为局部状态
+      rootState,  // 等同于 `store.state`，只存在于模块中
+      commit,     // 等同于 `store.commit`
+      dispatch,   // 等同于 `store.dispatch`
+      getters,    // 等同于 `store.getters`
+      rootGetters // 等同于 `store.getters`，只存在于模块中
     }
     ```
 
@@ -57,7 +58,7 @@ const store = new Vuex.Store({ ...options })
     getters,   // 等同于 store.getters
     ```
 
-    当定义在一个模块里时会特别一些
+    当定义在一个模块里时会特别一些：
 
     ```
     state,       // 如果在模块中定义则为模块的局部状态
@@ -141,7 +142,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  响应式地监测一个 getter 方法的返回值，当值改变时调用回调函数。getter 接收 store 的状态作为唯一参数。接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
+  响应式地监测一个 getter 方法的返回值，当值改变时调用回调函数。Getter 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
 
   要停止监测，直接调用返回的处理函数。
 

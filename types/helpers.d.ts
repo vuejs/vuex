@@ -4,16 +4,17 @@ import { Dispatch, Commit } from './index';
 type Computed<R> = () => R;
 type MutationMethod<P> = (payload: P) => void;
 type ActionMethod<P> = (payload: P) => Promise<any>;
+type CustomVue = Vue & Record<string, any>
 
 type StateAccessor<T, State, Getters> = {
-  [K in keyof T]: (this: Vue, state: State, getters: Getters) => T[K];
+  [K in keyof T]: (this: CustomVue, state: State, getters: Getters) => T[K];
 } & {
-  [key: string]: (this: Vue, state: State, getters: Getters) => any;
+  [key: string]: (this: CustomVue, state: State, getters: Getters) => any;
 }
 
 interface BaseType { [key: string]: any }
 
-type BaseMethodMap<F> = { [key: string]: (this: Vue, fn: F, ...args: any[]) => any }
+type BaseMethodMap<F> = { [key: string]: (this: CustomVue, fn: F, ...args: any[]) => any }
 
 interface MapGetters<Getters> {
   <Key extends keyof Getters>(map: Key[]): { [K in Key]: Computed<Getters[K]> };
