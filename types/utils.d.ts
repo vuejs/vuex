@@ -1,5 +1,32 @@
 import { ActionContext } from './index'
 
+/*
+ * Type level utilities to annotate types of getters/actions/mutations (module assets).
+ * To use the below helpers, the user should declare corresponding assets type at first.
+ *
+ * A getters type should be an object that the keys indicate getter names
+ * and its corresponding values indicate return types of the getter.
+ *
+ * Actions type and mutations type should be an object that the keys indicate
+ * action/mutation names as same as the getters type.
+ * Its values should be declared as payload types of the actions/mutation.
+ *
+ * After declare the above types, the user put them on the generic parameters
+ * of the utility types. Then the real assets object must follow the passed types
+ * and type inference will work.
+ *
+ * The declared types will be used on mapXXX helpers to safely use module assets
+ * by annotating its types.
+ */
+
+/**
+ * Infer getters object type from passed generic types.
+ * `Getters` is an object type that the keys indicate getter names and
+ * its corresponding values are return types of the getters.
+ * `State` is a module state type which is accessible in the getters.
+ * `ExtraGetters` is like `Getters` type but will be not defined in the infered getters object.
+ * `RootState` and `RootGetters` are the root module's state and getters type.
+ */
 export type DefineGetters<
   Getters,
   State,
@@ -15,10 +42,25 @@ export type DefineGetters<
   ) => Getters[K]
 }
 
+/**
+ * Infer mutations object type from passed generic types.
+ * `Mutations` is an object type that the keys indicate mutation names and
+ * its corresponding values are payload types of the mutations.
+ * `State` is a module state type which will be mutated in the mutations.
+ */
 export type DefineMutations<Mutations, State> = {
   [K in keyof Mutations]: (state: State, payload: Mutations[K]) => void
 }
 
+/**
+ * Infer actions object type from passed generic types.
+ * `Actions` is an object type that the keys indicate action names and
+ * its corresponding values are payload types of the actions.
+ * `State`, `Getters`, `Mutations` are module state/getters/mutations type
+ *  which can be accessed in actions.
+ * `ExtraActions` is like `Actions` type but will be not defined in the infered actions object.
+ * `RootState`, `RootGetters`, `RootMutations`, `RootActions` are the root module's asset types.
+ */
 export type DefineActions<
   Actions,
   State,
