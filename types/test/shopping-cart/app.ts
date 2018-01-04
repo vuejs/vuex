@@ -7,7 +7,13 @@ new Vue({
 
   computed: {
     ...cartHelpers.mapState({
-      added: state => state.added
+      test: (state, getters) => {
+        state.added
+        getters.cartProducts
+      }
+    }),
+    ...cartHelpers.mapState({
+      items: 'added'
     }),
     ...cartHelpers.mapGetters(['checkoutStatus'])
   },
@@ -18,6 +24,15 @@ new Vue({
   },
 
   created () {
-
+    this.test
+    this.items
+    this.checkoutStatus
+    this.addToCart({ id: 123 })
+    this.checkout([{
+      id: 123,
+      price: 3000,
+      title: 'test',
+      inventory: 3
+    }])
   }
 })

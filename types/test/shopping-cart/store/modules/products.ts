@@ -51,7 +51,7 @@ const mutations: DefineMutations<ProductsMutations, ProductsState> = {
   },
 
   addToCart (state, { id }) {
-    state.all.find(p => p.id === id).inventory--
+    state.all.find(p => p.id === id)!.inventory--
   }
 }
 

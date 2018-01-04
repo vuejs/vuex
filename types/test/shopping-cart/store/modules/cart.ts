@@ -50,7 +50,7 @@ const getters: DefineGetters<CartGetters, CartState, {}, RootState> = {
 
   cartProducts (state, getters, rootState, g) {
     return state.added.map(({ id, quantity }) => {
-      const product = rootState.products.all.find(p => p.id === id)
+      const product = rootState.products.all.find(p => p.id === id)!
       return {
         title: product.title,
         price: product.price,

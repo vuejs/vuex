@@ -40,8 +40,7 @@ new Vue({
     }),
     ...helpers.mapState({
       i: (state: any, getters: any) => state.k + getters.k
-    }),
-
+    })
   },
 
   created () {
