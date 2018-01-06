@@ -7,12 +7,22 @@ export default class ModuleCollection {
     this.register([], rawRootModule, false)
   }
 
+  /**
+   * Get the module by special paths which store in array
+   * @param {Array} path - Module's path store in array
+   * @return {Object} - Special module
+   */
   get (path) {
     return path.reduce((module, key) => {
       return module.getChild(key)
     }, this.root)
   }
 
+  /**
+   * Generate namespace by special paths which store in array
+   * @param {Array} path - Module's path store in array
+   * @return {String} - Special namespace
+   */
   getNamespace (path) {
     let module = this.root
     return path.reduce((namespace, key) => {
@@ -21,10 +31,22 @@ export default class ModuleCollection {
     }, '')
   }
 
+  /**
+   * Update the root module
+   * @param {Object} rawRootModule - Module Object customized by developer
+   * @return {Void}
+   */
   update (rawRootModule) {
     update([], this.root, rawRootModule)
   }
 
+  /**
+   * Register the module, initialize the modules collection by raw module which passed from Vuex.Store
+   * @param {Array} path
+   * @param {Object} rawModule - customized by developer
+   * @param {Boolean} runtime - default to true
+   * @return {Void}
+   */
   register (path, rawModule, runtime = true) {
     if (process.env.NODE_ENV !== 'production') {
       assertRawModule(path, rawModule)
@@ -34,8 +56,12 @@ export default class ModuleCollection {
     if (path.length === 0) {
       this.root = newModule
     } else {
+      // get module's parent by parent's path
       const parent = this.get(path.slice(0, -1))
-      parent.addChild(path[path.length - 1], newModule)
+
+      // add child by child's path and the Module's object
+      const key = path[path.length - 1]
+      parent.addChild(key, newModule)
     }
 
     // register nested modules
@@ -46,12 +72,18 @@ export default class ModuleCollection {
     }
   }
 
+  /**
+   * Unregister the module by path. First of all the child module must be runtime, and we can provide the path like ['order'] to remove the special child module of root module.
+   * @param {Array} path
+   * @return {Boolean}
+   */
   unregister (path) {
     const parent = this.get(path.slice(0, -1))
     const key = path[path.length - 1]
-    if (!parent.getChild(key).runtime) return
+    if (!parent.getChild(key).runtime) return false
 
     parent.removeChild(key)
+    return true
   }
 }
 
