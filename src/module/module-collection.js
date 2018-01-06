@@ -37,7 +37,7 @@ export default class ModuleCollection {
    * @return {Void}
    */
   update (rawRootModule) {
-    update([], this.root, rawRootModule)
+    updateModule([], this.root, rawRootModule)
   }
 
   /**
@@ -87,7 +87,14 @@ export default class ModuleCollection {
   }
 }
 
-function update (path, targetModule, newModule) {
+/**
+ * Update the special module
+ * @param {Array} path
+ * @param {Object} targetModule - Module object which is existing
+ * @param {Object} newModule - customized by developer
+ * @return {Void}
+ */
+function updateModule (path, targetModule, newModule) {
   if (process.env.NODE_ENV !== 'production') {
     assertRawModule(path, newModule)
   }
@@ -107,7 +114,7 @@ function update (path, targetModule, newModule) {
         }
         return
       }
-      update(
+      updateModule(
         path.concat(key),
         targetModule.getChild(key),
         newModule.modules[key]
