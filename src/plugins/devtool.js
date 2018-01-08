@@ -6,6 +6,9 @@ export default function devtoolPlugin (store) {
   if (!devtoolHook) return
 
   store._devtoolHook = devtoolHook
+  // buffer mutations for devtools
+  // it will later be removed by devtools
+  store._devtoolBuffer = []
 
   devtoolHook.emit('vuex:init', store)
 
@@ -15,5 +18,10 @@ export default function devtoolPlugin (store) {
 
   store.subscribe((mutation, state) => {
     devtoolHook.emit('vuex:mutation', mutation, state)
+
+    // if buffer exists push mutation for later use
+    if (Array.isArray(store._devtoolBuffer)) {
+      store._devtoolBuffer.push(mutation)
+    }
   })
 }
