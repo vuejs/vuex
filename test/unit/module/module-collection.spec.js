@@ -77,7 +77,7 @@ describe('ModuleCollection', () => {
     })
     expect(collection.get(['a']).state.value).toBe(true)
 
-    collection.unregister(['a'])
+    expect(collection.unregister(['a'])).toBe(true)
     expect(collection.get(['a'])).toBe(undefined)
   })
 
@@ -89,7 +89,7 @@ describe('ModuleCollection', () => {
         }
       }
     })
-    collection.unregister(['a'])
+    expect(collection.unregister(['a'])).toBe(false)
     expect(collection.get(['a']).state.value).toBe(true)
   })
 })

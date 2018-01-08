@@ -140,6 +140,12 @@ const assertTypes = {
   actions: objectAssert
 }
 
+/**
+ * Check if the item of rawModule's `getters`, `mutations`, `actions` is valid. if not throw error to developer
+ * @param {Array} path - Path of the module
+ * @param {Object} rawModule - customized by developer
+ * @return {Void}
+ */
 function assertRawModule (path, rawModule) {
   Object.keys(assertTypes).forEach(key => {
     if (!rawModule[key]) return
@@ -155,6 +161,14 @@ function assertRawModule (path, rawModule) {
   })
 }
 
+/**
+ * Format the error message
+ * @param {Array} path - Path of module
+ * @param {String} key - Special key of the module like `getters`, `mutations`, `actions`
+ * @param {String} type - Attribute name in module's `getters`, `mutations` or `actions`
+ * @param {String} value - Value of special attribute in module's `getters`, `mutations` or `actions`
+ * @param {String} expected - Expected string for assert
+ */
 function makeAssertionMessage (path, key, type, value, expected) {
   let buf = `${key} should be ${expected} but "${key}.${type}"`
   if (path.length > 0) {
