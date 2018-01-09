@@ -1,6 +1,6 @@
 # 核心概念
 
-在这一章，我们将会学到 Vue 的这些核心概念。他们是：
+在这一章，我们将会学到 Vuex 的这些核心概念。他们是：
   - [State](state.md)
   - [Getter](getters.md)
   - [Mutation](mutations.md)
