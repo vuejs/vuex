@@ -111,14 +111,16 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
 
 /**
  * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
- * @param {String} namespace
+ * If the namespace is not specified, it returns the root mapXXX helpers.
+ * This behavior is convenient to annotate strict types for mapXXX helpers.
+ * @param {String} [namespace]
  * @return {Object}
  */
 export const createNamespacedHelpers = (namespace) => ({
-  mapState: mapState.bind(null, namespace),
-  mapGetters: mapGetters.bind(null, namespace),
-  mapMutations: mapMutations.bind(null, namespace),
-  mapActions: mapActions.bind(null, namespace)
+  mapState: namespace ? mapState.bind(null, namespace) : mapState,
+  mapGetters: namespace ? mapGetters.bind(null, namespace) : mapGetters,
+  mapMutations: namespace ? mapMutations.bind(null, namespace) : mapMutations,
+  mapActions: namespace ? mapActions.bind(null, namespace) : mapActions
 })
 
 /**

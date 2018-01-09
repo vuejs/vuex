@@ -24,58 +24,58 @@ interface BaseMethodMap<F> {
  * mapGetters
  */
 interface MapGetters<Getters> {
-  <G extends Getters = Getters, Key extends keyof G = keyof G>(map: Key[]): { [K in Key]: Computed<G[K]> };
-  <G extends Getters = Getters, Map extends Record<string, keyof G> = Record<string, keyof G>>(map: Map): { [K in keyof Map]: Computed<G[Map[K]]> };
+  <Key extends keyof Getters>(map: Key[]): { [K in Key]: Computed<Getters[K]> };
+  <Map extends Record<string, keyof Getters>>(map: Map): { [K in keyof Map]: Computed<Getters[Map[K]]> };
 }
 
 interface RootMapGetters<Getters> extends MapGetters<Getters> {
-  <G extends Getters = Getters, Key extends keyof G = keyof G>(namespace: string, map: Key[]): { [K in Key]: Computed<G[K]> };
-  <G extends Getters = Getters, Map extends Record<string, keyof G> = Record<string, keyof G>>(namespace: string, map: Map): { [K in keyof Map]: Computed<G[Map[K]]> };
+  <Key extends keyof Getters>(namespace: string, map: Key[]): { [K in Key]: Computed<Getters[K]> };
+  <Map extends Record<string, keyof Getters>>(namespace: string, map: Map): { [K in keyof Map]: Computed<Getters[Map[K]]> };
 }
 
 /**
  * mapState
  */
 interface MapState<State, Getters> {
-  <S extends State = State, Key extends keyof S = keyof S>(map: Key[]): { [K in Key]: Computed<S[K]> };
-  <S extends State = State, Map extends Record<string, keyof S> = Record<string, keyof S>>(map: Map): { [K in keyof Map]: Computed<S[Map[K]]> };
-  <S extends State = State, G extends Getters = Getters, Map extends BaseStateMap<S, G> = BaseStateMap<S, G>>(map: Map): { [K in keyof Map]: Computed<any> };
+  <Key extends keyof State>(map: Key[]): { [K in Key]: Computed<State[K]> };
+  <Map extends Record<string, keyof State>>(map: Map): { [K in keyof Map]: Computed<State[Map[K]]> };
+  <Map extends BaseStateMap<State, Getters>>(map: Map): { [K in keyof Map]: Computed<any> };
 }
 
 interface RootMapState<State, Getters> extends MapState<State, Getters> {
-  <S extends State = State, Key extends keyof S = keyof S>(namespace: string, map: Key[]): { [K in Key]: Computed<S[K]> };
-  <S extends State = State, Map extends Record<string, keyof S> = Record<string, keyof S>>(namespace: string, map: Map): { [K in keyof Map]: Computed<S[Map[K]]> };
-  <S extends State = State, G extends Getters = Getters, Map extends BaseStateMap<S, G> = BaseStateMap<S, G>>(namespace: string, map: Map): { [K in keyof Map]: Computed<any> };
+  <Key extends keyof State>(namespace: string, map: Key[]): { [K in Key]: Computed<State[K]> };
+  <Map extends Record<string, keyof State>>(namespace: string, map: Map): { [K in keyof Map]: Computed<State[Map[K]]> };
+  <Map extends BaseStateMap<State, Getters>>(namespace: string, map: Map): { [K in keyof Map]: Computed<any> };
 }
 
 /**
  * mapMutations
  */
 interface MapMutations<Mutations> {
-  <M extends Mutations = Mutations, Key extends keyof M = keyof M>(map: Key[]): { [K in Key]: MutationMethod<M[K]> };
-  <M extends Mutations = Mutations, Map extends Record<string, keyof M> = Record<string, keyof M>>(map: Map): { [K in keyof Map]: MutationMethod<M[Map[K]]> };
-  <M extends Mutations = Mutations, Map extends BaseMethodMap<Commit<M>> = BaseMethodMap<Commit<M>>>(map: Map): { [K in keyof Map]: Method<any> };
+  <Key extends keyof Mutations>(map: Key[]): { [K in Key]: MutationMethod<Mutations[K]> };
+  <Map extends Record<string, keyof Mutations>>(map: Map): { [K in keyof Map]: MutationMethod<Mutations[Map[K]]> };
+  <Map extends BaseMethodMap<Commit<Mutations>>>(map: Map): { [K in keyof Map]: Method<any> };
 }
 
 interface RootMapMutations<Mutations> extends MapMutations<Mutations> {
-  <M extends Mutations = Mutations, Key extends keyof M = keyof M>(namespace: string, map: Key[]): { [K in Key]: MutationMethod<M[K]> };
-  <M extends Mutations = Mutations, Map extends Record<string, keyof M> = Record<string, keyof M>>(namespace: string, map: Map): { [K in keyof Map]: MutationMethod<M[Map[K]]> };
-  <M extends Mutations = Mutations, Map extends BaseMethodMap<Commit<M>> = BaseMethodMap<Commit<M>>>(namespace: string, map: Map): { [K in keyof Map]: Method<any> };
+  <Key extends keyof Mutations>(namespace: string, map: Key[]): { [K in Key]: MutationMethod<Mutations[K]> };
+  <Map extends Record<string, keyof Mutations>>(namespace: string, map: Map): { [K in keyof Map]: MutationMethod<Mutations[Map[K]]> };
+  <Map extends BaseMethodMap<Commit<Mutations>>>(namespace: string, map: Map): { [K in keyof Map]: Method<any> };
 }
 
 /**
  * mapActions
  */
 interface MapActions<Actions> {
-  <A extends Actions = Actions, Key extends keyof A = keyof A>(map: Key[]): { [K in Key]: ActionMethod<A[K]> };
-  <A extends Actions = Actions, Map extends Record<string, keyof A> = Record<string, keyof A>>(map: Map): { [K in keyof Map]: ActionMethod<A[Map[K]]> };
-  <A extends Actions = Actions, Map extends BaseMethodMap<Dispatch<A>> = BaseMethodMap<Dispatch<A>>>(map: Map): { [K in keyof Map]: Method<any> };
+  <Key extends keyof Actions>(map: Key[]): { [K in Key]: ActionMethod<Actions[K]> };
+  <Map extends Record<string, keyof Actions>>(map: Map): { [K in keyof Map]: ActionMethod<Actions[Map[K]]> };
+  <Map extends BaseMethodMap<Dispatch<Actions>>>(map: Map): { [K in keyof Map]: Method<any> };
 }
 
 interface RootMapActions<Actions> extends MapActions<Actions> {
-  <A extends Actions = Actions, Key extends keyof A = keyof A>(namespace: string, map: Key[]): { [K in Key]: ActionMethod<A[K]> };
-  <A extends Actions = Actions, Map extends Record<string, keyof A> = Record<string, keyof A>>(namespace: string, map: Map): { [K in keyof Map]: ActionMethod<A[Map[K]]> };
-  <A extends Actions = Actions, Map extends BaseMethodMap<Dispatch<A>> = BaseMethodMap<Dispatch<A>>>(namespace: string, map: Map): { [K in keyof Map]: Method<any> };
+  <Key extends keyof Actions>(namespace: string, map: Key[]): { [K in Key]: ActionMethod<Actions[K]> };
+  <Map extends Record<string, keyof Actions>>(namespace: string, map: Map): { [K in keyof Map]: ActionMethod<Actions[Map[K]]> };
+  <Map extends BaseMethodMap<Dispatch<Actions>>>(namespace: string, map: Map): { [K in keyof Map]: Method<any> };
 }
 
 /**
@@ -96,5 +96,5 @@ export declare const mapGetters: RootMapGetters<BaseType>;
 
 export declare const mapActions: RootMapActions<BaseType>;
 
-export declare function createNamespacedHelpers(namespace: string): NamespacedMappers<BaseType, BaseType, BaseType, BaseType>;
-export declare function createNamespacedHelpers<State, Getters, Mutations, Actions>(namespace: string): NamespacedMappers<State, Getters, Mutations, Actions>;
+export declare function createNamespacedHelpers(namespace?: string): NamespacedMappers<BaseType, BaseType, BaseType, BaseType>;
+export declare function createNamespacedHelpers<State, Getters, Mutations, Actions>(namespace?: string): NamespacedMappers<State, Getters, Mutations, Actions>;

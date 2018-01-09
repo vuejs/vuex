@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import { cartHelpers } from './store/modules/cart'
-import store from './store'
+import store, { rootHelpers } from './store'
 
 new Vue({
   store,
 
   computed: {
+    ...rootHelpers.mapState(['cart']),
     ...cartHelpers.mapState({
       test: (state, getters) => {
         state.added
@@ -24,6 +25,7 @@ new Vue({
   },
 
   created () {
+    this.cart
     this.test
     this.items
     this.checkoutStatus

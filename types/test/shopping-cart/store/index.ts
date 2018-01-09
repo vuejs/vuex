@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../../index'
+import Vuex, { createNamespacedHelpers } from '../../../index'
 import cart, { CartState } from './modules/cart'
 import products, { ProductsState } from './modules/products'
 
@@ -9,6 +9,8 @@ export interface RootState {
   cart: CartState
   products: ProductsState
 }
+
+export const rootHelpers = createNamespacedHelpers<RootState, {}, {}, {}>()
 
 export default new Vuex.Store({
   modules: {
