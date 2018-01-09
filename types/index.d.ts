@@ -51,23 +51,23 @@ export declare function install(Vue: typeof _Vue): void;
 export interface Dispatch<Actions = Record<string, any>, RootActions = Record<string, any>> {
   // Local
   <K extends keyof Actions>(type: K, payload?: Actions[K], options?: LocalDispatchOptions): Promise<any>;
-  <K extends keyof Actions>(payloadWithType: Payload<K, Actions>, options?: LocalDispatchOptions): Promise<any>;
+  <K extends keyof Actions>(payloadWithType: InputPayload<K, Actions>, options?: LocalDispatchOptions): Promise<any>;
 
   // Root
   <K extends keyof RootActions>(type: K, options: RootDispatchOptions): Promise<any>;
   <K extends keyof RootActions>(type: K, payload: RootActions[K], options: RootDispatchOptions): Promise<any>;
-  <K extends keyof RootActions>(payloadWithType: Payload<K, RootActions>, options: RootDispatchOptions): Promise<any>;
+  <K extends keyof RootActions>(payloadWithType: InputPayload<K, RootActions>, options: RootDispatchOptions): Promise<any>;
 }
 
 export interface Commit<Mutations = Record<string, any>, RootMutations = Record<string, any>> {
   // Local
   <K extends keyof Mutations>(type: K, payload?: Mutations[K], options?: LocalCommitOptions): void;
-  <K extends keyof Mutations>(payloadWithType: Payload<K, Mutations>, options?: LocalCommitOptions): void;
+  <K extends keyof Mutations>(payloadWithType: InputPayload<K, Mutations>, options?: LocalCommitOptions): void;
 
   // Root
   <K extends keyof RootMutations>(type: K, options: RootCommitOptions): void;
   <K extends keyof RootMutations>(type: K, payload: RootMutations[K], options: RootCommitOptions): void;
-  <K extends keyof RootMutations>(payloadWithType: Payload<K, RootMutations>, options: RootCommitOptions): void;
+  <K extends keyof RootMutations>(payloadWithType: InputPayload<K, RootMutations>, options: RootCommitOptions): void;
 }
 
 export interface ActionContext<
@@ -88,17 +88,17 @@ export interface ActionContext<
   rootGetters: RG;
 }
 
-export interface BasePayload {
+export interface Payload {
   type: string;
 }
 
-type Payload<K extends keyof P, P> = { type: K } & P[K]
+type InputPayload<K extends keyof P, P> = { type: K } & P[K]
 
-export interface MutationPayload extends BasePayload {
+export interface MutationPayload extends Payload {
   payload: any;
 }
 
-export interface ActionPayload extends BasePayload {
+export interface ActionPayload extends Payload {
   payload: any;
 }
 
