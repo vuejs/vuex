@@ -142,6 +142,7 @@ new Vue({
     this.g(7)
     this.h(8)
     this.i(9)
+    this.a() // should allow 0-argument call if untyped
   }
 })
 
@@ -202,5 +203,6 @@ new Vue({
     this.h(8)
     this.i(9)
     this.otherMethod()
+    this.a() // should allow 0-argument call if untyped
   }
 });
