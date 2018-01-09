@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex, { createNamespacedHelpers } from '../../../index'
-import cart, { CartState } from './modules/cart'
-import products, { ProductsState } from './modules/products'
+import { cart, CartState } from './modules/cart'
+import { products, ProductsState } from './modules/products'
 
 Vue.use(Vuex)
 

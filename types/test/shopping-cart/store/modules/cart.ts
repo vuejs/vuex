@@ -1,4 +1,4 @@
-import { createNamespacedHelpers, DefineGetters, DefineMutations, DefineActions } from '../../../../index'
+import { createNamespacedHelpers, DefineModule } from '../../../../index'
 import * as shop from '../../api/shop'
 import { Product } from './products'
 import { RootState } from '../'
@@ -40,81 +40,77 @@ export interface CartActions {
   addToCart: Product
 }
 
-const state: CartState = {
-  added: [],
-  checkoutStatus: null
-}
-
-const getters: DefineGetters<CartGetters, CartState, {}, RootState> = {
-  checkoutStatus: state => state.checkoutStatus,
-
-  cartProducts (state, getters, rootState, g) {
-    return state.added.map(({ id, quantity }) => {
-      const product = rootState.products.all.find(p => p.id === id)!
-      return {
-        title: product.title,
-        price: product.price,
-        quantity
-      }
-    })
-  }
-}
-
-const actions: DefineActions<CartActions, CartState, CartGetters, CartMutations> = {
-  checkout ({ commit, state }, products) {
-    const savedCartItems = [...state.added]
-    commit('checkoutRequest')
-    shop.buyProducts(
-      products,
-      () => commit('checkoutSuccess'),
-      () => commit('checkoutFailure', { savedCartItems })
-    )
-  },
-
-  addToCart ({ commit }, product) {
-    if (product.inventory > 0) {
-      commit('addToCart', {
-        id: product.id
-      })
-    }
-  }
-}
-
-const mutations: DefineMutations<CartMutations, CartState> = {
-  addToCart (state, { id }) {
-    state.checkoutStatus = null
-    const record = state.added.find(p => p.id === id)
-    if (!record) {
-      state.added.push({
-        id,
-        quantity: 1
-      })
-    } else {
-      record.quantity++
-    }
-  },
-
-  checkoutRequest (state) {
-    state.added = []
-    state.checkoutStatus = null
-  },
-
-  checkoutSuccess (state) {
-    state.checkoutStatus = 'successful'
-  },
-
-  checkoutFailure (state, { savedCartItems }) {
-    state.added = savedCartItems
-    state.checkoutStatus = 'failed'
-  }
-}
-
 export const cartHelpers = createNamespacedHelpers<CartState, CartGetters, CartMutations, CartActions>('cart')
 
-export default {
+export const cart: DefineModule<CartState, CartGetters, CartMutations, CartActions, {}, {}, {}, RootState> = {
   namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
+
+  state: {
+    added: [],
+    checkoutStatus: null
+  },
+
+  getters: {
+    checkoutStatus: state => state.checkoutStatus,
+
+    cartProducts (state, getters, rootState, g) {
+      return state.added.map(({ id, quantity }) => {
+        const product = rootState.products.all.find(p => p.id === id)!
+        return {
+          title: product.title,
+          price: product.price,
+          quantity
+        }
+      })
+    }
+  },
+
+  actions: {
+    checkout ({ commit, state }, products) {
+      const savedCartItems = [...state.added]
+      commit('checkoutRequest')
+      shop.buyProducts(
+        products,
+        () => commit('checkoutSuccess'),
+        () => commit('checkoutFailure', { savedCartItems })
+      )
+    },
+
+    addToCart ({ commit }, product) {
+      if (product.inventory > 0) {
+        commit('addToCart', {
+          id: product.id
+        })
+      }
+    }
+  },
+
+  mutations: {
+    addToCart (state, { id }) {
+      state.checkoutStatus = null
+      const record = state.added.find(p => p.id === id)
+      if (!record) {
+        state.added.push({
+          id,
+          quantity: 1
+        })
+      } else {
+        record.quantity++
+      }
+    },
+
+    checkoutRequest (state) {
+      state.added = []
+      state.checkoutStatus = null
+    },
+
+    checkoutSuccess (state) {
+      state.checkoutStatus = 'successful'
+    },
+
+    checkoutFailure (state, { savedCartItems }) {
+      state.added = savedCartItems
+      state.checkoutStatus = 'failed'
+    }
+  }
 }

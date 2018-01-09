@@ -1,8 +1,8 @@
-import { ActionContext } from './index'
+import { ActionContext, Module } from './index'
 
-/*
- * Type level utilities to annotate types of getters/actions/mutations (module assets).
- * To use the below helpers, the user should declare corresponding assets type at first.
+/**
+ * Type level utility to annotate types of module state/getters/actions/mutations (module assets).
+ * To use this helper, the user should declare corresponding assets type at first.
  *
  * A getters type should be an object that the keys indicate getter names
  * and its corresponding values indicate return types of the getter.
@@ -12,12 +12,29 @@ import { ActionContext } from './index'
  * Its values should be declared as payload types of the actions/mutation.
  *
  * After declare the above types, the user put them on the generic parameters
- * of the utility types. Then the real assets object must follow the passed types
+ * of the utility type. Then the real assets object must follow the passed types
  * and type inference will work.
  *
  * The declared types will be used on mapXXX helpers to safely use module assets
  * by annotating its types.
  */
+export interface DefineModule<
+  State,
+  Getters,
+  Mutations,
+  Actions,
+  ExtraGetters = {},
+  ExtraMutations = {},
+  ExtraActions = {},
+  RootState = {},
+  RootGetters = {},
+  RootMutations = {},
+  RootActions = {}
+> extends Module<State, never> {
+  getters?: DefineGetters<Getters, State, ExtraGetters, RootState, RootGetters>
+  mutations?: DefineMutations<Mutations, State>
+  actions?: DefineActions<Actions, State, Getters, Mutations & ExtraMutations, ExtraActions, RootState, RootGetters, RootMutations, RootActions>
+}
 
 /**
  * Infer getters object type from passed generic types.
@@ -27,7 +44,7 @@ import { ActionContext } from './index'
  * `ExtraGetters` is like `Getters` type but will be not defined in the infered getters object.
  * `RootState` and `RootGetters` are the root module's state and getters type.
  */
-export type DefineGetters<
+type DefineGetters<
   Getters,
   State,
   ExtraGetters = {},
@@ -48,7 +65,7 @@ export type DefineGetters<
  * its corresponding values are payload types of the mutations.
  * `State` is a module state type which will be mutated in the mutations.
  */
-export type DefineMutations<Mutations, State> = {
+type DefineMutations<Mutations, State> = {
   [K in keyof Mutations]: (state: State, payload: Mutations[K]) => void
 }
 
@@ -61,7 +78,7 @@ export type DefineMutations<Mutations, State> = {
  * `ExtraActions` is like `Actions` type but will be not defined in the infered actions object.
  * `RootState`, `RootGetters`, `RootMutations`, `RootActions` are the root module's asset types.
  */
-export type DefineActions<
+type DefineActions<
   Actions,
   State,
   Getters,

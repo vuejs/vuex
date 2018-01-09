@@ -1,4 +1,4 @@
-import { createNamespacedHelpers, DefineGetters, DefineMutations, DefineActions } from '../../../../index'
+import { createNamespacedHelpers, DefineModule } from '../../../../index'
 import * as shop from '../../api/shop'
 
 export interface Product {
@@ -29,38 +29,34 @@ export interface ProductsMutations {
   }
 }
 
-const state: ProductsState = {
-  all: []
-}
-
-const getters: DefineGetters<ProductsGetters, ProductsState> = {
-  allProducts: state => state.all
-}
-
-const actions: DefineActions<ProductsActions, ProductsState, ProductsGetters, ProductsMutations> = {
-  getAllProducts ({ commit }) {
-    shop.getProducts(products => {
-      commit('receiveProducts', { products })
-    })
-  }
-}
-
-const mutations: DefineMutations<ProductsMutations, ProductsState> = {
-  receiveProducts (state, { products }) {
-    state.all = products
-  },
-
-  addToCart (state, { id }) {
-    state.all.find(p => p.id === id)!.inventory--
-  }
-}
-
 export const productsHelpers = createNamespacedHelpers<ProductsState, ProductsGetters, ProductsMutations, ProductsGetters>('products')
 
-export default {
+export const products: DefineModule<ProductsState, ProductsGetters, ProductsMutations, ProductsActions> = {
   namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
+
+  state: {
+    all: []
+  },
+
+  getters: {
+    allProducts: state => state.all
+  },
+
+  actions: {
+    getAllProducts ({ commit }) {
+      shop.getProducts(products => {
+        commit('receiveProducts', { products })
+      })
+    }
+  },
+
+  mutations: {
+    receiveProducts (state, { products }) {
+      state.all = products
+    },
+
+    addToCart (state, { id }) {
+      state.all.find(p => p.id === id)!.inventory--
+    }
+  }
 }

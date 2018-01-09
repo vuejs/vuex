@@ -12,9 +12,7 @@ export {
 } from "./helpers";
 
 export {
-  DefineGetters,
-  DefineMutations,
-  DefineActions
+  DefineModule
 } from './utils'
 
 export declare class Store<S> {
