@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 })
 ```
 
-直接ミューテーションハンドラを呼び出すことはできません。この mutations オプションは、どちらかいうと "タイプが `increment` のミューテーションがトリガーされたときに、このハンドラが呼ばれる" といったイベント登録のようなものです。ミューテーションハンドラを起動するためにはミューテーションのタイプを指定して **store.commit** を呼び出す必要があります:
+直接ミューテーションハンドラを呼び出すことはできません。この mutations オプションは、どちらかいうと "タイプが `increment` のミューテーションがトリガーされたときに、このハンドラが呼ばれる" といったイベント登録のようなものです。ミューテーションハンドラを起動するためにはミューテーションのタイプを指定して `store.commit` を呼び出す必要があります:
 
 ``` js
 store.commit('increment')
@@ -165,13 +165,13 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment', // this.increment() を this.$store.commit('increment') にマッピングする
+      'increment', // `this.increment()` を `this.$store.commit('increment')` にマッピングする
 
       // mapMutations はペイロードサポートする:
-      'incrementBy' // this.incrementBy(amount) を this.$store.commit('incrementBy', amount) にマッピングする
+      'incrementBy' // `this.incrementBy(amount)` を `this.$store.commit('incrementBy', amount)` にマッピングする
     ]),
     ...mapMutations({
-      add: 'increment' // this.add() を this.$store.commit('increment') にマッピングする
+      add: 'increment' // `this.add()` を `this.$store.commit('increment')` にマッピングする
     })
   }
 }

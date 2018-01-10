@@ -12,11 +12,11 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - type: `Object`
+  - type: `Object | Function`
 
-    The root state object for the Vuex store.
+    The root state object for the Vuex store. [Details](state.md)
 
-    [Details](state.md)
+    If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](modules.md#module-reuse)
 
 - **mutations**
 
@@ -34,11 +34,12 @@ const store = new Vuex.Store({ ...options })
 
     ``` js
     {
-      state,     // same as store.state, or local state if in modules
-      rootState, // same as store.state, only in modules
-      commit,    // same as store.commit
-      dispatch,  // same as store.dispatch
-      getters    // same as store.getters
+      state,      // same as `store.state`, or local state if in modules
+      rootState,  // same as `store.state`, only in modules
+      commit,     // same as `store.commit`
+      dispatch,   // same as `store.dispatch`
+      getters,    // same as `store.getters`, or local getters if in modules
+      rootGetters // same as `store.getters`, only in modules
     }
     ```
 
@@ -139,7 +140,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the only argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
   To stop watching, call the returned handle function.
 
@@ -156,9 +157,26 @@ const store = new Vuex.Store({ ...options })
 
   Most commonly used in plugins. [Details](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`subscribeAction(handler: Function)`**
+
+  > New in 2.5.0
+
+  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+
+  ``` js
+  store.subscribeAction((action, state) => {
+    console.log(action.type)
+    console.log(action.payload)
+  })
+  ```
+
+  Most commonly used in plugins. [Details](plugins.md)
+
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+
+  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
@@ -190,6 +208,10 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  Create component methods options that commit a mutation. [Details](mutations.md#commiting-mutations-in-components)
+  Create component methods options that commit a mutation. [Details](mutations.md#committing-mutations-in-components)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+
+- **`createNamespacedHelpers(namespace: string): Object`**
+
+  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](modules.md#binding-helpers-with-namespace)

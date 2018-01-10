@@ -1,11 +1,11 @@
 <template>
   <ul>
-    <li v-for="p in products">
-      {{ p.title }} - {{ p.price | currency }}
+    <li v-for="product in products">
+      {{ product.title }} - {{ product.price | currency }}
       <br>
       <button
-        :disabled="!p.inventory"
-        @click="addToCart(p)">
+        :disabled="!product.inventory"
+        @click="addToCart(product)">
         Add to cart
       </button>
     </li>

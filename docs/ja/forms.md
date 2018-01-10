@@ -21,7 +21,7 @@ computed: {
   })
 },
 methods: {
-  updateMessage: ({ dispatch }, e) => {
+  updateMessage (e) {
     this.$store.commit('updateMessage', e.target.value)
   }
 }

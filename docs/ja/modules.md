@@ -25,8 +25,8 @@ const store = new Vuex.Store({
   }
 })
 
-store.state.a // -> moduleA のステート
-store.state.b // -> moduleB のステート
+store.state.a // -> `moduleA` のステート
+store.state.b // -> `moduleB` のステート
 ```
 
 ### モジュールのローカルステート
@@ -38,7 +38,7 @@ const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // state はモジュールのローカルステート
+      // `state` はモジュールのローカルステート
       state.count++
     }
   },
@@ -206,6 +206,31 @@ methods: {
 }
 ```
 
+さらに、`createNamespacedHelpers` を使用することによって名前空間付けされたヘルパーを作成できます。指定された名前空間の値にバインドされた新しいコンポーネントバインディングヘルパーを持つオブジェクトを返します:
+
+``` js
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+  computed: {
+    // `some/nested/module` を調べます
+    ...mapState({
+      a: state => state.a,
+      b: state => state.b
+    })
+  },
+  methods: {
+    // `some/nested/module` を調べます
+    ...mapActions([
+      'foo',
+      'bar'
+    ])
+  }
+}
+```
+
 #### プラグイン開発者向けの注意事項
 
 モジュールを提供する[プラグイン](plugins.md)を作成し、ユーザーがそれらを Vuex ストアに追加できるようにすると、モジュールの予測できない名前空間が気になるかもしれません。あなたのモジュールは、プラグインユーザーが名前空間付きモジュールの元にモジュールを追加すると、その名前空間に属するようになります。この状況に適応するには、プラグインオプションを使用して名前空間の値を受け取る必要があります。
@@ -240,9 +265,11 @@ store.registerModule(['nested', 'myModule'], {
 
 モジュールのステートには `store.state.myModule` と `store.state.nested.myModule` でアクセスします。
 
-動的なモジュール登録があることで、他の Vue プラグインが、モジュールをアプリケーションのストアに付属させることで、状態の管理に Vuex を活用できることができます。例えば [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) ライブラリは、動的に付属させたモジュール内部でアプリケーションのルーティングのステートを管理することで vue-router と vuex を統合しています。
+動的なモジュール登録があることで、他の Vue プラグインが、モジュールをアプリケーションのストアに付属させることで、状態の管理に Vuex を活用できます。例えば [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) ライブラリは、動的に付属させたモジュール内部でアプリケーションのルーティングのステートを管理することで vue-router と vuex を統合しています。
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
+
+サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション(`store.registerModule('a', module, { preserveState: true })`)でこれを実現できます。
 
 ### モジュールの再利用
 
@@ -251,7 +278,7 @@ store.registerModule(['nested', 'myModule'], {
 - 同じモジュールを使用する複数のストアを作成する;
 - 同じストアに同じモジュールを複数回登録する
 
-モジュールの状態を宣言するために単純なオブジェクトを使用すると、その状態オブジェクトは参照によって共有され、変更時にクロスストア/モジュールの状態汚染を引き起こします。
+モジュールの状態を宣言するために単純なオブジェクトを使用すると、その状態オブジェクトは参照によって共有され、変更時にクロスストア/モジュールの状態汚染を引き起こします。(例: `runInNewContext` オプションが `false` または `'once'` のとき、[SSR ではステートフルなシングルトンは避けます](https://ssr.vuejs.org/ja/structure.html#ステートフルなシングルトンの回避)。)
 
 これは、実際には Vue コンポーネント内部の `data` と全く同じ問題です。従って解決策も同じです。モジュールの状態を宣言するために関数を使用してください (2.3.0 以降でサポートされます):
 

@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### アクションのテスト
  
-アクションは外部の API を呼び出す可能性があるため、ミューテーションのテストよりも少し注意が必要です。アクションをテストするとき、通常、いくつかの段階でモックを作る必要があります。例えば API 呼び出しをサービスとして抽象化し、そしてテストの内部ではそのサービスをモックにすることができます。簡単に依存関係をモック化するために、Webpack と [inject-loader](https://github.com/plasticine/inject-loader) を使ってテストファイルをバンドルすることができます。
+アクションは外部の API を呼び出す可能性があるため、ミューテーションのテストよりも少し注意が必要です。アクションをテストするとき、通常、いくつかの段階でモックを作る必要があります。例えば API 呼び出しをサービスとして抽象化し、そしてテストの内部ではそのサービスをモックにすることができます。簡単に依存関係をモック化するために、webpack と [inject-loader](https://github.com/plasticine/inject-loader) を使ってテストファイルをバンドルすることができます。
 
 非同期なアクションのテストの例:
 
@@ -71,7 +71,7 @@ export const getAllProducts = ({ commit }) => {
 // inline loader のために require 構文を使用する
 // ここでは inject-loader を使って、モック化された依存関係を注入できるようにするモジュールファクトリーを返す
 import { expect } from 'chai'
-const actionsInjector = require('inject!./actions')
+const actionsInjector = require('inject-loader!./actions')
 
 // モックによってモジュールを作成する
 const actions = actionsInjector({
@@ -176,7 +176,7 @@ describe('getters', () => {
 
 ### テストの実行
 
-ミューテーションやアクションが適切に書かれている場合は、適切にモック化された後、テストコードはブラウザの API に直接依存関係を持つことはないでしょう。したがって、単純に Webpack でテストをバンドルでき、それを直接 Node で実行できます。別の方法として、本当のブラウザでテストを実行するためには `mocha-loader` または Karma + `karma-webpack` を使用できます。
+ミューテーションやアクションが適切に書かれている場合は、適切にモック化された後、テストコードはブラウザの API に直接依存関係を持つことはないでしょう。したがって、単純に webpack でテストをバンドルでき、それを直接 Node で実行できます。別の方法として、本当のブラウザでテストを実行するためには `mocha-loader` または Karma + `karma-webpack` を使用できます。
 
 #### Node での実行
 
@@ -212,10 +212,10 @@ mocha test-bundle.js
 #### ブラウザでの実行
 
 1. `mocha-loader` をインストールする
-2. 上記 Webpack 設定から `entry` を `'mocha!babel!./test.js'` に変更する
+2. 上記 webpack 設定から `entry` を `'mocha-loader!babel-loader!./test.js'` に変更する
 3. 設定を使用して `webpack-dev-server` を開始する
 4. ブラウザで `localhost:8080/webpack-dev-server/test-bundle` を開く 
 
 #### Karma + karma-webpack を使ったブラウザでの実行
 
-[vue-loader documentation](http://vue-loader.vuejs.org/en/workflow/testing.html) 内のセットアップ方法を参考にしてください。
+[vue-loader ドキュメント](https://vue-loader.vuejs.org/ja/workflow/testing.html) 内のセットアップ方法を参考にしてください。

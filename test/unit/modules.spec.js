@@ -80,7 +80,6 @@ describe('Modules', () => {
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
     })
-
     it('dynamic module existance test', () => {
       const store = new Vuex.Store({
       })
@@ -91,6 +90,28 @@ describe('Modules', () => {
       expect(store.hasModule('bonjour')).toBe(true)
       store.unregisterModule('bonjour')
       expect(store.hasModule('bonjour')).toBe(false)
+    })
+
+    it('dynamic module registration preserving hydration', () => {
+      const store = new Vuex.Store({})
+      store.replaceState({ a: { foo: 'state' }})
+      const actionSpy = jasmine.createSpy()
+      const mutationSpy = jasmine.createSpy()
+      store.registerModule('a', {
+        namespaced: true,
+        getters: { foo: state => state.foo },
+        actions: { foo: actionSpy },
+        mutations: { foo: mutationSpy }
+      }, { preserveState: true })
+
+      expect(store.state.a.foo).toBe('state')
+      expect(store.getters['a/foo']).toBe('state')
+
+      store.dispatch('a/foo')
+      expect(actionSpy).toHaveBeenCalled()
+
+      store.commit('a/foo')
+      expect(mutationSpy).toHaveBeenCalled()
     })
   })
 
@@ -563,9 +584,66 @@ describe('Modules', () => {
       })
     })
 
+    it('root actions dispatched in namespaced modules', done => {
+      const store = new Vuex.Store({
+        modules: {
+          a: {
+            namespaced: true,
+            actions: {
+              [TEST]: {
+                root: true,
+                handler () {
+                  return 1
+                }
+              }
+            }
+          },
+          b: {
+            namespaced: true,
+            actions: {
+              [TEST]: {
+                root: true,
+                handler () {
+                  return new Promise(r => r(2))
+                }
+              }
+            }
+          },
+          c: {
+            namespaced: true,
+            actions: {
+              [TEST]: {
+                handler () {
+                  // Should not be called
+                  return 3
+                }
+              }
+            }
+          },
+          d: {
+            namespaced: true,
+            actions: {
+              [TEST] () {
+                // Should not be called
+                return 4
+              }
+            }
+          }
+        }
+      })
+      store.dispatch(TEST).then(res => {
+        expect(res.length).toBe(2)
+        expect(res[0]).toBe(1)
+        expect(res[1]).toBe(2)
+        done()
+      })
+    })
+
     it('plugins', function () {
       let initState
+      const actionSpy = jasmine.createSpy()
       const mutations = []
+      const subscribeActionSpy = jasmine.createSpy()
       const store = new Vuex.Store({
         state: {
           a: 1
@@ -575,21 +653,31 @@ describe('Modules', () => {
             state.a += n
           }
         },
+        actions: {
+          [TEST]: actionSpy
+        },
         plugins: [
           store => {
             initState = store.state
             store.subscribe((mut, state) => {
-              expect(state).toBe(store.state)
+              expect(state).toBe(state)
               mutations.push(mut)
             })
+            store.subscribeAction(subscribeActionSpy)
           }
         ]
       })
       expect(initState).toBe(store.state)
       store.commit(TEST, 2)
+      store.dispatch(TEST, 2)
       expect(mutations.length).toBe(1)
       expect(mutations[0].type).toBe(TEST)
       expect(mutations[0].payload).toBe(2)
+      expect(actionSpy).toHaveBeenCalled()
+      expect(subscribeActionSpy).toHaveBeenCalledWith(
+        { type: TEST, payload: 2 },
+        store.state
+      )
     })
   })
 
@@ -631,7 +719,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /actions should be function but "actions\.test" is "test"/
+      /actions should be function or object with "handler" function but "actions\.test" is "test"/
     )
 
     expect(() => {
@@ -649,7 +737,7 @@ describe('Modules', () => {
         }
       })
     }).toThrowError(
-      /actions should be function but "actions\.test" in module "foo\.bar" is "error"/
+      /actions should be function or object with "handler" function but "actions\.test" in module "foo\.bar" is "error"/
     )
   })
 

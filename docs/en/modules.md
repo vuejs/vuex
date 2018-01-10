@@ -206,6 +206,31 @@ methods: {
 }
 ```
 
+Furthermore, you can create namespaced helpers by using `createNamespacedHelpers`. It returns an object having new component binding helpers that are bound with the given namespace value:
+
+``` js
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+  computed: {
+    // look up in `some/nested/module`
+    ...mapState({
+      a: state => state.a,
+      b: state => state.b
+    })
+  },
+  methods: {
+    // look up in `some/nested/module`
+    ...mapActions([
+      'foo',
+      'bar'
+    ])
+  }
+}
+```
+
 #### Caveat for Plugin Developers
 
 You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
@@ -243,6 +268,8 @@ The module's state will be exposed as `store.state.myModule` and `store.state.ne
 Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
 
 You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+
+It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can do achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
 
 ### Module Reuse
 

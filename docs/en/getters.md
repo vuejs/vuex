@@ -68,7 +68,7 @@ You can also pass arguments to getters by returning a function. This is particul
 ```js
 getters: {
   // ...
-  getTodoById: (state, getters) => (id) => {
+  getTodoById: (state) => (id) => {
     return state.todos.find(todo => todo.id === id)
   }
 }
@@ -77,7 +77,6 @@ getters: {
 ``` js
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
-
 
 ### The `mapGetters` Helper
 

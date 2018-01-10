@@ -1,4 +1,4 @@
-import Vue = require("vue");
+import Vue from "vue";
 import * as Vuex from "../index";
 import createLogger from "../../dist/logger";
 
@@ -35,6 +35,13 @@ namespace StoreInstance {
 
   store.subscribe((mutation, state) => {
     mutation.type;
+    mutation.payload;
+    state.value;
+  });
+
+  store.subscribeAction((mutation, state) => {
+    mutation.type;
+    mutation.payload;
     state.value;
   });
 
@@ -43,6 +50,30 @@ namespace StoreInstance {
 
 namespace RootModule {
   const store = new Vuex.Store({
+    state: {
+      value: 0
+    },
+    getters: {
+      count: state => state.value,
+      plus10: (_, { count }) => count + 10
+    },
+    actions: {
+      foo ({ state, getters, dispatch, commit }, payload) {
+        state.value;
+        getters.count;
+        dispatch("bar", {});
+        commit("bar", {});
+      }
+    },
+    mutations: {
+      bar (state, payload) {}
+    },
+    strict: true
+  });
+}
+
+namespace RootDefaultModule {
+  const store = new Vuex.default.Store({
     state: {
       value: 0
     },
@@ -137,6 +168,19 @@ namespace NamespacedModule {
       a: {
         namespaced: true,
         state: { value: 1 },
+        actions: {
+          test: {
+            root: true,
+            handler ({ dispatch }) {
+              dispatch('foo')
+            }
+          },
+          test2: {
+            handler ({ dispatch }) {
+              dispatch('foo')
+            }
+          }
+        },
         modules: {
           b: {
             state: { value: 2 }
@@ -198,6 +242,10 @@ namespace RegisterModule {
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   });
+
+  store.registerModule(["a", "b"], {
+    state: { value: 2 }
+  }, { preserveState: true });
 
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");

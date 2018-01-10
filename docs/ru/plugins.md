@@ -7,7 +7,7 @@ const myPlugin = store => {
   // вызывается после инициализации хранилища
   store.subscribe((mutation, state) => {
     // вызывается после каждой мутации
-    // мутация передаётся в формате { type, payload }.
+    // мутация передаётся в формате `{ type, payload }`.
   })
 }
 ```
@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 
 Плагинам не разрешается напрямую изменять состояние приложения — как и компоненты, они могут только вызывать изменения опосредованно, используя мутации.
 
-Вызывая мутации, плагин может синхронизировать источник данных с хранилищем данных в приложении. Например, для синхронизации хранилища с вебсокетом (пример намеренно упрощён, в реальной ситуации у `createPlugin` были бы дополнительные опции):
+Вызывая мутации, плагин может синхронизировать источник данных с хранилищем данных в приложении. Например, для синхронизации хранилища с веб-сокетом (пример намеренно упрощён, в реальной ситуации у `createPlugin` были бы дополнительные опции):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -62,7 +62,7 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // сравнение prevState и nextState...
+    // сравнение `prevState` и `nextState`...
 
     // сохранение состояния для следующей мутации
     prevState = nextState
@@ -70,7 +70,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**Плагины, снимающие слепки, должны использоваться только на этапе разработки.** При использовании Webpack или Browserify, мы можем отдать этот момент на их откуп:
+**Плагины, снимающие слепки, должны использоваться только на этапе разработки.** При использовании webpack или Browserify, мы можем отдать этот момент на их откуп:
 
 ``` js
 const store = new Vuex.Store({
@@ -81,7 +81,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) для Webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
+Плагин будет использоваться по умолчанию. В production-окружении вам понадобится [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) для webpack, или [envify](https://github.com/hughsk/envify) для Browserify, чтобы изменить значение `process.env.NODE_ENV !== 'production'` на `false` в финальной сборке.
 
 ### Встроенный плагин логирования
 
@@ -103,8 +103,8 @@ const store = new Vuex.Store({
 const logger = createLogger({
   collapsed: false, // автоматически раскрывать залогированные мутации
   filter (mutation, stateBefore, stateAfter) {
-    // возвращает true если мутация должна быть залогирована
-    // `mutation` это объект { type, payload }
+    // возвращает `true`, если мутация должна быть залогирована
+    // `mutation` — это объект `{ type, payload }`
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
@@ -113,13 +113,14 @@ const logger = createLogger({
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // мутации логируются в формате { type, payload },
+    // мутации логируются в формате `{ type, payload }`,
     // но это можно изменить
     return mutation.type
-  }
+  },
+  logger: console, // реализация API `console`, по умолчанию `console`
 })
 ```
 
-Логирующий плагин можно включить также и используя отдельный тег `<script>`, помещающий функцию `createVuexLogger` в глобальное пространство имён.
+Логирующий плагин также можно включить напрямую используя отдельный тег `<script>`, помещающий функцию `createVuexLogger` в глобальное пространство имён.
 
 Обратите внимание, что этот плагин делает слепки состояний, поэтому использовать его стоит только на этапе разработки.

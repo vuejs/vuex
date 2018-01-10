@@ -7,6 +7,13 @@ let Vue // bind on install
 
 export class Store {
   constructor (options = {}) {
+    // Auto install if it is not done yet and `window` has `Vue`.
+    // To allow users to avoid auto-installation in some cases,
+    // this code should be placed here. See #731
+    if (!Vue && typeof window !== 'undefined' && window.Vue) {
+      install(window.Vue)
+    }
+
     if (process.env.NODE_ENV !== 'production') {
       assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
@@ -18,16 +25,10 @@ export class Store {
       strict = false
     } = options
 
-    let {
-      state = {}
-    } = options
-    if (typeof state === 'function') {
-      state = state()
-    }
-
     // store internal state
     this._committing = false
     this._actions = Object.create(null)
+    this._actionSubscribers = []
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
     this._modules = new ModuleCollection(options)
@@ -48,6 +49,8 @@ export class Store {
     // strict mode
     this.strict = strict
 
+    const state = this._modules.root.state
+
     // init root module.
     // this also recursively registers all sub-modules
     // and collects all module getters inside this._wrappedGetters
@@ -58,7 +61,11 @@ export class Store {
     resetStoreVM(this, state)
 
     // apply plugins
-    plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
+    plugins.forEach(plugin => plugin(this))
+
+    if (Vue.config.devtools) {
+      devtoolPlugin(this)
+    }
   }
 
   get state () {
@@ -112,6 +119,7 @@ export class Store {
       payload
     } = unifyObjectStyle(_type, _payload)
 
+    const action = { type, payload }
     const entry = this._actions[type]
     if (!entry) {
       if (process.env.NODE_ENV !== 'production') {
@@ -119,22 +127,20 @@ export class Store {
       }
       return
     }
+
+    this._actionSubscribers.forEach(sub => sub(action, this.state))
+
     return entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
   }
 
   subscribe (fn) {
-    const subs = this._subscribers
-    if (subs.indexOf(fn) < 0) {
-      subs.push(fn)
-    }
-    return () => {
-      const i = subs.indexOf(fn)
-      if (i > -1) {
-        subs.splice(i, 1)
-      }
-    }
+    return genericSubscribe(fn, this._subscribers)
+  }
+
+  subscribeAction (fn) {
+    return genericSubscribe(fn, this._actionSubscribers)
   }
 
   watch (getter, cb, options) {
@@ -150,7 +156,7 @@ export class Store {
     })
   }
 
-  registerModule (path, rawModule) {
+  registerModule (path, rawModule, options = {}) {
     if (typeof path === 'string') path = [path]
 
     if (process.env.NODE_ENV !== 'production') {
@@ -159,7 +165,7 @@ export class Store {
     }
 
     this._modules.register(path, rawModule)
-    installModule(this, this.state, path, this._modules.get(path))
+    installModule(this, this.state, path, this._modules.get(path), options.preserveState)
     // reset store to update getters...
     resetStoreVM(this, this.state)
   }
@@ -199,6 +205,18 @@ export class Store {
     this._committing = true
     fn()
     this._committing = committing
+  }
+}
+
+function genericSubscribe (fn, subs) {
+  if (subs.indexOf(fn) < 0) {
+    subs.push(fn)
+  }
+  return () => {
+    const i = subs.indexOf(fn)
+    if (i > -1) {
+      subs.splice(i, 1)
+    }
   }
 }
 
@@ -286,8 +304,9 @@ function installModule (store, rootState, path, module, hot) {
   })
 
   module.forEachAction((action, key) => {
-    const namespacedType = namespace + key
-    registerAction(store, namespacedType, action, local)
+    const type = action.root ? key : namespace + key
+    const handler = action.handler || action
+    registerAction(store, type, handler, local)
   })
 
   module.forEachGetter((getter, key) => {
@@ -383,14 +402,14 @@ function makeLocalGetters (store, namespace) {
 function registerMutation (store, type, handler, local) {
   const entry = store._mutations[type] || (store._mutations[type] = [])
   entry.push(function wrappedMutationHandler (payload) {
-    handler(local.state, payload)
+    handler.call(store, local.state, payload)
   })
 }
 
 function registerAction (store, type, handler, local) {
   const entry = store._actions[type] || (store._actions[type] = [])
   entry.push(function wrappedActionHandler (payload, cb) {
-    let res = handler({
+    let res = handler.call(store, {
       dispatch: local.dispatch,
       commit: local.commit,
       getters: local.getters,
@@ -458,7 +477,7 @@ function unifyObjectStyle (type, payload, options) {
 }
 
 export function install (_Vue) {
-  if (Vue) {
+  if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(
         '[vuex] already installed. Vue.use(Vuex) should be called only once.'
@@ -468,9 +487,4 @@ export function install (_Vue) {
   }
   Vue = _Vue
   applyMixin(Vue)
-}
-
-// auto install in dist mode
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
 }
