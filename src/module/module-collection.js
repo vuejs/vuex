@@ -94,7 +94,7 @@ export default class ModuleCollection {
  * @param {Object} newModule - customized by developer
  * @return {Void}
  */
-function updateModule (path, targetModule, newModule) {
+export function updateModule (path, targetModule, newModule) {
   if (process.env.NODE_ENV !== 'production') {
     assertRawModule(path, newModule)
   }
@@ -146,7 +146,7 @@ const assertTypes = {
  * @param {Object} rawModule - customized by developer
  * @return {Void}
  */
-function assertRawModule (path, rawModule) {
+export function assertRawModule (path, rawModule) {
   Object.keys(assertTypes).forEach(key => {
     if (!rawModule[key]) return
 
@@ -169,7 +169,7 @@ function assertRawModule (path, rawModule) {
  * @param {String} value - Value of special attribute in module's `getters`, `mutations` or `actions`
  * @param {String} expected - Expected string for assert
  */
-function makeAssertionMessage (path, key, type, value, expected) {
+export function makeAssertionMessage (path, key, type, value, expected) {
   let buf = `${key} should be ${expected} but "${key}.${type}"`
   if (path.length > 0) {
     buf += ` in module "${path.join('.')}"`
