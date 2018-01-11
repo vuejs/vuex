@@ -77,7 +77,7 @@ export interface CommitOptions {
 }
 
 export interface StoreOptions<S> {
-  state?: S;
+  state?: S | (() => S);
   getters?: GetterTree<S, S>;
   actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
