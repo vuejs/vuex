@@ -10,7 +10,8 @@
     "dist",
     "types/index.d.ts",
     "types/helpers.d.ts",
-    "types/vue.d.ts"
+    "types/vue.d.ts",
+    "types/utils.d.ts"
   ],
   "scripts": {
     "dev": "node examples/server.js",
