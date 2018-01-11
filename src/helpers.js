@@ -112,7 +112,7 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
 /**
  * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
  * If the namespace is not specified, it returns the root mapXXX helpers.
- * This behavior is convenient to annotate strict types for mapXXX helpers.
+ * This is mainly for TypeScript users to annotate root helper's type.
  * @param {String} [namespace]
  * @return {Object}
  */
