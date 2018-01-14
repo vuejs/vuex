@@ -3,17 +3,17 @@
     <h1>Shopping Cart Example</h1>
     <hr>
     <h2>Products</h2>
-    <product-list></product-list>
+    <ProductList/>
     <hr>
-    <cart></cart>
+    <ShoppingCart/>
   </div>
 </template>
 
 <script>
 import ProductList from './ProductList.vue'
-import Cart from './Cart.vue'
+import ShoppingCart from './ShoppingCart.vue'
 
 export default {
-  components: { ProductList, Cart }
+  components: { ProductList, ShoppingCart }
 }
 </script>
