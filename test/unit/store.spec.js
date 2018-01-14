@@ -1,8 +1,84 @@
 import Vue from 'vue/dist/vue.common.js'
+// with vuex
 import Vuex from '../../dist/vuex.common.js'
+// without vuex
+import BaseVue from 'vue/dist/vue.js'
+import { unifyObjectStyle, getNestedState, install } from '../../src/store'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
+
+describe('Basic function', () => {
+  it('unifyObjectStyle function', () => {
+    expect(unifyObjectStyle('submit', {name: 'vuex'}, {op1: 1, op2: 2})).toEqual({type: 'submit', payload: {name: 'vuex'}, options: {op1: 1, op2: 2}})
+    
+    expect(unifyObjectStyle({type: 'submit', name: 'vuex'}, {op1: 1, op2: 2})).toEqual({type: 'submit', payload: {type: 'submit', name: 'vuex'}, options: {op1: 1, op2: 2}})
+    
+    expect(unifyObjectStyle.bind(null, {type: 12, name: 'vuex'}, {op1: 1, op2: 2})).toThrow(new Error('[vuex] Expects string as the type, but found number.'))
+  });  
+  
+  it('getNestedState function', () => {
+    const a = {
+      name: 'a',
+      age: 12
+    }
+    
+    const b = {
+      a: a,
+      name: 'b',
+      age: 23
+    }
+
+    const state = {
+      name: "vuex",
+      age: 3,
+      b: b
+    }
+    
+    expect(getNestedState(state, [])).toEqual(state)
+    expect(getNestedState(state, ['b'])).toEqual(b)
+    expect(getNestedState(state, ['b', 'a'])).toEqual(a)
+    expect(getNestedState(state, ['name'])).toEqual('vuex')
+  })
+
+  it('install function', () => {
+    // before install
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        mutation1: () => {},
+        mutation2: () => {}
+      },
+      getters: {
+        getter1: () => {},
+        getter2: () => {}
+      }
+    })
+
+    const vue1 = new BaseVue({
+      attr1: {
+        start: true
+      },
+      store: store
+    })
+    
+    expect(vue1.$store).toEqual(undefined)
+
+    // after install
+    install(Vue)
+    
+    const vue2 = new Vue({
+      attr1: {
+        start: true
+      },
+      store: store
+    })
+    expect(vue2.$store).toEqual(store)
+  })
+})
+
 
 describe('Store', () => {
   it('committing mutations', () => {

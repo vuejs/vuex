@@ -446,13 +446,14 @@ function enableStrictMode (store) {
   }, { deep: true, sync: true })
 }
 
-function getNestedState (state, path) {
+export function getNestedState (state, path) {
   return path.length
     ? path.reduce((state, key) => state[key], state)
     : state
 }
 
-function unifyObjectStyle (type, payload, options) {
+// Unfiy Object Style
+export function unifyObjectStyle (type, payload, options) {
   if (isObject(type) && type.type) {
     options = payload
     payload = type
@@ -466,6 +467,8 @@ function unifyObjectStyle (type, payload, options) {
   return { type, payload, options }
 }
 
+
+// inject store to Vue hook
 export function install (_Vue) {
   if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
