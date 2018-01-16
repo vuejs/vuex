@@ -438,7 +438,7 @@ function registerGetter (store, type, rawGetter, local) {
   }
 }
 
-function enableStrictMode (store) {
+export function enableStrictMode (store) {
   store._vm.$watch(function () { return this._data.$$state }, () => {
     if (process.env.NODE_ENV !== 'production') {
       assert(store._committing, `Do not mutate vuex store state outside mutation handlers.`)

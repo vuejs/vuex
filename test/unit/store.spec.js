@@ -3,7 +3,7 @@ import Vue from 'vue/dist/vue.common.js'
 import Vuex from '../../dist/vuex.common.js'
 // without vuex
 import BaseVue from 'vue/dist/vue.js'
-import { unifyObjectStyle, getNestedState, install } from '../../src/store'
+import { unifyObjectStyle, getNestedState, install, enableStrictMode } from '../../src/store'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
@@ -76,6 +76,33 @@ describe('Basic function', () => {
       store: store
     })
     expect(vue2.$store).toEqual(store)
+  })
+
+  it('enableStrictMode', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: 1
+      },
+      mutations: {
+        mutation1: () => {},
+        mutation2: () => {}
+      },
+      getters: {
+        getter1: () => {},
+        getter2: () => {}
+      }
+    })
+    
+    function change() {
+      // different object
+      store.state.a = new String('cool')
+    }
+    
+    expect(change()).toEqual(undefined)
+    
+    enableStrictMode(store)
+    
+    expect(change.bind(null)).toThrow(new Error('[vuex] Do not mutate vuex store state outside mutation handlers.'))
   })
 })
 
