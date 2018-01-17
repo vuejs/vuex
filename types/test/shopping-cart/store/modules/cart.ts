@@ -28,8 +28,8 @@ export interface CartMutations {
   addToCart: {
     id: number
   },
-  checkoutRequest: null,
-  checkoutSuccess: null,
+  checkoutRequest: undefined,
+  checkoutSuccess: undefined,
   checkoutFailure: {
     savedCartItems: AddedItem[]
   }
@@ -68,10 +68,10 @@ export const cart: DefineModule<CartState, CartGetters, CartMutations, CartActio
   actions: {
     checkout ({ commit, state }, products) {
       const savedCartItems = [...state.added]
-      commit('checkoutRequest', null)
+      commit('checkoutRequest', undefined)
       shop.buyProducts(
         products,
-        () => commit('checkoutSuccess', null),
+        () => commit('checkoutSuccess', undefined),
         () => commit('checkoutFailure', { savedCartItems })
       )
     },

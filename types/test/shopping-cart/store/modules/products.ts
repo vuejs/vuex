@@ -17,7 +17,7 @@ export interface ProductsGetters {
 }
 
 export interface ProductsActions {
-  getAllProducts: null
+  getAllProducts: undefined
 }
 
 export interface ProductsMutations {
