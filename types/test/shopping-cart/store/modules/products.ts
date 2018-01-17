@@ -29,7 +29,7 @@ export interface ProductsMutations {
   }
 }
 
-export const productsHelpers = createNamespacedHelpers<ProductsState, ProductsGetters, ProductsMutations, ProductsGetters>('products')
+export const productsHelpers = createNamespacedHelpers<ProductsState, ProductsGetters, ProductsMutations, ProductsActions>('products')
 
 export const products: DefineModule<ProductsState, ProductsGetters, ProductsMutations, ProductsActions> = {
   namespaced: true,
