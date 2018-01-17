@@ -1,4 +1,4 @@
-import { ActionContext, Module } from './index'
+import { StrictActionContext, Module } from './index'
 
 /**
  * Type level utility to annotate types of module state/getters/actions/mutations (module assets).
@@ -90,7 +90,7 @@ export type DefineActions<
   RootActions = {}
 > = {
   [K in keyof Actions]: (
-    ctx: ActionContext<State, RootState, Getters, RootGetters, Mutations, RootMutations, Actions & ExtraActions, RootActions>,
+    ctx: StrictActionContext<State, RootState, Getters, RootGetters, Mutations, RootMutations, Actions & ExtraActions, RootActions>,
     payload: Actions[K]
   ) => Promise<any> | void
 }

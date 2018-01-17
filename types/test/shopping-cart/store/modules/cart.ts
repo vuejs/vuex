@@ -68,10 +68,10 @@ export const cart: DefineModule<CartState, CartGetters, CartMutations, CartActio
   actions: {
     checkout ({ commit, state }, products) {
       const savedCartItems = [...state.added]
-      commit('checkoutRequest')
+      commit('checkoutRequest', null)
       shop.buyProducts(
         products,
-        () => commit('checkoutSuccess'),
+        () => commit('checkoutSuccess', null),
         () => commit('checkoutFailure', { savedCartItems })
       )
     },

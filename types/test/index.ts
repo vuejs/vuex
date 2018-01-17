@@ -14,12 +14,14 @@ namespace StoreInstance {
   store.state.value;
   store.getters.foo;
 
+  store.dispatch("foo");
   store.dispatch("foo", { amount: 1 }).then(() => {});
   store.dispatch({
     type: "foo",
     amount: 1
   }).then(() => {});
 
+  store.commit("foo");
   store.commit("foo", { amount: 1 });
   store.commit({
     type: "foo",
