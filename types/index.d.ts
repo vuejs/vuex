@@ -117,7 +117,10 @@ export interface ActionContext<
   RM = Record<string, any>,
   A = Record<string, any>,
   RA = Record<string, any>
-> extends StrictActionContext<S, RS, G, RG, M, RM, A, RA> {}
+> extends StrictActionContext<S, RS, G, RG, M, RM, A, RA> {
+  dispatch: Dispatch<A, RA>;
+  commit: Commit<M, RM>;
+}
 
 export interface Payload {
   type: string;

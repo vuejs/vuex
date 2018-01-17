@@ -63,8 +63,18 @@ namespace RootModule {
       foo ({ state, getters, dispatch, commit }, payload) {
         state.value;
         getters.count;
-        dispatch("bar", {});
-        commit("bar", {});
+        dispatch("bar");
+        dispatch("bar", { value: 1 });
+        dispatch({
+          type: "bar",
+          value: 1
+        });
+        commit("bar");
+        commit("bar", { value: 1 });
+        commit({
+          type: "bar",
+          value: 1
+        });
       }
     },
     mutations: {
