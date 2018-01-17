@@ -52,7 +52,7 @@ export declare function install(Vue: typeof _Vue): void;
 /**
  * Strict version of dispatch type. It always requires a payload.
  */
-interface StrictDispatch<Actions = Record<string, any>, RootActions = Record<string, any>> {
+interface StrictDispatch<Actions, RootActions> {
   // Local
   <K extends keyof Actions>(type: K, payload: Actions[K], options?: LocalDispatchOptions): Promise<any>;
   <K extends keyof Actions>(payloadWithType: InputPayload<K, Actions>, options?: LocalDispatchOptions): Promise<any>;
@@ -65,7 +65,7 @@ interface StrictDispatch<Actions = Record<string, any>, RootActions = Record<str
 /**
  * Strict version of commit type. It always requires a payload.
  */
-interface StrictCommit<Mutations = Record<string, any>, RootMutations = Record<string, any>> {
+interface StrictCommit<Mutations, RootMutations> {
   // Local
   <K extends keyof Mutations>(type: K, payload: Mutations[K], options?: LocalCommitOptions): void;
   <K extends keyof Mutations>(payloadWithType: InputPayload<K, Mutations>, options?: LocalCommitOptions): void;
