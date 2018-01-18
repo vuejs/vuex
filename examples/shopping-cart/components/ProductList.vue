@@ -5,7 +5,7 @@
       <br>
       <button
         :disabled="!product.inventory"
-        @click="addToCart(product)">
+        @click="addProductToCart(product)">
         Add to cart
       </button>
     </li>
@@ -20,7 +20,7 @@ export default {
     products: 'allProducts'
   }),
   methods: mapActions([
-    'addToCart'
+    'addProductToCart'
   ]),
   created () {
     this.$store.dispatch('getAllProducts')

@@ -1,5 +1,4 @@
 import shop from '../../api/shop'
-import * as types from '../mutation-types'
 
 // initial state
 // shape: [{ id, quantity }]
@@ -34,16 +33,16 @@ const getters = {
 const actions = {
   checkout ({ commit, state }, products) {
     const savedCartItems = [...state.added]
-    commit(types.SET_CHECKOUT_STATUS, null)
+    commit('setCheckoutStatus', null)
     // empty cart
-    commit(types.SET_CART_ITEMS, { items: [] })
+    commit('setCartItems', { items: [] })
     shop.buyProducts(
       products,
-      () => commit(types.SET_CHECKOUT_STATUS, 'successful'),
+      () => commit('setCheckoutStatus', 'successful'),
       () => {
-        commit(types.SET_CHECKOUT_STATUS, 'failed')
+        commit('setCheckoutStatus', 'failed')
         // rollback to the cart saved before sending the request
-        commit(types.SET_CART_ITEMS, { items: savedCartItems })
+        commit('setCartItems', { items: savedCartItems })
       }
     )
   }
@@ -51,7 +50,7 @@ const actions = {
 
 // mutations
 const mutations = {
-  [types.ADD_TO_CART] (state, { id }) {
+  addProductToCart (state, { id }) {
     state.checkoutStatus = null
     const record = state.added.find(product => product.id === id)
     if (!record) {
@@ -64,11 +63,11 @@ const mutations = {
     }
   },
 
-  [types.SET_CART_ITEMS] (state, { items }) {
+  setCartItems (state, { items }) {
     state.added = items
   },
 
-  [types.SET_CHECKOUT_STATUS] (state, status) {
+  setCheckoutStatus (state, status) {
     state.checkoutStatus = status
   }
 }
