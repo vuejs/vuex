@@ -128,35 +128,28 @@ export interface ActionPayload extends Payload {
   payload: any;
 }
 
-interface BaseDispatchOptions {}
-
-interface LocalDispatchOptions extends BaseDispatchOptions {
-  root?: false
+interface LocalDispatchOptions extends DispatchOptions {
+  root?: false;
 }
 
-interface RootDispatchOptions extends BaseDispatchOptions {
-  root: true
+interface RootDispatchOptions extends DispatchOptions {
+  root: true;
 }
 
-interface BaseCommitOptions {
-  silent?: boolean
+interface LocalCommitOptions extends CommitOptions {
+  root?: false;
 }
 
-interface LocalCommitOptions extends BaseCommitOptions {
-  root?: false
+interface RootCommitOptions extends CommitOptions {
+  root: true;
 }
 
-interface RootCommitOptions extends BaseCommitOptions {
-  root: true
-}
-
-// Leave for backward compatibility
-export interface DispatchOptions extends BaseDispatchOptions {
+export interface DispatchOptions {
   root?: boolean;
 }
 
-// Leave for backward compatibility
-export interface CommitOptions extends BaseCommitOptions {
+export interface CommitOptions {
+  silent?: boolean;
   root?: boolean;
 }
 
