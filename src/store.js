@@ -389,14 +389,14 @@ function makeLocalGetters (store, namespace) {
   return gettersProxy
 }
 
-function registerMutation (store, type, handler, local) {
+export function registerMutation (store, type, handler, local) {
   const entry = store._mutations[type] || (store._mutations[type] = [])
   entry.push(function wrappedMutationHandler (payload) {
     handler.call(store, local.state, payload)
   })
 }
 
-function registerAction (store, type, handler, local) {
+export function registerAction (store, type, handler, local) {
   const entry = store._actions[type] || (store._actions[type] = [])
   entry.push(function wrappedActionHandler (payload, cb) {
     let res = handler.call(store, {
@@ -421,13 +421,15 @@ function registerAction (store, type, handler, local) {
   })
 }
 
-function registerGetter (store, type, rawGetter, local) {
+// Pass some arguments to rawGetter and wrap it in and named function
+export function registerGetter (store, type, rawGetter, local) {
   if (store._wrappedGetters[type]) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(`[vuex] duplicate getter key: ${type}`)
     }
     return
   }
+
   store._wrappedGetters[type] = function wrappedGetter (store) {
     return rawGetter(
       local.state, // local state
@@ -466,7 +468,6 @@ export function unifyObjectStyle (type, payload, options) {
 
   return { type, payload, options }
 }
-
 
 // inject store to Vue hook
 export function install (_Vue) {
