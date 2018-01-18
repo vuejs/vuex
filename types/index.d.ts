@@ -80,11 +80,7 @@ interface StrictCommit<Mutations, RootMutations> {
  * since type checker cannot detect whether omitting payload is safe or not.
  */
 export interface Dispatch<Actions = Record<string, any>, RootActions = Record<string, any>> extends StrictDispatch<Actions, RootActions> {
-  // Local
   <K extends keyof Actions>(type: K): Promise<any>;
-
-  // Root
-  <K extends keyof RootActions>(type: K, options: RootDispatchOptions): Promise<any>;
 }
 
 /**
@@ -92,11 +88,7 @@ export interface Dispatch<Actions = Record<string, any>, RootActions = Record<st
  * since type checker cannot detect whether omitting payload is safe or not.
  */
 export interface Commit<Mutations = Record<string, any>, RootMutations = Record<string, any>> extends StrictCommit<Mutations, RootMutations> {
-  // Local
   <K extends keyof Mutations>(type: K): void;
-
-  // Root
-  <K extends keyof RootMutations>(type: K, options: RootCommitOptions): void;
 }
 
 export interface StrictActionContext<S, RS, G, RG, M, RM, A, RA> {
