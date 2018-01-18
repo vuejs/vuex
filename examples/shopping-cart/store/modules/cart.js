@@ -45,22 +45,34 @@ const actions = {
         commit('setCartItems', { items: savedCartItems })
       }
     )
+  },
+
+  addProductToCart ({ state, commit }, product) {
+    commit('setCheckoutStatus', null)
+    if (product.inventory > 0) {
+      const cartItem = state.added.find(item => item.id === product.id)
+      if (!cartItem) {
+        commit('pushProductToCart', { id: product.id })
+      } else {
+        commit('incrementItemQuantity', cartItem)
+      }
+      // remove 1 item from stock
+      commit('decrementProductInventory', { id: product.id })
+    }
   }
 }
 
 // mutations
 const mutations = {
-  addProductToCart (state, { id }) {
-    state.checkoutStatus = null
-    const record = state.added.find(product => product.id === id)
-    if (!record) {
-      state.added.push({
-        id,
-        quantity: 1
-      })
-    } else {
-      record.quantity++
-    }
+  pushProductToCart (state, { id }) {
+    state.added.push({
+      id,
+      quantity: 1
+    })
+  },
+
+  incrementItemQuantity (state, cartItem) {
+    cartItem.quantity++
   },
 
   setCartItems (state, { items }) {
