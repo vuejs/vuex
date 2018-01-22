@@ -40,7 +40,7 @@ The getters type describes what getter names exist in the module according to ke
 
 Both the actions and mutations type describe what thier names exist in the module as same as getters type. The value type of them indicates the payload type. The `CounterMutations` illustrates that the module has `increment` mutation and its payload is an object having `amount` property of type `number`, while the `CounterActions` shows there is `incrementAsync` action with an object payload having `amount` and `delay` property of type `number` in the module.
 
-After declare the module assets types, you import `DefineModule` utility type and annotate the module with it:
+After declaring the module assets types, you import `DefineModule` utility type and annotate the module with it:
 
 ```ts
 import { DefineModule } from 'vuex'
@@ -77,7 +77,7 @@ export const counter: DefineModule<CounterState, CounterGetters, CounterMutation
 }
 ```
 
-Note that all function arguments types are infered without manually annotating them including `dispatch` and `commit` in the action context. If you try to dispach an action (commit a mutation) that does not exist or the payload type is not valid on the declared types, it throws a compilation error:
+Note that all function arguments types are inferred without manually annotating them including `dispatch` and `commit` in the action context. If you try to dispach an action (commit a mutation) that does not exist or the payload type is not valid on the declared types, it throws a compilation error.
 
 ### Using external modules in the same namespace
 
@@ -206,7 +206,7 @@ const rootHelpers = createNamespacedHelpers<RootState, RootGetters, RootMutation
 
 ## Explicit Payload
 
-While regular (not strictly typed) `dispatch` and `commit` can omit a payload, typed ones does not allow to omit its payload. This is because to ensure type safety of a payload. If you want to declare actions / mutations that do not have a payload you should explicitly pass `undefined` value.
+While regular (not strictly typed) `dispatch` and `commit` can omit a payload, typed ones does not allow to omit it. This is because to ensure type safety of a payload. If you want to declare actions / mutations that do not have a payload you should explicitly pass `undefined` value.
 
 ```ts
 export interface CounterMutation {
