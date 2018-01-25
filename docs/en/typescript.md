@@ -226,3 +226,5 @@ export const counter: DefineModule<CounterState, CounterGetters, CounterMutation
   }
 }
 ```
+
+This restriction might be changed after TypeScript implements [the conditional types](https://github.com/Microsoft/TypeScript/pull/21316) in the future.
