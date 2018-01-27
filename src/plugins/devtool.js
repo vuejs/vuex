@@ -22,7 +22,7 @@ export default function devtoolPlugin (store) {
     devtoolHook.emit('vuex:mutation', mutation, state)
 
     // if buffer exists push mutation for later use
-    if (Array.isArray(store._devtoolBuffer)) {
+    if (store._devtoolBuffer) {
       store._devtoolBuffer.push(mutation)
     }
   })
