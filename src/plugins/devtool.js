@@ -8,7 +8,9 @@ export default function devtoolPlugin (store) {
   store._devtoolHook = devtoolHook
   // buffer mutations for devtools
   // it will later be removed by devtools
-  store._devtoolBuffer = []
+  if (devtoolHook.supportsVuexBuffer) {
+    store._devtoolBuffer = []
+  }
 
   devtoolHook.emit('vuex:init', store)
 
