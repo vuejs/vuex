@@ -183,8 +183,8 @@ export interface Module<S, R> {
   modules?: ModuleTree<R>;
 }
 
-export interface ModuleOptions{
-  preserveState?: boolean
+export interface ModuleOptions {
+  preserveState?: boolean;
 }
 
 export interface GetterTree<S, R> {
