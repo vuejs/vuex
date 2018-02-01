@@ -5,7 +5,7 @@ type Dictionary<T> = { [key: string]: T };
 type Computed = () => any;
 type MutationMethod = (...args: any[]) => void;
 type ActionMethod = (...args: any[]) => Promise<any>;
-type CustomVue = Vue & Dictionary<any>
+type CustomVue = Vue & Dictionary<any>;
 
 interface Mapper<R> {
   (map: string[]): Dictionary<R>;
