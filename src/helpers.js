@@ -140,7 +140,7 @@ function normalizeMap (map) {
  */
 function normalizeArguments (fn) {
   return (namespace, map) => {
-    if (!typeof namespace !== 'string' && typeof namespace !== 'function') {
+    if (typeof namespace !== 'string' && typeof namespace !== 'function') {
       return fn('', namespace)
     }
     return fn(namespace, map)
