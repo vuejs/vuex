@@ -10,3 +10,4 @@ explorations
 *.log
 test/e2e/reports
 test/e2e/screenshots
+.vscode
