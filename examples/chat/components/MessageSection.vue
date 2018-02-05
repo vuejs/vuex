@@ -1,14 +1,16 @@
 <template>
   <div class="message-section">
     <h3 class="message-thread-heading">{{ thread.name }}</h3>
-    <ul class="message-list" ref="list">
-      <message
-        v-for="message in sortedMessages"
+    <ul class="message-list"
+      ref="list">
+      <message v-for="message in sortedMessages"
         :key="message.id"
         :message="message">
       </message>
     </ul>
-    <textarea class="message-composer" @keyup.enter="sendMessage"></textarea>
+    <textarea class="message-composer"
+      v-model="text"
+      @keyup.enter="sendMessage"></textarea>
   </div>
 </template>
 
@@ -19,19 +21,22 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'MessageSection',
   components: { Message },
+  data() {
+    return {
+      text: ''
+    }
+  },
   computed: {
     ...mapGetters({
       thread: 'currentThread',
       messages: 'currentMessages'
     }),
-    sortedMessages () {
-      return this.messages
-        .slice()
-        .sort((a, b) => a.timestamp - b.timestamp)
+    sortedMessages() {
+      return this.messages.slice().sort((a, b) => a.timestamp - b.timestamp)
     }
   },
   watch: {
-    'thread.lastMessage': function () {
+    'thread.lastMessage': function() {
       this.$nextTick(() => {
         const ul = this.$refs.list
         ul.scrollTop = ul.scrollHeight
@@ -39,14 +44,14 @@ export default {
     }
   },
   methods: {
-    sendMessage (e) {
-      const text = e.target.value
+    sendMessage(e) {
+      const { text, thread } = this
       if (text.trim()) {
         this.$store.dispatch('sendMessage', {
           text,
-          thread: this.thread
+          thread
         })
-        e.target.value = ''
+        this.text = ''
       }
     }
   }
