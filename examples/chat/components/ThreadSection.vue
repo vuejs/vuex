@@ -26,7 +26,7 @@ export default {
   computed: {
     ...mapGetters(['threads', 'currentThread']),
     unreadCount() {
-      const threads = this.threads
+      const { threads } = this
       return Object.keys(threads).reduce((count, id) => {
         return threads[id].lastMessage.isRead ? count : count + 1
       }, 0)
@@ -34,7 +34,7 @@ export default {
   },
   methods: mapActions({
     switchThread(dispatch, id) {
-      dispatch('switchThread', { id })
+      dispatch('switchThread', id)
     }
   })
 }

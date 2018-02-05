@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 export default {
-  RECEIVE_ALL(state, { messages }) {
+  RECEIVE_ALL(state, messages) {
     let latestMessage
     messages.forEach(message => {
       // create new thread if the thread doesn't exist
@@ -19,16 +19,16 @@ export default {
     setCurrentThread(state, latestMessage.threadID)
   },
 
-  RECEIVE_MESSAGE(state, { message }) {
+  RECEIVE_MESSAGE(state, message) {
     addMessage(state, message)
   },
 
-  SWITCH_THREAD(state, { id }) {
+  SWITCH_THREAD(state, id) {
     setCurrentThread(state, id)
   }
 }
 
-function createThread(state, id, name) {
+const createThread = (state, id, name) => {
   Vue.set(state.threads, id, {
     id,
     name,
@@ -37,7 +37,7 @@ function createThread(state, id, name) {
   })
 }
 
-function addMessage(state, message) {
+const addMessage = (state, message) => {
   // add a `isRead` field before adding the message
   message.isRead = message.threadID === state.currentThreadID
   // add it to the thread it belongs to
@@ -50,7 +50,7 @@ function addMessage(state, message) {
   Vue.set(state.messages, message.id, message)
 }
 
-function setCurrentThread(state, id) {
+const setCurrentThread = (state, id) => {
   state.currentThreadID = id
   if (!state.threads[id]) {
     debugger
