@@ -3,7 +3,7 @@
     <h3 class="message-thread-heading">{{ thread.name }}</h3>
     <ul class="message-list"
       ref="list">
-      <message v-for="message in sortedMessages"
+      <message v-for="message in messages"
         :key="message.id"
         :message="message">
       </message>
@@ -26,15 +26,10 @@ export default {
       text: ''
     }
   },
-  computed: {
-    ...mapGetters({
-      thread: 'currentThread',
-      messages: 'currentMessages'
-    }),
-    sortedMessages() {
-      return this.messages.slice().sort((a, b) => a.timestamp - b.timestamp)
-    }
-  },
+  computed: mapGetters({
+    thread: 'currentThread',
+    messages: 'sortedMessages'
+  }),
   watch: {
     'thread.lastMessage': function() {
       this.$nextTick(() => {

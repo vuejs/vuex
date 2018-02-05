@@ -23,15 +23,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ThreadSection',
   components: { Thread },
-  computed: {
-    ...mapGetters(['threads', 'currentThread']),
-    unreadCount() {
-      const { threads } = this
-      return Object.keys(threads).reduce((count, id) => {
-        return threads[id].lastMessage.isRead ? count : count + 1
-      }, 0)
-    }
-  },
+  computed: mapGetters(['threads', 'currentThread', 'unreadCount']),
   methods: mapActions({
     switchThread(dispatch, id) {
       dispatch('switchThread', id)
