@@ -16,7 +16,7 @@
 
 <script>
 import Message from './Message.vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'MessageSection',
@@ -43,17 +43,17 @@ export default {
       })
     }
   },
-  methods: {
-    sendMessage(e) {
+  methods: mapActions({
+    sendMessage(dispatch) {
       const { text, thread } = this
       if (text.trim()) {
-        this.$store.dispatch('sendMessage', {
+        dispatch('sendMessage', {
           text,
           thread
         })
         this.text = ''
       }
     }
-  }
+  })
 }
 </script>
