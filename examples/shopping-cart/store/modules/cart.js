@@ -71,7 +71,8 @@ const mutations = {
     })
   },
 
-  incrementItemQuantity (state, cartItem) {
+  incrementItemQuantity (state, { id }) {
+    const cartItem = state.added.find(item => item.id === id)
     cartItem.quantity++
   },
 

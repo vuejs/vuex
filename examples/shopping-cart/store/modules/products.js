@@ -26,7 +26,8 @@ const mutations = {
   },
 
   decrementProductInventory (state, { id }) {
-    state.all.find(product => product.id === id).inventory--
+    const product = state.all.find(product => product.id === id)
+    product.inventory--
   }
 }
 
