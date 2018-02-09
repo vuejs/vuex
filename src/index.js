@@ -5,7 +5,7 @@ export default {
   Store,
   install,
   version: '__VERSION__',
-  mapState,
+  mapState, // why is not this plural?
   mapMutations,
   mapGetters,
   mapActions,
