@@ -29,7 +29,7 @@ new Vue({
 
 C'est une application autosuffisante avec les parties suivantes :
 
-- L'**état**, qui est la source de vérité qui pilotant votre application,
+- L'**état**, qui est la source de vérité qui pilote votre application,
 - La **vue**, qui est une réflexion déclarative de l'**état**,
 - Les **actions**, qui sont les façons possibles pour l'état de changer en réaction aux actions utilisateurs depuis la **vue**.
 
