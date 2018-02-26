@@ -68,8 +68,8 @@ You can also pass arguments to getters by returning a function. This is particul
 ```js
 getters: {
   // ...
-  getTodoById: (state) => (id) => {
-    return state.todos.find(todo => todo.id === id)
+  getTodoById: (id) => {
+    return this.$store.state.find(todo => todo.id === id)
   }
 }
 ```
