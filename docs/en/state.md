@@ -66,6 +66,8 @@ import { mapState } from 'vuex'
 
 export default {
   // ...
+  // injected store must be provided here or by some top level component
+  store,
   computed: mapState({
     // arrow functions can make the code very succinct!
     count: state => state.count,
@@ -85,7 +87,7 @@ We can also pass a string array to `mapState` when the name of a mapped computed
 
 ``` js
 computed: mapState([
-  // map this.count to store.state.count
+  // map this.count to this.$store.state.count
   'count'
 ])
 ```
