@@ -42,6 +42,8 @@ const store = new Vuex.Store({ ...options })
       rootGetters // same as `store.getters`, only in modules
     }
     ```
+    
+    And also receives a second `payload` argument if there is one.
 
     [Details](actions.md)
 
