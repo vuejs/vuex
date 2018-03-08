@@ -43,6 +43,8 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
+    And also receives a second `payload` argument if there is one.
+
     [詳細](actions.md)
 
 - **getters**
