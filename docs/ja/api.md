@@ -43,7 +43,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    And also receives a second `payload` argument if there is one.
+    そして、第 2 引数の `payload` 引数があれば、それを受け取ります。
 
     [詳細](actions.md)
 
