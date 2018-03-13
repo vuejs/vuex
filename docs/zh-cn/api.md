@@ -45,6 +45,8 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
+    同时如果有第二个参数 `payload` 的话也能够接收。
+
     [详细介绍](actions.md)
 
 - **getters**
