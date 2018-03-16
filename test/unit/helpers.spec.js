@@ -517,4 +517,56 @@ describe('Helpers', () => {
     vm.actionB()
     expect(actionB).toHaveBeenCalled()
   })
+
+  it('createNamespacedHelpers: generates root helpers', () => {
+    const actionA = jasmine.createSpy()
+    const actionB = jasmine.createSpy()
+    const store = new Vuex.Store({
+      state: { count: 0 },
+      getters: {
+        isEven: state => state.count % 2 === 0
+      },
+      mutations: {
+        inc: state => state.count++,
+        dec: state => state.count--
+      },
+      actions: {
+        actionA,
+        actionB
+      }
+    })
+    const {
+      mapState,
+      mapGetters,
+      mapMutations,
+      mapActions
+    } = createNamespacedHelpers()
+    const vm = new Vue({
+      store,
+      computed: {
+        ...mapState(['count']),
+        ...mapGetters(['isEven'])
+      },
+      methods: {
+        ...mapMutations(['inc', 'dec']),
+        ...mapActions(['actionA', 'actionB'])
+      }
+    })
+    expect(vm.count).toBe(0)
+    expect(vm.isEven).toBe(true)
+    store.state.count++
+    expect(vm.count).toBe(1)
+    expect(vm.isEven).toBe(false)
+    vm.inc()
+    expect(store.state.count).toBe(2)
+    expect(store.getters.isEven).toBe(true)
+    vm.dec()
+    expect(store.state.count).toBe(1)
+    expect(store.getters.isEven).toBe(false)
+    vm.actionA()
+    expect(actionA).toHaveBeenCalled()
+    expect(actionB).not.toHaveBeenCalled()
+    vm.actionB()
+    expect(actionB).toHaveBeenCalled()
+  })
 })

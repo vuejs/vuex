@@ -1,69 +1,118 @@
 import Vue from 'vue';
 import { Dispatch, Commit } from './index';
 
-type Dictionary<T> = { [key: string]: T };
-type Computed = () => any;
-type MutationMethod = (...args: any[]) => void;
-type ActionMethod = (...args: any[]) => Promise<any>;
-type CustomVue = Vue & Dictionary<any>;
+/**
+ * Utility types to declare helper types
+ */
+type Computed<R> = () => R;
+type Method<R> = (...args: any[]) => R;
+type CustomVue = Vue & Record<string, any>;
 
-interface Mapper<R> {
-  (map: string[]): Dictionary<R>;
-  (map: Dictionary<string>): Dictionary<R>;
+interface BaseType { [key: string]: any }
+
+interface BaseStateMap<State, Getters> {
+  [key: string]: (this: CustomVue, state: State, getters: Getters) => any;
 }
 
-interface MapperWithNamespace<R> {
-  (namespace: string, map: string[]): Dictionary<R>;
-  (namespace: string, map: Dictionary<string>): Dictionary<R>;
+interface BaseMethodMap<F> {
+  [key: string]: (this: CustomVue, fn: F, ...args: any[]) => any;
 }
 
-interface FunctionMapper<F, R> {
-  (map: Dictionary<(this: CustomVue, fn: F, ...args: any[]) => any>): Dictionary<R>;
+type MethodType = 'optional' | 'normal'
+
+/**
+ * Return component method type for a mutation.
+ * You can specify `Type` to choose whether the argument is optional or not.
+ */
+type MutationMethod<P, Type extends MethodType> = {
+  optional: (payload?: P) => void;
+  normal: (payload: P) => void;
+}[Type];
+
+/**
+ * Return component method type for an action.
+ * You can specify `Type` to choose whether the argument is optional or not.
+ */
+type ActionMethod<P, Type extends MethodType> = {
+  optional: (payload?: P) => Promise<any>;
+  normal: (payload: P) => Promise<any>;
+}[Type];
+
+/**
+ * mapGetters
+ */
+interface MapGetters<Getters> {
+  <Key extends keyof Getters>(map: Key[]): { [K in Key]: Computed<Getters[K]> };
+  <Map extends Record<string, keyof Getters>>(map: Map): { [K in keyof Map]: Computed<Getters[Map[K]]> };
 }
 
-interface FunctionMapperWithNamespace<F, R> {
-  (
-    namespace: string,
-    map: Dictionary<(this: CustomVue, fn: F, ...args: any[]) => any>
-  ): Dictionary<R>;
+interface RootMapGetters<Getters> extends MapGetters<Getters> {
+  <Key extends keyof Getters>(namespace: string, map: Key[]): { [K in Key]: Computed<Getters[K]> };
+  <Map extends Record<string, keyof Getters>>(namespace: string, map: Map): { [K in keyof Map]: Computed<Getters[Map[K]]> };
 }
 
-interface MapperForState {
-  <S>(
-    map: Dictionary<(this: CustomVue, state: S, getters: any) => any>
-  ): Dictionary<Computed>;
+/**
+ * mapState
+ */
+interface MapState<State, Getters> {
+  <Key extends keyof State>(map: Key[]): { [K in Key]: Computed<State[K]> };
+  <Map extends Record<string, keyof State>>(map: Map): { [K in keyof Map]: Computed<State[Map[K]]> };
+  <Map extends BaseStateMap<State, Getters>>(map: Map): { [K in keyof Map]: Computed<any> };
 }
 
-interface MapperForStateWithNamespace {
-  <S>(
-    namespace: string,
-    map: Dictionary<(this: CustomVue, state: S, getters: any) => any>
-  ): Dictionary<Computed>;
+interface RootMapState<State, Getters> extends MapState<State, Getters> {
+  <Key extends keyof State>(namespace: string, map: Key[]): { [K in Key]: Computed<State[K]> };
+  <Map extends Record<string, keyof State>>(namespace: string, map: Map): { [K in keyof Map]: Computed<State[Map[K]]> };
+  <Map extends BaseStateMap<State, Getters>>(namespace: string, map: Map): { [K in keyof Map]: Computed<any> };
 }
 
-interface NamespacedMappers {
-  mapState: Mapper<Computed> & MapperForState;
-  mapMutations: Mapper<MutationMethod> & FunctionMapper<Commit, MutationMethod>;
-  mapGetters: Mapper<Computed>;
-  mapActions: Mapper<ActionMethod> & FunctionMapper<Dispatch, ActionMethod>;
+/**
+ * mapMutations
+ */
+interface MapMutations<Mutations, Type extends MethodType> {
+  <Key extends keyof Mutations>(map: Key[]): { [K in Key]: MutationMethod<Mutations[K], Type> };
+  <Map extends Record<string, keyof Mutations>>(map: Map): { [K in keyof Map]: MutationMethod<Mutations[Map[K]], Type> };
+  <Map extends BaseMethodMap<Commit<Mutations>>>(map: Map): { [K in keyof Map]: Method<any> };
 }
 
-export declare const mapState: Mapper<Computed>
-  & MapperWithNamespace<Computed>
-  & MapperForState
-  & MapperForStateWithNamespace;
+interface RootMapMutations<Mutations, Type extends MethodType> extends MapMutations<Mutations, Type> {
+  <Key extends keyof Mutations>(namespace: string, map: Key[]): { [K in Key]: MutationMethod<Mutations[K], Type> };
+  <Map extends Record<string, keyof Mutations>>(namespace: string, map: Map): { [K in keyof Map]: MutationMethod<Mutations[Map[K]], Type> };
+  <Map extends BaseMethodMap<Commit<Mutations>>>(namespace: string, map: Map): { [K in keyof Map]: Method<any> };
+}
 
-export declare const mapMutations: Mapper<MutationMethod>
-  & MapperWithNamespace<MutationMethod>
-  & FunctionMapper<Commit, MutationMethod>
-  & FunctionMapperWithNamespace<Commit, MutationMethod>;
+/**
+ * mapActions
+ */
+interface MapActions<Actions, Type extends MethodType> {
+  <Key extends keyof Actions>(map: Key[]): { [K in Key]: ActionMethod<Actions[K], Type> };
+  <Map extends Record<string, keyof Actions>>(map: Map): { [K in keyof Map]: ActionMethod<Actions[Map[K]], Type> };
+  <Map extends BaseMethodMap<Dispatch<Actions>>>(map: Map): { [K in keyof Map]: Method<any> };
+}
 
-export declare const mapGetters: Mapper<Computed>
-  & MapperWithNamespace<Computed>;
+interface RootMapActions<Actions, Type extends MethodType> extends MapActions<Actions, Type> {
+  <Key extends keyof Actions>(namespace: string, map: Key[]): { [K in Key]: ActionMethod<Actions[K], Type> };
+  <Map extends Record<string, keyof Actions>>(namespace: string, map: Map): { [K in keyof Map]: ActionMethod<Actions[Map[K]], Type> };
+  <Map extends BaseMethodMap<Dispatch<Actions>>>(namespace: string, map: Map): { [K in keyof Map]: Method<any> };
+}
 
-export declare const mapActions: Mapper<ActionMethod>
-  & MapperWithNamespace<ActionMethod>
-  & FunctionMapper<Dispatch, ActionMethod>
-  & FunctionMapperWithNamespace<Dispatch, ActionMethod>;
+/**
+ * namespaced helpers
+ */
+interface NamespacedMappers<State, Getters, Mutations, Actions, Type extends MethodType> {
+  mapState: MapState<State, Getters>;
+  mapGetters: MapGetters<Getters>;
+  mapMutations: MapMutations<Mutations, Type>;
+  mapActions: MapActions<Actions, Type>;
+}
 
-export declare function createNamespacedHelpers(namespace: string): NamespacedMappers;
+export declare const mapState: RootMapState<BaseType, BaseType>;
+
+export declare const mapMutations: RootMapMutations<BaseType, 'optional'>;
+
+export declare const mapGetters: RootMapGetters<BaseType>;
+
+export declare const mapActions: RootMapActions<BaseType, 'optional'>;
+
+export declare function createNamespacedHelpers(namespace?: string): NamespacedMappers<BaseType, BaseType, BaseType, BaseType, 'optional'>;
+export declare function createNamespacedHelpers<State, Getters, Mutations, Actions>(namespace?: string): NamespacedMappers<State, Getters, Mutations, Actions, 'normal'>;

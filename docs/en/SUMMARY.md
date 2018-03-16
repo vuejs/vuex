@@ -18,4 +18,5 @@
 - [Form Handling](forms.md)
 - [Testing](testing.md)
 - [Hot Reloading](hot-reload.md)
+- [TypeScript Support](typescript.md)
 - [API Reference](api.md)

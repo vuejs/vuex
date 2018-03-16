@@ -11,110 +11,167 @@ import {
 const helpers = createNamespacedHelpers('foo');
 
 new Vue({
-  computed: Object.assign({},
-    mapState(["a"]),
-    mapState('foo', ["a"]),
-    mapState({
-      b: "b"
+  computed: {
+    ...mapState(["a"]),
+    ...mapState('foo', ["b"]),
+    ...mapState({
+      c: "c"
     }),
-    mapState('foo', {
-      b: "b"
+    ...mapState('foo', {
+      d: "d"
     }),
-    mapState({
-      c: (state: any, getters: any) => state.c + getters.c
+    ...mapState({
+      e: (state: any, getters: any) => {
+        return state.a + getters.a
+      }
     }),
-    mapState('foo', {
-      c: (state: any, getters: any) => state.c + getters.c
-    }),
-
-    mapGetters(["d"]),
-    mapGetters('foo', ["d"]),
-    mapGetters({
-      e: "e"
-    }),
-    mapGetters('foo', {
-      e: "e"
-    }),
-
-    helpers.mapState(["k"]),
-    helpers.mapState({
-      k: "k"
-    }),
-    helpers.mapState({
-      k: (state: any, getters: any) => state.k + getters.k,
-      useThis(state: any, getters: any) {
-        return state.k + getters.k + this.whatever
+    ...mapState('foo', {
+      f: (state: any, getters: any) => {
+        return state.c + getters.c
+      },
+      useThis (state: any, getters: any) {
+        return state.c + getters.c + this.whatever
       }
     }),
 
-    helpers.mapGetters(["l"]),
-    helpers.mapGetters({
-      l: "l"
-    }),
-
-    {
-      otherComputed () {
-        return "f";
-      }
-    }
-  ),
-
-  methods: Object.assign({},
-    mapActions(["g"]),
-    mapActions({
+    ...helpers.mapState(["g"]),
+    ...helpers.mapState({
       h: "h"
     }),
-    mapActions({
-      g (dispatch, a: string, b: number, c: boolean): void {
-        dispatch('g', { a, b, c })
+    ...helpers.mapState({
+      i: (state: any, getters: any) => state.k + getters.k
+    })
+  },
+
+  created () {
+    this.a
+    this.b
+    this.c
+    this.d
+    this.e
+    this.f
+    this.g
+    this.h
+    this.i
+  }
+})
+
+new Vue({
+  computed: {
+    ...mapGetters(["a"]),
+    ...mapGetters('foo', ["b"]),
+    ...mapGetters({
+      c: "c"
+    }),
+    ...mapGetters('foo', {
+      d: "d"
+    }),
+
+    ...helpers.mapGetters(["e"]),
+    ...helpers.mapGetters({
+      f: "f"
+    }),
+
+    otherComputed () {
+      return "g";
+    }
+  },
+
+  created () {
+    this.a
+    this.b
+    this.c
+    this.d
+    this.e
+    this.f
+    this.otherComputed
+  }
+})
+
+new Vue({
+  methods: {
+    ...mapActions(["a"]),
+    ...mapActions({
+      b: "b"
+    }),
+    ...mapActions({
+      c (dispatch, a: string, b: number, c: boolean): void {
+        dispatch('c', { a, b, c })
         dispatch({
-          type: 'g',
+          type: 'c',
           a,
           b,
           c
         })
       }
     }),
-    mapActions('foo', ["g"]),
-    mapActions('foo', {
+    ...mapActions('foo', ["d"]),
+    ...mapActions('foo', {
+      e: "e"
+    }),
+    ...mapActions('foo', {
+      f (dispatch, a: string, b: number, c: boolean): void {
+        dispatch('f', { a, b, c })
+        dispatch({
+          type: 'f',
+          a,
+          b,
+          c
+        })
+      }
+    }),
+
+    ...helpers.mapActions(["g"]),
+    ...helpers.mapActions({
       h: "h"
     }),
-    mapActions('foo', {
-      g (dispatch, a: string, b: number, c: boolean): void {
-        dispatch('g', { a, b, c })
-        dispatch({
-          type: 'g',
-          a,
-          b,
-          c
-        })
+    ...helpers.mapActions({
+      i (dispatch, value: string) {
+        dispatch('i', value)
       }
-    }),
+    })
+  },
 
-    mapMutations(["i"]),
-    mapMutations({
-      j: "j"
+  created () {
+    this.a(1)
+    this.b(2)
+    this.c('a', 3, true)
+    this.d(4)
+    this.e(5)
+    this.f(6)
+    this.g(7)
+    this.h(8)
+    this.i(9)
+    this.a() // should allow 0-argument call if untyped
+  }
+})
+
+new Vue({
+  methods: {
+    ...mapMutations(["a"]),
+    ...mapMutations({
+      b: "b"
     }),
-    mapMutations({
-      i (commit, a: string, b: number, c: boolean): void {
-        commit('i', { a, b, c })
+    ...mapMutations({
+      c (commit, a: string, b: number, c: boolean): void {
+        commit('c', { a, b, c })
         commit({
-          type: 'i',
+          type: 'c',
           a,
           b,
           c
         })
       }
     }),
-    mapMutations('foo', ["i"]),
-    mapMutations('foo', {
-      j: "j"
+    ...mapMutations('foo', ["d"]),
+    ...mapMutations('foo', {
+      e: "e"
     }),
-    mapMutations('foo', {
-      i (commit, a: string, b: number, c: boolean): void {
-        commit('i', { a, b, c })
+    ...mapMutations('foo', {
+      f (commit, a: string, b: number, c: boolean): void {
+        commit('f', { a, b, c })
         commit({
-          type: 'i',
+          type: 'f',
           a,
           b,
           c
@@ -122,28 +179,30 @@ new Vue({
       }
     }),
 
-    helpers.mapActions(["m"]),
-    helpers.mapActions({
-      m: "m"
+    ...helpers.mapMutations(["g"]),
+    ...helpers.mapMutations({
+      h: "h"
     }),
-    helpers.mapActions({
-      m (dispatch, value: string) {
-        dispatch('m', value)
+    ...helpers.mapMutations({
+      i (commit, value: string) {
+        commit('i', value)
       }
     }),
 
-    helpers.mapMutations(["n"]),
-    helpers.mapMutations({
-      n: "n"
-    }),
-    helpers.mapMutations({
-      n (commit, value: string) {
-        commit('m', value)
-      }
-    }),
+    otherMethod () {}
+  },
 
-    {
-      otherMethod () {}
-    }
-  )
+  created () {
+    this.a(1)
+    this.b(2)
+    this.c('a', 3, true)
+    this.d(4)
+    this.e(5)
+    this.f(6)
+    this.g(7)
+    this.h(8)
+    this.i(9)
+    this.otherMethod()
+    this.a() // should allow 0-argument call if untyped
+  }
 });

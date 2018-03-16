@@ -3,7 +3,20 @@ import _Vue, { WatchOptions } from "vue";
 // augment typings of Vue.js
 import "./vue";
 
-export * from "./helpers";
+export {
+  mapState,
+  mapGetters,
+  mapActions,
+  mapMutations,
+  createNamespacedHelpers
+} from "./helpers";
+
+export {
+  DefineModule,
+  DefineGetters,
+  DefineMutations,
+  DefineActions
+} from './utils'
 
 export declare class Store<S> {
   constructor(options: StoreOptions<S>);
@@ -36,28 +49,76 @@ export declare class Store<S> {
 
 export declare function install(Vue: typeof _Vue): void;
 
-export interface Dispatch {
-  (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
-  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
+/**
+ * Strict version of dispatch type. It always requires a payload.
+ */
+interface StrictDispatch<Actions, RootActions> {
+  // Local
+  <K extends keyof Actions>(type: K, payload: Actions[K], options?: LocalDispatchOptions): Promise<any>;
+  <K extends keyof Actions>(payloadWithType: InputPayload<K, Actions>, options?: LocalDispatchOptions): Promise<any>;
+
+  // Root
+  <K extends keyof RootActions>(type: K, payload: RootActions[K], options: RootDispatchOptions): Promise<any>;
+  <K extends keyof RootActions>(payloadWithType: InputPayload<K, RootActions>, options: RootDispatchOptions): Promise<any>;
 }
 
-export interface Commit {
-  (type: string, payload?: any, options?: CommitOptions): void;
-  <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
+/**
+ * Strict version of commit type. It always requires a payload.
+ */
+interface StrictCommit<Mutations, RootMutations> {
+  // Local
+  <K extends keyof Mutations>(type: K, payload: Mutations[K], options?: LocalCommitOptions): void;
+  <K extends keyof Mutations>(payloadWithType: InputPayload<K, Mutations>, options?: LocalCommitOptions): void;
+
+  // Root
+  <K extends keyof RootMutations>(type: K, payload: RootMutations[K], options: RootCommitOptions): void;
+  <K extends keyof RootMutations>(payloadWithType: InputPayload<K, RootMutations>, options: RootCommitOptions): void;
 }
 
-export interface ActionContext<S, R> {
-  dispatch: Dispatch;
-  commit: Commit;
+/**
+ * Loose dispatch type. It can omit a payload and may throw in run time
+ * since type checker cannot detect whether omitting payload is safe or not.
+ */
+export interface Dispatch<Actions = Record<string, any>, RootActions = Record<string, any>> extends StrictDispatch<Actions, RootActions> {
+  <K extends keyof Actions>(type: K): Promise<any>;
+}
+
+/**
+ * Loose commit type. It can omit a payload and may throw in run time
+ * since type checker cannot detect whether omitting payload is safe or not.
+ */
+export interface Commit<Mutations = Record<string, any>, RootMutations = Record<string, any>> extends StrictCommit<Mutations, RootMutations> {
+  <K extends keyof Mutations>(type: K): void;
+}
+
+export interface StrictActionContext<S, RS, G, RG, M, RM, A, RA> {
+  dispatch: StrictDispatch<A, RA>;
+  commit: StrictCommit<M, RM>;
   state: S;
-  getters: any;
-  rootState: R;
-  rootGetters: any;
+  getters: G;
+  rootState: RS;
+  rootGetters: RG;
+}
+
+export interface ActionContext<
+  S,
+  RS,
+  G = any,
+  RG = any,
+  M = Record<string, any>,
+  RM = Record<string, any>,
+  A = Record<string, any>,
+  RA = Record<string, any>
+> extends StrictActionContext<S, RS, G, RG, M, RM, A, RA> {
+  dispatch: Dispatch<A, RA>;
+  commit: Commit<M, RM>;
 }
 
 export interface Payload {
   type: string;
 }
+
+type InputPayload<K extends keyof P, P> = { type: K } & P[K]
 
 export interface MutationPayload extends Payload {
   payload: any;
@@ -65,6 +126,22 @@ export interface MutationPayload extends Payload {
 
 export interface ActionPayload extends Payload {
   payload: any;
+}
+
+interface LocalDispatchOptions extends DispatchOptions {
+  root?: false;
+}
+
+interface RootDispatchOptions extends DispatchOptions {
+  root: true;
+}
+
+interface LocalCommitOptions extends CommitOptions {
+  root?: false;
+}
+
+interface RootCommitOptions extends CommitOptions {
+  root: true;
 }
 
 export interface DispatchOptions {
