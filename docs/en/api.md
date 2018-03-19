@@ -140,13 +140,13 @@ const store = new Vuex.Store({ ...options })
 
   Replace the store's root state. Use this only for state hydration / time-travel purposes.
 
-- **`watch(fn: Function, callback: Function, options?: Object)`**
+- **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
   Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
-  To stop watching, call the returned handle function.
+  To stop watching, call the returned handler function.
 
-- **`subscribe(handler: Function)`**
+- **`subscribe(handler: Function): Function`**
 
   Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
 
@@ -157,9 +157,11 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  To stop subscribing, call the returned handler function.
+
   Most commonly used in plugins. [Details](plugins.md)
 
-- **`subscribeAction(handler: Function)`**
+- **`subscribeAction(handler: Function): Function`**
 
   > New in 2.5.0
 
@@ -171,6 +173,8 @@ const store = new Vuex.Store({ ...options })
     console.log(action.payload)
   })
   ```
+
+  To stop subscribing, call the returned handler function.
 
   Most commonly used in plugins. [Details](plugins.md)
 
