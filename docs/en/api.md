@@ -140,9 +140,9 @@ const store = new Vuex.Store({ ...options })
 
   Replace the store's root state. Use this only for state hydration / time-travel purposes.
 
-- **`watch(getter: Function, cb: Function, options?: Object)`**
+- **`watch(fn: Function, callback: Function, options?: Object)`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
   To stop watching, call the returned handle function.
 
