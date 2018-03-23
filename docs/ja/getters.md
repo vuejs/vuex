@@ -32,9 +32,9 @@ const store = new Vuex.Store({
 })
 ```
 
-### Property-Style Access
+### プロパティスタイルアクセス
 
-The getters will be exposed on the `store.getters` object, and you access values as properties:
+ゲッターは `store.getters` オブジェクトから取り出され、プロパティとしてアクセスすることができます:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
@@ -65,9 +65,9 @@ computed: {
 }
 ```
 
-Note that getters accessed as properties are cached as part of Vue's reactivity system.
+プロパティとしてアクセスされるゲッターは Vue のリアクティブシステムの一部としてキャッシュされるという点に留意してください。
 
-### Method-Style Access
+### メソッドスタイルアクセス
 
 関数を返り値にすることで、ゲッターに引数を渡すこともできます。これは特にストアの中の配列を検索する時に役立ちます：
 ```js
