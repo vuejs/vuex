@@ -83,6 +83,7 @@ getters: {
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
+Note that getters accessed via methods will run each time you call them, and the result is not cached.
 
 ### `mapGetters` ヘルパー
 
