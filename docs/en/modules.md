@@ -170,6 +170,32 @@ modules: {
 }
 ```
 
+#### Register Global Action in Namespaced Modules
+
+If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler` . For example:
+
+``` js
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+
+      actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+```
+
 #### Binding Helpers with Namespace
 
 When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:

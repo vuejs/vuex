@@ -170,6 +170,32 @@ modules: {
 }
 ```
 
+#### 在命名空间模块注册全局action
+
+若需要在命名空间模块注册全局action，你可添加 `root: true` ，并将处理函数逻辑放在函数 `handler` 中。例如：
+
+``` js
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+
+      actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+```
+
 #### 带命名空间的绑定函数
 
 当使用 `mapState`, `mapGetters`, `mapActions` 和 `mapMutations` 这些函数来绑定命名空间模块时，写起来可能比较繁琐：
