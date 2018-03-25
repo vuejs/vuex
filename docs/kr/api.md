@@ -147,9 +147,11 @@ const store = new Vuex.Store({ ...options })
 
   플러그인에서 가장 일반적으로 사용됩니다. [상세](plugins.md)
 
-- **`registerModule(path: string | Array<string>, module: Module)`**
+- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   동적 모듈을 등록합니다. [상세](modules.md#dynamic-module-registration)
+  
+  `options`은 이전 속성을 보호하는 `preserveState: true`를 가질 수 있습니다. 이것은 서버사이드 렌더링에서 유용합니다.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
@@ -161,18 +163,30 @@ const store = new Vuex.Store({ ...options })
 
 ### 컴포넌트 바인딩 헬퍼
 
-- **`mapState(map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
   Vuex 저장소의 하위 트리를 반환하는 컴포넌트 계산 옵션을 만듭니다. [상세](state.md#the-mapstate-helper)
+  
+  처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](modules.md#binding-helpers-with-namespace)
 
-- **`mapGetters(map: Array<string> | Object): Object`**
+- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   getter의 평가된 값을 반환하는 컴포넌트 계산 옵션을 만듭니다. [상세](getters.md#the-mapgetters-helper)
+  
+  처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](modules.md#binding-helpers-with-namespace)
 
-- **`mapActions(map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   액션을 전달하는 컴포넌트 메소드 옵션을 만듭니다. [상세](actions.md#dispatching-actions-in-components)
+  
+  처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](modules.md#binding-helpers-with-namespace)
 
-- **`mapMutations(map: Array<string> | Object): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   변이를 커밋하는 컴포넌트 메소드 옵션을 만듭니다. [상세](mutations.md#commiting-mutations-in-components)
+  
+  처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](modules.md#binding-helpers-with-namespace)
+  
+- **`createNamespacedHelpers(namespace: string): Object`**
+
+  namespace가 적용된 컴포넌트 바인딩 helper를 만듭니다. 주어진 namespace가 적용된 `mapState`, `mapGetters`, `mapActions` `mapMutations`들을 가지고 있는 오브젝트를 반환합니다. [상세](modules.md#binding-helpers-with-namespace)
