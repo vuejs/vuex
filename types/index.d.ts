@@ -86,8 +86,8 @@ export interface StoreOptions<S> {
   strict?: boolean;
 }
 
-type ActionHandler<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
-interface ActionObject<S, R> {
+export type ActionHandler<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
+export interface ActionObject<S, R> {
   root?: boolean;
   handler: ActionHandler<S, R>;
 }
