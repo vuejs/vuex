@@ -172,7 +172,7 @@ modules: {
 
 #### Register Global Action in Namespaced Modules
 
-If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler` . For example:
+If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler`. For example:
 
 ``` js
 {
