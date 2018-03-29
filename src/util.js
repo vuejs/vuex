@@ -7,7 +7,15 @@
  * @return {*}
  */
 export function find (list, f) {
-  return list.filter(f)[0]
+  const { length } = list
+  let index = 0
+  let value
+  while (++index < length) {
+    value = list[index]
+    if (f(value, index, list)) {
+      return value
+    }
+  }
 }
 
 /**
