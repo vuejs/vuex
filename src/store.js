@@ -5,7 +5,7 @@ import { forEachValue, isObject, isPromise, assert } from './util'
 
 let Vue // bind on install
 const process = window ? window.process : process
-const { env: { NODE_ENV = 'production' } = {}} = process
+const { env: { NODE_ENV = 'production' } = {}} = process || {}
 
 export class Store {
   constructor (options = {}) {
