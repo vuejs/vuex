@@ -144,7 +144,7 @@ const store = new Vuex.Store({ ...options })
 
   Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
-  To stop watching, call the returned handler function.
+  To stop watching, call the returned unwatch function.
 
 - **`subscribe(handler: Function): Function`**
 
@@ -157,7 +157,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  To stop subscribing, call the returned handler function.
+  To stop subscribing, call the returned unsubscribe function.
 
   Most commonly used in plugins. [Details](plugins.md)
 
@@ -174,7 +174,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  To stop subscribing, call the returned handler function.
+  To stop subscribing, call the returned unsubscribe function.
 
   Most commonly used in plugins. [Details](plugins.md)
 
