@@ -40,10 +40,10 @@ export class Store {
     const store = this
     const { dispatch, commit } = this
     this.dispatch = function boundDispatch (type, payload) {
-      return dispatch.call(store, type, payload)
+      return dispatch.apply(store, arguments)
     }
     this.commit = function boundCommit (type, payload, options) {
-      return commit.call(store, type, payload, options)
+      return commit.apply(store, arguments)
     }
 
     // strict mode
