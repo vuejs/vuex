@@ -4,7 +4,8 @@ import ModuleCollection from './module/module-collection'
 import { forEachValue, isObject, isPromise, assert } from './util'
 
 let Vue // bind on install
-const { env: { NODE_ENV = 'production' } = {}} = window.process
+const process = window ? window.process : process
+const { env: { NODE_ENV = 'production' } = {}} = process
 
 export class Store {
   constructor (options = {}) {
