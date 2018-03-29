@@ -20,7 +20,7 @@
     "build:logger": "rollup -c build/rollup.logger.config.js",
     "lint": "eslint src test",
     "test": "npm run lint && npm run test:types && npm run test:unit && npm run test:ssr && npm run test:e2e",
-    "test:unit": "rollup -c build/rollup.dev.config.js && jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
+    "test:unit": "set NODE_ENV=test rollup -c build/rollup.dev.config.js && jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
     "test:e2e": "node test/e2e/runner.js",
     "test:ssr": "rollup -c build/rollup.dev.config.js && VUE_ENV=server jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
     "test:types": "tsc -p types/test",
