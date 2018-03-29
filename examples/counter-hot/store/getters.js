@@ -7,6 +7,5 @@ export const recentHistory = state => {
   const begin = end - limit < 0 ? 0 : end - limit
   return state.history
     .slice(begin, end)
-    .toString()
-    .replace(/,/g, ', ')
+    .join(', ')
 }
