@@ -71,7 +71,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // getter를 객체 전파 연산자로 계산하여 추가합니다.
+    // getter를 객체 확산 연산자로 계산하여 추가합니다.
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
