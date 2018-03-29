@@ -133,15 +133,15 @@ If you have spies available in your testing environment (for example via [Sinon.
 ``` js
 describe('actions', () => {
   it('getAllProducts', () => {
-    const commit = sinon.spy();
-    const state = {};
+    const commit = sinon.spy()
+    const state = {}
     
-    actions.getAllProducts({ commit, state });
+    actions.getAllProducts({ commit, state })
     
     expect(dispatch.args).to.deep.equal([
       [ 'REQUEST_PRODUCTS' ],
       [ 'RECEIVE_PRODUCTS', { /* mocked response */ } ]
-    ]);
+    ])
   })
 })
 ```
