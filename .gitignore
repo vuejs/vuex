@@ -2,7 +2,6 @@
 node_modules
 TODO.md
 lib
-.idea
 docs/_book
 examples/**/build.js
 types/typings
