@@ -40,7 +40,7 @@ You don't need to do this when using global script tags.
 
 ### Promise
 
-Vuex requires [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). If your supporting browsers do not implement Promise (e.g. IE), you can use a polyfill library such as [es6-promise](https://github.com/stefanpenner/es6-promise).
+Vuex requires [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). If your supporting browsers do not implement Promise (e.g. IE), you can use a polyfill library, such as [es6-promise](https://github.com/stefanpenner/es6-promise).
 
 You can include it via CDN:
 
