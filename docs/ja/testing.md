@@ -93,9 +93,9 @@ const testAction = (action, payload, state, expectedMutations, done) => {
     const mutation = expectedMutations[count]
 
     try {
-      expect(mutation.type).to.equal(type)
+      expect(type).to.equal(mutation.type)
       if (payload) {
-        expect(mutation.payload).to.deep.equal(payload)
+        expect(payload).to.deep.equal(mutation.payload)
       }
     } catch (error) {
       done(error)
