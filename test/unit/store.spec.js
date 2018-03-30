@@ -53,7 +53,7 @@ describe('Store', () => {
     })
     expect(() => {
       store.commit(undefined, 2)
-    }).toThrowError(/Expects string as the type, but found undefined/)
+    }).toThrowError(/expects string as the type, but found undefined/)
     expect(store.state.a).toBe(1)
   })
 
@@ -206,7 +206,7 @@ describe('Store', () => {
     })
     expect(() => {
       store.dispatch(undefined, 2)
-    }).toThrowError(/Expects string as the type, but found undefined/)
+    }).toThrowError(/expects string as the type, but found undefined/)
     expect(store.state.a).toBe(1)
   })
 
@@ -267,7 +267,7 @@ describe('Store', () => {
   it('asserts the call with the new operator', () => {
     expect(() => {
       Vuex.Store({})
-    }).toThrowError(/Store must be called with the new operator/)
+    }).toThrowError(/store must be called with the new operator/)
   })
 
   it('should accept state as function', () => {
