@@ -128,11 +128,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store Instance Methods
 
-- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
+- **`commit(type: string, payload?: any, options?: Object)`**
+- **`commit(mutation: Object, options?: Object)`**
 
   Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [Details](mutations.md)
 
-- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object)`**
+- **`dispatch(action: Object, options?: Object)`**
 
   Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
 

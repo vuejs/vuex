@@ -130,11 +130,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store 实例方法
 
-- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
+- **`commit(type: string, payload?: any, options?: Object)`**
+- **`commit(mutation: Object, options?: Object)`**
 
   提交 mutation。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#命名空间)里提交根的 mutation。[详细介绍](mutations.md)
 
-- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object)`**
+- **`dispatch(action: Object, options?: Object)`**
 
   分发 action。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#命名空间)里分发根的 action。返回一个解析所有被触发的 action 处理器的 Promise。[详细介绍](actions.md)
 

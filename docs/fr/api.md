@@ -126,11 +126,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Méthodes d'instance de `Vuex.Store`
 
-- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
+- **`commit(type: string, payload?: any, options?: Object)`**
+- **`commit(mutation: Object, options?: Object)`**
 
   Acter une mutation. `options` peut avoir `root: true` ce qui permet d'acter des mutations racines dans des [modules sous espace de nom](modules.md#namespacing). [Plus de détails](mutations.md)
 
-- **`dispatch(type : string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object)`**
+- **`dispatch(action: Object, options?: Object)`**
 
   Propager une action. Retourne la valeur renvoyée par le gestionnaire d'action déclenché, ou une Promesse si plusieurs gestionnaires ont été déclenchés. [Plus de détails](actions.md)
 
