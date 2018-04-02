@@ -139,8 +139,8 @@ describe('actions', () => {
     actions.getAllProducts({ commit, state })
     
     expect(commit.args).to.deep.equal([
-      [ 'REQUEST_PRODUCTS' ],
-      [ 'RECEIVE_PRODUCTS', { /* mocked response */ } ]
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* mocked response */ }]
     ])
   })
 })
