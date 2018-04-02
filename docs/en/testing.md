@@ -128,6 +128,24 @@ describe('actions', () => {
 })
 ```
 
+If you have spies available in your testing environment (for example via [Sinon.JS](http://sinonjs.org/)), you can use them instead of the `testAction` helper:
+
+``` js
+describe('actions', () => {
+  it('getAllProducts', () => {
+    const commit = sinon.spy()
+    const state = {}
+    
+    actions.getAllProducts({ commit, state })
+    
+    expect(commit.args).to.deep.equal([
+      [ 'REQUEST_PRODUCTS' ],
+      [ 'RECEIVE_PRODUCTS', { /* mocked response */ } ]
+    ])
+  })
+})
+```
+
 ### Testing Getters
 
 If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
