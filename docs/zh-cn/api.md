@@ -144,15 +144,15 @@ const store = new Vuex.Store({ ...options })
 
   替换 store 的根状态，仅用状态合并或时光旅行调试。
 
-- **`watch(getter: Function, cb: Function, options?: Object)`**
+- **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  响应式地监测一个 getter 方法的返回值，当值改变时调用回调函数。Getter 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
+  响应式地监测 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
 
-  要停止监测，直接调用返回的处理函数。
+  要停止监测，直接调用返回的取关函数。
 
-- **`subscribe(handler: Function)`**
+- **`subscribe(handler: Function): Function`**
 
-  注册监听 store 的 mutation。`handler` 会在每个 mutation 完成后调用，接收 mutation 和经过 mutation 后的状态作为参数：
+  订阅 store 的 mutation。`handler` 会在每个 mutation 完成后调用，接收 mutation 和经过 mutation 后的状态作为参数：
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -161,9 +161,11 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  要停止订阅，直接调用返回的退订函数。
+
   通常用于插件。[详细介绍](plugins.md)
 
-- **`subscribeAction(handler: Function)`**
+- **`subscribeAction(handler: Function): Function`**
 
   > 2.5.0 新增
 
@@ -175,6 +177,8 @@ const store = new Vuex.Store({ ...options })
     console.log(action.payload)
   })
   ```
+
+  要停止订阅，直接调用返回的退订函数。
 
   该功能常用于插件。[详细介绍](plugins.md)
 

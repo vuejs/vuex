@@ -49,7 +49,7 @@ describe('mutations', () => {
 
 ### 测试 Action
 
-Action 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 action 的时候，我们需要增加一个 mocking 服务层——例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 webpack 和  [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
+Action 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 action 的时候，我们需要增加一个 mocking 服务层——例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 webpack 和 [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
 
 下面是一个测试异步 action 的例子：
 
@@ -93,9 +93,9 @@ const testAction = (action, args, state, expectedMutations, done) => {
     const mutation = expectedMutations[count]
 
     try {
-      expect(type).to.equal(mutation.type)
+      expect(mutation.type).to.equal(type)
       if (payload) {
-        expect(payload).to.deep.equal(mutation.payload)
+        expect(mutation.payload).to.deep.equal(payload)
       }
     } catch (error) {
       done(error)
@@ -123,6 +123,24 @@ describe('actions', () => {
       { type: 'REQUEST_PRODUCTS' },
       { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)
+  })
+})
+```
+
+如果你在测试环境下有可用的 spy (比如通过 [Sinon.JS](http://sinonjs.org/))，你可以使用它们替换辅助函数 `testAction`：
+
+``` js
+describe('actions', () => {
+  it('getAllProducts', () => {
+    const commit = sinon.spy()
+    const state = {}
+    
+    actions.getAllProducts({ commit, state })
+    
+    expect(commit.args).to.deep.equal([
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* mocked response */ }]
+    ])
   })
 })
 ```
