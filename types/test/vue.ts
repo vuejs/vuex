@@ -8,7 +8,8 @@ const store = new Vuex.Store({
 });
 
 const vm = new Vue({
-  store
+  store,
+  asyncData: ({ store, route }) => new Promise((resolve, reject) => resolve())
 });
 
 vm.$store.state.value;
