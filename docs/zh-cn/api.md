@@ -146,9 +146,9 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  响应式地监测 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
+  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
 
-  要停止监测，直接调用返回的取关函数。
+  要停止侦听，调用此方法返回的函数即可停止侦听。
 
 - **`subscribe(handler: Function): Function`**
 
@@ -161,7 +161,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  要停止订阅，直接调用返回的退订函数。
+  要停止订阅，调用此方法返回的函数即可停止订阅。
 
   通常用于插件。[详细介绍](plugins.md)
 
@@ -178,7 +178,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  要停止订阅，直接调用返回的退订函数。
+  要停止订阅，调用此方法返回的函数即可停止订阅。
 
   该功能常用于插件。[详细介绍](plugins.md)
 
