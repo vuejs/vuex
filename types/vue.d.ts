@@ -8,6 +8,7 @@ import { Store } from "./index";
 declare module "vue/types/options" {
   interface ComponentOptions<V extends Vue> {
     store?: Store<any>;
+    asyncData?(opts: { store?: Store<any>, route?: string }): Promise<any>;
   }
 }
 
