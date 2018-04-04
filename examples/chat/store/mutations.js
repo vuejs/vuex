@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 export default {
-  RECEIVE_ALL(state, messages) {
+  receiveAll(state, messages) {
     let latestMessage
     messages.forEach(message => {
       // create new thread if the thread doesn't exist
@@ -19,11 +19,11 @@ export default {
     setCurrentThread(state, latestMessage.threadID)
   },
 
-  RECEIVE_MESSAGE(state, message) {
+  receiveMessage(state, message) {
     addMessage(state, message)
   },
 
-  SWITCH_THREAD(state, id) {
+  switchThread(state, id) {
     setCurrentThread(state, id)
   }
 }
