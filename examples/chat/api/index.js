@@ -1,13 +1,13 @@
 const data = require('./mock-data')
 const LATENCY = 16
 
-export const getAllMessages = (cb) => {
+export function getAllMessages (cb) {
   setTimeout(() => {
     cb(data)
   }, LATENCY)
 }
 
-export const createMessage = ({ text, thread }, cb) => {
+export function createMessage ({ text, thread }, cb) {
   const timestamp = Date.now()
   const id = 'm_' + timestamp
   const message = {

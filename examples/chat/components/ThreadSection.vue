@@ -6,7 +6,8 @@
       </span>
     </div>
     <ul class="thread-list">
-      <thread v-for="thread in threads"
+      <thread 
+        v-for="thread in threads"
         :key="thread.id"
         :thread="thread"
         :active="thread.id === currentThread.id"
@@ -24,10 +25,6 @@ export default {
   name: 'ThreadSection',
   components: { Thread },
   computed: mapGetters(['threads', 'currentThread', 'unreadCount']),
-  methods: mapActions({
-    switchThread(dispatch, id) {
-      dispatch('switchThread', id)
-    }
-  })
+  methods: mapActions(['switchThread'])
 }
 </script>

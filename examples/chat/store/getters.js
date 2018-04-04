@@ -13,14 +13,13 @@ export const currentMessages = state => {
     : []
 }
 
-export const unreadCount = state => {
-  const { threads } = state
+export const unreadCount = ({ threads }) => {
   return Object.keys(threads).reduce((count, id) => {
     return threads[id].lastMessage.isRead ? count : count + 1
   }, 0)
 }
 
-export const sortedMessages = state => {
-  const messages = currentMessages(state)
+export const sortedMessages = (state, getters) => {
+  const messages = getters.currentMessages
   return messages.slice().sort((a, b) => a.timestamp - b.timestamp)
 }
