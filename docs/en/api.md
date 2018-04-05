@@ -208,7 +208,7 @@ const store = new Vuex.Store({ ...options })
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
 
-- **`mapActions(namespace?: string, map: Array<string> | Object<string, string>): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object<string, string | function(dispatch: function, ...args: any[])>): Object`**
 
   Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
 
