@@ -196,25 +196,25 @@ const store = new Vuex.Store({ ...options })
 
 ### Component Binding Helpers
 
-- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object<string, string | function(state: any)>): Object`**
 
   Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
 
-- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapGetters(namespace?: string, map: Array<string> | Object<string, string>): Object`**
 
   Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
 
-- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object<string, string>): Object`**
 
   Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object<string, strong | function(commit: function, ...args: any[])>): Object`**
 
   Create component methods options that commit a mutation. [Details](mutations.md#committing-mutations-in-components)
 
