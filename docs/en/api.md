@@ -214,7 +214,7 @@ const store = new Vuex.Store({ ...options })
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object<string, strong | function(commit: function, ...args: any[])>): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object<string, string | function(commit: function, ...args: any[])>): Object`**
 
   Create component methods options that commit a mutation. [Details](mutations.md#committing-mutations-in-components)
 
