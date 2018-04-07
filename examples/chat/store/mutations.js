@@ -28,7 +28,7 @@ export default {
   }
 }
 
-const createThread = (state, id, name) => {
+function createThread (state, id, name) {
   Vue.set(state.threads, id, {
     id,
     name,
@@ -37,7 +37,7 @@ const createThread = (state, id, name) => {
   })
 }
 
-const addMessage = (state, message) => {
+function addMessage (state, message) {
   // add a `isRead` field before adding the message
   message.isRead = message.threadID === state.currentThreadID
   // add it to the thread it belongs to
@@ -50,7 +50,7 @@ const addMessage = (state, message) => {
   Vue.set(state.messages, message.id, message)
 }
 
-const setCurrentThread = (state, id) => {
+function setCurrentThread (state, id) {
   state.currentThreadID = id
   if (!state.threads[id]) {
     debugger
