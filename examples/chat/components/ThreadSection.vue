@@ -6,7 +6,7 @@
       </span>
     </div>
     <ul class="thread-list">
-      <thread 
+      <thread
         v-for="thread in threads"
         :key="thread.id"
         :thread="thread"
