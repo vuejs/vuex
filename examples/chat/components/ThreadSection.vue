@@ -19,29 +19,12 @@
 
 <script>
 import Thread from './Thread.vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'ThreadSection',
   components: { Thread },
-  computed: {
-    ...mapGetters([
-      'threads',
-      'currentThread'
-    ]),
-    unreadCount () {
-      const threads = this.threads
-      return Object.keys(threads).reduce((count, id) => {
-        return threads[id].lastMessage.isRead
-          ? count
-          : count + 1
-      }, 0)
-    }
-  },
-  methods: {
-    switchThread (id) {
-      this.$store.dispatch('switchThread', { id })
-    }
-  }
+  computed: mapGetters(['threads', 'currentThread', 'unreadCount']),
+  methods: mapActions(['switchThread'])
 }
 </script>
