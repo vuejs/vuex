@@ -196,29 +196,35 @@ const store = new Vuex.Store({ ...options })
 
 ### Component Binding Helpers
 
-- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  
+  The Second object argument's members can be a function. `function(state: any)` 
 
-- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
 
   Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
 
-- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  
+  The Second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   Create component methods options that commit a mutation. [Details](mutations.md#committing-mutations-in-components)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  
+  The Second object argument's members can be a function. `function(commit: function, ...args: any[])`
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
