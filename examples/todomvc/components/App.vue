@@ -19,7 +19,11 @@
         @change="toggleAll(!allChecked)">
       <label for="toggle-all"></label>
       <ul class="todo-list">
-        <todo v-for="(todo, index) in filteredTodos" :key="index" :todo="todo"></todo>
+        <TodoItem
+          v-for="(todo, index) in filteredTodos"
+          :key="index"
+          :todo="todo"
+        />
       </ul>
     </section>
     <!-- footer -->
@@ -46,7 +50,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Todo from './Todo.vue'
+import TodoItem from './TodoItem.vue'
 
 const filters = {
   all: todos => todos,
@@ -55,7 +59,7 @@ const filters = {
 }
 
 export default {
-  components: { Todo },
+  components: { TodoItem },
   data () {
     return {
       visibility: 'all',
