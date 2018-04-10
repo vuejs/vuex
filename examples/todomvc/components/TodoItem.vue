@@ -6,7 +6,7 @@
         :checked="todo.done"
         @change="toggleTodo(todo)">
       <label v-text="todo.text" @dblclick="editing = true"></label>
-      <button class="destroy" @click="remove(todo)"></button>
+      <button class="destroy" @click="removeTodo(todo)"></button>
     </div>
     <input class="edit"
       v-show="editing"
@@ -42,13 +42,13 @@ export default {
     ...mapActions([
       'editTodo',
       'toggleTodo',
-      'remove'
+      'removeTodo'
     ]),
     doneEdit (e) {
       const value = e.target.value.trim()
       const { todo } = this
       if (!value) {
-        this.remove(todo)
+        this.removeTodo(todo)
       } else if (this.editing) {
         this.editTodo({
           todo,

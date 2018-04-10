@@ -88,7 +88,7 @@ export default {
     addTodo (e) {
       const text = e.target.value
       if (text.trim()) {
-        this.$store.dispatch('createTodo', text)
+        this.$store.dispatch('addTodo', text)
       }
       e.target.value = ''
     }
