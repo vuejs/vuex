@@ -19,11 +19,11 @@ export default {
   computed: mapState({
     products: state => state.products.all
   }),
-  methods: mapActions([
+  methods: mapActions('cart', [
     'addProductToCart'
   ]),
   created () {
-    this.$store.dispatch('getAllProducts')
+    this.$store.dispatch('products/getAllProducts')
   }
 }
 </script>

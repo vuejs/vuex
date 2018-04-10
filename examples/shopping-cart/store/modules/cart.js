@@ -55,7 +55,7 @@ const actions = {
         commit('incrementItemQuantity', cartItem)
       }
       // remove 1 item from stock
-      commit('decrementProductInventory', { id: product.id })
+      commit('products/decrementProductInventory', { id: product.id }, { root: true })
     }
   }
 }
@@ -84,6 +84,7 @@ const mutations = {
 }
 
 export default {
+  namespaced: true,
   state,
   getters,
   actions,

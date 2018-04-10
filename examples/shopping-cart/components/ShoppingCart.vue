@@ -21,14 +21,14 @@ export default {
     ...mapState({
       checkoutStatus: state => state.cart.checkoutStatus
     }),
-    ...mapGetters({
+    ...mapGetters('cart', {
       products: 'cartProducts',
       total: 'cartTotalPrice'
     })
   },
   methods: {
     checkout (products) {
-      this.$store.dispatch('checkout', products)
+      this.$store.dispatch('cart/checkout', products)
     }
   }
 }
