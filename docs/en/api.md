@@ -202,7 +202,7 @@ const store = new Vuex.Store({ ...options })
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
   
-  The Second object argument's members can be a function. `function(state: any)` 
+  The second object argument's members can be a function. `function(state: any)` 
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
 
@@ -216,7 +216,7 @@ const store = new Vuex.Store({ ...options })
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
   
-  The Second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
+  The second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
@@ -224,7 +224,7 @@ const store = new Vuex.Store({ ...options })
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
   
-  The Second object argument's members can be a function. `function(commit: function, ...args: any[])`
+  The second object argument's members can be a function. `function(commit: function, ...args: any[])`
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
