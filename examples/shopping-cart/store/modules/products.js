@@ -6,9 +6,7 @@ const state = {
 }
 
 // getters
-const getters = {
-  allProducts: state => state.all
-}
+const getters = {}
 
 // actions
 const actions = {

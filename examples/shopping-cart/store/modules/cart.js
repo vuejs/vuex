@@ -9,8 +9,6 @@ const state = {
 
 // getters
 const getters = {
-  checkoutStatus: state => state.checkoutStatus,
-
   cartProducts: (state, getters, rootState) => {
     return state.added.map(({ id, quantity }) => {
       const product = rootState.products.all.find(product => product.id === id)
