@@ -1,25 +1,33 @@
 export default {
-  createTodo ({ commit }, text) {
-    commit('addTodo', text)
+  addTodo ({ commit }, text) {
+    commit('addTodo', {
+      text,
+      done: false
+    })
   },
 
-  deleteTodo ({ commit }, todo) {
+  removeTodo ({ commit }, todo) {
     commit('removeTodo', todo)
   },
 
   toggleTodo ({ commit }, todo) {
-    commit('toggleTodo', todo)
+    commit('editTodo', { todo, done: !todo.done })
   },
 
-  updateTodo ({ commit }, { todo, value }) {
-    commit('editTodo', { todo, value })
+  editTodo ({ commit }, { todo, value }) {
+    commit('editTodo', { todo, text: value })
   },
 
   toggleAll ({ state, commit }, done) {
-    commit('toggleAll', done)
+    state.todos.forEach((todo) => {
+      commit('editTodo', { todo, done })
+    })
   },
 
-  clearCompleted ({ commit }) {
-    commit('clearCompleted')
+  clearCompleted ({ state, commit }) {
+    state.todos.filter(todo => todo.done)
+      .forEach(todo => {
+        commit('removeTodo', todo)
+      })
   }
 }
