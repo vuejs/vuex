@@ -16,7 +16,7 @@
       <input class="toggle-all" id="toggle-all"
         type="checkbox"
         :checked="allChecked"
-        @change="toggleAll({ done: !allChecked })">
+        @change="toggleAll(!allChecked)">
       <label for="toggle-all"></label>
       <ul class="todo-list">
         <todo v-for="(todo, index) in filteredTodos" :key="index" :todo="todo"></todo>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import Todo from './Todo.vue'
 
 const filters = {
@@ -77,17 +77,17 @@ export default {
     }
   },
   methods: {
-    addTodo (e) {
-      var text = e.target.value
-      if (text.trim()) {
-        this.$store.commit('addTodo', { text })
-      }
-      e.target.value = ''
-    },
-    ...mapMutations([
+    ...mapActions([
       'toggleAll',
       'clearCompleted'
-    ])
+    ]),
+    addTodo (e) {
+      const text = e.target.value
+      if (text.trim()) {
+        this.$store.dispatch('createTodo', text)
+      }
+      e.target.value = ''
+    }
   },
   filters: {
     pluralize: (n, w) => n === 1 ? w : (w + 's'),
