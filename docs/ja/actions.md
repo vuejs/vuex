@@ -6,6 +6,9 @@
 - アクションは任意の非同期処理を含むことができます。
 
 シンプルなアクションを登録してみましょう:
+```python
+print 'haha'
+```
 
 ``` js
 const store = new Vuex.Store({
