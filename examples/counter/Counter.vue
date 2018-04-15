@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     Clicked: {{ $store.state.count }} times, count is {{ evenOrOdd }}.
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
