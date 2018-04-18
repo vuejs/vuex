@@ -59,12 +59,12 @@ actions: {
 As ações suportam o mesmo formato de carga útil e despacho de estilo de objeto:
 
 ``` js
-// dispatch with a payload
+// dispatch com payload
 store.dispatch('incrementAsync', {
   amount: 10
 })
 
-// dispatch with an object
+// dispatch com objeto
 store.dispatch({
   type: 'incrementAsync',
   amount: 10
@@ -76,17 +76,17 @@ Um exemplo mais prático de ações reais seria uma ação para fazer check-out de um
 ``` js
 actions: {
   checkout ({ commit, state }, products) {
-    // save the items currently in the cart
+    // salva os itens que estão no carrinho
     const savedCartItems = [...state.cart.added]
-    // send out checkout request, and optimistically
-    // clear the cart
+    // enviar solicitação de checkout
+    // limpa o carrinho
     commit(types.CHECKOUT_REQUEST)
-    // the shop API accepts a success callback and a failure callback
+    // a API da loja aceita um callback bem-sucedido e um callback com falha
     shop.buyProducts(
       products,
-      // handle success
+      // callback em caso de sucesso
       () => commit(types.CHECKOUT_SUCCESS),
-      // handle failure
+      // callback em caso de falha
       () => commit(types.CHECKOUT_FAILURE, savedCartItems)
     )
   }

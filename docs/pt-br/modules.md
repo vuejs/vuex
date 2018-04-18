@@ -138,8 +138,8 @@ modules: {
     namespaced: true,
 
     getters: {
-      // `getters` is localized to this module's getters
-      // you can use rootGetters via 4th argument of getters
+      // `getters` está localizado nos getters deste módulo
+      // você pode usar rootGetters como 4º argumento de getters
       someGetter (state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
         rootGetters.someOtherGetter // -> 'someOtherGetter'
@@ -185,8 +185,6 @@ methods: {
 }
 ```
 
-In such cases, you can pass the module namespace string as the first argument to the helpers so that all bindings are done using that module as the context. The above can be simplified to:
-
 Nesses casos, você pode passar a string de namespace do módulo como o primeiro argumento para os auxiliares para que todas as ligações sejam feitas usando esse módulo como contexto. O anterior pode ser simplificado para:
 
 
@@ -204,8 +202,6 @@ methods: {
   ])
 }
 ```
-
-Furthermore, you can create namespaced helpers by using `createNamespacedHelpers`. It returns an object having new component binding helpers that are bound with the given namespace value:
 
 Além disso, você pode criar helpers com nomes usando o `createNamespacedHelpers`. Ele retorna um objeto com novos auxiliares de ligação de componentes que estão vinculados com o valor de namespace fornecido:
 
@@ -233,7 +229,6 @@ export default {
 ```
 
 #### Advertência para desenvolvedores de plugin
-You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
 Você pode se preocupar com o namespacing imprevisível para seus módulos quando você cria um [plugin] (plugins.md) que fornece os módulos e permite que os usuários os adicionem a uma loja Vuex. Seus módulos serão também escritos por namespacing se os usuários do plugin adicionarem seus módulos em um módulo namespace. Para adaptar esta situação, talvez seja necessário receber um valor de namespace através da opção do plugin:
 
 ``` js

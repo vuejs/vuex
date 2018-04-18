@@ -37,7 +37,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes] (state.md)
       commit,     // o mesmo que `store.commit`
       dispatch,   // o mesmo que `store.dispatch`
       getters,    // o mesmo que `store.getters`, ou com getters locais se estiver em módulos
-      rootGetters // same as `store.getters`, apenas em módulos
+      rootGetters // o mesmo que `store.getters`, apenas em módulos
     }
     ```
 
@@ -156,7 +156,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes] (state.md)
 
 - **`subscribeAction(handler: Function)`**
 
-  > New in 2.5.0
+  > Novo em 2.5.0
 
   Assina as ações da loja. O `handler` é chamado para cada ação despachada e recebe o descritor de ação e o estado atual da loja como argumentos:
 

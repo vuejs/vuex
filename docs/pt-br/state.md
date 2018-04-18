@@ -52,7 +52,7 @@ const Counter = {
 }
 ```
 
-### O auxiliary `mapState`
+### O auxiliar `mapState`
 
 Quando um componente precisa fazer uso de várias propriedades de estado da loja ou getters, declarar que todas essas propriedades computadas podem ser repetitivas e verbosas. Para lidar com isso, podemos usar o ajudante `mapState` que gera funções getter computadas para nós, salvando-nos algumas teclas:
 
@@ -87,7 +87,7 @@ computed: mapState([
 
 ### Operador de propagação de objetos
 
-Observe que `mapState` retorna um objeto. Como usá-lo em combinação com outras propriedades locais computadas? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado '. No entanto, com o [operador de propagação de objetos] (https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta de ECMAScript em estágio 3), podemos simplificar muito a sintaxe:
+Observe que `mapState` retorna um objeto. Como usá-lo em combinação com outras propriedades locais computadas? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [operador de propagação de objetos] (https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta de ECMAScript em estágio 3), podemos simplificar muito a sintaxe:
 
 ``` js
 computed: {

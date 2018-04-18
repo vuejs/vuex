@@ -9,7 +9,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     increment (state) {
-      // mutate state
+      // muda o state
       state.count++
     }
   }
@@ -145,13 +145,13 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment', // map `this.increment()` to `this.$store.commit('increment')`
+      'increment', // mapeia `this.increment()` para `this.$store.commit('increment')`
 
-      // `mapMutations` also supports payloads:
-      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
+      // `mapMutations` também suporta payloads:
+      'incrementBy' // mapeia `this.incrementBy(amount)` para `this.$store.commit('incrementBy', amount)`
     ]),
     ...mapMutations({
-      add: 'increment' // map `this.add()` to `this.$store.commit('increment')`
+      add: 'increment' // mapeia `this.add()` para `this.$store.commit('increment')`
     })
   }
 }
@@ -159,7 +159,7 @@ export default {
 
 ### Ações
 
-Asincronicidade combinada com a mutação do estado pode tornar o seu programa muito difícil de aconteccer. Por exemplo, quando você chama dois métodos com retrocessos assíncronos que mutam o estado, como você sabe quando eles são chamados e qual callback foi chamado primeiro? É exatamente por isso que queremos separar os dois conceitos. No Vuex, as mutações ** são transações síncronas **:
+Assincronicidade combinada com a mutação do estado pode tornar o seu programa muito difícil de acontecer. Por exemplo, quando você chama dois métodos com retrocessos assíncronos que mutam o estado, como você sabe quando eles são chamados e qual callback foi chamado primeiro? É exatamente por isso que queremos separar os dois conceitos. No Vuex, as mutações ** são transações síncronas **:
 
 ``` js
 store.commit('increment')

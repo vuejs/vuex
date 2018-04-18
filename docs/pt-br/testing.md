@@ -173,8 +173,6 @@ describe('getters', () => {
 
 ### Execução de testes
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
-
 Se suas mutações e ações estiverem escritas corretamente, os testes não devem ter dependência direta das APIs do navegador após uma mudança apropriada. Assim, você pode simplesmente agrupar os testes com o webpack e executá-lo diretamente no Node. Alternativamente, você pode usar `mocha-loader` ou Karma +` karma-webpack` para executar os testes em navegadores reais.
 
 #### Rodando no Node
