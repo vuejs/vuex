@@ -161,14 +161,14 @@ actions: {
 Por fim, se usarmos [async / await] (https://tc39.github.io/ecmascript-asyncawait/), podemos compor nossas ações como esta:
 
 ``` js
-// assuming `getData()` and `getOtherData()` return Promises
+// Assumindo que `getData ()` e `getOtherData ()` retornam Promessas
 
 actions: {
   async actionA ({ commit }) {
     commit('gotData', await getData())
   },
   async actionB ({ dispatch, commit }) {
-    await dispatch('actionA') // wait for `actionA` to finish
+    await dispatch('actionA') // esperar que `actionA` termine
     commit('gotOtherData', await getOtherData())
   }
 }
