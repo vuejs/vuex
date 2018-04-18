@@ -233,7 +233,7 @@ Você pode se preocupar com o namespacing imprevisível para seus módulos quando v
 
 ``` js
 // pega o valor do namespace via opção de plugin
-// e retornaa função de plugin Vuex 
+// e retorna a função de plugin Vuex 
 export function createPlugin (options = {}) {
   return function (store) {
     // add namespace to plugin module's types
