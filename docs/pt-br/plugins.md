@@ -22,11 +22,11 @@ const store = new Vuex.Store({
 })
 ```
 
-### Comitando Mutações dentro de Plugins
+### Fazendo Commit de Mutações dentro de Plugins
 
 Plugins não tem permissão para mutar diretamente o estado - similar aos componentes, eles podem apenas disparar mudanças cometendo mutações.
 
-Ao comitar uma mutação, um plugin pode ser usado para sincronizar uma fonte de dados à store. Por exemplo, para sincronizar uma fonte de dados websocket à store (isso é só um exemplo inventado, na realidade a função `createPlugin` pode receber parâmetros adicionais para tarefas mais complexas):
+Ao fazer um commit de uma mutação, um plugin pode ser usado para sincronizar uma fonte de dados à store. Por exemplo, para sincronizar uma fonte de dados websocket à store (isso é só um exemplo inventado, na realidade a função `createPlugin` pode receber parâmetros adicionais para tarefas mais complexas):
 
 
 ``` js
@@ -120,7 +120,8 @@ const logger = createLogger({
     // mutações são logadas no formato `{ type, payload }`
     // mas podemos formatá-las como quiser.
     return mutation.type
-  }
+  },
+  logger: console, // implementação da API `console`, padrão `console`
 })
 ```
 
