@@ -11,7 +11,7 @@ No centro de cada aplicação Vuex existe a ** loja **. Uma "loja" é basicamente u
 > **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto dos documentos. Se você não o pegou, [você deveria]
 (https://babeljs.io/docs/learn-es2015/)!
 
-Após [instalar] (installation.md) Vuex, vamos criar uma loja. É bastante direto - apenas forneça um objeto de estado inicial e algumas mutações:
+Após [instalar](installation.md) Vuex, vamos criar uma loja. É bastante direto - apenas forneça um objeto de estado inicial e algumas mutações:
 
 ``` js
 // Certifique-se de chamar Vue.use (Vuex) primeiro se estiver usando um sistema de módulo
@@ -38,7 +38,7 @@ console.log(store.state.count) // -> 1
 Novamente, a razão pela qual estamos comitando uma mutação em vez de mudar `store.state.count 'diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa argumentar sobre as mudanças de estado em seu aplicativo melhor ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, tirar instantâneos de estado ou mesmo realizar depuração de viagem no tempo.
 Usar o estado da loja em um componente simplesmente envolve o retorno do estado dentro de uma propriedade computada, porque o estado da loja é reativo. Acionar as mudanças simplesmente significa comprometer mutações nos métodos componentes.
 
-Aqui está um exemplo do [aplicativo de contador do Vuex mais básico] (https://jsfiddle.net/n9jmu5v7/1269/).
+Aqui está um exemplo do [aplicativo de contador do Vuex mais básico](https://jsfiddle.net/n9jmu5v7/1269/).
 
 Em seguida, discutiremos cada conceito chave em mais detalhes, começando com [Estado](state.md).
 

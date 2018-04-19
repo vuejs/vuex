@@ -14,8 +14,8 @@ const store = new Vuex.Store({ ...options })
 
   - type: `Object | Function`
 
-O objeto do estado da raiz para a loja Vuex. [Detalhes] (state.md)
-    Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes] (modules.md # módulo-reutilização)
+O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
+    Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](modules.md#módulo-reutilização)
 
 - **mutações**
 
@@ -125,7 +125,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes] (state.md)
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Confirma uma mutação. `options` pode ter` root: true` que permite confirmar mutações da raiz em [namespaced modules] (modules.md # namespacing). [Detalhes](mutations.md)
+  Confirma uma mutação. `options` pode ter` root: true` que permite confirmar mutações da raiz em [namespaced modules](modules.md#namespacing). [Detalhes](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
@@ -192,7 +192,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes] (state.md)
   O primeiro argumnto pode ser opcionalmente uma string com namespace.[Detalhes](modules.md#binding-helpers-with-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
- 
+
   Cria componentes computadas de opções que retornam valor avaliado deo getter. [Detalhes](getters.md#the-mapgetters-helper)
 
   O primeiro argumento pode ser opcionalmente uma string com namespace.[Detalhes](modules.md#binding-helpers-with-namespace)

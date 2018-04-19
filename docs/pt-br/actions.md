@@ -23,10 +23,10 @@ const store = new Vuex.Store({
 })
 ```
 
-Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância da loja(store), para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os getters através do `context.state` e do `contexto. getters`. 
-Veremos por que esse objeto de contexto não é a própria instância da loja quando apresentamos [Módulos] (modules.md) mais tarde.
+Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância da loja(store), para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os getters através do `context.state` e do `contexto. getters`.
+Veremos por que esse objeto de contexto não é a própria instância da loja quando apresentamos [Módulos](modules.md) mais tarde.
 
-Na prática, muitas vezes usamos ES2015 [desestruturação de argumentos] (https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o código(especialmente quando precisamos chamar `commit` várias vezes):
+Na prática, muitas vezes usamos ES2015 [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o código(especialmente quando precisamos chamar `commit` várias vezes):
 
 ``` js
 actions: {
@@ -158,7 +158,7 @@ actions: {
 }
 ```
 
-Por fim, se usarmos [async / await] (https://tc39.github.io/ecmascript-asyncawait/), podemos compor nossas ações como esta:
+Por fim, se usarmos [async / await](https://tc39.github.io/ecmascript-asyncawait/), podemos compor nossas ações como esta:
 
 ``` js
 // Assumindo que `getData ()` e `getOtherData ()` retornam Promessas

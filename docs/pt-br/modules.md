@@ -148,8 +148,8 @@ modules: {
     },
 
     actions: {
-      // despachar e confirmar também estão localizados para este módulo   
-    // eles aceitarão a opção `root` para o envio / commit da raiz
+      // despachar e confirmar também estão localizados para este módulo
+      // eles aceitarão a opção `root` para o envio / commit da raiz
 
       someAction ({ dispatch, commit, getters, rootGetters }) {
         getters.someGetter // -> 'foo/someGetter'
@@ -229,11 +229,11 @@ export default {
 ```
 
 #### Advertência para desenvolvedores de plugin
-Você pode se preocupar com o namespacing imprevisível para seus módulos quando você cria um [plugin] (plugins.md) que fornece os módulos e permite que os usuários os adicionem a uma loja Vuex. Seus módulos serão também escritos por namespacing se os usuários do plugin adicionarem seus módulos em um módulo namespace. Para adaptar esta situação, talvez seja necessário receber um valor de namespace através da opção do plugin:
+Você pode se preocupar com o namespacing imprevisível para seus módulos quando você cria um [plugin](plugins.md) que fornece os módulos e permite que os usuários os adicionem a uma loja Vuex. Seus módulos serão também escritos por namespacing se os usuários do plugin adicionarem seus módulos em um módulo namespace. Para adaptar esta situação, talvez seja necessário receber um valor de namespace através da opção do plugin:
 
 ``` js
 // pega o valor do namespace via opção de plugin
-// e retorna a função de plugin Vuex 
+// e retorna a função de plugin Vuex
 export function createPlugin (options = {}) {
   return function (store) {
     // add namespace to plugin module's types
@@ -259,7 +259,7 @@ store.registerModule(['nested', 'myModule'], {
 ```
 
 O estado do módulo será exposto como `store.state.myModule` e` store.state.nested.myModule`.
-O registro de módulo dinâmico torna possível que outros plugins do Vue também alavancem o Vuex para gerenciamento de estado anexando um módulo à loja do aplicativo. Por exemplo, a biblioteca [`vuex-router-sync`] (https://github.com/vuejs/vuex-router-sync) integra vue-router com vuex, gerenciando o estado da rota do aplicativo em um módulo anexado dinamicamente.
+O registro de módulo dinâmico torna possível que outros plugins do Vue também alavancem o Vuex para gerenciamento de estado anexando um módulo à loja do aplicativo. Por exemplo, a biblioteca [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra vue-router com vuex, gerenciando o estado da rota do aplicativo em um módulo anexado dinamicamente.
 
 Você também pode remover um módulo registrado dinamicamente com `store.unregisterModule (moduleName)`. Observe que você não pode remover módulos estáticos (declarados na criação da loja) com este método.
 Pode ser provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Server Side Rendered. Você pode conseguir isso com a opção `preserveState`:` store.registerModule ('a', module, {preserveState: true}) `
@@ -267,7 +267,7 @@ Pode ser provável que você queira preservar o estado anterior ao registrar um no
 ### Reutilização do Módulo
 Às vezes, talvez precisemos criar várias instâncias de um módulo, por exemplo:
 
-- Criando várias lojas que usam o mesmo módulo (por exemplo, para [evitar singulares estéreis no SSR] (https://ssr.vuejs.org/en/structure.html#avoid-statelet-singletons) quando a opção `runInNewContext` é` false ou "once");
+- Criando várias lojas que usam o mesmo módulo (por exemplo, para [evitar singulares estéreis no SSR](https://ssr.vuejs.org/en/structure.html#avoid-statelet-singletons) quando a opção `runInNewContext` é` false ou "once");
 - Registre o mesmo módulo várias vezes na mesma loja.
 
 Se usarmos um objeto simples para declarar o estado do módulo, esse objeto de estado será compartilhado por referência e causará poluição do estado do armazenamento / módulo quando estiver mutado.

@@ -47,7 +47,7 @@ describe('mutations', () => {
 
 ### Testando ações
 
-As ações podem ser um pouco mais complicadas porque podem chamar as APIs externas. Ao testar ações, geralmente precisamos fazer algum nível de burla - por exemplo, podemos resumir as chamadas da API em um serviço e simular esse serviço dentro de nossos testes. A fim de simular facilmente as dependências, podemos usar o webpack e [injetor-carregador] (https://github.com/plasticine/inject-loader) para agrupar nossos arquivos de teste.
+As ações podem ser um pouco mais complicadas porque podem chamar as APIs externas. Ao testar ações, geralmente precisamos fazer algum nível de burla - por exemplo, podemos resumir as chamadas da API em um serviço e simular esse serviço dentro de nossos testes. A fim de simular facilmente as dependências, podemos usar o webpack e [injetor-carregador](https://github.com/plasticine/inject-loader) para agrupar nossos arquivos de teste.
 
 Exemplo de teste de uma ação assíncrona:
 

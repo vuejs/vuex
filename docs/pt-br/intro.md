@@ -1,7 +1,7 @@
 ﻿# O que é Vuex?
 
 O Vuex é um ** padrão de gerenciamento de estado + biblioteca ** para aplicativos Vue.js. Ele serve como uma loja centralizada para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível.
-Ele também se integra com a versão [devtools extension] do Vue (https://github.com/vuejs/vue-devtools) para fornecer recursos avançados, como depuração de tempo-viagem de zero-config e exportação / importação de instantâneo de estado.
+Ele também se integra com a versão [devtools extension](https://github.com/vuejs/vue-devtools) do Vue para fornecer recursos avançados, como depuração de tempo-viagem de zero-config e exportação / importação de instantâneo de estado.
 
 ### O que é um "Padrão de Gerenciamento do Estado"?
 
@@ -59,7 +59,7 @@ Esta é a idéia básica por trás do Vuex, inspirada por
 
 Embora o Vuex nos ajude a lidar com gerenciamento de estado compartilhado, ele também vem com o custo de mais conceitos e relatórios. É um trade-off entre produtividade a curto prazo e longo prazo.
 
-Se você nunca construiu um SPA de grande escala e pulando direito para o Vuex, pode parecer detalhista e assustador. Isso é perfeitamente normal - se o seu aplicativo for simples, você provavelmente estará bem sem o Vuex. Um simples [global event bus] (https://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication) pode ser tudo o que você precisa. Mas se você estiver construindo um SPA de médio a grande escala, é provável que você tenha encontrado situações que o façam pensar sobre como lidar melhor com o estado fora dos componentes do Vue e o Vuex será o próximo passo natural para você. Há uma boa citação de Dan Abramov, o autor da Redux:
+Se você nunca construiu um SPA de grande escala e pulando direito para o Vuex, pode parecer detalhista e assustador. Isso é perfeitamente normal - se o seu aplicativo for simples, você provavelmente estará bem sem o Vuex. Um simples [global event bus](https://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication) pode ser tudo o que você precisa. Mas se você estiver construindo um SPA de médio a grande escala, é provável que você tenha encontrado situações que o façam pensar sobre como lidar melhor com o estado fora dos componentes do Vue e o Vuex será o próximo passo natural para você. Há uma boa citação de Dan Abramov, o autor da Redux:
 
 > As bibliotecas Flux são como óculos: você saberá quando você precisar deles.
 

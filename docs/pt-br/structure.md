@@ -27,5 +27,5 @@ Para qualquer aplicativo não trivial, provavelmente precisaremos alavancar mód
         └── products.js   # modulo products
 ```
 
-Como referência, confira o [Exemplo do carrinho de compras] (https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+Como referência, confira o [Exemplo do carrinho de compras](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
 
