@@ -69,6 +69,10 @@ export function isPromise (val) {
   return val && typeof val.then === 'function'
 }
 
+export function isProduction () {
+  return process.env.NODE_ENV !== 'production'
+}
+
 export function assert (condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
 }
