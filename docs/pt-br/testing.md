@@ -215,5 +215,5 @@ mocha test-bundle.js
 
 #### Rodando no Browser com Karma + karma-webpack
 
-Consulte a instalação na [documentation do vue-loader](https://vue-loader.vuejs.org/pt_BR/workflow/testing.html).
+Consulte a instalação na [documentação do vue-loader](https://vue-loader.vuejs.org/pt_BR/workflow/testing.html).
 
