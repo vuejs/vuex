@@ -1,7 +1,7 @@
 # Ações
 
 As ações são semelhantes às mutações, as diferenças são as seguintes:
- - Em vez de mutar o estado, as ações confirmam mutações.
+ - Em vez de mudar o estado, as ações confirmam mutações.
  - As ações podem conter operações assíncronas arbitrárias.
 Vamos registrar uma simples ação:
 
@@ -23,8 +23,8 @@ const store = new Vuex.Store({
 })
 ```
 
-Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância da loja(store), para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os getters através do `context.state` e do `contexto. getters`.
-Veremos por que esse objeto de contexto não é a própria instância da loja quando apresentamos [Módulos](modules.md) mais tarde.
+Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância da _store_ , para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os getters através do `context.state` e do `contexto. getters`.
+Veremos por que esse objeto de contexto não é a própria instância da _store_  quando apresentamos [Módulos](modules.md) mais tarde.
 
 Na prática, muitas vezes usamos ES2015 [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o código(especialmente quando precisamos chamar `commit` várias vezes):
 
@@ -81,7 +81,7 @@ actions: {
     // enviar solicitação de checkout
     // limpa o carrinho
     commit(types.CHECKOUT_REQUEST)
-    // a API da loja aceita um callback bem-sucedido e um callback com falha
+    // a API da store aceita um callback bem-sucedido e um callback com falha
     shop.buyProducts(
       products,
       // callback em caso de sucesso
@@ -106,13 +106,13 @@ export default {
   // ...
   methods: {
     ...mapActions([
-      'increment', // map `this.increment()` to `this.$store.dispatch('increment')`
+      'increment', // mapeia `this.increment()` para `this.$store.dispatch('increment')`
 
       // `mapActions` also supports payloads:
-      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.dispatch('incrementBy', amount)`
+      'incrementBy' // mapeia `this.incrementBy(amount)` para `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
-      add: 'increment' // map `this.add()` to `this.$store.dispatch('increment')`
+      add: 'increment' // mapeia `this.add()` para `this.$store.dispatch('increment')`
     })
   }
 }
@@ -122,7 +122,7 @@ export default {
 
 As ações geralmente são assíncronas, então, como sabemos quando uma ação é realizada? E, o mais importante, como podemos compor ações múltiplas em conjunto para lidar com fluxos assíncronos mais complexos?
 
-A primeira coisa a saber é que `store.dispatch` pode lidar com Promise retornado pelo manipulador de ação desencadeada e também retorna Promise:
+A primeira coisa a saber é que o `store.dispatch` pode manipular o Promise retornado pelo manipulador de ação acionado e também retorna Promise:
 
 ``` js
 actions: {

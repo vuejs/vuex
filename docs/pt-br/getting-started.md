@@ -8,13 +8,12 @@ No centro de cada aplicação Vuex existe a ** loja **. Uma "loja" é basicament
 
 ### A loja mais simples
 
-> **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto dos documentos. Se você não o pegou, [você deveria]
-(https://babeljs.io/docs/learn-es2015/)!
+> **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto dos documentos. Se você não o pegou, [você deveria](https://babeljs.io/docs/learn-es2015/)!
 
 Após [instalar](installation.md) Vuex, vamos criar uma loja. É bastante direto - apenas forneça um objeto de estado inicial e algumas mutações:
 
 ``` js
-// Certifique-se de chamar Vue.use (Vuex) primeiro se estiver usando um sistema de módulo
+// Certifique-se de chamar Vue.use(Vuex) primeiro se estiver usando um sistema de módulo
 const store = new Vuex.Store({
   state: {
     count: 0

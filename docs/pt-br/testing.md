@@ -47,7 +47,7 @@ describe('mutations', () => {
 
 ### Testando ações
 
-As ações podem ser um pouco mais complicadas porque podem chamar as APIs externas. Ao testar ações, geralmente precisamos fazer algum nível de burla - por exemplo, podemos resumir as chamadas da API em um serviço e simular esse serviço dentro de nossos testes. A fim de simular facilmente as dependências, podemos usar o webpack e [injetor-carregador](https://github.com/plasticine/inject-loader) para agrupar nossos arquivos de teste.
+As ações podem ser um pouco mais complicadas porque podem chamar as APIs externas. Ao testar ações, geralmente precisamos fazer algum nível de _mocking_  - por exemplo, podemos resumir as chamadas da API em um serviço e simular esse serviço dentro de nossos testes. A fim de simular facilmente as dependências, podemos usar o webpack e [injetor-carregador](https://github.com/plasticine/inject-loader) para agrupar nossos arquivos de teste.
 
 Exemplo de teste de uma ação assíncrona:
 
@@ -66,12 +66,12 @@ export const getAllProducts = ({ commit }) => {
 ``` js
 // actions.spec.js
 
-// uso requer sintaxe para carregadores em linha.
-// com injetor-carregador, isso retorna uma fábrica de módulos
-// que nos permite injetar dependências simuladas.import { expect } from 'chai'
+// uso a sintaxe 'require' para inline loaders.
+// com inject-loader, isso retorna uma factory de módulos
+// que nos permite injetar dependências simuladas. import { expect } from 'chai'
 const actionsInjector = require('inject-loader!./actions')
 
-// create the module with our mocks
+// crie o módulo com nossos mocks
 const actions = actionsInjector({
   '../api/shop': {
     getProducts (cb) {
@@ -159,10 +159,10 @@ describe('getters', () => {
     // mock getter
     const filterCategory = 'fruit'
 
-    // get the result from the getter
+    // obter o resultado do getter
     const result = getters.filteredProducts(state, { filterCategory })
 
-    // assert the result
+    // afirma o resultado
     expect(result).to.deep.equal([
       { id: 1, title: 'Apple', category: 'fruit' },
       { id: 2, title: 'Orange', category: 'fruit' }
@@ -177,7 +177,7 @@ Se suas mutações e ações estiverem escritas corretamente, os testes não dev
 
 #### Rodando no Node
 
-Crie a seguinte configuração de webpack (juntamente com [`.babelrc` (https://babeljs.io/docs/usage/babelrc/)):
+Crie a seguinte configuração de webpack (juntamente com [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
 
 ``` js
 // webpack.config.js
@@ -209,11 +209,11 @@ mocha test-bundle.js
 #### Rodando no Browser
 
 1. Instale `mocha-loader`.
-2. Mude a `entrada 'da configuração do webpack acima para`' mocha-loader! Babel-loader! ./ test.js'`.
+2. Mude a `entrada` da configuração do webpack acima para `'mocha-loader! Babel-loader! ./ test.js'`.
 3. Inicie `webpack-dev-server` usando a configuração.
 4. Vá para `localhost: 8080 / webpack-dev-server / test-bundle`.
 
 #### Rodando no Browser com Karma + karma-webpack
 
-Consulte a instalação em [vue-loader documentation](https://vue-loader.vuejs.org/en/workflow/testing.html).
+Consulte a instalação na [documentation do vue-loader](https://vue-loader.vuejs.org/pt_BR/workflow/testing.html).
 

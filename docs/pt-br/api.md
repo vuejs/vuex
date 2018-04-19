@@ -14,14 +14,14 @@ const store = new Vuex.Store({ ...options })
 
   - type: `Object | Function`
 
-O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
+O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
     Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](modules.md#módulo-reutilização)
 
 - **mutações**
 
   - type: `{ [type: string]: Function }`
 
-    Registra mutações na loja. A função do manipulador sempre recebe `estado` como o primeiro argumento (será o estado local do módulo se definido em um módulo) e receberá um segundo argumento `payload` se houver um.
+    Registra mutações na _store_ . A função do manipulador sempre recebe `estado` como o primeiro argumento (será o estado local do módulo se definido em um módulo) e receberá um segundo argumento `payload` se houver um.
 
     [Detalhes](mutations.md)
 
@@ -29,7 +29,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   - type: `{ [type: string]: Function }`
 
-    Registra ações na loja. A função do manipulador recebe um objeto `context` que expõe as seguintes propriedades:
+    Registra ações na _store_ . A função do manipulador recebe um objeto `context` que expõe as seguintes propriedades:
     ``` js
     {
       state,      // o mesmo que `store.state`, ou estado local se estiver em módulos
@@ -47,7 +47,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   - type: `{ [key: string]: Function }`
 
-    Registra getters na loja. A função getter recebe os seguintes argumentos:
+    Registra getters na _store_ . A função getter recebe os seguintes argumentos:
     ```
     state,     // será o estado local do módulo, se definido em um módulo.
     getters    // o mesmo que store.getters
@@ -71,7 +71,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   - type: `Object`
 
-    Um objeto contendo sub módulos a serem incorporados na loja, de forma que:
+    Um objeto contendo sub módulos a serem incorporados na _store_ , de forma que:
     ``` js
     {
       key: {
@@ -86,7 +86,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
     }
     ```
 
-    Cada módulo pode conter "estado" e "mutações" semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz da loja usando a chave do módulo. As mutações e getters de um módulo receberão apenas o estado local do módulo como o primeiro argumento em vez do estado da raiz e as ações do módulo 'context.state` também apontarão para o estado local.
+    Cada módulo pode conter "estado" e "mutações" semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz da _store_  usando a chave do módulo. As mutações e getters de um módulo receberão apenas o estado local do módulo como o primeiro argumento em vez do estado da raiz e as ações do módulo 'context.state` também apontarão para o estado local.
 
     [Detalhes](modules.md)
 
@@ -94,7 +94,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   - type: `Array<Function>`
 
-	Um array de funções de plugin a serem aplicadas na loja. O plugin simplesmente recebe a loja como o único argumento e pode ouvir mutações (para persistência de dados de saída, log ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou observáveis).
+	Um array de funções de plugin a serem aplicadas na _store_ . O plugin simplesmente recebe a _store_  como o único argumento e pode ouvir mutações (para persistência de dados de saída, log ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou observáveis).
 
     [Detalhes](plugins.md)
 
@@ -103,7 +103,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
   - type: `Boolean`
   - default: `false`
 
-    Força a loja Vuex em modo estrito. No modo estrito, qualquer mutação ao estado do Vuex fora dos manipuladores de mutação acusará um erro.
+    Força a _store_  Vuex em modo estrito. No modo estrito, qualquer mutação ao estado do Vuex fora dos manipuladores de mutação acusará um erro.
 
     [Detalhes](strict.md)
 
@@ -133,17 +133,17 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
 - **`replaceState(state: Object)`**
 
-  Substitua o estado da raiz da loja. Use isso apenas para fins de hidratação / viagem no tempo.
+  Substitua o estado da raiz da _store_ . Use isso apenas para fins de hidratação / viagem no tempo.
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Visualiza de forma reativa um valor de retorno da função getter e chame o callback para o retorno de chamada quando o valor mudar. O getter recebe o estado da loja como o primeiro argumento e os getters como o segundo argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o método `vm. $ Watch` do Vue.
+  Visualiza de forma reativa um valor de retorno da função getter e chame o callback para o retorno de chamada quando o valor mudar. O getter recebe o estado da _store_  como o primeiro argumento e os getters como o segundo argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o método `vm. $ Watch` do Vue.
 
   Para parar de visualizar, chame para a função do manipulador retornada.
 
 - **`subscribe(handler: Function)`**
 
-  Assina as mutações da loja. O `handler` é chamado após cada mutação e recebe o descritor de mutação e o estado pós-mutação como argumentos:
+  Assina as mutações da _store_ . O `handler` é chamado após cada mutação e recebe o descritor de mutação e o estado pós-mutação como argumentos:
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -158,7 +158,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   > Novo em 2.5.0
 
-  Assina as ações da loja. O `handler` é chamado para cada ação despachada e recebe o descritor de ação e o estado atual da loja como argumentos:
+  Assina as ações da _store_ . O `handler` é chamado para cada ação despachada e recebe o descritor de ação e o estado atual da _store_  como argumentos:
 
   ``` js
   store.subscribeAction((action, state) => {
@@ -187,15 +187,15 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria componentes computadas de opções que retornam a subárvore da loja Vuex. [Detalhes](state.md#the-mapstate-helper)
+  Cria componentes computadas de opções que retornam a subárvore da _store_  Vuex. [Detalhes](state.md#the-mapstate-helper)
 
-  O primeiro argumnto pode ser opcionalmente uma string com namespace.[Detalhes](modules.md#binding-helpers-with-namespace)
+  O primeiro argumnto pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#binding-helpers-with-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   Cria componentes computadas de opções que retornam valor avaliado deo getter. [Detalhes](getters.md#the-mapgetters-helper)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace.[Detalhes](modules.md#binding-helpers-with-namespace)
+  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#binding-helpers-with-namespace)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 

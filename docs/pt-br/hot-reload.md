@@ -1,8 +1,8 @@
 # Hot Reloading (recarregamento rapido)
 
-O Vuex suporta hot reloading de mutações, módulos, ações e getters durante o desenvolvimento, usando o pacote do webpack [Hot Module Replacement API](https://webpack.js.org/guides/hot-module-replacement/). Você também pode usá-lo em Browserify com o [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+O Vuex suporta hot reloading de mutações, módulos, ações e getters durante o desenvolvimento, usando o pacote do webpack [Hot Module Replacement API](https://webpack.js.org/guides/hot-module-replacement/). Você também pode usá-lo em Browserify com o plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
-Para mutações e módulos, você precisa usar o método `store.hotUpdate ()` API:
+Para mutações e módulos, você precisa usar o método da API `store.hotUpdate()`:
 
 ``` js
 // store.js
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // Aceita ações e mutações como módulos quentes
+  // Aceita ações e mutações como 'hot modules'
   module.hot.accept(['./mutations', './modules/a'], () => {
     // Necessita dos módulos atualizados
     // Necessário adicionar .default devido ao módulo babel 6

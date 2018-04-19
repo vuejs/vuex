@@ -7,7 +7,7 @@ O Vuex usa uma ** árvore de estado único ** - isto é, este único objeto cont
 A árvore de um único estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
 ### Obtendo o Vuex State em Vue Components
 
-Então, como exibimos o estado dentro da loja em nossos componentes do Vue? Uma vez que as lojas Vuex são reativas, a maneira mais simples de "recuperar" o estado é simplesmente retornar algum estado da loja dentro de uma [propriedade computada](https://vuejs.org/guide/computed.html):
+Então, como exibimos o estado dentro da loja em nossos componentes do Vue? Uma vez que as lojas Vuex são reativas, a maneira mais simples de "recuperar" o estado é simplesmente retornar algum estado da loja dentro de um [dado computado](https://br.vuejs.org/v2/guide/computed.html):
 
 ``` js
 // vamos criar um componente de contador
@@ -54,7 +54,7 @@ const Counter = {
 
 ### O auxiliar `mapState`
 
-Quando um componente precisa fazer uso de várias propriedades de estado da loja ou getters, declarar que todas essas propriedades computadas podem ser repetitivas e verbosas. Para lidar com isso, podemos usar o ajudante `mapState` que gera funções getter computadas para nós, salvando-nos algumas teclas:
+Quando um componente precisa fazer uso de várias propriedades de estado da loja ou getters, declarar que todas essas propriedades computadas podem ser repetitivas e verbosas. Para lidar com isso, podemos usar o ajudante `mapState` que gera funções getter computadas para nós, economizando algumas linhas de código:
 
 ``` js
 // em pleno desenvolvimento, os ajudantes são expostos como Vuex.mapState
@@ -85,7 +85,7 @@ computed: mapState([
 ])
 ```
 
-### Operador de propagação de objetos
+### Operador de propagação de objetos (_ES2015_ _Spread_ _Operator_ )
 
 Observe que `mapState` retorna um objeto. Como usá-lo em combinação com outras propriedades locais computadas? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [operador de propagação de objetos](https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta de ECMAScript em estágio 3), podemos simplificar muito a sintaxe:
 

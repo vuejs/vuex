@@ -1,6 +1,6 @@
 # Getters
 
-Às vezes, talvez precisemos calcular o estado derivado com base no estado da loja, por exemplo, filtrar através de uma lista de itens e contá-los:
+Às vezes, talvez precisemos calcular o estado derivado com base no estado da _store_  , por exemplo, filtrar através de uma lista de itens e contá-los:
 
 ``` js
 computed: {
@@ -11,7 +11,7 @@ computed: {
 ```
 
 Se mais do que um componente precisa fazer uso disso, temos que duplicar a função, ou extraí-lo em um auxiliar compartilhado e importá-lo em vários lugares - ambos são menos do que o ideal.
-O Vuex nos permite definir "getters" na loja. Você pode pensar neles como propriedades computafas para lojas. Como as propriedades computadas, o resultado de um getter é armazenado em cache com base em suas dependências e só irá avaliar novamente quando algumas de suas dependências mudaram.
+O Vuex nos permite definir "getters" na _store_ . Você pode pensar neles como dados computados para _stores_ . Como os dados computados, o resultado de um getter é armazenado em cache com base em suas dependências e só irá avaliar novamente quando algumas de suas dependências mudarem.
 
 Getters receberam o estado como seu primeiro argumento:
 
@@ -62,7 +62,7 @@ computed: {
 }
 ```
 
-Você também pode passar argumentos para getters retornando uma função. Isso é particularmente útil quando você deseja consultar uma matriz na loja:
+Você também pode passar argumentos para getters retornando uma função. Isso é particularmente útil quando você deseja consultar um _array_  na _store_ :
 
 ```js
 getters: {
@@ -79,7 +79,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 
 ### O auxiliar `mapGetters`
 
-O auxiliar `mapGetters` simplesmente mapeia os getters da loja para propriedades locais computadas:
+O auxiliar `mapGetters` simplesmente mapeia os getters da _store_  para os dados computados locais:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -87,7 +87,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // misturar os getters em dados computados com o spread operator
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -101,7 +101,7 @@ Se você deseja mapear um getter para um nome diferente, use um objeto:
 
 ``` js
 ...mapGetters({
-  // map `this.doneCount` to `store.getters.doneTodosCount`
+  // mapeia `this.doneCount` para `store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```

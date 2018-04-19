@@ -1,6 +1,6 @@
 # Plugins
 
-As stores do Vuex aceitam a opção `plugins` que expõe hooks para cada mutação. Um plugin Vuex é simplesmente uma função que recebe uma store como seu único argumento:
+As _stores_ do Vuex aceitam a opção `plugins` que expõe hooks para cada mutação. Um plugin Vuex é simplesmente uma função que recebe uma store como seu único argumento:
 
 
 ``` js
@@ -24,9 +24,9 @@ const store = new Vuex.Store({
 
 ### Fazendo Commit de Mutações dentro de Plugins
 
-Plugins não tem permissão para mutar diretamente o estado - similar aos componentes, eles podem apenas disparar mudanças cometendo mutações.
+Plugins não tem permissão para mudar diretamente o estado - similar aos componentes, eles podem apenas disparar mudanças fazendo commit de mutações.
 
-Ao fazer um commit de uma mutação, um plugin pode ser usado para sincronizar uma fonte de dados à store. Por exemplo, para sincronizar uma fonte de dados websocket à store (isso é só um exemplo inventado, na realidade a função `createPlugin` pode receber parâmetros adicionais para tarefas mais complexas):
+Ao fazer um commit de uma mutação, um plugin pode ser usado para sincronizar uma fonte de dados à _store_ . Por exemplo, para sincronizar uma fonte de dados websocket à _store_  (isso é só um exemplo inventado, na realidade a função `createPlugin` pode receber parâmetros adicionais para tarefas mais complexas):
 
 
 ``` js
