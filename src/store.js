@@ -1,7 +1,7 @@
 import applyMixin from './mixin'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
-import { forEachValue, isObject, isPromise, assert } from './util'
+import { forEachValue, isObject, isPromise, assert, isProduction } from './util'
 
 let Vue // bind on install
 
@@ -14,7 +14,7 @@ export class Store {
       install(window.Vue)
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction()) {
       assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
       assert(this instanceof Store, `store must be called with the new operator.`)
@@ -73,7 +73,7 @@ export class Store {
   }
 
   set state (v) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction()) {
       assert(false, `use store.replaceState() to explicit replace store state.`)
     }
   }
@@ -89,7 +89,7 @@ export class Store {
     const mutation = { type, payload }
     const entry = this._mutations[type]
     if (!entry) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (isProduction()) {
         console.error(`[vuex] unknown mutation type: ${type}`)
       }
       return
@@ -101,10 +101,7 @@ export class Store {
     })
     this._subscribers.forEach(sub => sub(mutation, this.state))
 
-    if (
-      process.env.NODE_ENV !== 'production' &&
-      options && options.silent
-    ) {
+    if (isProduction() && options && options.silent) {
       console.warn(
         `[vuex] mutation type: ${type}. Silent option has been removed. ` +
         'Use the filter functionality in the vue-devtools'
@@ -122,7 +119,7 @@ export class Store {
     const action = { type, payload }
     const entry = this._actions[type]
     if (!entry) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (isProduction()) {
         console.error(`[vuex] unknown action type: ${type}`)
       }
       return
@@ -144,7 +141,7 @@ export class Store {
   }
 
   watch (getter, cb, options) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction()) {
       assert(typeof getter === 'function', `store.watch only accepts a function.`)
     }
     return this._watcherVM.$watch(() => getter(this.state, this.getters), cb, options)
@@ -159,7 +156,7 @@ export class Store {
   registerModule (path, rawModule, options = {}) {
     if (typeof path === 'string') path = [path]
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction()) {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
       assert(path.length > 0, 'cannot register the root module by using registerModule.')
     }
@@ -173,7 +170,7 @@ export class Store {
   unregisterModule (path) {
     if (typeof path === 'string') path = [path]
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction()) {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
     }
 
@@ -324,7 +321,7 @@ function makeLocalContext (store, namespace, path) {
 
       if (!options || !options.root) {
         type = namespace + type
-        if (process.env.NODE_ENV !== 'production' && !store._actions[type]) {
+        if (isProduction() && !store._actions[type]) {
           console.error(`[vuex] unknown local action type: ${args.type}, global type: ${type}`)
           return
         }
@@ -340,7 +337,7 @@ function makeLocalContext (store, namespace, path) {
 
       if (!options || !options.root) {
         type = namespace + type
-        if (process.env.NODE_ENV !== 'production' && !store._mutations[type]) {
+        if (isProduction() && !store._mutations[type]) {
           console.error(`[vuex] unknown local mutation type: ${args.type}, global type: ${type}`)
           return
         }
@@ -423,7 +420,7 @@ function registerAction (store, type, handler, local) {
 
 function registerGetter (store, type, rawGetter, local) {
   if (store._wrappedGetters[type]) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction() !== 'production') {
       console.error(`[vuex] duplicate getter key: ${type}`)
     }
     return
@@ -440,7 +437,7 @@ function registerGetter (store, type, rawGetter, local) {
 
 function enableStrictMode (store) {
   store._vm.$watch(function () { return this._data.$$state }, () => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction()) {
       assert(store._committing, `do not mutate vuex store state outside mutation handlers.`)
     }
   }, { deep: true, sync: true })
@@ -459,7 +456,7 @@ function unifyObjectStyle (type, payload, options) {
     type = type.type
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (isProduction()) {
     assert(typeof type === 'string', `expects string as the type, but found ${typeof type}.`)
   }
 
@@ -468,7 +465,7 @@ function unifyObjectStyle (type, payload, options) {
 
 export function install (_Vue) {
   if (Vue && _Vue === Vue) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProduction()) {
       console.error(
         '[vuex] already installed. Vue.use(Vuex) should be called only once.'
       )
