@@ -1,4 +1,4 @@
-# Referência de Api
+# ReferÃªncia de Api
 
 ### Vuex.Store
 
@@ -8,36 +8,36 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Vuex.Store Opções do construtor
+### Vuex.Store OpÃ§Ãµes do construtor
 
 - **state**
 
   - type: `Object | Function`
 
 O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
-    Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](modules.md#módulo-reutilização)
+    Se vocÃª passar uma funÃ§Ã£o que retorna um objeto, o objeto retornado Ã© usado como o estado da raiz. Isso Ã© Ãºtil quando vocÃª deseja reutilizar o objeto de estado, especialmente para reutilizaÃ§Ã£o de mÃ³dulos. [Detalhes](modules.md#mÃ³dulo-reutilizaÃ§Ã£o)
 
-- **mutações**
+- **mutaÃ§Ãµes**
 
   - type: `{ [type: string]: Function }`
 
-    Registra mutações na loja. A função do manipulador sempre recebe `estado` como o primeiro argumento (será o estado local do módulo se definido em um módulo) e receberá um segundo argumento `payload` se houver um.
+    Registra mutaÃ§Ãµes na loja. A funÃ§Ã£o do manipulador sempre recebe `estado` como o primeiro argumento (serÃ¡ o estado local do mÃ³dulo se definido em um mÃ³dulo) e receberÃ¡ um segundo argumento `payload` se houver um.
 
     [Detalhes](mutations.md)
 
-- **ações**
+- **aÃ§Ãµes**
 
   - type: `{ [type: string]: Function }`
 
-    Registra ações na loja. A função do manipulador recebe um objeto `context` que expõe as seguintes propriedades:
+    Registra aÃ§Ãµes na loja. A funÃ§Ã£o do manipulador recebe um objeto `context` que expÃµe as seguintes propriedades:
     ``` js
     {
-      state,      // o mesmo que `store.state`, ou estado local se estiver em módulos
-      rootState,  // o mesmo que `store.state`, apenas em módulos
+      state,      // o mesmo que `store.state`, ou estado local se estiver em mÃ³dulos
+      rootState,  // o mesmo que `store.state`, apenas em mÃ³dulos
       commit,     // o mesmo que `store.commit`
       dispatch,   // o mesmo que `store.dispatch`
-      getters,    // o mesmo que `store.getters`, ou com getters locais se estiver em módulos
-      rootGetters // o mesmo que `store.getters`, apenas em módulos
+      getters,    // o mesmo que `store.getters`, ou com getters locais se estiver em mÃ³dulos
+      rootGetters // o mesmo que `store.getters`, apenas em mÃ³dulos
     }
     ```
 
@@ -47,31 +47,31 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   - type: `{ [key: string]: Function }`
 
-    Registra getters na loja. A função getter recebe os seguintes argumentos:
+    Registra getters na loja. A funÃ§Ã£o getter recebe os seguintes argumentos:
     ```
-    state,     // será o estado local do módulo, se definido em um módulo.
+    state,     // serÃ¡ o estado local do mÃ³dulo, se definido em um mÃ³dulo.
     getters    // o mesmo que store.getters
     ```
 
-    Especifique quando definido em um módulo
+    Especifique quando definido em um mÃ³dulo
 
     ```
-    state,       // será o estado local do módulo, se definido em um módulo.
+    state,       // serÃ¡ o estado local do mÃ³dulo, se definido em um mÃ³dulo.
 
-    getters,     // Módulo getters locais do módulo atual
+    getters,     // MÃ³dulo getters locais do mÃ³dulo atual
     rootState,   // estado global
     rootGetters  // todos os getters
     ```
 
-    Os getters registrados estão expostos em `store.getters`.
+    Os getters registrados estÃ£o expostos em `store.getters`.
 
     [Detalhes](getters.md)
 
-- **módulos**
+- **mÃ³dulos**
 
   - type: `Object`
 
-    Um objeto contendo sub módulos a serem incorporados na loja, de forma que:
+    Um objeto contendo sub mÃ³dulos a serem incorporados na loja, de forma que:
     ``` js
     {
       key: {
@@ -86,7 +86,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
     }
     ```
 
-    Cada módulo pode conter "estado" e "mutações" semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz da loja usando a chave do módulo. As mutações e getters de um módulo receberão apenas o estado local do módulo como o primeiro argumento em vez do estado da raiz e as ações do módulo 'context.state` também apontarão para o estado local.
+    Cada mÃ³dulo pode conter "estado" e "mutaÃ§Ãµes" semelhantes Ã s opÃ§Ãµes raiz. O estado de um mÃ³dulo serÃ¡ anexado ao estado da raiz da loja usando a chave do mÃ³dulo. As mutaÃ§Ãµes e getters de um mÃ³dulo receberÃ£o apenas o estado local do mÃ³dulo como o primeiro argumento em vez do estado da raiz e as aÃ§Ãµes do mÃ³dulo 'context.state` tambÃ©m apontarÃ£o para o estado local.
 
     [Detalhes](modules.md)
 
@@ -94,7 +94,7 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   - type: `Array<Function>`
 
-	Um array de funções de plugin a serem aplicadas na loja. O plugin simplesmente recebe a loja como o único argumento e pode ouvir mutações (para persistência de dados de saída, log ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou observáveis).
+	Um array de funÃ§Ãµes de plugin a serem aplicadas na loja. O plugin simplesmente recebe a loja como o Ãºnico argumento e pode ouvir mutaÃ§Ãµes (para persistÃªncia de dados de saÃ­da, log ou depuraÃ§Ã£o) ou mutaÃ§Ãµes de despacho (para dados de entrada, por exemplo, websockets ou observÃ¡veis).
 
     [Detalhes](plugins.md)
 
@@ -103,11 +103,11 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
   - type: `Boolean`
   - default: `false`
 
-    Força a loja Vuex em modo estrito. No modo estrito, qualquer mutação ao estado do Vuex fora dos manipuladores de mutação acusará um erro.
+    ForÃ§a a loja Vuex em modo estrito. No modo estrito, qualquer mutaÃ§Ã£o ao estado do Vuex fora dos manipuladores de mutaÃ§Ã£o acusarÃ¡ um erro.
 
     [Detalhes](strict.md)
 
-### Vuex.Store Propriedades da instância
+### Vuex.Store Propriedades da instÃ¢ncia
 
 - **state**
 
@@ -119,31 +119,31 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
   - type: `Object`
 
-    Expõe os getters registrados. Apenas leitura.
+    ExpÃµe os getters registrados. Apenas leitura.
 
-### Vuex.Store Métodos da instância
+### Vuex.Store MÃ©todos da instÃ¢ncia
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Confirma uma mutação. `options` pode ter` root: true` que permite confirmar mutações da raiz em [namespaced modules](modules.md#namespacing). [Detalhes](mutations.md)
+  Confirma uma mutaÃ§Ã£o. `options` pode ter` root: true` que permite confirmar mutaÃ§Ãµes da raiz em [namespaced modules](modules.md#namespacing). [Detalhes](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Despacha uma ação. `options` pode ter `root: true` que permite enviar ações para raiz em [namespaced modules](modules.md#namespacing). Retorna Promise que resolve todos os manipuladores de ação acionados. [Detalhes](actions.md)
+  Despacha uma aÃ§Ã£o. `options` pode ter `root: true` que permite enviar aÃ§Ãµes para raiz em [namespaced modules](modules.md#namespacing). Retorna Promise que resolve todos os manipuladores de aÃ§Ã£o acionados. [Detalhes](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Substitua o estado da raiz da loja. Use isso apenas para fins de hidratação / viagem no tempo.
+  Substitua o estado da raiz da loja. Use isso apenas para fins de hidrataÃ§Ã£o / viagem no tempo.
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Visualiza de forma reativa um valor de retorno da função getter e chame o callback para o retorno de chamada quando o valor mudar. O getter recebe o estado da loja como o primeiro argumento e os getters como o segundo argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o método `vm. $ Watch` do Vue.
+  Visualiza de forma reativa um valor de retorno da funÃ§Ã£o getter e chame o callback para o retorno de chamada quando o valor mudar. O getter recebe o estado da loja como o primeiro argumento e os getters como o segundo argumento. Aceita um objeto de opÃ§Ãµes opcional que leva as mesmas opÃ§Ãµes que o mÃ©todo `vm. $ Watch` do Vue.
 
-  Para parar de visualizar, chame para a função do manipulador retornada.
+  Para parar de visualizar, chame para a funÃ§Ã£o do manipulador retornada.
 
 - **`subscribe(handler: Function)`**
 
-  Assina as mutações da loja. O `handler` é chamado após cada mutação e recebe o descritor de mutação e o estado pós-mutação como argumentos:
+  Assina as mutaÃ§Ãµes da loja. O `handler` Ã© chamado apÃ³s cada mutaÃ§Ã£o e recebe o descritor de mutaÃ§Ã£o e o estado pÃ³s-mutaÃ§Ã£o como argumentos:
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -152,13 +152,13 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
   })
   ```
 
-  Usado com mais frequência em plugins. [Detalhes](plugins.md)
+  Usado com mais frequÃªncia em plugins. [Detalhes](plugins.md)
 
 - **`subscribeAction(handler: Function)`**
 
   > Novo em 2.5.0
 
-  Assina as ações da loja. O `handler` é chamado para cada ação despachada e recebe o descritor de ação e o estado atual da loja como argumentos:
+  Assina as aÃ§Ãµes da loja. O `handler` Ã© chamado para cada aÃ§Ã£o despachada e recebe o descritor de aÃ§Ã£o e o estado atual da loja como argumentos:
 
   ``` js
   store.subscribeAction((action, state) => {
@@ -167,39 +167,39 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
   })
   ```
 
-  Usado com mais frequência em plugins. [Detalhes](plugins.md)
+  Usado com mais frequÃªncia em plugins. [Detalhes](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
-  Registra um módulo dinâmico. [Detalhes](modules.md#dynamic-module-registration)
+  Registra um mÃ³dulo dinÃ¢mico. [Detalhes](modules.md#dynamic-module-registration)
 
-  `options` pode ter `preserveState: true` que permite preservar o estado anterior. Util para renderização server-side.
+  `options` pode ter `preserveState: true` que permite preservar o estado anterior. Util para renderizaÃ§Ã£o server-side.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Cancela o registro de um módulo dinâmico. [Detalhes](modules.md#dynamic-module-registration)
+  Cancela o registro de um mÃ³dulo dinÃ¢mico. [Detalhes](modules.md#dynamic-module-registration)
 
 - **`hotUpdate(newOptions: Object)`**
 
-  Faz Hot swap de novas ações e mutações. [Detalhes](hot-reload.md)
+  Faz Hot swap de novas aÃ§Ãµes e mutaÃ§Ãµes. [Detalhes](hot-reload.md)
 
 ### Component Binding Helpers
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria componentes computadas de opções que retornam a subárvore da loja Vuex. [Detalhes](state.md#the-mapstate-helper)
+  Cria componentes computadas de opÃ§Ãµes que retornam a subÃ¡rvore da loja Vuex. [Detalhes](state.md#the-mapstate-helper)
 
   O primeiro argumnto pode ser opcionalmente uma string com namespace.[Detalhes](modules.md#binding-helpers-with-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria componentes computadas de opções que retornam valor avaliado deo getter. [Detalhes](getters.md#the-mapgetters-helper)
+  Cria componentes computadas de opÃ§Ãµes que retornam valor avaliado deo getter. [Detalhes](getters.md#the-mapgetters-helper)
 
   O primeiro argumento pode ser opcionalmente uma string com namespace.[Detalhes](modules.md#binding-helpers-with-namespace)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria um componente com métodos e opções que despacham uma ação.
+  Cria um componente com mÃ©todos e opÃ§Ãµes que despacham uma aÃ§Ã£o.
 
 [Detalhes](actions.md#dispatching-actions-in-components)
 
@@ -207,12 +207,12 @@ O objeto do estado da raiz para a loja Vuex. [Detalhes](state.md)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria um componente com métodos e opções que confirmam uma mutação. [Detalhes](mutations.md#committing-mutations-in-components)
+  Cria um componente com mÃ©todos e opÃ§Ãµes que confirmam uma mutaÃ§Ã£o. [Detalhes](mutations.md#committing-mutations-in-components)
 
   O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#binding-helpers-with-namespace)
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Cria um component namespaced ajudante de ligação . O objeto retornado possui  `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o namespace dado. [Detalhes](modules.md#binding-helpers-with-namespace)
+  Cria um component namespaced ajudante de ligaÃ§Ã£o . O objeto retornado possui  `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estÃ£o conectados com o namespace dado. [Detalhes](modules.md#binding-helpers-with-namespace)
 
 

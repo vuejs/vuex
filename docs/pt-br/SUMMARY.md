@@ -1,21 +1,21 @@
 # Vuex
 
-> Nota: para os usuários TypeScript, vuex@3.0+ requer vue@2.5+ e vice-versa.
+> Nota: para os usuÃ¡rios TypeScript, vuex@3.0+ requer vue@2.5+ e vice-versa.
 
-- [Notas de versão](https://github.com/vuejs/vuex/releases)
-- [Instalação](instalação.md)
-- [O que é Vuex?](Intro.md)
-- [Começando](get-started.md)
-- [Conceitos do núcleo](core-concepts.md)
+- [Notas de versÃ£o](https://github.com/vuejs/vuex/releases)
+- [InstalaÃ§Ã£o](installation.md)
+- [O que Ã© Vuex?](intro.md)
+- [ComeÃ§ando](getting-started.md)
+- [Conceitos do nÃºcleo](core-concepts.md)
   - [Estado](state.md)
   - [Getters](getters.md)
-  - [Mutações](mutações.md)
-  - [Ações](actions.md)
-  - [Módulos](modules.md)
-- [Estrutura da Aplicação](structure.md)
+  - [MutaÃ§Ãµes](mutations.md)
+  - [AÃ§Ãµes](actions.md)
+  - [MÃ³dulos](modules.md)
+- [Estrutura da AplicaÃ§Ã£o](structure.md)
 - [Plugins](plugins.md)
 - [Modo estrito](strict.md)
-- [Manipulação de formulários](forms.md)
+- [ManipulaÃ§Ã£o de formulÃ¡rios](forms.md)
 - [Teste](testing.md)
 - [Hot Reload](hot-reload.md)
-- [Referência da API](api.md)
+- [ReferÃªncia da API](api.md)

@@ -1,13 +1,13 @@
 # Testando
 
-As partes principais que queremos testar em Vuex são mutações e ações.
-### Testando Mutações
-As mutações são muito simples de testar, porque são apenas funções que dependem completamente de seus argumentos. Um truque é que se você estiver usando módulos ES2015 e colocar suas mutações dentro do arquivo `store.js`, além da exportação padrão, você também deve exportar as mutações como uma exportação nomeada:
+As partes principais que queremos testar em Vuex sÃ£o mutaÃ§Ãµes e aÃ§Ãµes.
+### Testando MutaÃ§Ãµes
+As mutaÃ§Ãµes sÃ£o muito simples de testar, porque sÃ£o apenas funÃ§Ãµes que dependem completamente de seus argumentos. Um truque Ã© que se vocÃª estiver usando mÃ³dulos ES2015 e colocar suas mutaÃ§Ãµes dentro do arquivo `store.js`, alÃ©m da exportaÃ§Ã£o padrÃ£o, vocÃª tambÃ©m deve exportar as mutaÃ§Ãµes como uma exportaÃ§Ã£o nomeada:
 
 ``` js
 const state = { ... }
 
-// exportar `mutações` como uma exportação nomeada
+// exportar `mutaÃ§Ãµes` como uma exportaÃ§Ã£o nomeada
 export const mutations = { ... }
 
 export default new Vuex.Store({
@@ -16,7 +16,7 @@ export default new Vuex.Store({
 })
 ```
 
-Exemplo de teste de uma mutação usando Mocha + Chai (você pode usar qualquer biblioteca de estrutura / asserção que você gosta):
+Exemplo de teste de uma mutaÃ§Ã£o usando Mocha + Chai (vocÃª pode usar qualquer biblioteca de estrutura / asserÃ§Ã£o que vocÃª gosta):
 
 ``` js
 // mutations.js
@@ -45,11 +45,11 @@ describe('mutations', () => {
 })
 ```
 
-### Testando ações
+### Testando aÃ§Ãµes
 
-As ações podem ser um pouco mais complicadas porque podem chamar as APIs externas. Ao testar ações, geralmente precisamos fazer algum nível de burla - por exemplo, podemos resumir as chamadas da API em um serviço e simular esse serviço dentro de nossos testes. A fim de simular facilmente as dependências, podemos usar o webpack e [injetor-carregador](https://github.com/plasticine/inject-loader) para agrupar nossos arquivos de teste.
+As aÃ§Ãµes podem ser um pouco mais complicadas porque podem chamar as APIs externas. Ao testar aÃ§Ãµes, geralmente precisamos fazer algum nÃ­vel de burla - por exemplo, podemos resumir as chamadas da API em um serviÃ§o e simular esse serviÃ§o dentro de nossos testes. A fim de simular facilmente as dependÃªncias, podemos usar o webpack e [injetor-carregador](https://github.com/plasticine/inject-loader) para agrupar nossos arquivos de teste.
 
-Exemplo de teste de uma ação assíncrona:
+Exemplo de teste de uma aÃ§Ã£o assÃ­ncrona:
 
 ``` js
 // actions.js
@@ -67,8 +67,8 @@ export const getAllProducts = ({ commit }) => {
 // actions.spec.js
 
 // uso requer sintaxe para carregadores em linha.
-// com injetor-carregador, isso retorna uma fábrica de módulos
-// que nos permite injetar dependências simuladas.import { expect } from 'chai'
+// com injetor-carregador, isso retorna uma fÃ¡brica de mÃ³dulos
+// que nos permite injetar dependÃªncias simuladas.import { expect } from 'chai'
 const actionsInjector = require('inject-loader!./actions')
 
 // create the module with our mocks
@@ -82,7 +82,7 @@ const actions = actionsInjector({
   }
 })
 
-// ajudante para teste de ação com mutações esperadas
+// ajudante para teste de aÃ§Ã£o com mutaÃ§Ãµes esperadas
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
@@ -105,10 +105,10 @@ const testAction = (action, payload, state, expectedMutations, done) => {
     }
   }
 
-  // chame a ação com uma loja e argumentos simulados
+  // chame a aÃ§Ã£o com uma loja e argumentos simulados
    action({ commit, state }, payload)
 
-  // verificar se nenhuma mutação deveria ter sido enviada
+  // verificar se nenhuma mutaÃ§Ã£o deveria ter sido enviada
   if (expectedMutations.length === 0) {
     expect(count).to.equal(0)
     done()
@@ -127,7 +127,7 @@ describe('actions', () => {
 
 ### Testando Getters
 
-Se seus getters tiverem uma computação complicada, vale a pena testá-los. Os Getters também são muito diretos para testar o mesmo motivo que as mutações.
+Se seus getters tiverem uma computaÃ§Ã£o complicada, vale a pena testÃ¡-los. Os Getters tambÃ©m sÃ£o muito diretos para testar o mesmo motivo que as mutaÃ§Ãµes.
 
 Exemplo testando um getter:
 ``` js
@@ -171,13 +171,13 @@ describe('getters', () => {
 })
 ```
 
-### Execução de testes
+### ExecuÃ§Ã£o de testes
 
-Se suas mutações e ações estiverem escritas corretamente, os testes não devem ter dependência direta das APIs do navegador após uma mudança apropriada. Assim, você pode simplesmente agrupar os testes com o webpack e executá-lo diretamente no Node. Alternativamente, você pode usar `mocha-loader` ou Karma +` karma-webpack` para executar os testes em navegadores reais.
+Se suas mutaÃ§Ãµes e aÃ§Ãµes estiverem escritas corretamente, os testes nÃ£o devem ter dependÃªncia direta das APIs do navegador apÃ³s uma mudanÃ§a apropriada. Assim, vocÃª pode simplesmente agrupar os testes com o webpack e executÃ¡-lo diretamente no Node. Alternativamente, vocÃª pode usar `mocha-loader` ou Karma +` karma-webpack` para executar os testes em navegadores reais.
 
 #### Rodando no Node
 
-Crie a seguinte configuração de webpack (juntamente com [`.babelrc` (https://babeljs.io/docs/usage/babelrc/)):
+Crie a seguinte configuraÃ§Ã£o de webpack (juntamente com [`.babelrc` (https://babeljs.io/docs/usage/babelrc/)):
 
 ``` js
 // webpack.config.js
@@ -199,7 +199,7 @@ module.exports = {
 }
 ```
 
-Então:
+EntÃ£o:
 
 ``` bash
 webpack
@@ -209,11 +209,11 @@ mocha test-bundle.js
 #### Rodando no Browser
 
 1. Instale `mocha-loader`.
-2. Mude a `entrada 'da configuração do webpack acima para`' mocha-loader! Babel-loader! ./ test.js'`.
-3. Inicie `webpack-dev-server` usando a configuração.
-4. Vá para `localhost: 8080 / webpack-dev-server / test-bundle`.
+2. Mude a `entrada 'da configuraÃ§Ã£o do webpack acima para`' mocha-loader! Babel-loader! ./ test.js'`.
+3. Inicie `webpack-dev-server` usando a configuraÃ§Ã£o.
+4. VÃ¡ para `localhost: 8080 / webpack-dev-server / test-bundle`.
 
 #### Rodando no Browser com Karma + karma-webpack
 
-Consulte a instalação em [vue-loader documentation](https://vue-loader.vuejs.org/en/workflow/testing.html).
+Consulte a instalaÃ§Ã£o em [vue-loader documentation](https://vue-loader.vuejs.org/en/workflow/testing.html).
 

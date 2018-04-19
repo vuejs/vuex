@@ -1,13 +1,13 @@
 # Estado
 
-### Árvore simples de estado
+### Ãrvore simples de estado
 
-O Vuex usa uma ** árvore de estado único ** - isto é, este único objeto contém todo o seu nível de aplicativo e serve como "fonte única de verdade". Isso também significa que você terá apenas uma loja para cada aplicativo. Uma única árvore de estados torna direto localizar um pedaço de estado específico e nos permite facilmente tirar instantâneos do estado do aplicativo atual para fins de depuração.
+O Vuex usa uma ** Ã¡rvore de estado Ãºnico ** - isto Ã©, este Ãºnico objeto contÃ©m todo o seu nÃ­vel de aplicativo e serve como "fonte Ãºnica de verdade". Isso tambÃ©m significa que vocÃª terÃ¡ apenas uma loja para cada aplicativo. Uma Ãºnica Ã¡rvore de estados torna direto localizar um pedaÃ§o de estado especÃ­fico e nos permite facilmente tirar instantÃ¢neos do estado do aplicativo atual para fins de depuraÃ§Ã£o.
 
-A árvore de um único estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
+A Ã¡rvore de um Ãºnico estado nÃ£o entra em conflito com a modularidade - em capÃ­tulos posteriores, discutiremos como dividir seu estado e mutaÃ§Ãµes em sub-mÃ³dulos.
 ### Obtendo o Vuex State em Vue Components
 
-Então, como exibimos o estado dentro da loja em nossos componentes do Vue? Uma vez que as lojas Vuex são reativas, a maneira mais simples de "recuperar" o estado é simplesmente retornar algum estado da loja dentro de uma [propriedade computada](https://vuejs.org/guide/computed.html):
+EntÃ£o, como exibimos o estado dentro da loja em nossos componentes do Vue? Uma vez que as lojas Vuex sÃ£o reativas, a maneira mais simples de "recuperar" o estado Ã© simplesmente retornar algum estado da loja dentro de uma [propriedade computada](https://vuejs.org/guide/computed.html):
 
 ``` js
 // vamos criar um componente de contador
@@ -21,15 +21,15 @@ const Counter = {
 }
 ```
 
-Sempre que o `store.state.count` muda, fará com que a propriedade computada seja reavaliada e ative as atualizações de DOM associadas.
-No entanto, esse padrão faz com que o componente dependa no singleton da loja global. Ao usar um sistema de módulo, ele precisa importar a loja em todos os componentes que usam o estado da loja e também requer mocking ao testar o componente.
+Sempre que o `store.state.count` muda, farÃ¡ com que a propriedade computada seja reavaliada e ative as atualizaÃ§Ãµes de DOM associadas.
+No entanto, esse padrÃ£o faz com que o componente dependa no singleton da loja global. Ao usar um sistema de mÃ³dulo, ele precisa importar a loja em todos os componentes que usam o estado da loja e tambÃ©m requer mocking ao testar o componente.
 
-O Vuex fornece um mecanismo para "injetar" a loja em todos os componentes filho do componente raiz com a opção `store` (habilitada por` Vue.use (Vuex) `):
+O Vuex fornece um mecanismo para "injetar" a loja em todos os componentes filho do componente raiz com a opÃ§Ã£o `store` (habilitada por` Vue.use (Vuex) `):
 ``` js
 const app = new Vue({
   el: '#app',
-  // forneça a loja usando a opção "store".
-  // isso irá injetar a instância da loja em todos os componentes filho.  store,
+  // forneÃ§a a loja usando a opÃ§Ã£o "store".
+  // isso irÃ¡ injetar a instÃ¢ncia da loja em todos os componentes filho.  store,
   components: { Counter },
   template: `
     <div class="app">
@@ -39,7 +39,7 @@ const app = new Vue({
 })
 ```
 
-Ao fornecer a opção `store` para a instância raiz, a loja será injetada em todos os componentes filho da raiz e estará disponível neles como esta. $ Store`. Vamos atualizar a nossa implementação `Counter`:
+Ao fornecer a opÃ§Ã£o `store` para a instÃ¢ncia raiz, a loja serÃ¡ injetada em todos os componentes filho da raiz e estarÃ¡ disponÃ­vel neles como esta. $ Store`. Vamos atualizar a nossa implementaÃ§Ã£o `Counter`:
 
 ``` js
 const Counter = {
@@ -54,21 +54,21 @@ const Counter = {
 
 ### O auxiliar `mapState`
 
-Quando um componente precisa fazer uso de várias propriedades de estado da loja ou getters, declarar que todas essas propriedades computadas podem ser repetitivas e verbosas. Para lidar com isso, podemos usar o ajudante `mapState` que gera funções getter computadas para nós, salvando-nos algumas teclas:
+Quando um componente precisa fazer uso de vÃ¡rias propriedades de estado da loja ou getters, declarar que todas essas propriedades computadas podem ser repetitivas e verbosas. Para lidar com isso, podemos usar o ajudante `mapState` que gera funÃ§Ãµes getter computadas para nÃ³s, salvando-nos algumas teclas:
 
 ``` js
-// em pleno desenvolvimento, os ajudantes são expostos como Vuex.mapState
+// em pleno desenvolvimento, os ajudantes sÃ£o expostos como Vuex.mapState
  import { mapState } from 'vuex'
 
 export default {
   // ...
   computed: mapState({
-    // As funções de seta podem tornar o código muito sucinto!    count: state => state.count,
+    // As funÃ§Ãµes de seta podem tornar o cÃ³digo muito sucinto!    count: state => state.count,
 
-    // passar o valor da string 'count' é o mesmo que `state => state.count`
+    // passar o valor da string 'count' Ã© o mesmo que `state => state.count`
     countAlias: 'count',
 
-    // para acessar o estado local com `this`, uma função normal deve ser usada
+    // para acessar o estado local com `this`, uma funÃ§Ã£o normal deve ser usada
      countPlusLocalState (state) {
       return state.count + this.localCount
     }
@@ -76,7 +76,7 @@ export default {
 }
 ```
 
-Também podemos passar uma matriz de seqüência de caracteres para `mapState` quando o nome de uma propriedade calculada mapeada é o mesmo que um nome de árvore secundária de estado.
+TambÃ©m podemos passar uma matriz de seqÃ¼Ãªncia de caracteres para `mapState` quando o nome de uma propriedade calculada mapeada Ã© o mesmo que um nome de Ã¡rvore secundÃ¡ria de estado.
 
 ``` js
 computed: mapState([
@@ -85,14 +85,14 @@ computed: mapState([
 ])
 ```
 
-### Operador de propagação de objetos
+### Operador de propagaÃ§Ã£o de objetos
 
-Observe que `mapState` retorna um objeto. Como usá-lo em combinação com outras propriedades locais computadas? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [operador de propagação de objetos](https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta de ECMAScript em estágio 3), podemos simplificar muito a sintaxe:
+Observe que `mapState` retorna um objeto. Como usÃ¡-lo em combinaÃ§Ã£o com outras propriedades locais computadas? Normalmente, terÃ­amos que usar um utilitÃ¡rio para fundir vÃ¡rios objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [operador de propagaÃ§Ã£o de objetos](https://github.com/sebmarkbage/ecmascript-rest-spread) (que Ã© uma proposta de ECMAScript em estÃ¡gio 3), podemos simplificar muito a sintaxe:
 
 ``` js
 computed: {
   localComputed () { /* ... */ },
-  // Misture isso no objeto externo com o operador de propagação do objeto
+  // Misture isso no objeto externo com o operador de propagaÃ§Ã£o do objeto
 
   ...mapState({
     // ...
@@ -102,4 +102,4 @@ computed: {
 
 ### Componentes ainda podem ter um estado local
 
-O uso do Vuex não significa que você deve colocar ** all ** no estado no Vuex. Embora colocar mais estado no Vuex torna suas mutações estatais mais explícitas e devolvíveis, às vezes também pode tornar o código mais detalhado e indireto. Se um pedaço de estado pertence estritamente a um único componente, pode ser apenas bom deixá-lo como um estado local. Você deve pesar os trade-offs e tomar decisões que atendam às necessidades de desenvolvimento do seu aplicativo.
+O uso do Vuex nÃ£o significa que vocÃª deve colocar ** all ** no estado no Vuex. Embora colocar mais estado no Vuex torna suas mutaÃ§Ãµes estatais mais explÃ­citas e devolvÃ­veis, Ã s vezes tambÃ©m pode tornar o cÃ³digo mais detalhado e indireto. Se um pedaÃ§o de estado pertence estritamente a um Ãºnico componente, pode ser apenas bom deixÃ¡-lo como um estado local. VocÃª deve pesar os trade-offs e tomar decisÃµes que atendam Ã s necessidades de desenvolvimento do seu aplicativo.

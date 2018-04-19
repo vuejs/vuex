@@ -1,9 +1,9 @@
-# AÁıes
+# A√ß√µes
 
-As aÁıes s„o semelhantes ‡s mutaÁıes, as diferenÁas s„o as seguintes:
- - Em vez de mutar o estado, as aÁıes confirmam mutaÁıes.
- - As aÁıes podem conter operaÁıes assÌncronas arbitr·rias.
-Vamos registrar uma simples aÁ„o:
+As a√ß√µes s√£o semelhantes √†s muta√ß√µes, as diferen√ßas s√£o as seguintes:
+ - Em vez de mutar o estado, as a√ß√µes confirmam muta√ß√µes.
+ - As a√ß√µes podem conter opera√ß√µes ass√≠ncronas arbitr√°rias.
+Vamos registrar uma simples a√ß√£o:
 
 ``` js
 const store = new Vuex.Store({
@@ -23,10 +23,10 @@ const store = new Vuex.Store({
 })
 ```
 
-Os manipuladores de aÁ„o recebem um objeto de contexto que expıe o mesmo conjunto de mÈtodos / propriedades na inst‚ncia da loja(store), para que vocÍ possa chamar `context.commit` para confirmar uma mutaÁ„o ou acessar o estado e os getters atravÈs do `context.state` e do `contexto. getters`.
-Veremos por que esse objeto de contexto n„o È a prÛpria inst‚ncia da loja quando apresentamos [MÛdulos](modules.md) mais tarde.
+Os manipuladores de a√ß√£o recebem um objeto de contexto que exp√µe o mesmo conjunto de m√©todos / propriedades na inst√¢ncia da loja(store), para que voc√™ possa chamar `context.commit` para confirmar uma muta√ß√£o ou acessar o estado e os getters atrav√©s do `context.state` e do `contexto. getters`.
+Veremos por que esse objeto de contexto n√£o √© a pr√≥pria inst√¢ncia da loja quando apresentamos [M√≥dulos](modules.md) mais tarde.
 
-Na pr·tica, muitas vezes usamos ES2015 [desestruturaÁ„o de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o cÛdigo(especialmente quando precisamos chamar `commit` v·rias vezes):
+Na pr√°tica, muitas vezes usamos ES2015 [desestrutura√ß√£o de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o c√≥digo(especialmente quando precisamos chamar `commit` v√°rias vezes):
 
 ``` js
 actions: {
@@ -36,15 +36,15 @@ actions: {
 }
 ```
 
-### AÁıes de Despacho
+### A√ß√µes de Despacho
 
-As aÁıes s„o acionadas com o mÈtodo `store.dispatch`:
+As a√ß√µes s√£o acionadas com o m√©todo `store.dispatch`:
 
 ``` js
 store.dispatch('increment')
 ```
 
-Isso pode parecer Ûbvio ‡ primeira vista: se quisermos incrementar a contagem, por que n„o chamamos `store.commit ('incremento') diretamente? Lembre-se de que ** as mutaÁıes devem ser sÌncronas **? As aÁıes n„o. Podemos executar ** operaÁıes assÌncronas ** dentro de uma aÁ„o:
+Isso pode parecer √≥bvio √† primeira vista: se quisermos incrementar a contagem, por que n√£o chamamos `store.commit ('incremento') diretamente? Lembre-se de que ** as muta√ß√µes devem ser s√≠ncronas **? As a√ß√µes n√£o. Podemos executar ** opera√ß√µes ass√≠ncronas ** dentro de uma a√ß√£o:
 
 ``` js
 actions: {
@@ -56,7 +56,7 @@ actions: {
 }
 ```
 
-As aÁıes suportam o mesmo formato de carga ˙til e despacho de estilo de objeto:
+As a√ß√µes suportam o mesmo formato de carga √∫til e despacho de estilo de objeto:
 
 ``` js
 // dispatch com payload
@@ -71,14 +71,14 @@ store.dispatch({
 })
 ```
 
-Um exemplo mais pr·tico de aÁıes reais seria uma aÁ„o para fazer check-out de um carrinho de compras, que envolve ** chamar uma API assÌncrona ** e ** confirmar m˙ltiplas mutaÁıes **:
+Um exemplo mais pr√°tico de a√ß√µes reais seria uma a√ß√£o para fazer check-out de um carrinho de compras, que envolve ** chamar uma API ass√≠ncrona ** e ** confirmar m√∫ltiplas muta√ß√µes **:
 
 ``` js
 actions: {
   checkout ({ commit, state }, products) {
-    // salva os itens que est„o no carrinho
+    // salva os itens que est√£o no carrinho
     const savedCartItems = [...state.cart.added]
-    // enviar solicitaÁ„o de checkout
+    // enviar solicita√ß√£o de checkout
     // limpa o carrinho
     commit(types.CHECKOUT_REQUEST)
     // a API da loja aceita um callback bem-sucedido e um callback com falha
@@ -93,11 +93,11 @@ actions: {
 }
 ```
 
-Observe que estamos realizando um fluxo de operaÁıes assÌncronas e gravando os efeitos colaterais (mutaÁıes de estado) da aÁ„o confirmando-os.
+Observe que estamos realizando um fluxo de opera√ß√µes ass√≠ncronas e gravando os efeitos colaterais (muta√ß√µes de estado) da a√ß√£o confirmando-os.
 
-### AÁıes de Despacho em Componentes
+### A√ß√µes de Despacho em Componentes
 
-VocÍ pode despachar aÁıes em componentes com `this. $store.dispatch ('xxx')`, ou usar o auxiliar `mapActions` que mapeia mÈtodos de componente para chamadas do ` store.dispatch` (esta aÁ„o requer a injeÁ„o root `store`):
+Voc√™ pode despachar a√ß√µes em componentes com `this. $store.dispatch ('xxx')`, ou usar o auxiliar `mapActions` que mapeia m√©todos de componente para chamadas do ` store.dispatch` (esta a√ß√£o requer a inje√ß√£o root `store`):
 
 ``` js
 import { mapActions } from 'vuex'
@@ -118,11 +118,11 @@ export default {
 }
 ```
 
-### ComposiÁ„o de aÁıes
+### Composi√ß√£o de a√ß√µes
 
-As aÁıes geralmente s„o assÌncronas, ent„o, como sabemos quando uma aÁ„o È realizada? E, o mais importante, como podemos compor aÁıes m˙ltiplas em conjunto para lidar com fluxos assÌncronos mais complexos?
+As a√ß√µes geralmente s√£o ass√≠ncronas, ent√£o, como sabemos quando uma a√ß√£o √© realizada? E, o mais importante, como podemos compor a√ß√µes m√∫ltiplas em conjunto para lidar com fluxos ass√≠ncronos mais complexos?
 
-A primeira coisa a saber È que `store.dispatch` pode lidar com Promise retornado pelo manipulador de aÁ„o desencadeada e tambÈm retorna Promise:
+A primeira coisa a saber √© que `store.dispatch` pode lidar com Promise retornado pelo manipulador de a√ß√£o desencadeada e tamb√©m retorna Promise:
 
 ``` js
 actions: {
@@ -137,7 +137,7 @@ actions: {
 }
 ```
 
-Agora, È possivel:
+Agora, √© possivel:
 
 ``` js
 store.dispatch('actionA').then(() => {
@@ -145,7 +145,7 @@ store.dispatch('actionA').then(() => {
 })
 ```
 
-E em outra aÁ„o tambÈm:
+E em outra a√ß√£o tamb√©m:
 
 ``` js
 actions: {
@@ -158,7 +158,7 @@ actions: {
 }
 ```
 
-Por fim, se usarmos [async / await](https://tc39.github.io/ecmascript-asyncawait/), podemos compor nossas aÁıes como esta:
+Por fim, se usarmos [async / await](https://tc39.github.io/ecmascript-asyncawait/), podemos compor nossas a√ß√µes como esta:
 
 ``` js
 // Assumindo que `getData ()` e `getOtherData ()` retornam Promessas
@@ -174,5 +174,5 @@ actions: {
 }
 ```
 
-> … possÌvel para um `store.dispatch` desencadear v·rios manipuladores de aÁ„o em diferentes mÛdulos. Neste caso, o valor retornado ser· uma Promise que resolve quando todos os manipuladores desencadeados foram resolvidos.
+> √â poss√≠vel para um `store.dispatch` desencadear v√°rios manipuladores de a√ß√£o em diferentes m√≥dulos. Neste caso, o valor retornado ser√° uma Promise que resolve quando todos os manipuladores desencadeados foram resolvidos.
 

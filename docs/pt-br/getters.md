@@ -1,6 +1,6 @@
 # Getters
 
-Às vezes, talvez precisemos calcular o estado derivado com base no estado da loja, por exemplo, filtrar através de uma lista de itens e contá-los:
+Ã€s vezes, talvez precisemos calcular o estado derivado com base no estado da loja, por exemplo, filtrar atravÃ©s de uma lista de itens e contÃ¡-los:
 
 ``` js
 computed: {
@@ -10,8 +10,8 @@ computed: {
 }
 ```
 
-Se mais do que um componente precisa fazer uso disso, temos que duplicar a função, ou extraí-lo em um auxiliar compartilhado e importá-lo em vários lugares - ambos são menos do que o ideal.
-O Vuex nos permite definir "getters" na loja. Você pode pensar neles como propriedades computafas para lojas. Como as propriedades computadas, o resultado de um getter é armazenado em cache com base em suas dependências e só irá avaliar novamente quando algumas de suas dependências mudaram.
+Se mais do que um componente precisa fazer uso disso, temos que duplicar a funÃ§Ã£o, ou extraÃ­-lo em um auxiliar compartilhado e importÃ¡-lo em vÃ¡rios lugares - ambos sÃ£o menos do que o ideal.
+O Vuex nos permite definir "getters" na loja. VocÃª pode pensar neles como propriedades computafas para lojas. Como as propriedades computadas, o resultado de um getter Ã© armazenado em cache com base em suas dependÃªncias e sÃ³ irÃ¡ avaliar novamente quando algumas de suas dependÃªncias mudaram.
 
 Getters receberam o estado como seu primeiro argumento:
 
@@ -31,13 +31,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Os getters serão descritos no objeto `store.getters`:
+Os getters serÃ£o descritos no objeto `store.getters`:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters também receberá outros getters como o segundo argumento:
+Getters tambÃ©m receberÃ¡ outros getters como o segundo argumento:
 
 ``` js
 getters: {
@@ -62,7 +62,7 @@ computed: {
 }
 ```
 
-Você também pode passar argumentos para getters retornando uma função. Isso é particularmente útil quando você deseja consultar uma matriz na loja:
+VocÃª tambÃ©m pode passar argumentos para getters retornando uma funÃ§Ã£o. Isso Ã© particularmente Ãºtil quando vocÃª deseja consultar uma matriz na loja:
 
 ```js
 getters: {
@@ -97,7 +97,7 @@ export default {
 }
 ```
 
-Se você deseja mapear um getter para um nome diferente, use um objeto:
+Se vocÃª deseja mapear um getter para um nome diferente, use um objeto:
 
 ``` js
 ...mapGetters({

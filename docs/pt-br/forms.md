@@ -1,12 +1,12 @@
-# ManipulaÁ„o de formul·rios
+# Manipula√ß√£o de formul√°rios
 
-Ao usar o Vuex no modo estrito, pode ser um pouco complicado usar `v-model` em um pedaÁo de estado que pertence ao Vuex:
+Ao usar o Vuex no modo estrito, pode ser um pouco complicado usar `v-model` em um peda√ßo de estado que pertence ao Vuex:
 ``` html
 <input v-model="obj.message">
 ```
 
-Assumindo que `obj` È uma propriedade computada que retorna um objeto da loja, o` v-model` aqui tentar· mutar diretamente `obj.message` quando o usu·rio digitar a entrada. No modo estrito, isso resultar· em um erro porque a mutaÁ„o n„o È realizada dentro de um manipulador de mutaÁ„o Vuex explÌcito.
-O "modo Vuex" para lidar com isso È vinculando o valor `<input>` s e chamar uma aÁ„o no evento `input` ou` change`:
+Assumindo que `obj` √© uma propriedade computada que retorna um objeto da loja, o` v-model` aqui tentar√° mutar diretamente `obj.message` quando o usu√°rio digitar a entrada. No modo estrito, isso resultar√° em um erro porque a muta√ß√£o n√£o √© realizada dentro de um manipulador de muta√ß√£o Vuex expl√≠cito.
+O "modo Vuex" para lidar com isso √© vinculando o valor `<input>` s e chamar uma a√ß√£o no evento `input` ou` change`:
 ``` html
 <input :value="message" @input="updateMessage">
 ```
@@ -24,7 +24,7 @@ methods: {
 }
 ```
 
-E aqui est· o manipulador de mutaÁ„o:
+E aqui est√° o manipulador de muta√ß√£o:
 
 ``` js
 // ...
@@ -37,7 +37,7 @@ mutations: {
 
 ### Propriedade computada de duas vias
 
-… certo que o foi visto acima È um pouco mais detalhado do que `v-model` + estado local, e tambÈm perdemos alguns dos recursos ˙teis do` v-model`. Uma abordagem alternativa È usar uma propriedade computacional bidirecional com um setter:
+√â certo que o foi visto acima √© um pouco mais detalhado do que `v-model` + estado local, e tamb√©m perdemos alguns dos recursos √∫teis do` v-model`. Uma abordagem alternativa √© usar uma propriedade computacional bidirecional com um setter:
  ``` html
 <input v-model="message">
 ```

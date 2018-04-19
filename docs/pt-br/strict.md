@@ -9,13 +9,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Em modo estrito, sempre que o estado do Vuex é mutado fora dos manipuladores de mutação, um erro será lançado. Isso garante que todas as mutações do estado possam ser explicitamente rastreadas por ferramentas de depuração.
+Em modo estrito, sempre que o estado do Vuex Ã© mutado fora dos manipuladores de mutaÃ§Ã£o, um erro serÃ¡ lanÃ§ado. Isso garante que todas as mutaÃ§Ãµes do estado possam ser explicitamente rastreadas por ferramentas de depuraÃ§Ã£o.
 
-### Desenvolvimento vs. Produção
+### Desenvolvimento vs. ProduÃ§Ã£o
 
-** Não habilite o modo estrito ao implantar para a produção! ** O modo estrito executa um observador profundo síncrono na árvore de estados para detectar mutações inapropriadas e pode ser bastante caro quando você faz grande quantidade de mutações no estado. Certifique-se de desligá-lo na produção para evitar o custo de desempenho.
+** NÃ£o habilite o modo estrito ao implantar para a produÃ§Ã£o! ** O modo estrito executa um observador profundo sÃ­ncrono na Ã¡rvore de estados para detectar mutaÃ§Ãµes inapropriadas e pode ser bastante caro quando vocÃª faz grande quantidade de mutaÃ§Ãµes no estado. Certifique-se de desligÃ¡-lo na produÃ§Ã£o para evitar o custo de desempenho.
 
-Semelhante aos plugins, podemos deixar as ferramentas de compilação lidar com isso:
+Semelhante aos plugins, podemos deixar as ferramentas de compilaÃ§Ã£o lidar com isso:
 
 ``` js
 const store = new Vuex.Store({

@@ -1,4 +1,4 @@
-﻿# Estrutura da aplicação
+# Estrutura da aplicação
 
 O Vuex não restringe realmente como você estrutura seu código. Em vez disso, ele impõe um conjunto de princípios de alto nível:
 

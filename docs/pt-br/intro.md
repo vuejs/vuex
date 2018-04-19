@@ -1,4 +1,4 @@
-﻿# O que é Vuex?
+# O que é Vuex?
 
 O Vuex é um ** padrão de gerenciamento de estado + biblioteca ** para aplicativos Vue.js. Ele serve como uma loja centralizada para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível.
 Ele também se integra com a versão [devtools extension](https://github.com/vuejs/vue-devtools) do Vue para fornecer recursos avançados, como depuração de tempo-viagem de zero-config e exportação / importação de instantâneo de estado.
