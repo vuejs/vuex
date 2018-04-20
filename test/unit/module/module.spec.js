@@ -194,7 +194,7 @@ describe('Module', () => {
           },
           mutations: {
             mutation2
-          },
+          }
         }
       ]
     })
