@@ -1,12 +1,10 @@
-# Core Concepts
+# Thành phần cốt lõi
 
-We will be learning the core concepts of Vuex in these chapters. They are
+Chúng ta sẽ tìm hiểu về những thành phần cốt lõi bên trong Vuex ở những chương dưới đây. Chúng bao gồm
   - [State](state.md)
   - [Getters](getters.md)
   - [Mutations](mutations.md)
   - [Actions](actions.md)
   - [Modules](modules.md)
 
-A deep understanding of all these concepts is essential for using vuex. 
-
-Let's get started.
+Nắm vững những khái niệm cơ bản phía trên là điều cần thiết cho việc sử dụng thành thạo Vuex. Bắt đầu thôi nào.
