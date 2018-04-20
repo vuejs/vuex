@@ -1,6 +1,6 @@
 # Getters
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+Có những trường hợp, chúng ta cần lấy một giá trị bằng cách tính toán lại các giá trị có sẵn trong state (như cách mà computed property hoạt động, tính toán lại các giá trị trong data của component), ví dụ, lọc một danh sách trong state theo điều kiện nào đó, rồi lấy ra số lượng phần tử lọc được:
 
 ``` js
 computed: {
@@ -10,11 +10,11 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+Nếu có nhiều hơn một component cần sử dụng những thuộc tính computed kiểu này, hẳn là chúng ta sẽ không hề muốn lặp đi lặp lại computed property này nhiều lần đâu, hoặc tạo một helper object chứa những computed property này và lặp đi lặp lại việc import nó ở mỗi computed cần sử dụng - vẫn rất nhàm chán.
 
-Vuex allows us to define "getters" in the store. You can think of them as computed properties for stores. Like computed properties, a getter's result is cached based on its dependencies, and will only re-evaluate when some of its dependencies have changed.
+Vuex tiếp tục nhìn ra vấn đề này, và đề xuất giải pháp bằng một thành phần cốt lõi gọi là "getters". Hình dung nôm na thì nó là computed property nhưng không phải dành cho component, mà là store. Giống như computed property, kết quả của một getter được tính toán và lưu trữ dựa trên những state object mà nó phụ thuộc, và được tính toán lại ngay lập tức mỗi khi một trong các state object mà nó phụ thuộc thay đổi giá trị.
 
-Getters will receive the state as their 1st argument:
+Mỗi một hàm getters nhận state như là tham số đầu tiên:
 
 ``` js
 const store = new Vuex.Store({
@@ -32,15 +32,15 @@ const store = new Vuex.Store({
 })
 ```
 
-### Property-Style Access
+### Sử dụng getter như là thuộc tính
 
-The getters will be exposed on the `store.getters` object, and you access values as properties:
+Getters có thể được truy cập thông qua object `store.getters` như sau:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+Getters cũng có thể sử dụng các getters khác để tính toán thông qua tham số thứ hai:
 
 ``` js
 getters: {
@@ -55,7 +55,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+Và sử dụng getters trong bất kì component nào cũng giống như state, rất dễ dàng:
 
 ``` js
 computed: {
@@ -67,9 +67,9 @@ computed: {
 
 Note that getters accessed as properties are cached as part of Vue's reactivity system.
 
-### Method-Style Access
+### Sử dụng getter như là một hàm
 
-You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+Khi muốn truyền thêm một hoặc một vài tham số nào đó, đơn giản là hãy trả về một hàm nhận những tham số đó, và sử dụng getter như một hàm bình thường. Một ví dụ là khi chúng ta cần truy vấn hoặc lọc ra những phần tử trên danh sách thuộc state, và tham số truy vấn/lọc không cần thiết phải có mặt trong state:
 
 ```js
 getters: {
@@ -86,9 +86,9 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 
 Note that getters accessed via methods will run each time you call them, and the result is not cached.
 
-### The `mapGetters` Helper
+### Hàm hỗ trợ `mapGetters`
 
-The `mapGetters` helper simply maps store getters to local computed properties:
+Tương tự `mapStore`, `mapGetters` cho phép chúng ta ánh xạ nhanh cùng một lúc nhiều getter vào trong computed properties của component nhanh chóng:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -106,7 +106,7 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+Nếu bạn muốn ánh xạ getter nhưng sử dụng dưới một cái tên khác, sử dụng cú pháp Object như dưới đây:
 
 ``` js
 ...mapGetters({
