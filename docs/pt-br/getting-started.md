@@ -8,7 +8,7 @@ No centro de cada aplicação Vuex existe a **_store_**. Uma "_store_ " é basic
 
 ### Uma store bem simples
 
-> **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto dos documentos. Se você não o pegou, [você deveria](https://babeljs.io/docs/learn-es2015/)!
+> **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto dos documentos. Se você ainda não aprendeu como usá-la, [veja aqui](https://babeljs.io/docs/learn-es2015/)!
 
 Após [instalar](installation.md) Vuex, vamos criar uma _store_. É bem simples - apenas forneça um objeto de estado inicial e algumas mutações:
 
@@ -34,7 +34,7 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Novamente, a razão pela qual estamos comitando uma mutação em vez de mudar `store.state.count 'diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa argumentar sobre as mudanças de estado em seu aplicativo melhor ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, tirar instantâneos de estado ou mesmo realizar depuração de viagem no tempo.
+Novamente, a razão pela qual estamos comitando uma mutação em vez de mudar `store.state.count` diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa argumentar sobre as mudanças de estado em seu aplicativo melhor ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, tirar instantâneos de estado ou mesmo realizar depuração de viagem no tempo.
 Usar o estado da _store_  em um componente simplesmente envolve o retorno do estado dentro de uma propriedade computada, porque o estado da _store_  é reativo. Acionar as mudanças simplesmente significa comprometer mutações nos métodos componentes.
 
 Aqui está um exemplo do [aplicativo de contador do Vuex mais básico](https://jsfiddle.net/n9jmu5v7/1269/).
