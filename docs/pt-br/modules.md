@@ -27,7 +27,7 @@ store.state.a // -> `moduleA`'s state
 store.state.b // -> `moduleB`'s state
 ```
 
-### Estado do local do modulo
+### Estado Local do Módulo
 
 Dentro das mutações e getters de um módulo, o 1º argumento recebido será ** o estado local do módulo **.
 
@@ -49,7 +49,7 @@ const moduleA = {
 }
 ```
 
-Da mesma forma, dentro das ações do módulo, `context.state` irá expor o estado local e o estado da raiz será exposto como` context.rootState`:
+Da mesma forma, dentro das ações do módulo (_actions_), `context.state` irá expor o estado local e o estado da raiz será exposto como` context.rootState`:
 
 ``` js
 const moduleA = {
@@ -127,7 +127,7 @@ const store = new Vuex.Store({
 
 Os getters e as ações Namespaced receberão `getters`,` dispatch` e `commit` localizados. Em outras palavras, você pode usar os recursos do módulo sem prefixo de escrita no mesmo módulo. Alternar entre namespaced ou não não afeta o código dentro do módulo.
 
-#### Acessando ativos globais em módulos de Namespaced
+#### Acessando Assets Globais em Módulos Namespaced
 
 Se você quiser usar estado global e getters, `rootState` e` rootGetters` são passados como o 3º e 4º argumentos para funções getter, e também expostos como propriedades no objeto `context` passado para funções de ação.
 
@@ -167,7 +167,7 @@ modules: {
 }
 ```
 
-#### Ligando Auxiliares com namespace
+#### Usando Métodos Auxiliares com Namespace
 
 Ao vincular um módulo com namespace aos componentes com os auxiliares `mapState`,` mapGetters`, `mapActions` e` mapMutations`, ele pode ficar um pouco verboso:
 ``` js
@@ -203,7 +203,7 @@ methods: {
 }
 ```
 
-Além disso, você pode criar helpers com nomes usando o `createNamespacedHelpers`. Ele retorna um objeto com novos auxiliares de ligação de componentes que estão vinculados com o valor de namespace fornecido:
+Além disso, você pode criar _helpers_  com nomes usando o `createNamespacedHelpers`. Ele retorna um objeto com novos auxiliares de ligação de componentes que estão vinculados com o valor de namespace fornecido:
 
 ``` js
 import { createNamespacedHelpers } from 'vuex'
@@ -243,7 +243,7 @@ export function createPlugin (options = {}) {
 }
 ```
 
-### Registro de módulo dinâmico
+### Registro de Módulo Dinâmico
 Você pode registrar um módulo ** após ** a _store_  foi criada com o método `store.registerModule`:
 
 ``` js
