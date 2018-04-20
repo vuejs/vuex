@@ -1,8 +1,8 @@
 # Modules
 
-Due to using a single state tree, all state of our application is contained inside one big object. However, as our application grows in scale, the store can get really bloated.
+Vì state của Vuex store là một cây trạng thái đơn, toàn bộ state của ứng dụng đều được lưu trữ tập trung trong một Object lớn. Tuy nhiên, cùng với sự lớn dần của ứng dụng trong quá trình phát triển, cấu trúc của store cũng sẽ trở nên cồng kềnh khó bảo trì hơn.
 
-To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
+Vuex cho phép giải quyết vấn đề trên bằng cách chia nhỏ cấu trúc store thành các **modules**. Bản thân mỗi module chứa các thành phần cốt lõi như store, bao gồm state, mutations, actions, getters, và cả những module con lồng nhau - it's fractal all the way down:
 
 ``` js
 const moduleA = {
@@ -29,9 +29,9 @@ store.state.a // -> `moduleA`'s state
 store.state.b // -> `moduleB`'s state
 ```
 
-### Module Local State
+### State nội bộ của Module
 
-Inside a module's mutations and getters, the first argument received will be **the module's local state**.
+Các mutation và getter của module nhận tham số đầu tiên là **state nội bộ của module**, không phải state toàn cục của store.
 
 ``` js
 const moduleA = {
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
+Tương tự với action của module, `context.state` trả về state nội bộ, còn state toàn cục được truy cập thông qua `context.rootState`:
 
 ``` js
 const moduleA = {
@@ -66,7 +66,7 @@ const moduleA = {
 }
 ```
 
-Also, inside module getters, the root state will be exposed as their 3rd argument:
+Đối với getter, tham số thứ hai cũng là getter nội bộ của module, không phải getter toàn cục. State toàn cục nằm ở tham số thứ ba.
 
 ``` js
 const moduleA = {
@@ -79,7 +79,7 @@ const moduleA = {
 }
 ```
 
-### Namespacing
+### Không gian tên
 
 By default, actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type.
 
