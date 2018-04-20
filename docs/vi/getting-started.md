@@ -1,19 +1,19 @@
-# Getting Started
+# Bắt đầu với Vuex
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that make a Vuex store different from a plain global object:
+**Store** chính là trung tâm của mọi ứng dụng Vuex. Hiểu đơn giản, **store** là một biến toàn cục, hoạt động như là kho chứa lưu trữ và tổ chức **state** của ứng dụng. Điểm khác biệt giữa **store** và một biến toàn cục thông thường là:
 
-1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+1. Vuex stores có khả năng **reactive**, được thiết kế để sử dụng chung hệ thống **reactivity system** của Vue.js. Khi Vue component sử dụng state được lấy từ store, nó sẽ có khả năng phản ứng và cập nhật tức thời với sự thay đổi của state trên store.
 
-2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
+2. Bạn **không thể thay đổi trực tiếp** giá trị lưu trữ trên state của store. Chỉ có một cách duy nhất để thay đổi giá trị lưu trữ trên state của store, đó là **committing mutations**. Cơ chế này đảm bảo cho việc thay đổi state của store có thể theo dõi được thông qua các **mutations**, và cũng giúp cho chúng ta hiểu được hoạt động của ứng dụng một cách dễ dàng hơn trong quá trình phát triển, thông qua tính năng log mutations của **Vue devtools**
 
-### The Simplest Store
+### Tạo một Store đơn giản nhất
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
+> **GHI CHÚ:** Chúng tôi sẽ sử dụng cú pháp của ES2015 cho các mã nguồn xuyên suốt phần còn lại của tài liệu. Nếu bạn chưa có khái niệm về ES2015, [hãy nghiên cứu ở đây](https://babeljs.io/docs/learn-es2015/)!
 
-After [installing](installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
+Ngay sau khi [cài đặt](installation.md) Vuex, hãy bắt tay vào tạo ngay một store thôi nào. Khá đơn giản, chỉ việc khởi tạo một đối tượng state, và vài mutations để thay đổi dữ liệu bên trong state:
 
 ``` js
-// Make sure to call Vue.use(Vuex) first if using a module system
+// Nhớ gọi lệnh Vue.use(Vuex) trước nhé, nếu sử dụng module system
 
 const store = new Vuex.Store({
   state: {
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
+Giờ thì, bạn có thể truy cập vào đối tượng state thông qua `store.state`, và tạo một sự thay đổi trên state bằng phương thức `store.commit` với tham số đầu là tên của mutation tương ứng:
 
 ``` js
 store.commit('increment')
@@ -35,10 +35,10 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
+Nhắc lại lần nữa, lý do để bắt buộc phải sử dụng mutation thay cho việc thay đổi trực tiếp `store.state.count`, là để việc thay đổi trên state có thể theo dõi được. Quy ước đơn giản này làm cho ý định của bạn rõ ràng hơn, để bạn có thể lý giải về những thay đổi trạng thái trong ứng dụng của bạn tốt hơn khi đọc mã. Ngoài ra, điều này mang đến cho chúng tôi cơ hội triển khai các công cụ có thể ghi lại các mutations xảy ra theo thời gian thực, tạo snapshot cho state hoặc hỗ trợ việc debug hiệu quả hơn dựa vào thứ tự các mutations xảy ra.
 
-Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+Sử dụng store state trong một component chỉ đơn giản là trả về dữ liệu của state bên trong một computed property, bởi vì state của store cũng có khả năng reactive như một object `data` thông thường của component. Tạo một sự thay đổi, đơn giản nghĩa là commit mutations bên trong các phương thức của component.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/n9jmu5v7/1269/).
+Có thể tham khảo một ví dụ đơn giản điển hình cho một ứng dụng Vuex, đó là [bộ đếm](https://jsfiddle.net/n9jmu5v7/1269/).
 
-Next, we will discuss each core concept in much finer details, starting with [State](state.md).
+Tiếp theo, chúng ta sẽ thảo luận chi tiết cặn kẽ hơn về từng yếu tố cốt lõi trong Vuex, bắt đầu với [State](state.md).
