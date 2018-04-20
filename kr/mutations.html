@@ -1,0 +1,616 @@
+
+<!DOCTYPE HTML>
+<html lang="kr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>변이 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="actions.html" />
+    
+    
+    <link rel="prev" href="getters.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/tree/1.0/docs">
+            
+                    
+                    1.0 버전 문서를 보려면?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    릴리즈 노트
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    설치
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex가 무엇인가요?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    시작하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    핵심 컨셉
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    상태
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    변이
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    액션
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    모듈
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    애플리케이션 구조
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    플러그인
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Strict 모드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    폼 핸들링
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    테스팅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    핫 리로딩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 레퍼런스
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >변이</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#xBCC0;&#xC774;">&#xBCC0;&#xC774;</h1>
+<p>Vuex &#xC800;&#xC7A5;&#xC18C;&#xC5D0;&#xC11C; &#xC2E4;&#xC81C;&#xB85C; &#xC0C1;&#xD0DC;&#xB97C; &#xBCC0;&#xACBD;&#xD558;&#xB294; &#xC720;&#xC77C;&#xD55C; &#xBC29;&#xBC95;&#xC740; &#xBCC0;&#xC774;&#xD558;&#xB294; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;. Vuex &#xBCC0;&#xC774;&#xB294; &#xC774;&#xBCA4;&#xD2B8;&#xC640; &#xB9E4;&#xC6B0; &#xC720;&#xC0AC;&#xD569;&#xB2C8;&#xB2E4;. &#xAC01; &#xBCC0;&#xC774;&#xC5D0;&#xB294; <strong>&#xD0C0;&#xC785;</strong> &#xBB38;&#xC790;&#xC5F4; <strong>&#xD578;&#xB4E4;&#xB7EC;</strong> &#xAC00; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xD578;&#xB4E4;&#xB7EC; &#xD568;&#xC218;&#xB294; &#xC2E4;&#xC81C; &#xC0C1;&#xD0DC; &#xC218;&#xC815;&#xC744; &#xD558;&#xB294; &#xACF3;&#xC774;&#xBA70;, &#xCCAB; &#xBC88;&#xC9F8; &#xC804;&#xB2EC;&#xC778;&#xC790;&#xB85C; &#xC0C1;&#xD0DC;&#xB97C;&#xBC1B;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// &#xC0C1;&#xD0DC; &#xBCC0;&#xC774;</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xBCC0;&#xC774; &#xD578;&#xB4E4;&#xB7EC;&#xB97C; &#xC9C1;&#xC811; &#xD638;&#xCD9C; &#xD560; &#xC218;&#xB294; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC774; &#xC635;&#xC158;&#xC740; &#xC774;&#xBCA4;&#xD2B8; &#xB4F1;&#xB85D;&#xACFC; &#xBE44;&#xC2B7;&#xD569;&#xB2C8;&#xB2E4;. &quot;&#xD0C0;&#xC785;&#xC774; <code>increment</code>&#xC778; &#xBCC0;&#xC774;&#xAC00; &#xBC1C;&#xC0DD;&#xD558;&#xBA74;&#xC774; &#xD578;&#xB4E4;&#xB7EC;&#xB97C; &#xD638;&#xCD9C;&#xD569;&#xB2C8;&#xB2E4;.&quot; &#xBCC0;&#xC774; &#xD578;&#xB4E4;&#xB7EC;&#xB97C; &#xD638;&#xCD9C;&#xD558;&#xB824;&#xBA74; &#xD574;&#xB2F9; &#xD0C0;&#xC785;&#xACFC; &#xD568;&#xAED8; <strong>store.commit</strong> &#xC744; &#xD638;&#xCD9C;&#xD574;&#xC57C;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="&#xD398;&#xC774;&#xB85C;&#xB4DC;&#xB97C;-&#xAC00;&#xC9C4;-&#xCEE4;&#xBC0B;">&#xD398;&#xC774;&#xB85C;&#xB4DC;&#xB97C; &#xAC00;&#xC9C4; &#xCEE4;&#xBC0B;</h3>
+<p>&#xBCC0;&#xC774;&#xC5D0; &#xB300;&#xD574; <strong>payload</strong> &#xB77C;&#xACE0;&#xD558;&#xB294; <code>store.commit</code>&#xC5D0; &#xCD94;&#xAC00; &#xC804;&#xB2EC;&#xC778;&#xC790;&#xB97C; &#xC0AC;&#xC6A9; &#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// ...</span>
+mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  increment <span class="token punctuation">(</span>state<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">+</span><span class="token operator">=</span> n
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xB300;&#xBD80;&#xBD84;&#xC758; &#xACBD;&#xC6B0; &#xD398;&#xC774;&#xB85C;&#xB4DC;&#xB294; &#xC5EC;&#xB7EC; &#xD544;&#xB4DC;&#xB97C; &#xD3EC;&#xD568;&#xD560; &#xC218; &#xC788;&#xB294; &#xAC1D;&#xCCB4;&#xC5EC;&#xC57C;&#xD558;&#xBA70; &#xAE30;&#xB85D; &#xB41C; &#xBCC0;&#xC774;&#xB294; &#xB354; &#xC774;&#xD574;&#xD558;&#xAE30; &#xC27D;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// ...</span>
+mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  increment <span class="token punctuation">(</span>state<span class="token punctuation">,</span> payload<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">+</span><span class="token operator">=</span> payload<span class="token punctuation">.</span>amount
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  amount<span class="token punctuation">:</span> <span class="token number">10</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="&#xAC1D;&#xCCB4;-&#xC2A4;&#xD0C0;&#xC77C;-&#xCEE4;&#xBC0B;">&#xAC1D;&#xCCB4; &#xC2A4;&#xD0C0;&#xC77C; &#xCEE4;&#xBC0B;</h3>
+<p>&#xBCC0;&#xC774;&#xB97C; &#xCEE4;&#xBC0B;&#xD558;&#xB294; &#xB610; &#xB2E4;&#xB978; &#xBC29;&#xBC95;&#xC740; <code>type</code> &#xC18D;&#xC131;&#xC744; &#xAC00;&#xC9C4; &#xAC1D;&#xCCB4;&#xB97C; &#xC9C1;&#xC811; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> <span class="token string">&apos;increment&apos;</span><span class="token punctuation">,</span>
+  amount<span class="token punctuation">:</span> <span class="token number">10</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xAC1D;&#xCCB4; &#xC2A4;&#xD0C0;&#xC77C; &#xCEE4;&#xBC0B;&#xC744; &#xC0AC;&#xC6A9;&#xD560; &#xB54C; &#xC804;&#xCCB4; &#xAC1D;&#xCCB4;&#xB294; &#xBCC0;&#xC774; &#xD578;&#xB4E4;&#xB7EC;&#xC5D0; &#xD398;&#xC774;&#xB85C;&#xB4DC;&#xB85C; &#xC804;&#xB2EC;&#xB418;&#xBBC0;&#xB85C; &#xD578;&#xB4E4;&#xB7EC;&#xB294; &#xB3D9;&#xC77C;&#xD558;&#xAC8C; &#xC720;&#xC9C0;&#xB429;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js">mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  increment <span class="token punctuation">(</span>state<span class="token punctuation">,</span> payload<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">+</span><span class="token operator">=</span> payload<span class="token punctuation">.</span>amount
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="vue&#xC758;-&#xBC18;&#xC751;&#xC131;-&#xADDC;&#xCE59;&#xC744;-&#xB530;&#xB974;&#xB294;-&#xBCC0;&#xC774;">Vue&#xC758; &#xBC18;&#xC751;&#xC131; &#xADDC;&#xCE59;&#xC744; &#xB530;&#xB974;&#xB294; &#xBCC0;&#xC774;</h3>
+<p>Vuex &#xC800;&#xC7A5;&#xC18C;&#xC758; &#xC0C1;&#xD0DC;&#xB294; Vue&#xC5D0; &#xC758;&#xD574; &#xBC18;&#xC751;&#xD558;&#xBBC0;&#xB85C;, &#xC0C1;&#xD0DC;&#xB97C; &#xBCC0;&#xACBD;&#xD558;&#xBA74; &#xC0C1;&#xD0DC;&#xB97C; &#xAD00;&#xCC30;&#xD558;&#xB294; Vue &#xCEF4;&#xD3EC;&#xB10C;&#xD2B8;&#xAC00; &#xC790;&#xB3D9;&#xC73C;&#xB85C; &#xC5C5;&#xB370;&#xC774;&#xD2B8;&#xB429;&#xB2C8;&#xB2E4;. &#xC774;&#xAC83;&#xC740; &#xB610;&#xD55C; Vuex &#xBCC0;&#xC774;&#xAC00; &#xC77C;&#xBC18; Vue&#xB85C; &#xC791;&#xC5C5; &#xD560; &#xB54C; &#xB3D9;&#xC77C;&#xD55C; &#xBC18;&#xC751;&#xC131;&#xC5D0; &#xB300;&#xD55C; &#xACBD;&#xACE0;&#xB97C; &#xBC1B;&#xC744; &#xC218; &#xC788;&#xC74C;&#xC744; &#xC758;&#xBBF8;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<ol>
+<li><p>&#xC6D0;&#xD558;&#xB294; &#xBAA8;&#xB4E0; &#xD544;&#xB4DC;&#xC5D0; &#xC55E;&#xC11C; &#xC800;&#xC7A5;&#xC18C;&#xB97C; &#xCD08;&#xAE30;&#xD654;&#xD558;&#xB294; &#xAC83;&#xC774; &#xC88B;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+</li>
+<li><p>&#xAC1D;&#xCCB4;&#xC5D0; &#xC0C8; &#xC18D;&#xC131;&#xC744; &#xCD94;&#xAC00;&#xD560; &#xB54C; &#xB2E4;&#xC74C; &#xC911; &#xD558;&#xB098;&#xB97C; &#xC218;&#xD589;&#xD574;&#xC57C;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<ul>
+<li><p><code>Vue.set(obj, &apos;newProp&apos;, 123)</code>&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xAC70;&#xB098;,</p>
+</li>
+<li><p>&#xAC1D;&#xCCB4;&#xB97C; &#xC0C8;&#xB85C;&#xC6B4; &#xAC83;&#xC73C;&#xB85C; &#xAD50;&#xCCB4;&#xD558;&#xC2ED;&#xC2DC;&#xC624;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4;, 3 &#xB2E8;&#xACC4; <a href="https://github.com/sebmarkbage/ecmascript-rest-spread" target="_blank">&#xAC1D;&#xCCB4; &#xD655;&#xC0B0; &#xBB38;&#xBC95;</a>&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xBA74; &#xB2E4;&#xC74C;&#xACFC; &#xAC19;&#xC774; &#xC791;&#xC131;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js">state<span class="token punctuation">.</span>obj <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span>state<span class="token punctuation">.</span>obj<span class="token punctuation">,</span> newProp<span class="token punctuation">:</span> <span class="token number">123</span> <span class="token punctuation">}</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="&#xBCC0;&#xC774;-&#xD0C0;&#xC785;&#xC5D0;-&#xC0C1;&#xC218;-&#xC0AC;&#xC6A9;">&#xBCC0;&#xC774; &#xD0C0;&#xC785;&#xC5D0; &#xC0C1;&#xC218; &#xC0AC;&#xC6A9;</h3>
+<p>&#xB2E4;&#xC591;&#xD55C; Flux &#xAD6C;&#xD604;&#xC5D0;&#xC11C; &#xBCC0;&#xC774; &#xC720;&#xD615;&#xC5D0; &#xC0C1;&#xC218;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xAC83;&#xC740; &#xC77C;&#xBC18;&#xC778; &#xD328;&#xD134;&#xC785;&#xB2C8;&#xB2E4;. &#xC774;&#xB97C; &#xD1B5;&#xD574; &#xCF54;&#xB4DC;&#xB294; linter&#xC640; &#xAC19;&#xC740; &#xD234;&#xB9C1;&#xC744; &#xD65C;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xC73C;&#xBA70; &#xBAA8;&#xB4E0; &#xC0C1;&#xC218;&#xB97C; &#xB2E8;&#xC77C; &#xD30C;&#xC77C;&#xC5D0; &#xC800;&#xC7A5;&#xD558;&#xBA74; &#xACF5;&#xB3D9; &#xC791;&#xC5C5;&#xC790;&#xAC00; &#xC804;&#xCCB4; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC5D0;&#xC11C; &#xC5B4;&#xB5A4; &#xBCC0;&#xC774;&#xAC00; &#xAC00;&#xB2A5;&#xD55C;&#xC9C0; &#xD55C;&#xB208;&#xC5D0; &#xD30C;&#xC545;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// mutation-types.js</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> SOME_MUTATION <span class="token operator">=</span> <span class="token string">&apos;SOME_MUTATION&apos;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// store.js</span>
+<span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SOME_MUTATION <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./mutation-types&apos;</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ES2015&#xC5D0;&#xC11C; &#xACC4;&#xC0B0; &#xB41C; &#xD504;&#xB85C;&#xD37C;&#xD2F0; &#xC774;&#xB984; &#xAE30;&#xB2A5;&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC;</span>
+    <span class="token comment" spellcheck="true">// &#xC0C1;&#xC218;&#xB97C; &#xD568;&#xC218; &#xC774;&#xB984;&#xC73C;&#xB85C; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;</span>
+    <span class="token punctuation">[</span>SOME_MUTATION<span class="token punctuation">]</span> <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// &#xBCC0;&#xC774; &#xC0C1;&#xD0DC;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xC0C1;&#xC218;&#xB97C; &#xC0AC;&#xC6A9;&#xD560;&#xC9C0; &#xC5EC;&#xBD80;&#xB294; &#xB300;&#xBD80;&#xBD84; &#xD658;&#xACBD; &#xC124;&#xC815;&#xC785;&#xB2C8;&#xB2E4;. &#xAC1C;&#xBC1C;&#xC790;&#xAC00; &#xB9CE;&#xC740; &#xB300;&#xADDC;&#xBAA8; &#xD504;&#xB85C;&#xC81D;&#xD2B8;&#xC5D0;&#xC11C; &#xC720;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xC9C0;&#xB9CC;, &#xC774;&#xB294; &#xC644;&#xC804;&#xD788; &#xC120;&#xD0DD; &#xC0AC;&#xD56D;&#xC785;&#xB2C8;&#xB2E4;.</p>
+<h3 id="&#xBCC0;&#xC774;&#xB294;-&#xBB34;&#xC870;&#xAC74;-&#xB3D9;&#xAE30;&#xC801;&#xC774;&#xC5B4;&#xC57C;-&#xD569;&#xB2C8;&#xB2E4;">&#xBCC0;&#xC774;&#xB294; &#xBB34;&#xC870;&#xAC74; &#xB3D9;&#xAE30;&#xC801;&#xC774;&#xC5B4;&#xC57C; &#xD569;&#xB2C8;&#xB2E4;.</h3>
+<p>&#xAE30;&#xC5B5; &#xD574;&#xC57C;&#xD560; &#xD55C; &#xAC00;&#xC9C0; &#xC911;&#xC694;&#xD55C; &#xADDC;&#xCE59;&#xC740; <strong>&#xBCC0;&#xC774; &#xD578;&#xB4E4;&#xB7EC; &#xD568;&#xC218;&#xB294; &#xB3D9;&#xAE30;&#xC801;</strong> &#xC774;&#xC5B4;&#xC57C; &#xD55C;&#xB2E4;&#xB294; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;. &#xC65C; &#xADF8;&#xB7F4;&#xAE4C;&#xC694;? &#xB2E4;&#xC74C; &#xC608;&#xC81C;&#xB97C; &#xD655;&#xC778;&#xD574;&#xBCF4;&#xC2ED;&#xC2DC;&#xC624;.</p>
+<pre class="language-"><code class="lang-js">mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  someMutation <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    api<span class="token punctuation">.</span><span class="token function">callAsyncMethod</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#xC774;&#xC81C; &#xC6B0;&#xB9AC;&#xAC00; &#xC571;&#xC744; &#xB514;&#xBC84;&#xAE45;&#xD558;&#xACE0; devtool&#xC758; &#xB3CC;&#xC5F0;&#xBCC0;&#xC774; &#xB85C;&#xADF8;&#xB97C; &#xBCF4;&#xACE0; &#xC788;&#xB2E4;&#xACE0; &#xC0C1;&#xC0C1;&#xD574;&#xBCF4;&#xC2ED;&#xC2DC;&#xC624;. &#xAE30;&#xB85D; &#xB41C; &#xBAA8;&#xB4E0; &#xBCC0;&#xC774;&#xC5D0; &#xB300;&#xD574; devtool&#xC740; &#xC0C1;&#xD0DC;&#xC758; &quot;&#xC774;&#xC804;&quot; &#xBC0F; &quot;&#xC774;&#xD6C4;&quot; &#xC2A4;&#xB0C5; &#xC0F7;&#xC744; &#xCEA1;&#xCC98; &#xD574;&#xC57C; &#xD569;&#xB2C8;&#xB2E4;. &#xADF8;&#xB7EC;&#xB098; &#xC704;&#xC758; &#xC608;&#xC81C; &#xBCC0;&#xC774; &#xB0B4;&#xC758; &#xBE44;&#xB3D9;&#xAE30; &#xCF5C;&#xBC31;&#xC740; &#xBD88;&#xAC00;&#xB2A5;&#xD569;&#xB2C8;&#xB2E4;. &#xBCC0;&#xC774;&#xAC00; &#xCEE4;&#xBC0B; &#xB418;&#xC5C8;&#xC744; &#xB54C; &#xCF5C;&#xBC31;&#xC740; &#xC544;&#xC9C1; &#xD638;&#xCD9C;&#xB418;&#xC9C0; &#xC54A;&#xC73C;&#xBA70;, &#xCF5C;&#xBC31;&#xC774; &#xC2E4;&#xC81C;&#xB85C; &#xD638;&#xCD9C; &#xB420; &#xC2DC;&#xAE30;&#xB97C; devtool&#xC774; &#xC54C; &#xC218; &#xC788;&#xB294; &#xBC29;&#xBC95;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;. &#xCF5C;&#xBC31;&#xC5D0;&#xC11C; &#xC218;&#xD589; &#xB41C; &#xBAA8;&#xB4E0; &#xC0C1;&#xD0DC; &#xBCC0;&#xC774;&#xB294; &#xBCF8;&#xC9C8;&#xC801;&#xC73C;&#xB85C; &#xCD94;&#xC801; &#xD560; &#xC218; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;!</p>
+<h3 id="&#xCEF4;&#xD3EC;&#xB10C;&#xD2B8;-&#xC548;&#xC5D0;&#xC11C;-&#xBCC0;&#xC774;-&#xCEE4;&#xBC0B;&#xD558;&#xAE30;">&#xCEF4;&#xD3EC;&#xB10C;&#xD2B8; &#xC548;&#xC5D0;&#xC11C; &#xBCC0;&#xC774; &#xCEE4;&#xBC0B;&#xD558;&#xAE30;</h3>
+<p><code>this.$store.commit(&apos;xxx&apos;)</code>&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; &#xCEF4;&#xD3EC;&#xB10C;&#xD2B8;&#xC5D0;&#xC11C; &#xBCC0;&#xC774;&#xB97C; &#xC218;&#xD589;&#xD558;&#xAC70;&#xB098; &#xCEF4;&#xD3EC;&#xB10C;&#xD2B8; &#xBA54;&#xC18C;&#xB4DC;&#xB97C; <code>store.commit</code> &#xD638;&#xCD9C;&#xC5D0; &#xB9E4;&#xD551;&#xD558;&#xB294; <code>mapMutations</code> &#xD5EC;&#xD37C;&#xB97C; &#xC0AC;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4; (&#xB8E8;&#xD2B8; <code>store</code> &#xC8FC;&#xC785; &#xD544;&#xC694;)</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> mapMutations <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token function">mapMutations</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token string">&apos;increment&apos;</span> <span class="token comment" spellcheck="true">// this.increment()&#xB97C; this.$store.commit(&apos;increment&apos;)&#xC5D0; &#xB9E4;&#xD551;&#xD569;&#xB2C8;&#xB2E4;.</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span><span class="token function">mapMutations</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      add<span class="token punctuation">:</span> <span class="token string">&apos;increment&apos;</span> <span class="token comment" spellcheck="true">// this.add()&#xB97C; this.$store.commit(&apos;increment&apos;)&#xC5D0; &#xB9E4;&#xD551;&#xD569;&#xB2C8;&#xB2E4;.</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#xC561;&#xC158;&#xC5D0;&#xC11C;-&#xC0AC;&#xC6A9;">&#xC561;&#xC158;&#xC5D0;&#xC11C; &#xC0AC;&#xC6A9;</h3>
+<p>&#xBE44;&#xB3D9;&#xAE30;&#xC131;&#xC774; &#xC0C1;&#xD0DC;&#xC758; &#xBCC0;&#xC774;&#xC640; &#xACB0;&#xD569;&#xD558;&#xBA74; &#xD504;&#xB85C;&#xADF8;&#xB7A8;&#xC744; &#xD30C;&#xC545;&#xD558;&#xAE30;&#xAC00; &#xB9E4;&#xC6B0; &#xC5B4;&#xB824;&#xC6CC; &#xC9C8; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4; &#xC0C1;&#xD0DC;&#xB97C; &#xBCC0;&#xACBD;&#xD558;&#xB294; &#xB450; &#xAC00;&#xC9C0; &#xBE44;&#xB3D9;&#xAE30; &#xCF5C;&#xBC31; &#xBA54;&#xC18C;&#xB4DC;&#xB97C; &#xD638;&#xCD9C;&#xD560; &#xB54C; &#xD638;&#xCD9C;&#xB418;&#xB294; &#xC2DC;&#xC810;&#xACFC; &#xBA3C;&#xC800; &#xD638;&#xCD9C; &#xB41C; &#xCF5C;&#xBC31;&#xC744; &#xC5B4;&#xB5BB;&#xAC8C; &#xC54C; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xAE4C;? &#xC774;&#xAC83;&#xC774; &#xC6B0;&#xB9AC;&#xAC00; &#xB450; &#xAC1C;&#xB150;&#xC744; &#xBD84;&#xB9AC;&#xD558;&#xB824;&#xB294; &#xC774;&#xC720;&#xC785;&#xB2C8;&#xB2E4;. Vuex&#xC5D0;&#xC11C; <strong>&#xBCC0;&#xC774;&#xB294; &#xB3D9;&#xAE30;&#xC801;&#xC73C;&#xB85C; &#xD2B8;&#xB79C;&#xC7AD;&#xC158;&#xD569;&#xB2C8;&#xB2E4;.</strong></p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// &quot;increment&quot; &#xBCC0;&#xC774;&#xAC00; &#xC77C;&#xC73C;&#xD0AC; &#xC218; &#xC788;&#xB294; &#xBAA8;&#xB4E0; &#xC0C1;&#xD0DC; &#xBCC0;&#xD654;&#xB294; &#xC774; &#xC21C;&#xAC04;&#xC5D0; &#xC774;&#xB8E8;&#xC5B4;&#xC838;&#xC57C;&#xD569;&#xB2C8;&#xB2E4;.</span>
+</code></pre>
+<p>&#xBE44;&#xB3D9;&#xAE30; &#xC791;&#xC5C5;&#xC744; &#xCC98;&#xB9AC;&#xD558;&#xAE30; &#xC704;&#xD55C; <a href="actions.html">&#xC561;&#xC158;</a>&#xB97C; &#xC18C;&#xAC1C;&#xD569;&#xC2DC;&#xB2E4;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="getters.html" class="navigation navigation-prev " aria-label="Previous page: Getters">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="actions.html" class="navigation navigation-next " aria-label="Next page: 액션">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"변이","level":"1.7.3","depth":2,"next":{"title":"액션","level":"1.7.4","depth":2,"path":"actions.md","ref":"actions.md","articles":[]},"previous":{"title":"Getters","level":"1.7.2","depth":2,"path":"getters.md","ref":"getters.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"kr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"mutations.md","mtime":"2018-04-20T00:44:03.873Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"kr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

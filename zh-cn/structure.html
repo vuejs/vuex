@@ -1,0 +1,507 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>项目结构 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="plugins.html" />
+    
+    
+    <link rel="prev" href="modules.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    更新记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex 是什么？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    开始
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    核心概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Module
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    项目结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    严格模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    表单处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    热重载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 文档
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >项目结构</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x9879;&#x76EE;&#x7ED3;&#x6784;">&#x9879;&#x76EE;&#x7ED3;&#x6784;</h1>
+<p>Vuex &#x5E76;&#x4E0D;&#x9650;&#x5236;&#x4F60;&#x7684;&#x4EE3;&#x7801;&#x7ED3;&#x6784;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5B83;&#x89C4;&#x5B9A;&#x4E86;&#x4E00;&#x4E9B;&#x9700;&#x8981;&#x9075;&#x5B88;&#x7684;&#x89C4;&#x5219;&#xFF1A;</p>
+<ol>
+<li><p>&#x5E94;&#x7528;&#x5C42;&#x7EA7;&#x7684;&#x72B6;&#x6001;&#x5E94;&#x8BE5;&#x96C6;&#x4E2D;&#x5230;&#x5355;&#x4E2A; store &#x5BF9;&#x8C61;&#x4E2D;&#x3002;</p>
+</li>
+<li><p>&#x63D0;&#x4EA4; <strong>mutation</strong> &#x662F;&#x66F4;&#x6539;&#x72B6;&#x6001;&#x7684;&#x552F;&#x4E00;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x662F;&#x540C;&#x6B65;&#x7684;&#x3002;</p>
+</li>
+<li><p>&#x5F02;&#x6B65;&#x903B;&#x8F91;&#x90FD;&#x5E94;&#x8BE5;&#x5C01;&#x88C5;&#x5230; <strong>action</strong> &#x91CC;&#x9762;&#x3002;</p>
+</li>
+</ol>
+<p>&#x53EA;&#x8981;&#x4F60;&#x9075;&#x5B88;&#x4EE5;&#x4E0A;&#x89C4;&#x5219;&#xFF0C;&#x5982;&#x4F55;&#x7EC4;&#x7EC7;&#x4EE3;&#x7801;&#x968F;&#x4F60;&#x4FBF;&#x3002;&#x5982;&#x679C;&#x4F60;&#x7684; store &#x6587;&#x4EF6;&#x592A;&#x5927;&#xFF0C;&#x53EA;&#x9700;&#x5C06; action&#x3001;mutation &#x548C; getter &#x5206;&#x5272;&#x5230;&#x5355;&#x72EC;&#x7684;&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x5927;&#x578B;&#x5E94;&#x7528;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x5E0C;&#x671B;&#x628A; Vuex &#x76F8;&#x5173;&#x4EE3;&#x7801;&#x5206;&#x5272;&#x5230;&#x6A21;&#x5757;&#x4E2D;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x9879;&#x76EE;&#x7ED3;&#x6784;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-bash">&#x251C;&#x2500;&#x2500; index.html
+&#x251C;&#x2500;&#x2500; main.js
+&#x251C;&#x2500;&#x2500; api
+&#x2502;   &#x2514;&#x2500;&#x2500; <span class="token punctuation">..</span>. <span class="token comment" spellcheck="true"># &#x62BD;&#x53D6;&#x51FA;API&#x8BF7;&#x6C42;</span>
+&#x251C;&#x2500;&#x2500; components
+&#x2502;   &#x251C;&#x2500;&#x2500; App.vue
+&#x2502;   &#x2514;&#x2500;&#x2500; <span class="token punctuation">..</span>.
+&#x2514;&#x2500;&#x2500; store
+    &#x251C;&#x2500;&#x2500; index.js          <span class="token comment" spellcheck="true"># &#x6211;&#x4EEC;&#x7EC4;&#x88C5;&#x6A21;&#x5757;&#x5E76;&#x5BFC;&#x51FA; store &#x7684;&#x5730;&#x65B9;</span>
+    &#x251C;&#x2500;&#x2500; actions.js        <span class="token comment" spellcheck="true"># &#x6839;&#x7EA7;&#x522B;&#x7684; action</span>
+    &#x251C;&#x2500;&#x2500; mutations.js      <span class="token comment" spellcheck="true"># &#x6839;&#x7EA7;&#x522B;&#x7684; mutation</span>
+    &#x2514;&#x2500;&#x2500; modules
+        &#x251C;&#x2500;&#x2500; cart.js       <span class="token comment" spellcheck="true"># &#x8D2D;&#x7269;&#x8F66;&#x6A21;&#x5757;</span>
+        &#x2514;&#x2500;&#x2500; products.js   <span class="token comment" spellcheck="true"># &#x4EA7;&#x54C1;&#x6A21;&#x5757;</span>
+</code></pre>
+<p>&#x8BF7;&#x53C2;&#x8003;<a href="https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart" target="_blank">&#x8D2D;&#x7269;&#x8F66;&#x793A;&#x4F8B;</a>&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="modules.html" class="navigation navigation-prev " aria-label="Previous page: Module">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="plugins.html" class="navigation navigation-next " aria-label="Next page: 插件">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"项目结构","level":"1.7","depth":1,"next":{"title":"插件","level":"1.8","depth":1,"path":"plugins.md","ref":"plugins.md","articles":[]},"previous":{"title":"Module","level":"1.6.5","depth":2,"path":"modules.md","ref":"modules.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"编辑此页面","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"zh-cn","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"structure.md","mtime":"2018-04-20T00:44:03.894Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"zh-cn"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,556 @@
+
+<!DOCTYPE HTML>
+<html lang="fr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Accesseurs · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="mutations.html" />
+    
+    
+    <link rel="prev" href="state.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Tapez pour rechercher" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    Notes de version
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex, qu'est-ce que c'est ?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Pour commencer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    Concepts de base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    État
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Accesseurs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Modules
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    Structure d'une application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    Plugins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Mode strict
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    Gestion des formulaires
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    Tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    Rechargement à chaud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    Documentation de l'API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publié avec GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Accesseurs</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="accesseurs">Accesseurs</h1>
+<p>Parfois nous avons besoin de calculer des valeurs bas&#xE9;es sur l&apos;&#xE9;tat du store, par exemple pour filtrer une liste d&apos;&#xE9;l&#xE9;ments et les compter :</p>
+<pre class="language-"><code class="lang-js">computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  doneTodosCount <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>todo <span class="token operator">=</span><span class="token operator">&gt;</span> todo<span class="token punctuation">.</span>done<span class="token punctuation">)</span><span class="token punctuation">.</span>length
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Si plus d&apos;un composant a besoin d&apos;utiliser cela, il nous faut ou bien dupliquer cette fonction, ou bien l&apos;extraire dans une fonction utilitaire s&#xE9;par&#xE9;e et l&apos;importer aux endroits n&#xE9;cessaires. Les deux id&#xE9;es sont loin d&apos;&#xEA;tre id&#xE9;ales.</p>
+<p>Vuex nous permet de d&#xE9;finir des accesseurs (&#xAB; getters &#xBB;) dans le store. Voyez-les comme les propri&#xE9;t&#xE9;s calcul&#xE9;es des stores. Comme pour les propri&#xE9;t&#xE9;s calcul&#xE9;es, le r&#xE9;sultat de l&apos;accesseur est mis en cache en se basant sur ses d&#xE9;pendances et il ne sera r&#xE9;&#xE9;valu&#xE9; que lorsque l&apos;une de ses d&#xE9;pendances aura chang&#xE9;e.</p>
+<p>Les accesseurs prennent l&apos;&#xE9;tat en premier argument :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    todos<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token string">&apos;...&apos;</span><span class="token punctuation">,</span> done<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token string">&apos;...&apos;</span><span class="token punctuation">,</span> done<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    doneTodos<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> state<span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>todo <span class="token operator">=</span><span class="token operator">&gt;</span> todo<span class="token punctuation">.</span>done<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Les accesseurs seront expos&#xE9;s sur l&apos;objet <code>store.getters</code> :</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span>getters<span class="token punctuation">.</span>doneTodos <span class="token comment" spellcheck="true">// -&gt; [{ id: 1, text: &apos;...&apos;, done: true }]</span>
+</code></pre>
+<p>Les accesseurs recevront &#xE9;galement les autres accesseurs en second argument :</p>
+<pre class="language-"><code class="lang-js">getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  doneTodosCount<span class="token punctuation">:</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> getters<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> getters<span class="token punctuation">.</span>doneTodos<span class="token punctuation">.</span>length
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span>getters<span class="token punctuation">.</span>doneTodosCount <span class="token comment" spellcheck="true">// -&gt; 1</span>
+</code></pre>
+<p>Nous pouvons maintenant facilement les utiliser dans n&apos;importe quel composant :</p>
+<pre class="language-"><code class="lang-js">computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  doneTodosCount <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span>getters<span class="token punctuation">.</span>doneTodosCount
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Vous pouvez aussi passer des arguments aux accesseurs en retournant une fonction. Cela est particuli&#xE8;rement utile quand vous souhaitez interroger un tableau dans le store :</p>
+<pre class="language-"><code class="lang-js">getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  getTodoById<span class="token punctuation">:</span> <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>id<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> state<span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>todo <span class="token operator">=</span><span class="token operator">&gt;</span> todo<span class="token punctuation">.</span>id <span class="token operator">===</span> id<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span>getters<span class="token punctuation">.</span><span class="token function">getTodoById</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; { id: 2, text: &apos;...&apos;, done: false }</span>
+</code></pre>
+<h3 id="la-fonction-utilitaire-mapgetters">La fonction utilitaire <code>mapGetters</code></h3>
+<p>La fonction utilitaire <code>mapGetters</code> attache simplement vos accesseurs du store aux propri&#xE9;t&#xE9;s calcul&#xE9;es locales :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> mapGetters <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// rajouter les accesseurs dans `computed` avec l&apos;op&#xE9;rateur de d&#xE9;composition</span>
+    <span class="token operator">...</span><span class="token function">mapGetters</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token string">&apos;doneTodosCount&apos;</span><span class="token punctuation">,</span>
+      <span class="token string">&apos;anotherGetter&apos;</span><span class="token punctuation">,</span>
+      <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Si vous voulez attacher un accesseur avec un nom diff&#xE9;rent, utilisez un objet :</p>
+<pre class="language-"><code class="lang-js"><span class="token operator">...</span><span class="token function">mapGetters</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// attacher `this.doneCount` &#xE0; `store.getters.doneTodosCount`</span>
+  doneCount<span class="token punctuation">:</span> <span class="token string">&apos;doneTodosCount&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="state.html" class="navigation navigation-prev " aria-label="Previous page: État">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="mutations.html" class="navigation navigation-next " aria-label="Next page: Mutations">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Accesseurs","level":"1.6.2","depth":2,"next":{"title":"Mutations","level":"1.6.3","depth":2,"path":"mutations.md","ref":"mutations.md","articles":[]},"previous":{"title":"État","level":"1.6.1","depth":2,"path":"state.md","ref":"state.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Éditer cette page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"fr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"getters.md","mtime":"2018-04-20T00:44:03.856Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"fr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

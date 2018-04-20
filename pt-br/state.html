@@ -1,0 +1,559 @@
+
+<!DOCTYPE HTML>
+<html lang="pt-br" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Estado · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="getters.html" />
+    
+    
+    <link rel="prev" href="core-concepts.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    Notas de versão
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Instalação
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    O que é Vuex?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Começando
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    Conceitos do núcleo
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    Estado
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Ações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Módulos
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    Estrutura da Aplicação
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    Plugins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Modo estrito
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    Manipulação de formulários
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    Teste
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    Hot Reload
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    Referência da API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publicado com GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Estado</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="estado">Estado</h1>
+<h3 id="&#xE1;rvore-simples-de-estado">&#xC1;rvore simples de estado</h3>
+<p>O Vuex usa uma <strong> &#xE1;rvore de estado &#xFA;nico </strong> - isto &#xE9;, este &#xFA;nico objeto cont&#xE9;m todo o seu n&#xED;vel de aplicativo e serve como &quot;fonte &#xFA;nica de verdade&quot;. Isso tamb&#xE9;m significa que voc&#xEA; ter&#xE1; apenas uma loja para cada aplicativo. Uma &#xFA;nica &#xE1;rvore de estados torna direto localizar um peda&#xE7;o de estado espec&#xED;fico e nos permite facilmente tirar instant&#xE2;neos do estado do aplicativo atual para fins de depura&#xE7;&#xE3;o.</p>
+<p>A &#xE1;rvore de um &#xFA;nico estado n&#xE3;o entra em conflito com a modularidade - em cap&#xED;tulos posteriores, discutiremos como dividir seu estado e muta&#xE7;&#xF5;es em sub-m&#xF3;dulos.</p>
+<h3 id="obtendo-o-vuex-state-em-vue-components">Obtendo o Vuex State em Vue Components</h3>
+<p>Ent&#xE3;o, como exibimos o estado dentro da loja em nossos componentes do Vue? Uma vez que as lojas Vuex s&#xE3;o reativas, a maneira mais simples de &quot;recuperar&quot; o estado &#xE9; simplesmente retornar algum estado da loja dentro de um <a href="https://br.vuejs.org/v2/guide/computed.html" target="_blank">dado computado</a>:</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// vamos criar um componente de contador</span>
+<span class="token keyword">const</span> Counter <span class="token operator">=</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`&lt;div&gt;{{ count }}&lt;/div&gt;`</span></span><span class="token punctuation">,</span>
+  computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    count <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Sempre que o <code>store.state.count</code> muda, far&#xE1; com que a propriedade computada seja reavaliada e ative as atualiza&#xE7;&#xF5;es de DOM associadas.
+No entanto, esse padr&#xE3;o faz com que o componente dependa no singleton da loja global. Ao usar um sistema de m&#xF3;dulo, ele precisa importar a loja em todos os componentes que usam o estado da loja e tamb&#xE9;m requer mocking ao testar o componente.</p>
+<p>O Vuex fornece um mecanismo para &quot;injetar&quot; a loja em todos os componentes filho do componente raiz com a op&#xE7;&#xE3;o <code>store</code> (habilitada por<code>Vue.use (Vuex)</code>):</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token punctuation">:</span> <span class="token string">&apos;#app&apos;</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// forne&#xE7;a a loja usando a op&#xE7;&#xE3;o &quot;store&quot;.</span>
+  <span class="token comment" spellcheck="true">// isso ir&#xE1; injetar a inst&#xE2;ncia da loja em todos os componentes filho.  store,</span>
+  components<span class="token punctuation">:</span> <span class="token punctuation">{</span> Counter <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  template<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`
+    &lt;div class=&quot;app&quot;&gt;
+      &lt;counter&gt;&lt;/counter&gt;
+    &lt;/div&gt;
+  `</span></span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Ao fornecer a op&#xE7;&#xE3;o <code>store</code> para a inst&#xE2;ncia raiz, a loja ser&#xE1; injetada em todos os componentes filho da raiz e estar&#xE1; dispon&#xED;vel neles como esta. $ Store<code>. Vamos atualizar a nossa implementa&#xE7;&#xE3;o</code>Counter`:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> Counter <span class="token operator">=</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`&lt;div&gt;{{ count }}&lt;/div&gt;`</span></span><span class="token punctuation">,</span>
+  computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    count <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="o-auxiliar-mapstate">O auxiliar <code>mapState</code></h3>
+<p>Quando um componente precisa fazer uso de v&#xE1;rias propriedades de estado da loja ou getters, declarar que todas essas propriedades computadas podem ser repetitivas e verbosas. Para lidar com isso, podemos usar o ajudante <code>mapState</code> que gera fun&#xE7;&#xF5;es getter computadas para n&#xF3;s, economizando algumas linhas de c&#xF3;digo:</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// em pleno desenvolvimento, os ajudantes s&#xE3;o expostos como Vuex.mapState</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> mapState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  computed<span class="token punctuation">:</span> <span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// As fun&#xE7;&#xF5;es de seta podem tornar o c&#xF3;digo muito sucinto!    count: state =&gt; state.count,</span>
+
+    <span class="token comment" spellcheck="true">// passar o valor da string &apos;count&apos; &#xE9; o mesmo que `state =&gt; state.count`</span>
+    countAlias<span class="token punctuation">:</span> <span class="token string">&apos;count&apos;</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// para acessar o estado local com `this`, uma fun&#xE7;&#xE3;o normal deve ser usada</span>
+     countPlusLocalState <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>localCount
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Tamb&#xE9;m podemos passar uma matriz de seq&#xFC;&#xEA;ncia de caracteres para <code>mapState</code> quando o nome de uma propriedade calculada mapeada &#xE9; o mesmo que um nome de &#xE1;rvore secund&#xE1;ria de estado.</p>
+<pre class="language-"><code class="lang-js">computed<span class="token punctuation">:</span> <span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token comment" spellcheck="true">// map this.count to store.state.count</span>
+  <span class="token string">&apos;count&apos;</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="operador-de-propaga&#xE7;&#xE3;o-de-objetos-es2015-spread-operator-">Operador de propaga&#xE7;&#xE3;o de objetos (<em>ES2015</em> <em>Spread</em> <em>Operator</em> )</h3>
+<p>Observe que <code>mapState</code> retorna um objeto. Como us&#xE1;-lo em combina&#xE7;&#xE3;o com outras propriedades locais computadas? Normalmente, ter&#xED;amos que usar um utilit&#xE1;rio para fundir v&#xE1;rios objetos em um para que possamos passar o objeto final para <code>computado</code>. No entanto, com o <a href="https://github.com/sebmarkbage/ecmascript-rest-spread" target="_blank">operador de propaga&#xE7;&#xE3;o de objetos</a> (que &#xE9; uma proposta de ECMAScript em est&#xE1;gio 3), podemos simplificar muito a sintaxe:</p>
+<pre class="language-"><code class="lang-js">computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  localComputed <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* ... */</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// Misture isso no objeto externo com o operador de propaga&#xE7;&#xE3;o do objeto</span>
+
+  <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="componentes-ainda-podem-ter-um-estado-local">Componentes ainda podem ter um estado local</h3>
+<p>O uso do Vuex n&#xE3;o significa que voc&#xEA; deve colocar <strong> all </strong> no estado no Vuex. Embora colocar mais estado no Vuex torna suas muta&#xE7;&#xF5;es estatais mais expl&#xED;citas e devolv&#xED;veis, &#xE0;s vezes tamb&#xE9;m pode tornar o c&#xF3;digo mais detalhado e indireto. Se um peda&#xE7;o de estado pertence estritamente a um &#xFA;nico componente, pode ser apenas bom deix&#xE1;-lo como um estado local. Voc&#xEA; deve pesar os trade-offs e tomar decis&#xF5;es que atendam &#xE0;s necessidades de desenvolvimento do seu aplicativo.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="core-concepts.html" class="navigation navigation-prev " aria-label="Previous page: Conceitos do núcleo">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="getters.html" class="navigation navigation-next " aria-label="Next page: Getters">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Estado","level":"1.6.1","depth":2,"next":{"title":"Getters","level":"1.6.2","depth":2,"path":"getters.md","ref":"getters.md","articles":[]},"previous":{"title":"Conceitos do núcleo","level":"1.6","depth":1,"path":"core-concepts.md","ref":"core-concepts.md","articles":[{"title":"Estado","level":"1.6.1","depth":2,"path":"state.md","ref":"state.md","articles":[]},{"title":"Getters","level":"1.6.2","depth":2,"path":"getters.md","ref":"getters.md","articles":[]},{"title":"Mutações","level":"1.6.3","depth":2,"path":"mutations.md","ref":"mutations.md","articles":[]},{"title":"Ações","level":"1.6.4","depth":2,"path":"actions.md","ref":"actions.md","articles":[]},{"title":"Módulos","level":"1.6.5","depth":2,"path":"modules.md","ref":"modules.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edite esta página","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"pt-br","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"state.md","mtime":"2018-04-20T00:44:03.880Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"pt-br"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

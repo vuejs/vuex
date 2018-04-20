@@ -1,0 +1,536 @@
+
+<!DOCTYPE HTML>
+<html lang="kr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>폼 핸들링 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="testing.html" />
+    
+    
+    <link rel="prev" href="strict.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/tree/1.0/docs">
+            
+                    
+                    1.0 버전 문서를 보려면?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    릴리즈 노트
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    설치
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex가 무엇인가요?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    시작하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    핵심 컨셉
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    상태
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    변이
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    액션
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    모듈
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    애플리케이션 구조
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    플러그인
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Strict 모드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.11" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    폼 핸들링
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    테스팅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    핫 리로딩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 레퍼런스
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >폼 핸들링</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#xD3FC;-&#xD578;&#xB4E4;&#xB9C1;">&#xD3FC; &#xD578;&#xB4E4;&#xB9C1;</h1>
+<p>strict &#xBAA8;&#xB4DC;&#xB85C; Vuex&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xACBD;&#xC6B0; Vuex&#xC5D0; &#xD3EC;&#xD568;&#xB41C; &#xBD80;&#xBD84;&#xC5D0; <code>v-model</code>&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xAC83;&#xC740; &#xC57D;&#xAC04; &#xAE4C;&#xB2E4;&#xB85C;&#xC6B8; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>obj.message<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p><code>obj</code>&#xAC00; &#xC800;&#xC7A5;&#xC18C;&#xC5D0;&#xC11C; &#xAC1D;&#xCCB4;&#xB97C; &#xBC18;&#xD658;&#xD558;&#xB294; &#xACC4;&#xC0B0;&#xB41C; &#xC18D;&#xC131;&#xC774;&#xB77C;&#xBA74;, &#xC5EC;&#xAE30;&#xC5D0;&#xC788;&#xB294; <code>v-model</code>&#xC740; &#xC0AC;&#xC6A9;&#xC790;&#xAC00; &#xC785;&#xB825; &#xD560; &#xB54C; <code>obj.message</code>&#xB97C; &#xC9C1;&#xC811; &#xBCC0;&#xACBD;&#xD558;&#xB824;&#xACE0; &#xD569;&#xB2C8;&#xB2E4;. strict &#xBAA8;&#xB4DC;&#xC5D0;&#xC11C;&#xB294; Vuex &#xBCC0;&#xC774; &#xCC98;&#xB9AC;&#xAE30; &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; &#xBCC0;&#xC774;&#xAC00; &#xC218;&#xD589;&#xB418;&#xC9C0; &#xC54A;&#xC73C;&#xBBC0;&#xB85C; &#xC624;&#xB958;&#xAC00; &#xBC1C;&#xC0DD;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<p>&#xADF8;&#xAC83;&#xC744; &#xB2E4;&#xB8E8;&#xB294; &quot;Vuex &#xBC29;&#xC2DD;&quot;&#xC740; <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span><span class="token punctuation">&gt;</span></span></code>&#xC758; &#xAC12;&#xC744; &#xBC14;&#xC778;&#xB529;&#xD558;&#xACE0; <code>input</code> &#xB610;&#xB294; <code>change</code> &#xC774;&#xBCA4;&#xD2B8;&#xC5D0; &#xB300;&#xD55C; &#xC561;&#xC158;&#xC744; &#xD638;&#xCD9C;&#xD558;&#xB294; &#xAC83; &#xC785;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>message<span class="token punctuation">&quot;</span></span> <span class="token attr-name">@input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>updateMessage<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// ...</span>
+computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>obj<span class="token punctuation">.</span>message
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  updateMessage <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;updateMessage&apos;</span><span class="token punctuation">,</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#xBCC0;&#xC774;&#xC5D0; &#xB300;&#xD55C; &#xD578;&#xB4E4;&#xB7EC; &#xC785;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// ...</span>
+mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  updateMessage <span class="token punctuation">(</span>state<span class="token punctuation">,</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>obj<span class="token punctuation">.</span>message <span class="token operator">=</span> message
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#xC591;&#xBC29;&#xD5A5;-&#xACC4;&#xC0B0;&#xB41C;-&#xC18D;&#xC131;">&#xC591;&#xBC29;&#xD5A5; &#xACC4;&#xC0B0;&#xB41C; &#xC18D;&#xC131;</h3>
+<p>&#xD2C0;&#xB9BC;&#xC5C6;&#xC774;, &#xC704;&#xC758; &#xB0B4;&#xC6A9;&#xC740; <code>v-model</code> + &#xC9C0;&#xC5ED; &#xC0C1;&#xD0DC;&#xBCF4;&#xB2E4; &#xC880;&#xB354; &#xC7A5;&#xD669; &#xD574;&#xC84C;&#xACE0;, <code>v-model</code>&#xC758; &#xC720;&#xC6A9;&#xD55C; &#xAE30;&#xB2A5; &#xC911; &#xC77C;&#xBD80;&#xB97C; &#xC783;&#xC5B4; &#xBC84;&#xB838;&#xC2B5;&#xB2C8;&#xB2E4;. &#xB2E4;&#xB978; &#xBC29;&#xBC95;&#xC740; setter&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; &#xC591;&#xBC29;&#xD5A5; &#xACC4;&#xC0B0;&#xB41C; &#xC18D;&#xC131;&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>message<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// ...</span>
+computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  message<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token keyword">get</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>obj<span class="token punctuation">.</span>message
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keyword">set</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;updateMessage&apos;</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="strict.html" class="navigation navigation-prev " aria-label="Previous page: Strict 모드">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="testing.html" class="navigation navigation-next " aria-label="Next page: 테스팅">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"폼 핸들링","level":"1.11","depth":1,"next":{"title":"테스팅","level":"1.12","depth":1,"path":"testing.md","ref":"testing.md","articles":[]},"previous":{"title":"Strict 모드","level":"1.10","depth":1,"path":"strict.md","ref":"strict.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"kr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"forms.md","mtime":"2018-04-20T00:44:03.870Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"kr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

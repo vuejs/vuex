@@ -1,0 +1,520 @@
+
+<!DOCTYPE HTML>
+<html lang="kr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>애플리케이션 구조 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="plugins.html" />
+    
+    
+    <link rel="prev" href="modules.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/tree/1.0/docs">
+            
+                    
+                    1.0 버전 문서를 보려면?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    릴리즈 노트
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    설치
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex가 무엇인가요?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    시작하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    핵심 컨셉
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    상태
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    변이
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    액션
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    모듈
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    애플리케이션 구조
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    플러그인
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Strict 모드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    폼 핸들링
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    테스팅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    핫 리로딩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 레퍼런스
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >애플리케이션 구조</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;-&#xAD6C;&#xC870;">&#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158; &#xAD6C;&#xC870;</h1>
+<p>&#xC2E4;&#xC81C;&#xB85C; Vuex&#xB294; &#xCF54;&#xB4DC; &#xAD6C;&#xC870;&#xB97C; &#xC81C;&#xD55C;&#xD558;&#xC9C0;&#xB294; &#xC54A;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC774;&#xBCF4;&#xB2E4; &#xC544;&#xB798;&#xC5D0; &#xC788;&#xB294; &#xC0C1;&#xC704; &#xC218;&#xC900; &#xC6D0;&#xCE59;&#xC744; &#xAC15;&#xC694;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<ol>
+<li><p>&#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158; &#xB808;&#xBCA8;&#xC758; &#xC0C1;&#xD0DC;&#xB294; &#xC911;&#xC559; &#xC9D1;&#xC911;&#xB41C; &#xC800;&#xC7A5;&#xC18C; &#xC785;&#xB2C8;&#xB2E4;.</p>
+</li>
+<li><p>&#xC0C1;&#xD0DC;&#xB97C; &#xBCC0;&#xACBD;&#xC2DC;&#xD0A4;&#xB294; &#xC720;&#xC77C;&#xD55C; &#xBC29;&#xBC95;&#xC740; &#xB3D9;&#xAE30; &#xD2B8;&#xB79C;&#xC7AD;&#xC158;&#xC778; <strong>&#xBCC0;&#xC774;</strong> &#xB97C; &#xCEE4;&#xBC0B;&#xD558;&#xB294; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;.</p>
+</li>
+<li><p>&#xBE44;&#xB3D9;&#xAE30;&#xC2DD; &#xB85C;&#xC9C1;&#xC740; &#xCEA1;&#xC290;&#xD654;&#xB418;&#xC5B4;&#xC57C;&#xD558;&#xBA70; <strong>&#xC561;&#xC158;</strong> &#xC73C;&#xB85C; &#xAD6C;&#xC131; &#xB429;&#xB2C8;&#xB2E4;.</p>
+</li>
+</ol>
+<p>&#xC774; &#xADDC;&#xCE59;&#xC744; &#xB530;&#xB978;&#xB2E4;&#xBA74; &#xD504;&#xB85C;&#xC81D;&#xD2B8;&#xB97C; &#xAD6C;&#xC870;&#xD654;&#xD558;&#xB294; &#xAC83;&#xC740; &#xC0AC;&#xC6A9;&#xC790;&#xC5D0;&#xAC8C; &#xB2EC;&#xB824; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC800;&#xC7A5;&#xC18C; &#xD30C;&#xC77C;&#xC774; &#xB108;&#xBB34; &#xCEE4;&#xC9C0;&#xBA74; &#xC561;&#xC158;, &#xB3CC;&#xC5F0;&#xBCC0;&#xC774; &#xBC0F; getter&#xB97C; &#xAC1C;&#xBCC4; &#xD30C;&#xC77C;&#xB85C; &#xBD84;&#xD560;&#xD558;&#xAE30;&#xB9CC; &#xD558;&#xBA74;&#xB429;&#xB2C8;&#xB2E4;.</p>
+<p>&#xC911;&#xC694;&#xD55C; &#xC571;&#xC758; &#xACBD;&#xC6B0; &#xBAA8;&#xB4C8;&#xC744; &#xD65C;&#xC6A9;&#xD574;&#xC57C; &#xD560; &#xAC00;&#xB2A5;&#xC131;&#xC774; &#xB192;&#xC2B5;&#xB2C8;&#xB2E4;. &#xB2E4;&#xC74C;&#xC740; &#xD504;&#xB85C;&#xC81D;&#xD2B8; &#xAD6C;&#xC870;&#xC758; &#xC608;&#xC785;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-bash">&#x251C;&#x2500;&#x2500; index.html
+&#x251C;&#x2500;&#x2500; main.js
+&#x251C;&#x2500;&#x2500; api
+&#x2502;   &#x2514;&#x2500;&#x2500; <span class="token punctuation">..</span>. <span class="token comment" spellcheck="true"># API &#xC694;&#xCCAD;&#xC744; &#xC704;&#xD55C; &#xCD94;&#xC0C1;&#xD654;&#xB97C; &#xD3EC;&#xD568;&#xD569;&#xB2C8;&#xB2E4;.</span>
+&#x251C;&#x2500;&#x2500; components
+&#x2502;   &#x251C;&#x2500;&#x2500; App.vue
+&#x2502;   &#x2514;&#x2500;&#x2500; <span class="token punctuation">..</span>.
+&#x2514;&#x2500;&#x2500; store
+    &#x251C;&#x2500;&#x2500; index.js          <span class="token comment" spellcheck="true"># &#xBAA8;&#xB4C8;&#xC744; &#xC870;&#xD569;&#xD558;&#xACE0; &#xC800;&#xC7A5;&#xC18C;&#xB97C; &#xB0B4;&#xBCF4;&#xB0B4;&#xB294; &#xACF3; &#xC785;&#xB2C8;&#xB2E4;.</span>
+    &#x251C;&#x2500;&#x2500; actions.js        <span class="token comment" spellcheck="true"># &#xB8E8;&#xD2B8; &#xC561;&#xC158;</span>
+    &#x251C;&#x2500;&#x2500; mutations.js      <span class="token comment" spellcheck="true"># &#xB8E8;&#xD2B8; &#xBCC0;&#xC774;</span>
+    &#x2514;&#x2500;&#x2500; modules
+        &#x251C;&#x2500;&#x2500; cart.js       <span class="token comment" spellcheck="true"># cart &#xBAA8;&#xB4C8;</span>
+        &#x2514;&#x2500;&#x2500; products.js   <span class="token comment" spellcheck="true"># products &#xBAA8;&#xB4C8;</span>
+</code></pre>
+<p>&#xCC38;&#xACE0; &#xC0AC;&#xD56D;&#xC73C;&#xB85C;, <a href="https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart" target="_blank">&#xC7A5;&#xBC14;&#xAD6C;&#xB2C8; &#xC608;</a>&#xB97C; &#xD655;&#xC778;&#xD558;&#xC2ED;&#xC2DC;&#xC624;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="modules.html" class="navigation navigation-prev " aria-label="Previous page: 모듈">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="plugins.html" class="navigation navigation-next " aria-label="Next page: 플러그인">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"애플리케이션 구조","level":"1.8","depth":1,"next":{"title":"플러그인","level":"1.9","depth":1,"path":"plugins.md","ref":"plugins.md","articles":[]},"previous":{"title":"모듈","level":"1.7.5","depth":2,"path":"modules.md","ref":"modules.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"kr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"structure.md","mtime":"2018-04-20T00:44:03.874Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"kr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

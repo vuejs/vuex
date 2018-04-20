@@ -1,0 +1,721 @@
+
+<!DOCTYPE HTML>
+<html lang="fr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Modules · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="structure.html" />
+    
+    
+    <link rel="prev" href="actions.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Tapez pour rechercher" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    Notes de version
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex, qu'est-ce que c'est ?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Pour commencer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    Concepts de base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    État
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Accesseurs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Modules
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    Structure d'une application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    Plugins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Mode strict
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    Gestion des formulaires
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    Tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    Rechargement à chaud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    Documentation de l'API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publié avec GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Modules</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="modules">Modules</h1>
+<p>Du fait de l&apos;utilisation d&apos;un arbre d&apos;&#xE9;tat unique, tout l&apos;&#xE9;tat de notre application est contenu dans un seul et m&#xEA;me gros objet. Cependant, au fur et &#xE0; mesure que notre application grandit, le store peut devenir tr&#xE8;s engorg&#xE9;.</p>
+<p>Pour y rem&#xE9;dier, Vuex nous permet de diviser notre store en <strong>modules</strong>. Chaque module peut contenir ses propres &#xE9;tats, mutations, actions, accesseurs. Il peut m&#xEA;me contenir ses propres modules internes.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> moduleB <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> moduleA<span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> moduleB
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>a <span class="token comment" spellcheck="true">// -&gt; l&apos;&#xE9;tat du `moduleA`</span>
+store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>b <span class="token comment" spellcheck="true">// -&gt; l&apos;&#xE9;tat du `moduleB`</span>
+</code></pre>
+<h3 id="&#xE9;tat-local-dun-module">&#xC9;tat local d&apos;un module</h3>
+<p>Dans les mutations et accesseurs d&apos;un module, le premier argument re&#xE7;u sera <strong>l&apos;&#xE9;tat local du module</strong>.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> count<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// `state` est l&apos;&#xE9;tat du module local</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    doubleCount <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> state<span class="token punctuation">.</span>count <span class="token operator">*</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>De fa&#xE7;on similaire, dans les actions du module, <code>context.state</code> exposera l&apos;&#xE9;tat local, et l&apos;&#xE9;tat racine sera disponible avec <code>context.rootState</code> :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    incrementIfOddOnRootSum <span class="token punctuation">(</span><span class="token punctuation">{</span> state<span class="token punctuation">,</span> commit<span class="token punctuation">,</span> rootState <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> rootState<span class="token punctuation">.</span>count<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#xC9;galement, dans les accesseurs du module, l&apos;&#xE9;tat racine sera expos&#xE9; en troisi&#xE8;me argument :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    sumWithRootCount <span class="token punctuation">(</span>state<span class="token punctuation">,</span> getters<span class="token punctuation">,</span> rootState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> state<span class="token punctuation">.</span>count <span class="token operator">+</span> rootState<span class="token punctuation">.</span>count
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="espace-de-nom">Espace de nom</h3>
+<p>Par d&#xE9;faut, les actions, mutations et accesseurs &#xE0; l&apos;int&#xE9;rieur d&apos;un module sont toujours enregistr&#xE9;s sous l&apos;<strong>espace de nom global</strong>. Cela permet &#xE0; de multiples modules d&apos;&#xEA;tre r&#xE9;actifs au m&#xEA;me type de mutation et d&apos;action.</p>
+<p>Si vous souhaitez que votre module soit autosuffisant et r&#xE9;utilisable, vous pouvez le ranger sous un espace de nom avec <code>namespaced: true</code>. Quand le module est enregistr&#xE9;, tous ses accesseurs, actions et mutations seront automatiquement bas&#xE9;s sur l&apos;espace de nom du module dans lesquels ils sont rang&#xE9;s. Par exemple :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    account<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      namespaced<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+
+      <span class="token comment" spellcheck="true">// propri&#xE9;t&#xE9;s du module</span>
+      state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// l&apos;&#xE9;tat du module est d&#xE9;j&#xE0; imbriqu&#xE9; et n&apos;est pas affect&#xE9; par l&apos;option `namespace`</span>
+      getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        isAdmin <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// -&gt; getters[&apos;account/isAdmin&apos;]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        login <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// -&gt; dispatch(&apos;account/login&apos;)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        login <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// -&gt; commit(&apos;account/login&apos;)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment" spellcheck="true">// modules imbriqu&#xE9;s</span>
+      modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// h&#xE9;rite de l&apos;espace de nom du module parent</span>
+        myPage<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            profile <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// -&gt; getters[&apos;account/profile&apos;]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+        <span class="token comment" spellcheck="true">// utilise un espace de nom imbriqu&#xE9;</span>
+        posts<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          namespaced<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+
+          state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            popular <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// -&gt; getters[&apos;account/posts/popular&apos;]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Les accesseurs et actions sous espace de nom re&#xE7;oivent des <code>getters</code>, <code>dispatch</code> et <code>commit</code> localis&#xE9;s. En d&apos;autres termes, vous pouvez utiliser les param&#xE8;tres de module sans &#xE9;crire de pr&#xE9;fixe dans ce m&#xEA;me module. Permuter entre un espace de nom ou non n&apos;affecte pas le code &#xE0; l&apos;int&#xE9;rieur du module.</p>
+<h4 id="acc&#xE9;der-aux-propri&#xE9;t&#xE9;s-globales-dans-les-modules-&#xE0;-espace-de-nom">Acc&#xE9;der aux propri&#xE9;t&#xE9;s globales dans les modules &#xE0; espace de nom</h4>
+<p>Si vous voulez utiliser des &#xE9;tats et accesseurs globaux, <code>rootState</code> et <code>rootGetters</code> sont pass&#xE9;s en 3&#x1D49; et 4&#x1D49; arguments des fonctions d&apos;acc&#xE8;s et sont &#xE9;galement expos&#xE9;s en tant que propri&#xE9;t&#xE9; de l&apos;objet <code>context</code> pass&#xE9; aux fonctions d&apos;action.</p>
+<p>Pour propager les actions ou les mutations act&#xE9;es dans l&apos;espace de nom global, passez <code>{ root: true }</code> en 3&#x1D49; argument &#xE0; <code>dispatch</code> et <code>commit</code>.</p>
+<pre class="language-"><code class="lang-js">modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  foo<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    namespaced<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+
+    getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Les `getters` sont localis&#xE9;s dans le module des accesseurs</span>
+      <span class="token comment" spellcheck="true">// vous pouvez utiliser `rootGetters` via le 4&#x1D49; argument des accesseurs</span>
+      someGetter <span class="token punctuation">(</span>state<span class="token punctuation">,</span> getters<span class="token punctuation">,</span> rootState<span class="token punctuation">,</span> rootGetters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        getters<span class="token punctuation">.</span>someOtherGetter <span class="token comment" spellcheck="true">// -&gt; &apos;foo/someOtherGetter&apos;</span>
+        rootGetters<span class="token punctuation">.</span>someOtherGetter <span class="token comment" spellcheck="true">// -&gt; &apos;someOtherGetter&apos;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      someOtherGetter<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// les actions et mutations sont aussi localis&#xE9;es pour ce module</span>
+      <span class="token comment" spellcheck="true">// elles vont accepter une option `root` pour la racine des actions et mutations.</span>
+      someAction <span class="token punctuation">(</span><span class="token punctuation">{</span> dispatch<span class="token punctuation">,</span> commit<span class="token punctuation">,</span> getters<span class="token punctuation">,</span> rootGetters <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        getters<span class="token punctuation">.</span>someGetter <span class="token comment" spellcheck="true">// -&gt; &apos;foo/someGetter&apos;</span>
+        rootGetters<span class="token punctuation">.</span>someGetter <span class="token comment" spellcheck="true">// -&gt; &apos;someGetter&apos;</span>
+
+        <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token string">&apos;someOtherAction&apos;</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; &apos;foo/someOtherAction&apos;</span>
+        <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token string">&apos;someOtherAction&apos;</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> root<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; &apos;someOtherAction&apos;</span>
+
+        <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;someMutation&apos;</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; &apos;foo/someMutation&apos;</span>
+        <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;someMutation&apos;</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> root<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; &apos;someMutation&apos;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      someOtherAction <span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> payload<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="fonctions-utilitaires-li&#xE9;es-avec-espace-de-nom">Fonctions utilitaires li&#xE9;es avec espace de nom</h4>
+<p>Quand nous lions un module sous espace de nom &#xE0; un composant avec les fonctions utilitaires <code>mapState</code>, <code>mapGetters</code>, <code>mapActions</code> and <code>mapMutations</code>, cela peut &#xEA;tre l&#xE9;g&#xE8;rement verbeux :</p>
+<pre class="language-"><code class="lang-js">computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>some<span class="token punctuation">.</span>nested<span class="token punctuation">.</span>module<span class="token punctuation">.</span>a<span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>some<span class="token punctuation">.</span>nested<span class="token punctuation">.</span>module<span class="token punctuation">.</span>b
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapActions</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token string">&apos;some/nested/module/foo&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;some/nested/module/bar&apos;</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Dans ces cas-l&#xE0;, vous pouvez passer une chaine de caract&#xE8;re repr&#xE9;sentant le nom d&apos;espace en tant que premier argument aux fonctions utilitaires ainsi toutes les liaisons seront faites en utilisant le module comme contexte. Cela peut &#xEA;tre simplifi&#xE9; comme ci-dessous :</p>
+<pre class="language-"><code class="lang-js">computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token string">&apos;some/nested/module&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>a<span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>b
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapActions</span><span class="token punctuation">(</span><span class="token string">&apos;some/nested/module&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;foo&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;bar&apos;</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>De plus, vous pouvez cr&#xE9;er des fonctions utilitaires li&#xE9;es avec espace de nom en utilisant <code>createNamespacedHelpers</code>. Cela retourne un objet qui a les nouvelles fonctions utilitaires rattach&#xE9;es &#xE0; la valeur d&apos;espace de nom fournie :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createNamespacedHelpers <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span> mapState<span class="token punctuation">,</span> mapActions <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createNamespacedHelpers</span><span class="token punctuation">(</span><span class="token string">&apos;some/nested/module&apos;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// v&#xE9;rifie dans `some/nested/module`</span>
+    <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      a<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>a<span class="token punctuation">,</span>
+      b<span class="token punctuation">:</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>b
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// v&#xE9;rifie dans `some/nested/module`</span>
+    <span class="token operator">...</span><span class="token function">mapActions</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token string">&apos;foo&apos;</span><span class="token punctuation">,</span>
+      <span class="token string">&apos;bar&apos;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="limitations-pour-les-plugins-des-d&#xE9;veloppeurs">Limitations pour les plugins des d&#xE9;veloppeurs</h4>
+<p>Vous devez faire attention au nom d&apos;espace impr&#xE9;visible pour vos modules quand vous cr&#xE9;ez un <a href="plugins.html">plugin</a> qui fournit les modules et laisser les utilisateurs les ajouter au store de Vuex. Vos modules seront &#xE9;galement sous espace de nom si l&apos;utilisateur du plugin l&apos;ajoute sous un module sous espace de nom. Pour vous adapter &#xE0; la situation, vous devez recevoir la valeur de l&apos;espace de nom via vos options de plugin :</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// passer la valeur d&apos;espace de nom via une option du plugin</span>
+<span class="token comment" spellcheck="true">// et retourner une fonction de plugin Vuex</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> createPlugin <span class="token punctuation">(</span>options <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ajouter l&apos;espace de nom aux types de module</span>
+    <span class="token keyword">const</span> namespace <span class="token operator">=</span> options<span class="token punctuation">.</span>namespace <span class="token operator">||</span> <span class="token string">&apos;&apos;</span>
+    store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>namespace <span class="token operator">+</span> <span class="token string">&apos;pluginAction&apos;</span><span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="enregistrement-dynamique-de-module">Enregistrement dynamique de module</h3>
+<p>Vous pouvez enregistrer un module <strong>apr&#xE8;s</strong> que le store ait &#xE9;t&#xE9; cr&#xE9;&#xE9; avec la m&#xE9;thode <code>store.registerModule</code> :</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// enregistrer un module `myModule`</span>
+store<span class="token punctuation">.</span><span class="token function">registerModule</span><span class="token punctuation">(</span><span class="token string">&apos;myModule&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// enregistrer un module imbriqu&#xE9; `nested/myModule`</span>
+store<span class="token punctuation">.</span><span class="token function">registerModule</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;nested&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;myModule&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>L&apos;&#xE9;tat des modules est disponible dans <code>store.state.myModule</code> et <code>store.state.nested.myModule</code>.</p>
+<p>L&apos;enregistrement dynamique de module permet aux autres plugins Vue de b&#xE9;n&#xE9;ficier de la gestion de l&apos;&#xE9;tat de Vuex en attachant un module au store de l&apos;application. Par exemple, la biblioth&#xE8;que <a href="https://github.com/vuejs/vuex-router-sync" target="_blank"><code>vuex-router-sync</code></a> int&#xE8;gre vue-router avec vuex en g&#xE9;rant l&apos;&#xE9;tat de la route d&apos;application dans un module enregistr&#xE9; dynamiquement.</p>
+<p>Vous pouvez aussi supprimer un module enregistr&#xE9; dynamiquement avec <code>store.unregisterModule(moduleName)</code>. Notez que vous ne pouvez pas supprimer des modules statiques (d&#xE9;clar&#xE9;s &#xE0; la cr&#xE9;ation du store) avec cette m&#xE9;thode.</p>
+<p>Il est possible que vous souhaitiez pr&#xE9;server un &#xE9;tat pr&#xE9;c&#xE9;dent quand vous abonnez un nouveau module. Par exemple pr&#xE9;server l&apos;&#xE9;tat depuis l&apos;application rendue c&#xF4;t&#xE9; serveur. Vous pouvez r&#xE9;aliser ceci avec l&apos;option <code>preserveState</code> : <code>store.registerModule(&apos;a&apos;, module, { preserveState: true })</code>.</p>
+<h3 id="r&#xE9;utiliser-un-module">R&#xE9;utiliser un module</h3>
+<p>Parfois nous devrons cr&#xE9;er de multiples instances d&apos;un module pour, par exemple :</p>
+<ul>
+<li>cr&#xE9;er plusieurs stores qui utilisent le m&#xEA;me module (par ex. pour <a href="https://ssr.vuejs.org/fr/structure.html#avoid-stateful-singletons" target="_blank">&#xE9;viter les singletons d&apos;&#xE9;tat avec du SSR</a> quand l&apos;option <code>runInNewContext</code> est &#xE0; <code>false</code> ou <code>&apos;once&apos;</code>) ou</li>
+<li>enregistrer le m&#xEA;me module plusieurs fois dans le m&#xEA;me store.</li>
+</ul>
+<p>Si nous utilisons un objet pour d&#xE9;clarer l&apos;&#xE9;tat du module, alors cet objet d&apos;&#xE9;tat sera partag&#xE9; par r&#xE9;f&#xE9;rence et causera de contamination inter store/module quand il sera mut&#xE9;.</p>
+<p>C&apos;est exactement le m&#xEA;me probl&#xE8;me qu&apos;avec <code>data</code> dans un composant Vue. Ainsi la solution est l&#xE0; m&#xEA;me, utiliser une fonction pour d&#xE9;clarer notre &#xE9;tat de module (support&#xE9; par la 2.3.0+) :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> MyReusableModule <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      foo<span class="token punctuation">:</span> <span class="token string">&apos;bar&apos;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// mutations, actions, accesseurs...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="actions.html" class="navigation navigation-prev " aria-label="Previous page: Actions">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="structure.html" class="navigation navigation-next " aria-label="Next page: Structure d'une application">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Modules","level":"1.6.5","depth":2,"next":{"title":"Structure d'une application","level":"1.7","depth":1,"path":"structure.md","ref":"structure.md","articles":[]},"previous":{"title":"Actions","level":"1.6.4","depth":2,"path":"actions.md","ref":"actions.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Éditer cette page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"fr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"modules.md","mtime":"2018-04-20T00:44:03.859Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"fr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

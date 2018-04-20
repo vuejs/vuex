@@ -1,0 +1,514 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Vuex 入門 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="core-concepts.html" />
+    
+    
+    <link rel="prev" href="intro.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索すると入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    リリースノート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    インストール
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex とは何か?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Vuex 入門
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    コアコンセプト
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    ステート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    ゲッター
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    ミューテーション
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    アクション
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    モジュール
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    アプリケーションの構造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    プラグイン
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    厳格モード
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    フォームの扱い
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    テスト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    ホットリローディング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API リファレンス
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            GitBookで公開 
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Vuex 入門</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="vuex-&#x5165;&#x9580;">Vuex &#x5165;&#x9580;</h1>
+<p>Vuex &#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x4E2D;&#x5FC3;&#x306B;&#x3042;&#x308B;&#x3082;&#x306E;&#x306F;<strong>&#x30B9;&#x30C8;&#x30A2;</strong>&#x3067;&#x3059;&#x3002;&quot;&#x30B9;&#x30C8;&#x30A2;&quot; &#x306F;&#x3001;&#x57FA;&#x672C;&#x7684;&#x306B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;<strong>&#x72B6;&#x614B;&#xFF08;state&#xFF09;</strong>&#x3092;&#x4FDD;&#x6301;&#x3059;&#x308B;&#x30B3;&#x30F3;&#x30C6;&#x30CA;&#x3067;&#x3059;&#x3002;&#x5358;&#x7D14;&#x306A;&#x30B0;&#x30ED;&#x30FC;&#x30D0;&#x30EB;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3068;&#x306E;&#x9055;&#x3044;&#x304C; 2&#x3064;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<ol>
+<li><p>Vuex &#x30B9;&#x30C8;&#x30A2;&#x306F;&#x30EA;&#x30A2;&#x30AF;&#x30C6;&#x30A3;&#x30D6;&#x3067;&#x3059;&#x3002;Vue &#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x304C;&#x30B9;&#x30C8;&#x30A2;&#x304B;&#x3089;&#x72B6;&#x614B;&#x3092;&#x53D6;&#x308A;&#x51FA;&#x3059;&#x3068;&#x304D;&#x3001;&#x3082;&#x3057;&#x30B9;&#x30C8;&#x30A2;&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x5316;&#x3057;&#x305F;&#x3089;&#x3001;&#x30B9;&#x30C8;&#x30A2;&#x306F;&#x30EA;&#x30A2;&#x30AF;&#x30C6;&#x30A3;&#x30D6;&#x304B;&#x3064;&#x52B9;&#x7387;&#x7684;&#x306B;&#x66F4;&#x65B0;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+</li>
+<li><p>&#x30B9;&#x30C8;&#x30A2;&#x306E;&#x72B6;&#x614B;&#x3092;&#x76F4;&#x63A5;&#x5909;&#x66F4;&#x3059;&#x308B;&#x3053;&#x3068;&#x306F;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;&#x660E;&#x793A;&#x7684;&#x306B;<strong>&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x30B3;&#x30DF;&#x30C3;&#x30C8;&#x3059;&#x308B;</strong>&#x3053;&#x3068;&#x306B;&#x3088;&#x3063;&#x3066;&#x306E;&#x307F;&#x3001;&#x30B9;&#x30C8;&#x30A2;&#x306E;&#x72B6;&#x614B;&#x3092;&#x5909;&#x66F4;&#x3057;&#x307E;&#x3059;&#x3002;&#x3053;&#x308C;&#x306B;&#x3088;&#x3063;&#x3066;&#x3001;&#x5168;&#x3066;&#x306E;&#x72B6;&#x614B;&#x306E;&#x5909;&#x66F4;&#x306B;&#x3064;&#x3044;&#x3066;&#x8FFD;&#x8DE1;&#x53EF;&#x80FD;&#x306A;&#x8A18;&#x9332;&#x3092;&#x6B8B;&#x3059;&#x3053;&#x3068;&#x304C;&#x4FDD;&#x8A3C;&#x3055;&#x308C;&#x3001;&#x30C4;&#x30FC;&#x30EB;&#x3067;&#x306E;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x52D5;&#x4F5C;&#x306E;&#x7406;&#x89E3;&#x3092;&#x52A9;&#x3051;&#x307E;&#x3059;&#x3002;</p>
+</li>
+</ol>
+<h3 id="&#x30B7;&#x30F3;&#x30D7;&#x30EB;&#x306A;&#x30B9;&#x30C8;&#x30A2;">&#x30B7;&#x30F3;&#x30D7;&#x30EB;&#x306A;&#x30B9;&#x30C8;&#x30A2;</h3>
+<blockquote>
+<p><strong>&#x6CE8;&#x610F;:</strong> &#x79C1;&#x305F;&#x3061;&#x306F;&#x3001;&#x3053;&#x306E;&#x30C9;&#x30AD;&#x30E5;&#x30E1;&#x30F3;&#x30C8;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x4F8B;&#x306B; ES2015 &#x306E;&#x30B7;&#x30F3;&#x30BF;&#x30C3;&#x30AF;&#x30B9;&#x3092;&#x5229;&#x7528;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002; &#x3082;&#x3057;&#x89E6;&#x308C;&#x305F;&#x3053;&#x3068;&#x304C;&#x306A;&#x3051;&#x308C;&#x3070;&#x3001;<a href="https://babeljs.io/docs/learn-es2015/" target="_blank">&#x305C;&#x3072;&#x89E6;&#x308C;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</a>&#xFF01;</p>
+</blockquote>
+<p>Vuex &#x3092;<a href="installation.html">&#x30A4;&#x30F3;&#x30B9;&#x30C8;&#x30FC;&#x30EB;</a> &#x3057;&#x3066;&#x304B;&#x3089;&#x3001;&#x30B9;&#x30C8;&#x30A2;&#x3092;&#x3064;&#x304F;&#x3063;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;Vuex &#x30B9;&#x30C8;&#x30A2;&#x306E;&#x4F5C;&#x6210;&#x306F;&#x3001;&#x3068;&#x3066;&#x3082;&#x7C21;&#x5358;&#x3067;&#x3059;&#x3002;&#x30B9;&#x30C8;&#x30A2;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x521D;&#x671F;&#x72B6;&#x614B;&#x3068;&#x3001;&#x3044;&#x304F;&#x3064;&#x304B;&#x306E;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x6E96;&#x5099;&#x3059;&#x308B;&#x3060;&#x3051;&#x3067;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// &#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x30B7;&#x30B9;&#x30C6;&#x30E0;&#x3092;&#x5229;&#x7528;&#x3057;&#x3066;&#x3044;&#x308B;&#x3068;&#x304D;&#x306F;&#x3042;&#x3089;&#x304B;&#x3058;&#x3081; Vue.use(Vuex) &#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x3066;&#x304A;&#x3044;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> <span class="token number">0</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x3053;&#x308C;&#x3067; <code>store.state</code> &#x3067;&#x30B9;&#x30C8;&#x30A2;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x72B6;&#x614B;&#x3092;&#x53C2;&#x7167;&#x3067;&#x304D;&#x3001;&#x307E;&#x305F; <code>store.commit</code> &#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x72B6;&#x614B;&#x306E;&#x5909;&#x66F4;&#x3092;&#x884C;&#x3046;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; 1</span>
+</code></pre>
+<p>&#x305D;&#x3057;&#x3066; <code>store.state.count</code> &#x3092;&#x76F4;&#x63A5;&#x5909;&#x66F4;&#x3059;&#x308B;&#x4EE3;&#x308F;&#x308A;&#x306B;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x30B3;&#x30DF;&#x30C3;&#x30C8;&#x3059;&#x308B;&#x7406;&#x7531;&#x306F;&#x3001;&#x72B6;&#x614B;&#x306E;&#x5909;&#x66F4;&#x3092;&#x660E;&#x78BA;&#x306B;&#x8FFD;&#x8DE1;&#x3057;&#x305F;&#x3044;&#x304B;&#x3089;&#x3067;&#x3059;&#x3002;&#x3053;&#x306E;&#x30B7;&#x30F3;&#x30D7;&#x30EB;&#x306A;&#x898F;&#x7D04;&#x306F;&#x3001;&#x3042;&#x306A;&#x305F;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x610F;&#x56F3;&#x3092;&#x3055;&#x3089;&#x306B;&#x660E;&#x78BA;&#x306B;&#x3057;&#x3001;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8AAD;&#x3093;&#x3060;&#x6642;&#x306B;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x72B6;&#x614B;&#x306E;&#x5909;&#x66F4;&#x306B;&#x3064;&#x3044;&#x3066;&#x3001;&#x8AD6;&#x7406;&#x7684;&#x306B;&#x8003;&#x3048;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x308B;&#x3088;&#x3046;&#x306B;&#x3057;&#x307E;&#x3059;&#x3002;&#x52A0;&#x3048;&#x3066;&#x3001;&#x79C1;&#x305F;&#x3061;&#x306B;&#x5168;&#x3066;&#x306E;&#x5909;&#x66F4;&#x306E;&#x30ED;&#x30B0;&#x3092;&#x53D6;&#x3063;&#x305F;&#x308A;&#x3001;&#x72B6;&#x614B;&#x306E;&#x30B9;&#x30CA;&#x30C3;&#x30D7;&#x30B7;&#x30E7;&#x30C3;&#x30C8;&#x3092;&#x53D6;&#x3063;&#x305F;&#x308A;&#x3001;&#x30BF;&#x30A4;&#x30E0;&#x30C8;&#x30E9;&#x30D9;&#x30EB;&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x3092;&#x884C;&#x3046;&#x3088;&#x3046;&#x306A;&#x30C4;&#x30FC;&#x30EB;&#x3092;&#x5B9F;&#x88C5;&#x3059;&#x308B;&#x4F59;&#x5730;&#x3092;&#x4E0E;&#x3048;&#x3066;&#x304F;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30B9;&#x30C8;&#x30A2;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x72B6;&#x614B;&#x306F;&#x30EA;&#x30A2;&#x30AF;&#x30C6;&#x30A3;&#x30D6;&#x306A;&#x306E;&#x3067;&#x3001;&#x30B9;&#x30C8;&#x30A2;&#x306E;&#x72B6;&#x614B;&#x3092;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x5185;&#x3067;&#x4F7F;&#x3046;&#x306B;&#x306F;&#x7B97;&#x51FA;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x5185;&#x3067;&#x305F;&#x3060;&#x72B6;&#x614B;&#x3092;&#x8FD4;&#x305B;&#x3070;&#x826F;&#x3044;&#x3067;&#x3059;&#x3002;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x30B3;&#x30DF;&#x30C3;&#x30C8;&#x3059;&#x308B;&#x3053;&#x3068;&#x306B;&#x3088;&#x3063;&#x3066;&#x72B6;&#x614B;&#x306E;&#x5909;&#x66F4;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x3061;&#x3089;&#x304C; <a href="https://jsfiddle.net/n9jmu5v7/1269/" target="_blank">Vuex &#x3092;&#x4F7F;&#x3063;&#x305F;&#x6700;&#x3082;&#x57FA;&#x672C;&#x7684;&#x306A;&#x30AB;&#x30A6;&#x30F3;&#x30BF;&#x30FC;&#x30A2;&#x30D7;&#x30EA;&#x306E;&#x4F8B;</a>&#x3067;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x308C;&#x304B;&#x3089; Vuex &#x306E;&#x30B3;&#x30A2;&#x30B3;&#x30F3;&#x30BB;&#x30D7;&#x30C8;&#x306B;&#x3064;&#x3044;&#x3066;&#x8A73;&#x3057;&#x304F;&#x8AAC;&#x660E;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;&#x307E;&#x305A;&#x306F;<a href="state.html">&#x72B6;&#x614B;&#xFF08;state&#xFF09;</a>&#x304B;&#x3089;&#x306F;&#x3058;&#x3081;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="intro.html" class="navigation navigation-prev " aria-label="Previous page: Vuex とは何か?">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="core-concepts.html" class="navigation navigation-next " aria-label="Next page: コアコンセプト">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Vuex 入門","level":"1.5","depth":1,"next":{"title":"コアコンセプト","level":"1.6","depth":1,"path":"core-concepts.md","ref":"core-concepts.md","articles":[{"title":"ステート","level":"1.6.1","depth":2,"path":"state.md","ref":"state.md","articles":[]},{"title":"ゲッター","level":"1.6.2","depth":2,"path":"getters.md","ref":"getters.md","articles":[]},{"title":"ミューテーション","level":"1.6.3","depth":2,"path":"mutations.md","ref":"mutations.md","articles":[]},{"title":"アクション","level":"1.6.4","depth":2,"path":"actions.md","ref":"actions.md","articles":[]},{"title":"モジュール","level":"1.6.5","depth":2,"path":"modules.md","ref":"modules.md","articles":[]}]},"previous":{"title":"Vuex とは何か?","level":"1.4","depth":1,"path":"intro.md","ref":"intro.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"getting-started.md","mtime":"2018-04-20T00:44:03.864Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"ja"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

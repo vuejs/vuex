@@ -1,0 +1,529 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Vuex 是什么？ · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="getting-started.html" />
+    
+    
+    <link rel="prev" href="installation.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    更新记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex 是什么？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    开始
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    核心概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Module
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    项目结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    严格模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    表单处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    热重载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 文档
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Vuex 是什么？</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="vuex-&#x662F;&#x4EC0;&#x4E48;&#xFF1F;">Vuex &#x662F;&#x4EC0;&#x4E48;&#xFF1F;</h1>
+<p>Vuex &#x662F;&#x4E00;&#x4E2A;&#x4E13;&#x4E3A; Vue.js &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x7684;<strong>&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x6A21;&#x5F0F;</strong>&#x3002;&#x5B83;&#x91C7;&#x7528;&#x96C6;&#x4E2D;&#x5F0F;&#x5B58;&#x50A8;&#x7BA1;&#x7406;&#x5E94;&#x7528;&#x7684;&#x6240;&#x6709;&#x7EC4;&#x4EF6;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x4EE5;&#x76F8;&#x5E94;&#x7684;&#x89C4;&#x5219;&#x4FDD;&#x8BC1;&#x72B6;&#x6001;&#x4EE5;&#x4E00;&#x79CD;&#x53EF;&#x9884;&#x6D4B;&#x7684;&#x65B9;&#x5F0F;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x3002;Vuex &#x4E5F;&#x96C6;&#x6210;&#x5230; Vue &#x7684;&#x5B98;&#x65B9;&#x8C03;&#x8BD5;&#x5DE5;&#x5177; <a href="https://github.com/vuejs/vue-devtools" target="_blank">devtools extension</a>&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x8BF8;&#x5982;&#x96F6;&#x914D;&#x7F6E;&#x7684; time-travel &#x8C03;&#x8BD5;&#x3001;&#x72B6;&#x6001;&#x5FEB;&#x7167;&#x5BFC;&#x5165;&#x5BFC;&#x51FA;&#x7B49;&#x9AD8;&#x7EA7;&#x8C03;&#x8BD5;&#x529F;&#x80FD;&#x3002;</p>
+<h3 id="&#x4EC0;&#x4E48;&#x662F;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x6A21;&#x5F0F;&#xFF1F;">&#x4EC0;&#x4E48;&#x662F;&#x201C;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x6A21;&#x5F0F;&#x201D;&#xFF1F;</h3>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x4ECE;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; Vue &#x8BA1;&#x6570;&#x5E94;&#x7528;&#x5F00;&#x59CB;&#xFF1A;</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// state</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      count<span class="token punctuation">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// view</span>
+  template<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`
+    &lt;div&gt;{{ count }}&lt;/div&gt;
+  `</span></span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// actions</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x81EA;&#x7BA1;&#x7406;&#x5E94;&#x7528;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;</p>
+<ul>
+<li><strong>state</strong>&#xFF0C;&#x9A71;&#x52A8;&#x5E94;&#x7528;&#x7684;&#x6570;&#x636E;&#x6E90;&#xFF1B;</li>
+<li><strong>view</strong>&#xFF0C;&#x4EE5;&#x58F0;&#x660E;&#x65B9;&#x5F0F;&#x5C06; <strong>state</strong> &#x6620;&#x5C04;&#x5230;&#x89C6;&#x56FE;&#xFF1B;</li>
+<li><strong>actions</strong>&#xFF0C;&#x54CD;&#x5E94;&#x5728; <strong>view</strong> &#x4E0A;&#x7684;&#x7528;&#x6237;&#x8F93;&#x5165;&#x5BFC;&#x81F4;&#x7684;&#x72B6;&#x6001;&#x53D8;&#x5316;&#x3002;</li>
+</ul>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x8868;&#x793A;&#x201C;&#x5355;&#x5411;&#x6570;&#x636E;&#x6D41;&#x201D;&#x7406;&#x5FF5;&#x7684;&#x6781;&#x7B80;&#x793A;&#x610F;&#xFF1A;</p>
+<p style="text-align: center; margin: 2em;">
+  <img style="width: 100%; max-width: 450px;" src="images/flow.png">
+</p>
+
+<p>&#x4F46;&#x662F;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x9047;&#x5230;<strong>&#x591A;&#x4E2A;&#x7EC4;&#x4EF6;&#x5171;&#x4EAB;&#x72B6;&#x6001;</strong>&#x65F6;&#xFF0C;&#x5355;&#x5411;&#x6570;&#x636E;&#x6D41;&#x7684;&#x7B80;&#x6D01;&#x6027;&#x5F88;&#x5BB9;&#x6613;&#x88AB;&#x7834;&#x574F;&#xFF1A;</p>
+<ul>
+<li>&#x591A;&#x4E2A;&#x89C6;&#x56FE;&#x4F9D;&#x8D56;&#x4E8E;&#x540C;&#x4E00;&#x72B6;&#x6001;&#x3002;</li>
+<li>&#x6765;&#x81EA;&#x4E0D;&#x540C;&#x89C6;&#x56FE;&#x7684;&#x884C;&#x4E3A;&#x9700;&#x8981;&#x53D8;&#x66F4;&#x540C;&#x4E00;&#x72B6;&#x6001;&#x3002;</li>
+</ul>
+<p>&#x5BF9;&#x4E8E;&#x95EE;&#x9898;&#x4E00;&#xFF0C;&#x4F20;&#x53C2;&#x7684;&#x65B9;&#x6CD5;&#x5BF9;&#x4E8E;&#x591A;&#x5C42;&#x5D4C;&#x5957;&#x7684;&#x7EC4;&#x4EF6;&#x5C06;&#x4F1A;&#x975E;&#x5E38;&#x7E41;&#x7410;&#xFF0C;&#x5E76;&#x4E14;&#x5BF9;&#x4E8E;&#x5144;&#x5F1F;&#x7EC4;&#x4EF6;&#x95F4;&#x7684;&#x72B6;&#x6001;&#x4F20;&#x9012;&#x65E0;&#x80FD;&#x4E3A;&#x529B;&#x3002;&#x5BF9;&#x4E8E;&#x95EE;&#x9898;&#x4E8C;&#xFF0C;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x4F1A;&#x91C7;&#x7528;&#x7236;&#x5B50;&#x7EC4;&#x4EF6;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x6216;&#x8005;&#x901A;&#x8FC7;&#x4E8B;&#x4EF6;&#x6765;&#x53D8;&#x66F4;&#x548C;&#x540C;&#x6B65;&#x72B6;&#x6001;&#x7684;&#x591A;&#x4EFD;&#x62F7;&#x8D1D;&#x3002;&#x4EE5;&#x4E0A;&#x7684;&#x8FD9;&#x4E9B;&#x6A21;&#x5F0F;&#x975E;&#x5E38;&#x8106;&#x5F31;&#xFF0C;&#x901A;&#x5E38;&#x4F1A;&#x5BFC;&#x81F4;&#x65E0;&#x6CD5;&#x7EF4;&#x62A4;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x628A;&#x7EC4;&#x4EF6;&#x7684;&#x5171;&#x4EAB;&#x72B6;&#x6001;&#x62BD;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x4EE5;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7BA1;&#x7406;&#x5462;&#xFF1F;&#x5728;&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x7EC4;&#x4EF6;&#x6811;&#x6784;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x5DE8;&#x5927;&#x7684;&#x201C;&#x89C6;&#x56FE;&#x201D;&#xFF0C;&#x4E0D;&#x7BA1;&#x5728;&#x6811;&#x7684;&#x54EA;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x4EFB;&#x4F55;&#x7EC4;&#x4EF6;&#x90FD;&#x80FD;&#x83B7;&#x53D6;&#x72B6;&#x6001;&#x6216;&#x8005;&#x89E6;&#x53D1;&#x884C;&#x4E3A;&#xFF01;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x901A;&#x8FC7;&#x5B9A;&#x4E49;&#x548C;&#x9694;&#x79BB;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x4E2D;&#x7684;&#x5404;&#x79CD;&#x6982;&#x5FF5;&#x5E76;&#x5F3A;&#x5236;&#x9075;&#x5B88;&#x4E00;&#x5B9A;&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x5C06;&#x4F1A;&#x53D8;&#x5F97;&#x66F4;&#x7ED3;&#x6784;&#x5316;&#x4E14;&#x6613;&#x7EF4;&#x62A4;&#x3002;</p>
+<p>&#x8FD9;&#x5C31;&#x662F; Vuex &#x80CC;&#x540E;&#x7684;&#x57FA;&#x672C;&#x601D;&#x60F3;&#xFF0C;&#x501F;&#x9274;&#x4E86; <a href="https://facebook.github.io/flux/docs/overview.html" target="_blank">Flux</a>&#x3001;<a href="http://redux.js.org/" target="_blank">Redux</a>&#x3001;&#x548C; <a href="https://guide.elm-lang.org/architecture/" target="_blank">The Elm Architecture</a>&#x3002;&#x4E0E;&#x5176;&#x4ED6;&#x6A21;&#x5F0F;&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;Vuex &#x662F;&#x4E13;&#x95E8;&#x4E3A; Vue.js &#x8BBE;&#x8BA1;&#x7684;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x5E93;&#xFF0C;&#x4EE5;&#x5229;&#x7528; Vue.js &#x7684;&#x7EC6;&#x7C92;&#x5EA6;&#x6570;&#x636E;&#x54CD;&#x5E94;&#x673A;&#x5236;&#x6765;&#x8FDB;&#x884C;&#x9AD8;&#x6548;&#x7684;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x3002;</p>
+<p><img src="images/vuex.png" alt="vuex"></p>
+<h3 id="&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;-vuex&#xFF1F;">&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; Vuex&#xFF1F;</h3>
+<p>&#x867D;&#x7136; Vuex &#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x7BA1;&#x7406;&#x5171;&#x4EAB;&#x72B6;&#x6001;&#xFF0C;&#x4F46;&#x4E5F;&#x9644;&#x5E26;&#x4E86;&#x66F4;&#x591A;&#x7684;&#x6982;&#x5FF5;&#x548C;&#x6846;&#x67B6;&#x3002;&#x8FD9;&#x9700;&#x8981;&#x5BF9;&#x77ED;&#x671F;&#x548C;&#x957F;&#x671F;&#x6548;&#x76CA;&#x8FDB;&#x884C;&#x6743;&#x8861;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x60A8;&#x4E0D;&#x6253;&#x7B97;&#x5F00;&#x53D1;&#x5927;&#x578B;&#x5355;&#x9875;&#x5E94;&#x7528;&#xFF0C;&#x4F7F;&#x7528; Vuex &#x53EF;&#x80FD;&#x662F;&#x7E41;&#x7410;&#x5197;&#x4F59;&#x7684;&#x3002;&#x786E;&#x5B9E;&#x662F;&#x5982;&#x6B64;&#x2014;&#x2014;&#x5982;&#x679C;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x591F;&#x7B80;&#x5355;&#xFF0C;&#x60A8;&#x6700;&#x597D;&#x4E0D;&#x8981;&#x4F7F;&#x7528; Vuex&#x3002;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; <a href="https://cn.vuejs.org/v2/guide/components.html#&#x975E;&#x7236;&#x5B50;&#x7EC4;&#x4EF6;&#x901A;&#x4FE1;" target="_blank">global event bus</a> &#x5C31;&#x8DB3;&#x591F;&#x60A8;&#x6240;&#x9700;&#x4E86;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x60A8;&#x9700;&#x8981;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x4E2D;&#x5927;&#x578B;&#x5355;&#x9875;&#x5E94;&#x7528;&#xFF0C;&#x60A8;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x8003;&#x8651;&#x5982;&#x4F55;&#x66F4;&#x597D;&#x5730;&#x5728;&#x7EC4;&#x4EF6;&#x5916;&#x90E8;&#x7BA1;&#x7406;&#x72B6;&#x6001;&#xFF0C;Vuex &#x5C06;&#x4F1A;&#x6210;&#x4E3A;&#x81EA;&#x7136;&#x800C;&#x7136;&#x7684;&#x9009;&#x62E9;&#x3002;&#x5F15;&#x7528; Redux &#x7684;&#x4F5C;&#x8005; Dan Abramov &#x7684;&#x8BDD;&#x8BF4;&#x5C31;&#x662F;&#xFF1A;</p>
+<blockquote>
+<p>Flux &#x67B6;&#x6784;&#x5C31;&#x50CF;&#x773C;&#x955C;&#xFF1A;&#x60A8;&#x81EA;&#x4F1A;&#x77E5;&#x9053;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x9700;&#x8981;&#x5B83;&#x3002;</p>
+</blockquote>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="installation.html" class="navigation navigation-prev " aria-label="Previous page: 安装">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="getting-started.html" class="navigation navigation-next " aria-label="Next page: 开始">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Vuex 是什么？","level":"1.4","depth":1,"next":{"title":"开始","level":"1.5","depth":1,"path":"getting-started.md","ref":"getting-started.md","articles":[]},"previous":{"title":"安装","level":"1.3","depth":1,"path":"installation.md","ref":"installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"编辑此页面","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"zh-cn","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"intro.md","mtime":"2018-04-20T00:44:03.892Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"zh-cn"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,664 @@
+
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>API Reference · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="hot-reload.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    Release Notes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    What is Vuex?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    Core Concepts
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Modules
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    Application Structure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    Plugins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Strict Mode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    Form Handling
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    Testing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    Hot Reloading
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API Reference
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >API Reference</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="api-reference">API Reference</h1>
+<h3 id="vuexstore">Vuex.Store</h3>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span>options <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="vuexstore-constructor-options">Vuex.Store Constructor Options</h3>
+<ul>
+<li><p><strong>state</strong></p>
+<ul>
+<li><p>type: <code>Object | Function</code></p>
+<p>The root state object for the Vuex store. <a href="state.html">Details</a></p>
+<p>If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. <a href="modules.html#module-reuse">Details</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>mutations</strong></p>
+<ul>
+<li><p>type: <code>{ [type: string]: Function }</code></p>
+<p>Register mutations on the store. The handler function always receives <code>state</code> as the first argument (will be module local state if defined in a module), and receives a second <code>payload</code> argument if there is one.</p>
+<p><a href="mutations.html">Details</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>actions</strong></p>
+<ul>
+<li><p>type: <code>{ [type: string]: Function }</code></p>
+<p>Register actions on the store. The handler function receives a <code>context</code> object that exposes the following properties:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span>      <span class="token comment" spellcheck="true">// same as `store.state`, or local state if in modules</span>
+  rootState<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// same as `store.state`, only in modules</span>
+  commit<span class="token punctuation">,</span>     <span class="token comment" spellcheck="true">// same as `store.commit`</span>
+  dispatch<span class="token punctuation">,</span>   <span class="token comment" spellcheck="true">// same as `store.dispatch`</span>
+  getters<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">// same as `store.getters`, or local getters if in modules</span>
+  rootGetters <span class="token comment" spellcheck="true">// same as `store.getters`, only in modules</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>And also receives a second <code>payload</code> argument if there is one.</p>
+<p><a href="actions.html">Details</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>getters</strong></p>
+<ul>
+<li><p>type: <code>{ [key: string]: Function }</code></p>
+<p>Register getters on the store. The getter function receives the following arguments:</p>
+<pre class="language-"><code>state,     // will be module local state if defined in a module.
+getters    // same as store.getters
+</code></pre><p>Specific when defined in a module</p>
+<pre class="language-"><code>state,       // will be module local state if defined in a module.
+getters,     // module local getters of the current module
+rootState,   // global state
+rootGetters  // all getters
+</code></pre><p>Registered getters are exposed on <code>store.getters</code>.</p>
+<p><a href="getters.html">Details</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>modules</strong></p>
+<ul>
+<li><p>type: <code>Object</code></p>
+<p>An object containing sub modules to be merged into the store, in the shape of:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  key<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">,</span>
+    namespaced<span class="token operator">?</span><span class="token punctuation">,</span>
+    mutations<span class="token operator">?</span><span class="token punctuation">,</span>
+    actions<span class="token operator">?</span><span class="token punctuation">,</span>
+    getters<span class="token operator">?</span><span class="token punctuation">,</span>
+    modules<span class="token operator">?</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Each module can contain <code>state</code> and <code>mutations</code> similar to the root options. A module&apos;s state will be attached to the store&apos;s root state using the module&apos;s key. A module&apos;s mutations and getters will only receives the module&apos;s local state as the first argument instead of the root state, and module actions&apos; <code>context.state</code> will also point to the local state.</p>
+<p><a href="modules.html">Details</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>plugins</strong></p>
+<ul>
+<li><p>type: <code>Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Function</span><span class="token punctuation">&gt;</span></span></code></p>
+<p>An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).</p>
+<p><a href="plugins.html">Details</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>strict</strong></p>
+<ul>
+<li>type: <code>Boolean</code></li>
+<li><p>default: <code>false</code></p>
+<p>Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.</p>
+<p><a href="strict.html">Details</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vuexstore-instance-properties">Vuex.Store Instance Properties</h3>
+<ul>
+<li><p><strong>state</strong></p>
+<ul>
+<li><p>type: <code>Object</code></p>
+<p>The root state. Read only.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>getters</strong></p>
+<ul>
+<li><p>type: <code>Object</code></p>
+<p>Exposes registered getters. Read only.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vuexstore-instance-methods">Vuex.Store Instance Methods</h3>
+<ul>
+<li><strong><code>commit(type: string, payload?: any, options?: Object)</code></strong></li>
+<li><p><strong><code>commit(mutation: Object, options?: Object)</code></strong></p>
+<p>Commit a mutation. <code>options</code> can have <code>root: true</code> that allows to commit root mutations in <a href="modules.html#namespacing">namespaced modules</a>. <a href="mutations.html">Details</a></p>
+</li>
+<li><p><strong><code>dispatch(type: string, payload?: any, options?: Object)</code></strong></p>
+</li>
+<li><p><strong><code>dispatch(action: Object, options?: Object)</code></strong></p>
+<p>Dispatch an action. <code>options</code> can have <code>root: true</code> that allows to dispatch root actions in <a href="modules.html#namespacing">namespaced modules</a>. Returns a Promise that resolves all triggered action handlers. <a href="actions.html">Details</a></p>
+</li>
+<li><p><strong><code>replaceState(state: Object)</code></strong></p>
+<p>Replace the store&apos;s root state. Use this only for state hydration / time-travel purposes.</p>
+</li>
+<li><p><strong><code>watch(fn: Function, callback: Function, options?: Object): Function</code></strong></p>
+<p>Reactively watch <code>fn</code>&apos;s return value, and call the callback when the value changes. <code>fn</code> receives the store&apos;s state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue&apos;s <code>vm.$watch</code> method.</p>
+<p>To stop watching, call the returned unwatch function.</p>
+</li>
+<li><p><strong><code>subscribe(handler: Function): Function</code></strong></p>
+<p>Subscribe to store mutations. The <code>handler</code> is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>mutation<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>mutation<span class="token punctuation">.</span>type<span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>mutation<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>To stop subscribing, call the returned unsubscribe function.</p>
+<p>Most commonly used in plugins. <a href="plugins.html">Details</a></p>
+</li>
+<li><p><strong><code>subscribeAction(handler: Function): Function</code></strong></p>
+<blockquote>
+<p>New in 2.5.0</p>
+</blockquote>
+<p>Subscribe to store actions. The <code>handler</code> is called for every dispatched action and receives the action descriptor and current store state as arguments:</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">subscribeAction</span><span class="token punctuation">(</span><span class="token punctuation">(</span>action<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>To stop subscribing, call the returned unsubscribe function.</p>
+<p>Most commonly used in plugins. <a href="plugins.html">Details</a></p>
+</li>
+<li><p><strong><code>registerModule(path: string | Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>, module: Module, options?: Object)</code></strong></p>
+<p>Register a dynamic module. <a href="modules.html#dynamic-module-registration">Details</a></p>
+<p><code>options</code> can have <code>preserveState: true</code> that allows to preserve the previous state. Useful with Server Side Rendering.</p>
+</li>
+<li><p><strong><code>unregisterModule(path: string | Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>)</code></strong></p>
+<p>Unregister a dynamic module. <a href="modules.html#dynamic-module-registration">Details</a></p>
+</li>
+<li><p><strong><code>hotUpdate(newOptions: Object)</code></strong></p>
+<p>Hot swap new actions and mutations. <a href="hot-reload.html">Details</a></p>
+</li>
+</ul>
+<h3 id="component-binding-helpers">Component Binding Helpers</h3>
+<ul>
+<li><p><strong><code>mapState(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">|</span> <span class="token attr-name">function</span><span class="token punctuation">&gt;</span></span>): Object</code></strong></p>
+<p>Create component computed options that return the sub tree of the Vuex store. <a href="state.html#the-mapstate-helper">Details</a></p>
+<p>The first argument can optionally be a namespace string. <a href="modules.html#binding-helpers-with-namespace">Details</a></p>
+<p>The second object argument&apos;s members can be a function. <code>function(state: any)</code> </p>
+</li>
+<li><p><strong><code>mapGetters(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>): Object</code></strong></p>
+<p>Create component computed options that return the evaluated value of a getter. <a href="getters.html#the-mapgetters-helper">Details</a></p>
+<p>The first argument can optionally be a namespace string. <a href="modules.html#binding-helpers-with-namespace">Details</a></p>
+</li>
+<li><p><strong><code>mapActions(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">|</span> <span class="token attr-name">function</span><span class="token punctuation">&gt;</span></span>): Object</code></strong></p>
+<p>Create component methods options that dispatch an action. <a href="actions.html#dispatching-actions-in-components">Details</a></p>
+<p>The first argument can optionally be a namespace string. <a href="modules.html#binding-helpers-with-namespace">Details</a></p>
+<p>The second object argument&apos;s members can be a function. <code>function(dispatch: function, ...args: any[])</code></p>
+</li>
+<li><p><strong><code>mapMutations(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">|</span> <span class="token attr-name">function</span><span class="token punctuation">&gt;</span></span>): Object</code></strong></p>
+<p>Create component methods options that commit a mutation. <a href="mutations.html#committing-mutations-in-components">Details</a></p>
+<p>The first argument can optionally be a namespace string. <a href="modules.html#binding-helpers-with-namespace">Details</a></p>
+<p>The second object argument&apos;s members can be a function. <code>function(commit: function, ...args: any[])</code></p>
+</li>
+<li><p><strong><code>createNamespacedHelpers(namespace: string): Object</code></strong></p>
+<p>Create namespaced component binding helpers. The returned object contains <code>mapState</code>, <code>mapGetters</code>, <code>mapActions</code> and <code>mapMutations</code> that are bound with the given namespace. <a href="modules.html#binding-helpers-with-namespace">Details</a></p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="hot-reload.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Hot Reloading">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"API Reference","level":"1.13","depth":1,"previous":{"title":"Hot Reloading","level":"1.12","depth":1,"path":"hot-reload.md","ref":"hot-reload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"en","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"api.md","mtime":"2018-04-20T00:44:03.847Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"en"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

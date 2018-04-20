@@ -1,0 +1,576 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>プラグイン · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="strict.html" />
+    
+    
+    <link rel="prev" href="structure.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索すると入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    リリースノート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    インストール
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex とは何か?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Vuex 入門
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    コアコンセプト
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    ステート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    ゲッター
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    ミューテーション
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    アクション
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    モジュール
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    アプリケーションの構造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    プラグイン
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    厳格モード
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    フォームの扱い
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    テスト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    ホットリローディング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API リファレンス
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            GitBookで公開 
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >プラグイン</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;">&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;</h1>
+<p>Vuex &#x30B9;&#x30C8;&#x30A2; &#x306F;&#x3001;&#x5404;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3078;&#x306E;&#x30D5;&#x30C3;&#x30AF;&#x3092;&#x516C;&#x958B;&#x3059;&#x308B; <code>plugins</code> &#x30AA;&#x30D7;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x53D7;&#x3051;&#x4ED8;&#x3051;&#x307E;&#x3059;&#x3002; Vuex &#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x306F;&#x3001;&#x5358;&#x4E00;&#x306E;&#x5F15;&#x6570;&#x3068;&#x3057;&#x3066;&#x30B9;&#x30C8;&#x30A2;&#x3092;&#x53D7;&#x3051;&#x3064;&#x3051;&#x308B;&#x305F;&#x3060;&#x306E;&#x95A2;&#x6570;&#x3067;&#x3059;:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> myPlugin <span class="token operator">=</span> store <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// &#x30B9;&#x30C8;&#x30A2;&#x304C;&#x521D;&#x671F;&#x5316;&#x3055;&#x308C;&#x305F;&#x3068;&#x304D;&#x306B;&#x547C;&#x3070;&#x308C;&#x307E;&#x3059;</span>
+  store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>mutation<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// &#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x5F8C;&#x306B;&#x547C;&#x3070;&#x308C;&#x307E;&#x3059;</span>
+    <span class="token comment" spellcheck="true">// &#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306F; `{ type, payload }` &#x306E;&#x5F62;&#x5F0F;&#x3067;&#x63D0;&#x4F9B;&#x3055;&#x308C;&#x307E;&#x3059;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x305D;&#x3057;&#x3066;&#x3001;&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x5229;&#x7528;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>myPlugin<span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x5185;&#x3067;&#x306E;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30B3;&#x30DF;&#x30C3;&#x30C8;">&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x5185;&#x3067;&#x306E;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30B3;&#x30DF;&#x30C3;&#x30C8;</h3>
+<p>&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x306F;&#x76F4;&#x63A5;&#x3001;&#x72B6;&#x614B;&#x3092;&#x5909;&#x66F4;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;&#x3053;&#x308C;&#x306F;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x306B;&#x4F3C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x306F;&#x30B3;&#x30F3;&#x30DD;&#x30FC;&#x30CD;&#x30F3;&#x30C8;&#x540C;&#x69D8;&#x306B;&#x3001;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30B3;&#x30DF;&#x30C3;&#x30C8;&#x306B;&#x3088;&#x308B;&#x5909;&#x66F4;&#x306E;&#x30C8;&#x30EA;&#x30AC;&#x30FC;&#x3060;&#x3051;&#x3067;&#x72B6;&#x614B;&#x3092;&#x5909;&#x66F4;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30B3;&#x30DF;&#x30C3;&#x30C8;&#x306B;&#x3088;&#x308B;&#x30B9;&#x30C8;&#x30A2;&#x3068;&#x30C7;&#x30FC;&#x30BF;&#x30BD;&#x30FC;&#x30B9;&#x306E;&#x540C;&#x671F;&#x3092;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x3067;&#x5B9F;&#x73FE;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002; websocket &#x30C7;&#x30FC;&#x30BF;&#x30BD;&#x30FC;&#x30B9;&#x3068;&#x30B9;&#x30C8;&#x30A2;&#x3092;&#x4F8B;&#x306B;&#x3057;&#x307E;&#x3059; (&#x3053;&#x308C;&#x306F;&#x4E0D;&#x81EA;&#x7136;&#x306A;&#x4F8B;&#x3067;&#x3059;&#x3002;&#x5B9F;&#x969B;&#x306B;&#x306F;&#x3001;&#x3055;&#x3089;&#x306B;&#x8907;&#x96D1;&#x306A;&#x30BF;&#x30B9;&#x30AF;&#x306E;&#x305F;&#x3081;&#x306B; <code>createPlugin</code> &#x95A2;&#x6570;&#x306F;&#x3001;&#x8FFD;&#x52A0;&#x3067;&#x3044;&#x304F;&#x3064;&#x304B;&#x306E;&#x30AA;&#x30D7;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x53D7;&#x3051;&#x53D6;&#x308C;&#x307E;&#x3059;):</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> createWebSocketPlugin <span class="token punctuation">(</span>socket<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> store <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;data&apos;</span><span class="token punctuation">,</span> data <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+      store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;RECEIVE_DATA&apos;</span><span class="token punctuation">,</span> data<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>mutation<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>mutation<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">&apos;UPDATE_DATA&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        socket<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">&apos;update&apos;</span><span class="token punctuation">,</span> mutation<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> plugin <span class="token operator">=</span> <span class="token function">createWebSocketPlugin</span><span class="token punctuation">(</span>socket<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span>
+  mutations<span class="token punctuation">,</span>
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>plugin<span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="&#x72B6;&#x614B;&#x306E;&#x30B9;&#x30CA;&#x30C3;&#x30D7;&#x30B7;&#x30E7;&#x30C3;&#x30C8;&#x3092;&#x64AE;&#x308B;">&#x72B6;&#x614B;&#x306E;&#x30B9;&#x30CA;&#x30C3;&#x30D7;&#x30B7;&#x30E7;&#x30C3;&#x30C8;&#x3092;&#x64AE;&#x308B;</h3>
+<p>&#x6642;&#x3005;&#x3001;&#x72B6;&#x614B;&#x306E;&quot;&#x30B9;&#x30CA;&#x30C3;&#x30D7;&#x30B7;&#x30E7;&#x30C3;&#x30C8;&quot;&#x3092;&#x64AE;&#x3063;&#x3066;&#x3001;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x524D;&#x5F8C;&#x306E;&#x72B6;&#x614B;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x305F;&#x304F;&#x306A;&#x308B;&#x3053;&#x3068;&#x304C;&#x3042;&#x308B;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;&#x305D;&#x308C;&#x3092;&#x5B9F;&#x73FE;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;&#x3001;&#x72B6;&#x614B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30C7;&#x30A3;&#x30FC;&#x30D7;&#x30B3;&#x30D4;&#x30FC;&#x3092;&#x884C;&#x3046;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> myPluginWithSnapshot <span class="token operator">=</span> store <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> prevState <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">cloneDeep</span><span class="token punctuation">(</span>store<span class="token punctuation">.</span>state<span class="token punctuation">)</span>
+  store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>mutation<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> nextState <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">cloneDeep</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true">// `prevState` &#x3068; `nextState` &#x3092;&#x6BD4;&#x8F03;...</span>
+
+    <span class="token comment" spellcheck="true">// &#x6B21;&#x306E;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x305F;&#x3081;&#x306B;&#x72B6;&#x614B;&#x3092;&#x4FDD;&#x5B58;</span>
+    prevState <span class="token operator">=</span> nextState
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>&#x72B6;&#x614B;&#x306E;&#x30B9;&#x30CA;&#x30C3;&#x30D7;&#x30B7;&#x30E7;&#x30C3;&#x30C8;&#x3092;&#x64AE;&#x308B;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x306F;&#x30A2;&#x30D7;&#x30EA;&#x30B1;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x958B;&#x767A;&#x306E;&#x9593;&#x3060;&#x3051;&#x4F7F;&#x308F;&#x308C;&#x308B;&#x3079;&#x304D;&#x3067;&#x3059;&#x3002;</strong>  webpack &#x3084; Browserify &#x3092;&#x4F7F;&#x3063;&#x3066;&#x3044;&#x308C;&#x3070;&#x3001;&#x30D3;&#x30EB;&#x30C9;&#x30C4;&#x30FC;&#x30EB;&#x306B;&#x305D;&#x308C;&#x3092;&#x51E6;&#x7406;&#x3055;&#x305B;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  plugins<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">!==</span> <span class="token string">&apos;production&apos;</span>
+    <span class="token operator">?</span> <span class="token punctuation">[</span>myPluginWithSnapshot<span class="token punctuation">]</span>
+    <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x4E0A;&#x306E;&#x3088;&#x3046;&#x306B;&#x8A18;&#x8FF0;&#x3059;&#x308C;&#x3070;&#x3001;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x306F;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;&#x3067;&#x5229;&#x7528;&#x3055;&#x308C;&#x308B;&#x3053;&#x3068;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#x672C;&#x756A;&#x74B0;&#x5883;( production ) &#x3067;&#x306F;&#x3001; <code>process.env.NODE_ENV !== &apos;production&apos;</code> &#x3092; <code>false</code> &#x306B;&#x7F6E;&#x304D;&#x63DB;&#x3048;&#x308B;&#x305F;&#x3081;&#x306B;&#x3001; webpack &#x3067;&#x306F;<a href="https://webpack.js.org/plugins/define-plugin/" target="_blank">DefinePlugin</a> &#x3001; Browserify &#x3067;&#x306F;<a href="https://github.com/hughsk/envify" target="_blank">envify</a> &#x304C;&#x5FC5;&#x8981;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30ED;&#x30AC;&#x30FC;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;">&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30ED;&#x30AC;&#x30FC;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;</h3>
+<blockquote>
+<p>&#x3082;&#x3057;&#x3001;&#x3042;&#x306A;&#x305F;&#x304C; <a href="https://github.com/vuejs/vue-devtools" target="_blank">vue-devtools</a> &#x3092;&#x4F7F;&#x3063;&#x3066;&#x3044;&#x308B;&#x5834;&#x5408;&#x306F;&#x3001;&#x3053;&#x308C;&#x306F;&#x4E0D;&#x8981;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+</blockquote>
+<p>Vuex &#x306B;&#x306F;&#x3001;&#x4E00;&#x822C;&#x7684;&#x306A;&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x306B;&#x5229;&#x7528;&#x3059;&#x308B;&#x7528;&#x9014;&#x306E;&#x5099;&#x3048;&#x4ED8;&#x3051;&#x306E;&#x30ED;&#x30AC;&#x30FC;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> createLogger <span class="token keyword">from</span> <span class="token string">&apos;vuex/dist/logger&apos;</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token function">createLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p><code>createLogger</code> &#x95A2;&#x6570;&#x306F;&#x3044;&#x304F;&#x3064;&#x304B;&#x306E;&#x30AA;&#x30D7;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x53D7;&#x3051;&#x53D6;&#x308A;&#x307E;&#x3059;:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> logger <span class="token operator">=</span> <span class="token function">createLogger</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  collapsed<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// &#x30ED;&#x30B0;&#x51FA;&#x529B;&#x3055;&#x308C;&#x305F;&#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x81EA;&#x52D5;&#x3067;&#x5C55;&#x958B;&#x3057;&#x307E;&#x3059;</span>
+  filter <span class="token punctuation">(</span>mutation<span class="token punctuation">,</span> stateBefore<span class="token punctuation">,</span> stateAfter<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// &#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x3092;&#x8A18;&#x9332;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x5834;&#x5408;&#x306F;&#x3001;`true` &#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;</span>
+    <span class="token comment" spellcheck="true">// `mutation` &#x306F; `{ type, payload }` &#x3067;&#x3059;</span>
+    <span class="token keyword">return</span> mutation<span class="token punctuation">.</span>type <span class="token operator">!==</span> <span class="token string">&quot;aBlacklistedMutation&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  transformer <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// &#x30ED;&#x30AE;&#x30F3;&#x30B0;&#x306E;&#x524D;&#x306B;&#x3001;&#x72B6;&#x614B;&#x3092;&#x5909;&#x63DB;&#x3057;&#x307E;&#x3059;</span>
+    <span class="token comment" spellcheck="true">// &#x4F8B;&#x3048;&#x3070;&#x3001;&#x7279;&#x5B9A;&#x306E;&#x30B5;&#x30D6;&#x30C4;&#x30EA;&#x30FC;&#x306E;&#x307F;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;</span>
+    <span class="token keyword">return</span> state<span class="token punctuation">.</span>subTree
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutationTransformer <span class="token punctuation">(</span>mutation<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// &#x30DF;&#x30E5;&#x30FC;&#x30C6;&#x30FC;&#x30B7;&#x30E7;&#x30F3;&#x306F;&#x3001;`{ type, payload }` &#x306E;&#x5F62;&#x5F0F;&#x3067;&#x30ED;&#x30B0;&#x51FA;&#x529B;&#x3055;&#x308C;&#x307E;&#x3059;</span>
+    <span class="token comment" spellcheck="true">// &#x4EFB;&#x610F;&#x306E;&#x65B9;&#x6CD5;&#x3067;&#x305D;&#x308C;&#x3092;&#x30D5;&#x30A9;&#x30FC;&#x30DE;&#x30C3;&#x30C8;&#x3067;&#x304D;&#x307E;&#x3059;</span>
+    <span class="token keyword">return</span> mutation<span class="token punctuation">.</span>type
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  logger<span class="token punctuation">:</span> console<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// `console` API &#x306E;&#x5B9F;&#x88C5;, &#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;&#x306F; `console`</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x30ED;&#x30AC;&#x30FC;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306F;&#x3001;&#x4ED6;&#x306B;&#x3082; <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span></code> &#x30BF;&#x30B0;&#x3067;&#x76F4;&#x63A5;&#x8AAD;&#x307F;&#x8FBC;&#x3080;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x3001;<code>createVuexLogger</code> &#x95A2;&#x6570;&#x304C;&#x30B0;&#x30ED;&#x30FC;&#x30D0;&#x30EB;&#x306B;&#x516C;&#x958B;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30ED;&#x30AC;&#x30FC;&#x30D7;&#x30E9;&#x30B0;&#x30A4;&#x30F3;&#x306F;&#x3001;&#x72B6;&#x614B;&#x306E;&#x30B9;&#x30CA;&#x30C3;&#x30D7;&#x30B7;&#x30E7;&#x30C3;&#x30C8;&#x3092;&#x64AE;&#x308B;&#x3053;&#x3068;&#x306B;&#x6CE8;&#x610F;&#x3057;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;&#x30B9;&#x30CA;&#x30C3;&#x30D7;&#x30B7;&#x30E7;&#x30C3;&#x30C8;&#x3092;&#x64AE;&#x308B;&#x3053;&#x3068;&#x306F;&#x30B3;&#x30B9;&#x30C8;&#x304C;&#x304B;&#x304B;&#x308B;&#x305F;&#x3081;&#x3001;&#x958B;&#x767A;&#x4E2D;&#x3060;&#x3051;&#x5229;&#x7528;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="structure.html" class="navigation navigation-prev " aria-label="Previous page: アプリケーションの構造">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="strict.html" class="navigation navigation-next " aria-label="Next page: 厳格モード">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"プラグイン","level":"1.8","depth":1,"next":{"title":"厳格モード","level":"1.9","depth":1,"path":"strict.md","ref":"strict.md","articles":[]},"previous":{"title":"アプリケーションの構造","level":"1.7","depth":1,"path":"structure.md","ref":"structure.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"ja","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"plugins.md","mtime":"2018-04-20T00:44:03.867Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"ja"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

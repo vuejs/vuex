@@ -1,0 +1,660 @@
+
+<!DOCTYPE HTML>
+<html lang="pt-br" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Referência da API · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="hot-reload.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    Notas de versão
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Instalação
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    O que é Vuex?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Começando
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    Conceitos do núcleo
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    Estado
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Ações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Módulos
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    Estrutura da Aplicação
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    Plugins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Modo estrito
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    Manipulação de formulários
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    Teste
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    Hot Reload
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    Referência da API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publicado com GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Referência da API</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="refer&#xEA;ncia-de-api">Refer&#xEA;ncia de Api</h1>
+<h3 id="vuexstore">Vuex.Store</h3>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span>options <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="vuexstore-op&#xE7;&#xF5;es-do-construtor">Vuex.Store Op&#xE7;&#xF5;es do construtor</h3>
+<ul>
+<li><p><strong>state</strong></p>
+<ul>
+<li>type: <code>Object | Function</code></li>
+</ul>
+</li>
+</ul>
+<p>O objeto do estado da raiz para a <em>store</em>  Vuex. <a href="state.html">Detalhes</a>
+    Se voc&#xEA; passar uma fun&#xE7;&#xE3;o que retorna um objeto, o objeto retornado &#xE9; usado como o estado da raiz. Isso &#xE9; &#xFA;til quando voc&#xEA; deseja reutilizar o objeto de estado, especialmente para reutiliza&#xE7;&#xE3;o de m&#xF3;dulos. <a href="modules.html#m&#xF3;dulo-reutiliza&#xE7;&#xE3;o">Detalhes</a></p>
+<ul>
+<li><p><strong>muta&#xE7;&#xF5;es</strong></p>
+<ul>
+<li><p>type: <code>{ [type: string]: Function }</code></p>
+<p>Registra muta&#xE7;&#xF5;es na <em>store</em> . A fun&#xE7;&#xE3;o do manipulador sempre recebe <code>estado</code> como o primeiro argumento (ser&#xE1; o estado local do m&#xF3;dulo se definido em um m&#xF3;dulo) e receber&#xE1; um segundo argumento <code>payload</code> se houver um.</p>
+<p><a href="mutations.html">Detalhes</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>a&#xE7;&#xF5;es</strong></p>
+<ul>
+<li><p>type: <code>{ [type: string]: Function }</code></p>
+<p>Registra a&#xE7;&#xF5;es na <em>store</em> . A fun&#xE7;&#xE3;o do manipulador recebe um objeto <code>context</code> que exp&#xF5;e as seguintes propriedades:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span>      <span class="token comment" spellcheck="true">// o mesmo que `store.state`, ou estado local se estiver em m&#xF3;dulos</span>
+  rootState<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// o mesmo que `store.state`, apenas em m&#xF3;dulos</span>
+  commit<span class="token punctuation">,</span>     <span class="token comment" spellcheck="true">// o mesmo que `store.commit`</span>
+  dispatch<span class="token punctuation">,</span>   <span class="token comment" spellcheck="true">// o mesmo que `store.dispatch`</span>
+  getters<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">// o mesmo que `store.getters`, ou com getters locais se estiver em m&#xF3;dulos</span>
+  rootGetters <span class="token comment" spellcheck="true">// o mesmo que `store.getters`, apenas em m&#xF3;dulos</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><a href="actions.html">Detalhes</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>getters</strong></p>
+<ul>
+<li><p>type: <code>{ [key: string]: Function }</code></p>
+<p>Registra getters na <em>store</em> . A fun&#xE7;&#xE3;o getter recebe os seguintes argumentos:</p>
+<pre class="language-"><code>state,     // ser&#xE1; o estado local do m&#xF3;dulo, se definido em um m&#xF3;dulo.
+getters    // o mesmo que store.getters
+</code></pre><p>Especifique quando definido em um m&#xF3;dulo</p>
+<pre class="language-"><code>state,       // ser&#xE1; o estado local do m&#xF3;dulo, se definido em um m&#xF3;dulo.
+
+getters,     // M&#xF3;dulo getters locais do m&#xF3;dulo atual
+rootState,   // estado global
+rootGetters  // todos os getters
+</code></pre><p>Os getters registrados est&#xE3;o expostos em <code>store.getters</code>.</p>
+<p><a href="getters.html">Detalhes</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>m&#xF3;dulos</strong></p>
+<ul>
+<li><p>type: <code>Object</code></p>
+<p>Um objeto contendo sub m&#xF3;dulos a serem incorporados na <em>store</em> , de forma que:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  key<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">,</span>
+    namespaced<span class="token operator">?</span><span class="token punctuation">,</span>
+    mutations<span class="token operator">?</span><span class="token punctuation">,</span>
+    actions<span class="token operator">?</span><span class="token punctuation">,</span>
+    getters<span class="token operator">?</span><span class="token punctuation">,</span>
+    modules<span class="token operator">?</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Cada m&#xF3;dulo pode conter &quot;estado&quot; e &quot;muta&#xE7;&#xF5;es&quot; semelhantes &#xE0;s op&#xE7;&#xF5;es raiz. O estado de um m&#xF3;dulo ser&#xE1; anexado ao estado da raiz da <em>store</em>  usando a chave do m&#xF3;dulo. As muta&#xE7;&#xF5;es e getters de um m&#xF3;dulo receber&#xE3;o apenas o estado local do m&#xF3;dulo como o primeiro argumento em vez do estado da raiz e as a&#xE7;&#xF5;es do m&#xF3;dulo &apos;context.state` tamb&#xE9;m apontar&#xE3;o para o estado local.</p>
+<p><a href="modules.html">Detalhes</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>plugins</strong></p>
+<ul>
+<li><p>type: <code>Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Function</span><span class="token punctuation">&gt;</span></span></code></p>
+<p>Um array de fun&#xE7;&#xF5;es de plugin a serem aplicadas na <em>store</em> . O plugin simplesmente recebe a <em>store</em>  como o &#xFA;nico argumento e pode ouvir muta&#xE7;&#xF5;es (para persist&#xEA;ncia de dados de sa&#xED;da, log ou depura&#xE7;&#xE3;o) ou muta&#xE7;&#xF5;es de despacho (para dados de entrada, por exemplo, websockets ou observ&#xE1;veis).</p>
+<p><a href="plugins.html">Detalhes</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>strict</strong></p>
+<ul>
+<li>type: <code>Boolean</code></li>
+<li><p>default: <code>false</code></p>
+<p>For&#xE7;a a <em>store</em>  Vuex em modo estrito. No modo estrito, qualquer muta&#xE7;&#xE3;o ao estado do Vuex fora dos manipuladores de muta&#xE7;&#xE3;o acusar&#xE1; um erro.</p>
+<p><a href="strict.html">Detalhes</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vuexstore-propriedades-da-inst&#xE2;ncia">Vuex.Store Propriedades da inst&#xE2;ncia</h3>
+<ul>
+<li><p><strong>state</strong></p>
+<ul>
+<li><p>type: <code>Object</code></p>
+<p>O estado raiz. Apenas leitura.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>getters</strong></p>
+<ul>
+<li><p>type: <code>Object</code></p>
+<p>Exp&#xF5;e os getters registrados. Apenas leitura.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vuexstore-m&#xE9;todos-da-inst&#xE2;ncia">Vuex.Store M&#xE9;todos da inst&#xE2;ncia</h3>
+<ul>
+<li><p><strong><code>commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)</code></strong></p>
+<p>Confirma uma muta&#xE7;&#xE3;o. <code>options</code> pode ter<code>root: true</code> que permite confirmar muta&#xE7;&#xF5;es da raiz em <a href="modules.html#namespacing">namespaced modules</a>. <a href="mutations.html">Detalhes</a></p>
+</li>
+<li><p><strong><code>dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)</code></strong></p>
+<p>Despacha uma a&#xE7;&#xE3;o. <code>options</code> pode ter <code>root: true</code> que permite enviar a&#xE7;&#xF5;es para raiz em <a href="modules.html#namespacing">namespaced modules</a>. Retorna Promise que resolve todos os manipuladores de a&#xE7;&#xE3;o acionados. <a href="actions.html">Detalhes</a></p>
+</li>
+<li><p><strong><code>replaceState(state: Object)</code></strong></p>
+<p>Substitua o estado da raiz da <em>store</em> . Use isso apenas para fins de hidrata&#xE7;&#xE3;o / viagem no tempo.</p>
+</li>
+<li><p><strong><code>watch(getter: Function, cb: Function, options?: Object)</code></strong></p>
+<p>Visualiza de forma reativa um valor de retorno da fun&#xE7;&#xE3;o getter e chame o callback para o retorno de chamada quando o valor mudar. O getter recebe o estado da <em>store</em>  como o primeiro argumento e os getters como o segundo argumento. Aceita um objeto de op&#xE7;&#xF5;es opcional que leva as mesmas op&#xE7;&#xF5;es que o m&#xE9;todo <code>vm. $ Watch</code> do Vue.</p>
+<p>Para parar de visualizar, chame para a fun&#xE7;&#xE3;o do manipulador retornada.</p>
+</li>
+<li><p><strong><code>subscribe(handler: Function)</code></strong></p>
+<p>Assina as muta&#xE7;&#xF5;es da <em>store</em> . O <code>handler</code> &#xE9; chamado ap&#xF3;s cada muta&#xE7;&#xE3;o e recebe o descritor de muta&#xE7;&#xE3;o e o estado p&#xF3;s-muta&#xE7;&#xE3;o como argumentos:</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>mutation<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>mutation<span class="token punctuation">.</span>type<span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>mutation<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Usado com mais frequ&#xEA;ncia em plugins. <a href="plugins.html">Detalhes</a></p>
+</li>
+<li><p><strong><code>subscribeAction(handler: Function)</code></strong></p>
+<blockquote>
+<p>Novo em 2.5.0</p>
+</blockquote>
+<p>Assina as a&#xE7;&#xF5;es da <em>store</em> . O <code>handler</code> &#xE9; chamado para cada a&#xE7;&#xE3;o despachada e recebe o descritor de a&#xE7;&#xE3;o e o estado atual da <em>store</em>  como argumentos:</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">subscribeAction</span><span class="token punctuation">(</span><span class="token punctuation">(</span>action<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Usado com mais frequ&#xEA;ncia em plugins. <a href="plugins.html">Detalhes</a></p>
+</li>
+<li><p><strong><code>registerModule(path: string | Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>, module: Module, options?: Object)</code></strong></p>
+<p>Registra um m&#xF3;dulo din&#xE2;mico. <a href="modules.html#dynamic-module-registration">Detalhes</a></p>
+<p><code>options</code> pode ter <code>preserveState: true</code> que permite preservar o estado anterior. Util para renderiza&#xE7;&#xE3;o server-side.</p>
+</li>
+<li><p><strong><code>unregisterModule(path: string | Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>)</code></strong></p>
+<p>Cancela o registro de um m&#xF3;dulo din&#xE2;mico. <a href="modules.html#dynamic-module-registration">Detalhes</a></p>
+</li>
+<li><p><strong><code>hotUpdate(newOptions: Object)</code></strong></p>
+<p>Faz Hot swap de novas a&#xE7;&#xF5;es e muta&#xE7;&#xF5;es. <a href="hot-reload.html">Detalhes</a></p>
+</li>
+</ul>
+<h3 id="component-binding-helpers">Component Binding Helpers</h3>
+<ul>
+<li><p><strong><code>mapState(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>Cria componentes computadas de op&#xE7;&#xF5;es que retornam a sub&#xE1;rvore da <em>store</em>  Vuex. <a href="state.html#the-mapstate-helper">Detalhes</a></p>
+<p>O primeiro argumnto pode ser opcionalmente uma string com namespace. <a href="modules.html#binding-helpers-with-namespace">Detalhes</a></p>
+</li>
+<li><p><strong><code>mapGetters(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>Cria componentes computadas de op&#xE7;&#xF5;es que retornam valor avaliado deo getter. <a href="getters.html#the-mapgetters-helper">Detalhes</a></p>
+<p>O primeiro argumento pode ser opcionalmente uma string com namespace. <a href="modules.html#binding-helpers-with-namespace">Detalhes</a></p>
+</li>
+<li><p><strong><code>mapActions(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>Cria um componente com m&#xE9;todos e op&#xE7;&#xF5;es que despacham uma a&#xE7;&#xE3;o.</p>
+</li>
+</ul>
+<p><a href="actions.html#dispatching-actions-in-components">Detalhes</a></p>
+<p>  O primeiro argumento pode ser opcionalmente uma string com namespace. <a href="modules.html#binding-helpers-with-namespace">Detalhes</a></p>
+<ul>
+<li><p><strong><code>mapMutations(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>Cria um componente com m&#xE9;todos e op&#xE7;&#xF5;es que confirmam uma muta&#xE7;&#xE3;o. <a href="mutations.html#committing-mutations-in-components">Detalhes</a></p>
+<p>O primeiro argumento pode ser opcionalmente uma string com namespace. <a href="modules.html#binding-helpers-with-namespace">Detalhes</a></p>
+</li>
+<li><p><strong><code>createNamespacedHelpers(namespace: string): Object</code></strong></p>
+<p>Cria um component namespaced ajudante de liga&#xE7;&#xE3;o . O objeto retornado possui  <code>mapState</code>, <code>mapGetters</code>, <code>mapActions</code> e <code>mapMutations</code>, que est&#xE3;o conectados com o namespace dado. <a href="modules.html#binding-helpers-with-namespace">Detalhes</a></p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="hot-reload.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Hot Reload">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Referência da API","level":"1.13","depth":1,"previous":{"title":"Hot Reload","level":"1.12","depth":1,"path":"hot-reload.md","ref":"hot-reload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edite esta página","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"pt-br","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"api.md","mtime":"2018-04-20T00:44:03.876Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"pt-br"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

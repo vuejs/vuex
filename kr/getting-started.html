@@ -1,0 +1,519 @@
+
+<!DOCTYPE HTML>
+<html lang="kr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>시작하기 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="intro.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/tree/1.0/docs">
+            
+                    
+                    1.0 버전 문서를 보려면?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    릴리즈 노트
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    설치
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex가 무엇인가요?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    시작하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    핵심 컨셉
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    상태
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    변이
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    액션
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    모듈
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    애플리케이션 구조
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    플러그인
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Strict 모드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    폼 핸들링
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    테스팅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    핫 리로딩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 레퍼런스
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >시작하기</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#xC2DC;&#xC791;&#xD558;&#xAE30;">&#xC2DC;&#xC791;&#xD558;&#xAE30;</h1>
+<p>&#xBAA8;&#xB4E0; Vuex &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC758; &#xC911;&#xC2EC;&#xC5D0;&#xB294; <strong>store</strong> &#xAC00; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &quot;&#xC800;&#xC7A5;&#xC18C;&quot;&#xB294; &#xAE30;&#xBCF8;&#xC801;&#xC73C;&#xB85C; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158; <strong>&#xC0C1;&#xD0DC;</strong> &#xB97C; &#xBCF4;&#xC720;&#xD558;&#xACE0;&#xC788;&#xB294; &#xCEE8;&#xD14C;&#xC774;&#xB108;&#xC785;&#xB2C8;&#xB2E4;. Vuex &#xC800;&#xC7A5;&#xC18C;&#xAC00; &#xC77C;&#xBC18; &#xC804;&#xC5ED; &#xAC1C;&#xCCB4;&#xC640; &#xB450; &#xAC00;&#xC9C0; &#xB2E4;&#xB978; &#xC810;&#xC774; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<ol>
+<li>Vuex store&#xB294; &#xBC18;&#xC751;&#xD615; &#xC785;&#xB2C8;&#xB2E4;. Vue &#xCEF4;&#xD3EC;&#xB10C;&#xD2B8;&#xB294; &#xC0C1;&#xD0DC;&#xB97C; &#xAC80;&#xC0C9;&#xD560; &#xB54C; &#xC800;&#xC7A5;&#xC18C;&#xC758; &#xC0C1;&#xD0DC;&#xAC00; &#xBCC0;&#xACBD;&#xB418;&#xBA74; &#xD6A8;&#xC728;&#xC801;&#xC73C;&#xB85C; &#xB300;&#xC751;&#xD558;&#xACE0; &#xC5C5;&#xB370;&#xC774;&#xD2B8;&#xD569;&#xB2C8;&#xB2E4;.</li>
+<li>&#xC800;&#xC7A5;&#xC18C;&#xC758; &#xC0C1;&#xD0DC;&#xB97C; &#xC9C1;&#xC811; &#xBCC0;&#xACBD;&#xD560; &#xC218; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC800;&#xC7A5;&#xC18C;&#xC758; &#xC0C1;&#xD0DC;&#xB97C; &#xBCC0;&#xACBD;&#xD558;&#xB294; &#xC720;&#xC77C;&#xD55C; &#xBC29;&#xBC95;&#xC740; &#xBA85;&#xC2DC;&#xC801;&#xC778; <strong>&#xCEE4;&#xBC0B;&#xC744; &#xC774;&#xC6A9;&#xD55C; &#xBCC0;&#xC774;</strong> &#xC785;&#xB2C8;&#xB2E4;. &#xC774;&#xB807;&#xAC8C;&#xD558;&#xBA74; &#xBAA8;&#xB4E0; &#xC0C1;&#xD0DC;&#xC5D0; &#xB300;&#xD55C; &#xCD94;&#xC801;&#xC774; &#xAC00;&#xB2A5;&#xD55C; &#xAE30;&#xB85D;&#xC774; &#xB0A8;&#xC744; &#xC218; &#xC788;&#xC73C;&#xBA70; &#xD234;&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; &#xC571;&#xC744; &#xB354; &#xC798; &#xC774;&#xD574;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</li>
+</ol>
+<h3 id="&#xAC00;&#xC7A5;-&#xB2E8;&#xC21C;&#xD55C;-&#xC800;&#xC7A5;&#xC18C;">&#xAC00;&#xC7A5; &#xB2E8;&#xC21C;&#xD55C; &#xC800;&#xC7A5;&#xC18C;</h3>
+<blockquote>
+<p><strong>&#xCC38;&#xACE0;:</strong> &#xBAA8;&#xB4E0; &#xC608;&#xC81C;&#xB294; ES2015 &#xBB38;&#xBC95;&#xC744; &#xC0AC;&#xC6A9;&#xD569;&#xB2C8;&#xB2E4;. &#xC0AC;&#xC6A9;&#xD558;&#xACE0; &#xC788;&#xC9C0; &#xC54A;&#xC740; &#xACBD;&#xC6B0; <a href="https://babeljs.io/docs/learn-es2015/" target="_blank">&#xAF2D; &#xC0AC;&#xC6A9;&#xD574;&#xC57C; &#xD569;&#xB2C8;&#xB2E4;!</a></p>
+</blockquote>
+<p>Vuex&#xB97C; <a href="installation.html">&#xC124;&#xCE58;</a>&#xD55C; &#xD6C4; &#xC800;&#xC7A5;&#xC18C;&#xB97C; &#xB9CC;&#xB4E4;&#xC5B4; &#xBD05;&#xC2DC;&#xB2E4;. &#xB9E4;&#xC6B0; &#xAC04;&#xB2E8;&#xD569;&#xB2C8;&#xB2E4;. &#xCD08;&#xAE30; &#xC0C1;&#xD0DC; &#xAC1D;&#xCCB4;&#xC640; &#xC77C;&#xBD80; &#xBCC0;&#xC774;&#xB97C; &#xC81C;&#xACF5;&#xD558;&#xC2ED;&#xC2DC;&#xC624;.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// &#xBAA8;&#xB4C8; &#xC2DC;&#xC2A4;&#xD15C;&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xACBD;&#xC6B0; Vue.use(Vuex)&#xB97C; &#xBA3C;&#xC800; &#xD638;&#xCD9C;&#xD574;&#xC57C;&#xD569;&#xB2C8;&#xB2E4;.</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> <span class="token number">0</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xC774;&#xC81C; state &#xAC1D;&#xCCB4;&#xC5D0; <code>store.state</code>&#xB85C; &#xC811;&#xADFC;&#xD558;&#xC5EC; <code>store.commit</code> &#xBA54;&#xC18C;&#xB4DC;&#xB85C; &#xC0C1;&#xD0DC; &#xBCC0;&#xACBD;&#xC744; &#xD2B8;&#xB9AC;&#xAC70; &#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; 1</span>
+</code></pre>
+<p>&#xB2E4;&#xC2DC; &#xB9D0;&#xD574;, <code>store.state.count</code>&#xB97C; &#xC9C1;&#xC811; &#xBCC0;&#xACBD;&#xD558;&#xB294; &#xB300;&#xC2E0; &#xBCC0;&#xC774;&#xB97C; &#xC218;&#xD589;&#xD558;&#xB294; &#xC774;&#xC720;&#xB294; &#xBA85;&#xC2DC;&#xC801;&#xC73C;&#xB85C; &#xCD94;&#xC801;&#xC744; &#xD558;&#xAE30; &#xB54C;&#xBB38;&#xC785;&#xB2C8;&#xB2E4;. &#xC774; &#xAC04;&#xB2E8;&#xD55C; &#xADDC;&#xCE59;&#xC5D0; &#xB530;&#xB77C; &#xC758;&#xB3C4;&#xB97C;&#xBCF4;&#xB2E4; &#xBA85;&#xD655;&#xD558;&#xAC8C; &#xD45C;&#xD604;&#xD560; &#xC218; &#xC788;&#xC73C;&#xBBC0;&#xB85C; &#xCF54;&#xB4DC;&#xB97C; &#xC77D;&#xC744; &#xB54C; &#xC0C1;&#xD0DC; &#xBCC0;&#xD654;&#xB97C; &#xB354; &#xC798; &#xC9C0;&#xCF1C;&#xBCFC; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xB610;&#xD55C; &#xBAA8;&#xB4E0; &#xBCC0;&#xC774;&#xB97C; &#xAE30;&#xB85D;&#xD558;&#xACE0; &#xC0C1;&#xD0DC; &#xC2A4;&#xB0C5;&#xC0F7;&#xC744; &#xC800;&#xC7A5;&#xD558;&#xAC70;&#xB098; &#xC2DC;&#xAC04; &#xD750;&#xB984;&#xC5D0; &#xB530;&#xB77C; &#xB514;&#xBC84;&#xAE45;&#xC744; &#xD560; &#xC218; &#xC788;&#xB294; &#xB3C4;&#xAD6C;&#xB97C; &#xC81C;&#xACF5;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<p>&#xCEF4;&#xD3EC;&#xB10C;&#xD2B8; &#xC548;&#xC5D0;&#xC11C; &#xC800;&#xC7A5;&#xC18C; &#xC0C1;&#xD0DC;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xB294; &#xAC83;&#xC740; &#xB2E8;&#xC21C;&#xD788; &#xACC4;&#xC0B0;&#xB41C; &#xC18D;&#xC131; &#xB0B4;&#xC5D0;&#xC11C; &#xC0C1;&#xD0DC;&#xB97C; &#xBC18;&#xD658;&#xD558;&#xB294; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;. &#xBCC0;&#xACBD;&#xC744; &#xD2B8;&#xB9AC;&#xAC70;&#xD558;&#xB294; &#xAC83;&#xC740; &#xCEF4;&#xD3EC;&#xB10C;&#xD2B8; &#xBA54;&#xC18C;&#xB4DC;&#xC5D0;&#xC11C; &#xBCC0;&#xACBD;&#xC744; &#xCEE4;&#xBC0B;&#xD558;&#xB294; &#xAC83;&#xC744; &#xC758;&#xBBF8;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<p>&#xB2E4;&#xC74C;&#xC740; <a href="https://jsfiddle.net/n9jmu5v7/1269/" target="_blank">&#xAC00;&#xC7A5; &#xAE30;&#xBCF8;&#xC801;&#xC778; Vuex &#xCE74;&#xC6B4;&#xD130; &#xC571;</a>&#xC758; &#xC608;&#xC785;&#xB2C8;&#xB2E4;.</p>
+<p>&#xC774;&#xC81C;, &#xC6B0;&#xB9AC;&#xB294; &#xAC01; &#xD575;&#xC2EC; &#xAC1C;&#xB150;&#xC5D0; &#xB300;&#xD574; &#xB354; &#xC790;&#xC138;&#xD788; &#xC124;&#xBA85; &#xD560; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;. <a href="state.html">State</a>&#xBD80;&#xD130; &#xC2DC;&#xC791;&#xD574; &#xBCF4;&#xACA0;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="intro.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Vuex가 무엇인가요?">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"시작하기","level":"1.6","depth":1,"next":{"title":"핵심 컨셉","level":"1.7","depth":1,"ref":"","articles":[{"title":"상태","level":"1.7.1","depth":2,"path":"state.md","ref":"state.md","articles":[]},{"title":"Getters","level":"1.7.2","depth":2,"path":"getters.md","ref":"getters.md","articles":[]},{"title":"변이","level":"1.7.3","depth":2,"path":"mutations.md","ref":"mutations.md","articles":[]},{"title":"액션","level":"1.7.4","depth":2,"path":"actions.md","ref":"actions.md","articles":[]},{"title":"모듈","level":"1.7.5","depth":2,"path":"modules.md","ref":"modules.md","articles":[]}]},"previous":{"title":"Vuex가 무엇인가요?","level":"1.5","depth":1,"path":"intro.md","ref":"intro.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"kr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"getting-started.md","mtime":"2018-04-20T00:44:03.870Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"kr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

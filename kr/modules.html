@@ -1,0 +1,603 @@
+
+<!DOCTYPE HTML>
+<html lang="kr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>모듈 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="structure.html" />
+    
+    
+    <link rel="prev" href="actions.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/tree/1.0/docs">
+            
+                    
+                    1.0 버전 문서를 보려면?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    릴리즈 노트
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    설치
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex가 무엇인가요?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    시작하기
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    핵심 컨셉
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    상태
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    변이
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    액션
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    모듈
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    애플리케이션 구조
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    플러그인
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Strict 모드
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    폼 핸들링
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    테스팅
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    핫 리로딩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 레퍼런스
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >모듈</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#xBAA8;&#xB4C8;">&#xBAA8;&#xB4C8;</h1>
+<p>&#xB2E8;&#xC77C; &#xC0C1;&#xD0DC; &#xD2B8;&#xB9AC;&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC758; &#xBAA8;&#xB4E0; &#xC0C1;&#xD0DC;&#xAC00; &#xD558;&#xB098;&#xC758; &#xD070; &#xAC1D;&#xCCB4; &#xC548;&#xC5D0; &#xD3EC;&#xD568;&#xB429;&#xB2C8;&#xB2E4;. &#xADF8;&#xB7EC;&#xB098; &#xADDC;&#xBAA8;&#xAC00; &#xCEE4;&#xC9D0;&#xC5D0; &#xB530;&#xB77C; &#xC800;&#xC7A5;&#xC18C;&#xB294; &#xB9E4;&#xC6B0; &#xBE44;&#xB300;&#xD574;&#xC9C8; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<p>&#xC774;&#xB97C; &#xC704;&#xD574; Vuex&#xB294; &#xC800;&#xC7A5;&#xC18C;&#xB97C; <strong>&#xBAA8;&#xB4C8;</strong> &#xB85C; &#xB098;&#xB20C; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xAC01; &#xBAA8;&#xB4C8;&#xC740; &#xC790;&#xCCB4; &#xC0C1;&#xD0DC;, &#xBCC0;&#xC774;, &#xC561;&#xC158;, &#xAC8C;&#xD130; &#xBC0F; &#xC2EC;&#xC9C0;&#xC5B4; &#xC911;&#xCCA9;&#xB41C; &#xBAA8;&#xB4C8;&#xC744; &#xD3EC;&#xD568; &#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> moduleB <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> moduleA<span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> moduleB
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>a <span class="token comment" spellcheck="true">// -&gt; moduleA&apos;&#xC758; &#xC0C1;&#xD0DC;</span>
+store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>b <span class="token comment" spellcheck="true">// -&gt; moduleB&apos;&#xC758; &#xC0C1;&#xD0DC;</span>
+</code></pre>
+<h3 id="&#xC9C0;&#xC5ED;-&#xC0C1;&#xD0DC;-&#xBAA8;&#xB4C8;">&#xC9C0;&#xC5ED; &#xC0C1;&#xD0DC; &#xBAA8;&#xB4C8;</h3>
+<p>&#xBAA8;&#xB4C8;&#xC758; &#xBCC0;&#xC774;&#xC640; getter &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; &#xCCAB; &#xBC88;&#xC9F8; &#xC804;&#xB2EC;&#xC778;&#xC790;&#xB294; <strong>&#xBAA8;&#xB4C8;&#xC758; &#xC9C0;&#xC5ED; &#xC0C1;&#xD0DC;</strong> &#xAC00;&#xB429;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> count<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// state&#xB294; &#xC9C0;&#xC5ED; &#xBAA8;&#xB4C8; &#xC0C1;&#xD0DC; &#xC785;&#xB2C8;&#xB2E4;</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    doubleCount <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> state<span class="token punctuation">.</span>count <span class="token operator">*</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#xC720;&#xC0AC;&#xD558;&#xAC8C; &#xBAA8;&#xB4C8; &#xB0B4;&#xBD80;&#xC5D0;&#xC11C; <code>context.state</code>&#xB294; &#xC9C0;&#xC5ED; &#xC0C1;&#xD0DC;&#xB97C; &#xB178;&#xCD9C;&#xC2DC;&#xD0AC; &#xAC83;&#xC774;&#xACE0; &#xB8E8;&#xD2B8; &#xC0C1;&#xD0DC;&#xB294; <code>context.rootState</code>&#xB85C; &#xB178;&#xCD9C; &#xB420; &#xAC83;&#xC785;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    incrementIfOddOnRootSum <span class="token punctuation">(</span><span class="token punctuation">{</span> state<span class="token punctuation">,</span> commit<span class="token punctuation">,</span> rootState <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> rootState<span class="token punctuation">.</span>count<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#xB610;&#xD55C;, &#xBAA8;&#xB4C8; getters &#xB0B4;&#xBD80;, &#xB8E8;&#xD2B8; &#xC0C1;&#xD0DC;&#xB294; &#xADF8;&#xB4E4;&#xC758; &#xC138; &#xBC88;&#xC9F8; &#xC804;&#xB2EC;&#xC778;&#xC790;&#xB85C; &#xB178;&#xCD9C;&#xB429;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    sumWithRootCount <span class="token punctuation">(</span>state<span class="token punctuation">,</span> getters<span class="token punctuation">,</span> rootState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> state<span class="token punctuation">.</span>count <span class="token operator">+</span> rootState<span class="token punctuation">.</span>count
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#xB124;&#xC784;&#xC2A4;&#xD398;&#xC774;&#xC2A4;">&#xB124;&#xC784;&#xC2A4;&#xD398;&#xC774;&#xC2A4;</h3>
+<p>&#xBAA8;&#xB4C8; &#xB0B4;&#xC758; &#xC561;&#xC158;, &#xBCC0;&#xC774; &#xBC0F; getter&#xB294; &#xC5EC;&#xC804;&#xD788; <strong>&#xC804;&#xC5ED; &#xB124;&#xC784; &#xC2A4;&#xD398;&#xC774;&#xC2A4;</strong> &#xC544;&#xB798;&#xC5D0; &#xB4F1;&#xB85D;&#xB429;&#xB2C8;&#xB2E4;. &#xC5EC;&#xB7EC; &#xBAA8;&#xB4C8;&#xC774; &#xB3D9;&#xC77C;&#xD55C; &#xBCC0;&#xC774;/&#xC561;&#xC158; &#xC720;&#xD615;&#xC5D0; &#xBC18;&#xC751; &#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC774;&#xB984; &#xC55E;&#xC5D0; &#xC811;&#xB450;&#xC0AC; &#xB610;&#xB294; &#xC811;&#xBBF8;&#xC0AC;&#xB97C; &#xBD99;&#xC774;&#xBA74; &#xC774;&#xB984; &#xCDA9;&#xB3CC;&#xC744; &#xD53C;&#xD558;&#xAE30; &#xC704;&#xD574; &#xBAA8;&#xB4C8; &#xC790;&#xC2E0;&#xC758; &#xB124;&#xC784;&#xC2A4;&#xD398;&#xC774;&#xC2A4;&#xB97C; &#xC9C1;&#xC811; &#xC9C0;&#xC815;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xADF8;&#xB9AC;&#xACE0; &#xC54C; &#xC218; &#xC5C6;&#xB294; &#xD658;&#xACBD;&#xC5D0;&#xC11C; &#xC0AC;&#xC6A9;&#xB420; &#xC7AC;&#xC0AC;&#xC6A9; &#xAC00;&#xB2A5;&#xD55C; Vuex &#xBAA8;&#xB4C8;&#xC744; &#xC791;&#xC131;&#xD558;&#xB294; &#xACBD;&#xC6B0;&#xB77C;&#xBA74; &#xBC18;&#xB4DC;&#xC2DC; &#xC0AC;&#xC6A9;&#xD574;&#xC57C; &#xD569;&#xB2C8;&#xB2E4;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4;,<code>todos</code> &#xBAA8;&#xB4C8;&#xC744; &#xB9CC;&#xB4E4;&#xACE0; &#xC2F6;&#xC740; &#xACBD;&#xC6B0;</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// types.js</span>
+
+<span class="token comment" spellcheck="true">// getter, &#xC561;&#xC158;, &#xBCC0;&#xC774;&#xC758; &#xC774;&#xB984;&#xC744; &#xC0C1;&#xC218;&#xB85C; &#xC815;&#xC758;&#xD558;&#xACE0;</span>
+<span class="token comment" spellcheck="true">// &#xBAA8;&#xB4C8; &#xC774;&#xB984; `todos` &#xC811;&#xB450;&#xC5B4;&#xB97C; &#xBD99;&#xC785;&#xB2C8;&#xB2E4;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> DONE_COUNT <span class="token operator">=</span> <span class="token string">&apos;todos/DONE_COUNT&apos;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> FETCH_ALL <span class="token operator">=</span> <span class="token string">&apos;todos/FETCH_ALL&apos;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> TOGGLE_DONE <span class="token operator">=</span> <span class="token string">&apos;todos/TOGGLE_DONE&apos;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// modules/todos.js</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> types <span class="token keyword">from</span> <span class="token string">&apos;../types&apos;</span>
+
+<span class="token comment" spellcheck="true">// &#xC811;&#xB450;&#xC5B4;&#xB85C; &#xB41C; &#xC774;&#xB984;&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; getter, &#xC561;&#xC158; &#xBC0F; &#xBCC0;&#xC774; &#xC815;&#xC758;</span>
+<span class="token keyword">const</span> todosModule <span class="token operator">=</span> <span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> todos<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  getters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>types<span class="token punctuation">.</span>DONE_COUNT<span class="token punctuation">]</span> <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>types<span class="token punctuation">.</span>FETCH_ALL<span class="token punctuation">]</span> <span class="token punctuation">(</span>context<span class="token punctuation">,</span> payload<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>types<span class="token punctuation">.</span>TOGGLE_DONE<span class="token punctuation">]</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> payload<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#xB3D9;&#xC801;-&#xBAA8;&#xB4C8;-&#xB4F1;&#xB85D;">&#xB3D9;&#xC801; &#xBAA8;&#xB4C8; &#xB4F1;&#xB85D;</h3>
+<p><code>store.registerModule</code> &#xBA54;&#xC18C;&#xB4DC;&#xB85C; &#xC800;&#xC7A5;&#xC18C;&#xAC00; &#xC0DD;&#xC131; &#xB41C; <strong>&#xD6C4;&#xC5D0;</strong> &#xBAA8;&#xB4C8;&#xC744; &#xB4F1;&#xB85D; &#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">registerModule</span><span class="token punctuation">(</span><span class="token string">&apos;myModule&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xBAA8;&#xB4C8;&#xC758; &#xC0C1;&#xD0DC;&#xB294;<code>store.state.myModule</code>&#xC73C;&#xB85C; &#xB178;&#xCD9C; &#xB429;&#xB2C8;&#xB2E4;.</p>
+<p>&#xB3D9;&#xC801; &#xBAA8;&#xB4C8; &#xB4F1;&#xB85D;&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xBA74; &#xB2E4;&#xB978; Vue &#xD50C;&#xB7EC;&#xADF8;&#xC778;&#xB3C4; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC758; &#xC800;&#xC7A5;&#xC18C;&#xC5D0; &#xBAA8;&#xB4C8;&#xC744; &#xC5F0;&#xACB0;&#xD558;&#xC5EC; &#xC0C1;&#xD0DC; &#xAD00;&#xB9AC;&#xC5D0; Vuex&#xB97C; &#xD65C;&#xC6A9;&#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC608;&#xB97C; &#xB4E4;&#xC5B4; <a href="https://github.com/vuejs/vuex-router-sync" target="_blank"><code>vuex-router-sync</code></a> &#xB77C;&#xC774;&#xBE0C;&#xB7EC;&#xB9AC;&#xB294; &#xB3D9;&#xC801;&#xC73C;&#xB85C; &#xC5F0;&#xACB0;&#xB41C; &#xBAA8;&#xB4C8;&#xC5D0;&#xC11C; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC758; &#xB77C;&#xC6B0;&#xD2B8; &#xC0C1;&#xD0DC;&#xB97C; &#xAD00;&#xB9AC;&#xD558;&#xC5EC; vue-router&#xC640; vuex&#xB97C; &#xD1B5;&#xD569;&#xD569;&#xB2C8;&#xB2E4;.</p>
+<p><code>store.unregisterModule(moduleName)</code>&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; &#xB3D9;&#xC801;&#xC73C;&#xB85C; &#xB4F1;&#xB85D; &#xB41C; &#xBAA8;&#xB4C8;&#xC744; &#xC81C;&#xAC70;&#xD560; &#xC218;&#xB3C4; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xC774; &#xBC29;&#xBC95;&#xC73C;&#xB85C;&#xB294; &#xC815;&#xC801; &#xBAA8;&#xB4C8;(&#xC800;&#xC7A5;&#xC18C; &#xC0DD;&#xC131;&#xC2DC; &#xC120;&#xC5B8; &#xB428;)&#xC744; &#xC81C;&#xAC70; &#xD560; &#xC218; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="actions.html" class="navigation navigation-prev " aria-label="Previous page: 액션">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="structure.html" class="navigation navigation-next " aria-label="Next page: 애플리케이션 구조">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"모듈","level":"1.7.5","depth":2,"next":{"title":"애플리케이션 구조","level":"1.8","depth":1,"path":"structure.md","ref":"structure.md","articles":[]},"previous":{"title":"액션","level":"1.7.4","depth":2,"path":"actions.md","ref":"actions.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"kr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"modules.md","mtime":"2018-04-20T00:44:03.872Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"kr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

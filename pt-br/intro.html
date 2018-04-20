@@ -1,0 +1,533 @@
+
+<!DOCTYPE HTML>
+<html lang="pt-br" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>O que é Vuex? · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="getting-started.html" />
+    
+    
+    <link rel="prev" href="installation.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escreva para pesquisar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    Notas de versão
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Instalação
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    O que é Vuex?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Começando
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    Conceitos do núcleo
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    Estado
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Ações
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Módulos
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    Estrutura da Aplicação
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    Plugins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Modo estrito
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    Manipulação de formulários
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    Teste
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    Hot Reload
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    Referência da API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publicado com GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >O que é Vuex?</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="o-que-&#xE9;-vuex">O que &#xE9; Vuex?</h1>
+<p>O Vuex &#xE9; um <strong> padr&#xE3;o de gerenciamento de estado + biblioteca </strong> para aplicativos Vue.js. Ele serve como uma loja centralizada para todos os componentes em uma aplica&#xE7;&#xE3;o, com regras garantindo que o estado s&#xF3; possa ser mutado de forma previs&#xED;vel.
+Ele tamb&#xE9;m se integra com a vers&#xE3;o <a href="https://github.com/vuejs/vue-devtools" target="_blank">devtools extension</a> do Vue para fornecer recursos avan&#xE7;ados, como depura&#xE7;&#xE3;o de tempo-viagem de zero-config e exporta&#xE7;&#xE3;o / importa&#xE7;&#xE3;o de instant&#xE2;neo de estado.</p>
+<h3 id="o-que-&#xE9;-um-padr&#xE3;o-de-gerenciamento-do-estado">O que &#xE9; um &quot;Padr&#xE3;o de Gerenciamento do Estado&quot;?</h3>
+<p>Vamos come&#xE7;ar com um simples aplicativo de contador Vue:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// state</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      count<span class="token punctuation">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// view</span>
+  template<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`
+    &lt;div&gt;{{ count }}&lt;/div&gt;
+  `</span></span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// actions</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#xC9; um aplicativo aut&#xF4;nomo com as seguintes partes:</p>
+<ul>
+<li>O <strong> state </strong>, que &#xE9; a fonte da verdade que impulsiona nosso aplicativo;</li>
+<li>A <strong> view </strong>, que &#xE9; apenas um mapeamento declarativo do <strong> estado </strong>;</li>
+<li>As <strong> actions </strong>, que s&#xE3;o as poss&#xED;veis maneiras pelas quais o estado pode mudar em rea&#xE7;&#xE3;o &#xE0;s entradas de usu&#xE1;rios da <strong> view </strong>.</li>
+</ul>
+<p>Esta &#xE9; uma representa&#xE7;&#xE3;o extremamente simples do conceito de &quot;fluxo de dados unidirecional&quot;:</p>
+<p style="text-align: center; margin: 2em">
+  <img style="width:100%;max-width:450px;" src="images/flow.png">
+</p>
+
+<p>No entanto, a simplicidade rapidamente se quebra quando temos <strong> m&#xFA;ltiplos componentes que compartilham o estado comum </strong>:</p>
+<ul>
+<li><p>V&#xE1;rias visualiza&#xE7;&#xF5;es podem depender da mesma parte do estado.</p>
+</li>
+<li><p>As a&#xE7;&#xF5;es de diferentes views podem precisar mutar a mesma parte de estado
+Para o problema um, passar propriedades pode ser tediosos para componentes profundamente aninhados e simplesmente n&#xE3;o funcionam para componentes irm&#xE3;os. Para o problema dois, muitas vezes nos encontramos recorrendo a solu&#xE7;&#xF5;es como a busca de refer&#xEA;ncias diretas de inst&#xE2;ncias pai / filho ou tentando mutar e sincronizar m&#xFA;ltiplas c&#xF3;pias do estado atrav&#xE9;s de eventos. Ambos esses padr&#xF5;es s&#xE3;o fr&#xE1;geis e rapidamente levam a um c&#xF3;digo n&#xE3;o sustent&#xE1;vel.</p>
+</li>
+</ul>
+<p>Ent&#xE3;o, por que n&#xE3;o extra&#xED;mos o estado compartilhado dos componentes e gerenciamos isso em um singleton global? Com isso, nossa &#xE1;rvore de componentes se torna uma grande &quot;view&quot;, e qualquer componente pode acessar o estado ou a&#xE7;&#xF5;es de trigger, n&#xE3;o importa onde eles est&#xE3;o na &#xE1;rvore!</p>
+<p>Al&#xE9;m disso, definindo e separando os conceitos envolvidos na gest&#xE3;o do estado e aplicando certas regras, tamb&#xE9;m damos ao nosso c&#xF3;digo mais estrutura e capacidade de manuten&#xE7;&#xE3;o.</p>
+<p>Esta &#xE9; a id&#xE9;ia b&#xE1;sica por tr&#xE1;s do Vuex, inspirada por
+ <a href="https://facebook.github.io/flux/docs/overview.html" target="_blank">Flux</a>, <a href="http://redux.js.org/" target="_blank">Redux</a> e <a href="https://guide.elm-lang.org/architecture/" target="_blank">The Elm Architecture</a>. Ao contr&#xE1;rio dos outros padr&#xF5;es, o Vuex tamb&#xE9;m &#xE9; uma implementa&#xE7;&#xE3;o de biblioteca adaptada especificamente para Vue.js para aproveitar seu sistema de reatividade granular para atualiza&#xE7;&#xF5;es eficientes.</p>
+<p><img src="images/vuex.png" alt="vuex"></p>
+<h3 id="quando-devo-usar-lo">Quando devo usar-lo?</h3>
+<p>Embora o Vuex nos ajude a lidar com gerenciamento de estado compartilhado, ele tamb&#xE9;m vem com o custo de mais conceitos e relat&#xF3;rios. &#xC9; um trade-off entre produtividade a curto prazo e longo prazo.</p>
+<p>Se voc&#xEA; nunca construiu um SPA de grande escala e pulando direito para o Vuex, pode parecer detalhista e assustador. Isso &#xE9; perfeitamente normal - se o seu aplicativo for simples, voc&#xEA; provavelmente estar&#xE1; bem sem o Vuex. Um simples <a href="https://br.vuejs.org/v2/guide/components.html#Comunicacao-Nao-Pai-Filho" target="_blank">global event bus</a> pode ser tudo o que voc&#xEA; precisa. Mas se voc&#xEA; estiver construindo um SPA de m&#xE9;dio a grande escala, &#xE9; prov&#xE1;vel que voc&#xEA; tenha encontrado situa&#xE7;&#xF5;es que o fa&#xE7;am pensar sobre como lidar melhor com o estado fora dos componentes do Vue e o Vuex ser&#xE1; o pr&#xF3;ximo passo natural para voc&#xEA;. H&#xE1; uma boa cita&#xE7;&#xE3;o de Dan Abramov, o autor da Redux:</p>
+<blockquote>
+<p>As bibliotecas Flux s&#xE3;o como &#xF3;culos: voc&#xEA; saber&#xE1; quando voc&#xEA; precisar deles.</p>
+</blockquote>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="installation.html" class="navigation navigation-prev " aria-label="Previous page: Instalação">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="getting-started.html" class="navigation navigation-next " aria-label="Next page: Começando">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"O que é Vuex?","level":"1.4","depth":1,"next":{"title":"Começando","level":"1.5","depth":1,"path":"getting-started.md","ref":"getting-started.md","articles":[]},"previous":{"title":"Instalação","level":"1.3","depth":1,"path":"installation.md","ref":"installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edite esta página","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"pt-br","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"intro.md","mtime":"2018-04-20T00:44:03.879Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"pt-br"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

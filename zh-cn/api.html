@@ -1,0 +1,661 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>API 文档 · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="hot-reload.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    更新记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex 是什么？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    开始
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    核心概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Getter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Module
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    项目结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    严格模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    表单处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    热重载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    API 文档
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >API 文档</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="api-&#x53C2;&#x8003;">API &#x53C2;&#x8003;</h1>
+<h3 id="vuexstore">Vuex.Store</h3>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token operator">...</span>options <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="vuexstore-&#x6784;&#x9020;&#x5668;&#x9009;&#x9879;">Vuex.Store &#x6784;&#x9020;&#x5668;&#x9009;&#x9879;</h3>
+<ul>
+<li><p><strong>state</strong></p>
+<ul>
+<li><p>&#x7C7B;&#x578B;: <code>Object | Function</code></p>
+<p>Vuex store &#x5B9E;&#x4F8B;&#x7684;&#x6839; state &#x5BF9;&#x8C61;&#x3002;<a href="state.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+<p>&#x5982;&#x679C;&#x4F60;&#x4F20;&#x5165;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x4F1A;&#x88AB;&#x7528;&#x4F5C;&#x6839; state&#x3002;&#x8FD9;&#x5728;&#x4F60;&#x60F3;&#x8981;&#x91CD;&#x7528; state &#x5BF9;&#x8C61;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x5BF9;&#x4E8E;&#x91CD;&#x7528; module &#x6765;&#x8BF4;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002;<a href="modules.html#&#x6A21;&#x5757;&#x91CD;&#x7528;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>mutations</strong></p>
+<ul>
+<li><p>&#x7C7B;&#x578B;: <code>{ [type: string]: Function }</code></p>
+<p>&#x5728; store &#x4E0A;&#x6CE8;&#x518C; mutation&#xFF0C;&#x5904;&#x7406;&#x51FD;&#x6570;&#x603B;&#x662F;&#x63A5;&#x53D7; <code>state</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF08;&#x5982;&#x679C;&#x5B9A;&#x4E49;&#x5728;&#x6A21;&#x5757;&#x4E2D;&#xFF0C;&#x5219;&#x4E3A;&#x6A21;&#x5757;&#x7684;&#x5C40;&#x90E8;&#x72B6;&#x6001;&#xFF09;&#xFF0C;<code>payload</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF08;&#x53EF;&#x9009;&#xFF09;&#x3002;</p>
+<p><a href="mutations.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>actions</strong></p>
+<ul>
+<li><p>&#x7C7B;&#x578B;: <code>{ [type: string]: Function }</code></p>
+<p>&#x5728; store &#x4E0A;&#x6CE8;&#x518C; action&#x3002;&#x5904;&#x7406;&#x51FD;&#x6570;&#x603B;&#x662F;&#x63A5;&#x53D7; <code>context</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;<code>payload</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF08;&#x53EF;&#x9009;&#xFF09;&#x3002;</p>
+<p><code>context</code> &#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#xFF1A;</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span>      <span class="token comment" spellcheck="true">// &#x7B49;&#x540C;&#x4E8E; `store.state`&#xFF0C;&#x82E5;&#x5728;&#x6A21;&#x5757;&#x4E2D;&#x5219;&#x4E3A;&#x5C40;&#x90E8;&#x72B6;&#x6001;</span>
+  rootState<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// &#x7B49;&#x540C;&#x4E8E; `store.state`&#xFF0C;&#x53EA;&#x5B58;&#x5728;&#x4E8E;&#x6A21;&#x5757;&#x4E2D;</span>
+  commit<span class="token punctuation">,</span>     <span class="token comment" spellcheck="true">// &#x7B49;&#x540C;&#x4E8E; `store.commit`</span>
+  dispatch<span class="token punctuation">,</span>   <span class="token comment" spellcheck="true">// &#x7B49;&#x540C;&#x4E8E; `store.dispatch`</span>
+  getters<span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">// &#x7B49;&#x540C;&#x4E8E; `store.getters`</span>
+  rootGetters <span class="token comment" spellcheck="true">// &#x7B49;&#x540C;&#x4E8E; `store.getters`&#xFF0C;&#x53EA;&#x5B58;&#x5728;&#x4E8E;&#x6A21;&#x5757;&#x4E2D;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x540C;&#x65F6;&#x5982;&#x679C;&#x6709;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570; <code>payload</code> &#x7684;&#x8BDD;&#x4E5F;&#x80FD;&#x591F;&#x63A5;&#x6536;&#x3002;</p>
+<p><a href="actions.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>getters</strong></p>
+<ul>
+<li>&#x7C7B;&#x578B;: <code>{ [key: string]: Function }</code></li>
+</ul>
+<p>&#x5728; store &#x4E0A;&#x6CE8;&#x518C; getter&#xFF0C;getter &#x65B9;&#x6CD5;&#x63A5;&#x53D7;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<pre class="language-"><code>  state,     // &#x5982;&#x679C;&#x5728;&#x6A21;&#x5757;&#x4E2D;&#x5B9A;&#x4E49;&#x5219;&#x4E3A;&#x6A21;&#x5757;&#x7684;&#x5C40;&#x90E8;&#x72B6;&#x6001;
+  getters,   // &#x7B49;&#x540C;&#x4E8E; store.getters
+</code></pre><p>  &#x5F53;&#x5B9A;&#x4E49;&#x5728;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x91CC;&#x65F6;&#x4F1A;&#x7279;&#x522B;&#x4E00;&#x4E9B;&#xFF1A;</p>
+<pre class="language-"><code>  state,       // &#x5982;&#x679C;&#x5728;&#x6A21;&#x5757;&#x4E2D;&#x5B9A;&#x4E49;&#x5219;&#x4E3A;&#x6A21;&#x5757;&#x7684;&#x5C40;&#x90E8;&#x72B6;&#x6001;
+  getters,     // &#x7B49;&#x540C;&#x4E8E; store.getters
+  rootState    // &#x7B49;&#x540C;&#x4E8E; store.state
+  rootGetters  // &#x6240;&#x6709; getters
+</code></pre><p>  &#x6CE8;&#x518C;&#x7684; getter &#x66B4;&#x9732;&#x4E3A; <code>store.getters</code>&#x3002;</p>
+<p>  <a href="getters.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong>modules</strong></p>
+<ul>
+<li><p>&#x7C7B;&#x578B;: <code>Object</code></p>
+<p>&#x5305;&#x542B;&#x4E86;&#x5B50;&#x6A21;&#x5757;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4F1A;&#x88AB;&#x5408;&#x5E76;&#x5230; store&#xFF0C;&#x5927;&#x6982;&#x957F;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  key<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">,</span>
+    namespaced<span class="token operator">?</span><span class="token punctuation">,</span>
+    mutations<span class="token punctuation">,</span>
+    actions<span class="token operator">?</span><span class="token punctuation">,</span>
+    getters<span class="token operator">?</span><span class="token punctuation">,</span>
+    modules<span class="token operator">?</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0E;&#x6839;&#x6A21;&#x5757;&#x7684;&#x9009;&#x9879;&#x4E00;&#x6837;&#xFF0C;&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x4E5F;&#x5305;&#x542B; <code>state</code> &#x548C; <code>mutations</code> &#x9009;&#x9879;&#x3002;&#x6A21;&#x5757;&#x7684;&#x72B6;&#x6001;&#x4F7F;&#x7528; key &#x5173;&#x8054;&#x5230; store &#x7684;&#x6839;&#x72B6;&#x6001;&#x3002;&#x6A21;&#x5757;&#x7684; mutation &#x548C; getter &#x53EA;&#x4F1A;&#x63A5;&#x6536; module &#x7684;&#x5C40;&#x90E8;&#x72B6;&#x6001;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6839;&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x4E14;&#x6A21;&#x5757; action &#x7684; <code>context.state</code> &#x540C;&#x6837;&#x6307;&#x5411;&#x5C40;&#x90E8;&#x72B6;&#x6001;&#x3002;</p>
+<p><a href="modules.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>plugins</strong></p>
+<ul>
+<li><p>&#x7C7B;&#x578B;: <code>Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Function</span><span class="token punctuation">&gt;</span></span></code></p>
+<p>&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x5305;&#x542B;&#x5E94;&#x7528;&#x5728; store &#x4E0A;&#x7684;&#x63D2;&#x4EF6;&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x4E9B;&#x63D2;&#x4EF6;&#x76F4;&#x63A5;&#x63A5;&#x6536; store &#x4F5C;&#x4E3A;&#x552F;&#x4E00;&#x53C2;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x76D1;&#x542C; mutation&#xFF08;&#x7528;&#x4E8E;&#x5916;&#x90E8;&#x5730;&#x6570;&#x636E;&#x6301;&#x4E45;&#x5316;&#x3001;&#x8BB0;&#x5F55;&#x6216;&#x8C03;&#x8BD5;&#xFF09;&#x6216;&#x8005;&#x63D0;&#x4EA4; mutation &#xFF08;&#x7528;&#x4E8E;&#x5185;&#x90E8;&#x6570;&#x636E;&#xFF0C;&#x4F8B;&#x5982; websocket &#x6216; &#x67D0;&#x4E9B;&#x89C2;&#x5BDF;&#x8005;&#xFF09;</p>
+<p><a href="plugins.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>strict</strong></p>
+<ul>
+<li>&#x7C7B;&#x578B;: <code>Boolean</code></li>
+<li><p>&#x9ED8;&#x8BA4;&#x503C;: <code>false</code></p>
+<p>&#x4F7F; Vuex store &#x8FDB;&#x5165;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#xFF0C;&#x5728;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x4EFB;&#x4F55; mutation &#x5904;&#x7406;&#x51FD;&#x6570;&#x4EE5;&#x5916;&#x4FEE;&#x6539; Vuex state &#x90FD;&#x4F1A;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;</p>
+<p><a href="strict.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vuexstore-&#x5B9E;&#x4F8B;&#x5C5E;&#x6027;">Vuex.Store &#x5B9E;&#x4F8B;&#x5C5E;&#x6027;</h3>
+<ul>
+<li><p><strong>state</strong></p>
+<ul>
+<li><p>&#x7C7B;&#x578B;: <code>Object</code></p>
+<p>&#x6839;&#x72B6;&#x6001;&#xFF0C;&#x53EA;&#x8BFB;&#x3002;</p>
+</li>
+</ul>
+</li>
+<li><p><strong>getters</strong></p>
+<ul>
+<li><p>&#x7C7B;&#x578B;: <code>Object</code></p>
+<p>&#x66B4;&#x9732;&#x51FA;&#x6CE8;&#x518C;&#x7684; getter&#xFF0C;&#x53EA;&#x8BFB;&#x3002;</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vuexstore-&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;">Vuex.Store &#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;</h3>
+<ul>
+<li><strong><code>commit(type: string, payload?: any, options?: Object)</code></strong></li>
+<li><p><strong><code>commit(mutation: Object, options?: Object)</code></strong></p>
+<p>&#x63D0;&#x4EA4; mutation&#x3002;<code>options</code> &#x91CC;&#x53EF;&#x4EE5;&#x6709; <code>root: true</code>&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x5728;<a href="modules.html#&#x547D;&#x540D;&#x7A7A;&#x95F4;">&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x6A21;&#x5757;</a>&#x91CC;&#x63D0;&#x4EA4;&#x6839;&#x7684; mutation&#x3002;<a href="mutations.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>dispatch(type: string, payload?: any, options?: Object)</code></strong></p>
+</li>
+<li><p><strong><code>dispatch(action: Object, options?: Object)</code></strong></p>
+<p>&#x5206;&#x53D1; action&#x3002;<code>options</code> &#x91CC;&#x53EF;&#x4EE5;&#x6709; <code>root: true</code>&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x5728;<a href="modules.html#&#x547D;&#x540D;&#x7A7A;&#x95F4;">&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x6A21;&#x5757;</a>&#x91CC;&#x5206;&#x53D1;&#x6839;&#x7684; action&#x3002;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x89E3;&#x6790;&#x6240;&#x6709;&#x88AB;&#x89E6;&#x53D1;&#x7684; action &#x5904;&#x7406;&#x5668;&#x7684; Promise&#x3002;<a href="actions.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>replaceState(state: Object)</code></strong></p>
+<p>&#x66FF;&#x6362; store &#x7684;&#x6839;&#x72B6;&#x6001;&#xFF0C;&#x4EC5;&#x7528;&#x72B6;&#x6001;&#x5408;&#x5E76;&#x6216;&#x65F6;&#x5149;&#x65C5;&#x884C;&#x8C03;&#x8BD5;&#x3002;</p>
+</li>
+<li><p><strong><code>watch(fn: Function, callback: Function, options?: Object): Function</code></strong></p>
+<p>&#x54CD;&#x5E94;&#x5F0F;&#x5730;&#x4FA6;&#x542C; <code>fn</code> &#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x5F53;&#x503C;&#x6539;&#x53D8;&#x65F6;&#x8C03;&#x7528;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;<code>fn</code> &#x63A5;&#x6536; store &#x7684; state &#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5176; getter &#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x3002;&#x6700;&#x540E;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x5BF9;&#x8C61;&#x53C2;&#x6570;&#x8868;&#x793A; Vue &#x7684; <code>vm.$watch</code> &#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x8981;&#x505C;&#x6B62;&#x4FA6;&#x542C;&#xFF0C;&#x8C03;&#x7528;&#x6B64;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x51FD;&#x6570;&#x5373;&#x53EF;&#x505C;&#x6B62;&#x4FA6;&#x542C;&#x3002;</p>
+</li>
+<li><p><strong><code>subscribe(handler: Function): Function</code></strong></p>
+<p>&#x8BA2;&#x9605; store &#x7684; mutation&#x3002;<code>handler</code> &#x4F1A;&#x5728;&#x6BCF;&#x4E2A; mutation &#x5B8C;&#x6210;&#x540E;&#x8C03;&#x7528;&#xFF0C;&#x63A5;&#x6536; mutation &#x548C;&#x7ECF;&#x8FC7; mutation &#x540E;&#x7684;&#x72B6;&#x6001;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF1A;</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span>mutation<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>mutation<span class="token punctuation">.</span>type<span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>mutation<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x8981;&#x505C;&#x6B62;&#x8BA2;&#x9605;&#xFF0C;&#x8C03;&#x7528;&#x6B64;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x51FD;&#x6570;&#x5373;&#x53EF;&#x505C;&#x6B62;&#x8BA2;&#x9605;&#x3002;</p>
+<p>&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x63D2;&#x4EF6;&#x3002;<a href="plugins.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>subscribeAction(handler: Function): Function</code></strong></p>
+<blockquote>
+<p>2.5.0 &#x65B0;&#x589E;</p>
+</blockquote>
+<p>&#x8BA2;&#x9605; store &#x7684; action&#x3002;<code>handler</code> &#x4F1A;&#x5728;&#x6BCF;&#x4E2A; action &#x5206;&#x53D1;&#x7684;&#x65F6;&#x5019;&#x8C03;&#x7528;&#x5E76;&#x63A5;&#x6536; action &#x63CF;&#x8FF0;&#x548C;&#x5F53;&#x524D;&#x7684; store &#x7684; state &#x8FD9;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">subscribeAction</span><span class="token punctuation">(</span><span class="token punctuation">(</span>action<span class="token punctuation">,</span> state<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x8981;&#x505C;&#x6B62;&#x8BA2;&#x9605;&#xFF0C;&#x8C03;&#x7528;&#x6B64;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x51FD;&#x6570;&#x5373;&#x53EF;&#x505C;&#x6B62;&#x8BA2;&#x9605;&#x3002;</p>
+<p>&#x8BE5;&#x529F;&#x80FD;&#x5E38;&#x7528;&#x4E8E;&#x63D2;&#x4EF6;&#x3002;<a href="plugins.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>registerModule(path: string | Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>, module: Module, options?: Object)</code></strong></p>
+<p>&#x6CE8;&#x518C;&#x4E00;&#x4E2A;&#x52A8;&#x6001;&#x6A21;&#x5757;&#x3002;<a href="modules.html#&#x6A21;&#x5757;&#x52A8;&#x6001;&#x6CE8;&#x518C;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+<p><code>options</code> &#x53EF;&#x4EE5;&#x5305;&#x542B; <code>preserveState: true</code> &#x4EE5;&#x5141;&#x8BB8;&#x4FDD;&#x7559;&#x4E4B;&#x524D;&#x7684; state&#x3002;&#x7528;&#x4E8E;&#x670D;&#x52A1;&#x7AEF;&#x6E32;&#x67D3;&#x3002;</p>
+</li>
+<li><p><strong><code>unregisterModule(path: string | Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>)</code></strong></p>
+<p>&#x5378;&#x8F7D;&#x4E00;&#x4E2A;&#x52A8;&#x6001;&#x6A21;&#x5757;&#x3002;<a href="modules.html#&#x6A21;&#x5757;&#x52A8;&#x6001;&#x6CE8;&#x518C;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>hotUpdate(newOptions: Object)</code></strong></p>
+<p>&#x70ED;&#x66FF;&#x6362;&#x65B0;&#x7684; action &#x548C; mutation&#x3002;<a href="hot-reload.html">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+<h3 id="&#x7EC4;&#x4EF6;&#x7ED1;&#x5B9A;&#x7684;&#x8F85;&#x52A9;&#x51FD;&#x6570;">&#x7EC4;&#x4EF6;&#x7ED1;&#x5B9A;&#x7684;&#x8F85;&#x52A9;&#x51FD;&#x6570;</h3>
+<ul>
+<li><p><strong><code>mapState(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>&#x4E3A;&#x7EC4;&#x4EF6;&#x521B;&#x5EFA;&#x8BA1;&#x7B97;&#x5C5E;&#x6027;&#x4EE5;&#x8FD4;&#x56DE; Vuex store &#x4E2D;&#x7684;&#x72B6;&#x6001;&#x3002;<a href="state.html#mapstate-&#x8F85;&#x52A9;&#x51FD;&#x6570;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x5B57;&#x7B26;&#x4E32;&#x3002;<a href="modules.html#&#x5E26;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x7ED1;&#x5B9A;&#x51FD;&#x6570;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>mapGetters(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>&#x4E3A;&#x7EC4;&#x4EF6;&#x521B;&#x5EFA;&#x8BA1;&#x7B97;&#x5C5E;&#x6027;&#x4EE5;&#x8FD4;&#x56DE; getter &#x7684;&#x8FD4;&#x56DE;&#x503C;&#x3002;<a href="getters.html#mapgetters-&#x8F85;&#x52A9;&#x51FD;&#x6570;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x5B57;&#x7B26;&#x4E32;&#x3002;<a href="modules.html#&#x5E26;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x7ED1;&#x5B9A;&#x51FD;&#x6570;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>mapActions(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>&#x521B;&#x5EFA;&#x7EC4;&#x4EF6;&#x65B9;&#x6CD5;&#x5206;&#x53D1; action&#x3002;<a href="actions.html#&#x5728;&#x7EC4;&#x4EF6;&#x4E2D;&#x5206;&#x53D1;-action">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x5B57;&#x7B26;&#x4E32;&#x3002;<a href="modules.html#&#x5E26;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x7ED1;&#x5B9A;&#x51FD;&#x6570;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>mapMutations(namespace?: string, map: Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | Object): Object</code></strong></p>
+<p>&#x521B;&#x5EFA;&#x7EC4;&#x4EF6;&#x65B9;&#x6CD5;&#x63D0;&#x4EA4; mutation&#x3002;<a href="mutations.html#&#x5728;&#x7EC4;&#x4EF6;&#x4E2D;&#x63D0;&#x4EA4;-mutation">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x5B57;&#x7B26;&#x4E32;&#x3002;<a href="modules.html#&#x5E26;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x7ED1;&#x5B9A;&#x51FD;&#x6570;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+<li><p><strong><code>createNamespacedHelpers(namespace: string): Object</code></strong></p>
+<p>&#x521B;&#x5EFA;&#x57FA;&#x4E8E;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x7EC4;&#x4EF6;&#x7ED1;&#x5B9A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x3002;&#x5176;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B; <code>mapState</code>&#x3001;<code>mapGetters</code>&#x3001;<code>mapActions</code> &#x548C; <code>mapMutations</code> &#x7684;&#x5BF9;&#x8C61;&#x3002;&#x5B83;&#x4EEC;&#x90FD;&#x5DF2;&#x7ECF;&#x7ED1;&#x5B9A;&#x5728;&#x4E86;&#x7ED9;&#x5B9A;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E0A;&#x3002;<a href="modules.html#&#x5E26;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x7ED1;&#x5B9A;&#x51FD;&#x6570;">&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="hot-reload.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 热重载">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"API 文档","level":"1.13","depth":1,"previous":{"title":"热重载","level":"1.12","depth":1,"path":"hot-reload.md","ref":"hot-reload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"编辑此页面","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"zh-cn","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"api.md","mtime":"2018-04-20T00:44:03.889Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"zh-cn"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+

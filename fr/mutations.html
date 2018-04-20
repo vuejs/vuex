@@ -1,0 +1,607 @@
+
+<!DOCTYPE HTML>
+<html lang="fr" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Mutations · Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-vuejs/vue.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="actions.html" />
+    
+    
+    <link rel="prev" href="getters.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Tapez pour rechercher" />
+</div>
+
+            
+                <nav role="navigation">
+                
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+
+
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <a target="_blank" href="https://github.com/vuejs/vuex/releases">
+            
+                    
+                    Notes de version
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Vuex, qu'est-ce que c'est ?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Pour commencer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="core-concepts.html">
+            
+                <a href="core-concepts.html">
+            
+                    
+                    Concepts de base
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    État
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="getters.html">
+            
+                <a href="getters.html">
+            
+                    
+                    Accesseurs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.3" data-path="mutations.html">
+            
+                <a href="mutations.html">
+            
+                    
+                    Mutations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Modules
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    Structure d'une application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    Plugins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="strict.html">
+            
+                <a href="strict.html">
+            
+                    
+                    Mode strict
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="forms.html">
+            
+                <a href="forms.html">
+            
+                    
+                    Gestion des formulaires
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="testing.html">
+            
+                <a href="testing.html">
+            
+                    
+                    Tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="hot-reload.html">
+            
+                <a href="hot-reload.html">
+            
+                    
+                    Rechargement à chaud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="api.html">
+            
+                <a href="api.html">
+            
+                    
+                    Documentation de l'API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publié avec GitBook
+        </a>
+    </li>
+</ul>
+
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+  
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Mutations</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="mutations">Mutations</h1>
+<p>La seule fa&#xE7;on de vraiment modifier l&apos;&#xE9;tat dans un store Vuex est d&apos;acter une mutation. Les mutations Vuex sont tr&#xE8;s similaires aux &#xE9;v&#xE8;nements : chaque mutation a un <strong>type</strong> sous forme de chaine de caract&#xE8;res et un <strong>gestionnaire</strong>. La fonction de gestion est en charge de proc&#xE9;der aux v&#xE9;ritables modifications de l&apos;&#xE9;tat, et elle re&#xE7;oit l&apos;&#xE9;tat en premier argument :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    increment <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// muter l&apos;&#xE9;tat</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Vous ne pouvez pas appeler directement un gestionnaire de mutation. Le parti-pris ici est proche de l&apos;abonnement &#xE0; un &#xE9;v&#xE8;nement : &#xAB; Lorsqu&apos;une mutation du type <code>increment</code> est d&#xE9;clench&#xE9;e, appelle ce gestionnaire. &#xBB; Pour invoquer un gestionnaire de mutation, il faut appeler <code>store.commit</code> avec son type :</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="acter-avec-un-argument-additionnel">Acter avec un argument additionnel</h3>
+<p>Vous pouvez donner un argument additionnel (&#xAB; payload &#xBB;) &#xE0; la fonction <code>store.commit</code> lors de la mutation :</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// ...</span>
+mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  increment <span class="token punctuation">(</span>state<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">+</span><span class="token operator">=</span> n
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Dans la plupart des cas, l&apos;argument additionnel devrait &#xEA;tre un objet, ainsi il peut contenir plusieurs champs, et les mutations enregistr&#xE9;es seront &#xE9;galement plus descriptives :</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// ...</span>
+mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  increment <span class="token punctuation">(</span>state<span class="token punctuation">,</span> payload<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">+</span><span class="token operator">=</span> payload<span class="token punctuation">.</span>amount
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  amount<span class="token punctuation">:</span> <span class="token number">10</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="acter-avec-un-objet">Acter avec un objet</h3>
+<p>Une m&#xE9;thode alternative pour acter une mutation est d&apos;utiliser directement un objet qui a une propri&#xE9;t&#xE9; <code>type</code> :</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> <span class="token string">&apos;increment&apos;</span><span class="token punctuation">,</span>
+  amount<span class="token punctuation">:</span> <span class="token number">10</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Lors de l&apos;utilisation d&apos;un objet pour acter, c&apos;est l&apos;objet lui-m&#xEA;me qui ferra office d&apos;argument pour aux gestionnaires de mutation, le gestionnaire reste donc inchang&#xE9; :</p>
+<pre class="language-"><code class="lang-js">mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  increment <span class="token punctuation">(</span>state<span class="token punctuation">,</span> payload<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">+</span><span class="token operator">=</span> payload<span class="token punctuation">.</span>amount
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="les-mutations-suivent-les-r&#xE8;gles-de-r&#xE9;activit&#xE9;-de-vue">Les mutations suivent les r&#xE8;gles de r&#xE9;activit&#xE9; de Vue</h3>
+<p>Puisqu&apos;un &#xE9;tat de store de Vuex est rendu r&#xE9;actif par Vue, lorsque nous mutons l&apos;&#xE9;tat, les composants Vue observant cet &#xE9;tat seront automatiquement mis &#xE0; jour. Cela signifie &#xE9;galement que les mutations Vuex sont sujettes aux m&#xEA;mes limitations qu&apos;avec l&apos;utilisation de Vue seul :</p>
+<ol>
+<li><p>Initialisez de pr&#xE9;f&#xE9;rence le store initial de votre &#xE9;tat avec tous les champs d&#xE9;sir&#xE9;s auparavant.</p>
+</li>
+<li><p>Lorsque vous ajoutez de nouvelles propri&#xE9;t&#xE9;s &#xE0; un objet, vous devriez soit :</p>
+<ul>
+<li><p>Utiliser <code>Vue.set(obj, &apos;newProp&apos;, 123)</code>, ou</p>
+</li>
+<li><p>Remplacer cet objet par un nouvel objet. Par exemple, en utilisant <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Op%C3%A9rateur_de_d%C3%A9composition" target="_blank">op&#xE9;rateur de d&#xE9;composition</a> (stage-2), il est possible d&apos;&#xE9;crire :</p>
+<pre class="language-"><code class="lang-js">state<span class="token punctuation">.</span>obj <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span>state<span class="token punctuation">.</span>obj<span class="token punctuation">,</span> newProp<span class="token punctuation">:</span> <span class="token number">123</span> <span class="token punctuation">}</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="utilisation-de-constante-pour-les-types-de-mutation">Utilisation de constante pour les types de mutation</h3>
+<p>C&apos;est une fa&#xE7;on de faire r&#xE9;guli&#xE8;re que d&apos;utiliser des constantes pour les types de mutations dans diverses impl&#xE9;mentations de Flux. Cela permet au code de b&#xE9;n&#xE9;ficier d&apos;outils comme les linters (des outils d&apos;aide &#xE0; l&apos;analyse syntaxique), et &#xE9;crire toutes ces constantes dans un seul fichier permet &#xE0; vos collaborateurs d&apos;avoir un aper&#xE7;u de quelles mutations sont possibles dans toute l&apos;application :</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// mutation-types.js</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> SOME_MUTATION <span class="token operator">=</span> <span class="token string">&apos;SOME_MUTATION&apos;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// store.js</span>
+<span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SOME_MUTATION <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./mutation-types&apos;</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// nous pouvons utiliser la fonctionnalit&#xE9; de nom de propri&#xE9;t&#xE9; calcul&#xE9;e</span>
+    <span class="token comment" spellcheck="true">// pour utiliser une constante en tant que nom de fonction</span>
+    <span class="token punctuation">[</span>SOME_MUTATION<span class="token punctuation">]</span> <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// muter l&apos;&#xE9;tat</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Utiliser les constantes ou non rel&#xE8;ve de la pr&#xE9;f&#xE9;rence personnelle. Cela peut &#xEA;tre b&#xE9;n&#xE9;fique sur un gros projet avec beaucoup de d&#xE9;veloppeurs, mais c&apos;est totalement optionnel si vous n&apos;aimez pas cette pratique.</p>
+<h3 id="les-mutations-doivent-&#xEA;tre-synchrones">Les mutations doivent &#xEA;tre synchrones</h3>
+<p>Une r&#xE8;gle importante &#xE0; retenir est que <strong>les fonctions de gestion des mutations doivent &#xEA;tre synchrones</strong>. Pourquoi ? Consid&#xE9;rons l&apos;exemple suivant :</p>
+<pre class="language-"><code class="lang-js">mutations<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  someMutation <span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    api<span class="token punctuation">.</span><span class="token function">callAsyncMethod</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+      state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Maintenant imaginons que nous d&#xE9;boguons l&apos;application et que nous regardons dans les logs de mutation des outils de d&#xE9;veloppement (&#xAB; devtools &#xBB;). Pour chaque mutation enregistr&#xE9;e, le devtool aura besoin de capturer un instantan&#xE9; de l&apos;&#xE9;tat &#xAB; avant &#xBB; et un instantan&#xE9; &#xAB; apr&#xE8;s &#xBB;. Cependant, la fonction de rappel asynchrone de l&apos;exemple ci-dessus rend l&apos;op&#xE9;ration impossible : la fonction de rappel n&apos;est pas encore appel&#xE9;e lorsque la mutation est act&#xE9;e, et il n&apos;y a aucun moyen pour le devtool de savoir quand la fonction de rappel sera v&#xE9;ritablement appel&#xE9;e. Toute mutation d&apos;&#xE9;tat effectu&#xE9;e dans la fonction de rappel est essentiellement intra&#xE7;able !</p>
+<h3 id="acter-des-mutations-dans-les-composants">Acter des mutations dans les composants</h3>
+<p>Vous pouvez acter des mutations dans les composants avec <code>this.$store.commit(&apos;xxx&apos;)</code>, ou en utilisant la fonction utilitaire <code>mapMutations</code> qui attache les m&#xE9;thodes du composant aux appels de <code>store.commit</code> (n&#xE9;cessite l&apos;injection de <code>store</code> &#xE0; la racine) :</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> mapMutations <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;vuex&apos;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token function">mapMutations</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token string">&apos;increment&apos;</span> <span class="token comment" spellcheck="true">// attacher `this.increment()` &#xE0; `this.$store.commit(&apos;increment&apos;)`</span>
+
+      <span class="token comment" spellcheck="true">// `mapMutations` supporte &#xE9;galement les param&#xE8;tres additionnels :</span>
+      <span class="token string">&apos;incrementBy&apos;</span> <span class="token comment" spellcheck="true">// attacher `this.incrementBy(amount)` &#xE0; `this.$store.commit(&apos;incrementBy&apos;, amount)`</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span><span class="token function">mapMutations</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      add<span class="token punctuation">:</span> <span class="token string">&apos;increment&apos;</span> <span class="token comment" spellcheck="true">// attacher `this.add()` &#xE0; `this.$store.commit(&apos;increment&apos;)`</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="en-avant-vers-les-actions">En avant vers les actions</h3>
+<p>L&apos;asynchronisme combin&#xE9; &#xE0; la mutation de l&apos;&#xE9;tat peut rendre votre programme tr&#xE8;s difficile &#xE0; comprendre. Par exemple, lorsque vous appelez deux m&#xE9;thodes avec toutes les deux des fonctions de rappel asynchrones qui changent l&apos;&#xE9;tat, comment savez-vous quelle fonction de rappel est appel&#xE9;e en premi&#xE8;re ? C&apos;est exactement la raison pour laquelle nous voulons s&#xE9;parer les deux concepts. Avec Vuex, <strong>les mutations sont des transactions synchrones</strong> :</p>
+<pre class="language-"><code class="lang-js">store<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">&apos;increment&apos;</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// n&apos;importe quel changement d&apos;&#xE9;tat de &#xAB; increment &#xBB; par mutation</span>
+<span class="token comment" spellcheck="true">// devrait &#xEA;tre faite de mani&#xE8;re synchrone.</span>
+</code></pre>
+<p>Pour g&#xE9;rer les op&#xE9;rations asynchrones, tournons-nous vers les <a href="actions.html">Actions</a>.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+  <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+  <div class="bsa-cpc"></div>
+  <script>
+    (function(){
+      if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('default', 'CKYD62QM', 'placement:vuejsorg', {
+        target: '.bsa-cpc',
+        align: 'horizontal',
+        disable_css: 'true'
+      });
+        }
+    })();
+  </script>
+
+            </div>
+
+            
+                
+                <a href="getters.html" class="navigation navigation-prev " aria-label="Previous page: Accesseurs">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="actions.html" class="navigation navigation-next " aria-label="Next page: Actions">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Mutations","level":"1.6.3","depth":2,"next":{"title":"Actions","level":"1.6.4","depth":2,"path":"actions.md","ref":"actions.md","articles":[]},"previous":{"title":"Accesseurs","level":"1.6.2","depth":2,"path":"getters.md","ref":"getters.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Éditer cette page","base":"https://github.com/vuejs/vuex/tree/dev/docs"},"github":{"url":"https://github.com/vuejs/vuex/"},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-vuejs":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vuex","language":"fr","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"2.x.x"},"file":{"path":"mutations.md","mtime":"2018-04-20T00:44:03.859Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-04-20T00:47:55.633Z"},"basePath":".","book":{"language":"fr"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+
