@@ -10,10 +10,10 @@ No centro de cada aplicação Vuex existe a ** _store_  **. Uma "_store_ " é ba
 
 > **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto dos documentos. Se você não o pegou, [você deveria](https://babeljs.io/docs/learn-es2015/)!
 
-Após [instalar](installation.md) Vuex, vamos criar uma _store_ . É bastante direto - apenas forneça um objeto de estado inicial e algumas mutações:
+Após [instalar](installation.md) Vuex, vamos criar uma _store_. É bem simples - apenas forneça um objeto de estado inicial e algumas mutações:
 
 ``` js
-// Certifique-se de chamar Vue.use(Vuex) primeiro se estiver usando um sistema de módulo
+// Certifique-se de chamar Vue.use(Vuex) primeiro se estiver usando o sistema de módulos
 const store = new Vuex.Store({
   state: {
     count: 0
