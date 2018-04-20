@@ -1,6 +1,6 @@
 # O que é Vuex?
 
-O Vuex é um ** padrão de gerenciamento de estado + biblioteca ** para aplicativos Vue.js. Ele serve como uma _store_  centralizada para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível.
+O Vuex é um **padrão de gerenciamento de estado + biblioteca** para aplicativos Vue.js. Ele serve como uma _store_  centralizada para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível.
 Ele também se integra com a versão [devtools extension](https://github.com/vuejs/vue-devtools) do Vue para fornecer recursos avançados, como depuração do zero-config time-travel e exportação / importação de snapshot do estado.
 
 ### O que é um "Padrão de Gerenciamento do Estado"?
@@ -30,16 +30,16 @@ new Vue({
 
 É um aplicativo autônomo com as seguintes partes:
 
-- O ** estado ** ( _state_ ), que é a fonte da verdade que impulsiona nosso aplicativo;
-- A ** view **, que é apenas um mapeamento declarativo do ** estado **;
-- As ** ações ** ( _actions_ ), que são as possíveis maneiras pelas quais o estado pode mudar em reação às entradas de usuários da ** view **.
+- O **estado** ( _state_ ), que é a fonte da verdade que impulsiona nosso aplicativo;
+- A **view**, que é apenas um mapeamento declarativo do **estado**;
+- As **ações** ( _actions_ ), que são as possíveis maneiras pelas quais o estado pode mudar em reação às entradas de usuários da **view**.
 
 Esta é uma representação extremamente simples do conceito de "fluxo de dados unidirecional":
 <p style="text-align: center; margin: 2em">
   <img style="width:100%;max-width:450px;" src="./images/flow.png">
 </p>
 
-No entanto, a simplicidade rapidamente se quebra quando temos ** múltiplos componentes que compartilham o estado comum **:
+No entanto, a simplicidade rapidamente se quebra quando temos **múltiplos componentes que compartilham o estado comum**:
 
 - Várias visualizações podem depender da mesma parte do estado.
 

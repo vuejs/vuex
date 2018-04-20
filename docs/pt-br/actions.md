@@ -44,7 +44,7 @@ As ações são acionadas com o método `store.dispatch`:
 store.dispatch('increment')
 ```
 
-Isso pode parecer óbvio à primeira vista: se quisermos incrementar a contagem, por que não chamamos `store.commit ('incremento') diretamente? Lembre-se de que ** as mutações devem ser síncronas **? As ações não. Podemos executar ** operações assíncronas ** dentro de uma ação:
+Isso pode parecer óbvio à primeira vista: se quisermos incrementar a contagem, por que não chamamos `store.commit ('incremento') diretamente? Lembre-se de que **as mutações devem ser síncronas**? As ações não. Podemos executar **operações assíncronas** dentro de uma ação:
 
 ``` js
 actions: {
@@ -71,7 +71,7 @@ store.dispatch({
 })
 ```
 
-Um exemplo mais prático de ações reais seria uma ação para fazer check-out de um carrinho de compras, que envolve ** chamar uma API assíncrona ** e ** confirmar múltiplas mutações **:
+Um exemplo mais prático de ações reais seria uma ação para fazer check-out de um carrinho de compras, que envolve **chamar uma API assíncrona** e **confirmar múltiplas mutações**:
 
 ``` js
 actions: {

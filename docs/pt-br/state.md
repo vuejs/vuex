@@ -2,7 +2,7 @@
 
 ### Árvore simples de estado
 
-O Vuex usa uma ** árvore de estado único ** - isto é, este único objeto contém todo o seu nível de aplicativo e serve como "fonte única de verdade". Isso também significa que você terá apenas uma _store_  para cada aplicativo. Uma única árvore de estados torna direto localizar um pedaço de estado específico e nos permite facilmente tirar instantâneos do estado do aplicativo atual para fins de depuração.
+O Vuex usa uma **árvore de estado único** - isto é, este único objeto contém todo o seu nível de aplicativo e serve como "fonte única de verdade". Isso também significa que você terá apenas uma _store_  para cada aplicativo. Uma única árvore de estados torna direto localizar um pedaço de estado específico e nos permite facilmente tirar instantâneos do estado do aplicativo atual para fins de depuração.
 
 A árvore de um único estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
 ### Obtendo o Vuex State em Vue Components
@@ -103,4 +103,4 @@ computed: {
 
 ### Componentes ainda podem ter um estado local
 
-O uso do Vuex não significa que você deve colocar ** all ** no estado no Vuex. Embora colocar mais estado no Vuex torna suas mutações estatais mais explícitas e devolvíveis, às vezes também pode tornar o código mais detalhado e indireto. Se um pedaço de estado pertence estritamente a um único componente, pode ser apenas bom deixá-lo como um estado local. Você deve pesar os trade-offs e tomar decisões que atendam às necessidades de desenvolvimento do seu aplicativo.
+O uso do Vuex não significa que você deve colocar **all** no estado no Vuex. Embora colocar mais estado no Vuex torna suas mutações estatais mais explícitas e devolvíveis, às vezes também pode tornar o código mais detalhado e indireto. Se um pedaço de estado pertence estritamente a um único componente, pode ser apenas bom deixá-lo como um estado local. Você deve pesar os trade-offs e tomar decisões que atendam às necessidades de desenvolvimento do seu aplicativo.

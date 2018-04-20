@@ -1,7 +1,8 @@
 # Módulos
 
 Devido ao uso de uma árvore de um único estado, todo o estado do nosso aplicativo está contido dentro de um objeto grande. No entanto, à medida que nossa aplicação cresce em escala, a _store_  pode ficar realmente inchada.
-Para ajudar com isso, o Vuex nos permite dividir nossa _store_  em ** módulos **. Cada módulo pode conter seu próprio estado, mutações, ações, getters e até mesmo módulos aninhados – tudo é "quebrado" daqui pra frente:
+Para ajudar com isso, o Vuex nos permite dividir nossa _store_  em **módulos**. Cada módulo pode conter seu próprio estado, mutações, ações, getters e até mesmo módulos aninhados – tudo é "quebrado" daqui pra frente:
+
 ``` js
 const moduleA = {
   state: { ... },
@@ -29,7 +30,7 @@ store.state.b // -> `moduleB`'s state
 
 ### Estado Local do Módulo
 
-Dentro das mutações e getters de um módulo, o 1º argumento recebido será ** o estado local do módulo **.
+Dentro das mutações e getters de um módulo, o 1º argumento recebido será **o estado local do módulo**.
 
  ``` js
 const moduleA = {
@@ -79,7 +80,7 @@ const moduleA = {
 
 ### Namespacing
 
-Por padrão, ações, mutações e getters dentro de módulos ainda estão registradas no ** namespace global ** - isso permite que vários módulos reajam com o mesmo tipo de mutação / ação.
+Por padrão, ações, mutações e getters dentro de módulos ainda estão registradas no **namespace global** - isso permite que vários módulos reajam com o mesmo tipo de mutação / ação.
 Se você deseja que seus módulos sejam mais autônomos ou reutilizáveis, você pode marcá-lo como namespaced com `namespaced: true`. Quando o módulo é registrado, todos os seus getters, ações e mutações serão automaticamente escritos com nomes com base no caminho no qual o módulo está registrado. Por exemplo:
 
 ``` js
@@ -131,7 +132,8 @@ Os getters e as ações Namespaced receberão `getters`,` dispatch` e `commit` l
 
 Se você quiser usar estado global e getters, `rootState` e` rootGetters` são passados como o 3º e 4º argumentos para funções getter, e também expostos como propriedades no objeto `context` passado para funções de ação.
 
-Para enviar ações ou fazer um commit de mutações no namespace global, passe `{root: true}` como o 3º argumento para `dispatch 'e' commit '.
+Para enviar ações ou fazer um commit de mutações no namespace global, passe `{root: true}` como o 3º argumento para `dispatch` e `commit`.
+
  ``` js
 modules: {
   foo: {
@@ -244,7 +246,7 @@ export function createPlugin (options = {}) {
 ```
 
 ### Registro de Módulo Dinâmico
-Você pode registrar um módulo ** após ** a _store_  foi criada com o método `store.registerModule`:
+Você pode registrar um módulo **após** a _store_  foi criada com o método `store.registerModule`:
 
 ``` js
 // register a module `myModule`
@@ -283,4 +285,3 @@ const MyReusableModule = {
   // mutações, ações, getters...
 }
 ```
-

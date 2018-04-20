@@ -1,6 +1,6 @@
 # Mutações
 
-A única maneira de mudar o estado em uma _store_  Vuex é fazendo _commit_  de uma mutação. As mutações Vuex são muito semelhantes aos eventos: cada mutação possui uma string ** tipo ** e um ** manipulador **. A função do manipulador é onde nós executamos modificações de estado reais e receberá o estado como o primeiro argumento:
+A única maneira de mudar o estado em uma _store_  Vuex é fazendo _commit_  de uma mutação. As mutações Vuex são muito semelhantes aos eventos: cada mutação possui uma string **tipo** e um **manipulador**. A função do manipulador é onde nós executamos modificações de estado reais e receberá o estado como o primeiro argumento:
 
 ``` js
 const store = new Vuex.Store({
@@ -24,7 +24,7 @@ store.commit('increment')
 
 ### Commit com payload
 
-Você pode passar um argumento adicional para `store.commit`, que é chamado de ** payload ** para a mutação:
+Você pode passar um argumento adicional para `store.commit`, que é chamado de **payload** para a mutação:
 
 ``` js
 // ...
@@ -123,7 +123,8 @@ Querer usar constantes é ,em grande parte, uma preferência - pode ser útil em
 
 ### Mutações devem ser síncronas
 
-Uma regra importante a lembrar é que ** as funções do manipulador de mutação devem ser síncronas **. Por quê? Considere o seguinte exemplo:
+Uma regra importante a lembrar é que **as funções do manipulador de mutação devem ser síncronas**. Por quê? Considere o seguinte exemplo:
+
 ``` js
 mutations: {
   someMutation (state) {
@@ -159,7 +160,7 @@ export default {
 
 ### Ações
 
-Assincronicidade combinada com a mutação do estado pode tornar o seu programa muito difícil de acontecer. Por exemplo, quando você chama dois métodos com retrocessos assíncronos que mutam o estado, como você sabe quando eles são chamados e qual callback foi chamado primeiro? É exatamente por isso que queremos separar os dois conceitos. No Vuex, as mutações ** são transações síncronas **:
+Assincronicidade combinada com a mutação do estado pode tornar o seu programa muito difícil de acontecer. Por exemplo, quando você chama dois métodos com retrocessos assíncronos que mutam o estado, como você sabe quando eles são chamados e qual callback foi chamado primeiro? É exatamente por isso que queremos separar os dois conceitos. No Vuex, as mutações **são transações síncronas**:
 
 ``` js
 store.commit('increment')
