@@ -1,7 +1,7 @@
 # O que é Vuex?
 
-O Vuex é um ** padrão de gerenciamento de estado + biblioteca ** para aplicativos Vue.js. Ele serve como uma loja centralizada para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível.
-Ele também se integra com a versão [devtools extension](https://github.com/vuejs/vue-devtools) do Vue para fornecer recursos avançados, como depuração de tempo-viagem de zero-config e exportação / importação de instantâneo de estado.
+O Vuex é um ** padrão de gerenciamento de estado + biblioteca ** para aplicativos Vue.js. Ele serve como uma _store_  centralizada para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível.
+Ele também se integra com a versão [devtools extension](https://github.com/vuejs/vue-devtools) do Vue para fornecer recursos avançados, como depuração do zero-config time-travel e exportação / importação de snapshot do estado.
 
 ### O que é um "Padrão de Gerenciamento do Estado"?
 
@@ -30,9 +30,9 @@ new Vue({
 
 É um aplicativo autônomo com as seguintes partes:
 
-- O ** state **, que é a fonte da verdade que impulsiona nosso aplicativo;
+- O ** estado ** ( _state_ ), que é a fonte da verdade que impulsiona nosso aplicativo;
 - A ** view **, que é apenas um mapeamento declarativo do ** estado **;
-- As ** actions **, que são as possíveis maneiras pelas quais o estado pode mudar em reação às entradas de usuários da ** view **.
+- As ** ações ** ( _actions_ ), que são as possíveis maneiras pelas quais o estado pode mudar em reação às entradas de usuários da ** view **.
 
 Esta é uma representação extremamente simples do conceito de "fluxo de dados unidirecional":
 <p style="text-align: center; margin: 2em">
@@ -55,7 +55,7 @@ Esta é a idéia básica por trás do Vuex, inspirada por
 
 ![vuex](./images/vuex.png)
 
-### Quando devo usar-lo?
+### Quando devo usá-lo?
 
 Embora o Vuex nos ajude a lidar com gerenciamento de estado compartilhado, ele também vem com o custo de mais conceitos e relatórios. É um trade-off entre produtividade a curto prazo e longo prazo.
 
