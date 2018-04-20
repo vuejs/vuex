@@ -64,7 +64,8 @@ Quando um componente precisa fazer uso de várias propriedades de estado da _sto
 export default {
   // ...
   computed: mapState({
-    // As arrow functions (ou funções de seta) podem tornar o código muito sucinto!    count: state => state.count,
+    // As arrow functions (ou funções de seta) podem tornar o código muito sucinto!
+    count: state => state.count,
 
     // passar o valor da string 'count' é o mesmo que `state => state.count`
     countAlias: 'count',
@@ -94,7 +95,6 @@ Observe que `mapState` retorna um objeto. Como usá-lo em combinação com outra
 computed: {
   localComputed () { /* ... */ },
   // Misture isso no objeto externo com o Spread Operator
-
   ...mapState({
     // ...
   })
