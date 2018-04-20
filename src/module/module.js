@@ -1,4 +1,4 @@
-import { forEachValue } from '../util'
+import { forEachValue, isObject } from '../util'
 
 // Base data struct for store's module, package with some attribute and method
 export default class Module {
@@ -8,6 +8,7 @@ export default class Module {
     this._children = Object.create(null)
     // Store the origin module object which passed by programmer
     this._rawModule = rawModule
+    this.applyMixins()
     const rawState = rawModule.state
 
     // Store the origin module's state
@@ -20,6 +21,26 @@ export default class Module {
 
   addChild (key, module) {
     this._children[key] = module
+  }
+
+  applyMixins () {
+    if (Array.isArray(this._rawModule.mixins)) {
+      this._rawModule.mixins.forEach(mixin => {
+        for (const key in mixin) {
+          if (!this._rawModule[key]) {
+            this._rawModule[key] = {}
+          }
+
+          if (isObject(mixin[key])) {
+            for (const prop in mixin[key]) {
+              if (this._rawModule[key][prop] === undefined) {
+                this._rawModule[key][prop] = mixin[key][prop]
+              }
+            }
+          }
+        }
+      })
+    }
   }
 
   removeChild (key) {

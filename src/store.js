@@ -25,8 +25,6 @@ export class Store {
       strict = false
     } = options
 
-    this.applyMixins(options)
-
     // store internal state
     this._committing = false
     this._actions = Object.create(null)
@@ -77,17 +75,6 @@ export class Store {
   set state (v) {
     if (process.env.NODE_ENV !== 'production') {
       assert(false, `use store.replaceState() to explicit replace store state.`)
-    }
-  }
-
-  applyMixins (options) {
-    if (Array.isArray(options.mixins)) {
-      const merge = Vue.config.optionMergeStrategies.computed
-      options.mixins.forEach(mixin => {
-        for (const key in mixin) {
-          options[key] = merge(mixin[key], options[key])
-        }
-      })
     }
   }
 

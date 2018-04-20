@@ -173,4 +173,40 @@ describe('Module', () => {
     expect(collections.length).toEqual(2)
     expect(collections).toEqual([mutation1, mutation2])
   })
+
+  it('should apply mixins', () => {
+    const action1 = () => {}
+    const action2 = () => {}
+    const mutation1 = () => {}
+    const mutation2 = () => {}
+
+    const module = new Module({
+      actions: {
+        action1
+      },
+      mutations: {
+        mutation1
+      },
+      mixins: [
+        {
+          actions: {
+            action2
+          },
+          mutations: {
+            mutation2
+          },
+        }
+      ]
+    })
+
+    const mutationCollection = []
+    module.forEachMutation((item) => { mutationCollection.push(item) })
+    expect(mutationCollection.length).toEqual(2)
+    expect(mutationCollection).toEqual([mutation1, mutation2])
+
+    const actionCollection = []
+    module.forEachAction((item) => { actionCollection.push(item) })
+    expect(actionCollection.length).toEqual(2)
+    expect(actionCollection).toEqual([action1, action2])
+  })
 })
