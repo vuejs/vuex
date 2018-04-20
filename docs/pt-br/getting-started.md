@@ -26,7 +26,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Agora, você pode acessar o objeto de estado como `store.state` e acionar uma mudança de estado com o método` store.commit`:
+Agora, você pode acessar o objeto de estado como `store.state` e acionar uma mudança de estado com o método `store.commit`:
 
 ``` js
 store.commit('increment')

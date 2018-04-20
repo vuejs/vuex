@@ -1,7 +1,9 @@
 # Testando
 
 As partes principais que queremos testar em Vuex são mutações e ações.
+
 ### Testando Mutações
+
 As mutações são muito simples de testar, porque são apenas funções que dependem completamente de seus argumentos. Um truque é que se você estiver usando módulos ES2015 e colocar suas mutações dentro do arquivo `store.js`, além da exportação padrão, você também deve exportar as mutações como uma exportação nomeada:
 
 ``` js
@@ -119,7 +121,7 @@ describe('actions', () => {
   it('getAllProducts', done => {
     testAction(actions.getAllProducts, null, {}, [
       { type: 'REQUEST_PRODUCTS' },
-      { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
+      { type: 'RECEIVE_PRODUCTS', payload: { /* retorno mockado */ } }
     ], done)
   })
 })
@@ -173,7 +175,7 @@ describe('getters', () => {
 
 ### Execução de testes
 
-Se suas mutações e ações estiverem escritas corretamente, os testes não devem ter dependência direta das APIs do navegador após uma mudança apropriada. Assim, você pode simplesmente agrupar os testes com o webpack e executá-lo diretamente no Node. Alternativamente, você pode usar `mocha-loader` ou Karma +` karma-webpack` para executar os testes em navegadores reais.
+Se suas mutações e ações estiverem escritas corretamente, os testes não devem ter dependência direta das APIs do navegador após uma mudança apropriada. Assim, você pode simplesmente agrupar os testes com o webpack e executá-lo diretamente no Node. Alternativamente, você pode usar `mocha-loader` ou Karma + `karma-webpack` para executar os testes em navegadores reais.
 
 #### Rodando no Node
 
@@ -216,4 +218,3 @@ mocha test-bundle.js
 #### Rodando no Browser com Karma + karma-webpack
 
 Consulte a instalação na [documentação do vue-loader](https://vue-loader.vuejs.org/pt_BR/workflow/testing.html).
-

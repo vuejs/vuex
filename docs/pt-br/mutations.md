@@ -138,7 +138,7 @@ mutations: {
 Agora imagine que estamos depurando o aplicativo e observamos os registros de mutação do devtool. Para cada mutação registrada, o devtool precisará capturar "antes" e "depois" _snapshots_  do estado. No entanto, o retorno de chamada assíncrono dentro da mutação de exemplo acima torna isso impossível: o _callback_  ainda não foi chamado quando a mutação foi comitada, e não existe nenhuma maneira para o devtool saber quando o _callback_  será chamado - qualquer mutação de estado realizada no retorno desse _callback_  é essencialmente não rastreável!
 
 ### Fazendo commit de Mutações em Componente
-Você pode fazer um commit de mutações em componentes com `this.$store.commit('xxx')`, ou use o auxiliar `mapMutations` que mapeia métodos de componente para chamadas` store.commit` (requer a injeção root `store`):
+Você pode fazer um commit de mutações em componentes com `this.$store.commit('xxx')`, ou use o auxiliar `mapMutations` que mapeia métodos de componente para chamadas `store.commit` (requer a injeção root `store`):
 ``` js
 import { mapMutations } from 'vuex'
 
@@ -169,4 +169,3 @@ store.commit('increment')
 ```
 
 Para lidar com operações assíncronas, vamos apresentar as [Ações](actions.md).
-

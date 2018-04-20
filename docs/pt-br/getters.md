@@ -105,4 +105,3 @@ Se você deseja mapear um getter para um nome diferente, use um objeto:
   doneCount: 'doneTodosCount'
 })
 ```
-

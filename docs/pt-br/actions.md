@@ -44,7 +44,7 @@ As ações são acionadas com o método `store.dispatch`:
 store.dispatch('increment')
 ```
 
-Isso pode parecer óbvio à primeira vista: se quisermos incrementar a contagem, por que não chamamos `store.commit ('incremento') diretamente? Lembre-se de que **as mutações devem ser síncronas**? As ações não. Podemos executar **operações assíncronas** dentro de uma ação:
+Isso pode parecer óbvio à primeira vista: se quisermos incrementar a contagem, por que não chamamos `store.commit('increment')` diretamente? Lembre-se de que **as mutações devem ser síncronas**? As ações não. Podemos executar **operações assíncronas** dentro de uma ação:
 
 ``` js
 actions: {
@@ -97,7 +97,7 @@ Observe que estamos realizando um fluxo de operações assíncronas e gravando o
 
 ### Ações de Despacho em Componentes
 
-Você pode despachar ações em componentes com `this. $store.dispatch ('xxx')`, ou usar o auxiliar `mapActions` que mapeia métodos de componente para chamadas do ` store.dispatch` (esta ação requer a injeção root `store`):
+Você pode despachar ações em componentes com `this. $store.dispatch ('xxx')`, ou usar o auxiliar `mapActions` que mapeia métodos de componente para chamadas do `store.dispatch` (esta ação requer a injeção root `store`):
 
 ``` js
 import { mapActions } from 'vuex'
@@ -175,4 +175,3 @@ actions: {
 ```
 
 > É possível para um `store.dispatch` desencadear vários manipuladores de ação em diferentes módulos. Neste caso, o valor retornado será uma Promise que resolve quando todos os manipuladores desencadeados foram resolvidos.
-

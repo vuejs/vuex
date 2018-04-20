@@ -86,7 +86,7 @@ O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
     }
     ```
 
-    Cada módulo pode conter "estado" e "mutações" semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz da _store_  usando a chave do módulo. As mutações e getters de um módulo receberão apenas o estado local do módulo como o primeiro argumento em vez do estado da raiz e as ações do módulo 'context.state` também apontarão para o estado local.
+    Cada módulo pode conter "estado" e "mutações" semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz da _store_  usando a chave do módulo. As mutações e getters de um módulo receberão apenas o estado local do módulo como o primeiro argumento em vez do estado da raiz e as ações do módulo `context.state` também apontarão para o estado local.
 
     [Detalhes](modules.md)
 
@@ -125,7 +125,7 @@ O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Confirma uma mutação. `options` pode ter` root: true` que permite confirmar mutações da raiz em [namespaced modules](modules.md#namespacing). [Detalhes](mutations.md)
+  Confirma uma mutação. `options` pode ter `root: true` que permite confirmar mutações da raiz em [namespaced modules](modules.md#namespacing). [Detalhes](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
@@ -214,5 +214,3 @@ O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
 - **`createNamespacedHelpers(namespace: string): Object`**
 
   Cria um component namespaced ajudante de ligação . O objeto retornado possui  `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o namespace dado. [Detalhes](modules.md#binding-helpers-with-namespace)
-
-

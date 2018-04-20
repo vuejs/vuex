@@ -62,5 +62,3 @@ Embora o Vuex nos ajude a lidar com gerenciamento de estado compartilhado, ele t
 Se você nunca construiu um SPA de grande escala e pulando direito para o Vuex, pode parecer detalhista e assustador. Isso é perfeitamente normal - se o seu aplicativo for simples, você provavelmente estará bem sem o Vuex. Um simples [global event bus](https://br.vuejs.org/v2/guide/components.html#Comunicacao-Nao-Pai-Filho) pode ser tudo o que você precisa. Mas se você estiver construindo um SPA de médio a grande escala, é provável que você tenha encontrado situações que o façam pensar sobre como lidar melhor com o estado fora dos componentes do Vue e o Vuex será o próximo passo natural para você. Há uma boa citação de Dan Abramov, o autor da Redux:
 
 > As bibliotecas Flux são como óculos: você saberá quando você precisar deles.
-
-

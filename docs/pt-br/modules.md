@@ -50,7 +50,7 @@ const moduleA = {
 }
 ```
 
-Da mesma forma, dentro das ações do módulo (_actions_), `context.state` irá expor o estado local e o estado da raiz será exposto como` context.rootState`:
+Da mesma forma, dentro das ações do módulo (_actions_), `context.state` irá expor o estado local e o estado da raiz será exposto como `context.rootState`:
 
 ``` js
 const moduleA = {
@@ -126,11 +126,11 @@ const store = new Vuex.Store({
 })
 ```
 
-Os getters e as ações Namespaced receberão `getters`,` dispatch` e `commit` localizados. Em outras palavras, você pode usar os recursos do módulo sem prefixo de escrita no mesmo módulo. Alternar entre namespaced ou não não afeta o código dentro do módulo.
+Os getters e as ações Namespaced receberão `getters`, `dispatch` e `commit` localizados. Em outras palavras, você pode usar os recursos do módulo sem prefixo de escrita no mesmo módulo. Alternar entre namespaced ou não não afeta o código dentro do módulo.
 
 #### Acessando Assets Globais em Módulos Namespaced
 
-Se você quiser usar estado global e getters, `rootState` e` rootGetters` são passados como o 3º e 4º argumentos para funções getter, e também expostos como propriedades no objeto `context` passado para funções de ação.
+Se você quiser usar estado global e getters, `rootState` e `rootGetters` são passados como o 3º e 4º argumentos para funções getter, e também expostos como propriedades no objeto `context` passado para funções de ação.
 
 Para enviar ações ou fazer um commit de mutações no namespace global, passe `{root: true}` como o 3º argumento para `dispatch` e `commit`.
 
@@ -171,7 +171,7 @@ modules: {
 
 #### Usando Métodos Auxiliares com Namespace
 
-Ao vincular um módulo com namespace aos componentes com os auxiliares `mapState`,` mapGetters`, `mapActions` e` mapMutations`, ele pode ficar um pouco verboso:
+Ao vincular um módulo com namespace aos componentes com os auxiliares `mapState`, `mapGetters`, `mapActions` e `mapMutations`, ele pode ficar um pouco verboso:
 ``` js
 computed: {
   ...mapState({
@@ -260,11 +260,11 @@ store.registerModule(['nested', 'myModule'], {
 })
 ```
 
-O estado do módulo será exposto como `store.state.myModule` e` store.state.nested.myModule`.
+O estado do módulo será exposto como `store.state.myModule` e `store.state.nested.myModule`.
 O registro de módulo dinâmico torna possível que outros plugins do Vue também alavancem o Vuex para gerenciamento de estado anexando um módulo à _store_  do aplicativo. Por exemplo, a biblioteca [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra vue-router com vuex, gerenciando o estado da rota do aplicativo em um módulo anexado dinamicamente.
 
 Você também pode remover um módulo registrado dinamicamente com `store.unregisterModule (moduleName)`. Observe que você não pode remover módulos estáticos (declarados na criação da _store_ ) com este método.
-Pode ser provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Server Side Rendered. Você pode conseguir isso com a opção `preserveState`:` store.registerModule ('a', module, {preserveState: true}) `
+Pode ser provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Server Side Rendered. Você pode conseguir isso com a opção `preserveState`: `store.registerModule ('a', module, {preserveState: true}) `
 
 ### Reutilização do Módulo
 Às vezes, talvez precisemos criar várias instâncias de um módulo, por exemplo:
