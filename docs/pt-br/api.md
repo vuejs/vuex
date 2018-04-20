@@ -8,14 +8,15 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-### Vuex.Store Opções do construtor
+### Vuex.Store Opções do Construtor
 
 - **state**
 
   - type: `Object | Function`
 
-O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
-    Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](modules.md#módulo-reutilização)
+    O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
+
+    Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](modules.md#reutilização-do-módulo)
 
 - **mutações**
 
@@ -125,11 +126,11 @@ O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
 
 - **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
 
-  Confirma uma mutação. `options` pode ter `root: true` que permite confirmar mutações da raiz em [namespaced modules](modules.md#namespacing). [Detalhes](mutations.md)
+  Confirma uma mutação. `options` pode ter `root: true` que permite confirmar mutações da raiz em [módulos namespaced](modules.md#namespacing). [Detalhes](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
 
-  Despacha uma ação. `options` pode ter `root: true` que permite enviar ações para raiz em [namespaced modules](modules.md#namespacing). Retorna Promise que resolve todos os manipuladores de ação acionados. [Detalhes](actions.md)
+  Despacha uma ação. `options` pode ter `root: true` que permite enviar ações para raiz em [módulos namespaced](modules.md#namespacing). Retorna Promise que resolve todos os manipuladores de ação acionados. [Detalhes](actions.md)
 
 - **`replaceState(state: Object)`**
 
@@ -171,46 +172,46 @@ O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
 
 - **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
-  Registra um módulo dinâmico. [Detalhes](modules.md#dynamic-module-registration)
+  Registra um módulo dinâmico. [Detalhes](modules.md#registro-de-módulo-dinâmico)
 
   `options` pode ter `preserveState: true` que permite preservar o estado anterior. Util para renderização server-side.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Cancela o registro de um módulo dinâmico. [Detalhes](modules.md#dynamic-module-registration)
+  Cancela o registro de um módulo dinâmico. [Detalhes](modules.md#registro-de-módulo-dinâmico)
 
 - **`hotUpdate(newOptions: Object)`**
 
   Faz Hot swap de novas ações e mutações. [Detalhes](hot-reload.md)
 
-### Component Binding Helpers
+### Métodos Auxiliares dos Componentes
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria componentes computadas de opções que retornam a subárvore da _store_  Vuex. [Detalhes](state.md#the-mapstate-helper)
+  Cria componentes computadas de opções que retornam a subárvore da _store_  Vuex. [Detalhes](state.md#o-auxiliar-mapstate)
 
-  O primeiro argumnto pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#binding-helpers-with-namespace)
+  O primeiro argumnto pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria componentes computadas de opções que retornam valor avaliado deo getter. [Detalhes](getters.md#the-mapgetters-helper)
+  Cria componentes computadas de opções que retornam valor avaliado deo getter. [Detalhes](getters.md#o-auxiliar-mapgetters)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#binding-helpers-with-namespace)
+  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
   Cria um componente com métodos e opções que despacham uma ação.
 
-[Detalhes](actions.md#dispatching-actions-in-components)
+[Detalhes](actions.md#ações-de-despacho-em-componentes)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#binding-helpers-with-namespace)
+  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria um componente com métodos e opções que confirmam uma mutação. [Detalhes](mutations.md#committing-mutations-in-components)
+  Cria um componente com métodos e opções que confirmam uma mutação. [Detalhes](mutations.md#fazendo-commit-de-mutações-em-componente)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#binding-helpers-with-namespace)
+  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Cria um component namespaced ajudante de ligação . O objeto retornado possui  `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o namespace dado. [Detalhes](modules.md#binding-helpers-with-namespace)
+  Cria um component namespaced ajudante de ligação . O objeto retornado possui  `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o namespace dado. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
