@@ -94,9 +94,9 @@ const testAction = (action, payload, state, expectedMutations, done) => {
     const mutation = expectedMutations[count]
 
     try {
-      expect(mutation.type).to.equal(type)
+      expect(type).to.equal(mutation.type)
       if (payload) {
-        expect(mutation.payload).to.deep.equal(payload)
+        expect(payload).to.deep.equal(mutation.payload)
       }
     } catch (error) {
       done(error)
@@ -124,6 +124,24 @@ describe('actions', () => {
       { type: 'REQUEST_PRODUCTS' },
       { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)
+  })
+})
+```
+
+If you have spies available in your testing environment (for example via [Sinon.JS](http://sinonjs.org/)), you can use them instead of the `testAction` helper:
+
+``` js
+describe('actions', () => {
+  it('getAllProducts', () => {
+    const commit = sinon.spy()
+    const state = {}
+    
+    actions.getAllProducts({ commit, state })
+    
+    expect(commit.args).to.deep.equal([
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* mocked response */ }]
+    ])
   })
 })
 ```

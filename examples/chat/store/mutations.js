@@ -1,8 +1,7 @@
 import Vue from 'vue'
-import * as types from './mutation-types'
 
 export default {
-  [types.RECEIVE_ALL] (state, { messages }) {
+  receiveAll (state, messages) {
     let latestMessage
     messages.forEach(message => {
       // create new thread if the thread doesn't exist
@@ -20,11 +19,11 @@ export default {
     setCurrentThread(state, latestMessage.threadID)
   },
 
-  [types.RECEIVE_MESSAGE] (state, { message }) {
+  receiveMessage (state, message) {
     addMessage(state, message)
   },
 
-  [types.SWITCH_THREAD] (state, { id }) {
+  switchThread (state, id) {
     setCurrentThread(state, id)
   }
 }

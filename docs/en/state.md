@@ -81,7 +81,7 @@ export default {
 }
 ```
 
-We can also pass a string array to `mapState` when the name of a mapped computed property is same as a state sub tree name.
+We can also pass a string array to `mapState` when the name of a mapped computed property is the same as a state sub tree name.
 
 ``` js
 computed: mapState([
@@ -92,7 +92,7 @@ computed: mapState([
 
 ### Object Spread Operator
 
-Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (which is a stage-3 ECMAScript proposal), we can greatly simplify the syntax:
+Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (which is a stage-4 ECMAScript proposal), we can greatly simplify the syntax:
 
 ``` js
 computed: {

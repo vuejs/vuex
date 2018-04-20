@@ -1,6 +1,6 @@
 # Rechargement à chaud
 
-Vuex prend en charge le rechargement à chaud des mutations, modules, actions et accesseurs durant le développement, en utilisant l'[API du module de remplacement à chaud](https://webpack.github.io/docs/hot-module-replacement.html) de webpack. Vous pouvez également utiliser Browserify avec le plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
+Vuex prend en charge le rechargement à chaud des mutations, modules, actions et accesseurs durant le développement, en utilisant l'[API du module de remplacement à chaud](https://webpack.js.org/guides/hot-module-replacement/) de webpack. Vous pouvez également utiliser Browserify avec le plugin [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
 Pour les mutations et les modules, vous aurez besoin d'utiliser la méthode d'API `store.hotUpdate()` :
 

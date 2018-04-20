@@ -16,7 +16,7 @@ const store = new Vuex.Store({ ...options })
 
     Vuex store 实例的根 state 对象。[详细介绍](state.md)
 
-    如果你传入返回一个对象的函数，其返回的对象会被用做根 state。这在你想要重用 state 对象，尤其是重用 module 来说非常有用。[详细介绍](modules.md#模块重用)
+    如果你传入返回一个对象的函数，其返回的对象会被用作根 state。这在你想要重用 state 对象，尤其是对于重用 module 来说非常有用。[详细介绍](modules.md#模块重用)
 
 - **mutations**
 
@@ -45,6 +45,8 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
+    同时如果有第二个参数 `payload` 的话也能够接收。
+
     [详细介绍](actions.md)
 
 - **getters**
@@ -58,7 +60,7 @@ const store = new Vuex.Store({ ...options })
     getters,   // 等同于 store.getters
     ```
 
-    当定义在一个模块里时会特别一些
+    当定义在一个模块里时会特别一些：
 
     ```
     state,       // 如果在模块中定义则为模块的局部状态
@@ -128,11 +130,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store 实例方法
 
-- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
+- **`commit(type: string, payload?: any, options?: Object)`**
+- **`commit(mutation: Object, options?: Object)`**
 
   提交 mutation。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#命名空间)里提交根的 mutation。[详细介绍](mutations.md)
 
-- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object)`**
+- **`dispatch(action: Object, options?: Object)`**
 
   分发 action。`options` 里可以有 `root: true`，它允许在[命名空间模块](modules.md#命名空间)里分发根的 action。返回一个解析所有被触发的 action 处理器的 Promise。[详细介绍](actions.md)
 
@@ -140,15 +144,15 @@ const store = new Vuex.Store({ ...options })
 
   替换 store 的根状态，仅用状态合并或时光旅行调试。
 
-- **`watch(getter: Function, cb: Function, options?: Object)`**
+- **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  响应式地监测一个 getter 方法的返回值，当值改变时调用回调函数。Getter 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
+  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
 
-  要停止监测，直接调用返回的处理函数。
+  要停止侦听，调用此方法返回的函数即可停止侦听。
 
-- **`subscribe(handler: Function)`**
+- **`subscribe(handler: Function): Function`**
 
-  注册监听 store 的 mutation。`handler` 会在每个 mutation 完成后调用，接收 mutation 和经过 mutation 后的状态作为参数：
+  订阅 store 的 mutation。`handler` 会在每个 mutation 完成后调用，接收 mutation 和经过 mutation 后的状态作为参数：
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -157,9 +161,11 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  要停止订阅，调用此方法返回的函数即可停止订阅。
+
   通常用于插件。[详细介绍](plugins.md)
 
-- **`subscribeAction(handler: Function)`**
+- **`subscribeAction(handler: Function): Function`**
 
   > 2.5.0 新增
 
@@ -171,6 +177,8 @@ const store = new Vuex.Store({ ...options })
     console.log(action.payload)
   })
   ```
+
+  要停止订阅，调用此方法返回的函数即可停止订阅。
 
   该功能常用于插件。[详细介绍](plugins.md)
 

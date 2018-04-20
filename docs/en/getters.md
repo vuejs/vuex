@@ -32,7 +32,9 @@ const store = new Vuex.Store({
 })
 ```
 
-The getters will be exposed on the `store.getters` object:
+### Property-Style Access
+
+The getters will be exposed on the `store.getters` object, and you access values as properties:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
@@ -63,6 +65,10 @@ computed: {
 }
 ```
 
+Note that getters accessed as properties are cached as part of Vue's reactivity system.
+
+### Method-Style Access
+
 You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
 
 ```js
@@ -77,6 +83,8 @@ getters: {
 ``` js
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
+
+Note that getters accessed via methods will run each time you call them, and the result is not cached.
 
 ### The `mapGetters` Helper
 
@@ -102,7 +110,7 @@ If you want to map a getter to a different name, use an object:
 
 ``` js
 ...mapGetters({
-  // map `this.doneCount` to `store.getters.doneTodosCount`
+  // map `this.doneCount` to `this.$store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```

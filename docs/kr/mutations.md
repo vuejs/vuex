@@ -85,7 +85,7 @@ Vuex 저장소의 상태는 Vue에 의해 반응하므로, 상태를 변경하�
 
   - `Vue.set(obj, 'newProp', 123)`을 사용하거나,
 
-  - 객체를 새로운 것으로 교체하십시오. 예를 들어, 3 단계 [객체 전파 문법](https://github.com/sebmarkbage/ecmascript-rest-spread)을 사용하면 다음과 같이 작성할 수 있습니다.
+  - 객체를 새로운 것으로 교체하십시오. 예를 들어, 3 단계 [객체 확산 문법](https://github.com/sebmarkbage/ecmascript-rest-spread)을 사용하면 다음과 같이 작성할 수 있습니다.
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }

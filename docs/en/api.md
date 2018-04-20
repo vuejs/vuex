@@ -42,6 +42,8 @@ const store = new Vuex.Store({ ...options })
       rootGetters // same as `store.getters`, only in modules
     }
     ```
+    
+    And also receives a second `payload` argument if there is one.
 
     [Details](actions.md)
 
@@ -126,11 +128,13 @@ const store = new Vuex.Store({ ...options })
 
 ### Vuex.Store Instance Methods
 
-- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
+- **`commit(type: string, payload?: any, options?: Object)`**
+- **`commit(mutation: Object, options?: Object)`**
 
   Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [Details](mutations.md)
 
-- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object)`**
+- **`dispatch(action: Object, options?: Object)`**
 
   Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
 
@@ -138,13 +142,13 @@ const store = new Vuex.Store({ ...options })
 
   Replace the store's root state. Use this only for state hydration / time-travel purposes.
 
-- **`watch(getter: Function, cb: Function, options?: Object)`**
+- **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  Reactively watch a getter function's return value, and call the callback when the value changes. The getter receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
 
-  To stop watching, call the returned handle function.
+  To stop watching, call the returned unwatch function.
 
-- **`subscribe(handler: Function)`**
+- **`subscribe(handler: Function): Function`**
 
   Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
 
@@ -155,9 +159,11 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  To stop subscribing, call the returned unsubscribe function.
+
   Most commonly used in plugins. [Details](plugins.md)
 
-- **`subscribeAction(handler: Function)`**
+- **`subscribeAction(handler: Function): Function`**
 
   > New in 2.5.0
 
@@ -169,6 +175,8 @@ const store = new Vuex.Store({ ...options })
     console.log(action.payload)
   })
   ```
+
+  To stop subscribing, call the returned unsubscribe function.
 
   Most commonly used in plugins. [Details](plugins.md)
 
@@ -188,29 +196,35 @@ const store = new Vuex.Store({ ...options })
 
 ### Component Binding Helpers
 
-- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  
+  The second object argument's members can be a function. `function(state: any)` 
 
-- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
 
   Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
 
-- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  
+  The second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   Create component methods options that commit a mutation. [Details](mutations.md#committing-mutations-in-components)
 
   The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  
+  The second object argument's members can be a function. `function(commit: function, ...args: any[])`
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 

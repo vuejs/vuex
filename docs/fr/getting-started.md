@@ -35,7 +35,7 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Encore une fois, la raison pour laquelle nous actons une mutation au lieu de modifier `store.state.count` directement, c'est parce que nous voulons le tracer explicitement. Cette simple convention rend votre intention plus explicite, ainsi vous pouvez raisonner plus facilement les les changements d'état en lisant votre code. De plus, cela nous donne l'opportunité d'implémenter des outils qui peuvent enregistrer chaque mutation, prendre des instantanés de l'état, ou même procéder à de la visualisation d'état dans le temps.
+Encore une fois, la raison pour laquelle nous actons une mutation au lieu de modifier `store.state.count` directement, c'est parce que nous voulons le tracer explicitement. Cette simple convention rend votre intention plus explicite, ainsi vous pouvez raisonner plus facilement les changements d'état en lisant votre code. De plus, cela nous donne l'opportunité d'implémenter des outils qui peuvent enregistrer chaque mutation, prendre des instantanés de l'état, ou même procéder à de la visualisation d'état dans le temps.
 
 Utiliser l'état du store dans un composant implique simplement de retourner l'état dans une *propriété calculée*, car l'état du store est réactif. Déclencher des changements signifie simplement d'acter des mutations dans les méthodes du composant.
 

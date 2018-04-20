@@ -17,7 +17,7 @@ export class Store {
     if (process.env.NODE_ENV !== 'production') {
       assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
-      assert(this instanceof Store, `Store must be called with the new operator.`)
+      assert(this instanceof Store, `store must be called with the new operator.`)
     }
 
     const {
@@ -76,7 +76,7 @@ export class Store {
 
   set state (v) {
     if (process.env.NODE_ENV !== 'production') {
-      assert(false, `Use store.replaceState() to explicit replace store state.`)
+      assert(false, `use store.replaceState() to explicit replace store state.`)
     }
   }
 
@@ -454,7 +454,7 @@ function registerGetter (store, type, rawGetter, local) {
 function enableStrictMode (store) {
   store._vm.$watch(function () { return this._data.$$state }, () => {
     if (process.env.NODE_ENV !== 'production') {
-      assert(store._committing, `Do not mutate vuex store state outside mutation handlers.`)
+      assert(store._committing, `do not mutate vuex store state outside mutation handlers.`)
     }
   }, { deep: true, sync: true })
 }
@@ -473,7 +473,7 @@ function unifyObjectStyle (type, payload, options) {
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    assert(typeof type === 'string', `Expects string as the type, but found ${typeof type}.`)
+    assert(typeof type === 'string', `expects string as the type, but found ${typeof type}.`)
   }
 
   return { type, payload, options }
