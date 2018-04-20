@@ -29,7 +29,8 @@ O Vuex fornece um mecanismo para "injetar" a _store_  em todos os componentes fi
 const app = new Vue({
   el: '#app',
   // forneça a _store_  usando a opção "store".
-  // isso irá injetar a instância da _store_  em todos os componentes filho.  store,
+  // isso irá injetar a instância da _store_  em todos os componentes filho.
+  store,
   components: { Counter },
   template: `
     <div class="app">
