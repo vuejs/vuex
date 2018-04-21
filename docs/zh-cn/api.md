@@ -198,29 +198,35 @@ const store = new Vuex.Store({ ...options })
 
 ### 组件绑定的辅助函数
 
-- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   为组件创建计算属性以返回 Vuex store 中的状态。[详细介绍](state.md#mapstate-辅助函数)
 
   第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 
-- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
+  对象形式的第二个参数的成员可以是一个函数。`function(state: any)`
+
+- **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
 
   为组件创建计算属性以返回 getter 的返回值。[详细介绍](getters.md#mapgetters-辅助函数)
 
   第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 
-- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   创建组件方法分发 action。[详细介绍](actions.md#在组件中分发-action)
 
   第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
+  对象形式的第二个参数的成员可以是一个函数。`function(dispatch: function, ...args: any[])`
+
+- **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   创建组件方法提交 mutation。[详细介绍](mutations.md#在组件中提交-mutation)
 
   第一个参数是可选的，可以是一个命名空间字符串。[详细介绍](modules.md#带命名空间的绑定函数)
+
+  对象形式的第二个参数的成员可以是一个函数。`function(commit: function, ...args: any[])`
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
