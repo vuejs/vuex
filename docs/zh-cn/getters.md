@@ -110,7 +110,7 @@ export default {
 
 ``` js
 mapGetters({
-  // 映射 `this.doneCount` 为 `this.$store.getters.doneTodosCount`
+  // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```
