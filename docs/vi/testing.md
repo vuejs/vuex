@@ -1,10 +1,10 @@
-# Testing
+# Kiểm thử
 
-The main parts we want to unit test in Vuex are mutations and actions.
+Chương này sẽ đề cập đến việc kiểm thử một ứng dụng Vuex. Hai thành phần quan trọng có thể kiểm thử đó là mutation và action.
 
-### Testing Mutations
+### Kiểm thử Mutation
 
-Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you should also export the mutations as a named export:
+Việc kiểm thử mutation rất dễ dàng, bởi chúng chỉ là những hàm phụ thuộc hoàn toàn vào các tham số được cung cấp. Một mẹo nhỏ là nếu ứng dụng của bạn phát triển dựa trên kiến trúc modules của ES2015 và phần module được đặt bên trong tệp `store.js`, ngoài việc default export store của bạn, bạn nên export cả module dưới dạng export có tên như dưới đây:
 
 ``` js
 const state = { ... }
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 })
 ```
 
-Example testing a mutation using Mocha + Chai (you can use any framework/assertion libraries you like):
+Một ví dụ kiểm thử mutation sử dụng Mocha + Chai (bạn có thể sử dụng bất cứ thư viện/framework kiểm thử nào bạn muốn):
 
 ``` js
 // mutations.js
@@ -47,11 +47,11 @@ describe('mutations', () => {
 })
 ```
 
-### Testing Actions
+### Kiểm thử Actions
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Kiểm thử các action có thể rắc rối hơn một chút bởi vì action thường có thể sử dụng lệnh gọi API bất đồng bộ bên ngoài. Khi kiểm thử action, có một số tác vụ bên trong action chúng ta cần giả lập (mocking) - ví dụ như, tóm tắt các lệnh gọi API vào trong một service và giả lập service đó trong test của chúng ta. Nhằm giúp cho việc giả lập dễ dàng hơn, chúng ta sử dụng webpack và [inject-loader](https://github.com/plasticine/inject-loader) để bundle mã nguồn test.
 
-Example testing an async action:
+Ví dụ cho việc kiểm thử một action bất đồng bộ:
 
 ``` js
 // actions.js
@@ -148,9 +148,9 @@ describe('actions', () => {
 
 ### Testing Getters
 
-If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+Nên kiểm thử luôn cả những getters có chứa các tính toán phức tạp. Việc kiểm thử getters cũng đơn giản và dễ dàng như kiểm thử mutations.
 
-Example testing a getter:
+Ví dụ cho việc kiểm thử một getter:
 
 ``` js
 // getters.js
@@ -170,7 +170,7 @@ import { getters } from './getters'
 
 describe('getters', () => {
   it('filteredProducts', () => {
-    // mock state
+    // giả lập state
     const state = {
       products: [
         { id: 1, title: 'Apple', category: 'fruit' },
@@ -178,13 +178,13 @@ describe('getters', () => {
         { id: 3, title: 'Carrot', category: 'vegetable' }
       ]
     }
-    // mock getter
+    // giả lập getter
     const filterCategory = 'fruit'
 
-    // get the result from the getter
+    // lưu trữ kết quả từ getter
     const result = getters.filteredProducts(state, { filterCategory })
 
-    // assert the result
+    // kiểm thử kết quả
     expect(result).to.deep.equal([
       { id: 1, title: 'Apple', category: 'fruit' },
       { id: 2, title: 'Orange', category: 'fruit' }
@@ -193,13 +193,13 @@ describe('getters', () => {
 })
 ```
 
-### Running Tests
+### Thực thi kiểm thử
 
-If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
+Nếu các mutation và action được viết một cách phù hợp, các bài kiểm thử sẽ không bị phụ thuộc trực tiếp vào các API của trình duyệt sau khi giả lập một cách hợp lý. Vì vậy, bạn có thể bundle các bài kiểm thử với webpack và thực thi kiểm thử trực tiếp trên Node. Một cách khác là, sử dụng `mocha-loader` hoặc Karma + `karma-webpack` để chạy kiểm thử trực tiếp trên trình duyệt.
 
-#### Running in Node
+#### Thực thi trên môi trường Node
 
-Create the following webpack config (together with proper [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
+Tạo một tệp cấu hình webpack như sau (cùng với tệp [`.babelrc`](https://babeljs.io/docs/usage/babelrc/) phù hợp):
 
 ``` js
 // webpack.config.js
@@ -221,20 +221,20 @@ module.exports = {
 }
 ```
 
-Then:
+Và sau đó
 
 ``` bash
 webpack
 mocha test-bundle.js
 ```
 
-#### Running in Browser
+#### Thực thi trên trình duyệt
 
-1. Install `mocha-loader`.
-2. Change the `entry` from the webpack config above to `'mocha-loader!babel-loader!./test.js'`.
-3. Start `webpack-dev-server` using the config.
-4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
+1. Cài đặt `mocha-loader`.
+2. Thay đổi phần `entry` trong nội dung cấu hình webpack phía trên thành `'mocha-loader!babel-loader!./test.js'`.
+3. Khởi động `webpack-dev-server` sử dụng cấu hình trên.
+4. Truy cập vào `localhost:8080/webpack-dev-server/test-bundle`.
 
-#### Running in Browser with Karma + karma-webpack
+#### Thực thi trên trình duyệt với Karma + karma-webpack
 
-Consult the setup in [vue-loader documentation](https://vue-loader.vuejs.org/en/workflow/testing.html).
+Tham khảo cách cài đặt tại [tài liệu vue-loader](https://vue-loader.vuejs.org/en/workflow/testing.html).
