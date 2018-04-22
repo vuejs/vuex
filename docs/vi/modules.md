@@ -81,9 +81,9 @@ const moduleA = {
 
 ### Không gian tên
 
-By default, actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type.
+Mặc định, actions, mutations và getters bên trong các module sẽ được đăng ký dưới dạng **không gian tên toàn cục** - this allows multiple modules to react to the same mutation/action type.
 
-If you want your modules to be more self-contained or reusable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
+Trường hợp bạn muốn module trở nên độc lập khép kín (self-contained) hoặc tái sử dụng, hãy cho phép module sở hữu một không gian tên riêng bằng cách chỉ định `namespaced: true`. Ngay khi module được đăng kí, toàn bộ các getters, actions và mutations tự động được thêm không gian tên dựa trên đường dẫn mà module được đăng kí trong store. Ví dụ như:
 
 ``` js
 const store = new Vuex.Store({
@@ -103,9 +103,9 @@ const store = new Vuex.Store({
         login () { ... } // -> commit('account/login')
       },
 
-      // nested modules
+      // Module lồng nhau
       modules: {
-        // inherits the namespace from parent module
+        // Module này không được chỉ định không gian tên, nó sẽ thừa kế không gian tên từ module cha
         myPage: {
           state: { ... },
           getters: {
@@ -113,7 +113,7 @@ const store = new Vuex.Store({
           }
         },
 
-        // further nest the namespace
+        // không gian tên lồng nhau
         posts: {
           namespaced: true,
 
@@ -130,11 +130,11 @@ const store = new Vuex.Store({
 
 Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. Toggling between namespaced or not does not affect the code inside the module.
 
-#### Accessing Global Assets in Namespaced Modules
+#### Truy cập các yếu tố toàn cục từ bên trong một Namespaced Module (Module đã được gắn không gian tên)
 
-If you want to use global state and getters, `rootState` and `rootGetters` are passed as the 3rd and 4th arguments to getter functions, and also exposed as properties on the `context` object passed to action functions.
+Nếu bạn muốn truy cập các state và getters toàn cục, `rootState` và `rootGetters` hữu dụng ở tham số thứ 3 và thứ 4 của các hàm getter, và với các hàm xử lý actions, nó cũng được thêm vào như là thuộc tính của đối tượng `context` truyền vào chúng.
 
-To dispatch actions or commit mutations in the global namespace, pass `{ root: true }` as the 3rd argument to `dispatch` and `commit`.
+Để khởi chạy các action hoặc commit các mutation thuộc không gian tên toàn cục, truyền tham số thứ ba `{ root: true }` vào trong lệnh gọi `dispatch` and `commit`.
 
 ``` js
 modules: {
@@ -170,9 +170,9 @@ modules: {
 }
 ```
 
-#### Register Global Action in Namespaced Modules
+#### Đăng ký Action toàn cục bên trong một Namespaced Module
 
-If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler`. For example:
+Nếu bạn muốn đăng ký Action toàn cục bên trong một Namespaced Module, bạn định nghĩa action là một object với thuộc tính `root: true` và hàm xử lý action có tên là `handler`. Ví dụ:
 
 ``` js
 {
@@ -257,7 +257,7 @@ export default {
 }
 ```
 
-#### Caveat for Plugin Developers
+#### Lưu ý khi phát triển Plugin
 
 You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
 
@@ -273,9 +273,9 @@ export function createPlugin (options = {}) {
 }
 ```
 
-### Dynamic Module Registration
+### Đăng ký động Module
 
-You can register a module **after** the store has been created with the `store.registerModule` method:
+Bạn có thể đăng ký module **ngay sau khi** store được khởi tạo với phương thức `store.registerModule`:
 
 ``` js
 // register a module `myModule`
@@ -289,24 +289,24 @@ store.registerModule(['nested', 'myModule'], {
 })
 ```
 
-The module's state will be exposed as `store.state.myModule` and `store.state.nested.myModule`.
+State của module khi xuất hiện trong store sẽ là `store.state.myModule` và `store.state.nested.myModule`.
 
-Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
+Việc đăng kí động Vuex module cho phép các plugins của Vue plugins sử dụng hệ thống quản lý trạng thái của Vuex bằng cách đăng kí một module vào trong store của ứng dụng. Ví dụ như, thư viện [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) kết nối hoạt động của vue-router với vuex thông qua một module được đăng ký động để quản lý state chứa route của ứng dụng.
 
-You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+Bạn cũng có thể hủy đăng kí một module đã được đăng ký động với lệnh `store.unregisterModule(moduleName)`. Lưu ý rằng, bạn **không thể** hủy đăng kí một module được đăng kí tĩnh (khai báo trong lúc khởi tạo store) bằng phương thức này.
 
-It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can do achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
+Việc đăng kí lại một module động đã được hủy đăng kí, hoặc đăng ký một module mà phần state của module đã tồn tại trên state của Vuex store trước đó, sẽ khiến cho phần state đó bị mất đi. Để giữ lại state cũ, ví dụ như state từ ứng dụng sử dụng SSR (Server-Side Rendering), sử dụng tùy chọn `preserveState` trong quá trình đăng ký động: `store.registerModule('a', module, { preserveState: true })`
 
-### Module Reuse
+### Tái sử dụng Module
 
-Sometimes we may need to create multiple instances of a module, for example:
+Có những trường hợp mà một khai báo module có thể có nhiều instance, ví dụ như:
 
-- Creating multiple stores that use the same module (e.g. To [avoid stateful singletons in the SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) when the `runInNewContext` option is `false` or `'once'`);
-- Register the same module multiple times in the same store.
+- Tạo nhiều store sử dụng cùng một module (ví dụ, để tránh hiện tượng [stateful singletons trong SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) - hiểu nôm na là nhiều singleton sử dụng chung một thực thể trạng thái, khi tùy chọn `runInNewContext` có giá trị là `false` hoặc `'once'`);
+- Đăng kí một module nhiều lần trong cùng một store.
 
 If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
 
-This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
+Vấn đề này cũng giống như vấn đề xảy ra với `data` bên trong Vue component. Thành ra giải pháp cũng tương tự - sử dụng hàm khi khai báo state cho module (hỗ trợ ở phiên bản Vuex 2.3.0+ trở lên):
 
 ``` js
 const MyReusableModule = {

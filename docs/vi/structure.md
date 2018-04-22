@@ -1,14 +1,14 @@
-# Application Structure
+# Cấu trúc ứng dụng
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
+Vuex không có một ràng buộc chặt chẽ nào về cách thức bạn tổ chức mã nguồn ứng dụng. Thay vào đó, nó thực thi một tập hợp các nguyên tắc cấp cao:
 
-1. Application-level state is centralized in the store.
+1. State cấp ứng dụng được tập trung vào Vuex store.
 
-2. The only way to mutate the state is by committing **mutations**, which are synchronous transactions.
+2. Cách duy nhất để thực hiện thay đổi trên state là thực hiện lệnh commit **mutation**, là các tác vụ thay đổi đồng bộ.
 
-3. Asynchronous logic should be encapsulated in, and can be composed with **actions**.
+3. Các tác vụ bất đồng bộ nằm trong store phải được tổ chức ở **actions**.
 
-As long as you follow these rules, it's up to you how to structure your project. If your store file gets too big, simply start splitting the actions, mutations and getters into separate files.
+Chỉ cần bạn tuân theo 3 quy tắc bắt buộc phía trên, việc tổ chức mã nguồn dự án như thế nào là tùy ở bạn. Có một khuyến nghị nhỏ là nếu tệp tin store của bạn trở nên quá lớn theo thời gian, bạn hoàn toàn có thể chia tách action, mutation và getters thành những tệp tin riêng lẻ.
 
 For any non-trivial app, we will likely need to leverage modules. Here's an example project structure:
 
@@ -21,7 +21,7 @@ For any non-trivial app, we will likely need to leverage modules. Here's an exam
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── index.js          # where we assemble modules and export the store
+    ├── index.js          # nơi tập hợp các module và export store chính của ứng dụng
     ├── actions.js        # root actions
     ├── mutations.js      # root mutations
     └── modules
@@ -29,4 +29,4 @@ For any non-trivial app, we will likely need to leverage modules. Here's an exam
         └── products.js   # products module
 ```
 
-As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+Hãy tham khảo [Shopping Cart Example](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart) để có một ví dụ cụ thể và rõ ràng về cách thức tổ chức một ứng dụng Vuex hiệu quả.
