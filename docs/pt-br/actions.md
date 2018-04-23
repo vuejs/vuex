@@ -97,7 +97,7 @@ Observe que estamos realizando um fluxo de operações assíncronas e gravando o
 
 ### Ações de Despacho em Componentes
 
-Você pode despachar ações em componentes com `this. $store.dispatch ('xxx')`, ou usar o auxiliar `mapActions` que mapeia métodos de componente para chamadas do `store.dispatch` (esta ação requer a injeção root `store`):
+Você pode despachar ações em componentes com `this.$store.dispatch('xxx')`, ou usar o auxiliar `mapActions` que mapeia métodos de componente para chamadas do `store.dispatch` (esta ação requer a injeção root `store`):
 
 ``` js
 import { mapActions } from 'vuex'
