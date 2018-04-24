@@ -67,7 +67,7 @@ export default {
     // As arrow functions (ou funções de seta) podem tornar o código muito sucinto!
     count: state => state.count,
 
-    // passar o valor da string 'count' é o mesmo que `state => state.count`
+    // passar o valor da String 'count' é o mesmo que `state => state.count`
     countAlias: 'count',
 
     // para acessar o estado local com `this`, uma função normal deve ser usada

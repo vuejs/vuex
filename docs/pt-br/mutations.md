@@ -1,6 +1,6 @@
 # Mutações
 
-A única maneira de mudar o estado em um _store_  Vuex é fazendo _commit_  de uma mutação. As mutações Vuex são muito semelhantes aos eventos: cada mutação possui uma string **tipo** e um **manipulador**. A função do manipulador é onde nós executamos modificações de estado reais e receberá o estado como o 1º argumento:
+A única maneira de mudar o estado em um _store_  Vuex é fazendo _commit_  de uma mutação. As mutações Vuex são muito semelhantes aos eventos: cada mutação possui uma String **tipo** e um **manipulador**. A função do manipulador é onde nós executamos modificações de estado reais e receberá o estado como o 1º argumento:
 
 ``` js
 const store = new Vuex.Store({

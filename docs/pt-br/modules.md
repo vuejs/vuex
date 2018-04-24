@@ -187,7 +187,7 @@ methods: {
 }
 ```
 
-Nesses casos, você pode passar a string de namespace do módulo como o 1º argumento para os auxiliares para que todas as ligações sejam feitas usando esse módulo como contexto. O anterior pode ser simplificado para:
+Nesses casos, você pode passar a String de _namespace_  do módulo como o 1º argumento para os auxiliares para que todas as ligações sejam feitas usando esse módulo como contexto. O anterior pode ser simplificado para:
 
 
 ``` js
