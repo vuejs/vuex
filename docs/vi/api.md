@@ -16,7 +16,7 @@ const store = new Vuex.Store({ ...options })
 
     Đối tượng tính trạng khởi đầu (root state) của Vuex store. [Xem thêm](state.md)
 
-    Khi bạn gọi một hàm có kết quả trả về là một đối tượng,đối tượng đó được sử dụng như tính trạng khởi đầu (root state). Đặc biệt hữu dụng khi chúng ta muốn dùng lại tính trạng đó cho các module. [Xem thêm](modules.md#module-reuse)
+    Khi bạn gọi một hàm có kết quả trả về là một đối tượng,đối tượng đó được sử dụng như tính trạng khởi đầu (root state). Đặc biệt hữu dụng khi chúng ta muốn dùng lại tính trạng đó cho các module. [Xem thêm](modules.md#tai-su-dung-module)
 
 - **mutations**
 
@@ -199,10 +199,10 @@ const store = new Vuex.Store({ ...options })
 - **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   Tạo một options cho các thành phần/thuộc tính đã được tính toán/xử lí sẵn và options này trả về một cây phụ (sub tree) của Vuex store.
-  [Xem thêm](state.md#the-mapstate-helper)
+  [Xem thêm](state.md#ham-ho-tro-mapstate)
 
   Tham số đầu tiên có thể được tùy ý để trở thành chuỗi không gian tên (namespace string). 
-  [Xem thêm](modules.md#binding-helpers-with-namespace)
+  [Xem thêm](modules.md#ham-ho-tro-helpers-voi-khong-gian-ten)
   
   Thành phần của đối tượng tham số thứ hai có thể là một hàm. `function(state: any)` 
 
@@ -211,7 +211,7 @@ const store = new Vuex.Store({ ...options })
   Tạo một options cho các thành phần/thuộc tính đã được tính toán/xử lí sẵn và options này trả về giá trị đã được đánh giá của một hàm getter. [Xem thêm](getters.md#the-mapgetters-helper)
 
   Tham số đầu tiên có thể được tùy ý trở thành một chuỗi không gian tên. 
-  [Xem thêm](modules.md#binding-helpers-with-namespace)
+  [Xem thêm](modules.md#ham-ho-tro-helpers-voi-khong-gian-ten)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
@@ -219,7 +219,7 @@ const store = new Vuex.Store({ ...options })
   [Xem thêm](actions.md#dispatching-actions-in-components)
 
   Tham số đầu tiên có thể được tùy ý trở thành một chuỗi không gian tên.  
-  [Xem thêm](modules.md#binding-helpers-with-namespace)
+  [Xem thêm](modules.md#ham-ho-tro-helpers-voi-khong-gian-ten)
   
   Thành phần của đối tượng tham số thứ hai có thể là một hàm. `function(dispatch: function, ...args: any[])`
 
@@ -229,10 +229,10 @@ const store = new Vuex.Store({ ...options })
   [Xem thêm](mutations.md#committing-mutations-in-components)
 
   Tham số đầu tiên có thể được tùy ý trở thành một chuỗi không gian tên. 
-  [Xem thêm](modules.md#binding-helpers-with-namespace)
+  [Xem thêm](modules.md#ham-ho-tro-helpers-voi-khong-gian-ten)
   
   Thành phần của đối tượng tham số thứ hai có thể là một hàm. `function(commit: function, ...args: any[])`
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Tạo một helpers để gán các thành phần đã được khai báo không gian tên (namespaced component binding). Đối tượng trả về chứa các thuộc tính `mapState`, `mapGetters`, `mapActions` và `mapMutations` được ràng buộc với không gian tên đã được khai báo. [Xem thêm](modules.md#binding-helpers-with-namespace)
+  Tạo một helpers để gán các thành phần đã được khai báo không gian tên (namespaced component binding). Đối tượng trả về chứa các thuộc tính `mapState`, `mapGetters`, `mapActions` và `mapMutations` được ràng buộc với không gian tên đã được khai báo. [Xem thêm](modules.md#ham-ho-tro-helpers-voi-khong-gian-ten)

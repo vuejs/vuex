@@ -196,7 +196,7 @@ Nếu bạn muốn đăng ký Action toàn cục bên trong một Namespaced Mod
 }
 ```
 
-#### Binding Helpers with Namespace
+#### Hàm hỗ trợ Helpers với không gian tên
 
 When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:
 
