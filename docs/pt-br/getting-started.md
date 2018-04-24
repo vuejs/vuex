@@ -34,9 +34,9 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Novamente, a razão pela qual estamos fazendo commit de uma mutação em vez de mudar `store.state.count` diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa argumentar sobre as mudanças de estado em seu aplicativo melhor ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, tirar snapshots de estado ou mesmo realizar depuração do time travel.
+Novamente, a razão pela qual estamos fazendo commit de uma mutação em vez de mudar `store.state.count` diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa ter melhores argumetos sobre as mudanças de estado em seu aplicativo ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, tirar snapshots de estado ou mesmo realizar depuração do time travel.
 
-Usar o estado da _store_  em um componente simplesmente envolve o retorno do estado dentro de uma propriedade computada, porque o estado da _store_  é reativo. Acionar as mudanças simplesmente significa comprometer mutações nos métodos componentes.
+Usar o estado da _store_  em um componente simplesmente envolve o retorno do estado dentro de um dado computado, porque o estado da _store_  é reativo. Fazer alterações simplesmente significa fazer commit de mutações nos métodos dos componentes.
 
 Aqui está um exemplo do [aplicativo de contador do Vuex mais básico](https://jsfiddle.net/n9jmu5v7/1269/).
 
