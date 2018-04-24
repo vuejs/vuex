@@ -12,7 +12,7 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - type: `Object | Function`
+  - kiểu: `Object | Function`
 
     Đối tượng tính trạng khởi đầu (root state) của Vuex store. [Xem thêm](state.md)
 
@@ -20,7 +20,7 @@ const store = new Vuex.Store({ ...options })
 
 - **mutations**
 
-  - type: `{ [type: string]: Function }`
+  - kiểu: `{ [type: string]: Function }`
 
     Ghi các mutations vào store. Hàm xử lý luôn luôn  nhận `state` như tham số đầu tiên (sẽ là một state nội bộ của một module nếu hàm được định nghĩa bên trong một module),và nhận thêm một tham số `payload` (gói thông tin) nếu có.
 
@@ -28,7 +28,7 @@ const store = new Vuex.Store({ ...options })
 
 - **actions**
 
-  - type: `{ [type: string]: Function }`
+  - kiểu: `{ [type: string]: Function }`
 
     Ghi các actions vào storer. Hàm xử lý nhận đối tượng `context` khai báo các thuộc tính sau :
 
@@ -49,7 +49,7 @@ const store = new Vuex.Store({ ...options })
 
 - **getters**
 
-  - type: `{ [key: string]: Function }`
+  - kiểu: `{ [key: string]: Function }`
 
     Ghi các getters vào store. Hàm getter nhận các thuộc tính sau : 
 
@@ -73,7 +73,7 @@ const store = new Vuex.Store({ ...options })
 
 - **modules**
 
-  - type: `Object`
+  - kiểu: `Object`
 
     Một đối tượng chứa các modules con để nối vào store,với các khai báo như sau:
 
@@ -97,7 +97,7 @@ const store = new Vuex.Store({ ...options })
 
 - **plugins**
 
-  - type: `Array<Function>`
+  - kiểu: `Array<Function>`
 
     Một chuỗi các hàm plugin được áp dụng cho store. Các hàm này chỉ đơn giản là nhận các store như tham số duy nhất và cũng có thể theo dõi mutations (để duy trì xuất dữ liệu,ghi lịch sử hoạt động hoặc sửa lỗi) hoặc gỡ bỏ mutations (đối với nhận dữ liệu như websockets hoặc observables).
 
@@ -105,7 +105,7 @@ const store = new Vuex.Store({ ...options })
 
 - **strict**
 
-  - type: `Boolean`
+  - kiểu: `Boolean`
   - default: `false`
 
     Ép vuex store vào chế độ nghiêm ngặt (strict mode). Ở chế độ này bất kỳ mutations nào diễn ra ở ngoài các hàm xử lý mutation đều sẽ ném ra một lỗi.
@@ -116,13 +116,13 @@ const store = new Vuex.Store({ ...options })
 
 - **state**
 
-  - type: `Object`
+  - kiểu: `Object`
 
     State gốc (root state). Read only ( không thể sửa xóa chỉ xem được)
 
 - **getters**
 
-  - type: `Object`
+  - kiểu: `Object`
 
     Khai báo các getters đã được ghi. Cũng read only.
 
