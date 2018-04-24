@@ -107,7 +107,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
     }
   }
 
-  // chame a ação com uma loja e argumentos simulados
+  // chame a ação com store mockada e argumentos
    action({ commit, state }, payload)
 
   // verificar se nenhuma mutação deveria ter sido enviada

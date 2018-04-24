@@ -55,10 +55,10 @@ const Counter = {
 
 ### O auxiliar `mapState`
 
-Quando um componente precisa fazer uso de várias propriedades de estado da _store_  ou getters, declarar que todas essas propriedades computadas podem ser repetitivas e verbosas. Para lidar com isso, podemos usar o ajudante `mapState` que gera funções getter computadas para nós, economizando algumas linhas de código:
+Quando um componente precisa fazer uso de várias propriedades do estado da _store_  ou getters, declarar todos esses dados computados pode ser repetitivo e verboso. Para lidar com isso, podemos usar o auxiliar `mapState` que gera funções getter computadas para nós, economizando algumas linhas de código:
 
 ``` js
-// em pleno desenvolvimento, os ajudantes são expostos como Vuex.mapState
+// em pleno desenvolvimento, os auxiliares são expostos como Vuex.mapState
  import { mapState } from 'vuex'
 
 export default {
@@ -103,4 +103,4 @@ computed: {
 
 ### Componentes ainda podem ter um estado local
 
-O uso do Vuex não significa que você deve colocar **all** no estado no Vuex. Embora colocar mais estado no Vuex torna suas mutações estatais mais explícitas e devolvíveis, às vezes também pode tornar o código mais detalhado e indireto. Se um pedaço de estado pertence estritamente a um único componente, pode ser apenas bom deixá-lo como um estado local. Você deve pesar os trade-offs e tomar decisões que atendam às necessidades de desenvolvimento do seu aplicativo.
+O uso do Vuex não significa que você deve colocar **tudo** no estado do Vuex. Embora colocar mais estado no Vuex torna suas mutações estatais mais explícitas e depuráveis, às vezes também pode tornar o código mais verboso e indireto. Se um pedaço de estado pertence estritamente a um único componente, pode ser bom deixá-lo apenas como um estado local. Você deve pesar os trade-offs e tomar decisões que atendam às necessidades de desenvolvimento da sua aplicação.
