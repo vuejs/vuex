@@ -22,7 +22,7 @@ const store = new Vuex.Store({ ...options })
 
   - type: `{ [type: string]: Function }`
 
-    Registra mutações no _store_ . A função do manipulador sempre recebe `estado` como o primeiro argumento (será o estado local do módulo se definido em um módulo) e receberá um segundo argumento `payload` se houver um.
+    Registra mutações no _store_ . A função do manipulador sempre recebe `estado` como o 1º argumento (será o estado local do módulo se definido em um módulo) e receberá um 2º argumento `payload` se houver um.
 
     [Detalhes](mutations.md)
 
@@ -87,7 +87,7 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Cada módulo pode conter "estado" e "mutações" semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz do _store_  usando a chave do módulo. As mutações e _getters_  de um módulo receberão apenas o estado local do módulo como o primeiro argumento em vez do estado da raiz e as ações do módulo `context.state` também apontarão para o estado local.
+    Cada módulo pode conter "estado" e "mutações" semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz do _store_  usando a chave do módulo. As mutações e _getters_  de um módulo receberão apenas o estado local do módulo como o 1º argumento em vez do estado da raiz e as ações do módulo `context.state` também apontarão para o estado local.
 
     [Detalhes](modules.md)
 
@@ -134,11 +134,11 @@ const store = new Vuex.Store({ ...options })
 
 - **`replaceState(state: Object)`**
 
-  Substitua o estado da raiz do _store_ . Use isso apenas para fins de hidratação / viagem no tempo.
+  Substitua o estado da raiz do _store_ . Use isso apenas para fins de _hydration_ / _time-travel_ .
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
-  Visualiza de forma reativa um valor de retorno da função _getter_  e chama o callback para o retorno de chamada quando o valor mudar. O _getter_  recebe o estado do _store_  como o primeiro argumento e os _getters_  como o segundo argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o método `vm. $ Watch` do Vue.
+  Visualiza de forma reativa um valor de retorno da função _getter_  e chama o callback para o retorno de chamada quando o valor mudar. O _getter_  recebe o estado do _store_  como o 1º argumento e os _getters_  como o 2º argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o método `vm. $ Watch` do Vue.
 
   Para parar de visualizar, chame para a função do manipulador retornada.
 
@@ -190,13 +190,13 @@ const store = new Vuex.Store({ ...options })
 
   Cria componentes computadas de opções que retornam a subárvore do _store_  Vuex. [Detalhes](state.md#o-auxiliar-mapstate)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_  com _namespace_ . [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   Criar opções computadas do componente que retornam o valor avaliado de um _getter_ . [Detalhes](getters.md#o-auxiliar-mapgetters)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_ . [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
@@ -204,14 +204,14 @@ const store = new Vuex.Store({ ...options })
 
 [Detalhes](actions.md#ações-de-despacho-em-componentes)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_  com _namespace_ . [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   Cria um componente com métodos e opções que confirmam uma mutação. [Detalhes](mutations.md#fazendo-commit-de-mutações-em-componente)
 
-  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_  com _namespace_ . [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Cria um componente namespaced dos métodos auxiliares. O objeto retornado possui `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o namespace dado. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
+  Cria um componente _namespaced_ dos métodos auxiliares. O objeto retornado possui _mapState_ , _mapGetters_ , _mapActions_  e _mapMutations_ , que estão conectados com o dado _namespace_ . [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
