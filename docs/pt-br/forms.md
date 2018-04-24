@@ -37,7 +37,7 @@ mutations: {
 
 ### Dados computados bidirecionais (Two-way)
 
-É certo que o acima é um pouco mais detalhado do que o `v-model` + estado local, e também perdemos alguns dos recursos úteis do `v-model`. Uma abordagem alternativa está usando uma propriedade computada bidirecional com um setter:
+É certo que o acima é um pouco mais detalhado do que o `v-model` + estado local, e também perdemos alguns dos recursos úteis do `v-model`. Uma abordagem alternativa está usando um dado computado bidirecional com um setter:
  ``` html
 <input v-model="message">
 ```
