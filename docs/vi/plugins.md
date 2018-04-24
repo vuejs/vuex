@@ -4,10 +4,10 @@ Vuex stores chấp nhận đối tượng option `plugins` khai báo các móc n
 
 ``` js
 const myPlugin = store => {
-  // called when the store is initialized
+  // Hàm này sẽ được gọi trong quá trình khởi tạo store
   store.subscribe((mutation, state) => {
-    // called after every mutation.
-    // The mutation comes in the format of `{ type, payload }`.
+    // Hàm này được gọi bất cứ khi nào mutation được kích hoạt.
+    // Định dạng của tham số mutation là `{ type, payload }`.
   })
 }
 ```
@@ -23,9 +23,9 @@ const store = new Vuex.Store({
 
 ### Committing Mutations Inside Plugins
 
-Plugins không được phép trực tiếp thay đổi state - giống như các phần tử (components),nó chỉ nhằm kích hoạt các thay đổi bằng cách ký thác (commit) các mutations.
+Plugins không được phép trực tiếp thay đổi state - giống như các phần tử (components), nó chỉ nhằm kích hoạt các thay đổi bằng cách ký thác (commit) các mutations.
 
-Bằng việc ký thác các mutations,một plugin có thể được sử dụng để đồng bộ nguồn dữ liệu vào store. Lấy ví dụ : đồng bộ một dữ liệu websocket vào store (đây chỉ là một ví dụ giả định,trên thực tế hàm `createPlugin` có thể thực hiện thêm một vài options khác cho những task phức tạp hơn) :
+Bằng việc ký thác các mutations, một plugin có thể được sử dụng để đồng bộ nguồn dữ liệu vào store. Lấy ví dụ : đồng bộ một dữ liệu websocket vào store (đây chỉ là một ví dụ giả định, trên thực tế hàm `createPlugin` có thể thực hiện thêm một vài options khác cho những task phức tạp hơn) :
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -63,15 +63,15 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // compare `prevState` and `nextState`...
+    // so sánh `prevState` và `nextState`...
 
-    // save state for next mutation
+    // lưu lại state cho mutation kế tiếp
     prevState = nextState
   })
 }
 ```
 
-**Plugins nhận các state snapshots chỉ nên được dùng khi phát triển dự án.** Khi sử dụng webpack hoặc Browserify,chúng ta có thể để các công cụ xây dựng (build tools) xử lí việc đó :
+**Plugins nhận các state snapshots chỉ nên được dùng khi phát triển dự án.** Khi sử dụng webpack hoặc Browserify, chúng ta có thể để các công cụ xây dựng (build tools) xử lí việc đó :
 
 ``` js
 const store = new Vuex.Store({
@@ -82,10 +82,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Các plugin sẽ được sử dụng theo mặc định. Để hiểu rõ hơn cho production bạn sẽ cần 
-[DefinePlugin](https://webpack.js.org/plugins/define-plugin/) cho webpack hoặc 
-[envify](https://github.com/hughsk/envify) cho Browserify để chuyển đổi giá trị của 
-`process.env.NODE_ENV !== 'production'` sang `false` cho thành quả cuối cùng.
+Các plugin sẽ được sử dụng theo mặc định. Để hiểu rõ hơn cho production bạn sẽ cần [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) cho webpack hoặc [envify](https://github.com/hughsk/envify) cho Browserify để chuyển đổi giá trị của `process.env.NODE_ENV !== 'production'` sang `false` cho thành quả cuối cùng.
 
 ### Built-in Logger Plugin
 
@@ -101,30 +98,30 @@ const store = new Vuex.Store({
 })
 ```
 
-The `createLogger` function takes a few options:
+Hàm `createLogger` nhận vào các tùy chọn như sau:
 
 ``` js
 const logger = createLogger({
   collapsed: false, // auto-expand logged mutations
   filter (mutation, stateBefore, stateAfter) {
-    // returns `true` if a mutation should be logged
-    // `mutation` is a `{ type, payload }`
+    // trả về `true` nếu mutation cần được ghi log lại
+    // `mutation` có định dạng là `{ type, payload }`
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // Chuyển đổi state trước khi ghi log lại
+    // Ví dụ, khi cần sử dụng một phần cây state
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of `{ type, payload }`
-    // we can format it any way we want.
+    // mutations được ghi log lại dưới dạng mặc định là `{ type, payload }`
+    // chúng ta có thể định dạng lại nó theo cách chúng ta muốn
     return mutation.type
   },
-  logger: console, // implementation of the `console` API, default `console`
+  logger: console, // hiện thực API của `console` API, mặc định là `console`
 })
 ```
 
-File log có thể được chứa trực tiếp bằng một thẻ`<script>`, và sẽ khai báo hàm toàn cục `createVuexLogger`.
+File log có thể được chứa trực tiếp bằng một thẻ `<script>`, và sẽ khai báo hàm toàn cục `createVuexLogger`.
 
-Chú ý rằng logger plugin sử dụng các snapshots,vì vậy chỉ sử dụng khi đang phát triển dự án.
+Chú ý rằng logger plugin sử dụng các snapshots, vì vậy chỉ sử dụng khi đang phát triển dự án.
