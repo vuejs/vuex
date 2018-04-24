@@ -5,4 +5,5 @@
 * [Русский](ru/)
 * [日本語](ja/)
 * [한국어(Korean)](kr/)
+* [Tiếng Việt](vi/)
 * [1.0 Docs](old/)
