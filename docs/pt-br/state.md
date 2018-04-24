@@ -2,7 +2,7 @@
 
 ### Árvore simples de estado
 
-O Vuex usa uma **árvore de estado único** - isto é, este único objeto contém todo o seu nível de aplicativo e serve como "fonte única de verdade". Isso também significa que você terá apenas uma _store_  para cada aplicativo. Uma única árvore de estados torna direto localizar um pedaço de estado específico e nos permite facilmente tirar instantâneos do estado do aplicativo atual para fins de depuração.
+O Vuex usa uma **árvore de estado único** - isto é, este único objeto contém todo o seu nível de aplicativo e serve como "_single source of truth_" (fonte única da verdade). Isso também significa que você terá apenas uma _store_  para cada aplicativo. Uma única árvore de estado torna simples localizar um pedaço específico do estado, e nos permite facilmente tirar snapshots do estado do aplicativo atual para fins de depuração.
 
 A árvore de um único estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
 ### Obtendo o Vuex State em Vue Components
