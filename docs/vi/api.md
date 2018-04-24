@@ -1,4 +1,4 @@
-# API Reference
+# API tham khảo
 
 ### Vuex.Store
 
@@ -14,68 +14,68 @@ const store = new Vuex.Store({ ...options })
 
   - type: `Object | Function`
 
-    The root state object for the Vuex store. [Details](state.md)
+    Đối tượng tính trạng khởi đầu (root state) của Vuex store. [Xem thêm](state.md)
 
-    If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](modules.md#module-reuse)
+    Khi bạn gọi một hàm có kết quả trả về là một đối tượng,đối tượng đó được sử dụng như tính trạng khởi đầu (root state). Đặc biệt hữu dụng khi chúng ta muốn dùng lại tính trạng đó cho các module. [Xem thêm](modules.md#module-reuse)
 
 - **mutations**
 
   - type: `{ [type: string]: Function }`
 
-    Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
+    Ghi các mutations vào store. Hàm xử lý luôn luôn  nhận `state` như tham số đầu tiên (sẽ là một state nội bộ của một module nếu hàm được định nghĩa bên trong một module),và nhận thêm một tham số `payload` (gói thông tin) nếu có.
 
-    [Details](mutations.md)
+    [Xem thêm](mutations.md)
 
 - **actions**
 
   - type: `{ [type: string]: Function }`
 
-    Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+    Ghi các actions vào storer. Hàm xử lý nhận đối tượng `context` khai báo các thuộc tính sau :
 
     ``` js
     {
-      state,      // same as `store.state`, or local state if in modules
-      rootState,  // same as `store.state`, only in modules
-      commit,     // same as `store.commit`
-      dispatch,   // same as `store.dispatch`
-      getters,    // same as `store.getters`, or local getters if in modules
-      rootGetters // same as `store.getters`, only in modules
+      state,      // giống như `store.state`, hoặc state nội bộ nếu chứa trong module
+      rootState,  // giống như `store.state`, chỉ dùng được trong một module
+      commit,     // giống như `store.commit`
+      dispatch,   // giống như `store.dispatch`
+      getters,    // giống như `store.getters`, hoặc hàm getter nội bộ trong một module
+      rootGetters // giống như `store.getters`, chỉ dùng được trong một module
     }
     ```
     
-    And also receives a second `payload` argument if there is one.
+    Và cũng nhận thêm một tham số `payload` nếu có.
 
-    [Details](actions.md)
+    [Xem thêm](actions.md)
 
 - **getters**
 
   - type: `{ [key: string]: Function }`
 
-    Register getters on the store. The getter function receives the following arguments:
+    Ghi các getters vào store. Hàm getter nhận các thuộc tính sau : 
 
     ```
-    state,     // will be module local state if defined in a module.
-    getters    // same as store.getters
+    state,     // sẽ là state nội bộ nếu chứa trong module
+    getters    // giống như store.getters
     ```
 
-    Specific when defined in a module
+    Đặc biệt khi khai báo trong một module
 
     ```
-    state,       // will be module local state if defined in a module.
-    getters,     // module local getters of the current module
-    rootState,   // global state
-    rootGetters  // all getters
+    state,       // sẽ là state nội bộ nếu chứa trong module
+    getters,     // hàm getters nội bộ trong module
+    rootState,   // state toàn cục (ngoài module)
+    rootGetters  // tất cả hàm getters (của toàn chương trình)
     ```
 
-    Registered getters are exposed on `store.getters`.
+    Các hàm getters được khai báo trong `store.getters`.
 
-    [Details](getters.md)
+    [Xem thêm](getters.md)
 
 - **modules**
 
   - type: `Object`
 
-    An object containing sub modules to be merged into the store, in the shape of:
+    Một đối tượng chứa các modules con để nối vào store,với các khai báo như sau:
 
     ``` js
     {
@@ -91,26 +91,26 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
-    Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+    Mỗi module có thể chứa `state` và `mutations` như một tùy chọn gốc (root options) . Mỗi state của một module sẽ được gắn vào root state của store bằng một key. Mỗi mutations và hàm getters của một module sẽ chỉ nhận state của module (local state) đó như tham số đầu tiên thay vì state gốc (root state) của store, và các `context.state` khai báo trong các actions của module đó cũng sẽ trỏ tới các state đó (local state).
 
-    [Details](modules.md)
+    [Xem thêm](modules.md)
 
 - **plugins**
 
   - type: `Array<Function>`
 
-    An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+    Một chuỗi các hàm plugin được áp dụng cho store. Các hàm này chỉ đơn giản là nhận các store như tham số duy nhất và cũng có thể theo dõi mutations (để duy trì xuất dữ liệu,ghi lịch sử hoạt động hoặc sửa lỗi) hoặc gỡ bỏ mutations (đối với nhận dữ liệu như websockets hoặc observables).
 
-    [Details](plugins.md)
+    [Xem thêm](plugins.md)
 
 - **strict**
 
   - type: `Boolean`
   - default: `false`
 
-    Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+    Ép vuex store vào chế độ nghiêm ngặt (strict mode). Ở chế độ này bất kỳ mutations nào diễn ra ở ngoài các hàm xử lý mutation đều sẽ ném ra một lỗi.
 
-    [Details](strict.md)
+    [Xem thêm](strict.md)
 
 ### Vuex.Store Instance Properties
 
@@ -118,39 +118,39 @@ const store = new Vuex.Store({ ...options })
 
   - type: `Object`
 
-    The root state. Read only.
+    State gốc (root state). Read only ( không thể sửa xóa chỉ xem được)
 
 - **getters**
 
   - type: `Object`
 
-    Exposes registered getters. Read only.
+    Khai báo các getters đã được ghi. Cũng read only.
 
 ### Vuex.Store Instance Methods
 
 - **`commit(type: string, payload?: any, options?: Object)`**
 - **`commit(mutation: Object, options?: Object)`**
 
-  Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [Details](mutations.md)
+  Ký thác một mutation (commit a mutation) . `options` có thể có thuộc tính `root: true` để cho phép ký thác các mutations gốc trong [namespaced modules](modules.md#namespacing). [Xem thêm](mutations.md)
 
 - **`dispatch(type: string, payload?: any, options?: Object)`**
 - **`dispatch(action: Object, options?: Object)`**
 
-  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
+  Gỡ bỏ một action. `options` có thể có thuộc tính `root: true` để cho phép gỡ bỏ root actions trong [namespaced modules](modules.md#namespacing). Sau đó trả về một Promise phân giải tất cả hàm action handler đã được kích hoạt. [Xem thêm](actions.md)
 
 - **`replaceState(state: Object)`**
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  Thay thế root state của store. Chỉ dùng cho mục đích state hydration / time-travel.
 
 - **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Theo dõi liên tục kết quả trả về của hàm `fn`, và gọi ra hàm callback khi giá trị của kết quả đó thay đổi. `fn` nhận state của store làm tham số đầu tiên, và sau đó là getters. Chấp nhận một đối tượng options tùy chọn để chứa các options như của hàm `vm.$watch` .
 
-  To stop watching, call the returned unwatch function.
+  Để ngừng theo dõi, gọi tới hàm unwatch trả về.
 
 - **`subscribe(handler: Function): Function`**
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Ghi nhận các store mutations. Hàm `handler` được gọi sau mỗi lần thay đổi (mutate) và nhận miêu tả (descriptor) của mutation và giá trị của state trước khi mutate như các tham số :
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -159,15 +159,15 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  Để ngừng ghi store mutation,gọi tới hàm unsubcribe trả về.
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Các mutation được dùng nhiều nhất trong plugins -> [Xem thêm](plugins.md)
 
 - **`subscribeAction(handler: Function): Function`**
 
   > New in 2.5.0
 
-  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+  Ghi nhận các store actions. Hàm `handler` được gọi mỗi khi có action được gỡ bở và nhận action descriptor và store state tại thời điểm đó như các tham số :
 
   ``` js
   store.subscribeAction((action, state) => {
@@ -176,56 +176,63 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  Để ngừng ghi, gọi tới hàm unsubcribe trả về.
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Các action được dùng nhiều nhất trong plugins -> [Xem thêm](plugins.md)
 
 - **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
-  Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Ghi nhận một module động. [Xem thêm](modules.md#dynamic-module-registration)
 
-  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
+  `options` có thể có thuộc tính `preserveState: true` để cho phép bảo toàn state trước đó. Hữu dụng với Server Side Rendering.
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Hủy ghi nhận một module động[Xem thêm](modules.md#dynamic-module-registration)
 
 - **`hotUpdate(newOptions: Object)`**
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  Hot swap actions và mutations mới. [Xem thêm](hot-reload.md)
 
 ### Component Binding Helpers
 
 - **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
+  Tạo một options cho các thành phần/thuộc tính đã được tính toán/xử lí sẵn và options này trả về một cây phụ (sub tree) của Vuex store.
+  [Xem thêm](state.md#the-mapstate-helper)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  Tham số đầu tiên có thể được tùy ý để trở thành chuỗi không gian tên (namespace string). 
+  [Xem thêm](modules.md#binding-helpers-with-namespace)
   
-  The second object argument's members can be a function. `function(state: any)` 
+  Thành phần của đối tượng tham số thứ hai có thể là một hàm. `function(state: any)` 
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
 
-  Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
+  Tạo một options cho các thành phần/thuộc tính đã được tính toán/xử lí sẵn và options này trả về giá trị đã được đánh giá của một hàm getter. [Xem thêm](getters.md#the-mapgetters-helper)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  Tham số đầu tiên có thể được tùy ý trở thành một chuỗi không gian tên. 
+  [Xem thêm](modules.md#binding-helpers-with-namespace)
 
 - **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
-  Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
+  Tạo options cho các hàm thành phần, những hàm mà dùng để gỡ bỏ action. 
+  [Xem thêm](actions.md#dispatching-actions-in-components)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  Tham số đầu tiên có thể được tùy ý trở thành một chuỗi không gian tên.  
+  [Xem thêm](modules.md#binding-helpers-with-namespace)
   
-  The second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
+  Thành phần của đối tượng tham số thứ hai có thể là một hàm. `function(dispatch: function, ...args: any[])`
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
-  Create component methods options that commit a mutation. [Details](mutations.md#committing-mutations-in-components)
+  Tạo một options cho các hàm thành phần, những hàm mà dùng để ký thác một mutation. 
+  [Xem thêm](mutations.md#committing-mutations-in-components)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  Tham số đầu tiên có thể được tùy ý trở thành một chuỗi không gian tên. 
+  [Xem thêm](modules.md#binding-helpers-with-namespace)
   
-  The second object argument's members can be a function. `function(commit: function, ...args: any[])`
+  Thành phần của đối tượng tham số thứ hai có thể là một hàm. `function(commit: function, ...args: any[])`
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](modules.md#binding-helpers-with-namespace)
+  Tạo một helpers để gán các thành phần đã được khai báo không gian tên (namespaced component binding). Đối tượng trả về chứa các thuộc tính `mapState`, `mapGetters`, `mapActions` và `mapMutations` được ràng buộc với không gian tên đã được khai báo. [Xem thêm](modules.md#binding-helpers-with-namespace)
