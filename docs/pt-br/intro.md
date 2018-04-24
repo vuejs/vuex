@@ -1,6 +1,6 @@
 # O que é Vuex?
 
-O Vuex é um **padrão de gerenciamento de estado + biblioteca** para aplicativos Vue.js. Ele serve como um _store_  centralizado para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível. Ele também se integra com a extensão oficial [Vue devtools](https://github.com/vuejs/vue-devtools) para fornecer recursos avançados sem configurações adicionais, como depuração viajando pelo histórico de estado ( _time travel_ ) e exportação/importação de registros de estado em determinado momento.
+O Vuex é um **padrão de gerenciamento de estado + biblioteca** para aplicativos Vue.js. Ele serve como um _store_ centralizado para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível. Ele também se integra com a extensão oficial [Vue devtools](https://github.com/vuejs/vue-devtools) para fornecer recursos avançados sem configurações adicionais, como depuração viajando pelo histórico de estado (_time travel_) e exportação/importação de registros de estado em determinado momento.
 
 ### O que é um "Padrão de Gerenciamento do Estado"?
 
@@ -29,9 +29,9 @@ new Vue({
 
 É um aplicativo autônomo com as seguintes partes:
 
-- O **estado** ( _state_ ), que é a fonte da verdade que impulsiona nosso aplicativo;
+- O **estado** (_state_), que é a fonte da verdade que impulsiona nosso aplicativo;
 - A **_view_**, que é apenas um mapeamento declarativo do **estado**;
-- As **ações** ( _actions_ ), que são as possíveis maneiras pelas quais o estado pode mudar em reação às entradas de usuários da **_view_**.
+- As **ações** (_actions_), que são as possíveis maneiras pelas quais o estado pode mudar em reação às entradas de usuários da **_view_**.
 
 Esta é uma representação extremamente simples do conceito de "fluxo de dados unidirecional":
 <p style="text-align: center; margin: 2em">
@@ -42,10 +42,10 @@ No entanto, a simplicidade rapidamente se quebra quando temos **múltiplos compo
 
 - Várias visualizações podem depender da mesma parte do estado.
 
-- As ações de diferentes _views_  podem precisar mutar a mesma parte de estado
+- As ações de diferentes _views_ podem precisar mutar a mesma parte de estado
 Para o problema um, passar propriedades pode ser tediosos para componentes profundamente aninhados e simplesmente não funcionam para componentes irmãos. Para o problema dois, muitas vezes nos encontramos recorrendo a soluções como a busca de referências diretas de instâncias pai / filho ou tentando mutar e sincronizar múltiplas cópias do estado através de eventos. Ambos esses padrões são frágeis e rapidamente levam a um código não sustentável.
 
-Então, por que não extraímos o estado compartilhado dos componentes e gerenciamos isso em um singleton global? Com isso, nossa árvore de componentes se torna uma grande _view_ , e qualquer componente pode acessar o estado ou ações de trigger, não importa onde eles estão na árvore!
+Então, por que não extraímos o estado compartilhado dos componentes e gerenciamos isso em um singleton global? Com isso, nossa árvore de componentes se torna uma grande _view_, e qualquer componente pode acessar o estado ou ações de trigger, não importa onde eles estão na árvore!
 
 Além disso, definindo e separando os conceitos envolvidos na gestão do estado e aplicando certas regras, também damos ao nosso código mais estrutura e capacidade de manutenção.
 

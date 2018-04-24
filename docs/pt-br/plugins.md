@@ -1,6 +1,6 @@
 # _Plugins_
 
-Os _stores_ do Vuex aceitam a opção _plugins_  que expõe _hooks_  para cada mutação. Um _plugin_  Vuex é simplesmente uma função que recebe um _store_  como seu único argumento:
+Os _stores_ do Vuex aceitam a opção _plugins_ que expõe _hooks_ para cada mutação. Um _plugin_ Vuex é simplesmente uma função que recebe um _store_ como seu único argumento:
 
 
 ``` js
@@ -22,11 +22,11 @@ const store = new Vuex.Store({
 })
 ```
 
-### Fazendo _Commit_  de Mutações dentro de _Plugins_
+### Fazendo _Commit_ de Mutações dentro de _Plugins_
 
-_Plugins_  não tem permissão para mudar diretamente o estado - similar aos componentes, eles podem apenas disparar mudanças fazendo _commit_  de mutações.
+_Plugins_ não tem permissão para mudar diretamente o estado - similar aos componentes, eles podem apenas disparar mudanças fazendo _commit_ de mutações.
 
-Ao fazer um _commit_  de uma mutação, um _plugin_  pode ser usado para sincronizar uma fonte de dados ao _store_ . Por exemplo, para sincronizar uma fonte de dados _websocket_ ao _store_  (isso é só um exemplo inventado, na realidade a função _createPlugin_ pode receber parâmetros adicionais para tarefas mais complexas):
+Ao fazer um _commit_ de uma mutação, um _plugin_ pode ser usado para sincronizar uma fonte de dados ao _store_. Por exemplo, para sincronizar uma fonte de dados _websocket_ ao _store_ (isso é só um exemplo inventado, na realidade a função _createPlugin_ pode receber parâmetros adicionais para tarefas mais complexas):
 
 
 ``` js
@@ -54,9 +54,9 @@ const store = new Vuex.Store({
 })
 ```
 
-### Gravando _Snapshots_  do Estado
+### Gravando _Snapshots_ do Estado
 
-Às vezes, um _plugin_  pode querer receber _snapshots_  do estado, e comparar o estado pós-mutação com o pré-mutação. Para conseguir isso, você precisa fzer uma cópia profunda do objeto de estado:
+Às vezes, um _plugin_ pode querer receber _snapshots_ do estado, e comparar o estado pós-mutação com o pré-mutação. Para conseguir isso, você precisa fzer uma cópia profunda do objeto de estado:
 
 
 ``` js
@@ -73,7 +73,7 @@ const myPluginWithSnapshot = store => {
 }
 ```
 
-**_Plugins_  que tiram _snapshots_  do estado devem ser usados apenas durante o desenvolvimento.** Quando usamos _webpack_  ou _Browserify_ , podemos construir nossas próprias ferramentas que lidam com isso para nós:
+**_Plugins_ que tiram _snapshots_ do estado devem ser usados apenas durante o desenvolvimento.** Quando usamos _webpack_ ou _Browserify_, podemos construir nossas próprias ferramentas que lidam com isso para nós:
 
 ``` js
 const store = new Vuex.Store({
@@ -84,13 +84,13 @@ const store = new Vuex.Store({
 })
 ```
 
-O _plugin_  vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor de  `process.env.NODE_ENV !== 'production'` para `false` na build final.
+O _plugin_ vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor de  `process.env.NODE_ENV !== 'production'` para `false` na build final.
 
-### _Plugin_  de _Log_  Embutido
+### _Plugin_ de _Log_ Embutido
 
 > Se você está usando [vue-devtools](https://github.com/vuejs/vue-devtools) provavelmente não precisará disso.
 
-Vuex vem com um _plugin_  de _log_  para casos comuns de depuração:
+Vuex vem com um _plugin_ de _log_ para casos comuns de depuração:
 
 
 ``` js
@@ -101,7 +101,7 @@ const store = new Vuex.Store({
 })
 ```
 
-A função _createLogger_  recebe alguns argumentos:
+A função _createLogger_ recebe alguns argumentos:
 
 ``` js
 const logger = createLogger({
@@ -125,6 +125,6 @@ const logger = createLogger({
 })
 ```
 
-O arquivo de _log_  também pode ser incluído diretamente via _tag_  `<script>` e vai expor a função `createVuexLogger` globalmente.
+O arquivo de _log_ também pode ser incluído diretamente via _tag_ `<script>` e vai expor a função `createVuexLogger` globalmente.
 
-Perceba que esses _plugins_  tiram _snapshots_  do estado, então use-os apenas durante o desenvolvimento.
+Perceba que esses _plugins_ tiram _snapshots_ do estado, então use-os apenas durante o desenvolvimento.

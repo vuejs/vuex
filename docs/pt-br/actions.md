@@ -23,10 +23,10 @@ const store = new Vuex.Store({
 })
 ```
 
-Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância do _store_ , para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os _getters_  através do `context.state` e do `contexto.getters`.
-Veremos por que esse objeto de contexto não é a própria instância do _store_  quando apresentamos [Módulos](modules.md) mais tarde.
+Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância do _store_, para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os _getters_ através do `context.state` e do `contexto.getters`.
+Veremos por que esse objeto de contexto não é a própria instância do _store_ quando apresentamos [Módulos](modules.md) mais tarde.
 
-Na prática, muitas vezes usamos ES2015 [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o código (especialmente quando precisamos usar _commit_  várias vezes):
+Na prática, muitas vezes usamos ES2015 [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o código (especialmente quando precisamos usar _commit_ várias vezes):
 
 ``` js
 actions: {
@@ -71,7 +71,7 @@ store.dispatch({
 })
 ```
 
-Um exemplo mais prático de ações reais seria uma ação para fazer _check-out_  de um carrinho de compras, que envolve **chamar uma API assíncrona** e **confirmar múltiplas mutações**:
+Um exemplo mais prático de ações reais seria uma ação para fazer _check-out_ de um carrinho de compras, que envolve **chamar uma API assíncrona** e **confirmar múltiplas mutações**:
 
 ``` js
 actions: {

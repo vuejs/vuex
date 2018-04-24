@@ -1,6 +1,6 @@
 # _Getters_
 
-Às vezes, talvez precisemos calcular o estado derivado com base no estado do _store_  , por exemplo, filtrar através de uma lista de itens e contá-los:
+Às vezes, talvez precisemos calcular o estado derivado com base no estado do _store_, por exemplo, filtrar através de uma lista de itens e contá-los:
 
 ``` js
 computed: {
@@ -11,7 +11,7 @@ computed: {
 ```
 
 Se mais do que um componente precisa fazer uso disso, temos que duplicar a função, ou extraí-lo em um auxiliar compartilhado e importá-lo em vários lugares - ambos são menos do que o ideal.
-O Vuex nos permite definir _getters_  no _store_ . Você pode pensar neles como dados computados para os _stores_ . Como os dados computados, o resultado de um _getter_  é armazenado em cache com base em suas dependências e só irá avaliar novamente quando algumas de suas dependências mudarem.
+O Vuex nos permite definir _getters_ no _store_. Você pode pensar neles como dados computados para os _stores_. Como os dados computados, o resultado de um _getter_ é armazenado em cache com base em suas dependências e só irá avaliar novamente quando algumas de suas dependências mudarem.
 
 _Getters_ receberam o estado como seu 1º argumento:
 
@@ -31,13 +31,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Os _getters_  serão descritos no objeto `store.getters`:
+Os _getters_ serão descritos no objeto `store.getters`:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-_Getters_  também podem receber outros _getters_ como o 2º argumento:
+_Getters_ também podem receber outros _getters_ como o 2º argumento:
 
 ``` js
 getters: {
@@ -62,7 +62,7 @@ computed: {
 }
 ```
 
-Você também pode passar argumentos para os _getters_ retornando uma função. Isso é particularmente útil quando você deseja consultar um _array_  no _store_ :
+Você também pode passar argumentos para os _getters_ retornando uma função. Isso é particularmente útil quando você deseja consultar um _array_ no _store_ :
 
 ```js
 getters: {
@@ -79,7 +79,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 
 ### O auxiliar `mapGetters`
 
-O auxiliar `mapGetters` simplesmente mapeia os _getters_  do _store_  para os dados computados locais:
+O auxiliar `mapGetters` simplesmente mapeia os _getters_ do _store_ para os dados computados locais:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -97,7 +97,7 @@ export default {
 }
 ```
 
-Se você deseja mapear um _getter_  para um nome diferente, use um objeto:
+Se você deseja mapear um _getter_ para um nome diferente, use um objeto:
 
 ``` js
 ...mapGetters({
