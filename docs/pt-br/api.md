@@ -14,7 +14,7 @@ const store = new Vuex.Store({ ...options })
 
   - type: `Object | Function`
 
-    O objeto do estado da raiz para a _store_  Vuex. [Detalhes](state.md)
+    O objeto raiz de estado para o _store_  Vuex. [Detalhes](state.md)
 
     Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](modules.md#reutilização-do-módulo)
 
@@ -190,11 +190,11 @@ const store = new Vuex.Store({ ...options })
 
   Cria componentes computadas de opções que retornam a subárvore da _store_  Vuex. [Detalhes](state.md#o-auxiliar-mapstate)
 
-  O primeiro argumnto pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
+  O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  Cria componentes computadas de opções que retornam valor avaliado deo getter. [Detalhes](getters.md#o-auxiliar-mapgetters)
+  Criar opções computadas do componente que retornam o valor avaliado de um getter. [Detalhes](getters.md#o-auxiliar-mapgetters)
 
   O primeiro argumento pode ser opcionalmente uma string com namespace. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
 
@@ -214,4 +214,4 @@ const store = new Vuex.Store({ ...options })
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  Cria um component namespaced ajudante de ligação . O objeto retornado possui  `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o namespace dado. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)
+  Cria um componente namespaced dos métodos auxiliares. O objeto retornado possui `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o namespace dado. [Detalhes](modules.md#usando-métodos-auxiliares-com-namespace)

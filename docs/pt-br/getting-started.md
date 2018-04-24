@@ -1,16 +1,16 @@
 # Começando
 
-No centro de cada aplicação Vuex existe a **_store_**. Uma "_store_ " é basicamente um recipiente que contém a sua aplicação **state**. Há duas coisas que tornam uma _store_  Vuex diferente de um objeto global simples:
+No centro de cada aplicação Vuex existe o **_store_**. Um "_store_ " é basicamente um recipiente que contém a sua aplicação **state**. Há duas coisas que tornam um _store_  Vuex diferente de um objeto global simples:
 
-1. As _stores_  Vuex são reativas. Quando os componentes do Vue obtêm o estado dele, eles atualizarão de forma reativa e eficiente se o estado da _store_  mudar.
+1. Os _stores_  Vuex são reativos. Quando os componentes do Vue obtêm o estado dele, eles atualizarão de forma reativa e eficiente se o estado da _store_  mudar.
 
-2. Você não pode mutar diretamente o estado da _store_. A única maneira de mudar o estado de uma _store_  é explicitamente **fazer commit de mutações**. Isso garante que cada mudança de estado deixe um registro rastreável e permite ferramentas que nos ajudem a entender melhor nossas aplicações.
+2. Você não pode mutar diretamente o estado da _store_. A única maneira de mudar o estado de um _store_  é explicitamente **fazer commit de mutações**. Isso garante que cada mudança de estado deixe um registro rastreável e permite ferramentas que nos ajudem a entender melhor nossas aplicações.
 
-### Uma store bem simples
+### Armazenamento de Estado Simples
 
 > **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto dos documentos. Se você ainda não aprendeu como usá-la, [veja aqui](https://babeljs.io/docs/learn-es2015/)!
 
-Após [instalar](installation.md) Vuex, vamos criar uma _store_. É bem simples - apenas forneça um objeto de estado inicial e algumas mutações:
+Após [instalar](installation.md) Vuex, vamos criar um _store_. É bem simples - apenas forneça um objeto de estado inicial e algumas mutações:
 
 ``` js
 // Certifique-se de chamar Vue.use(Vuex) primeiro se estiver usando o sistema de módulos
