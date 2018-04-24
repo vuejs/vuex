@@ -2,12 +2,12 @@
 
 ### Árvore simples de estado
 
-O Vuex usa uma **árvore de estado único** - isto é, este único objeto contém todo o seu nível de aplicativo e serve como _single source of truth_ (fonte única da verdade). Isso também significa que você terá apenas uma _store_  para cada aplicativo. Uma única árvore de estado torna simples localizar um pedaço específico do estado, e nos permite facilmente tirar snapshots do estado do aplicativo atual para fins de depuração.
+O Vuex usa uma **árvore de estado único** - isto é, este único objeto contém todo o seu nível de aplicativo e serve como _single source of truth_ (fonte única da verdade). Isso também significa que você terá apenas um _store_  para cada aplicativo. Uma única árvore de estado torna simples localizar um pedaço específico do estado, e nos permite facilmente tirar _snapshots_  do estado do aplicativo atual para fins de depuração.
 
 A árvore de um único estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
 ### Obtendo o Vuex State em Vue Components
 
-Então, como exibimos o estado dentro da _store_  em nossos componentes do Vue? Uma vez que as _stores_  Vuex são reativas, a maneira mais simples de "recuperar" o estado é simplesmente retornar algum estado da _store_  dentro de um [dado computado](https://br.vuejs.org/v2/guide/computed.html):
+Então, como exibimos o estado dentro do _store_  em nossos componentes do Vue? Uma vez que os _stores_  Vuex são reativos, a maneira mais simples de "recuperar" o estado é simplesmente retornar algum estado do _store_  dentro de um [dado computado](https://br.vuejs.org/v2/guide/computed.html):
 
 ``` js
 // vamos criar um componente de contador
@@ -22,14 +22,14 @@ const Counter = {
 ```
 
 Sempre que o `store.state.count` muda, fará com que o dado computado seja reavaliado e ative as atualizações de DOM associadas.
-No entanto, esse padrão faz com que o componente dependa no singleton da _store_  global. Ao usar um sistema de módulo, ele precisa importar a _store_  em todos os componentes que usam o estado da _store_  e também requer mocking ao testar o componente.
+No entanto, esse padrão faz com que o componente dependa no singleton do _store_  global. Ao usar um sistema de módulo, ele precisa importar o _store_  em todos os componentes que usam o estado do _store_  e também requer _mocking_  ao testar o componente.
 
-O Vuex fornece um mecanismo para "injetar" a _store_  em todos os componentes filho do componente raiz com a opção `store` (habilitada por `Vue.use(Vuex)`):
+O Vuex fornece um mecanismo para "injetar" o _store_  em todos os componentes filho do componente raiz com a opção `store` (habilitada por `Vue.use(Vuex)`):
 ``` js
 const app = new Vue({
   el: '#app',
-  // forneça a _store_  usando a opção "store".
-  // isso irá injetar a instância da _store_  em todos os componentes filho.
+  // forneça o store usando a opção "store".
+  // isso irá injetar a instância do _store_  em todos os componentes filho.
   store,
   components: { Counter },
   template: `
@@ -40,7 +40,7 @@ const app = new Vue({
 })
 ```
 
-Ao fornecer a opção `store` para a instância raiz, a _store_  será injetada em todos os componentes filho da raiz e estará disponível neles como `this.$store`. Vamos atualizar a nossa implementação `Counter`:
+Ao fornecer a opção _store_  para a instância raiz, o _store_  será injetado em todos os componentes filho da raiz e estará disponível neles como `this.$store`. Vamos atualizar a nossa implementação _Counter_ :
 
 ``` js
 const Counter = {
@@ -55,7 +55,7 @@ const Counter = {
 
 ### O auxiliar `mapState`
 
-Quando um componente precisa fazer uso de várias propriedades do estado da _store_  ou getters, declarar todos esses dados computados pode ser repetitivo e verboso. Para lidar com isso, podemos usar o auxiliar `mapState` que gera funções getter computadas para nós, economizando algumas linhas de código:
+Quando um componente precisa fazer uso de várias propriedades do estado do _store_  ou _getters_ , declarar todos esses dados computados pode ser repetitivo e verboso. Para lidar com isso, podemos usar o auxiliar `mapState` que gera funções _getter_  computadas para nós, economizando algumas linhas de código:
 
 ``` js
 // em pleno desenvolvimento, os auxiliares são expostos como Vuex.mapState
@@ -78,7 +78,7 @@ export default {
 }
 ```
 
-Também podemos passar uma matriz de seqüência de caracteres para `mapState` quando o nome de uma propriedade calculada mapeada é o mesmo que um nome de árvore secundária de estado.
+Também podemos passar um _Array_  de _Strings_  para `mapState` quando o nome de um dado computado mapeado é o mesmo que um nome de árvore secundária do estado.
 
 ``` js
 computed: mapState([

@@ -1,6 +1,6 @@
 # Conceitos básicos
 
-Estaremos aprendendo os conceitos básicos do Vuex nestes capítulos. São eles:
+Vamos aprender os conceitos básicos do Vuex nestes capítulos. São eles:
   - [Estado](state.md)
   - [Getters](getters.md)
   - [Mutações](mutations.md)

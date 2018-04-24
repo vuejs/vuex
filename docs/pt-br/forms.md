@@ -5,7 +5,7 @@ Ao usar o Vuex no modo estrito, pode ser um pouco complicado usar `v-model` em u
 <input v-model="obj.message">
 ```
 
-Assumindo que `obj` é um dado computado que retorna um objeto da _store_ , o `v-model` aqui tentará mutar diretamente `obj.message` quando o usuário digitar a entrada. No modo estrito, isso resultará em um erro porque a mutação não é realizada dentro de um manipulador de mutação Vuex explícito.
+Assumindo que `obj` é um dado computado que retorna um objeto do _store_ , o `v-model` aqui tentará mutar diretamente `obj.message` quando o usuário digitar a entrada. No modo estrito, isso resultará em um erro porque a mutação não é realizada dentro de um manipulador de mutação Vuex explícito.
 O "modo Vuex" para lidar com isso é vinculando o valor do(s) `<input>`'s e chamar uma ação no evento `input` ou `change`:
 ``` html
 <input :value="message" @input="updateMessage">
