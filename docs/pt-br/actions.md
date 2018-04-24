@@ -71,7 +71,7 @@ store.dispatch({
 })
 ```
 
-Um exemplo mais prático de ações reais seria uma ação para fazer check-out de um carrinho de compras, que envolve **chamar uma API assíncrona** e **confirmar múltiplas mutações**:
+Um exemplo mais prático de ações reais seria uma ação para fazer _check-out_  de um carrinho de compras, que envolve **chamar uma API assíncrona** e **confirmar múltiplas mutações**:
 
 ``` js
 actions: {
