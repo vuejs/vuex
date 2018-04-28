@@ -6,6 +6,7 @@
   "module": "dist/vuex.esm.js",
   "unpkg": "dist/vuex.js",
   "typings": "types/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist",
     "types/index.d.ts",
