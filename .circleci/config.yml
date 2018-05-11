@@ -1,0 +1,39 @@
+version: 2
+jobs:
+
+  node8-latest:
+    docker:
+      - image: webpackcontrib/circleci-node8:latest
+    environment:
+      BABEL_ENV: development
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - run: npm test
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+  node10-latest:
+    docker:
+      - image: webpackcontrib/circleci-node10:latest
+    environment:
+      BABEL_ENV: development
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - run: npm test
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-8 
+      - build-10
