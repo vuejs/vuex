@@ -6,8 +6,13 @@ Vuex stores accept the `plugins` option that exposes hooks for each mutation. A 
 const myPlugin = store => {
   // called when the store is initialized
   store.subscribe((mutation, state) => {
-    // called after every mutation.
+    // called AFTER every mutation.
     // The mutation comes in the format of `{ type, payload }`.
+  })
+  
+  store.subscribeAction((action, state) => {
+    // called BEFORE every action.
+    // The action also comes in the format of `{ type, payload }`.
   })
 }
 ```
