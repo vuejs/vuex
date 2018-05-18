@@ -23,10 +23,10 @@ const store = new Vuex.Store({
 })
 ```
 
-Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância da _store_ , para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os getters através do `context.state` e do `contexto. getters`.
-Veremos por que esse objeto de contexto não é a própria instância da _store_  quando apresentamos [Módulos](modules.md) mais tarde.
+Os manipuladores de ação recebem um objeto de contexto que expõe o mesmo conjunto de métodos / propriedades na instância do _store_, para que você possa chamar `context.commit` para confirmar uma mutação ou acessar o estado e os _getters_ através do `context.state` e do `contexto.getters`.
+Veremos por que esse objeto de contexto não é a própria instância do _store_ quando apresentamos [Módulos](modules.md) mais tarde.
 
-Na prática, muitas vezes usamos ES2015 [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o código(especialmente quando precisamos chamar `commit` várias vezes):
+Na prática, muitas vezes usamos ES2015 [desestruturação de argumentos](https://github.com/lukehoban/es6features#destructuring) para simplificar um pouco o código (especialmente quando precisamos usar _commit_ várias vezes):
 
 ``` js
 actions: {
@@ -44,7 +44,7 @@ As ações são acionadas com o método `store.dispatch`:
 store.dispatch('increment')
 ```
 
-Isso pode parecer óbvio à primeira vista: se quisermos incrementar a contagem, por que não chamamos `store.commit ('incremento') diretamente? Lembre-se de que ** as mutações devem ser síncronas **? As ações não. Podemos executar ** operações assíncronas ** dentro de uma ação:
+Isso pode parecer óbvio à primeira vista: se quisermos incrementar a contagem, por que não chamamos `store.commit('increment')` diretamente? Você se lembra que **as mutações devem ser síncronas**? As ações não. Podemos executar **operações assíncronas** dentro de uma ação:
 
 ``` js
 actions: {
@@ -71,7 +71,7 @@ store.dispatch({
 })
 ```
 
-Um exemplo mais prático de ações reais seria uma ação para fazer check-out de um carrinho de compras, que envolve ** chamar uma API assíncrona ** e ** confirmar múltiplas mutações **:
+Um exemplo mais prático de ações reais seria uma ação para fazer _check-out_ de um carrinho de compras, que envolve **chamar uma API assíncrona** e **confirmar múltiplas mutações**:
 
 ``` js
 actions: {
@@ -81,7 +81,7 @@ actions: {
     // enviar solicitação de checkout
     // limpa o carrinho
     commit(types.CHECKOUT_REQUEST)
-    // a API da store aceita um callback bem-sucedido e um callback com falha
+    // a API do store aceita um callback bem-sucedido e um callback com falha
     shop.buyProducts(
       products,
       // callback em caso de sucesso
@@ -97,7 +97,7 @@ Observe que estamos realizando um fluxo de operações assíncronas e gravando o
 
 ### Ações de Despacho em Componentes
 
-Você pode despachar ações em componentes com `this. $store.dispatch ('xxx')`, ou usar o auxiliar `mapActions` que mapeia métodos de componente para chamadas do ` store.dispatch` (esta ação requer a injeção root `store`):
+Você pode despachar ações em componentes com `this.$store.dispatch('xxx')`, ou usar o auxiliar `mapActions` que mapeia métodos de componente para chamadas do `store.dispatch` (esta ação requer injeção do `store` na instância raiz):
 
 ``` js
 import { mapActions } from 'vuex'
@@ -108,7 +108,7 @@ export default {
     ...mapActions([
       'increment', // mapeia `this.increment()` para `this.$store.dispatch('increment')`
 
-      // `mapActions` also supports payloads:
+      // `mapActions` também suporta payloads:
       'incrementBy' // mapeia `this.incrementBy(amount)` para `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
@@ -175,4 +175,3 @@ actions: {
 ```
 
 > É possível para um `store.dispatch` desencadear vários manipuladores de ação em diferentes módulos. Neste caso, o valor retornado será uma Promise que resolve quando todos os manipuladores desencadeados foram resolvidos.
-
