@@ -25,8 +25,8 @@
     "test:ssr": "rollup -c build/rollup.dev.config.js && VUE_ENV=server jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
     "test:types": "tsc -p types/test",
     "release": "bash build/release.sh",
-    "docs": "cd docs && gitbook install && gitbook serve",
-    "docs:deploy": "cd docs && ./deploy.sh"
+    "docs": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "repository": {
     "type": "git",
@@ -50,10 +50,6 @@
     "eslint": "^3.19.0",
     "eslint-plugin-vue-libs": "^1.2.0",
     "express": "^4.14.1",
-    "gitbook-plugin-edit-link": "^2.0.2",
-    "gitbook-plugin-github": "^3.0.0",
-    "gitbook-plugin-prism": "^2.3.0",
-    "gitbook-plugin-theme-vuejs": "^1.1.0",
     "jasmine": "2.8.0",
     "jasmine-core": "2.8.0",
     "nightwatch": "^0.9.12",
@@ -70,6 +66,8 @@
     "vue": "^2.5.0",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.0",
+    "vuepress": "^0.8.4",
+    "vuepress-theme-vue": "^1.0.2",
     "webpack": "^3.7.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.19.1"
