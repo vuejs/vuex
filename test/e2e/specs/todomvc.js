@@ -135,9 +135,9 @@ module.exports = {
 
     // toggle all
     browser
-      .click('.toggle-all')
+      .click('label[for="toggle-all"]')
       .assert.count('.todo.completed', 3)
-      .click('.toggle-all')
+      .click('label[for="toggle-all"]')
       .assert.count('.todo:not(.completed)', 3)
       .end()
 
