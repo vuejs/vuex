@@ -1,0 +1,2 @@
+# redirect old urls to root
+/en/* /:splat
