@@ -64,7 +64,7 @@
     "typescript": "^2.5.3",
     "uglify-js": "^3.1.2",
     "vue": "^2.5.0",
-    "vue-loader": "^13.3.0",
+    "vue-loader": "^15.1.0",
     "vue-template-compiler": "^2.5.0",
     "vuepress": "^0.8.4",
     "vuepress-theme-vue": "^1.0.2",

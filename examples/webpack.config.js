@@ -1,10 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
-
-  devtool: 'inline-source-map',
+  mode: 'development',
 
   entry: fs.readdirSync(__dirname).reduce((entries, dir) => {
     const fullDir = path.join(__dirname, dir)
@@ -25,8 +25,9 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.vue$/, loader: 'vue-loader' }
+      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
+      { test: /\.vue$/, use: ['vue-loader'] },
+      { test: /\.css$/, use: ['vue-style-loader', 'css-loader'] }
     ]
   },
 
@@ -36,14 +37,20 @@ module.exports = {
     }
   },
 
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          name: 'shared',
+          filename: 'shared.js',
+          chunks: 'initial'
+        }
+      }
+    }
+  },
+
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'shared',
-      filename: 'shared.js'
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    }),
+    new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
