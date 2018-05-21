@@ -84,7 +84,7 @@ const actions = actionsInjector({
   }
 })
 
-// 用指定的 mutaions 测试 action 的辅助函数
+// 用指定的 mutations 测试 action 的辅助函数
 const testAction = (action, args, state, expectedMutations, done) => {
   let count = 0
 
