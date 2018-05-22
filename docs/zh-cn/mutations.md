@@ -20,15 +20,15 @@ const store = new Vuex.Store({
 
 用全部大写命名 mutation 是一个惯例，方便将它和 actions 区分开。
 
-你不能直接调用 mutation handler. 这里传入 Store 构造函数的选项更像是在注册事件回调：『当 `INCREMENT` 事件被触发时，调用这个 handler』。触发 mutation handler 的方法是 dispatch 一个 mutation 的事件名：
+你不能直接调用 mutation handler. 这里传入 Store 构造函数的选项更像是在注册事件回调：『当 `INCREMENT` 事件被触发时，调用这个 handler』。触发 mutation handler 的方法是 commit 一个 mutation 的事件名：
 
 ``` js
-store.dispatch('INCREMENT')
+store.commit('INCREMENT')
 ```
 
-### 带参数的 dispatch
+### 带参数的 commit
 
-`store.dispatch` 可以接受额外的参数：
+`store.commit` 可以接受额外的参数：
 
 ``` js
 // ...
@@ -39,19 +39,19 @@ mutations: {
 }
 ```
 ``` js
-store.dispatch('INCREMENT', 10)
+store.commit('INCREMENT', 10)
 ```
 
 这里的 `10` 会紧跟着 `state` 作为第二个参数被传递到 mutation handler. 所有额外的参数被称为该 mutation 的 payload.
 
-### Object 风格的 Dispatch
+### Object 风格的 commit
 
 > 需要版本 >=0.6.2
 
-你也可以传入对象来 dispatch mutation 操作：
+你也可以传入对象来 commit mutation 操作：
 
 ``` js
-store.dispatch({
+store.commit({
   type: 'INCREMENT',
   payload: 10
 })
