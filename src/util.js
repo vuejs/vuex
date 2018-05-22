@@ -6,8 +6,16 @@
  * @param {Function} f
  * @return {*}
  */
-function find (list, f) {
-  return list.filter(f)[0]
+export function find (list, f) {
+  const { length } = list
+  let index = 0
+  let value
+  while (++index < length) {
+    value = list[index]
+    if (f(value, index, list)) {
+      return value
+    }
+  }
 }
 
 /**

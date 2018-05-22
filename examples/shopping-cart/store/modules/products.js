@@ -1,5 +1,4 @@
 import shop from '../../api/shop'
-import * as types from '../mutation-types'
 
 // initial state
 const state = {
@@ -15,19 +14,20 @@ const getters = {
 const actions = {
   getAllProducts ({ commit }) {
     shop.getProducts(products => {
-      commit(types.RECEIVE_PRODUCTS, { products })
+      commit('setProducts', products)
     })
   }
 }
 
 // mutations
 const mutations = {
-  [types.RECEIVE_PRODUCTS] (state, { products }) {
+  setProducts (state, products) {
     state.all = products
   },
 
-  [types.ADD_TO_CART] (state, { id }) {
-    state.all.find(p => p.id === id).inventory--
+  decrementProductInventory (state, { id }) {
+    const product = state.all.find(product => product.id === id)
+    product.inventory--
   }
 }
 

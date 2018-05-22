@@ -1,7 +1,0 @@
-* [English](en/)
-* [简体中文](zh-cn/)
-* [Français](fr/)
-* [Русский](ru/)
-* [日本語](ja/)
-* [한국어(Korean)](kr/)
-* [1.0 Docs](old/)

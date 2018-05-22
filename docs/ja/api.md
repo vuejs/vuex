@@ -1,6 +1,10 @@
+---
+sidebar: auto
+---
+
 # API リファレンス
 
-### Vuex.Store
+## Vuex.Store
 
 ``` js
 import Vuex from 'vuex'
@@ -8,9 +12,9 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
   ```
 
-### Vuex.Store コンストラクタオプション
+## Vuex.Store コンストラクタオプション
 
-- **state**
+### state
 
   - 型: `Object | Function`
 
@@ -18,7 +22,7 @@ const store = new Vuex.Store({ ...options })
 
     オブジェクトを返す関数を渡す場合、返されたオブジェクトはルートステートとして使用されます。これは特にモジュールの再利用のためにステートオブジェクトを再利用する場合に便利です。[詳細](modules.md#モジュールの再利用)
 
-- **mutations**
+### mutations
 
   - 型: `{ [type: string]: Function }`
 
@@ -26,7 +30,7 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](mutations.md)
 
-- **actions**
+### actions
 
   - 型: `{ [type: string]: Function }`
 
@@ -43,9 +47,11 @@ const store = new Vuex.Store({ ...options })
     }
     ```
 
+    そして、第 2 引数の `payload` があれば、それを受け取ります。
+
     [詳細](actions.md)
 
-- **getters**
+### getters
 
   - type: `{ [key: string]: Function }`
 
@@ -69,7 +75,7 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](getters.md)
 
-- **modules**
+### modules
 
   - 型: `Object`
 
@@ -93,7 +99,7 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](modules.md)
 
-- **plugins**
+### plugins
 
   - 型: `Array<Function>`
 
@@ -101,7 +107,7 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](plugins.md)
 
-- **strict**
+### strict
 
   - 型: `Boolean`
   - デフォルト: `false`
@@ -110,39 +116,51 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](strict.md)
 
-### Vuex.Store インスタンスプロパティ
+## Vuex.Store インスタンスプロパティ
 
-- **state**
+### state
 
   - type: `Object`
 
     ルートステート、読み取り専用です。
 
-- **getters**
+### getters
 
   - type: `Object`
 
     登録されているゲッターを公開します。読み取り専用です。
 
-### Vuex.Store インスタンスメソッド
+## Vuex.Store インスタンスメソッド
 
-- **`commit(type: string, payload?: any, options?: Object) | commit(mutation: Object, options?: Object)`**
+### commit
+
+- **`commit(type: string, payload?: any, options?: Object)`**
+- **`commit(mutation: Object, options?: Object)`**
 
   ミューテーションをコミットします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なミューテーションにコミットできる `root: true` を持つことできます。[詳細](mutations.md)
 
-- **`dispatch(type: string, payload?: any, options?: Object) | dispatch(action: Object, options?: Object)`**
+### dispatch
+
+- **`dispatch(type: string, payload?: any, options?: Object)`**
+- **`dispatch(action: Object, options?: Object)`**
 
   アクションをディスパッチします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
+
+### replaceState
 
 - **`replaceState(state: Object)`**
 
   ストアのルートステートを置き換えます。これは、ステートのハイドレーションやタイムトラベルのためだけに利用すべきです。
+
+### watch
 
 - **`watch(getter: Function, cb: Function, options?: Object)`**
 
   リアクティブにゲッター関数の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの `state` を最初の引数として、 `getters` を2番目の引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
 
   監視を止める場合は、ハンドラ関数の返り値を関数として呼び出します。
+
+### subscribe
 
 - **`subscribe(handler: Function)`**
 
@@ -156,6 +174,8 @@ const store = new Vuex.Store({ ...options })
   ```
 
   プラグインの中でもっともよく利用されます。[詳細](plugins.md)
+
+### subscribeAction
 
 - **`subscribeAction(handler: Function)`**
 
@@ -172,21 +192,29 @@ const store = new Vuex.Store({ ...options })
 
 　プラグインで最も一般的に使用されます。[Details](plugins.md)
 
+### registerModule
+
 - **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
   動的なモジュールを登録します。[詳細](modules.md#dynamic-module-registration)
 
   `options` は前の状態を保存する `preserveState: true` を持つことができます。サーバサイドレンダリングに役立ちます。
 
+### unregisterModule
+
 - **`unregisterModule(path: string | Array<string>)`**
 
   動的なモジュールを解除します。[詳細](modules.md#dynamic-module-registration)
+
+### hotUpdate
 
 - **`hotUpdate(newOptions: Object)`**
 
   新しいアクションとミューテーションをホットスワップします。[詳細](hot-reload.md)
 
-### コンポーネントをバインドするヘルパー
+## コンポーネントをバインドするヘルパー
+
+### mapState
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
@@ -194,11 +222,15 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
 
+### mapGetters
+
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
   ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](getters.md#the-mapgetters-helper)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+
+### mapActions
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
@@ -206,11 +238,15 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
 
+### mapMutations
+
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
   ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+
+### createNamespaceHelpers
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
