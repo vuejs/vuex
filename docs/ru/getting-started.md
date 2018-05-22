@@ -30,7 +30,7 @@ const store = new Vuex.Store({
 Теперь мы можем получить доступ к объекту состояния `store.state` или вызвать изменение состояния методом `store.commit`:
 
 ```js
-store.commit("increment");
+store.commit('increment');
 
 console.log(store.state.count); // -> 1
 ```
@@ -41,4 +41,4 @@ console.log(store.state.count); // -> 1
 
 Вот пример [простейшего приложения Vuex, реализующего счётчик](https://jsfiddle.net/n9jmu5v7/1269/).
 
-Далее мы более подробно обсудим каждую из основных концепций, начиная с [Состояния](state.md)
+Далее мы подробно рассмотрим все основные понятия, начиная с [состояния](state.md)

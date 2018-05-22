@@ -19,7 +19,7 @@ const store = new Vuex.Store({
 Вызывать функцию-обработчик напрямую — нельзя. Это больше похоже на обработку события: "Когда мутация типа `increment` инициирована, вызывается этот обработчик". Чтобы инициировать обработку мутации, необходимо вызвать `store.commit`, указав её тип:
 
 ```js
-store.commit("increment");
+store.commit('increment');
 ```
 
 ### Мутации с нагрузкой
@@ -36,7 +36,7 @@ mutations: {
 ```
 
 ```js
-store.commit("increment", 10);
+store.commit('increment', 10);
 ```
 
 В большинстве случаев нагрузка будет объектом, содержащим несколько полей. Запись мутаций в таком случае становится более описательной:
@@ -51,7 +51,7 @@ mutations: {
 ```
 
 ```js
-store.commit("increment", {
+store.commit('increment', {
   amount: 10
 });
 ```
@@ -62,7 +62,7 @@ store.commit("increment", {
 
 ```js
 store.commit({
-  type: "increment",
+  type: 'increment',
   amount: 10
 });
 ```
@@ -99,7 +99,7 @@ mutations: {
 
 ```js
 // mutation-types.js
-export const SOME_MUTATION = "SOME_MUTATION";
+export const SOME_MUTATION = 'SOME_MUTATION';
 ```
 
 ```js
@@ -142,19 +142,19 @@ mutations: {
 Мутации можно вызывать из кода компонентов, используя `this.$store.commit('xxx')`, или применяя хелпер `mapMutations`, который проксирует вызовы `store.commit` через методы компонентов (для этого требуется наличие корневой ссылки на хранилище `$store`):
 
 ```js
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex';
 
 export default {
   // ...
   methods: {
     ...mapMutations([
-      "increment", // `this.increment()` будет вызывать `this.$store.commit('increment')`
+      'increment', // `this.increment()` будет вызывать `this.$store.commit('increment')`
 
       // mapMutations также поддерживает нагрузку:
-      "incrementBy" // `this.incrementBy(amount)` будет вызывать `this.$store.commit('incrementBy', amount)`
+      'incrementBy' // `this.incrementBy(amount)` будет вызывать `this.$store.commit('incrementBy', amount)`
     ]),
     ...mapMutations({
-      add: "increment" // `this.add()` будет вызывать `this.$store.commit('increment')`
+      add: 'increment' // `this.add()` будет вызывать `this.$store.commit('increment')`
     })
   }
 };
@@ -165,7 +165,7 @@ export default {
 Привнесение асинхронности в мутации могло бы изрядно затруднить понимание логики программы. Например, если вызываются два метода, оба с асинхронными коллбэками, изменяющими состояние приложения — как предсказать, какой из коллбэков будет вызван первым? Именно поэтому концепции изменений и асинхронности рассматриваются по отдельности. Во Vuex **мутации — это синхронные транзакции**:
 
 ```js
-store.commit("increment");
+store.commit('increment');
 // все изменения состояния, вызываемые мутацией "increment",
 // к этому моменту уже должны произойти.
 ```

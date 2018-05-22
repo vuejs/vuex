@@ -19,7 +19,7 @@ const store = new Vuex.Store({
   },
   actions: {
     increment(context) {
-      context.commit("increment");
+      context.commit('increment');
     }
   }
 });
@@ -42,7 +42,7 @@ actions: {
 Действия запускаются методом `store.dispatch`:
 
 ```js
-store.dispatch("increment");
+store.dispatch('increment');
 ```
 
 На первый взгляд может выглядеть глупо: если мы хотим увеличить значение count, почему бы просто не вызвать `store.commit('increment')` напрямую? Помните что **мутации должны быть синхронными**? Для действий такого ограничения нет. Внутри действий можно выполнять **асинхронные** операции:
@@ -61,13 +61,13 @@ actions: {
 
 ```js
 // вызов с нагрузкой
-store.dispatch("incrementAsync", {
+store.dispatch('incrementAsync', {
   amount: 10
 });
 
 // объектный синтаксис
 store.dispatch({
-  type: "incrementAsync",
+  type: 'incrementAsync',
   amount: 10
 });
 ```
@@ -141,7 +141,7 @@ actions: {
 Теперь можно сделать так:
 
 ```js
-store.dispatch("actionA").then(() => {
+store.dispatch('actionA').then(() => {
   // ...
 });
 ```

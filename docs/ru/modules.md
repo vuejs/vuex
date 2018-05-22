@@ -59,7 +59,7 @@ const moduleA = {
   actions: {
     incrementIfOddOnRootSum({ state, commit, rootState }) {
       if ((state.count + rootState.count) % 2 === 1) {
-        commit("increment");
+        commit('increment');
       }
     }
   }
@@ -235,9 +235,9 @@ methods: {
 Кроме того, вы можете создать вспомогательные функции с помощью `createNamespacedHelpers`. Она возвращает объект, в котором все вспомогательные функции для связывания с компонентами будут указывать на переданное пространство имён:
 
 ```js
-import { createNamespacedHelpers } from "vuex";
+import { createNamespacedHelpers } from 'vuex';
 
-const { mapState, mapActions } = createNamespacedHelpers("some/nested/module");
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module');
 
 export default {
   computed: {
@@ -249,7 +249,7 @@ export default {
   },
   methods: {
     // будет указывать на `some/nested/module`
-    ...mapActions(["foo", "bar"])
+    ...mapActions(['foo', 'bar'])
   }
 };
 ```
@@ -264,8 +264,8 @@ export default {
 export function createPlugin(options = {}) {
   return function(store) {
     // добавление пространства имён к модулям плагина
-    const namespace = options.namespace || "";
-    store.dispatch(namespace + "pluginAction");
+    const namespace = options.namespace || '';
+    store.dispatch(namespace + 'pluginAction');
   };
 }
 ```
@@ -276,12 +276,12 @@ export function createPlugin(options = {}) {
 
 ```js
 // регистрация модуля `myModule`
-store.registerModule("myModule", {
+store.registerModule('myModule', {
   // ...
 });
 
 // регистрация вложенного модуля `nested/myModule`
-store.registerModule(["nested", "myModule"], {
+store.registerModule(['nested', 'myModule'], {
   // ...
 });
 ```
@@ -309,7 +309,7 @@ store.registerModule(["nested", "myModule"], {
 const MyReusableModule = {
   state() {
     return {
-      foo: "bar"
+      foo: 'bar'
     };
   }
   // мутации, действия, геттеры...

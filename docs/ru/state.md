@@ -30,7 +30,7 @@ Vuex предоставляет механизм "инъекции" хранил
 
 ```js
 const app = new Vue({
-  el: "#app",
+  el: '#app',
   // указываем хранилище в опции "store", что обеспечит
   // доступ к нему также и для всех дочерних компонентов
   store,
@@ -62,7 +62,7 @@ const Counter = {
 
 ```js
 // с полной сборкой можно использовать как Vuex.mapState
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   // ...
@@ -71,7 +71,7 @@ export default {
     count: state => state.count,
 
     // передача строки 'count' эквивалентна записи `state => state.count`
-    countAlias: "count",
+    countAlias: 'count',
 
     // если требуется доступ и к локальному состоянию, нужно использовать традиционную функцию
     countPlusLocalState(state) {
@@ -86,7 +86,7 @@ export default {
 ```js
 computed: mapState([
   // проксирует через this.count доступ к store.state.count
-  "count"
+  'count'
 ]);
 ```
 

@@ -7,7 +7,7 @@ sidebar: auto
 ## Vuex.Store
 
 ```js
-import Vuex from "vuex";
+import Vuex from 'vuex';
 
 const store = new Vuex.Store({ ...options });
 ```

@@ -20,8 +20,8 @@ Vuex позволяет определять в хранилище «гетте�
 const store = new Vuex.Store({
   state: {
     todos: [
-      { id: 1, text: "...", done: true },
-      { id: 2, text: "...", done: false }
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false }
     ]
   },
   getters: {
@@ -91,15 +91,15 @@ store.getters.getTodoById(2); // -> { id: 2, text: '...', done: false }
 Функция `mapGetters` попросту проксирует геттеры хранилища через локальные вычисляемые свойства компонента:
 
 ```js
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
   // ...
   computed: {
     // примешиваем геттеры в вычисляемые свойства оператором расширения
     ...mapGetters([
-      "doneTodosCount",
-      "anotherGetter"
+      'doneTodosCount',
+      'anotherGetter'
       // ...
     ])
   }

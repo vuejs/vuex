@@ -32,8 +32,8 @@ yarn add vuex
 Если вы используете систему сборки, установите Vuex явным образом командой `Vue.use()`:
 
 ```js
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 ```
@@ -42,7 +42,7 @@ Vue.use(Vuex);
 
 ### Promise
 
-Vuex для работы необходимы [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). Если браузеры, которые вы поддерживаете не реализуют Promise (например, IE), вы можете использовать библиотеку-полифилл, такую как [es6-promise](https://github.com/stefanpenner/es6-promise).
+Vuex для работы необходимы [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). Если браузеры, которые вы поддерживаете не реализуют Promise (например, IE), то вы можете использовать библиотеку-полифилл, такую как [es6-promise](https://github.com/stefanpenner/es6-promise).
 
 Вы можете подключить её через CDN:
 
@@ -52,7 +52,7 @@ Vuex для работы необходимы [Promise](https://developer.mozill
 
 Тогда `window.Promise` будет доступен автоматически.
 
-Если вы предпочитаете использовать менеджер пакетов, такой как NPM или Yarn, установите пакет с помощью следующей команды:
+Если вы предпочитаете использовать менеджер пакетов, такой как NPM или Yarn, то установите пакет с помощью следующей команды:
 
 ```bash
 npm install es6-promise --save # NPM
@@ -62,7 +62,7 @@ yarn add es6-promise # Yarn
 Кроме того, добавьте строку ниже в любое место вашего кода перед использованием Vuex:
 
 ```js
-import "es6-promise/auto";
+import 'es6-promise/auto';
 ```
 
 ### Версия для разработки

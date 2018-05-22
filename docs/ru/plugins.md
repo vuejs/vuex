@@ -30,12 +30,12 @@ const store = new Vuex.Store({
 ```js
 export default function createWebSocketPlugin(socket) {
   return store => {
-    socket.on("data", data => {
-      store.commit("receiveData", data);
+    socket.on('data', data => {
+      store.commit('receiveData', data);
     });
     store.subscribe(mutation => {
-      if (mutation.type === "UPDATE_DATA") {
-        socket.emit("update", mutation.payload);
+      if (mutation.type === 'UPDATE_DATA') {
+        socket.emit('update', mutation.payload);
       }
     });
   };
@@ -75,7 +75,7 @@ const myPluginWithSnapshot = store => {
 ```js
 const store = new Vuex.Store({
   // ...
-  plugins: process.env.NODE_ENV !== "production" ? [myPluginWithSnapshot] : []
+  plugins: process.env.NODE_ENV !== 'production' ? [myPluginWithSnapshot] : []
 });
 ```
 
@@ -88,7 +88,7 @@ const store = new Vuex.Store({
 В комплекте с Vuex идёт плагин логирования, который можно использовать при отладке:
 
 ```js
-import createLogger from "vuex/dist/logger";
+import createLogger from 'vuex/dist/logger';
 
 const store = new Vuex.Store({
   plugins: [createLogger()]
@@ -103,7 +103,7 @@ const logger = createLogger({
   filter(mutation, stateBefore, stateAfter) {
     // возвращает `true`, если мутация должна быть залогирована
     // `mutation` — это объект `{ type, payload }`
-    return mutation.type !== "aBlacklistedMutation";
+    return mutation.type !== 'aBlacklistedMutation';
   },
   transformer(state) {
     // обработать состояние перед логированием

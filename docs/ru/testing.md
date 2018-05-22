@@ -29,14 +29,14 @@ export const mutations = {
 
 ```js
 // mutations.spec.js
-import { expect } from "chai";
-import { mutations } from "./store";
+import { expect } from 'chai';
+import { mutations } from './store';
 
 // деструктурирующее присваивание из `mutations`
 const { increment } = mutations;
 
-describe("mutations", () => {
-  it("INCREMENT", () => {
+describe('mutations', () => {
+  it('INCREMENT', () => {
     // фиксируем состояние
     const state = { count: 0 };
     // применяем мутацию
@@ -55,12 +55,12 @@ describe("mutations", () => {
 
 ```js
 // actions.js
-import shop from "../api/shop";
+import shop from '../api/shop';
 
 export const getAllProducts = ({ commit }) => {
-  commit("REQUEST_PRODUCTS");
+  commit('REQUEST_PRODUCTS');
   shop.getProducts(products => {
-    commit("RECEIVE_PRODUCTS", products);
+    commit('RECEIVE_PRODUCTS', products);
   });
 };
 ```
@@ -71,12 +71,12 @@ export const getAllProducts = ({ commit }) => {
 // для inline-загрузчиков используйте синтаксис require
 // и inject-loader, возвращающий фабрику модулей, помогающую
 // подменять зависимости
-import { expect } from "chai";
-const actionsInjector = require("inject-loader!./actions");
+import { expect } from 'chai';
+const actionsInjector = require('inject-loader!./actions');
 
 // создаём поддельную зависимость
 const actions = actionsInjector({
-  "../api/shop": {
+  '../api/shop': {
     getProducts(cb) {
       setTimeout(() => {
         cb([
@@ -120,16 +120,16 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   }
 };
 
-describe("actions", () => {
-  it("getAllProducts", done => {
+describe('actions', () => {
+  it('getAllProducts', done => {
     testAction(
       actions.getAllProducts,
       null,
       {},
       [
-        { type: "REQUEST_PRODUCTS" },
+        { type: 'REQUEST_PRODUCTS' },
         {
-          type: "RECEIVE_PRODUCTS",
+          type: 'RECEIVE_PRODUCTS',
           payload: {
             /* поддельный ответ */
           }
@@ -144,17 +144,17 @@ describe("actions", () => {
 Если у вас есть шпионы (spies), доступные в тестовой среде (например, через [Sinon.JS](http://sinonjs.org/)), вы можете использовать их вместо вспомогательной функции `testAction`:
 
 ```js
-describe("actions", () => {
-  it("getAllProducts", () => {
+describe('actions', () => {
+  it('getAllProducts', () => {
     const commit = sinon.spy();
     const state = {};
 
     actions.getAllProducts({ commit, state });
 
     expect(commit.args).to.deep.equal([
-      ["REQUEST_PRODUCTS"],
+      ['REQUEST_PRODUCTS'],
       [
-        "RECEIVE_PRODUCTS",
+        'RECEIVE_PRODUCTS',
         {
           /* mocked response */
         }
@@ -183,29 +183,29 @@ export const getters = {
 
 ```js
 // getters.spec.js
-import { expect } from "chai";
-import { getters } from "./getters";
+import { expect } from 'chai';
+import { getters } from './getters';
 
-describe("getters", () => {
-  it("filteredProducts", () => {
+describe('getters', () => {
+  it('filteredProducts', () => {
     // поддельное состояние
     const state = {
       products: [
-        { id: 1, title: "Apple", category: "fruit" },
-        { id: 2, title: "Orange", category: "fruit" },
-        { id: 3, title: "Carrot", category: "vegetable" }
+        { id: 1, title: 'Apple', category: 'fruit' },
+        { id: 2, title: 'Orange', category: 'fruit' },
+        { id: 3, title: 'Carrot', category: 'vegetable' }
       ]
     };
     // поддельный параметр геттера
-    const filterCategory = "fruit";
+    const filterCategory = 'fruit';
 
     // получаем результат выполнения тестируемого геттера
     const result = getters.filteredProducts(state, { filterCategory });
 
     // проверяем результат
     expect(result).to.deep.equal([
-      { id: 1, title: "Apple", category: "fruit" },
-      { id: 2, title: "Orange", category: "fruit" }
+      { id: 1, title: 'Apple', category: 'fruit' },
+      { id: 2, title: 'Orange', category: 'fruit' }
     ]);
   });
 });
@@ -222,16 +222,16 @@ describe("getters", () => {
 ```js
 // webpack.config.js
 module.exports = {
-  entry: "./test.js",
+  entry: './test.js',
   output: {
     path: __dirname,
-    filename: "test-bundle.js"
+    filename: 'test-bundle.js'
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         exclude: /node_modules/
       }
     ]
