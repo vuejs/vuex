@@ -9,6 +9,11 @@ module.exports = {
       lang: 'zh-CN',
       title: 'Vuex',
       description: 'Vue.js 的中心化状态管理方案'
+    },
+    '/ja/': {
+      lang: 'ja',
+      title: 'Vuex',
+      description: 'Vue.js のための集中状態管理'
     }
   },
   serviceWorker: true,
@@ -97,6 +102,46 @@ module.exports = {
           '/zh/forms',
           '/zh/testing',
           '/zh/hot-reload'
+        ]
+      },
+      '/ja/': {
+        label: '日本語',
+        selectText: '言語',
+        editLinkText: 'GitHub 上でこのページを編集する',
+        nav: [{
+            text: 'ガイド',
+            link: '/ja/getting-started'
+          },
+          {
+            text: 'API リファレンス',
+            link: '/ja/api'
+          },
+          {
+            text: 'リリースノート',
+            link: 'https://github.com/vuejs/vuex/releases'
+          }
+        ],
+        sidebar: [
+          '/ja/installation',
+          '/ja/',
+          '/ja/getting-started',
+          {
+            title: 'コアコンセプト',
+            collapsable: false,
+            children: [
+              '/ja/state',
+              '/ja/getters',
+              '/ja/mutations',
+              '/ja/actions',
+              '/ja/modules'
+            ]
+          },
+          '/ja/structure',
+          '/ja/plugins',
+          '/ja/strict',
+          '/ja/forms',
+          '/ja/testing',
+          '/ja/hot-reload'
         ]
       }
     }
