@@ -1,2 +1,3 @@
 # redirect old urls to root
 /en/* /:splat
+/zh-cn/* /zh/:splat
