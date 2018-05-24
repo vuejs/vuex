@@ -10,7 +10,7 @@
 
 > **提示：**我们将在后续的文档示例代码中使用 ES2015 语法。如果你还没能掌握 ES2015，[你得抓紧了](https://babeljs.io/docs/learn-es2015/)！
 
-[安装](installation.md) Vuex 之后，让我们来创建一个 store。创建过程直截了当——仅需要提供一个初始 state 对象和一些 mutation：
+[安装](../installation.md) Vuex 之后，让我们来创建一个 store。创建过程直截了当——仅需要提供一个初始 state 对象和一些 mutation：
 
 ``` js
 // 如果在模块化构建系统中，请确保在开头调用了 Vue.use(Vuex)

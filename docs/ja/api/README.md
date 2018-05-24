@@ -18,9 +18,9 @@ const store = new Vuex.Store({ ...options })
 
   - 型: `Object | Function`
 
-    ストアのための ルートステートオブジェクトです。[詳細](state.md)
+    ストアのための ルートステートオブジェクトです。[詳細](../guide/state.md)
 
-    オブジェクトを返す関数を渡す場合、返されたオブジェクトはルートステートとして使用されます。これは特にモジュールの再利用のためにステートオブジェクトを再利用する場合に便利です。[詳細](modules.md#モジュールの再利用)
+    オブジェクトを返す関数を渡す場合、返されたオブジェクトはルートステートとして使用されます。これは特にモジュールの再利用のためにステートオブジェクトを再利用する場合に便利です。[詳細](../guide/modules.md#モジュールの再利用)
 
 ### mutations
 
@@ -28,7 +28,7 @@ const store = new Vuex.Store({ ...options })
 
     ストアにミューテーションを登録します。ハンドラ関数は第一引数に `state` を常に受け取り(モジュール内で定義されていれば、モジュールのローカルステートを受け取り)、指定されていれば第二引数に `payload` を受け取ります。
 
-    [詳細](mutations.md)
+    [詳細](../guide/mutations.md)
 
 ### actions
 
@@ -49,7 +49,7 @@ const store = new Vuex.Store({ ...options })
 
     そして、第 2 引数の `payload` があれば、それを受け取ります。
 
-    [詳細](actions.md)
+    [詳細](../guide/actions.md)
 
 ### getters
 
@@ -63,7 +63,7 @@ const store = new Vuex.Store({ ...options })
     ```
 
     モジュールで定義されたときの仕様
-    
+
     ```
     state,       // モジュールで定義された場合、モジュールのローカルステート
     getters,     // 現在のモジュールのモジュールのローカルゲッター
@@ -73,7 +73,7 @@ const store = new Vuex.Store({ ...options })
 
     登録されたゲッターは `store.getters` 上に公開されます。
 
-    [詳細](getters.md)
+    [詳細](../guide/getters.md)
 
 ### modules
 
@@ -89,7 +89,7 @@ const store = new Vuex.Store({ ...options })
         actions?,
         getters?,
         modules?
-    
+
       },
       ...
     }
@@ -97,7 +97,7 @@ const store = new Vuex.Store({ ...options })
 
     各モジュールは、ルートオプションに似た `state` と `mutations` を含むことができます。モジュールの状態は、モジュールのキーを使って、ストアのルートステートに結合されます。モジュールのミューテーションとゲッターは、第一引数としてルートステートの代わりに、モジュールのローカルステートだけを受け取り、モジュールのアクションの `context.state` もローカルステートを指すようになります。
 
-    [詳細](modules.md)
+    [詳細](../guide/modules.md)
 
 ### plugins
 
@@ -105,7 +105,7 @@ const store = new Vuex.Store({ ...options })
 
     プラグイン関数の配列は、ストアに適用されます。このプラグインは、ストアだけを引数として受け取り、外部への永続化、ロギング、デバッギングのために、ミューテーションを監視するか、または、 websocket や observable のような外から渡されるデータのためにミューテーションをディスパッチします。
 
-    [詳細](plugins.md)
+    [詳細](../guide/plugins.md)
 
 ### strict
 
@@ -114,7 +114,7 @@ const store = new Vuex.Store({ ...options })
 
     Vuex ストアを厳格モードにします。厳格モードでは、ミューテーションハンドラ以外で、 Vuex の状態の変更を行うと、エラーが投げられます。
 
-    [詳細](strict.md)
+    [詳細](../guide/strict.md)
 
 ## Vuex.Store インスタンスプロパティ
 
@@ -137,14 +137,14 @@ const store = new Vuex.Store({ ...options })
 - **`commit(type: string, payload?: any, options?: Object)`**
 - **`commit(mutation: Object, options?: Object)`**
 
-  ミューテーションをコミットします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なミューテーションにコミットできる `root: true` を持つことできます。[詳細](mutations.md)
+  ミューテーションをコミットします。`options` は[名前空間付きモジュール](../guide/modules.md#名前空間)で root なミューテーションにコミットできる `root: true` を持つことできます。[詳細](../guide/mutations.md)
 
 ### dispatch
 
 - **`dispatch(type: string, payload?: any, options?: Object)`**
 - **`dispatch(action: Object, options?: Object)`**
 
-  アクションをディスパッチします。`options` は[名前空間付きモジュール](modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](actions.md)
+  アクションをディスパッチします。`options` は[名前空間付きモジュール](../guide/modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](../guide/actions.md)
 
 ### replaceState
 
@@ -173,7 +173,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  プラグインの中でもっともよく利用されます。[詳細](plugins.md)
+  プラグインの中でもっともよく利用されます。[詳細](../guide/plugins.md)
 
 ### subscribeAction
 
@@ -190,13 +190,13 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-　プラグインで最も一般的に使用されます。[Details](plugins.md)
+　プラグインで最も一般的に使用されます。[Details](../guide/plugins.md)
 
 ### registerModule
 
 - **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
 
-  動的なモジュールを登録します。[詳細](modules.md#dynamic-module-registration)
+  動的なモジュールを登録します。[詳細](../guide/modules.md#dynamic-module-registration)
 
   `options` は前の状態を保存する `preserveState: true` を持つことができます。サーバサイドレンダリングに役立ちます。
 
@@ -204,13 +204,13 @@ const store = new Vuex.Store({ ...options })
 
 - **`unregisterModule(path: string | Array<string>)`**
 
-  動的なモジュールを解除します。[詳細](modules.md#dynamic-module-registration)
+  動的なモジュールを解除します。[詳細](../guide/modules.md#dynamic-module-registration)
 
 ### hotUpdate
 
 - **`hotUpdate(newOptions: Object)`**
 
-  新しいアクションとミューテーションをホットスワップします。[詳細](hot-reload.md)
+  新しいアクションとミューテーションをホットスワップします。[詳細](../guide/hot-reload.md)
 
 ## コンポーネントをバインドするヘルパー
 
@@ -218,36 +218,36 @@ const store = new Vuex.Store({ ...options })
 
 - **`mapState(namespace?: string, map: Array<string> | Object): Object`**
 
-  ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](state.md#the-mapstate-helper)
+  ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](../guide/state.md#the-mapstate-helper)
 
-  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
 ### mapGetters
 
 - **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
 
-  ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](getters.md#the-mapgetters-helper)
+  ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](../guide/getters.md#the-mapgetters-helper)
 
-  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
 ### mapActions
 
 - **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
 
-  アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](actions.md#dispatching-actions-in-components)
+  アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](../guide/actions.md#dispatching-actions-in-components)
 
-  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
 ### mapMutations
 
 - **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
 
-  ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](mutations.md#commiting-mutations-in-components)
+  ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](../guide/mutations.md#commiting-mutations-in-components)
 
-  第1引数は、オプションで名前空間文字列にすることができます。[詳細](modules.md#binding-helpers-with-namespace)
+  第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
 ### createNamespaceHelpers
 
 - **`createNamespacedHelpers(namespace: string): Object`**
 
-  名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](modules.md#binding-helpers-with-namespace)
+  名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](../guide/modules.md#binding-helpers-with-namespace)
