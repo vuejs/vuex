@@ -28,7 +28,7 @@ module.exports = {
         editLinkText: 'Edit this page on GitHub',
         nav: [
           {
-            text: 'Getting Started',
+            text: 'Guide',
             link: '/getting-started'
           },
           {
