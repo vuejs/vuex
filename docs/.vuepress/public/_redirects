@@ -4,6 +4,7 @@
 /en/* /guide/:splat
 
 /zh-cn/api.html  /zh/api/
-/zh-cn/* /zh/:splat
+/zh-cn/* /zh/guide/:splat
 
 /ja/api.html  /ja/api/
+/ja/* /ja/guide/:splat
