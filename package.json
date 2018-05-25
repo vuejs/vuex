@@ -66,8 +66,8 @@
     "vue": "^2.5.0",
     "vue-loader": "^15.1.0",
     "vue-template-compiler": "^2.5.0",
-    "vuepress": "^0.8.4",
-    "vuepress-theme-vue": "^1.0.2",
+    "vuepress": "^0.9.0",
+    "vuepress-theme-vue": "^1.0.3",
     "webpack": "^4.8.3",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.19.1"

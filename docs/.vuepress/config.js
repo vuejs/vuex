@@ -33,12 +33,12 @@ module.exports = {
         editLinkText: 'Edit this page on GitHub',
         nav: [
           {
-            text: 'Getting Started',
-            link: '/getting-started'
+            text: 'Guide',
+            link: '/guide/'
           },
           {
             text: 'API Reference',
-            link: '/api'
+            link: '/api/'
           },
           {
             text: 'Release Notes',
@@ -48,24 +48,24 @@ module.exports = {
         sidebar: [
           '/installation',
           '/',
-          '/getting-started',
+          '/guide/',
           {
             title: 'Core Concepts',
             collapsable: false,
             children: [
-              '/state',
-              '/getters',
-              '/mutations',
-              '/actions',
-              '/modules'
+              '/guide/state',
+              '/guide/getters',
+              '/guide/mutations',
+              '/guide/actions',
+              '/guide/modules'
             ]
           },
-          '/structure',
-          '/plugins',
-          '/strict',
-          '/forms',
-          '/testing',
-          '/hot-reload'
+          '/guide/structure',
+          '/guide/plugins',
+          '/guide/strict',
+          '/guide/forms',
+          '/guide/testing',
+          '/guide/hot-reload'
         ]
       },
       '/zh/': {
@@ -75,11 +75,11 @@ module.exports = {
         nav: [
           {
             text: '指南',
-            link: '/zh/getting-started'
+            link: '/zh/guide/'
           },
           {
             text: 'API 参考',
-            link: '/zh/api'
+            link: '/zh/api/'
           },
           {
             text: '更新记录',
@@ -89,24 +89,24 @@ module.exports = {
         sidebar: [
           '/zh/installation',
           '/zh/',
-          '/zh/getting-started',
+          '/zh/guide/',
           {
             title: '核心概念',
             collapsable: false,
             children: [
-              '/zh/state',
-              '/zh/getters',
-              '/zh/mutations',
-              '/zh/actions',
-              '/zh/modules'
+              '/zh/guide/state',
+              '/zh/guide/getters',
+              '/zh/guide/mutations',
+              '/zh/guide/actions',
+              '/zh/guide/modules'
             ]
           },
-          '/zh/structure',
-          '/zh/plugins',
-          '/zh/strict',
-          '/zh/forms',
-          '/zh/testing',
-          '/zh/hot-reload'
+          '/zh/guide/structure',
+          '/zh/guide/plugins',
+          '/zh/guide/strict',
+          '/zh/guide/forms',
+          '/zh/guide/testing',
+          '/zh/guide/hot-reload'
         ]
       },
       '/ja/': {
@@ -115,11 +115,11 @@ module.exports = {
         editLinkText: 'GitHub 上でこのページを編集する',
         nav: [{
             text: 'ガイド',
-            link: '/ja/getting-started'
+            link: '/ja/guide/'
           },
           {
             text: 'API リファレンス',
-            link: '/ja/api'
+            link: '/ja/api/'
           },
           {
             text: 'リリースノート',
@@ -129,24 +129,24 @@ module.exports = {
         sidebar: [
           '/ja/installation',
           '/ja/',
-          '/ja/getting-started',
+          '/ja/guide/',
           {
             title: 'コアコンセプト',
             collapsable: false,
             children: [
-              '/ja/state',
-              '/ja/getters',
-              '/ja/mutations',
-              '/ja/actions',
-              '/ja/modules'
+              '/ja/guide/state',
+              '/ja/guide/getters',
+              '/ja/guide/mutations',
+              '/ja/guide/actions',
+              '/ja/guide/modules'
             ]
           },
-          '/ja/structure',
-          '/ja/plugins',
-          '/ja/strict',
-          '/ja/forms',
-          '/ja/testing',
-          '/ja/hot-reload'
+          '/ja/guide/structure',
+          '/ja/guide/plugins',
+          '/ja/guide/strict',
+          '/ja/guide/forms',
+          '/ja/guide/testing',
+          '/ja/guide/hot-reload'
         ]
       },
       '/ru/': {

@@ -18,9 +18,9 @@ const store = new Vuex.Store({ ...options })
 
 - type: `Object | Function`
 
-  The root state object for the Vuex store. [Details](state.md)
+  The root state object for the Vuex store. [Details](../guide/state.md)
 
-  If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](modules.md#module-reuse)
+  If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](../guide/modules.md#module-reuse)
 
 ### mutations
 
@@ -28,7 +28,7 @@ const store = new Vuex.Store({ ...options })
 
   Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
 
-  [Details](mutations.md)
+  [Details](../guide/mutations.md)
 
 ### actions
 
@@ -46,10 +46,10 @@ const store = new Vuex.Store({ ...options })
     rootGetters // same as `store.getters`, only in modules
   }
   ```
-  
+
   And also receives a second `payload` argument if there is one.
 
-  [Details](actions.md)
+  [Details](../guide/actions.md)
 
 ### getters
 
@@ -73,7 +73,7 @@ const store = new Vuex.Store({ ...options })
 
   Registered getters are exposed on `store.getters`.
 
-  [Details](getters.md)
+  [Details](../guide/getters.md)
 
 ### modules
 
@@ -97,7 +97,7 @@ const store = new Vuex.Store({ ...options })
 
   Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
 
-  [Details](modules.md)
+  [Details](../guide/modules.md)
 
 ### plugins
 
@@ -105,7 +105,7 @@ const store = new Vuex.Store({ ...options })
 
   An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
 
-  [Details](plugins.md)
+  [Details](../guide/plugins.md)
 
 ### strict
 
@@ -114,7 +114,7 @@ const store = new Vuex.Store({ ...options })
 
   Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
 
-  [Details](strict.md)
+  [Details](../guide/strict.md)
 
 ## Vuex.Store Instance Properties
 
@@ -137,14 +137,14 @@ const store = new Vuex.Store({ ...options })
 -  `commit(type: string, payload?: any, options?: Object)`
 -  `commit(mutation: Object, options?: Object)`
 
-  Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](modules.md#namespacing). [Details](mutations.md)
+  Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](../guide/modules.md#namespacing). [Details](../guide/mutations.md)
 
 ### dispatch
 
 -  `dispatch(type: string, payload?: any, options?: Object)`
 -  `dispatch(action: Object, options?: Object)`
 
-  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](actions.md)
+  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
 
 ### replaceState
 
@@ -175,7 +175,7 @@ const store = new Vuex.Store({ ...options })
 
   To stop subscribing, call the returned unsubscribe function.
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### subscribeAction
 
@@ -194,13 +194,13 @@ const store = new Vuex.Store({ ...options })
 
   To stop subscribing, call the returned unsubscribe function.
 
-  Most commonly used in plugins. [Details](plugins.md)
+  Most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### registerModule
 
 -  `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
-  Register a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Register a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
 
   `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
 
@@ -208,13 +208,13 @@ const store = new Vuex.Store({ ...options })
 
 -  `unregisterModule(path: string | Array<string>)`
 
-  Unregister a dynamic module. [Details](modules.md#dynamic-module-registration)
+  Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
 
 ### hotUpdate
 
 -  `hotUpdate(newOptions: Object)`
 
-  Hot swap new actions and mutations. [Details](hot-reload.md)
+  Hot swap new actions and mutations. [Details](../guide/hot-reload.md)
 
 ## Component Binding Helpers
 
@@ -222,42 +222,42 @@ const store = new Vuex.Store({ ...options })
 
 -  `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](state.md#the-mapstate-helper)
+  Create component computed options that return the sub tree of the Vuex store. [Details](../guide/state.md#the-mapstate-helper)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
-  
-  The second object argument's members can be a function. `function(state: any)` 
+  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+
+  The second object argument's members can be a function. `function(state: any)`
 
 ### mapGetters
 
 -  `mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`
 
-  Create component computed options that return the evaluated value of a getter. [Details](getters.md#the-mapgetters-helper)
+  Create component computed options that return the evaluated value of a getter. [Details](../guide/getters.md#the-mapgetters-helper)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
+  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
 
 ### mapActions
 
 -  `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that dispatch an action. [Details](actions.md#dispatching-actions-in-components)
+  Create component methods options that dispatch an action. [Details](../guide/actions.md#dispatching-actions-in-components)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
-  
+  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+
   The second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
 
 ### mapMutations
 
 -  `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that commit a mutation. [Details](mutations.md#committing-mutations-in-components)
+  Create component methods options that commit a mutation. [Details](../guide/mutations.md#committing-mutations-in-components)
 
-  The first argument can optionally be a namespace string. [Details](modules.md#binding-helpers-with-namespace)
-  
+  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+
   The second object argument's members can be a function. `function(commit: function, ...args: any[])`
 
 ### createNamespacedHelpers
 
 -  `createNamespacedHelpers(namespace: string): Object`
 
-  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](modules.md#binding-helpers-with-namespace)
+  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](../guide/modules.md#binding-helpers-with-namespace)

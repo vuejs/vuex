@@ -1,2 +1,10 @@
 # redirect old urls to root
-/en/* /:splat
+
+/en/api.html  /api/
+/en/* /guide/:splat
+
+/zh-cn/api.html  /zh/api/
+/zh-cn/* /zh/guide/:splat
+
+/ja/api.html  /ja/api/
+/ja/* /ja/guide/:splat
