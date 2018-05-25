@@ -155,12 +155,12 @@ module.exports = {
         editLinkText: 'Изменить эту страницу на GitHub',
         nav: [
           {
-            text: 'Введение',
-            link: '/ru/getting-started'
+            text: 'Руководство',
+            link: '/ru/guide/'
           },
           {
             text: 'Справочник API',
-            link: '/ru/api'
+            link: '/ru/api/'
           },
           {
             text: 'История изменений',
@@ -170,24 +170,24 @@ module.exports = {
         sidebar: [
           '/ru/installation',
           '/ru/',
-          '/ru/getting-started',
+          '/ru/guide/',
           {
             title: 'Основные понятия',
             collapsable: false,
             children: [
-              '/ru/state',
-              '/ru/getters',
-              '/ru/mutations',
-              '/ru/actions',
-              '/ru/modules'
+              '/ru/guide/state',
+              '/ru/guide/getters',
+              '/ru/guide/mutations',
+              '/ru/guide/actions',
+              '/ru/guide/modules'
             ]
           },
-          '/ru/structure',
-          '/ru/plugins',
-          '/ru/strict',
-          '/ru/forms',
-          '/ru/testing',
-          '/ru/hot-reload'
+          '/ru/guide/structure',
+          '/ru/guide/plugins',
+          '/ru/guide/strict',
+          '/ru/guide/forms',
+          '/ru/guide/testing',
+          '/ru/guide/hot-reload'
         ]
       }
     }
