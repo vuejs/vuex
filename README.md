@@ -3,7 +3,7 @@
 > Centralized State Management for Vue.js.
 
 <p align="center">
-  <img width="700px" src="https://raw.githubusercontent.com/vuejs/vuex/dev/docs/en/images/vuex.png">
+  <img width="700px" src="https://raw.githubusercontent.com/vuejs/vuex/dev/docs/.vuepress/public/vuex.png">
 </p>
 
 - [What is Vuex?](http://vuex.vuejs.org/en/intro.html)
