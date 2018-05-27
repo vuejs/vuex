@@ -6,7 +6,7 @@
   <img width="700px" src="https://raw.githubusercontent.com/vuejs/vuex/dev/docs/.vuepress/public/vuex.png">
 </p>
 
-- [What is Vuex?](http://vuex.vuejs.org/en/intro.html)
+- [What is Vuex?](http://vuex.vuejs.org/)
 - [Full Documentation](http://vuex.vuejs.org/)
 
 ## Examples
