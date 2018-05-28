@@ -4,7 +4,7 @@
  * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
  * @param {Object}
  */
-export const mapState = normalizeNamespace((namespace, states) => {
+export const mapState = normalizeArguments((namespace, states) => {
   const res = {}
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
@@ -34,7 +34,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
  * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
-export const mapMutations = normalizeNamespace((namespace, mutations) => {
+export const mapMutations = normalizeArguments((namespace, mutations) => {
   const res = {}
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
@@ -61,7 +61,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
  * @param {Object|Array} getters
  * @return {Object}
  */
-export const mapGetters = normalizeNamespace((namespace, getters) => {
+export const mapGetters = normalizeArguments((namespace, getters) => {
   const res = {}
   normalizeMap(getters).forEach(({ key, val }) => {
     res[key] = function mappedGetter () {
@@ -87,7 +87,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
  * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
-export const mapActions = normalizeNamespace((namespace, actions) => {
+export const mapActions = normalizeArguments((namespace, actions) => {
   const res = {}
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
@@ -138,7 +138,7 @@ function normalizeMap (map) {
  * @param {Function} fn
  * @return {Function}
  */
-function normalizeNamespace (fn) {
+function normalizeArguments (fn) {
   return (namespace, map) => {
     if (typeof namespace !== 'string' && typeof namespace !== 'function') {
       return fn('', namespace)
