@@ -18,7 +18,7 @@
         :checked="allChecked"
         @change="toggleAll(!allChecked)">
       <ul class="todo-list">
-        <todo v-for="todo in filteredTodos" :todo="todo"></todo>
+        <todo v-for="(todo, index) in filteredTodos" :todo="todo" :key="index"></todo>
       </ul>
     </section>
     <!-- footer -->
@@ -28,7 +28,7 @@
         {{ remaining | pluralize('item') }} left
       </span>
       <ul class="filters">
-        <li v-for="(val, key) in filters">
+        <li v-for="(val, key) in filters" :key="key">
           <a :href="'#/' + key"
             :class="{ selected: visibility === key }"
             @click="visibility = key">
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     tryAddTodo (e) {
-      var text = e.target.value
+      let text = e.target.value
       if (text.trim()) {
         this.addTodo(text)
       }
