@@ -8,3 +8,6 @@
 
 /ja/api.html  /ja/api/
 /ja/* /ja/guide/:splat
+
+/kr/api.html  /kr/api/
+/kr/* /kr/guide/:splat
