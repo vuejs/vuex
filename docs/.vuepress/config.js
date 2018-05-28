@@ -14,6 +14,11 @@ module.exports = {
       lang: 'ja',
       title: 'Vuex',
       description: 'Vue.js のための集中状態管理'
+    },
+    '/kr/': {
+      lang: 'kr',
+      title: 'Vuex',
+      description: 'Vue.js의 중앙 상태 관리'
     }
   },
   serviceWorker: true,
@@ -142,6 +147,46 @@ module.exports = {
           '/ja/guide/forms',
           '/ja/guide/testing',
           '/ja/guide/hot-reload'
+        ]
+      },
+      '/kr/': {
+        label: '한국어',
+        selectText: '한국어',
+        editLinkText: 'GitHub에서 이 페이지 수정',
+        nav: [{
+            text: '가이드',
+            link: '/kr/guide/'
+          },
+          {
+            text: 'API 레퍼런스',
+            link: '/kr/api/'
+          },
+          {
+            text: '릴리즈 노트',
+            link: 'https://github.com/vuejs/vuex/releases'
+          }
+        ],
+        sidebar: [
+          '/kr/installation',
+          '/kr/',
+          '/kr/guide/',
+          {
+            title: '핵심 컨셉',
+            collapsable: false,
+            children: [
+              '/kr/guide/state',
+              '/kr/guide/getters',
+              '/kr/guide/mutations',
+              '/kr/guide/actions',
+              '/kr/guide/modules'
+            ]
+          },
+          '/kr/guide/structure',
+          '/kr/guide/plugins',
+          '/kr/guide/strict',
+          '/kr/guide/forms',
+          '/kr/guide/testing',
+          '/kr/guide/hot-reload'
         ]
       }
     }
