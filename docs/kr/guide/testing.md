@@ -128,6 +128,25 @@ describe('actions', () => {
 })
 ```
 
+사용하는 테스팅 환경에서 스파이를 사용할 수 있다면 (예를 들어 [Sinon.JS](http://sinonjs.org/)같은) `testAction` 헬퍼 대신에 스파이를 사용할 수 있습니다.
+
+``` js
+describe('actions', () => {
+  it('getAllProducts', () => {
+    const commit = sinon.spy()
+    const state = {}
+    
+    actions.getAllProducts({ commit, state })
+    
+    expect(commit.args).to.deep.equal([
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* 모의 응답 */ }]
+    ])
+  })
+})
+```
+
+
 ### Getters 테스팅
 
 Getter에 복잡한 연산이 있는 경우 테스트하는 것이 좋습니다. Getter는 변이와 같은 이유로 테스트하는 것이 매우 간단합니다.
