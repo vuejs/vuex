@@ -104,8 +104,8 @@ const store = new Vuex.Store({
 const logger = createLogger({
   collapsed: false, // 로그를 가지는 변이 자동 확장
   filter (mutation, stateBefore, stateAfter) {
-    // returns true if a mutation should be logged
-    // `mutation` is a { type, payload }
+    // 변이시 항상 로깅해야 한다면 true 를 반환하십시오.
+    // 변이는 { type, payload }의 포맷입니다.
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
@@ -117,7 +117,8 @@ const logger = createLogger({
     // 변이는 { type, payload }의 포맷으로 기록됩니다.
     // 원하는 포맷으로 변경할 수 있습니다.
     return mutation.type
-  }
+  },
+  logger: console, // `console` API의 구현체, default `console`
 })
 ```
 
