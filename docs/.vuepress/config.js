@@ -14,6 +14,11 @@ module.exports = {
       lang: 'ja',
       title: 'Vuex',
       description: 'Vue.js のための集中状態管理'
+    },
+    '/ru/': {
+      lang: 'ru',
+      title: 'Vuex',
+      description: 'Централизованное управление состоянием для Vue.js'
     }
   },
   serviceWorker: true,
@@ -142,6 +147,47 @@ module.exports = {
           '/ja/guide/forms',
           '/ja/guide/testing',
           '/ja/guide/hot-reload'
+        ]
+      },
+      '/ru/': {
+        label: 'Русский',
+        selectText: 'Languages',
+        editLinkText: 'Изменить эту страницу на GitHub',
+        nav: [
+          {
+            text: 'Руководство',
+            link: '/ru/guide/'
+          },
+          {
+            text: 'Справочник API',
+            link: '/ru/api/'
+          },
+          {
+            text: 'История изменений',
+            link: 'https://github.com/vuejs/vuex/releases'
+          }
+        ],
+        sidebar: [
+          '/ru/installation',
+          '/ru/',
+          '/ru/guide/',
+          {
+            title: 'Основные понятия',
+            collapsable: false,
+            children: [
+              '/ru/guide/state',
+              '/ru/guide/getters',
+              '/ru/guide/mutations',
+              '/ru/guide/actions',
+              '/ru/guide/modules'
+            ]
+          },
+          '/ru/guide/structure',
+          '/ru/guide/plugins',
+          '/ru/guide/strict',
+          '/ru/guide/forms',
+          '/ru/guide/testing',
+          '/ru/guide/hot-reload'
         ]
       }
     }
