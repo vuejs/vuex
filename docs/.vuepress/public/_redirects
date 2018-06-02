@@ -9,5 +9,8 @@
 /ja/api.html  /ja/api/
 /ja/* /ja/guide/:splat
 
+/ru/api.html  /ru/api/
+/ru/* /ru/guide/:splat
+
 /kr/api.html  /kr/api/
 /kr/* /kr/guide/:splat

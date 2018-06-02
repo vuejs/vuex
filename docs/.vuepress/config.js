@@ -15,6 +15,11 @@ module.exports = {
       title: 'Vuex',
       description: 'Vue.js のための集中状態管理'
     },
+    '/ru/': {
+      lang: 'ru',
+      title: 'Vuex',
+      description: 'Централизованное управление состоянием для Vue.js'
+    },
     '/kr/': {
       lang: 'kr',
       title: 'Vuex',
@@ -149,9 +154,50 @@ module.exports = {
           '/ja/guide/hot-reload'
         ]
       },
+      '/ru/': {
+        label: 'Русский',
+        selectText: 'Languages',
+        editLinkText: 'Изменить эту страницу на GitHub',
+        nav: [
+          {
+            text: 'Руководство',
+            link: '/ru/guide/'
+          },
+          {
+            text: 'Справочник API',
+            link: '/ru/api/'
+          },
+          {
+            text: 'История изменений',
+            link: 'https://github.com/vuejs/vuex/releases'
+          }
+        ],
+        sidebar: [
+          '/ru/installation',
+          '/ru/',
+          '/ru/guide/',
+          {
+            title: 'Основные понятия',
+            collapsable: false,
+            children: [
+              '/ru/guide/state',
+              '/ru/guide/getters',
+              '/ru/guide/mutations',
+              '/ru/guide/actions',
+              '/ru/guide/modules'
+            ]
+          },
+          '/ru/guide/structure',
+          '/ru/guide/plugins',
+          '/ru/guide/strict',
+          '/ru/guide/forms',
+          '/ru/guide/testing',
+          '/ru/guide/hot-reload'
+        ]
+      },
       '/kr/': {
         label: '한국어',
-        selectText: '한국어',
+        selectText: '언어 변경',
         editLinkText: 'GitHub에서 이 페이지 수정',
         nav: [{
             text: '가이드',
