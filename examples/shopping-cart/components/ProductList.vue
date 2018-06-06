@@ -13,17 +13,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-  computed: mapGetters({
-    products: 'allProducts'
+  computed: mapState({
+    products: state => state.products.all
   }),
-  methods: mapActions([
+  methods: mapActions('cart', [
     'addProductToCart'
   ]),
   created () {
-    this.$store.dispatch('getAllProducts')
+    this.$store.dispatch('products/getAllProducts')
   }
 }
 </script>
