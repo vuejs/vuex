@@ -2,7 +2,7 @@
 sidebar: auto
 ---
 
-# API Reference
+# Referência da API
 
 ## Vuex.Store
 
@@ -12,74 +12,74 @@ import Vuex from 'vuex'
 const store = new Vuex.Store({ ...options })
 ```
 
-## Vuex.Store Constructor Options
+## Vuex.Store Opções do Construtor
 
-### state
+### estado
 
 - type: `Object | Function`
 
-  The root state object for the Vuex store. [Details](../guide/state.md)
+  O objeto raiz de estado para o _store_ Vuex. [Detalhes](../guide/state.md)
 
-  If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](../guide/modules.md#module-reuse)
+  Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](../guide/modules.md#reutilização-do-módulo)
 
-### mutations
-
-- type: `{ [type: string]: Function }`
-
-  Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
-
-  [Details](../guide/mutations.md)
-
-### actions
+### mutações
 
 - type: `{ [type: string]: Function }`
 
-  Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+  Registra mutações no _store_. A função do manipulador sempre recebe `estado` como o 1º argumento (será o estado local do módulo se definido em um módulo) e receberá um 2º argumento _payload_ se houver um.
+
+  [Detalhes](../guide/mutations.md)
+
+### ações
+
+- type: `{ [type: string]: Function }`
+
+  Registra ações no _store_. A função do manipulador recebe um objeto _context_ que expõe as seguintes propriedades:
 
   ``` js
   {
-    state,      // same as `store.state`, or local state if in modules
-    rootState,  // same as `store.state`, only in modules
-    commit,     // same as `store.commit`
-    dispatch,   // same as `store.dispatch`
-    getters,    // same as `store.getters`, or local getters if in modules
-    rootGetters // same as `store.getters`, only in modules
+    state,      // o mesmo que `store.state`, ou estado local se estiver em módulos
+    rootState,  // o mesmo que `store.state`, apenas em módulos
+    commit,     // o mesmo que `store.commit`
+    dispatch,   // o mesmo que `store.dispatch`
+    getters,    // o mesmo que `store.getters`, ou com getters locais se estiver em módulos
+    rootGetters // o mesmo que `store.getters`, apenas em módulos
   }
   ```
 
-  And also receives a second `payload` argument if there is one.
+  E também recebe um 2º argumento _payload_ se houver um.
 
-  [Details](../guide/actions.md)
+  [Detalhes](../guide/actions.md)
 
 ### getters
 
 - type: `{ [key: string]: Function }`
 
-  Register getters on the store. The getter function receives the following arguments:
+  Registra _getters_ no _store_. A função _getter_ recebe os seguintes argumentos:
 
   ```
-  state,     // will be module local state if defined in a module.
-  getters    // same as store.getters
+  state,     // será estado local do módulo se definido em um módulo.
+  getters    // o mesmo que store.getters
   ```
 
-  Specific when defined in a module
+  Específico quando definido em um módulo
 
   ```
-  state,       // will be module local state if defined in a module.
-  getters,     // module local getters of the current module
-  rootState,   // global state
-  rootGetters  // all getters
+  state,       // será estado local do módulo se definido em um módulo.
+  getters,     // módulo de getters locais do módulo atual
+  rootState,   // estado global
+  rootGetters  // todos os getters
   ```
 
-  Registered getters are exposed on `store.getters`.
+  Os _getters_ registrados estão expostos em _store.getters_.
 
-  [Details](../guide/getters.md)
+  [Detalhes](../guide/getters.md)
 
-### modules
+### módulos
 
 - type: `Object`
 
-  An object containing sub modules to be merged into the store, in the shape of:
+  Um objeto contendo sub módulos a serem incorporados no _store_, de forma que:
 
   ``` js
   {
@@ -95,76 +95,76 @@ const store = new Vuex.Store({ ...options })
   }
   ```
 
-  Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+  Cada módulo pode conter `estado` e `mutações` semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz do _store_ usando a chave do módulo. As mutações e _getters_ de um módulo receberão apenas o estado local do módulo como o 1º argumento em vez do estado da raiz e as ações do módulo _context.state_ também apontarão para o estado local.
 
-  [Details](../guide/modules.md)
+  [Detalhes](../guide/modules.md)
 
 ### plugins
 
 - type: `Array<Function>`
 
-  An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+  Um _array_ de funções de plug-in a serem aplicadas no _store_. O plug-in simplesmente recebe o _store_ como o único argumento e pode ouvir mutações (para persistência de dados de saída, registro ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou _observables_).
 
-  [Details](../guide/plugins.md)
+  [Detalhes](../guide/plugins.md)
 
 ### strict
 
 - type: `Boolean`
 - default: `false`
 
-  Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+  Força o _store_ Vuex em modo estrito. No modo estrito, qualquer mutação ao estado do Vuex fora dos manipuladores de mutação acusará um erro.
 
-  [Details](../guide/strict.md)
+  [Detalhes](../guide/strict.md)
 
-## Vuex.Store Instance Properties
+## Vuex.Store Propriedades da Instância
 
 ### state
 
 - type: `Object`
 
-  The root state. Read only.
+  O estado raiz. Apenas leitura.
 
 ### getters
 
 - type: `Object`
 
-  Exposes registered getters. Read only.
+  Expõe os _getters_ registrados. Apenas leitura.
 
-## Vuex.Store Instance Methods
+## Vuex.Store Métodos da Instância
 
 ### commit
 
 -  `commit(type: string, payload?: any, options?: Object)`
 -  `commit(mutation: Object, options?: Object)`
 
-  Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](../guide/modules.md#namespacing). [Details](../guide/mutations.md)
+  Confirma (ou faz um _Commit_ de) uma mutação. _options_ pode ter _root: true_ que permite confirmar mutações da raiz em [módulos namespaced](../guide/modules.md#namespacing). [Detalhes](../guide/mutations.md)
 
 ### dispatch
 
 -  `dispatch(type: string, payload?: any, options?: Object)`
 -  `dispatch(action: Object, options?: Object)`
 
-  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
+  Despacha uma ação. _options_ pode ter _root: true_ que permite despachar ações para raiz em [módulos namespaced](../guide/modules.md#namespacing). Retorna um _Promise_ que resolve todos os manipuladores de ação acionados. [Detalhes](../guide/actions.md)
 
 ### replaceState
 
 -  `replaceState(state: Object)`
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  Substitua o estado da raiz do _store_. Use isso apenas para fins de _hydration_ / _time-travel_.
 
 ### watch
 
 -  `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Visualiza de forma reativa um valor de retorno de `fn`, e chama o _callback_ para o retorno de chamada quando o valor for alterado. O `fn` recebe o estado do _store_ como o 1º argumento, e os _getters_ como o 2º argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o método _vm.$watch_ do Vue.
 
-  To stop watching, call the returned unwatch function.
+  Para parar um _watch_, chame a função _unwatch_ retornada.
 
 ### subscribe
 
 -  `subscribe(handler: Function): Function`
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Assina as mutações do _store_. O `manipulador` é chamado após cada mutação e recebe o descritor de mutação e o estado pós-mutação como argumentos:
 
   ``` js
   store.subscribe((mutation, state) => {
@@ -173,17 +173,17 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  Para cancelar a assinatura, chame a função _unsubscribe_ retornada.
 
-  Most commonly used in plugins. [Details](../guide/plugins.md)
+  Mais comumente usado em plugins. [Detalhes](../guide/plugins.md)
 
 ### subscribeAction
 
 -  `subscribeAction(handler: Function): Function`
 
-  > New in 2.5.0
+  > Novo na 2.5.0
 
-  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+  Assina as ações do _store_. O `manipulador` é chamado para cada ação despachada e recebe o descritor de ação e o estado atual do _store_ como argumentos:
 
   ``` js
   store.subscribeAction((action, state) => {
@@ -192,72 +192,72 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  Para cancelar a assinatura, chame a função _unsubscribe_ retornada.
 
-  Most commonly used in plugins. [Details](../guide/plugins.md)
+  Mais comumente usado em plugins. [Detalhes](../guide/plugins.md)
 
 ### registerModule
 
 -  `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
-  Register a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+  Registra um módulo dinâmico. [Detalhes](../guide/modules.md#registro-de-módulo-dinâmico)
 
-  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
+  _options_ can have _preserveState: true_ que permite preservar o estado anterior. Útil com renderização do lado do servidor (_server-side-rendering_).
 
 ### unregisterModule
 
 -  `unregisterModule(path: string | Array<string>)`
 
-  Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+  Cancela o registro de um módulo dinâmico. [Detalhes](../guide/modules.md#registro-de-módulo-dinâmico)
 
 ### hotUpdate
 
 -  `hotUpdate(newOptions: Object)`
 
-  Hot swap new actions and mutations. [Details](../guide/hot-reload.md)
+  Faz _Hot_ _swap_ de novas ações e mutações. [Detalhes](../guide/hot-reload.md)
 
-## Component Binding Helpers
+## Métodos Auxiliares dos Componentes
 
 ### mapState
 
 -  `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](../guide/state.md#the-mapstate-helper)
+  Criar dados computados do componente que retornam a subárvore do _store_ Vuex. [Detalhes](../guide/state.md#o-auxiliar-mapstate)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
 
-  The second object argument's members can be a function. `function(state: any)`
+  O segundo objeto que compõem os argumentos pode ser uma função. `function(state: any)`
 
 ### mapGetters
 
 -  `mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`
 
-  Create component computed options that return the evaluated value of a getter. [Details](../guide/getters.md#the-mapgetters-helper)
+  Criar dados computados do componente que retornam o valor calculado de um _getter_. [Detalhes](../guide/getters.md#o-auxiliar-mapgetters)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
 
 ### mapActions
 
 -  `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that dispatch an action. [Details](../guide/actions.md#dispatching-actions-in-components)
+  Criar opções de métodos nos componentes que despacham uma ação. [Detalhes](../guide/actions.md#ações-de-despacho-em-componentes)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
 
-  The second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
+  O segundo objeto que compõem os argumentos pode ser uma função. `function(dispatch: function, ...args: any[])`
 
 ### mapMutations
 
 -  `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that commit a mutation. [Details](../guide/mutations.md#committing-mutations-in-components)
+  Criar opções de métodos nos componentes que confirmam (ou fazem um _commit_ de) uma mutação. [Detalhes](../guide/mutations.md#fazendo-commit-de-mutações-em-componente)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
 
-  The second object argument's members can be a function. `function(commit: function, ...args: any[])`
+  O segundo objeto que compõem os argumentos pode ser uma função. `function(commit: function, ...args: any[])`
 
 ### createNamespacedHelpers
 
 -  `createNamespacedHelpers(namespace: string): Object`
 
-  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  Cria um componente _namespaced_ dos métodos auxiliares. O objeto retornado possui _mapState_, _mapGetters_, _mapActions_ e _mapMutations_, que estão conectados com o dado _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
