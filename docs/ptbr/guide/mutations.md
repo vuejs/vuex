@@ -1,7 +1,5 @@
 # Mutações
 
-The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
-
 A única maneira de realmente mudar de estado em um _store_ Vuex é por confirmar (ou fazer _commit_ de) uma mutação. As mutações do Vuex são muito semelhantes aos eventos: cada mutação tem uma cadeia de caracteres **tipo** e um **manipulador**. A função do manipulador é onde realizamos modificações de estado reais e ele receberá o estado como o 1º argumento:
 
 ``` js
@@ -80,8 +78,6 @@ mutations: {
 
 ### Mutações Seguem as Regras de Reatividade do Vue
 
-Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
-
 Como o estado de um _store_ Vuex é reativado pelo Vue, quando alteramos o estado, os componentes do Vue observando o estado serão atualizados automaticamente. Isso também significa que as mutações do Vuex estão sujeitas às mesmas ressalvas de reatividade ao trabalhar com o Vue simples:
 
 1. Prefira inicializar o estado inicial do seu _store_ com todos os campos desejados antecipadamente.
@@ -116,7 +112,7 @@ const store = new Vuex.Store({
     // podemos usar o recurso de nome do dado computado do ES2015
     // para usar uma constante como o nome da função
     [SOME_MUTATION] (state) {
-      // mutate state
+      // muda o estado
     }
   }
 })
