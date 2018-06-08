@@ -1,8 +1,8 @@
-# Modules
+# Módulos
 
-Due to using a single state tree, all state of our application is contained inside one big object. However, as our application grows in scale, the store can get really bloated.
+Devido ao uso de uma única árvore de estado, todo o estado de nossa aplicação está contido dentro de um grande objeto. No entanto, à medida que nosso aplicativo cresce em escala, o _store_ pode ficar realmente inchado.
 
-To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
+Para ajudar com isso, o Vuex nos permite dividir nosso _store_ em **módulos**. Cada módulo pode conter seu próprio estado, mutações, ações, _getters_ e até módulos aninhados - é todo o complexo caminho abaixo:
 
 ``` js
 const moduleA = {
@@ -29,16 +29,16 @@ store.state.a // -> `moduleA`'s state
 store.state.b // -> `moduleB`'s state
 ```
 
-### Module Local State
+### Estado Local do Módulo
 
-Inside a module's mutations and getters, the first argument received will be **the module's local state**.
+Dentro das mutações e _getters_ de um módulo, o 1º argumento recebido será **o estado local do módulo**.
 
 ``` js
 const moduleA = {
   state: { count: 0 },
   mutations: {
     increment (state) {
-      // `state` is the local module state
+      // `state` é o estado local do módulo
       state.count++
     }
   },
@@ -51,7 +51,7 @@ const moduleA = {
 }
 ```
 
-Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
+Da mesma forma, dentro das ações do módulo, _context.state_ irá expor o estado local, e o estado raiz será exposto como _context.rootState_:
 
 ``` js
 const moduleA = {
@@ -66,7 +66,7 @@ const moduleA = {
 }
 ```
 
-Also, inside module getters, the root state will be exposed as their 3rd argument:
+Além disso, dentro do módulo _getters_, o estado raiz será exibido como seu 3º argumento:
 
 ``` js
 const moduleA = {
@@ -81,9 +81,9 @@ const moduleA = {
 
 ### Namespacing
 
-By default, actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type.
+Por padrão, ações, mutações e _getters_ dentro dos módulos ainda são registrados sob o **namespace global** - isso permite que vários módulos reajam ao mesmo tipo de ação/mutação.
 
-If you want your modules to be more self-contained or reusable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
+Se você quer que seus módulos sejam mais independentes ou reutilizáveis, você pode marcá-los como _namespaced_ com _namespaced: true_. Quando o módulo é registrado, todos os _getters_, ações e mutações serão automaticamente _namespaced_ com base no caminho no qual o módulo está registrado. Por exemplo:
 
 ``` js
 const store = new Vuex.Store({
@@ -92,7 +92,7 @@ const store = new Vuex.Store({
       namespaced: true,
 
       // module assets
-      state: { ... }, // module state is already nested and not affected by namespace option
+      state: { ... }, // o estado do módulo já está aninhado e não é afetado pela opção de namespace
       getters: {
         isAdmin () { ... } // -> getters['account/isAdmin']
       },
@@ -103,9 +103,9 @@ const store = new Vuex.Store({
         login () { ... } // -> commit('account/login')
       },
 
-      // nested modules
+      // módulos aninhados
       modules: {
-        // inherits the namespace from parent module
+        // herda o namespace do modulo pai
         myPage: {
           state: { ... },
           getters: {
@@ -113,7 +113,7 @@ const store = new Vuex.Store({
           }
         },
 
-        // further nest the namespace
+        // aninhar ainda mais o namespace
         posts: {
           namespaced: true,
 
@@ -128,13 +128,13 @@ const store = new Vuex.Store({
 })
 ```
 
-Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. Toggling between namespaced or not does not affect the code inside the module.
+Os _getters_ e as ações _namespaced_ receberão _getters_, _dispatch_ e _commit_ localizados. Em outras palavras, você pode usar os recursos do módulo sem escrever prefixo no mesmo módulo. Alternar entre _namespaced_ ou não, não afeta o código dentro do módulo.
 
-#### Accessing Global Assets in Namespaced Modules
+#### Acessando Recursos Globais em Módulos Namespaced
 
-If you want to use global state and getters, `rootState` and `rootGetters` are passed as the 3rd and 4th arguments to getter functions, and also exposed as properties on the `context` object passed to action functions.
+Se você quiser usar estado global e _getters_, _rootState_ e _rootGetters_ são passados como o 3º e 4º argumentos para funções _getter_, e também expostos como propriedades no objeto _context_ passado para funções de ação.
 
-To dispatch actions or commit mutations in the global namespace, pass `{ root: true }` as the 3rd argument to `dispatch` and `commit`.
+Para despachar ações confirmar (ou fazer um _commit_ de) mutações no _namespace_ global, passe `{root: true}` como o 3º argumento para _dispatch_ e _commit_.
 
 ``` js
 modules: {
@@ -142,8 +142,8 @@ modules: {
     namespaced: true,
 
     getters: {
-      // `getters` is localized to this module's getters
-      // you can use rootGetters via 4th argument of getters
+      // `getters` está localizado nos getters deste módulo
+      // você pode usar rootGetters como 4º argumento de getters
       someGetter (state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
         rootGetters.someOtherGetter // -> 'someOtherGetter'
@@ -152,8 +152,8 @@ modules: {
     },
 
     actions: {
-      // dispatch and commit are also localized for this module
-      // they will accept `root` option for the root dispatch/commit
+      // dispatch e commit também estão localizados para este módulo
+      // eles aceitarão a opção `root` para o dispatch/commit da raiz
       someAction ({ dispatch, commit, getters, rootGetters }) {
         getters.someGetter // -> 'foo/someGetter'
         rootGetters.someGetter // -> 'someGetter'
@@ -170,9 +170,9 @@ modules: {
 }
 ```
 
-#### Register Global Action in Namespaced Modules
+#### Registrar Ação Global em Módulos com Namespaces
 
-If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler`. For example:
+Se você quiser registrar ações globais em módulos com namespaces, você pode marcá-lo com _root: true_ e colocar a definição de ação na função _handler_. Por exemplo:
 
 ``` js
 {
@@ -196,9 +196,9 @@ If you want to register global actions in namespaced modules, you can mark it wi
 }
 ```
 
-#### Binding Helpers with Namespace
+#### Usando Métodos Auxiliares com Namespace
 
-When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:
+Ao vincular um módulo com _namespace_ aos componentes com os auxiliares _mapState_, _mapGetters_, _mapActions_ e _mapMutations_, ele pode ficar um pouco verboso:
 
 ``` js
 computed: {
@@ -215,7 +215,7 @@ methods: {
 }
 ```
 
-In such cases, you can pass the module namespace string as the first argument to the helpers so that all bindings are done using that module as the context. The above can be simplified to:
+Nesses casos, você pode passar a _string_ do _namespace_ do módulo como o 1º argumento para os auxiliares, de modo que todas as ligações sejam feitas usando esse módulo como o contexto. O acima pode ser simplificado para:
 
 ``` js
 computed: {
@@ -232,7 +232,7 @@ methods: {
 }
 ```
 
-Furthermore, you can create namespaced helpers by using `createNamespacedHelpers`. It returns an object having new component binding helpers that are bound with the given namespace value:
+Além disso, você pode criar auxiliares com _namespace_ usando _createNamespacedHelpers_. Ele retorna um objeto com novos métodos auxiliares dos componentes vinculados ao valor do _namespace_ fornecido:
 
 ``` js
 import { createNamespacedHelpers } from 'vuex'
@@ -241,14 +241,14 @@ const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
 
 export default {
   computed: {
-    // look up in `some/nested/module`
+    // procure em `some/nested/module`
     ...mapState({
       a: state => state.a,
       b: state => state.b
     })
   },
   methods: {
-    // look up in `some/nested/module`
+    // procure em `some/nested/module`
     ...mapActions([
       'foo',
       'bar'
@@ -257,56 +257,59 @@ export default {
 }
 ```
 
-#### Caveat for Plugin Developers
+#### Advertência para Desenvolvedores de Plug-ins
 
-You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
+Você pode se preocupar com espaços de nomes imprevisíveis para seus módulos quando você cria um [plugin](plugins.md) que fornece os módulos e permite que os usuários os incluam em um _store_ Vuex. Seus módulos também serão _namespaced_ se os usuários do plugin adicionarem seus módulos em um módulo _namespaced_. Para adaptar esta situação, você pode precisar receber um valor de _namespace_ através de uma opção sua no plugin:
 
 ``` js
-// get namespace value via plugin option
-// and returns Vuex plugin function
+// obtem valor do namespace via opção no plugin
+// e retorna a função plugin do Vuex
 export function createPlugin (options = {}) {
   return function (store) {
     // add namespace to plugin module's types
+    // adicionar namespace aos tipos de módulo do plug-in
     const namespace = options.namespace || ''
     store.dispatch(namespace + 'pluginAction')
   }
 }
 ```
 
-### Dynamic Module Registration
+### Registro de Módulo Dinâmico
 
-You can register a module **after** the store has been created with the `store.registerModule` method:
+Você pode registrar um módulo **após** o _store_ ser criado com o método _store.registerModule_:
 
 ``` js
-// register a module `myModule`
+// registra um módulo `myModule`
 store.registerModule('myModule', {
   // ...
 })
 
-// register a nested module `nested/myModule`
+// registra um módulo aninhado `nested/myModule`
 store.registerModule(['nested', 'myModule'], {
   // ...
 })
 ```
 
-The module's state will be exposed as `store.state.myModule` and `store.state.nested.myModule`.
+Os estados do módulo serão expostos como _store.state.myModule_ e _store.state.nested.myModule_.
 
-Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
+O registro de módulo dinâmico possibilita que outros plug-ins Vue aproveitem também o Vuex para gerenciamento de estado, anexando um módulo ao _store_ do aplicativo. Por exemplo, a biblioteca [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra o vue-router com o vuex gerenciando o estado da rota do aplicativo em um módulo conectado dinamicamente.
 
-You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+Você também pode remover um módulo dinamicamente registrado com o `store.unregisterModule(moduleName)`. Note que você não pode remover módulos estáticos (declarados na criação do _store_) com este método.
 
-It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can do achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
+É bem provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Renderizado no Lado do Servidor (_Server_ _Side_ _Rendered_). Você pode fazer isso com a opção `preserveState`:`store.registerModule('a', module, {preserveState: true})`
 
-### Module Reuse
+### Reutilização do Módulo
 
-Sometimes we may need to create multiple instances of a module, for example:
+Às vezes, podemos precisar criar várias instâncias de um módulo, por exemplo:
 
-- Creating multiple stores that use the same module (e.g. To [avoid stateful singletons in the SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) when the `runInNewContext` option is `false` or `'once'`);
-- Register the same module multiple times in the same store.
+- Criando multiplos _stores_ que usam o mesmo módulo (e.g. Para [evitar Singletons com informações de estado no SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) quando a opção _runInNewContext_ é _false_ ou `'_once_'`);
+- Registrar o mesmo módulo várias vezes no mesmo _store_.
 
-If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
+Se usarmos um objeto simples para declarar o estado do módulo, esse objeto de estado será compartilhado por referência e causará poluição entre estados de _store_/módulo quando ele sofrer uma mutação.
 
 This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
+
+Este é exatamente o mesmo problema com _data_ dentro dos componentes do Vue. Então a solução também é a mesma - use uma função para declarar o estado do módulo (suportado em 2.3.0+):
 
 ``` js
 const MyReusableModule = {
@@ -315,6 +318,6 @@ const MyReusableModule = {
       foo: 'bar'
     }
   },
-  // mutations, actions, getters...
+  // mutações, ações, getters...
 }
 ```

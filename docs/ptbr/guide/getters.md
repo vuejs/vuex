@@ -1,6 +1,6 @@
 # Getters
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+Às vezes, talvez precisemos calcular o estado derivado com base no estado do _store_, por exemplo, filtrar através de uma lista de itens e contá-los:
 
 ``` js
 computed: {
@@ -10,11 +10,11 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+Se mais do que um componente precisa fazer uso disso, temos que duplicar a função, ou extraí-lo em um auxiliar compartilhado e importá-lo em vários lugares - ambos são menos do que o ideal.
 
-Vuex allows us to define "getters" in the store. You can think of them as computed properties for stores. Like computed properties, a getter's result is cached based on its dependencies, and will only re-evaluate when some of its dependencies have changed.
+O Vuex nos permite definir _getters_ no _store_. Você pode pensar neles como dados computados para os _stores_. Como os dados computados, o resultado de um _getter_ é armazenado em cache com base em suas dependências e só será reavaliado quando algumas de suas dependências forem alteradas.
 
-Getters will receive the state as their 1st argument:
+Os _getters_ receberão o estado como 1º argumento:
 
 ``` js
 const store = new Vuex.Store({
@@ -32,15 +32,15 @@ const store = new Vuex.Store({
 })
 ```
 
-### Property-Style Access
+### Acesso Estilo-Propriedade
 
-The getters will be exposed on the `store.getters` object, and you access values as properties:
+Os _getters_ serão expostos no objeto _store.getters_ e você acessa valores como propriedades:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+Os _getters_ também receberão outros _getters_ como o 2º argumento:
 
 ``` js
 getters: {
@@ -55,7 +55,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+Agora podemos usar facilmente isso dentro de qualquer componente:
 
 ``` js
 computed: {
@@ -65,11 +65,11 @@ computed: {
 }
 ```
 
-Note that getters accessed as properties are cached as part of Vue's reactivity system.
+Observe que os _getters_ acessados ​​como propriedades são armazenados em cache como parte do sistema de reatividade do Vue.
 
-### Method-Style Access
+### Acesso Estilo-Método
 
-You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
+Você também pode passar argumentos para os _getters_ retornando uma função. Isso é particularmente útil quando você deseja consultar um _array_ no _store_:
 
 ```js
 getters: {
@@ -84,11 +84,11 @@ getters: {
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
-Note that getters accessed via methods will run each time you call them, and the result is not cached.
+Observe que os _getters_ acessados ​​via métodos serão executados toda vez que você os chamar, e o resultado não será armazenado em cache.
 
-### The `mapGetters` Helper
+### O Auxiliar `mapGetters`
 
-The `mapGetters` helper simply maps store getters to local computed properties:
+O auxiliar `mapGetters` simplesmente mapeia os _getters_ do _store_ para os dados computados locais:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -96,7 +96,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // mistura os getters nos dados computatos com o operador spread
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -106,11 +106,11 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+Se você deseja mapear um _getter_ com um nome diferente, use um objeto:
 
 ``` js
 ...mapGetters({
-  // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+  // mapeia `this.doneCount` para `this.$store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```

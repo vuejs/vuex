@@ -1,8 +1,8 @@
-# Hot Reloading
+# Hot Reloading (Recarregamento Rápido)
 
-Vuex supports hot-reloading mutations, modules, actions and getters during development, using webpack's [Hot Module Replacement API](https://webpack.js.org/guides/hot-module-replacement/). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+O Vuex suporta _hot-reloading_ de mutações, módulos, ações e _getters_ durante o desenvolvimento, utilizando o _webpack_ [Hot Module Replacement API](https://webpack.js.org/guides/hot-module-replacement/). Você também pode usá-lo no Browserify com o _plugin_ [browserify-hmr](https://github.com/AgentME/browserify-hmr/).
 
-For mutations and modules, you need to use the `store.hotUpdate()` API method:
+Para mutações e módulos, você precisa usar o método da API `store.hotUpdate()`:
 
 ``` js
 // store.js
@@ -24,13 +24,13 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // accept actions and mutations as hot modules
+  // aceita ações e mutações como 'hot modules'
   module.hot.accept(['./mutations', './modules/a'], () => {
-    // require the updated modules
-    // have to add .default here due to babel 6 module output
+    // requer os módulos atualizados
+    // tem que adicionar .default aqui devido à saída do módulo babel 6
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
-    // swap in the new actions and mutations
+    // troca nas novas ações e mutações
     store.hotUpdate({
       mutations: newMutations,
       modules: {
@@ -41,4 +41,4 @@ if (module.hot) {
 }
 ```
 
-Checkout the [counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) to play with hot-reload.
+Confira o  [counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) para brincar com o hot-reload.
