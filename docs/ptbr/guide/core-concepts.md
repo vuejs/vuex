@@ -1,13 +1,13 @@
-# Core Concepts
+# Conceitos Básicos
 
-We will be learning the core concepts of Vuex in these chapters. They are:
+Vamos aprender os conceitos básicos do Vuex nestes capítulos. São eles:
 
-- [State](state.md)
+- [Estado](state.md)
 - [Getters](getters.md)
-- [Mutations](mutations.md)
-- [Actions](actions.md)
-- [Modules](modules.md)
+- [Mutações](mutations.md)
+- [Ações](actions.md)
+- [Módulos](modules.md)
 
-A deep understanding of all these concepts is essential for using vuex.
+Uma compreensão profunda de todos esses conceitos é essencial para o uso de vuex.
 
-Let's get started.
+Vamos começar.
