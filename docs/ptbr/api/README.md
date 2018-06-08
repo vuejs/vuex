@@ -20,7 +20,7 @@ const store = new Vuex.Store({ ...options })
 
   O objeto raiz de estado para o _store_ Vuex. [Detalhes](../guide/state.md)
 
-  Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](../guide/modules.md#reutilização-do-módulo)
+  Se você passar uma função que retorna um objeto, o objeto retornado é usado como o estado da raiz. Isso é útil quando você deseja reutilizar o objeto de estado, especialmente para reutilização de módulos. [Detalhes](../guide/modules.md#reutilizacao-do-modulo)
 
 ### mutações
 
@@ -200,7 +200,7 @@ const store = new Vuex.Store({ ...options })
 
 -  `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
-  Registra um módulo dinâmico. [Detalhes](../guide/modules.md#registro-de-módulo-dinâmico)
+  Registra um módulo dinâmico. [Detalhes](../guide/modules.md#registro-de-modulo-dinamico)
 
   _options_ can have _preserveState: true_ que permite preservar o estado anterior. Útil com renderização do lado do servidor (_server-side-rendering_).
 
@@ -208,7 +208,7 @@ const store = new Vuex.Store({ ...options })
 
 -  `unregisterModule(path: string | Array<string>)`
 
-  Cancela o registro de um módulo dinâmico. [Detalhes](../guide/modules.md#registro-de-módulo-dinâmico)
+  Cancela o registro de um módulo dinâmico. [Detalhes](../guide/modules.md#registro-de-modulo-dinamico)
 
 ### hotUpdate
 
@@ -224,7 +224,7 @@ const store = new Vuex.Store({ ...options })
 
   Criar dados computados do componente que retornam a subárvore do _store_ Vuex. [Detalhes](../guide/state.md#o-auxiliar-mapstate)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
 
   O segundo objeto que compõem os argumentos pode ser uma função. `function(state: any)`
 
@@ -234,15 +234,15 @@ const store = new Vuex.Store({ ...options })
 
   Criar dados computados do componente que retornam o valor calculado de um _getter_. [Detalhes](../guide/getters.md#o-auxiliar-mapgetters)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
 
 ### mapActions
 
 -  `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Criar opções de métodos nos componentes que despacham uma ação. [Detalhes](../guide/actions.md#ações-de-despacho-em-componentes)
+  Criar opções de métodos nos componentes que despacham uma ação. [Detalhes](../guide/actions.md#acoes-de-despacho-em-componentes)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
 
   O segundo objeto que compõem os argumentos pode ser uma função. `function(dispatch: function, ...args: any[])`
 
@@ -250,9 +250,9 @@ const store = new Vuex.Store({ ...options })
 
 -  `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Criar opções de métodos nos componentes que confirmam (ou fazem um _commit_ de) uma mutação. [Detalhes](../guide/mutations.md#fazendo-commit-de-mutações-em-componente)
+  Criar opções de métodos nos componentes que confirmam (ou fazem um _commit_ de) uma mutação. [Detalhes](../guide/mutations.md#confirmando-ou-fazendo-commits-de-mutacoes-em-componentes)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
 
   O segundo objeto que compõem os argumentos pode ser uma função. `function(commit: function, ...args: any[])`
 
@@ -260,4 +260,4 @@ const store = new Vuex.Store({ ...options })
 
 -  `createNamespacedHelpers(namespace: string): Object`
 
-  Cria um componente _namespaced_ dos métodos auxiliares. O objeto retornado possui _mapState_, _mapGetters_, _mapActions_ e _mapMutations_, que estão conectados com o dado _namespace_. [Detalhes](../guide/modules.md#usando-métodos-auxiliares-com-namespace)
+  Cria um componente _namespaced_ dos métodos auxiliares. O objeto retornado possui _mapState_, _mapGetters_, _mapActions_ e _mapMutations_, que estão conectados com o dado _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
