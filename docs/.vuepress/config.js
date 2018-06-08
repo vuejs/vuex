@@ -263,7 +263,7 @@ module.exports = {
           '/ptbr/',
           '/ptbr/guide/',
           {
-            title: 'Core Concepts',
+            title: 'Conceitos Básicos',
             collapsable: false,
             children: [
               '/ptbr/guide/state',

@@ -1,32 +1,32 @@
-# Application Structure
+# Estrutura da Aplicação
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
+O Vuex não restringe realmente como você estrutura seu código. Em vez disso, ele impõe um conjunto de princípios de alto nível:
 
-1. Application-level state is centralized in the store.
+1. O estado do nível do aplicativo é centralizado no _store_.
 
-2. The only way to mutate the state is by committing **mutations**, which are synchronous transactions.
+2. A única maneira de mudar o estado é confirmando (ou fazendo _commit_ das) **mutações**, que são transações síncronas
 
-3. Asynchronous logic should be encapsulated in, and can be composed with **actions**.
+3. A lógica assíncrona deve ser encapsulada e pode ser composta com **ações**.
 
-As long as you follow these rules, it's up to you how to structure your project. If your store file gets too big, simply start splitting the actions, mutations and getters into separate files.
+Enquanto você seguir estas regras, depende de você como estruturar seu projeto. Se o arquivo do seu _store_ for muito grande, basta começar a dividir as ações, mutações e _getters_ em arquivos separados.
 
-For any non-trivial app, we will likely need to leverage modules. Here's an example project structure:
+Para qualquer aplicativo não trivial, provavelmente precisaremos aproveitar os módulos. Aqui está um exemplo de estrutura de projeto:
 
 ``` bash
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # abstrações para fazer requisições a API
 ├── components
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── index.js          # where we assemble modules and export the store
-    ├── actions.js        # root actions
-    ├── mutations.js      # root mutations
+    ├── index.js          # onde montamos módulos e exportamos a store
+    ├── actions.js        # ações raiz
+    ├── mutations.js      # mutações raiz
     └── modules
-        ├── cart.js       # cart module
-        └── products.js   # products module
+        ├── cart.js       # módulo cart
+        └── products.js   # módulo products
 ```
 
-As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).
+Como referência, confira o [Exemplo do Carrinho de Compras](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart).

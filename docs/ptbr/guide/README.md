@@ -1,4 +1,4 @@
-# Getting Started
+# Começando
 
 At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that make a Vuex store different from a plain global object:
 
