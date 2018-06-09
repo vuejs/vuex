@@ -42,6 +42,7 @@ export interface Dispatch {
 }
 
 export interface Commit {
+  <T, P>(type: T, payload?: P, options?: CommitOptions): void;
   (type: string, payload?: any, options?: CommitOptions): void;
   <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
 }
