@@ -81,7 +81,7 @@ const moduleA = {
 
 ### Namespacing
 
-Por padrão, ações, mutações e _getters_ dentro dos módulos ainda são registrados sob o **namespace global** - isso permite que vários módulos reajam ao mesmo tipo de ação/mutação.
+Por padrão, ações, mutações e _getters_ dentro dos módulos ainda são registrados sob o **_namespace_ global** - isso permite que vários módulos reajam ao mesmo tipo de ação/mutação.
 
 Se você quer que seus módulos sejam mais independentes ou reutilizáveis, você pode marcá-los como _namespaced_ com _namespaced: true_. Quando o módulo é registrado, todos os _getters_, ações e mutações serão automaticamente _namespaced_ com base no caminho no qual o módulo está registrado. Por exemplo:
 

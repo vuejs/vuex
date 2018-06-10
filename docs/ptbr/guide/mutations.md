@@ -24,7 +24,7 @@ store.commit('increment')
 
 ### Commit com Payload
 
-Você pode passar um argumento adicional para o _store.commit_, que é chamado de **payload** para a mutação:
+Você pode passar um argumento adicional para o _store.commit_, que é chamado de **_payload_** para a mutação:
 
 ``` js
 // ...
@@ -121,8 +121,6 @@ const store = new Vuex.Store({
 Se usar constantes é em grande parte uma preferência - pode ser útil em grandes projetos com muitos desenvolvedores, mas é totalmente opcional se você não gostar deles.
 
 ### Mutações Devem Ser Síncronas
-
-One important rule to remember is that **mutation handler functions must be synchronous**. Why? Consider the following example:
 
 Uma regra importante a lembrar é que **as funções do manipulador de mutação devem ser síncronas**. Por quê? Considere o seguinte exemplo:
 

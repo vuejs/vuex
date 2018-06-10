@@ -1,19 +1,19 @@
 # Começando
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that make a Vuex store different from a plain global object:
+No centro de cada aplicação Vuex existe o **_store_**. Um "_store_" é basicamente um recipiente que contém o **estado** da sua aplicação. Há duas coisas que tornam um _store_ Vuex diferente de um objeto global simples:
 
-1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+1. Os _stores_ Vuex são reativos. Quando os componentes do Vue obtêm o estado dele, eles atualizarão de forma reativa e eficiente se o estado do _store_ mudar.
 
-2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
+2. Você não pode alterar diretamente os estados do _store_. A única maneira de mudar o estado de um _store_ é explicitamente **confirmando (ou fazendo _commit_ de) mutações**. Isso garante que cada mudança de estado deixe um registro rastreável, e permite ferramentas que nos ajudem a entender melhor nossas aplicações.
 
-### The Simplest Store
+### O Store Mais Simples 
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
+> **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto da documentação. Se você ainda não aprendeu como usá-la, [veja aqui](https://babeljs.io/docs/learn-es2015/)!
 
-After [installing](../installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
+Após [instalar](../installation.md) o Vuex, vamos criar um _store_. É bem simples - basta fornecer um objeto de estado inicial, e algumas mutações:
 
 ``` js
-// Make sure to call Vue.use(Vuex) first if using a module system
+// Certifique-se de chamar Vue.use(Vuex) primeiro se estiver usando o sistema de módulos
 
 const store = new Vuex.Store({
   state: {
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
+Agora, você pode acessar o objeto de estado como _store.state_ e acionar uma mudança de estado com o método _store.commit_:
 
 ``` js
 store.commit('increment')
@@ -35,10 +35,10 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
+Novamente, a razão pela qual estamos confirmando (ou fazendo _commit_ de) uma mutação em vez de mudar _store.state.count_ diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa ter melhores argumetos sobre as mudanças de estado em seu aplicativo ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, capturar momentos do estado ou mesmo realizar depuração viajando pelo histórico de estado (_time travel_).
 
-Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+Usar o estado do _store_ em um componente simplesmente envolve o retorno do estado dentro de um dado computado, porque o estado do _store_ é reativo. Acionar alterações simplesmente significa confirmar (ou fazer _commit_ de) mutações nos métodos dos componentes.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/n9jmu5v7/1269/).
+Aqui está um exemplo do [aplicativo de contador do Vuex mais básico](https://jsfiddle.net/n9jmu5v7/1269/).
 
-Next, we will discuss each core concept in much finer details, starting with [State](state.md).
+Em seguida, discutiremos cada conceito chave em mais detalhes, começando com [Estado](state.md).

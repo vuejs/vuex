@@ -1,18 +1,18 @@
 # Plugins
 
-Vuex stores accept the `plugins` option that exposes hooks for each mutation. A Vuex plugin is simply a function that receives the store as the only argument:
+Os _stores_ do Vuex aceitam a opção _plugins_ que expõe _hooks_ para cada mutação. Um _plugin_ Vuex é simplesmente uma função que recebe um _store_ como seu único argumento:
 
 ``` js
 const myPlugin = store => {
-  // called when the store is initialized
+  // chamado quando o store é inicializado
   store.subscribe((mutation, state) => {
-    // called after every mutation.
-    // The mutation comes in the format of `{ type, payload }`.
+    // chamada após cada mutação.
+    // A mutação vem no formato de `{ type, payload }`.
   })
 }
 ```
 
-And can be used like this:
+E pode ser usada assim:
 
 ``` js
 const store = new Vuex.Store({
@@ -21,11 +21,11 @@ const store = new Vuex.Store({
 })
 ```
 
-### Committing Mutations Inside Plugins
+### Confirmando (ou fazendo _commit_ de) Mutações Dentro de Plugins
 
-Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by committing mutations.
+_Plugins_ não tem permissão para alterar o estado diretamente - similar aos componentes, eles podem apenas acionar mudanças fazendo o _commit_ de mutações.
 
-By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
+Por fazer _commit_ de mutações, um _plugin_ pode ser usado para sincronizar uma fonte de dados ao _store_. Por exemplo, para sincronizar uma fonte de dados _websocket_ ao _store_ (isso é só um exemplo inventado, na realidade a função _createPlugin_ pode receber parâmetros adicionais para tarefas mais complexas):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -52,9 +52,9 @@ const store = new Vuex.Store({
 })
 ```
 
-### Taking State Snapshots
+### Capturando os Momentos do Estado
 
-Sometimes a plugin may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. To achieve that, you will need to perform a deep-copy on the state object:
+Às vezes, um _plugin_ pode querer receber "momentos" do estado, e também comparar o estado pós-mutação com o estado de pré-mutação. Para conseguir isso, você precisará realizar uma cópia-profunda do objeto de estado:
 
 ``` js
 const myPluginWithSnapshot = store => {
@@ -62,15 +62,15 @@ const myPluginWithSnapshot = store => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // compare `prevState` and `nextState`...
+    // compara `prevState` e `nextState`...
 
-    // save state for next mutation
+    // salva o estado para a próxima mutação
     prevState = nextState
   })
 }
 ```
 
-**Plugins that take state snapshots should be used only during development.** When using webpack or Browserify, we can let our build tools handle that for us:
+**_Plugins_ que capturam momentos do estado devem ser usados apenas durante o desenvolvimento.** Quando usamos _webpack_ ou _Browserify_, podemos construir nossas próprias ferramentas _build_ que lidam com isso para nós:
 
 ``` js
 const store = new Vuex.Store({
@@ -81,13 +81,13 @@ const store = new Vuex.Store({
 })
 ```
 
-The plugin will be used by default. For production, you will need [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) for webpack or [envify](https://github.com/hughsk/envify) for Browserify to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
+O _plugin_ vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor do `process.env.NODE_ENV !== 'production'` para _false_ no _build_ final.
 
-### Built-in Logger Plugin
+### Plugin de Log Integrado
 
-> If you are using [vue-devtools](https://github.com/vuejs/vue-devtools) you probably don't need this.
+> Se você está usando [vue-devtools](https://github.com/vuejs/vue-devtools) provavelmente não precisará disso.
 
-Vuex comes with a logger plugin for common debugging usage:
+Vuex vem com um _plugin_ de _log_ para casos comuns de depuração:
 
 ``` js
 import createLogger from 'vuex/dist/logger'
@@ -97,30 +97,30 @@ const store = new Vuex.Store({
 })
 ```
 
-The `createLogger` function takes a few options:
+A função _createLogger_ tem algumas opções:
 
 ``` js
 const logger = createLogger({
-  collapsed: false, // auto-expand logged mutations
+  collapsed: false, // expande automaticamente mutações registradas no log
   filter (mutation, stateBefore, stateAfter) {
-    // returns `true` if a mutation should be logged
-    // `mutation` is a `{ type, payload }`
+    // retorna `true` se uma mutação deve ser registrada no log
+    // `mutation` é um `{ type, payload }`
     return mutation.type !== "aBlacklistedMutation"
   },
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // transforma o estado antes de regitrá-lo no log.
+    // por exemplo, retorna apenas uma sub-árvore específica
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of `{ type, payload }`
-    // we can format it any way we want.
+    // mutações são registradas no log no formato de `{ type, payload }`
+    // mas podemos formatá-las como quisermos.
     return mutation.type
   },
-  logger: console, // implementation of the `console` API, default `console`
+  logger: console, // implementação da API `console`, default `console`
 })
 ```
 
-The logger file can also be included directly via a `<script>` tag, and will expose the `createVuexLogger` function globally.
+O arquivo de _log_ também pode ser incluído diretamente via _tag_ `<script>`, e vai expor a função _createVuexLogger_ globalmente.
 
-Note the logger plugin takes state snapshots, so use it only during development.
+Perceba que esses _plugins_ capturam momentos do estado, então use-os apenas durante o desenvolvimento.
