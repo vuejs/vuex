@@ -69,7 +69,7 @@ Observe que os _getters_ acessados ​​como propriedades são armazenados em c
 
 ### Acesso Estilo-Método
 
-Você também pode passar argumentos para os _getters_ retornando uma função. Isso é particularmente útil quando você deseja consultar um _array_ no _store_:
+Você também pode passar argumentos para os _getters_ retornando uma função. Isso é particularmente útil quando você deseja consultar um _Array_ no _store_:
 
 ```js
 getters: {

@@ -103,7 +103,7 @@ const store = new Vuex.Store({ ...options })
 
 - type: `Array<Function>`
 
-  Um _array_ de funções de plug-in a serem aplicadas no _store_. O plug-in simplesmente recebe o _store_ como o único argumento e pode ouvir mutações (para persistência de dados de saída, registro ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou _observables_).
+  Um _Array_ de funções de plug-in a serem aplicadas no _store_. O plug-in simplesmente recebe o _store_ como o único argumento e pode ouvir mutações (para persistência de dados de saída, registro ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou _observables_).
 
   [Detalhes](../guide/plugins.md)
 
