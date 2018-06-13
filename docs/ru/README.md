@@ -36,7 +36,7 @@ new Vue({
 Вот простейшее представление концепции "однонаправленного потока данных":
 
 <p style="text-align: center; margin: 2em">
-  <img style="width:100%;max-width:450px;" src="/flow.png">
+  <img style="width:100%;max-width:450px;" src="/ru/flow.png">
 </p>
 
 Простота, к сожалению, быстро исчезает при появлении **нескольких компонентов, основывающихся на одном и том же состоянии**, когда:
@@ -52,7 +52,7 @@ new Vue({
 
 Такова основная идея, лежащая в основе Vuex, вдохновлённого [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) и [Архитектурой Elm](https://guide.elm-lang.org/architecture/). В отличие от других паттернов, Vuex реализован в виде библиотеки, специально заточенной на использование совместно с Vue.js и использующей его производительную систему реактивных обновлений.
 
-![vuex](/vuex.png)
+![vuex](/ru/vuex.png)
 
 ### В каких случаях использовать Vuex?
 
