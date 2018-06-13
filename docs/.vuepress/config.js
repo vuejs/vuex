@@ -156,7 +156,7 @@ module.exports = {
       },
       '/ru/': {
         label: 'Русский',
-        selectText: 'Languages',
+        selectText: 'Переводы',
         editLinkText: 'Изменить эту страницу на GitHub',
         nav: [
           {
