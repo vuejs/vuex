@@ -94,6 +94,108 @@ describe('Helpers', () => {
     expect(vm.value.b).toBeUndefined()
   })
 
+  it('mapState (object with string get/set)', () => {
+    const store = new Vuex.Store({
+      state: { count: 1 },
+      mutations: {
+        count (state, count) {
+          state.count = count
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState({ count: { get: 'count', set: 'count' }})
+    })
+    expect(vm.count).toBe(1)
+    vm.count++
+    expect(vm.count).toBe(2)
+  })
+
+  it('mapState (object with arrow function get/set)', () => {
+    const store = new Vuex.Store({
+      state: { count: 1 },
+      mutations: {
+        COUNT (state, count) {
+          state.count = count
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState({
+        count: {
+          get: state => state.count,
+          set: ({ commit }, value) => commit('COUNT', value)
+        }})
+    })
+    expect(vm.count).toBe(1)
+    vm.count++
+    expect(vm.count).toBe(2)
+  })
+
+  it('mapState (object with function get/set)', () => {
+    const store = new Vuex.Store({
+      state: { count: 1 },
+      mutations: {
+        COUNT (state, count) {
+          state.count = count
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState({
+        count: {
+          get (state) {
+            return state.count
+          },
+          set ({ commit }, value) {
+            commit('COUNT', value + this.value)
+          }
+        }
+      }),
+      data () {
+        return { value: 2 }
+      }
+    })
+    expect(vm.count).toBe(1)
+    vm.count++
+    expect(vm.count).toBe(4)
+  })
+
+  it('mapState (get/set with namespaced module)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 1 },
+          mutations: {
+            COUNT (state, count) {
+              state.count = count
+            }
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState('foo', {
+        count: {
+          get: (state, getters) => {
+            return state.count
+          },
+          set: ({ commit }, count) => {
+            commit('COUNT', count)
+          }
+        }
+      })
+    })
+    expect(vm.count).toBe(1)
+    vm.count++
+    expect(vm.count).toBe(2)
+  })
+
   it('mapMutations (array)', () => {
     const store = new Vuex.Store({
       state: { count: 0 },

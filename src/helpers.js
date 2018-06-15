@@ -7,7 +7,8 @@
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
   normalizeMap(states).forEach(({ key, val }) => {
-    res[key] = function mappedState () {
+    const getValue = (typeof val === 'object' && 'get' in val) ? val['get'] : val
+    const get = function mappedState () {
       let state = this.$store.state
       let getters = this.$store.getters
       if (namespace) {
@@ -18,12 +19,35 @@ export const mapState = normalizeNamespace((namespace, states) => {
         state = module.context.state
         getters = module.context.getters
       }
-      return typeof val === 'function'
-        ? val.call(this, state, getters)
-        : state[val]
+      return typeof getValue === 'function'
+        ? getValue.call(this, state, getters)
+        : state[getValue]
     }
+
     // mark vuex getter for devtools
-    res[key].vuex = true
+    get.vuex = true
+
+    if (!(typeof val === 'object' && 'set' in val)) {
+      res[key] = get
+    } else {
+      res[key] = { get: get }
+      res[key].set = function mappedStore (...args) {
+        let context = this.$store
+        let commit = this.$store.commit
+        if (namespace) {
+          const module = getModuleByNamespace(this.$store, 'mapState', namespace)
+          if (!module) {
+            return
+          }
+          context = module.context
+          commit = module.context.commit
+        }
+
+        return typeof val.set === 'function'
+          ? val.set.apply(this, [context].concat(args))
+          : commit.apply(this.$store, [val.set].concat(args))
+      }
+    }
   })
   return res
 })
