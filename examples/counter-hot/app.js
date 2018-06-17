@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import store from './store'
-import Counter from './Counter.vue'
+import CounterControls from './CounterControls.vue'
 
 new Vue({
   el: '#app',
   store,
-  render: h => h(Counter)
+  render: h => h(CounterControls)
 })
