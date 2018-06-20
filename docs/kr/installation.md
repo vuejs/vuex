@@ -38,6 +38,32 @@ Vue.use(Vuex)
 
 전역 스크립트 태그를 사용할 때는 이 작업을 할 필요가 없습니다.
 
+### Promise
+
+Vuex는 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)를 필요로 합니다. 만약 지원 대상 브라우저가 아직 Promise를 구현하지 않았다면(예를 들어 IE), [es6-promise](https://github.com/stefanpenner/es6-promise)와 같은 polyfill 라이브러리를 사용할 수 있습니다.
+
+CDN을 통해서 포함할 수 있습니다:
+
+``` html
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+```
+
+그러면 자동으로 `window.Promise`를 사용할 수 있습니다.
+
+NPM 이나 Yarn 같은 패키지 매니저를 사용한다면, 아래 명령어로 설치할 수 있습니다:
+
+``` bash
+npm install es6-promise --save # NPM
+yarn add es6-promise # Yarn
+```
+
+또한 Vuex를 사용하기 전에 아래 코드를 아무 곳에나 추가하십시오.
+
+``` js
+import 'es6-promise/auto'
+```
+
+
 ### 개발용 빌드
 
 최신 dev 빌드를 사용하고 싶은 경우 직접 GitHub에서 클론하고 `vuex`를 직접 빌드 해야합니다.

@@ -1,0 +1,21 @@
+# redirect old urls to root
+
+/en/api.html  /api/
+/en/intro.html /en/guide/
+/en/* /guide/:splat
+
+/zh-cn/api.html  /zh/api/
+/zh-cn/intro.html /zh/guide/
+/zh-cn/* /zh/guide/:splat
+
+/ja/api.html  /ja/api/
+/ja/intro.html /ja/guide/
+/ja/* /ja/guide/:splat
+
+/ru/api.html  /ru/api/
+/ru/intro.html /ru/guide/
+/ru/* /ru/guide/:splat
+
+/kr/api.html  /kr/api/
+/kr/intro.html /kr/guide/
+/kr/* /kr/guide/:splat
