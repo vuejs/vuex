@@ -1,6 +1,5 @@
 export const increment = ({ commit }) => {
   commit('increment')
-  commit('pushToHistory', 'increment')
 }
 export const decrement = ({ commit }) => {
   commit('decrement')
