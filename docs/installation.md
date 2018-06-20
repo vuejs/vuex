@@ -65,8 +65,7 @@ import 'es6-promise/auto'
 
 ### Dev Build
 
-You will have to clone directly from GitHub and build `vuex` yourself if
-you want to use the latest dev build.
+You will have to clone directly from GitHub and build `vuex` yourself if you want to use the latest dev build.
 
 ``` bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex

@@ -20,7 +20,7 @@ const store = new Vuex.Store({ ...options })
 
   Vuex 저장소의 루트 상태 객체 입니다. [상세](../guide/state.md)
 
-  오브젝트를 반환하는 함수를 전달하면, 반환된 오브젝트가 로투 상태로 사용됩니다. 이것은 모듈 재사용을 위해 상태 객체를 재사용하고자 할 때 유용합니다. [상세](../guide/modules.md#모듈-재사용)
+  오브젝트를 반환하는 함수를 전달하면, 반환된 오브젝트가 루트 상태로 사용됩니다. 이것은 모듈 재사용을 위해 상태 객체를 재사용하고자 할 때 유용합니다. [상세](../guide/modules.md#모듈-재사용)
 
 ### mutations
 
@@ -201,7 +201,7 @@ const store = new Vuex.Store({ ...options })
 - `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
   동적 모듈을 등록합니다. [상세](../guide/modules.md#동적-모듈-등록)
-  
+
   `options`은 이전 속성을 보호하는 `preserveState: true`를 가질 수 있습니다. 이것은 서버사이드 렌더링에서 유용합니다.
 
 ### unregisterModule
@@ -223,7 +223,7 @@ const store = new Vuex.Store({ ...options })
 - `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   Vuex 저장소의 하위 트리를 반환하는 컴포넌트 계산 옵션을 만듭니다. [상세](../guide/state.md#mapstate-헬퍼)
-  
+
   처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](../guide/modules.md#헬퍼에서-네임스페이스-바인딩)
 
   두번째 오브젝트 argument는 함수가 될 수 있습니다. `function(state: any)`
@@ -233,7 +233,7 @@ const store = new Vuex.Store({ ...options })
 - `mapGetters(namespace?: string, map: Array<string> | Object<String>): Object`
 
   getter의 평가된 값을 반환하는 컴포넌트 계산 옵션을 만듭니다. [상세](../guide/getters.md#mapgetters-헬퍼)
-  
+
   처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](../guide/modules.md#헬퍼에서-네임스페이스-바인딩)
 
 ### mapActions
@@ -241,7 +241,7 @@ const store = new Vuex.Store({ ...options })
 - `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   액션을 전달하는 컴포넌트 메소드 옵션을 만듭니다. [상세](../guide/actions.md#컴포넌트-내부에서-디스패치-액션-사용하기)
-  
+
   처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](../guide/modules.md#헬퍼에서-네임스페이스-바인딩)
 
   두번째 오브젝트 argument는 함수가 될 수 있습니다. `function(dispatch: function, ...args: any[])`
@@ -251,11 +251,11 @@ const store = new Vuex.Store({ ...options })
 - `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   변이를 커밋하는 컴포넌트 메소드 옵션을 만듭니다. [상세](../guide/mutations.md#컴포넌트-안에서-변이-커밋하기)
-  
+
   처음 argument는 string 타입의 namespace가 될 수 있습니다. [상세](../guide/modules.md#헬퍼에서-네임스페이스-바인딩)
 
   두번째 오브젝트 argument는 함수가 될 수 있습니다. `function(commit: function, ...args: any[])`
-  
+
 ### createNamespacedHelpers
 
 - `createNamespacedHelpers(namespace: string): Object`
