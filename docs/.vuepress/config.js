@@ -24,6 +24,11 @@ module.exports = {
       lang: 'kr',
       title: 'Vuex',
       description: 'Vue.js의 중앙 상태 관리'
+    },
+    '/ptbr/': {
+      lang: 'pt-BR',
+      title: 'Vuex',
+      description: 'Gerenciamento de Estado Centralizado para Vue.js'
     }
   },
   serviceWorker: true,
@@ -233,6 +238,47 @@ module.exports = {
           '/kr/guide/forms',
           '/kr/guide/testing',
           '/kr/guide/hot-reload'
+        ]
+      },
+      '/ptbr/': {
+        label: 'Português',
+        selectText: 'Idiomas',
+        editLinkText: 'Edite esta página no GitHub',
+        nav: [
+          {
+            text: 'Guia',
+            link: '/ptbr/guide/'
+          },
+          {
+            text: 'Referência da API',
+            link: '/ptbr/api/'
+          },
+          {
+            text: 'Notas da Versão',
+            link: 'https://github.com/vuejs/vuex/releases'
+          }
+        ],
+        sidebar: [
+          '/ptbr/installation',
+          '/ptbr/',
+          '/ptbr/guide/',
+          {
+            title: 'Conceitos Básicos',
+            collapsable: false,
+            children: [
+              '/ptbr/guide/state',
+              '/ptbr/guide/getters',
+              '/ptbr/guide/mutations',
+              '/ptbr/guide/actions',
+              '/ptbr/guide/modules'
+            ]
+          },
+          '/ptbr/guide/structure',
+          '/ptbr/guide/plugins',
+          '/ptbr/guide/strict',
+          '/ptbr/guide/forms',
+          '/ptbr/guide/testing',
+          '/ptbr/guide/hot-reload'
         ]
       }
     }
