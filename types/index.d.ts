@@ -86,7 +86,7 @@ export interface StoreOptions<S> {
   strict?: boolean;
 }
 
-export type ActionHandler<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
+export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload: any) => any;
 export interface ActionObject<S, R> {
   root?: boolean;
   handler: ActionHandler<S, R>;
@@ -129,5 +129,5 @@ export interface ModuleTree<R> {
 declare const _default: {
   Store: typeof Store;
   install: typeof install;
-}
+};
 export default _default;
