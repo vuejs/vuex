@@ -59,6 +59,7 @@ namespace RootModule {
     },
     actions: {
       foo ({ state, getters, dispatch, commit }, payload) {
+        this.state.value;
         state.value;
         getters.count;
         dispatch("bar", {});
@@ -66,7 +67,9 @@ namespace RootModule {
       }
     },
     mutations: {
-      bar (state, payload) {}
+      bar (state, payload) {
+        this.state.value;
+      }
     },
     strict: true
   });
@@ -83,6 +86,7 @@ namespace RootDefaultModule {
     },
     actions: {
       foo ({ state, getters, dispatch, commit }, payload) {
+        this.state.value;
         state.value;
         getters.count;
         dispatch("bar", {});
@@ -90,7 +94,9 @@ namespace RootDefaultModule {
       }
     },
     mutations: {
-      bar (state, payload) {}
+      bar (state, payload) {
+        this.state.value;
+      }
     },
     strict: true
   });
@@ -107,7 +113,10 @@ namespace NestedModules {
       };
       d: {
         value: number;
-      };
+      },
+      e: {
+        value: number;
+      }
     };
   }
 
@@ -145,7 +154,22 @@ namespace NestedModules {
       b: {
         modules: {
           c: module,
-          d: module
+          d: module,
+          e: {
+            state: {
+              value: 0
+            },
+            actions: {
+              foo(context: ActionStore, payload) {
+                this.state.a;
+              }
+            },
+            mutations: {
+              bar(state, payload) {
+                this.state.b.e;
+              }
+            }
+          }
         }
       }
     }
