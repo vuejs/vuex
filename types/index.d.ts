@@ -28,7 +28,7 @@ export declare class Store<S> {
 
   hotUpdate(options: {
     actions?: ActionTree<S, S>;
-    mutations?: MutationTree<S, S>;
+    mutations?: MutationTree<S>;
     getters?: GetterTree<S, S>;
     modules?: ModuleTree<S>;
   }): void;
@@ -48,7 +48,6 @@ export interface Commit {
 
 export interface ActionContext<S, R> {
   dispatch: Dispatch;
-
   commit: Commit;
   state: S;
   getters: any;
@@ -81,7 +80,7 @@ export interface StoreOptions<S> {
   state?: S;
   getters?: GetterTree<S, S>;
   actions?: ActionTree<S, S>;
-  mutations?: MutationTree<S, S>;
+  mutations?: MutationTree<S>;
   modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];
   strict?: boolean;
@@ -95,7 +94,7 @@ export interface ActionObject<S, R> {
 
 export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
 export type Action<S, R> = ActionHandler<S, R> | ActionObject<S, R>;
-export type Mutation<S, R> = (this: Store<R>, state: S, payload: any) => any;
+export type Mutation<S> = (state: S, payload: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
 export interface Module<S, R> {
@@ -103,7 +102,7 @@ export interface Module<S, R> {
   state?: S | (() => S);
   getters?: GetterTree<S, R>;
   actions?: ActionTree<S, R>;
-  mutations?: MutationTree<S, R>;
+  mutations?: MutationTree<S>;
   modules?: ModuleTree<R>;
 }
 
@@ -119,8 +118,8 @@ export interface ActionTree<S, R> {
   [key: string]: Action<S, R>;
 }
 
-export interface MutationTree<S, R> {
-  [key: string]: Mutation<S, R>;
+export interface MutationTree<S> {
+  [key: string]: Mutation<S>;
 }
 
 export interface ModuleTree<R> {

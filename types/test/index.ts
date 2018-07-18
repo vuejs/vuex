@@ -67,9 +67,7 @@ namespace RootModule {
       }
     },
     mutations: {
-      bar (state, payload) {
-        this.state.value;
-      }
+      bar (state, payload) {}
     },
     strict: true
   });
@@ -94,9 +92,7 @@ namespace RootDefaultModule {
       }
     },
     mutations: {
-      bar (state, payload) {
-        this.state.value;
-      }
+      bar (state, payload) {}
     },
     strict: true
   });
@@ -162,11 +158,6 @@ namespace NestedModules {
             actions: {
               foo(context: ActionStore, payload) {
                 this.state.a;
-              }
-            },
-            mutations: {
-              bar(state, payload) {
-                this.state.b.e;
               }
             }
           }
