@@ -162,7 +162,7 @@ const store = new Vuex.Store({ ...options })
 
 ### subscribe
 
--  `subscribe(handler: Function): Function`
+-  `subscribe(handler: Function, options?: Object): Function`
 
   Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
 
@@ -173,13 +173,19 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overriden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+
+  ``` js
+  store.subscribe(handler, { prepend: true })
+  ```
+
   To stop subscribing, call the returned unsubscribe function.
 
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### subscribeAction
 
--  `subscribeAction(handler: Function): Function`
+-  `subscribeAction(handler: Function, options?: Object): Function`
 
   > New in 2.5.0
 
@@ -190,6 +196,12 @@ const store = new Vuex.Store({ ...options })
     console.log(action.type)
     console.log(action.payload)
   })
+  ```
+
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overriden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+
+  ``` js
+  store.subscribe(handler, { prepend: true })
   ```
 
   To stop subscribing, call the returned unsubscribe function.
