@@ -547,6 +547,24 @@ describe('Modules', () => {
       store.dispatch('parent/test')
     })
 
+    it('module: warn when module overrides state', () => {
+      spyOn(console, 'warn')
+      const store = new Vuex.Store({
+        state () {
+          return { value: 1 }
+        },
+        modules: {
+          value: {
+            state: () => 2
+          }
+        }
+      })
+      expect(store.state.value).toBe(2)
+      expect(console.warn).toHaveBeenCalledWith(
+        `[vuex] state field "value" was overridden by a module with the same name`
+      )
+    })
+
     it('dispatching multiple actions in different modules', done => {
       const store = new Vuex.Store({
         modules: {
