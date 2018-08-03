@@ -236,6 +236,9 @@ function resetStoreVM (store, state, hot) {
       get: () => store._vm[key],
       enumerable: true // for local getters
     })
+    if (key.includes('/')) {
+      mapNamespacedGetter(store.getters, key, () => fn(store))
+    }
   })
 
   // use a Vue instance to store the state tree
@@ -450,6 +453,24 @@ function getNestedState (state, path) {
   return path.length
     ? path.reduce((state, key) => state[key], state)
     : state
+}
+
+function mapNamespacedGetter (gettersObject, path, getterFunction) {
+  const sections = path.split('/')
+  sections.forEach((section, index) => {
+    // if it's the value
+    if (index === sections.length - 1) {
+      Object.defineProperty(gettersObject, section, {
+        get: getterFunction,
+        enumerable: true
+      })
+    } else {
+      if (!gettersObject[section]) {
+        gettersObject[section] = {}
+      }
+      gettersObject = gettersObject[section]
+    }
+  })
 }
 
 function unifyObjectStyle (type, payload, options) {
