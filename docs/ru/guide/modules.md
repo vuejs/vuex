@@ -209,8 +209,8 @@ computed: {
 },
 methods: {
   ...mapActions([
-    'some/nested/module/foo',
-    'some/nested/module/bar'
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar'  // -> this['some/nested/module/bar']()
   ])
 }
 ```
@@ -226,8 +226,8 @@ computed: {
 },
 methods: {
   ...mapActions('some/nested/module', [
-    'foo',
-    'bar'
+    'foo', // -> this.foo()
+    'bar'  // -> this.bar()
   ])
 }
 ```
