@@ -567,7 +567,7 @@ describe('Modules', () => {
                 },
                 getters: {
                   twiceY: state => state.y * 2
-                },
+                }
               },
               c: {
                 namespaced: true,
@@ -577,8 +577,8 @@ describe('Modules', () => {
                 },
                 getters: {
                   twiceZ: state => state.z * 2
-                },
-              },
+                }
+              }
             }
           }
         }
