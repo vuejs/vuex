@@ -589,6 +589,59 @@ describe('Modules', () => {
       )
     })
 
+    it('module: access namespaced getters with a dot', () => {
+      const store = new Vuex.Store({
+        modules: {
+          a: {
+            namespaced: true,
+            state: () => ({ x: 1 }),
+            mutations: {
+              incX: state => state.x++
+            },
+            getters: {
+              twiceX: state => state.x * 2
+            },
+            modules: {
+              b: {
+                state: () => ({ y: 10 }),
+                mutations: {
+                  incY: state => state.y++
+                },
+                getters: {
+                  twiceY: state => state.y * 2
+                }
+              },
+              c: {
+                namespaced: true,
+                state: () => ({ z: 100 }),
+                mutations: {
+                  incZ: state => state.z++
+                },
+                getters: {
+                  twiceZ: state => state.z * 2
+                }
+              }
+            }
+          }
+        }
+      })
+
+      // root > namespaced
+      expect(store.getters.a.twiceX).toBe(2)
+      store.commit('a/incX')
+      expect(store.getters.a.twiceX).toBe(4)
+
+      // root > namespaced > not namespaced
+      expect(store.getters.a.twiceY).toBe(20)
+      store.commit('a/incY')
+      expect(store.getters.a.twiceY).toBe(22)
+
+      // root > namespaced > namespaced
+      expect(store.getters.a.c.twiceZ).toBe(200)
+      store.commit('a/c/incZ')
+      expect(store.getters.a.c.twiceZ).toBe(202)
+    })
+
     it('dispatching multiple actions in different modules', done => {
       const store = new Vuex.Store({
         modules: {

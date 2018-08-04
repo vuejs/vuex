@@ -288,8 +288,6 @@ describe('Helpers', () => {
       })
     })
     expect(vm.a).toBe(false)
-    // @TODO move this to an individual test
-    expect(store.getters.foo.hasAny).toBe(false)
     expect(vm.b).toBe(false)
     store.commit('foo/inc')
     expect(vm.a).toBe(true)
