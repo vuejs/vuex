@@ -547,6 +547,48 @@ describe('Modules', () => {
       store.dispatch('parent/test')
     })
 
+    it('module: prefer root getter when there is a module with the same name', () => {
+      const store = new Vuex.Store({
+        state: {},
+        getters: {
+          users () {
+            return 'root users'
+          }
+        },
+        modules: {
+          users: {
+            namespaced: true
+          }
+        }
+      })
+      expect(store.getters.users).toBe('root users')
+    })
+
+    it('module: warn when root getter has the same name with a namespaced module', () => {
+      spyOn(console, 'warn')
+      new Vuex.Store({
+        getters: {
+          users () {
+            return 'root users'
+          }
+        },
+        modules: {
+          users: {
+            namespaced: true,
+            getters: {
+              users () {
+                return 'module users'
+              }
+            }
+          }
+        }
+      })
+      expect(console.warn).toHaveBeenCalledWith(
+        `[vuex] "users" module's getters are not available under the dot-notation because there is a getter in the root namespace with the same name ("users").`,
+        `If you want to use the dot-notation rename the "users" root getter or the module.`
+      )
+    })
+
     it('dispatching multiple actions in different modules', done => {
       const store = new Vuex.Store({
         modules: {
