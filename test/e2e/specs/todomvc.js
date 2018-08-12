@@ -1,7 +1,7 @@
 module.exports = {
   'todomvc': function (browser) {
     browser
-    .url('http://localhost:8080/todomvc/')
+      .url('http://localhost:8080/todomvc/')
       .waitForElementVisible('.todoapp', 1000)
       .assert.notVisible('.main')
       .assert.notVisible('.footer')
