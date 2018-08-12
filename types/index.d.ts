@@ -5,11 +5,11 @@ import "./vue";
 
 export * from "./helpers";
 
-export declare class Store<S> {
-  constructor(options: StoreOptions<S>);
+export declare class Store<S, T extends StoreOptions<S> = StoreOptions<S>> {
+  constructor(options: T & StoreOptions<S>);
 
   readonly state: S;
-  readonly getters: any;
+  readonly getters: { [P in string]: T['getters'][P] extends (...args: any[]) => infer R ? R : any; }
 
   replaceState(state: S): void;
 
