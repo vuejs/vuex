@@ -11,7 +11,7 @@ export const mutations = {
   },
 
   removeTodo (state, todo) {
-    state.todos.splice(state.todos.indexOf(todo), 1)
+    state.todos = state.todos.filter(item => item.id !== todo.id)
   },
 
   editTodo (state, { todo, text = todo.text, done = todo.done }) {
