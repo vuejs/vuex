@@ -13,6 +13,6 @@ declare module "vue/types/options" {
 
 declare module "vue/types/vue" {
   interface Vue {
-    $store: Store<any>;
+    $store?: Store<any>;
   }
 }
