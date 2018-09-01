@@ -1,7 +1,7 @@
 module.exports = {
   'counter': function (browser) {
     browser
-    .url('http://localhost:8080/counter/')
+      .url('http://localhost:8080/counter/')
       .waitForElementVisible('#app', 1000)
       .assert.containsText('div', 'Clicked: 0 times')
       .click('button:nth-child(1)')
