@@ -10,6 +10,10 @@ export const mapState = normalizeNamespace((namespace, states) => {
     res[key] = function mappedState () {
       let state = this.$store.state
       let getters = this.$store.getters
+      if (typeof namespace === 'function') {
+        namespace = namespace.call(this)
+        namespace = checkAndAddTailSlash(namespace)
+      }
       if (namespace) {
         const module = getModuleByNamespace(this.$store, 'mapState', namespace)
         if (!module) {
@@ -40,6 +44,10 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
     res[key] = function mappedMutation (...args) {
       // Get the commit method from store
       let commit = this.$store.commit
+      if (typeof namespace === 'function') {
+        namespace = namespace.call(this)
+        namespace = checkAndAddTailSlash(namespace)
+      }
       if (namespace) {
         const module = getModuleByNamespace(this.$store, 'mapMutations', namespace)
         if (!module) {
@@ -67,6 +75,10 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
     // thie namespace has been mutate by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
+      if (typeof namespace === 'function') {
+        namespace = namespace.call(this)
+        namespace = checkAndAddTailSlash(namespace)
+      }
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
         return
       }
@@ -94,6 +106,10 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
     res[key] = function mappedAction (...args) {
       // get dispatch function from store
       let dispatch = this.$store.dispatch
+      if (typeof namespace === 'function') {
+        namespace = namespace.call(this)
+        namespace = checkAndAddTailSlash(namespace)
+      }
       if (namespace) {
         const module = getModuleByNamespace(this.$store, 'mapActions', namespace)
         if (!module) {
@@ -141,14 +157,27 @@ function normalizeMap (map) {
  */
 function normalizeNamespace (fn) {
   return (namespace, map) => {
-    if (typeof namespace !== 'string') {
+    if (typeof namespace !== 'string' && !map) {
       map = namespace
       namespace = ''
-    } else if (namespace.charAt(namespace.length - 1) !== '/') {
-      namespace += '/'
+    } else if (typeof namespace === 'string') {
+      namespace = checkAndAddTailSlash(namespace)
     }
     return fn(namespace, map)
   }
+}
+
+/**
+ * Return namespace with slash
+ * @param namespace
+ * @return {*}
+ */
+function checkAndAddTailSlash (namespace) {
+  if (typeof namespace === 'string' && namespace.charAt(namespace.length - 1) !== '/') {
+    return namespace + '/'
+  }
+
+  return namespace
 }
 
 /**

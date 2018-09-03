@@ -13,8 +13,8 @@ interface Mapper<R> {
 }
 
 interface MapperWithNamespace<R> {
-  (namespace: string, map: string[]): Dictionary<R>;
-  (namespace: string, map: Dictionary<string>): Dictionary<R>;
+  (namespace: string | Computed, map: string[]): Dictionary<R>;
+  (namespace: string | Computed, map: Dictionary<string>): Dictionary<R>;
 }
 
 interface FunctionMapper<F, R> {
@@ -23,7 +23,7 @@ interface FunctionMapper<F, R> {
 
 interface FunctionMapperWithNamespace<F, R> {
   (
-    namespace: string,
+    namespace: string | Computed,
     map: Dictionary<(this: CustomVue, fn: F, ...args: any[]) => any>
   ): Dictionary<R>;
 }
@@ -36,7 +36,7 @@ interface MapperForState {
 
 interface MapperForStateWithNamespace {
   <S>(
-    namespace: string,
+    namespace: string | Computed,
     map: Dictionary<(this: CustomVue, state: S, getters: any) => any>
   ): Dictionary<Computed>;
 }
@@ -66,4 +66,4 @@ export declare const mapActions: Mapper<ActionMethod>
   & FunctionMapper<Dispatch, ActionMethod>
   & FunctionMapperWithNamespace<Dispatch, ActionMethod>;
 
-export declare function createNamespacedHelpers(namespace: string): NamespacedMappers;
+export declare function createNamespacedHelpers(namespace: string | Computed): NamespacedMappers;
