@@ -170,9 +170,9 @@ modules: {
 }
 ```
 
-#### Register Global Action in Namespaced Modules
+#### 名前空間付きモジュールでのグローバルアクションへの登録
 
-If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler`. For example:
+名前空間付きモジュールでグローバルアクションに登録したい場合、`root: true` でそれをマークでき、そしてアクション定義を `handler` 関数に置くことができます。例えば:
 
 ``` js
 {
