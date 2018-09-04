@@ -170,6 +170,32 @@ modules: {
 }
 ```
 
+#### Register Global Action in Namespaced Modules
+
+If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler`. For example:
+
+``` js
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+       actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+```
+
+
 #### 名前空間によるバインディングヘルパー
 
 `mapState`、`mapGetters`、`mapActions`、そして `mapMutations` ヘルパーを使って名前空間付きモジュールをコンポーネントにバインディングするとき、少し冗長になります:
