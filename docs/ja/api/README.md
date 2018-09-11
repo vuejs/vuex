@@ -218,15 +218,17 @@ const store = new Vuex.Store({ ...options })
 
 ### mapState
 
-- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](../guide/state.md#the-mapstate-helper)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
+  The Second object argument's members can be a function. `function(state: any)`
+
 ### mapGetters
 
-- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
 
   ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](../guide/getters.md#the-mapgetters-helper)
 
@@ -234,19 +236,23 @@ const store = new Vuex.Store({ ...options })
 
 ### mapActions
 
-- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](../guide/actions.md#dispatching-actions-in-components)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
+  The Second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
+
 ### mapMutations
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](../guide/mutations.md#commiting-mutations-in-components)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
+
+  The Second object argument's members can be a function. `function(commit: function, ...args: any[])`
 
 ### createNamespaceHelpers
 
