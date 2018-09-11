@@ -154,15 +154,15 @@ const store = new Vuex.Store({ ...options })
 
 ### watch
 
-- **`watch(getter: Function, cb: Function, options?: Object)`**
+- **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  リアクティブにゲッター関数の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの `state` を最初の引数として、 `getters` を2番目の引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
+  リアクティブに`fn`の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの `state` を最初の引数として、 `fn` を2番目の引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
 
-  監視を止める場合は、ハンドラ関数の返り値を関数として呼び出します。
+  監視を止める場合は、unwatch 関数の返り値を関数として呼び出します。
 
 ### subscribe
 
-- **`subscribe(handler: Function)`**
+- **`subscribe(handler: Function): Function`**
 
   ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリプタとミューテーション後の状態を受け取ります。
 
@@ -172,6 +172,8 @@ const store = new Vuex.Store({ ...options })
     console.log(mutation.payload)
   })
   ```
+
+  購読を停止するには、返された unsubscribe 関数呼び出します。
 
   プラグインの中でもっともよく利用されます。[詳細](../guide/plugins.md)
 
