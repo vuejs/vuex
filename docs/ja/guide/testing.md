@@ -127,19 +127,19 @@ describe('actions', () => {
 })
 ```
 
-If you have spies available in your testing environment (for example via [Sinon.JS](http://sinonjs.org/)), you can use them instead of the `testAction` helper:
+テスト環境(例えば[Sinon.JS](http://sinonjs.org/)で)において利用可能なスパイがあるのなら、`testAction` ヘルパーの代わりにそれらを使用できます:
  ``` js
 describe('actions', () => {
   it('getAllProducts', () => {
-    const commit = sinon.spy();
-    const state = {};
-    
-    actions.getAllProducts({ commit, state });
-    
+    const commit = sinon.spy()
+    const state = {}
+
+    actions.getAllProducts({ commit, state })
+
     expect(dispatch.args).to.deep.equal([
       [ 'REQUEST_PRODUCTS' ],
-      [ 'RECEIVE_PRODUCTS', { /* mocked response */ } ]
-    ]);
+      [ 'RECEIVE_PRODUCTS', { /* レスポンスのモック */ } ]
+    ])
   })
 })
 ```
