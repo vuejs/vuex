@@ -136,9 +136,9 @@ describe('actions', () => {
 
     actions.getAllProducts({ commit, state })
 
-    expect(dispatch.args).to.deep.equal([
-      [ 'REQUEST_PRODUCTS' ],
-      [ 'RECEIVE_PRODUCTS', { /* レスポンスのモック */ } ]
+    expect(commit.args).to.deep.equal([
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* レスポンスのモック */ }]
     ])
   })
 })
