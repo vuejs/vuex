@@ -33,6 +33,13 @@ const configs = {
     input: resolve('src/index.esm.js'),
     file: resolve('dist/vuex.esm.js'),
     format: 'es'
+  },
+  'esm-browser': {
+    input: resolve('src/index.esm.js'),
+    file: resolve('dist/vuex.esm.browser.js'),
+    format: 'es',
+    env: 'production',
+    transpile: false
   }
 }
 
@@ -43,8 +50,7 @@ function genConfig (opts) {
       plugins: [
         replace({
           __VERSION__: version
-        }),
-        buble()
+        })
       ]
     },
     output: {
@@ -59,6 +65,10 @@ function genConfig (opts) {
     config.input.plugins.unshift(replace({
       'process.env.NODE_ENV': JSON.stringify(opts.env)
     }))
+  }
+
+  if (opts.transpile !== false) {
+    config.input.plugins.push(buble());
   }
 
   return config
