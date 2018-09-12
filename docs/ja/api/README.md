@@ -224,7 +224,7 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  The Second object argument's members can be a function. `function(state: any)`
+  第2引数のオブジェクト引数メンバーには関数 `function(state: any)` を指定できます。
 
 ### mapGetters
 
@@ -242,7 +242,7 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  The Second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
+  第2引数のオブジェクト引数メンバーには関数 `function(dispatch: function, ...args: any[])` を指定できます。
 
 ### mapMutations
 
@@ -252,7 +252,7 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  The Second object argument's members can be a function. `function(commit: function, ...args: any[])`
+  第2引数のオブジェクト引数メンバーには関数 `function(commit: function, ...args: any[])` を指定できます。
 
 ### createNamespaceHelpers
 
