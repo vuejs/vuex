@@ -109,7 +109,7 @@ export default {
 
 ``` js
 ...mapGetters({
-  // `this.doneCount` を `store.getters.doneTodosCount` にマッピングさせる
+  // `this.doneCount` を `this.$store.getters.doneTodosCount` にマッピングさせる
   doneCount: 'doneTodosCount'
 })
 ```
