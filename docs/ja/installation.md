@@ -38,9 +38,9 @@ Vue.use(Vuex)
 
 グローバルなスクリプトタグを利用する場合にはこのようにする必要はありません。
 
-### プロミス
+### Promise
 
-Vuex は[プロミス (Promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) を必要とします。ブラウザでプロミスが実装されていない(例 IE)場合は、[es6-promise](https://github.com/stefanpenner/es6-promise) のようなポリフィルライブラリを使用できます。
+Vuex は [Promise (プロミス)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) を必要とします。ブラウザで Promise が実装されていない(例 IE)場合は、[es6-promise](https://github.com/stefanpenner/es6-promise) のようなポリフィルライブラリを使用できます。
 
 CDN 経由でそれを含めることができます:
 
