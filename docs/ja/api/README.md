@@ -158,7 +158,7 @@ const store = new Vuex.Store({ ...options })
 
   リアクティブに`fn`の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの `state` を最初の引数として、 `fn` を2番目の引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
 
-  監視を止める場合は、unwatch 関数の返り値を関数として呼び出します。
+  監視を止める場合は、返された unwatch 関数を呼び出します。
 
 ### subscribe
 
@@ -224,7 +224,7 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  第2引数のオブジェクト引数メンバーには関数 `function(state: any)` を指定できます。
+  第2引数のオブジェクトのメンバーには関数 `function(state: any)` を指定できます。
 
 ### mapGetters
 
@@ -242,7 +242,7 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  第2引数のオブジェクト引数メンバーには関数 `function(dispatch: function, ...args: any[])` を指定できます。
+  第2引数のオブジェクトのメンバーには関数 `function(dispatch: function, ...args: any[])` を指定できます。
 
 ### mapMutations
 
@@ -252,7 +252,7 @@ const store = new Vuex.Store({ ...options })
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  第2引数のオブジェクト引数メンバーには関数 `function(commit: function, ...args: any[])` を指定できます。
+  第2引数のオブジェクトのメンバーには関数 `function(commit: function, ...args: any[])` を指定できます。
 
 ### createNamespaceHelpers
 

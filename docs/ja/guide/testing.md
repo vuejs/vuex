@@ -127,7 +127,7 @@ describe('actions', () => {
 })
 ```
 
-テスト環境(例えば[Sinon.JS](http://sinonjs.org/)で)において利用可能なスパイがあるのなら、`testAction` ヘルパーの代わりにそれらを使用できます:
+テスト環境において利用可能なスパイがあるのなら(例えば[Sinon.JS](http://sinonjs.org/))、`testAction` ヘルパーの代わりにそれらを使用できます:
  ``` js
 describe('actions', () => {
   it('getAllProducts', () => {

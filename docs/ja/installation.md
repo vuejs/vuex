@@ -57,7 +57,7 @@ npm install es6-promise --save # NPM
 yarn add es6-promise # Yarn
 ```
 
-さらに、Vuex を使用する前に、コードのどこかに次のを行を追加します:
+さらに、Vuex を使用する前に、コードのどこかに次の行を追加します:
 
 ``` js
 import 'es6-promise/auto'
