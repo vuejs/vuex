@@ -170,6 +170,32 @@ modules: {
 }
 ```
 
+#### 名前空間付きモジュールでのグローバルアクションへの登録
+
+名前空間付きモジュールでグローバルアクションに登録したい場合、`root: true` でそれをマークでき、そしてアクション定義を `handler` 関数に置くことができます。例えば:
+
+``` js
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+       actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+```
+
+
 #### 名前空間によるバインディングヘルパー
 
 `mapState`、`mapGetters`、`mapActions`、そして `mapMutations` ヘルパーを使って名前空間付きモジュールをコンポーネントにバインディングするとき、少し冗長になります:
