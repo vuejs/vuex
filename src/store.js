@@ -63,7 +63,7 @@ export class Store {
     // apply plugins
     plugins.forEach(plugin => plugin(this))
 
-    if (Vue.config.devtools) {
+    if (Vue.config.devtools && options.devtools !== false) {
       devtoolPlugin(this)
     }
   }

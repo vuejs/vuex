@@ -116,6 +116,19 @@ const store = new Vuex.Store({ ...options })
 
   [Details](../guide/strict.md)
 
+### devtools
+
+- type: `Boolean`
+
+  Passing false tells the Vuex store to not subscribe to devtools plugin.  By default uses the Vue instances devtools setting.  Useful for if you have multiple stores on a single page.
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
+
+
 ## Vuex.Store Instance Properties
 
 ### state
