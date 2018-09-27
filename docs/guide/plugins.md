@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 
 Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by committing mutations.
 
-By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
+By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createWebSocketPlugin` function can take some additional options for more complex tasks):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
