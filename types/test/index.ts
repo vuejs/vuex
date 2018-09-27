@@ -98,6 +98,15 @@ namespace RootDefaultModule {
   });
 }
 
+namespace InitialStateFunction {
+  const store = new Vuex.Store({
+    state: () => ({
+      value: 1
+    })
+  });
+  const n: number = store.state.value;
+}
+
 namespace NestedModules {
   interface RootState {
     a: {
