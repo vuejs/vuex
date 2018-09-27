@@ -3,7 +3,7 @@ import _Vue, { WatchOptions } from "vue";
 // augment typings of Vue.js
 import "./vue";
 
-import { mapActions, mapGetters, mapMutations, mapState } from "./helpers";
+import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from "./helpers";
 
 export * from "./helpers";
 
@@ -135,5 +135,6 @@ declare const _default: {
   mapMutations: typeof mapMutations,
   mapGetters: typeof mapGetters,
   mapActions: typeof mapActions,
+  createNamespacedHelpers: typeof createNamespacedHelpers,
 };
 export default _default;
