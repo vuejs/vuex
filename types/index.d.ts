@@ -3,6 +3,8 @@ import _Vue, { WatchOptions } from "vue";
 // augment typings of Vue.js
 import "./vue";
 
+import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from "./helpers";
+
 export * from "./helpers";
 
 export declare class Store<S> {
@@ -77,7 +79,7 @@ export interface CommitOptions {
 }
 
 export interface StoreOptions<S> {
-  state?: S;
+  state?: S | (() => S);
   getters?: GetterTree<S, S>;
   actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
@@ -129,5 +131,10 @@ export interface ModuleTree<R> {
 declare const _default: {
   Store: typeof Store;
   install: typeof install;
+  mapState: typeof mapState,
+  mapMutations: typeof mapMutations,
+  mapGetters: typeof mapGetters,
+  mapActions: typeof mapActions,
+  createNamespacedHelpers: typeof createNamespacedHelpers,
 };
 export default _default;

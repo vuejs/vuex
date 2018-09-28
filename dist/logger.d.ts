@@ -12,4 +12,4 @@ export interface LoggerOption<S> {
   mutationTransformer?: <P extends Payload>(mutation: P) => any;
 }
 
-export default function createLogger<S>(option: LoggerOption<S>): Plugin<S>;
+export default function createLogger<S>(option?: LoggerOption<S>): Plugin<S>;

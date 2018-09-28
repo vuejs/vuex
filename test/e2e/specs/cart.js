@@ -1,7 +1,7 @@
 module.exports = {
   'shopping cart': function (browser) {
     browser
-    .url('http://localhost:8080/shopping-cart/')
+      .url('http://localhost:8080/shopping-cart/')
       .waitForElementVisible('#app', 1000)
       .waitFor(120) // api simulation
       .assert.count('li', 3)
