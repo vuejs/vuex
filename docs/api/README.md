@@ -120,7 +120,7 @@ const store = new Vuex.Store({ ...options })
 
 - type: `Boolean`
 
-  Passing false tells the Vuex store to not subscribe to devtools plugin.  By default uses the Vue instances devtools setting.  Useful for if you have multiple stores on a single page.
+  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page. 
 
   ``` js
   {

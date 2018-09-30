@@ -63,7 +63,8 @@ export class Store {
     // apply plugins
     plugins.forEach(plugin => plugin(this))
 
-    if (Vue.config.devtools && options.devtools !== false) {
+    const useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools
+    if (useDevtools) {
       devtoolPlugin(this)
     }
   }
