@@ -29,6 +29,11 @@ module.exports = {
       lang: 'pt-BR',
       title: 'Vuex',
       description: 'Gerenciamento de Estado Centralizado para Vue.js'
+    },
+    '/fr/': {
+        lang: 'fr-FR',
+        title: 'Vuex',
+        description: 'Gestion d\'état centralisé pour Vue.js'
     }
   },
   serviceWorker: true,
@@ -280,7 +285,48 @@ module.exports = {
           '/ptbr/guide/testing',
           '/ptbr/guide/hot-reload'
         ]
-      }
+      },
+      '/fr/': {
+          label: 'Français',
+          selectText: 'Langues',
+          editLinkText: 'Éditer la page sur GitHub',
+          nav: [
+              {
+                  text: 'Guide',
+                  link: '/guide/'
+              },
+              {
+                  text: 'API',
+                  link: '/api/'
+              },
+              {
+                  text: 'Notes de release',
+                  link: 'https://github.com/vuejs/vuex/releases'
+              }
+          ],
+          sidebar: [
+              '/installation',
+              '/',
+              '/guide/',
+              {
+                  title: 'Core Concepts',
+                  collapsable: false,
+                  children: [
+                      '/guide/state',
+                      '/guide/getters',
+                      '/guide/mutations',
+                      '/guide/actions',
+                      '/guide/modules'
+                  ]
+              },
+              '/guide/structure',
+              '/guide/plugins',
+              '/guide/strict',
+              '/guide/forms',
+              '/guide/testing',
+              '/guide/hot-reload'
+          ]
+      },
     }
   }
 }
