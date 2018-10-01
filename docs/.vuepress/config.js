@@ -305,26 +305,26 @@ module.exports = {
               }
           ],
           sidebar: [
-              '/installation',
-              '/',
-              '/guide/',
+              '/fr/installation',
+              '/fr/',
+              '/fr/guide/',
               {
-                  title: 'Core Concepts',
+                  title: 'Concepts centraux',
                   collapsable: false,
                   children: [
-                      '/guide/state',
-                      '/guide/getters',
-                      '/guide/mutations',
-                      '/guide/actions',
-                      '/guide/modules'
+                      '/fr/guide/state',
+                      '/fr/guide/getters',
+                      '/fr/guide/mutations',
+                      '/fr/guide/actions',
+                      '/fr/guide/modules'
                   ]
               },
-              '/guide/structure',
-              '/guide/plugins',
-              '/guide/strict',
-              '/guide/forms',
-              '/guide/testing',
-              '/guide/hot-reload'
+              '/fr/guide/structure',
+              '/fr/guide/plugins',
+              '/fr/guide/strict',
+              '/fr/guide/forms',
+              '/fr/guide/testing',
+              '/fr/guide/hot-reload'
           ]
       },
     }
