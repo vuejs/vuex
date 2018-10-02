@@ -32,7 +32,9 @@ const store = new Vuex.Store({
 })
 ```
 
-Les accesseurs seront exposés sur l'objet `store.getters` :
+### Accès par propriété
+
+Les accesseurs seront exposés sur l'objet `store.getters` et vous accèderez aux valeurs comme des propriétés :
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
@@ -63,6 +65,10 @@ computed: {
 }
 ```
 
+Notez que les accesseurs accédés par propriétés sont mis en cache par le système de réactivité de Vue.
+
+### Accès par méthode
+
 Vous pouvez aussi passer des arguments aux accesseurs en retournant une fonction. Cela est particulièrement utile quand vous souhaitez interroger un tableau dans le store :
 
 ```js
@@ -77,6 +83,8 @@ getters: {
 ``` js
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
+
+Notez que les accesseur accédés par méthodes vont être exécuté chaque fois qu'il seront appelés. Le résultat ne sera donc pas mis en cache.
 
 ### La fonction utilitaire `mapGetters`
 
@@ -102,7 +110,7 @@ Si vous voulez attacher un accesseur avec un nom différent, utilisez un objet :
 
 ``` js
 ...mapGetters({
-  // attacher `this.doneCount` à `store.getters.doneTodosCount`
+  // attacher `this.doneCount` à `this.$store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })
 ```

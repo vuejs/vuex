@@ -170,6 +170,31 @@ modules: {
 }
 ```
 
+#### Enregistrer des actions globales dans des modules avec espace de nom
+
+Si vous voulez enregistrer des actions globales dans des modules avec espace de nom, vous pouvez les marquer avec `root: true` et placer la définition de l'action dans une fonction `handler`. Par exemple :
+
+``` js
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+       actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+```
+
 #### Fonctions utilitaires liées avec espace de nom
 
 Quand nous lions un module sous espace de nom à un composant avec les fonctions utilitaires `mapState`, `mapGetters`, `mapActions` and `mapMutations`, cela peut être légèrement verbeux :
@@ -183,8 +208,8 @@ computed: {
 },
 methods: {
   ...mapActions([
-    'some/nested/module/foo',
-    'some/nested/module/bar'
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
   ])
 }
 ```
@@ -200,8 +225,8 @@ computed: {
 },
 methods: {
   ...mapActions('some/nested/module', [
-    'foo',
-    'bar'
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
   ])
 }
 ```

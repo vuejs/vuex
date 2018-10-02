@@ -94,7 +94,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
     const mutation = expectedMutations[count]
 
     try {
-      expect(type).to.equal(mutation.type)
+      expect(mutation.type).to.equal(type)
       if (payload) {
         expect(payload).to.deep.equal(mutation.payload)
       }
@@ -124,6 +124,22 @@ describe('actions', () => {
       { type: 'REQUEST_PRODUCTS' },
       { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)
+  })
+})
+```
+
+Si vous avez des espions disponibles dans votre environnement de test (par exemple via [Sinon.JS](http://sinonjs.org/)), vous pouvez les utiliser à la place de la fonction utilitaire `testAction` :
+
+``` js
+describe('actions', () => {
+  it('getAllProducts', () => {
+    const commit = sinon.spy()
+    const state = {}
+     actions.getAllProducts({ commit, state })
+     expect(commit.args).to.deep.equal([
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* réponse de la mockup */ }]
+    ])
   })
 })
 ```
