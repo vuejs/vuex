@@ -49,7 +49,7 @@ export default class ModuleCollection {
   unregister (path) {
     const parent = this.get(path.slice(0, -1))
     const key = path[path.length - 1]
-    if (!parent.getChild(key).runtime) return
+    if (!parent.getChild(key) || !parent.getChild(key).runtime) return
 
     parent.removeChild(key)
   }
