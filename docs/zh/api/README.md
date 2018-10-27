@@ -118,6 +118,18 @@ const store = new Vuex.Store({ ...options })
 
   [详细介绍](../guide/strict.md)
 
+### devtools
+
+- 类型：`Boolean`
+
+  为某个特定的 Vuex 实例打开或关闭 devtools。对于传入 `false` 的实例来说 Vuex store 不会订阅到 devtools 插件。可用于一个页面中有多个 store 的情况。
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
+
 ## Vuex.Store 实例属性
 
 ### state
