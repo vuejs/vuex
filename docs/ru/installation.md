@@ -42,7 +42,7 @@ Vue.use(Vuex);
 
 ### Promise
 
-Vuex использует в своей работе [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). Если необходимо поддерживать старые браузеры, которые не реализуют Promise (например, IE) — добавьте полифил, например [es6-promise](https://github.com/stefanpenner/es6-promise).
+Vuex использует в своей работе [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Ispolzovanie_promisov). Если необходимо поддерживать старые браузеры, которые не реализуют Promise (например, IE) — добавьте полифил, например [es6-promise](https://github.com/stefanpenner/es6-promise).
 
 Его можно подключить через CDN:
 
