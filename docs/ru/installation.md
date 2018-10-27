@@ -6,7 +6,7 @@
 
 <!--email_off-->
 
-[Unpkg.com](https://unpkg.com) предоставляет CDN-ссылки на содержимое NPM-пакетов. Приведённая выше ссылка всегда будет указывать на самый свежий релиз Vuex, доступный в NPM. Кроме того, можно указать конкретную версию или тег, например `https://unpkg.com/vuex@2.0.0`.
+[Unpkg.com](https://unpkg.com) предоставляет CDN-ссылки для NPM-пакетов. Ссылка, приведённая выше, всегда указывает на самый последней релиз Vuex, доступный в NPM. Кроме того, можно указывать в ссылке конкретную версию или тег, например `https://unpkg.com/vuex@2.0.0`.
 
 <!--/email_off-->
 
@@ -29,7 +29,7 @@ npm install vuex --save
 yarn add vuex
 ```
 
-Если вы используете систему сборки, установите Vuex явным образом командой `Vue.use()`:
+При использовании системы сборки — явно установите Vuex с помощью команды `Vue.use()`:
 
 ```js
 import Vue from 'vue';
@@ -42,24 +42,24 @@ Vue.use(Vuex);
 
 ### Promise
 
-Vuex для работы необходимы [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). Если браузеры, которые вы поддерживаете не реализуют Promise (например, IE), то вы можете использовать библиотеку-полифилл, такую как [es6-promise](https://github.com/stefanpenner/es6-promise).
+Vuex использует в своей работе [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). Если необходимо поддерживать старые браузеры, которые не реализуют Promise (например, IE) — добавьте полифил, например [es6-promise](https://github.com/stefanpenner/es6-promise).
 
-Вы можете подключить её через CDN:
+Его можно подключить через CDN:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
 ```
 
-Тогда `window.Promise` будет доступен автоматически.
+После этого `window.Promise` будет доступен автоматически.
 
-Если вы предпочитаете использовать менеджер пакетов, такой как NPM или Yarn, то установите пакет с помощью следующей команды:
+Если используете менеджер пакетов NPM или Yarn, то установите пакет следующей командой:
 
 ```bash
 npm install es6-promise --save # NPM
 yarn add es6-promise # Yarn
 ```
 
-Кроме того, добавьте строку ниже в любое место вашего кода перед использованием Vuex:
+И добавьте строку ниже с импортом в любое место вашего кода перед использованием Vuex:
 
 ```js
 import 'es6-promise/auto';
@@ -67,7 +67,7 @@ import 'es6-promise/auto';
 
 ### Версия для разработки
 
-Если вы хотите использовать самую новую dev-сборку `vuex`, то придётся вручную склонировать репозиторий с GitHub и запустить сборку:
+Для использования самой новой dev-сборки `vuex` — склонируйте репозиторий с GitHub вручную и запустите сборку:
 
 ```bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex
