@@ -100,7 +100,7 @@ export class Store {
         handler(payload)
       })
     })
-    this._subscribers.forEach(sub => sub(mutation, this.state))
+    this._subscribers.slice().forEach(sub => sub(mutation, this.state))
 
     if (
       process.env.NODE_ENV !== 'production' &&
