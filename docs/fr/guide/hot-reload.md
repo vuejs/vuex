@@ -30,7 +30,7 @@ if (module.hot) {
     // ajout de `.default` ici pour les sorties des modules babel 6
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
-    // remplacer les nouvelles actions et mutations
+    // remplacer les nouvelles modules et mutations
     store.hotUpdate({
       mutations: newMutations,
       modules: {
