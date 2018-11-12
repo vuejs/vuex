@@ -30,7 +30,7 @@ if (module.hot) {
     // (нужно указать .default из-за формата вывода Babel 6)
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
-    // заменяем старые действия и мутации новыми
+    // заменяем на новые модули и мутации
     store.hotUpdate({
       mutations: newMutations,
       modules: {
