@@ -148,7 +148,7 @@ describe('actions', () => {
 
 ### Testing Getters
 
-If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test for the same reason as mutations.
 
 Example testing a getter:
 
