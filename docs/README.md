@@ -1,5 +1,7 @@
 # What is Vuex?
 
+<a id="vuex-video-preview" href="javascript:var vuexVideoPreviewEl = document.getElementById('vuex-video-preview'); var videoWrapperEl = document.createElement('div'); videoWrapperEl.innerHTML = '<iframe src=&quot;https://player.vimeo.com/video/297515936?autoplay=1&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'; vuexVideoPreviewEl.parentNode.insertBefore(videoWrapperEl, vuexVideoPreviewEl); vuexVideoPreviewEl.parentNode.removeChild(vuexVideoPreviewEl)"><img src="/vuex-explained-visually.png" alt="Play Vuex Explained Visually Video" style="border-radius: 6px;"></a>
+
 Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
 
 ### What is a "State Management Pattern"?
