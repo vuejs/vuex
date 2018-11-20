@@ -414,9 +414,10 @@ function registerAction (store, type, handler, local) {
     }
 
     if (store._devtoolHook) {
-      return res.catch(err => {
+      // Instead of explicitly returns a catched promise
+      // We just subscribing to "catch" for this promise
+      res.catch(err => {
         store._devtoolHook.emit('vuex:error', err)
-        throw err
       })
     }
 
