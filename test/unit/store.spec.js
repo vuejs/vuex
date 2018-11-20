@@ -186,6 +186,45 @@ describe('Store', () => {
       })
   })
 
+  it('passing an original Promise when detecting errors', done => {
+    const customPromiseIdenifier = 'CUSTOM_PROMISE'
+
+    class CustomPromise {
+      constructor (error) {
+        this[customPromiseIdenifier] = true
+        this.promise = new Promise((resolve, reject) => error ? reject(error) : resolve('yes'))
+        this.then = (success, error) => this.promise.then(success, error)
+        this.catch = (error) => this.promise.catch(error)
+      }
+    }
+
+    const spy = jasmine.createSpy()
+    const store = new Vuex.Store({
+      actions: {
+        [TEST] () {
+          return new CustomPromise('no')
+        }
+      }
+    })
+    store._devtoolHook = {
+      emit: spy
+    }
+
+    const thenSpy = jasmine.createSpy()
+    const promiseToCheck = store.dispatch(TEST)
+
+    expect(promiseToCheck[customPromiseIdenifier]).toBe(true)
+
+    promiseToCheck
+      .then(thenSpy)
+      .catch((err) => {
+        expect(thenSpy).not.toHaveBeenCalled()
+        expect(err).toBe('no')
+        expect(spy).toHaveBeenCalledWith('vuex:error', 'no')
+        done()
+      })
+  })
+
   it('asserts dispatched type', () => {
     const store = new Vuex.Store({
       state: {

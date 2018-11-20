@@ -408,17 +408,19 @@ function registerAction (store, type, handler, local) {
       rootGetters: store.getters,
       rootState: store.state
     }, payload, cb)
+
     if (!isPromise(res)) {
       res = Promise.resolve(res)
     }
+
     if (store._devtoolHook) {
       return res.catch(err => {
         store._devtoolHook.emit('vuex:error', err)
         throw err
       })
-    } else {
-      return res
     }
+
+    return res
   })
 }
 
