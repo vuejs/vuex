@@ -32,7 +32,7 @@ const store = new Vuex.Store({
 })
 ```
 
-In order to have an access to `$store` property in your Vue components, you need to provide the created store to Vue instance:
+In order to have an access to `this.$store` property in your Vue components, you need to provide the created store to Vue instance. Vuex has a mechanism to "inject" the store into all child components from the root component with the `store` option
 
 ```js
 new Vue({
@@ -61,7 +61,7 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Or, inside Vue component:
+However, this pattern causes the component to rely on the global store singleton. When using a module system, it requires importing the store in every component that uses store state, and also requires mocking when testing the component. With store provided into the root Vue instance, you will be able to use the following syntax:
 
 ```js
 methods: {
