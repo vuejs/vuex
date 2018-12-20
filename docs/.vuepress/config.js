@@ -293,11 +293,11 @@ module.exports = {
           nav: [
               {
                   text: 'Guide',
-                  link: '/guide/'
+                  link: '/fr/guide/'
               },
               {
                   text: 'API',
-                  link: '/api/'
+                  link: '/fr/api/'
               },
               {
                   text: 'Notes de release',
