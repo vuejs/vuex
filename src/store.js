@@ -100,7 +100,8 @@ export class Store {
         handler(payload)
       })
     })
-    this._subscribers.slice().forEach(sub => sub(mutation, this.state))
+
+    notifySubscribers(this._subscribers, mutation, this.state)
 
     if (
       process.env.NODE_ENV !== 'production' &&
@@ -129,7 +130,7 @@ export class Store {
       return
     }
 
-    this._actionSubscribers.forEach(sub => sub(action, this.state))
+    notifySubscribers(this._actionSubscribers, action, this.state)
 
     return entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
@@ -437,6 +438,11 @@ function registerGetter (store, type, rawGetter, local) {
       store.getters // root getters
     )
   }
+}
+
+function notifySubscribers (subscribers, message, state) {
+  // create shallow copy to prevent iterator invalidation if users synchronously call unsubscribe
+  subscribers.slice().forEach(sub => sub(message, state))
 }
 
 function enableStrictMode (store) {

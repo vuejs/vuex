@@ -341,6 +341,27 @@ describe('Store', () => {
     expect(subscribeSpy.calls.count()).toBe(1)
   })
 
+  it('subscribeAction: should handle subscriptions with synchronous unsubscriptions', () => {
+    const subscribeSpy = jasmine.createSpy()
+    const testPayload = 2
+    const store = new Vuex.Store({
+      state: {},
+      actions: {
+        [TEST]: () => {}
+      }
+    })
+
+    const unsubscribe = store.subscribeAction(() => unsubscribe())
+    store.subscribeAction(subscribeSpy)
+    store.dispatch(TEST, testPayload)
+
+    expect(subscribeSpy).toHaveBeenCalledWith(
+      { type: TEST, payload: testPayload },
+      store.state
+    )
+    expect(subscribeSpy.calls.count()).toBe(1)
+  })
+
   // store.watch should only be asserted in non-SSR environment
   if (!isSSR) {
     it('strict mode: warn mutations outside of handlers', () => {
