@@ -98,7 +98,8 @@ namespace RootModule {
     mutations: {
       bar (state, payload) {}
     },
-    strict: true
+    strict: true,
+    devtools: true
   });
 }
 

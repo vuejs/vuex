@@ -98,6 +98,7 @@ export interface StoreOptions<S> {
   modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];
   strict?: boolean;
+  devtools?: boolean;
 }
 
 export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload?: any) => any;
