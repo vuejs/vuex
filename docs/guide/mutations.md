@@ -4,9 +4,9 @@ The only way to actually change state in a Vuex store is by committing a mutatio
 
 ``` js
 const store = new Vuex.Store({
-  state: {
+  state: () => ({
     count: 1
-  },
+  }),
   mutations: {
     increment (state) {
       // mutate state
@@ -107,7 +107,7 @@ import Vuex from 'vuex'
 import { SOME_MUTATION } from './mutation-types'
 
 const store = new Vuex.Store({
-  state: { ... },
+  state: () => ({ ... }),
   mutations: {
     // we can use the ES2015 computed property name feature
     // to use a constant as the function name

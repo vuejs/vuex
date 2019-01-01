@@ -6,10 +6,10 @@ import * as mutations from './mutations'
 
 Vue.use(Vuex)
 
-const state = {
+const state = () => ({
   count: 0,
   history: []
-}
+})
 
 const store = new Vuex.Store({
   state,

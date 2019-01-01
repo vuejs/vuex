@@ -9,9 +9,9 @@ Let's register a simple action:
 
 ``` js
 const store = new Vuex.Store({
-  state: {
+  state: () => ({
     count: 0
-  },
+  }),
   mutations: {
     increment (state) {
       state.count++

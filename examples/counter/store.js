@@ -5,9 +5,9 @@ Vue.use(Vuex)
 
 // root state object.
 // each Vuex instance is just a single state tree.
-const state = {
+const state = () => ({
   count: 0
-}
+})
 
 // mutations are operations that actually mutates the state.
 // each mutation handler gets the entire state tree as the

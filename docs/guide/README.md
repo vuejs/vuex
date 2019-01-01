@@ -16,9 +16,9 @@ After [installing](../installation.md) Vuex, let's create a store. It is pretty 
 // Make sure to call Vue.use(Vuex) first if using a module system
 
 const store = new Vuex.Store({
-  state: {
+  state: () => ({
     count: 0
-  },
+  }),
   mutations: {
     increment (state) {
       state.count++

@@ -7,9 +7,9 @@ import plugins from './plugins'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
+  state: () => ({
     todos: JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '[]')
-  },
+  }),
   actions,
   mutations,
   plugins

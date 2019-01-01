@@ -6,14 +6,14 @@ To help with that, Vuex allows us to divide our store into **modules**. Each mod
 
 ``` js
 const moduleA = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... },
   getters: { ... }
 }
 
 const moduleB = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... }
 }
@@ -35,7 +35,7 @@ Inside a module's mutations and getters, the first argument received will be **t
 
 ``` js
 const moduleA = {
-  state: { count: 0 },
+  state: () => ({ count: 0 }),
   mutations: {
     increment (state) {
       // `state` is the local module state

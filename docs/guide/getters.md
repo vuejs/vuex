@@ -18,12 +18,12 @@ Getters will receive the state as their 1st argument:
 
 ``` js
 const store = new Vuex.Store({
-  state: {
+  state: () => ({
     todos: [
       { id: 1, text: '...', done: true },
       { id: 2, text: '...', done: false }
     ]
-  },
+  }),
   getters: {
     doneTodos: state => {
       return state.todos.filter(todo => todo.done)
