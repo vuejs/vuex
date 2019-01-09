@@ -39,10 +39,39 @@ namespace StoreInstance {
     state.value;
   });
 
-  store.subscribeAction((mutation, state) => {
-    mutation.type;
-    mutation.payload;
+  store.subscribeAction((action, state) => {
+    action.type;
+    action.payload;
     state.value;
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    }
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    }
+  });
+
+  store.subscribeAction({
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    }
   });
 
   store.replaceState({ value: 10 });
