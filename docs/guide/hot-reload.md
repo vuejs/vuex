@@ -30,7 +30,7 @@ if (module.hot) {
     // have to add .default here due to babel 6 module output
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
-    // swap in the new actions and mutations
+    // swap in the new modules and mutations
     store.hotUpdate({
       mutations: newMutations,
       modules: {

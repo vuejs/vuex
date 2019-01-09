@@ -3,6 +3,8 @@ import _Vue, { WatchOptions } from "vue";
 // augment typings of Vue.js
 import "./vue";
 
+import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from "./helpers";
+
 export * from "./helpers";
 
 export declare class Store<S> {
@@ -17,7 +19,7 @@ export declare class Store<S> {
   commit: Commit;
 
   subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any): () => void;
-  subscribeAction<P extends ActionPayload>(fn: (action: P, state: S) => any): () => void;
+  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>): () => void;
   watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
   registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
@@ -67,6 +69,15 @@ export interface ActionPayload extends Payload {
   payload: any;
 }
 
+export type ActionSubscriber<P, S> = (action: P, state: S) => any;
+
+export interface ActionSubscribersObject<P, S> {
+  before?: ActionSubscriber<P, S>;
+  after?: ActionSubscriber<P, S>;
+}
+
+export type SubscribeActionOptions<P, S> = ActionSubscriber<P, S> | ActionSubscribersObject<P, S>;
+
 export interface DispatchOptions {
   root?: boolean;
 }
@@ -77,7 +88,7 @@ export interface CommitOptions {
 }
 
 export interface StoreOptions<S> {
-  state?: S;
+  state?: S | (() => S);
   getters?: GetterTree<S, S>;
   actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
@@ -86,7 +97,7 @@ export interface StoreOptions<S> {
   strict?: boolean;
 }
 
-export type ActionHandler<S, R> = (injectee: ActionContext<S, R>, payload: any) => any;
+export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload: any) => any;
 export interface ActionObject<S, R> {
   root?: boolean;
   handler: ActionHandler<S, R>;
@@ -129,5 +140,10 @@ export interface ModuleTree<R> {
 declare const _default: {
   Store: typeof Store;
   install: typeof install;
-}
+  mapState: typeof mapState,
+  mapMutations: typeof mapMutations,
+  mapGetters: typeof mapGetters,
+  mapActions: typeof mapActions,
+  createNamespacedHelpers: typeof createNamespacedHelpers,
+};
 export default _default;

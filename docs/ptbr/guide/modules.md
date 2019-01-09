@@ -209,8 +209,13 @@ computed: {
 },
 methods: {
   ...mapActions([
+<<<<<<< HEAD
     'some/nested/module/foo',
     'some/nested/module/bar'
+=======
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
+>>>>>>> 76818c1b424e5dcb59c2a6c9aa36f80d2a1a12cb
   ])
 }
 ```
@@ -226,8 +231,13 @@ computed: {
 },
 methods: {
   ...mapActions('some/nested/module', [
+<<<<<<< HEAD
     'foo',
     'bar'
+=======
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
+>>>>>>> 76818c1b424e5dcb59c2a6c9aa36f80d2a1a12cb
   ])
 }
 ```

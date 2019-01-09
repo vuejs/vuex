@@ -118,6 +118,18 @@ const store = new Vuex.Store({ ...options })
 
   [详细介绍](../guide/strict.md)
 
+### devtools
+
+- 类型：`Boolean`
+
+  为某个特定的 Vuex 实例打开或关闭 devtools。对于传入 `false` 的实例来说 Vuex store 不会订阅到 devtools 插件。可用于一个页面中有多个 store 的情况。
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
+
 ## Vuex.Store 实例属性
 
 ### state
@@ -158,7 +170,7 @@ const store = new Vuex.Store({ ...options })
 
 - `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
+  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 [`vm.$watch`](https://cn.vuejs.org/v2/api/#watch) 方法的参数。
 
   要停止侦听，调用此方法返回的函数即可停止侦听。
 

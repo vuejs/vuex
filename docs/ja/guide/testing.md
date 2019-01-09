@@ -127,6 +127,23 @@ describe('actions', () => {
 })
 ```
 
+テスト環境において利用可能なスパイがあるのなら(例えば[Sinon.JS](http://sinonjs.org/))、`testAction` ヘルパーの代わりにそれらを使用できます:
+ ``` js
+describe('actions', () => {
+  it('getAllProducts', () => {
+    const commit = sinon.spy()
+    const state = {}
+
+    actions.getAllProducts({ commit, state })
+
+    expect(commit.args).to.deep.equal([
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* レスポンスのモック */ }]
+    ])
+  })
+})
+```
+
 ### ゲッターのテスト
 
 もしゲッターが複雑な計算を行っているならば、テストコードを書く価値があります。ゲッターはミューテーションと同様の理由でテストしやすいです。

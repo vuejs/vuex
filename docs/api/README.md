@@ -116,6 +116,19 @@ const store = new Vuex.Store({ ...options })
 
   [Details](../guide/strict.md)
 
+### devtools
+
+- type: `Boolean`
+
+  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page. 
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
+
+
 ## Vuex.Store Instance Properties
 
 ### state
@@ -156,7 +169,7 @@ const store = new Vuex.Store({ ...options })
 
 -  `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as [Vue's `vm.$watch` method](https://vuejs.org/v2/api/#watch).
 
   To stop watching, call the returned unwatch function.
 

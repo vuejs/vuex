@@ -154,15 +154,15 @@ const store = new Vuex.Store({ ...options })
 
 ### watch
 
-- **`watch(getter: Function, cb: Function, options?: Object)`**
+- **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  リアクティブにゲッター関数の返す値を監視します。値が変わった場合は、コールバックを呼びます。ゲッターはストアの `state` を最初の引数として、 `getters` を2番目の引数として受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
+  `fn`が返す値をリアクティブに監視し、値が変わった時にコールバックを呼びます。`fn`は最初の引数としてストアのステートを、2番目の引数としてゲッターを受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
 
-  監視を止める場合は、ハンドラ関数の返り値を関数として呼び出します。
+  監視を止める場合は、返された unwatch 関数を呼び出します。
 
 ### subscribe
 
-- **`subscribe(handler: Function)`**
+- **`subscribe(handler: Function): Function`**
 
   ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリプタとミューテーション後の状態を受け取ります。
 
@@ -172,6 +172,8 @@ const store = new Vuex.Store({ ...options })
     console.log(mutation.payload)
   })
   ```
+
+  購読を停止するには、返された unsubscribe 関数呼び出します。
 
   プラグインの中でもっともよく利用されます。[詳細](../guide/plugins.md)
 
@@ -216,15 +218,17 @@ const store = new Vuex.Store({ ...options })
 
 ### mapState
 
-- **`mapState(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](../guide/state.md#the-mapstate-helper)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
+  第2引数のオブジェクトのメンバーには関数 `function(state: any)` を指定できます。
+
 ### mapGetters
 
-- **`mapGetters(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
 
   ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](../guide/getters.md#the-mapgetters-helper)
 
@@ -232,19 +236,23 @@ const store = new Vuex.Store({ ...options })
 
 ### mapActions
 
-- **`mapActions(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](../guide/actions.md#dispatching-actions-in-components)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
+  第2引数のオブジェクトのメンバーには関数 `function(dispatch: function, ...args: any[])` を指定できます。
+
 ### mapMutations
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object): Object`**
+- **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
 
   ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](../guide/mutations.md#commiting-mutations-in-components)
 
   第1引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
+
+  第2引数のオブジェクトのメンバーには関数 `function(commit: function, ...args: any[])` を指定できます。
 
 ### createNamespaceHelpers
 
