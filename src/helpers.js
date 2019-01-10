@@ -64,7 +64,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
   normalizeMap(getters).forEach(({ key, val }) => {
-    // The namespace has been mutated by normalizeNamespace
+    // thie namespace has been mutate by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
