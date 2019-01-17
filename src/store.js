@@ -129,19 +129,34 @@ export class Store {
       return
     }
 
-    this._actionSubscribers
-      .filter(sub => sub.before)
-      .forEach(sub => sub.before(action, this.state))
+    try {
+      this._actionSubscribers
+        .filter(sub => sub.before)
+        .forEach(sub => sub.before(action, this.state))
+    } catch (e) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(`[vuex] error in before action subscribers: `)
+        console.error(e)
+      }
+    }
 
     const result = entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
 
-    result.then(() => this._actionSubscribers
-      .filter(sub => sub.after)
-      .forEach(sub => sub.after(action, this.state)))
-
-    return result
+    return result.then(res => {
+      try {
+        this._actionSubscribers
+        .filter(sub => sub.after)
+        .forEach(sub => sub.after(action, this.state))
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn(`[vuex] error in after action subscribers: `)
+          console.error(e)
+        }
+      }
+      return res
+    })
   }
 
   subscribe (fn) {
