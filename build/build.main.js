@@ -30,7 +30,7 @@ function buildEntry ({ input, output }) {
   const isProd = /min\.js$/.test(output.file)
   return rollup.rollup(input)
     .then(bundle => bundle.generate(output))
-    .then(({ code }) => {
+    .then(({ output: [{ code }] }) => {
       if (isProd) {
         var minified = (output.banner ? output.banner + '\n' : '') + uglify.minify(code, {
           output: {
