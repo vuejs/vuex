@@ -66,6 +66,38 @@ const moduleA = {
 }
 ```
 
+More so, some cases may require access to the `rootState` when committing mutations in modules that affect the Vuex Store root state. This can be done easily by passing through `context.rootState` or destructured as `{ rootState }`.
+
+``` js
+Vuex.Store = ({
+  state: {
+    rootSum: 0,
+  }
+})
+
+const moduleA = {
+  //...
+  mutations: {
+    increaseRootSumByValue(state, { rootState, payload: { value, ... } }) {
+      rootState.rootSum += value
+    },
+    increaseRootSumByOne(state, rootState) {
+      rootState.rootSum++;
+    },
+  };
+  actions: {
+    // payload = { value, ... }
+    increaseIfValue({ commit, rootState }, payload) {
+      if(payload.value) {
+        commit.increaseRootSumByValue({ rootState, payload });
+      } else {
+        commit.increaseRootSumByOne(rootState);
+      }
+    }
+  }
+}
+```
+
 Also, inside module getters, the root state will be exposed as their 3rd argument:
 
 ``` js
