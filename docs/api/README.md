@@ -120,7 +120,7 @@ const store = new Vuex.Store({ ...options })
 
 - type: `Boolean`
 
-  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page. 
+  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
 
   ``` js
   {
@@ -206,6 +206,21 @@ const store = new Vuex.Store({ ...options })
   ```
 
   To stop subscribing, call the returned unsubscribe function.
+
+  > New in 3.1.0
+
+  Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
 
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
