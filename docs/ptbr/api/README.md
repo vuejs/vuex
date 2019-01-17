@@ -116,6 +116,19 @@ const store = new Vuex.Store({ ...options })
 
   [Detalhes](../guide/strict.md)
 
+### devtools
+
+- type: `Boolean`
+
+  Ative ou desative o _devtools_ para uma determinada instância vuex. Passar _false_ para a instância diz ao _store_ Vuex para não aderir ao plugin devtools. Útil para quando se tem vários _stores_ em uma _single page_.
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
+
+
 ## Vuex.Store Propriedades da Instância
 
 ### state
@@ -193,6 +206,21 @@ const store = new Vuex.Store({ ...options })
   ```
 
   Para cancelar a assinatura, chame a função _unsubscribe_ retornada.
+
+  > Novo na 3.1.0
+
+  A partir da 3.1.0, `subscribeAction` também pode especificar se o manipulador do _subscribe_ deve ser chamado *antes de* ou *depois de* um despacho de ação (o comportamento padrão é *antes*):
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`antes da action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`depois da action ${action.type}`)
+    }
+  })
+  ```
 
   Mais comumente usado em plugins. [Detalhes](../guide/plugins.md)
 
