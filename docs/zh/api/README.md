@@ -208,6 +208,21 @@ const store = new Vuex.Store({ ...options })
 
   要停止订阅，调用此方法返回的函数即可停止订阅。
 
+  > 3.1.0 新增
+
+  从 3.1.0 起，`subscribeAction` 也可以指定订阅处理函数的被调用时机应该在一个 action 分发*之前*还是*之后* (默认行为是*之前*)：
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
+
   该功能常用于插件。[详细介绍](../guide/plugins.md)
 
 ### registerModule
