@@ -307,8 +307,6 @@ Você também pode remover um módulo dinamicamente registrado com o `store.unre
 
 Se usarmos um objeto simples para declarar o estado do módulo, esse objeto de estado será compartilhado por referência e causará poluição entre estados de _store_/módulo quando ele sofrer uma mutação.
 
-This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
-
 Este é exatamente o mesmo problema com _data_ dentro dos componentes do Vue. Então a solução também é a mesma - use uma função para declarar o estado do módulo (suportado em 2.3.0+):
 
 ``` js
