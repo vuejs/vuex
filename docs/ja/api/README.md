@@ -119,9 +119,9 @@ const store = new Vuex.Store({ ...options })
 
 ### devtools
 
-  - type: `Boolean`
-  
-    Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page. 
+  - 型: `Boolean`
+
+    特定の Vuex インスタンスに対して開発ツールをオン、またはオフにします。インスタンスに false を渡すと、開発ツールのプラグインを購読しないように Vuex ストアに伝えます。1 ページに複数のストアがある場合に便利です。
 
     ``` js
     {
