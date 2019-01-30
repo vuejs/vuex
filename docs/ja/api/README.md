@@ -205,6 +205,22 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  To stop subscribing, call the returned unsubscribe function.
+
+  > New in 3.1.0
+
+  Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
+
 　プラグインで最も一般的に使用されます。[Details](../guide/plugins.md)
 
 ### registerModule
