@@ -1,5 +1,7 @@
 # Vuex とは何か？
 
+<a id="vuex-video-preview" href="javascript:var vuexVideoPreviewEl = document.getElementById('vuex-video-preview'); var videoWrapperEl = document.createElement('div'); videoWrapperEl.innerHTML = '<iframe src=&quot;https://player.vimeo.com/video/297515936?autoplay=1&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'; vuexVideoPreviewEl.parentNode.insertBefore(videoWrapperEl, vuexVideoPreviewEl); vuexVideoPreviewEl.parentNode.removeChild(vuexVideoPreviewEl)"><img src="/vuex-explained-visually.png" alt="Play Vuex Explained Visually Video" style="border-radius: 6px;"></a>
+
 Vuex は Vue.js アプリケーションのための **状態管理パターン + ライブラリ**です。
 これは予測可能な方法によってのみ状態の変異を行うというルールを保証し、アプリケーション内の全てのコンポーネントのための集中型のストアとして機能します。
 また Vue 公式の[開発ツール拡張](https://github.com/vuejs/vue-devtools)と連携し、設定なしでタイムトラベルデバッグやステートのスナップショットのエクスポートやインポートのような高度な機能を提供します。
