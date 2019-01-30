@@ -207,7 +207,7 @@ const store = new Vuex.Store({ ...options })
 
   Para cancelar a assinatura, chame a função _unsubscribe_ retornada.
 
-  > Novo na 3.1.0
+  > Novo em 3.1.0
 
   A partir da 3.1.0, `subscribeAction` também pode especificar se o manipulador do _subscribe_ deve ser chamado *antes de* ou *depois de* um despacho de ação (o comportamento padrão é *antes*):
 
