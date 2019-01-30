@@ -170,7 +170,7 @@ const store = new Vuex.Store({ ...options })
 
 - `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 [`vm.$watch`](https://cn.vuejs.org/v2/api/#watch) 方法的参数。
+  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 [`vm.$watch`](https://cn.vuejs.org/v2/api/#vm-watch) 方法的参数。
 
   要停止侦听，调用此方法返回的函数即可停止侦听。
 
@@ -207,6 +207,21 @@ const store = new Vuex.Store({ ...options })
   ```
 
   要停止订阅，调用此方法返回的函数即可停止订阅。
+
+  > 3.1.0 新增
+
+  从 3.1.0 起，`subscribeAction` 也可以指定订阅处理函数的被调用时机应该在一个 action 分发*之前*还是*之后* (默认行为是*之前*)：
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
 
   该功能常用于插件。[详细介绍](../guide/plugins.md)
 
