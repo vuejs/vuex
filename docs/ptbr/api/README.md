@@ -120,7 +120,7 @@ const store = new Vuex.Store({ ...options })
 
 - type: `Boolean`
 
-  Ative ou desative o _devtools_ para uma determinada instância vuex. Passar _false_ para a instância diz ao _store_ Vuex para não aderir ao plugin devtools. Útil para quando se tem vários _stores_ em uma _single page_.
+  Ative ou desative as ferramentas de desenvolvedor para uma determinada instância vuex. Passar _false_ à instância diz ao _store_ Vuex para não se integrar ao _devtools_. Útil para quando se tem vários _stores_ em uma _single page_.
 
   ``` js
   {
