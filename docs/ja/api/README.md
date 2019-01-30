@@ -205,11 +205,12 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+　購読を停止するには、返された購読解除関数を呼びます。
 
-  > New in 3.1.0
+  > 3.1.0 で新規追加
 
-  Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+  3.1.0 から、`subscribeAction` は購読ハンドラがアクションディスパッチの*前 (before)*、または*後 (after)*に呼びだすべきかどうか(デフォルトの動作は、*before* です)指定することもできます。
+
   ``` js
   store.subscribeAction({
     before: (action, state) => {
@@ -221,7 +222,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-　プラグインで最も一般的に使用されます。[Details](../guide/plugins.md)
+　プラグインで最も一般的に使用されます。[詳細](../guide/plugins.md)
 
 ### registerModule
 
