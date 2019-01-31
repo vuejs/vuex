@@ -1,5 +1,7 @@
 # O que é Vuex?
 
+<VideoPreview />
+
 O Vuex é um **padrão de gerenciamento de estado + biblioteca** para aplicativos Vue.js. Ele serve como um _store_ centralizado para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível. Ele também se integra com a extensão oficial [Vue devtools](https://github.com/vuejs/vue-devtools) para fornecer recursos avançados sem configurações adicionais, como depuração viajando pelo histórico de estado (_time travel_) e exportação/importação de registros de estado em determinado momento.
 
 ### O que é um "Padrão de Gerenciamento do Estado"?
@@ -58,6 +60,6 @@ Esta é a ideia básica por trás do Vuex, inspirada por [Flux](https://facebook
 
 Embora o Vuex nos ajude a lidar com o gerenciamento de estado compartilhado, ele também vem com o custo de mais conceitos e códigos repetitivos. É uma escolha de prós e contras entre produtividade de curto e longo prazo
 
-Se você nunca construiu um SPA em grande escala e for direto para o Vuex, ele pode parecer detalhado e desanimador. Isso é perfeitamente normal - se o seu aplicativo é simples, você provavelmente ficará bem sem o Vuex. Um simples [global event bus](https://br.vuejs.org/v2/guide/components.html#Comunicacao-Nao-Pai-Filho) pode ser tudo que você precisa. Mas, se você está criando um SPA de médio a grande porte, é provável que tenha encontrado situações que fazem você pensar em como lidar melhor com o estado fora de seus componentes do Vue, e o Vuex será o próximo passo natural para você. Há uma boa citação de Dan Abramov, o autor do Redux:
+Se você nunca construiu um SPA em grande escala e for direto para o Vuex, ele pode parecer detalhado e desanimador. Isso é perfeitamente normal - se o seu aplicativo é simples, você provavelmente ficará bem sem o Vuex. Um simples [store pattern](https://br.vuejs.org/v2/guide/state-management.html#Gerenciamento-de-Estado-do-Zero) pode ser tudo que você precisa. Mas, se você está criando um SPA de médio a grande porte, é provável que tenha encontrado situações que fazem você pensar em como lidar melhor com o estado fora de seus componentes do Vue, e o Vuex será o próximo passo natural para você. Há uma boa citação de Dan Abramov, o autor do Redux:
 
 > As bibliotecas _Flux_ são como óculos: você saberá quando precisar delas.
