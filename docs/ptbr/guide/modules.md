@@ -296,7 +296,11 @@ O registro de módulo dinâmico possibilita que outros plug-ins Vue aproveitem t
 
 Você também pode remover um módulo dinamicamente registrado com o `store.unregisterModule(moduleName)`. Note que você não pode remover módulos estáticos (declarados na criação do _store_) com este método.
 
+#### Preservando o estado
+
 É bem provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Renderizado no Lado do Servidor (_Server_ _Side_ _Rendered_). Você pode fazer isso com a opção `preserveState`:`store.registerModule('a', module, {preserveState: true})`
+
+Quando você informa `preserveState: true`, o módulo é registrado, as ações, mutações e _getters_ são incluídos no _store_, mas o estado não. É assumido que estado da sua _store_ já contém um estado para aquele módulo e você não quer sobrescrevê-lo.
 
 ### Reutilização do Módulo
 
@@ -307,9 +311,7 @@ Você também pode remover um módulo dinamicamente registrado com o `store.unre
 
 Se usarmos um objeto simples para declarar o estado do módulo, esse objeto de estado será compartilhado por referência e causará poluição entre estados de _store_/módulo quando ele sofrer uma mutação.
 
-This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
-
-Este é exatamente o mesmo problema com _data_ dentro dos componentes do Vue. Então a solução também é a mesma - use uma função para declarar o estado do módulo (suportado em 2.3.0+):
+Este é exatamente o mesmo problema com `data` dentro dos componentes Vue. Então, a solução também é a mesma - use uma função para declarar o estado do módulo (suportado em 2.3.0+):
 
 ``` js
 const MyReusableModule = {

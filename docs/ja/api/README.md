@@ -116,6 +116,19 @@ const store = new Vuex.Store({ ...options })
 
     [詳細](../guide/strict.md)
 
+
+### devtools
+
+  - 型: `Boolean`
+
+    特定の Vuex インスタンスに対して開発ツールをオン、またはオフにします。インスタンスに false を渡すと、開発ツールのプラグインを購読しないように Vuex ストアに伝えます。1 ページに複数のストアがある場合に便利です。
+
+    ``` js
+    {
+      devtools: false
+    }
+    ```
+
 ## Vuex.Store インスタンスプロパティ
 
 ### state
@@ -156,7 +169,7 @@ const store = new Vuex.Store({ ...options })
 
 - **`watch(fn: Function, callback: Function, options?: Object): Function`**
 
-  `fn`が返す値をリアクティブに監視し、値が変わった時にコールバックを呼びます。`fn`は最初の引数としてストアのステートを、2番目の引数としてゲッターを受け取ります。 Vue の`vm.$watch`メソッドと同じオプションをオプションのオブジェクトとして受け付けます。
+  `fn`が返す値をリアクティブに監視し、値が変わった時にコールバックを呼びます。`fn`は最初の引数としてストアのステートを、2番目の引数としてゲッターを受け取ります。 [Vue の`vm.$watch`メソッド](https://jp.vuejs.org/v2/api/#watch)と同じオプションをオプションのオブジェクトとして受け付けます。
 
   監視を止める場合は、返された unwatch 関数を呼び出します。
 
@@ -192,7 +205,24 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-　プラグインで最も一般的に使用されます。[Details](../guide/plugins.md)
+　購読を停止するには、返された購読解除関数を呼びます。
+
+  > 3.1.0 で新規追加
+
+  3.1.0 から、`subscribeAction` は購読ハンドラがアクションディスパッチの*前 (before)*、または*後 (after)*に呼びだすべきかどうか(デフォルトの動作は、*before* です)指定することもできます。
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
+
+　プラグインで最も一般的に使用されます。[詳細](../guide/plugins.md)
 
 ### registerModule
 
