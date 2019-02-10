@@ -1,5 +1,7 @@
 # Actions
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 Actions are similar to mutations, the differences being that:
 
 - Instead of mutating the state, actions commit mutations.
