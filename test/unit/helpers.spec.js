@@ -94,6 +94,40 @@ describe('Helpers', () => {
     expect(vm.value.b).toBeUndefined()
   })
 
+  it('mapState (with instance-specific namespace function)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { a: 1 },
+          getters: {
+            b: state => state.a + 1
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      data () {
+        return {
+          moduleName: 'foo'
+        }
+      },
+      computed: mapState(vm => vm.moduleName, {
+        a: (state, getters) => {
+          return state.a + getters.b
+        }
+      })
+    })
+    expect(vm.a).toBe(3)
+    store.state.foo.a++
+    expect(vm.a).toBe(5)
+    store.replaceState({
+      foo: { a: 3 }
+    })
+    expect(vm.a).toBe(7)
+  })
+
   it('mapMutations (array)', () => {
     const store = new Vuex.Store({
       state: { count: 0 },
@@ -204,6 +238,37 @@ describe('Helpers', () => {
     })
     vm.plus(42)
     expect(store.state.foo.count).toBe(43)
+  })
+
+  it('mapMutations (with instance-specific namespace function)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      data () {
+        return {
+          moduleName: 'foo'
+        }
+      },
+      methods: mapMutations(vm => vm.moduleName, {
+        plus: 'inc',
+        minus: 'dec'
+      })
+    })
+    vm.plus()
+    expect(store.state.foo.count).toBe(1)
+    vm.minus()
+    expect(store.state.foo.count).toBe(0)
   })
 
   it('mapGetters (array)', () => {
@@ -351,6 +416,47 @@ describe('Helpers', () => {
     expect(vm.count).toBe(9)
   })
 
+  it('mapGetters (with instance-specific namespace function)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          },
+          getters: {
+            hasAny: ({ count }) => count > 0,
+            negative: ({ count }) => count < 0
+          }
+        }
+      }
+    })
+    debugger
+    const vm = new Vue({
+      store,
+      data () {
+        return {
+          moduleName: 'foo'
+        }
+      },
+      computed: mapGetters(vm => vm.moduleName, {
+        a: 'hasAny',
+        b: 'negative'
+      })
+    })
+    expect(vm.a).toBe(false)
+    expect(vm.b).toBe(false)
+    store.commit('foo/inc')
+    expect(vm.a).toBe(true)
+    expect(vm.b).toBe(false)
+    store.commit('foo/dec')
+    store.commit('foo/dec')
+    expect(vm.a).toBe(false)
+    expect(vm.b).toBe(true)
+  })
+
   it('mapActions (array)', () => {
     const a = jasmine.createSpy()
     const b = jasmine.createSpy()
@@ -459,6 +565,39 @@ describe('Helpers', () => {
     })
     vm.foo('foo')
     expect(a.calls.argsFor(0)[1]).toBe('foobar')
+  })
+
+  it('mapActions (with instance-specific namespace function)', () => {
+    const a = jasmine.createSpy()
+    const b = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          actions: {
+            a,
+            b
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      data () {
+        return {
+          moduleName: 'foo'
+        }
+      },
+      methods: mapActions(vm => vm.moduleName, {
+        foo: 'a',
+        bar: 'b'
+      })
+    })
+    vm.foo()
+    expect(a).toHaveBeenCalled()
+    expect(b).not.toHaveBeenCalled()
+    vm.bar()
+    expect(b).toHaveBeenCalled()
   })
 
   it('createNamespacedHelpers', () => {

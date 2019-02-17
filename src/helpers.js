@@ -11,7 +11,13 @@ export const mapState = normalizeNamespace((namespace, states) => {
       let state = this.$store.state
       let getters = this.$store.getters
       if (namespace) {
-        const module = getModuleByNamespace(this.$store, 'mapState', namespace)
+        if (typeof namespace === 'function') {
+          namespace = namespace.call(this, this)
+          if (namespace.charAt(namespace.length - 1) !== '/') {
+            namespace += '/'
+          }
+        }
+        const module = getModuleByNamespace(this, 'mapState', namespace)
         if (!module) {
           return
         }
@@ -41,7 +47,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
       // Get the commit method from store
       let commit = this.$store.commit
       if (namespace) {
-        const module = getModuleByNamespace(this.$store, 'mapMutations', namespace)
+        const module = getModuleByNamespace(this, 'mapMutations', namespace)
         if (!module) {
           return
         }
@@ -64,17 +70,21 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
   normalizeMap(getters).forEach(({ key, val }) => {
-    // The namespace has been mutated by normalizeNamespace
-    val = namespace + val
+    let nsVal
     res[key] = function mappedGetter () {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+      if (namespace && !getModuleByNamespace(this, 'mapGetters', namespace)) {
         return
       }
-      if (process.env.NODE_ENV !== 'production' && !(val in this.$store.getters)) {
-        console.error(`[vuex] unknown getter: ${val}`)
+      if (!nsVal) {
+        // The namespace has been mutated by normalizeNamespace/getModuleByNamespace
+        // Only perform this once to avoid re-namespacing on subsequent accesses
+        nsVal = getInstanceSpecificNamespace(this, namespace) + val
+      }
+      if (process.env.NODE_ENV !== 'production' && !(nsVal in this.$store.getters)) {
+        console.error(`[vuex] unknown getter: ${nsVal}`)
         return
       }
-      return this.$store.getters[val]
+      return this.$store.getters[nsVal]
     }
     // mark vuex getter for devtools
     res[key].vuex = true
@@ -95,7 +105,7 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
       // get dispatch function from store
       let dispatch = this.$store.dispatch
       if (namespace) {
-        const module = getModuleByNamespace(this.$store, 'mapActions', namespace)
+        const module = getModuleByNamespace(this, 'mapActions', namespace)
         if (!module) {
           return
         }
@@ -141,7 +151,9 @@ function normalizeMap (map) {
  */
 function normalizeNamespace (fn) {
   return (namespace, map) => {
-    if (typeof namespace !== 'string') {
+    if (typeof namespace === 'function') {
+      // no-op
+    } else if (typeof namespace !== 'string') {
       map = namespace
       namespace = ''
     } else if (namespace.charAt(namespace.length - 1) !== '/') {
@@ -152,14 +164,31 @@ function normalizeNamespace (fn) {
 }
 
 /**
+ * Evaluate an instance-specific namespace function to determine the runtime namespace
+ * @param  {Object} vm        component vm
+ * @param  {Function|String}  namespace
+ * @return {String}           namespace
+ */
+function getInstanceSpecificNamespace (vm, namespace) {
+  if (typeof namespace === 'function') {
+    namespace = namespace.call(vm, vm)
+    if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/'
+    }
+  }
+  return namespace
+}
+
+/**
  * Search a special module from store by namespace. if module not exist, print error message.
  * @param {Object} store
  * @param {String} helper
  * @param {String} namespace
  * @return {Object}
  */
-function getModuleByNamespace (store, helper, namespace) {
-  const module = store._modulesNamespaceMap[namespace]
+function getModuleByNamespace (vm, helper, namespace) {
+  namespace = getInstanceSpecificNamespace(vm, namespace)
+  const module = vm.$store._modulesNamespaceMap[namespace]
   if (process.env.NODE_ENV !== 'production' && !module) {
     console.error(`[vuex] module namespace not found in ${helper}(): ${namespace}`)
   }
