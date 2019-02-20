@@ -1,5 +1,7 @@
 # Pour commencer
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cMPa2Uk" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Au cœur de chaque application Vuex, il y a la **zone de stockage (« store »)**. Un « store » est tout simplement un conteneur avec l'**état (« state »)** de votre application. Il y a deux choses qui différencient un store Vuex d'un simple objet global :
 
 1. Les stores Vuex sont réactifs. Quand les composants Vue y récupèrent l'état, ils se mettront à jour de façon réactive et efficace si l'état du store a changé.

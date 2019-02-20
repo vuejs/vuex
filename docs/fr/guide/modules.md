@@ -1,5 +1,7 @@
 # Modules
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Du fait de l'utilisation d'un arbre d'état unique, tout l'état de notre application est contenu dans un seul et même gros objet. Cependant, au fur et à mesure que notre application grandit, le store peut devenir très engorgé.
 
 Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque module peut contenir ses propres états, mutations, actions, accesseurs. Il peut même contenir ses propres modules internes.

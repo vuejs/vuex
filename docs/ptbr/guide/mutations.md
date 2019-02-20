@@ -1,5 +1,7 @@
 # Mutações
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 A única maneira de realmente mudar de estado em um _store_ Vuex é por confirmar (ou fazer _commit_ de) uma mutação. As mutações do Vuex são muito semelhantes aos eventos: cada mutação tem uma cadeia de caracteres **tipo** e um **manipulador**. A função do manipulador é onde realizamos modificações de estado reais e ele receberá o estado como o 1º argumento:
 
 ``` js

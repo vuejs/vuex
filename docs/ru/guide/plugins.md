@@ -1,5 +1,7 @@
 # Плагины
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Пройдите этот урок на Scrimba</a></div>
+
 Хранилища Vuex принимают опцию `plugins`, предоставляющую хуки для каждой мутации. Vuex-плагин — это просто функция, получающая хранилище в качестве единственного параметра:
 
 ```js

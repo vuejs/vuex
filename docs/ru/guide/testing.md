@@ -1,5 +1,7 @@
 # Тестирование
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Пройдите этот урок на Scrimba</a></div>
+
 В основном предметом модульного тестирования во Vuex являются мутации и действия.
 
 ### Тестирование мутаций

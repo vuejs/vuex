@@ -1,5 +1,7 @@
 # Mutations
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 La seule façon de vraiment modifier l'état dans un store Vuex est d'acter une mutation. Les mutations Vuex sont très similaires aux évènements : chaque mutation a un **type** sous forme de chaine de caractères et un **gestionnaire**. La fonction de gestion est en charge de procéder aux véritables modifications de l'état, et elle reçoit l'état en premier argument :
 
 ``` js

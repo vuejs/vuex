@@ -1,5 +1,7 @@
 # Действия
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Пройдите этот урок на Scrimba</a></div>
+
 Действия — похожи на мутации с несколькими отличиями:
 
 * Вместо того, чтобы напрямую менять состояние, действия инициируют мутации;

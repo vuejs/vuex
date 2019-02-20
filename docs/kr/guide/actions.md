@@ -1,5 +1,7 @@
 # 액션
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 액션은 변이와 유사합니다. 몇가지 다른 점은,
 
 - 상태를 변이시키는 대신 액션으로 변이에 대한 커밋을 합니다.

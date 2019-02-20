@@ -2,6 +2,8 @@
 
 ### 단일 상태 트리
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 Vuex는 **단일 상태 트리** 를 사용합니다. 즉, 이 단일 객체는 모든 애플리케이션 수준의 상태를 포함하며 "원본 소스" 역할을 합니다. 이는 각 애플리케이션마다 하나의 저장소만 갖게 된다는 것을 의미합니다. 단일 상태 트리를 사용하면 특정 상태를 쉽게 찾을 수 있으므로 디버깅을 위해 현재 앱 상태의 스냅 샷을 쉽게 가져올 수 있습니다.
 
 단일 상태 트리는 모듈성과 충돌하지 않습니다. 나중에 상태와 변이를 하위 모듈로 분할하는 방법에 대해 설명합니다.
@@ -57,6 +59,8 @@ const Counter = {
 ```
 
 ### `mapState` 헬퍼
+
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
 
 컴포넌트가 여러 저장소 상태 속성이나 getter를 사용해야하는 경우 계산된 속성을 모두 선언하면 반복적이고 장황해집니다. 이를 처리하기 위해 우리는 계산된 getter 함수를 생성하는 `mapState` 헬퍼를 사용하여 키 입력을 줄일 수 있습니다.
 

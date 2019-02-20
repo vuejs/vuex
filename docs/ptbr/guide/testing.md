@@ -1,5 +1,7 @@
 # Testando
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 As partes principais que queremos testar no Vuex são mutações e ações.
 
 ### Testando Mutações
