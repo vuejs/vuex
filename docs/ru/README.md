@@ -54,7 +54,7 @@ new Vue({
 
 Это основная идея Vuex, вдохновлённого [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) и [Архитектурой Elm](https://guide.elm-lang.org/architecture/). В отличие от других паттернов, Vuex реализован в виде библиотеки, специально предназначенной для Vue.js, чтобы использовать его систему реактивности для эффективного обновления.
 
-Если хотите выучить Vuex интерактивным способом, попробуйте этот [курс по Vuex на Scrimba.](https://scrimba.com/g/gvuex)
+Если хотите изучить Vuex в интерактивном режиме, попробуйте этот [курс по Vuex на Scrimba.](https://scrimba.com/g/gvuex)
 
 ![vuex](/ru/vuex.png)
 
