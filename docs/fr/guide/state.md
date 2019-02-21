@@ -2,6 +2,8 @@
 
 ### Arbre d'état unique
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Vuex utilise un **arbre d'état unique**, c'est-à-dire que cet unique objet contient tout l'état au niveau applicatif et sert de « source de vérité unique ». Cela signifie également que vous n'aurez qu'un seul store pour chaque application. Un arbre d'état unique rend rapide la localisation d'une partie spécifique de l'état et permet de facilement prendre des instantanés de l'état actuel de l'application à des fins de débogage.
 
 L'arbre d'état unique n'entre pas en conflit avec la modularité. Dans les prochains chapitres, nous examinerons comment séparer votre état et vos mutations dans des sous-modules.
@@ -57,6 +59,8 @@ const Counter = {
 ```
 
 ### La fonction utilitaire `mapState`
+
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
 
 Lorsqu'un composant a besoin d'utiliser plusieurs accesseurs ou propriétés de l'état du store, déclarer toutes ces propriétés calculées peut devenir répétitif et verbeux. Afin de pallier à ça, nous pouvons utiliser la fonction utilitaire `mapState` qui génère des fonctions d'accession pour nous et nous épargne quelques coups de clavier :
 

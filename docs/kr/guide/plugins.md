@@ -1,5 +1,7 @@
 # 플러그인
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 Vuex 저장소는 각 변이에 대한 훅을 노출하는 `plugins` 옵션을 허용합니다. Vuex 플러그인은 저장소를 유일한 전달인자로 받는 함수입니다.
 
 ``` js

@@ -52,6 +52,8 @@ new Vue({
 
 这就是 Vuex 背后的基本思想，借鉴了 [Flux](https://facebook.github.io/flux/docs/overview.html)、[Redux](http://redux.js.org/) 和 [The Elm Architecture](https://guide.elm-lang.org/architecture/)。与其他模式不同的是，Vuex 是专门为 Vue.js 设计的状态管理库，以利用 Vue.js 的细粒度数据响应机制来进行高效的状态更新。
 
+如果你想要以交互式的方式学习Vuex，快来看看在[Scrimba](https://scrimba.com/g/gvuex)上的这门Vuex课程。
+
 ![vuex](/vuex.png)
 
 ### 什么情况下我应该使用 Vuex？

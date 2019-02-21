@@ -1,5 +1,7 @@
 # Plugins
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Os _stores_ do Vuex aceitam a opção _plugins_ que expõe _hooks_ para cada mutação. Um _plugin_ Vuex é simplesmente uma função que recebe um _store_ como seu único argumento:
 
 ``` js

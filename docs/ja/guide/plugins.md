@@ -1,5 +1,7 @@
 # プラグイン
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 Vuex ストア は、各ミューテーションへのフックを公開する `plugins` オプションを受け付けます。 Vuex プラグインは、単一の引数としてストアを受けつけるただの関数です:
 
 ``` js

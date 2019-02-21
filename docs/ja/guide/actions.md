@@ -1,5 +1,7 @@
 # アクション
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 アクションはミューテーションと似ていますが、下記の点で異なります:
 
 - アクションは、状態を変更するのではなく、ミューテーションをコミットします。

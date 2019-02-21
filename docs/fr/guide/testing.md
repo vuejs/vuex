@@ -1,5 +1,7 @@
 # Tests
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Les parties principales que l'on veut couvrir par des tests unitaires avec Vuex sont les mutations et les actions.
 
 ### Tester les mutations

@@ -1,5 +1,7 @@
 # 테스팅
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 Vuex에서 단위 테스트를 하고자 하는 주요 부분은 변이와 액션입니다.
 
 ### 변이 테스팅

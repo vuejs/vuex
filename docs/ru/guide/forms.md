@@ -1,5 +1,7 @@
 # Работа с формами
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Пройдите этот урок на Scrimba</a></div>
+
 При использовании строгого режима Vuex может показаться неочевидным как использовать `v-model` с частью состояния Vuex:
 
 ```html
