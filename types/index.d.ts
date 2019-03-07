@@ -105,7 +105,7 @@ export interface ActionObject<S, R> {
 
 export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
 export type Action<S, R> = ActionHandler<S, R> | ActionObject<S, R>;
-export type Mutation<S> = (state: S, payload: any) => any;
+export type Mutation<S> = (state: S, payload?: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
 export interface Module<S, R> {
