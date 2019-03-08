@@ -88,7 +88,7 @@ Puisqu'un état de store de Vuex est rendu réactif par Vue, lorsque nous mutons
 
   - Utiliser `Vue.set(obj, 'newProp', 123)`, ou
 
-  - Remplacer cet objet par un nouvel objet. Par exemple, en utilisant [opérateur de décomposition](https://github.com/tc39/proposal-object-rest-spread), il est possible d'écrire :
+  - Remplacer cet objet par un nouvel objet. Par exemple, en utilisant un [opérateur de décomposition](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Op%C3%A9rateur_de_d%C3%A9composition) (stage-2), il est possible d'écrire :
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
