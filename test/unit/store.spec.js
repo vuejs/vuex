@@ -350,7 +350,7 @@ describe('Store', () => {
     expect(subscribeSpy.calls.count()).toBe(1)
     expect(secondSubscribeSpy.calls.count()).toBe(2)
   })
-  
+
   // store.watch should only be asserted in non-SSR environment
   if (!isSSR) {
     it('strict mode: warn mutations outside of handlers', () => {
