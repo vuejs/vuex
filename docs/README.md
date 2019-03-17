@@ -52,15 +52,15 @@ So why don't we extract the shared state out of the components, and manage it in
 
 By defining and separating the concepts involved in state management and enforcing rules that maintain independece between views and states, we give our code more structure and maintainability.
 
-![vuex](/vuex.png)
-
 This is the basic idea behind Vuex, inspired by [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) and [The Elm Architecture](https://guide.elm-lang.org/architecture/). Unlike the other patterns, Vuex is also a library implementation tailored specifically for Vue.js to take advantage of its granular reactivity system for efficient updates.
 
 If you want to learn Vuex in an interactive way you can check out this [Vuex course on Scrimba](https://scrimba.com/g/gvuex), which gives you a mix of screencast and code playground that you can pause and play around with anytime.
 
+![vuex](/vuex.png)
+
 ### When Should I Use It?
 
-[Vuex](https://vuex.vuejs.org/) helps us deal with shared state management with the cost of more concepts and boilerplate. It's a trade-off between short term and long term productivity.
+Vuex helps us deal with shared state management with the cost of more concepts and boilerplate. It's a trade-off between short term and long term productivity.
 
 If you've never built a large-scale SPA and jump right into Vuex, it may feel verbose and daunting. That's perfectly normal - if your app is simple, you will most likely be fine without Vuex. A simple [store pattern](https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch) may be all you need. But if you are building a medium-to-large-scale SPA, chances are you have run into situations that make you think about how to better handle state outside of your Vue components, and Vuex will be the natural next step for you. There's a good quote from Dan Abramov, the author of Redux:
 
