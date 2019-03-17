@@ -37,6 +37,10 @@ It is a self-contained app with the following parts:
 
 This is an simple representation of the concept of "one-way data flow":
 
+<p style="text-align: center; margin: 2em">
+  <img style="width:100%;max-width:450px;" src="/flow.png">
+</p>
+
 However, the simplicity quickly breaks down when we have **multiple components that share a common state**:
 
 - Multiple views may depend on the same piece of state.
@@ -47,6 +51,8 @@ For problem one, passing props can be tedious for deeply nested components, and 
 So why don't we extract the shared state out of the components, and manage it in a global singleton? With this, our component tree becomes a big "view", and any component can access the state or trigger actions, no matter where they are in the tree!
 
 By defining and separating the concepts involved in state management and enforcing rules that maintain independece between views and states, we give our code more structure and maintainability.
+
+![vuex](/vuex.png)
 
 This is the basic idea behind Vuex, inspired by [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) and [The Elm Architecture](https://guide.elm-lang.org/architecture/). Unlike the other patterns, Vuex is also a library implementation tailored specifically for Vue.js to take advantage of its granular reactivity system for efficient updates.
 
