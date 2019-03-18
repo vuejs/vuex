@@ -256,6 +256,8 @@ function resetStoreVM (store, state, hot) {
   const computed = {}
   forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure enviroment.
     computed[key] = partial(fn, store)
     Object.defineProperty(store.getters, key, {
       get: () => store._vm[key],
@@ -289,7 +291,7 @@ function resetStoreVM (store, state, hot) {
         oldVm._data.$$state = null
       })
     }
-    Vue.nextTick(() => oldVm.$destroy())
+    Vue.nextTick(() => { oldVm.$destroy(); oldVm.computed = null })
   }
 }
 

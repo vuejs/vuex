@@ -65,8 +65,8 @@ export function assert (condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
 }
 
-export function partial (fn, ...bindargs) {
-  return function (...callargs) {
-    return fn(...bindargs, ...callargs)
+export function partial (fn, arg) {
+  return function () {
+    return fn(arg)
   }
 }
