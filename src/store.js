@@ -291,7 +291,7 @@ function resetStoreVM (store, state, hot) {
         oldVm._data.$$state = null
       })
     }
-    Vue.nextTick(() => { oldVm.$destroy(); oldVm.computed = null })
+    Vue.nextTick(() => oldVm.$destroy())
   }
 }
 
