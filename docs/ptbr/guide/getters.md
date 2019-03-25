@@ -1,5 +1,7 @@
 # Getters
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Às vezes, talvez precisemos calcular o estado derivado com base no estado do _store_, por exemplo, filtrar através de uma lista de itens e contá-los:
 
 ``` js

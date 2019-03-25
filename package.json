@@ -5,6 +5,7 @@
   "main": "dist/vuex.common.js",
   "module": "dist/vuex.esm.js",
   "unpkg": "dist/vuex.js",
+  "jsdelivr": "dist/vuex.js",
   "typings": "types/index.d.ts",
   "files": [
     "dist",

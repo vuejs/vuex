@@ -1,5 +1,7 @@
 # ミューテーション
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 実際に Vuex のストアの状態を変更できる唯一の方法は、ミューテーションをコミットすることです。Vuex のミューテーションはイベントにとても近い概念です: 各ミューテーションは**タイプ**と**ハンドラ**を持ちます。ハンドラ関数は Vuex の状態（state）を第1引数として取得し、実際に状態の変更を行います:
 
 ``` js

@@ -1,5 +1,7 @@
 # Módulos
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Devido ao uso de uma única árvore de estado, todo o estado de nossa aplicação está contido dentro de um grande objeto. No entanto, à medida que nosso aplicativo cresce em escala, o _store_ pode ficar realmente inchado.
 
 Para ajudar com isso, o Vuex nos permite dividir nosso _store_ em **módulos**. Cada módulo pode conter seu próprio estado, mutações, ações, _getters_ e até módulos aninhados - é todo o complexo caminho abaixo:

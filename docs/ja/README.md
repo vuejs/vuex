@@ -57,6 +57,8 @@ new Vue({
 これが Vuex の背景にある基本的なアイディアであり、[Flux](https://facebook.github.io/flux/docs/overview.html)、 [Redux](http://redux.js.org/) そして [The Elm Architecture](https://guide.elm-lang.org/architecture/)から影響を受けています。
 他のパターンと異なるのは、Vuex は効率的な更新のために、Vue.js の粒度の細かいリアクティビティシステムを利用するよう特別に調整して実装されたライブラリだということです。
 
+あなたがもし対話型の方法でVuexを学びたいのであれば、[Scrimba](https://scrimba.com/g/gvuex)のVuexコースをぜひ試してみてください。
+
 ![vuex](/vuex.png)
 
 ### いつ、Vuexを使うべきでしょうか？

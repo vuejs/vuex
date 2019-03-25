@@ -1,5 +1,7 @@
 # フォームの扱い
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 厳格モードで Vuex を使用するとき、Vuex に属する状態の一部で `v-model` を使用するのは少しトリッキーです:
 
 ``` html

@@ -1,5 +1,7 @@
 # Actions
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 Actions are similar to mutations, the differences being that:
 
 - Instead of mutating the state, actions commit mutations.
@@ -45,7 +47,7 @@ Actions are triggered with the `store.dispatch` method:
 store.dispatch('increment')
 ```
 
-This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Remember that **mutations have to be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+This may look silly at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Remember that **mutations have to be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
 
 ``` js
 actions: {

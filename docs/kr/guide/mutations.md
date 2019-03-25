@@ -1,5 +1,7 @@
 # 변이
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 Vuex 저장소에서 실제로 상태를 변경하는 유일한 방법은 변이하는 것입니다. Vuex 변이는 이벤트와 매우 유사합니다. 각 변이에는 **타입** 문자열 **핸들러** 가 있습니다. 핸들러 함수는 실제 상태 수정을 하는 곳이며, 첫 번째 전달인자로 상태를받습니다.
 
 ``` js

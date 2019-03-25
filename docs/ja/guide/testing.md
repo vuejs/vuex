@@ -1,5 +1,7 @@
 # テスト
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 私たちが Vuex でユニットテストしたい主な部分はミューテーションとアクションです。
 
 ### ミューテーションのテスト

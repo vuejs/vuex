@@ -54,6 +54,8 @@ Além disso, definindo e separando os conceitos envolvidos no gerenciamento do e
 
 Esta é a ideia básica por trás do Vuex, inspirada por [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) e [The Elm Architecture](https://guide.elm-lang.org/architecture/). Ao contrário dos outros padrões, o Vuex também é uma implementação de biblioteca adaptada especificamente para o Vue.js tirar proveito de seu sistema de reatividade granular para atualizações eficientes.
 
+Se você quiser aprender Vuex de um modo interativo, você pode conferir esse curso de [Vuex no Scrimba.](https://scrimba.com/g/gvuex)
+
 ![vuex](/vuex.png)
 
 ### Quando usar o Vuex?

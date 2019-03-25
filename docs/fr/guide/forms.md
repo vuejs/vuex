@@ -1,5 +1,7 @@
 # Gestion des formulaires
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Lorsque l'on utilise Vuex en mode strict, il peut être compliqué d'utiliser `v-model` sur une partie de l'état qui appartient à Vuex :
 
 ``` html
