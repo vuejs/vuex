@@ -3,20 +3,31 @@ import * as Vuex from "../index";
 import createLogger from "../../dist/logger";
 
 Vue.use(Vuex);
-
+const state = {
+  value: 0
+};
+const mutations = {
+  setValue(s: typeof state, val: number) {
+    s.value = val;
+  },
+};
 namespace StoreInstance {
   const store = new Vuex.Store({
-    state: {
-      value: 0
-    }
+    state,
+    mutations,
+    actions: {
+      updateValue(ctx, payload) {
+        ctx.commit('setValue', payload);
+      },
+    },
   });
-
   store.state.value;
   store.getters.foo;
-
+  store.dispatch('updateValue', 1);
+  store.commit('setValue', 2);
   store.dispatch("foo", { amount: 1 }).then(() => {});
   store.dispatch({
-    type: "foo",
+    type: 'foo',
     amount: 1
   }).then(() => {});
 
