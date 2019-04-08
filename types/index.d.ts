@@ -70,10 +70,12 @@ export interface ActionPayload extends Payload {
 }
 
 export type ActionSubscriber<P, S> = (action: P, state: S) => any;
+export type ActionCatchSubscriber<P, S> = (action: P, state: S, error: Error) => any;
 
 export interface ActionSubscribersObject<P, S> {
   before?: ActionSubscriber<P, S>;
   after?: ActionSubscriber<P, S>;
+  catch?: ActionCatchSubscriber<P, S>;
 }
 
 export type SubscribeActionOptions<P, S> = ActionSubscriber<P, S> | ActionSubscribersObject<P, S>;

@@ -41,9 +41,12 @@ function applyMixin (Vue) {
   }
 }
 
-var devtoolHook =
-  typeof window !== 'undefined' &&
-  window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+var target = typeof window !== 'undefined'
+  ? window
+  : typeof global !== 'undefined'
+    ? global
+    : {};
+var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
 function devtoolPlugin (store) {
   if (!devtoolHook) { return }
@@ -441,6 +444,18 @@ Store.prototype.dispatch = function dispatch (_type, _payload) {
       }
     }
     return res
+  }, function (e) {
+    try {
+      this$1._actionSubscribers
+        .filter(function (sub) { return sub.catch; })
+        .forEach(function (sub) { return sub.catch(action, this$1.state, e); });
+    } catch (_e) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn("[vuex] error in after action catch subscribers: ");
+        console.error(_e);
+      }
+    }
+    throw e
   })
 };
 
