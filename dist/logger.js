@@ -13,7 +13,7 @@
    * @return {*}
    */
   function find (list, f) {
-    return list.filter(f)[0]
+    return list.find(f)
   }
 
   /**
