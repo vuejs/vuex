@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const zlib = require('zlib')
-const uglify = require('uglify-js')
+const terser = require('terser')
 const rollup = require('rollup')
 const configs = require('./configs')
 
@@ -27,21 +27,24 @@ function build (builds) {
 }
 
 function buildEntry ({ input, output }) {
-  const isProd = /min\.js$/.test(output.file)
+  const { file, banner } = output
+  const isProd = /min\.js$/.test(file)
   return rollup.rollup(input)
     .then(bundle => bundle.generate(output))
     .then(({ output: [{ code }] }) => {
       if (isProd) {
-        var minified = (output.banner ? output.banner + '\n' : '') + uglify.minify(code, {
+        const minified = (banner ? banner + '\n' : '') + terser.minify(code, {
+          toplevel: true,
           output: {
-            /* eslint-disable camelcase */
             ascii_only: true
-            /* eslint-enable camelcase */
+          },
+          compress: {
+            pure_funcs: ['makeMap']
           }
         }).code
-        return write(output.file, minified, true)
+        return write(file, minified, true)
       } else {
-        return write(output.file, code)
+        return write(file, code)
       }
     })
 }
