@@ -393,27 +393,37 @@ function makeLocalContext (store, namespace, path) {
   return local
 }
 
+let makeLocalGettersCache = {}
+let cacheStore = {}
+
 function makeLocalGetters (store, namespace) {
-  const gettersProxy = {}
+  if (cacheStore !== store) {
+    makeLocalGettersCache = {}
+    cacheStore = store
+  }
 
-  const splitPos = namespace.length
-  Object.keys(store.getters).forEach(type => {
-    // skip if the target getter is not match this namespace
-    if (type.slice(0, splitPos) !== namespace) return
+  if (!makeLocalGettersCache[namespace]) {
+    const gettersProxy = {}
+    const splitPos = namespace.length
+    Object.keys(store.getters).forEach(type => {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) return
 
-    // extract local getter type
-    const localType = type.slice(splitPos)
+      // extract local getter type
+      const localType = type.slice(splitPos)
 
-    // Add a port to the getters proxy.
-    // Define as getter property because
-    // we do not want to evaluate the getters in this time.
-    Object.defineProperty(gettersProxy, localType, {
-      get: () => store.getters[type],
-      enumerable: true
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: () => store.getters[type],
+        enumerable: true
+      })
     })
-  })
+    makeLocalGettersCache[namespace] = gettersProxy
+  }
 
-  return gettersProxy
+  return makeLocalGettersCache[namespace]
 }
 
 function registerMutation (store, type, handler, local) {
