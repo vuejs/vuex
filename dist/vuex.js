@@ -1,5 +1,5 @@
 /**
- * vuex v3.1.0
+ * vuex v3.1.1
  * (c) 2019 Evan You
  * @license MIT
  */
@@ -45,9 +45,12 @@
     }
   }
 
-  var devtoolHook =
-    typeof window !== 'undefined' &&
-    window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+  var target = typeof window !== 'undefined'
+    ? window
+    : typeof global !== 'undefined'
+      ? global
+      : {};
+  var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
   function devtoolPlugin (store) {
     if (!devtoolHook) { return }
@@ -91,6 +94,12 @@
 
   function assert (condition, msg) {
     if (!condition) { throw new Error(("[vuex] " + msg)) }
+  }
+
+  function partial (fn, arg) {
+    return function () {
+      return fn(arg)
+    }
   }
 
   // Base data struct for store's module, package with some attribute and method
@@ -553,7 +562,9 @@
     var computed = {};
     forEachValue(wrappedGetters, function (fn, key) {
       // use computed to leverage its lazy-caching mechanism
-      computed[key] = function () { return fn(store); };
+      // direct inline function use will lead to closure preserving oldVm.
+      // using partial to return function with only arguments preserved in closure enviroment.
+      computed[key] = partial(fn, store);
       Object.defineProperty(store.getters, key, {
         get: function () { return store._vm[key]; },
         enumerable: true // for local getters
@@ -992,7 +1003,7 @@
   var index = {
     Store: Store,
     install: install,
-    version: '3.1.0',
+    version: '3.1.1',
     mapState: mapState,
     mapMutations: mapMutations,
     mapGetters: mapGetters,
