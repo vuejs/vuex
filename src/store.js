@@ -247,6 +247,13 @@ function resetStore (store, hot) {
   resetStoreVM(store, state, hot)
 }
 
+// helper function for resetStoreVM to prevent closure-preserving memory leak
+export function getKeyFromVM (store, key) {
+  return function () {
+    return store._vm[key]
+  }
+}
+
 function resetStoreVM (store, state, hot) {
   const oldVm = store._vm
 
@@ -257,10 +264,10 @@ function resetStoreVM (store, state, hot) {
   forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldVm.
-    // using partial to return function with only arguments preserved in closure enviroment.
+    // using partial and getKeyFromVM to return functions with only arguments preserved in closure enviroment.
     computed[key] = partial(fn, store)
     Object.defineProperty(store.getters, key, {
-      get: () => store._vm[key],
+      get: getKeyFromVM(store, key),
       enumerable: true // for local getters
     })
   })
