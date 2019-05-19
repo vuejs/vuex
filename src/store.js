@@ -301,6 +301,13 @@ function installModule (store, rootState, path, module, hot) {
 
   // register in namespace map
   if (module.namespaced) {
+    const existedModule = store._modulesNamespaceMap[namespace]
+    if (existedModule) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error(`[vuex] duplicate namespace ${namespace} for the namespaced module ${path.join('/')}`)
+      }
+      return
+    }
     store._modulesNamespaceMap[namespace] = module
   }
 
