@@ -15,12 +15,15 @@ namespace StoreInstance {
   store.getters.foo;
 
   store.dispatch("foo", { amount: 1 }).then(() => {});
+  store.dispatch<{amount: number}>("foo", { amount: 1 }).then(() => {})
+  store.dispatch<{amount: number}, string>("foo", { amount: 1 }).then((value) => {})
   store.dispatch({
     type: "foo",
     amount: 1
   }).then(() => {});
 
   store.commit("foo", { amount: 1 });
+  store.commit<{amount: number}>("foo", { amount: 1 })
   store.commit({
     type: "foo",
     amount: 1

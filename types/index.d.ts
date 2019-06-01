@@ -39,12 +39,12 @@ export declare class Store<S> {
 export declare function install(Vue: typeof _Vue): void;
 
 export interface Dispatch {
-  (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
-  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
+  <P = any, R = any>(type: string, payload?: P, options?: DispatchOptions): Promise<R>;
+  <P extends Payload, R = any>(payloadWithType: P, options?: DispatchOptions): Promise<R>;
 }
 
 export interface Commit {
-  (type: string, payload?: any, options?: CommitOptions): void;
+  <P = any>(type: string, payload?: P, options?: CommitOptions): void;
   <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
 }
 
