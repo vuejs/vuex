@@ -1,5 +1,5 @@
 import Module from './module'
-import { assert, forEachValue } from '../util'
+import { assert, forEachValue, isProdEnv } from '../util'
 
 export default class ModuleCollection {
   constructor (rawRootModule) {
@@ -26,7 +26,7 @@ export default class ModuleCollection {
   }
 
   register (path, rawModule, runtime = true) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!isProdEnv()) {
       assertRawModule(path, rawModule)
     }
 
@@ -56,7 +56,7 @@ export default class ModuleCollection {
 }
 
 function update (path, targetModule, newModule) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isProdEnv()) {
     assertRawModule(path, newModule)
   }
 
@@ -67,7 +67,7 @@ function update (path, targetModule, newModule) {
   if (newModule.modules) {
     for (const key in newModule.modules) {
       if (!targetModule.getChild(key)) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (!isProdEnv()) {
           console.warn(
             `[vuex] trying to add a new module '${key}' on hot reloading, ` +
             'manual reload is needed'

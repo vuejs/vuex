@@ -1,5 +1,6 @@
 import { STORAGE_KEY } from './mutations'
 import createLogger from '../../../src/plugins/logger'
+import { isProdEnv } from '../../../src/util'
 
 const localStoragePlugin = store => {
   store.subscribe((mutation, { todos }) => {
@@ -7,6 +8,6 @@ const localStoragePlugin = store => {
   })
 }
 
-export default process.env.NODE_ENV !== 'production'
+export default !isProdEnv()
   ? [createLogger(), localStoragePlugin]
   : [localStoragePlugin]

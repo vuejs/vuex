@@ -4,6 +4,7 @@ import * as getters from './getters'
 import * as actions from './actions'
 import mutations from './mutations'
 import createLogger from '../../../src/plugins/logger'
+import { isProdEnv } from '../../../src/util'
 
 Vue.use(Vuex)
 
@@ -39,7 +40,7 @@ export default new Vuex.Store({
   getters,
   actions,
   mutations,
-  plugins: process.env.NODE_ENV !== 'production'
+  plugins: !isProdEnv()
     ? [createLogger()]
     : []
 })
