@@ -301,7 +301,7 @@ You can also remove a dynamically registered module with `store.unregisterModule
 
 It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
 
-When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
+When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but not the state. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
 
 ### Module Reuse
 
