@@ -35,7 +35,7 @@ const app = new Vue({
   store,
   components: { Counter },
   template: `
-    <div class="app">
+    <div id="app">
       <counter></counter>
     </div>
   `
