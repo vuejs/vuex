@@ -8,6 +8,8 @@ O Vuex usa uma **árvore única de estado** - ou seja, esse único objeto conté
 
 A árvore única de estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
 
+O tipo de dados guardados no Vuex segue as mesmas regras que `data` em instâncias Vue, ou seja o _state_ têm de ser um objeto simples. [Detalhes](https://br.vuejs.org/v2/api/index.html#data)
+
 ### Obtendo o Estado Vuex nos Componentes Vue
 
 Então, como exibimos o estado dentro do _store_ em nossos componentes Vue? Uma vez que os _stores_ Vuex são reativos, a maneira mais simples de "recuperar" o estado é simplesmente retornar algum estado do _store_ dentro de um [dado computado](https://br.vuejs.org/v2/guide/computed.html):
