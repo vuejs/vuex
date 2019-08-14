@@ -49,7 +49,7 @@ getters: {
   // ...
   doneTodosCount: (state, getters) => {
     return getters.doneTodos.length;
-  };
+  }
 }
 ```
 
@@ -78,7 +78,7 @@ getters: {
   // ...
   getTodoById: state => id => {
     return state.todos.find(todo => todo.id === id);
-  };
+  }
 }
 ```
 
