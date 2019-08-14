@@ -270,9 +270,29 @@ function resetStoreVM (store, state, hot) {
   // some funky global mixins
   const silent = Vue.config.silent
   Vue.config.silent = true
+
+  let $$state = state
+
+  if (process.env.NODE_ENV !== 'production') {
+    $$state = new Proxy($$state, {
+      set: function (obj, prop, val) {
+        if (!obj.hasOwnProperty(prop)) {
+          console.error(`[vuex] state: The property '${prop}' must be defined in the state object.`)
+        }
+
+        let updated = true
+        try {
+          obj[prop] = val
+        } catch (e) {
+          updated = false
+        }
+        return updated
+      }
+    })
+  }
   store._vm = new Vue({
     data: {
-      $$state: state
+      $$state: $$state
     },
     computed
   })

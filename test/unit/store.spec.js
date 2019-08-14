@@ -270,6 +270,27 @@ describe('Store', () => {
     }).toThrowError(/store must be called with the new operator/)
   })
 
+  it('asserts we do not set state in non previously declared state properties', () => {
+    spyOn(console, 'error')
+
+    const PROP = 'foo'
+    const store = new Vuex.Store({
+      strict: true,
+      state: () => ({/* forgot to declare "PROP" */}),
+      mutations: {
+        [PROP] (state, payload) {
+          state[PROP] = payload
+        }
+      }
+    })
+    expect(typeof store.state[PROP]).toBe('undefined')
+    store.commit(PROP, 5)
+    expect(console.error).toHaveBeenCalledWith(
+      `[vuex] state: The property '${PROP}' must be defined in the state object.`
+    )
+    expect(store.state[PROP]).toBe(5)
+  })
+
   it('should accept state as function', () => {
     const store = new Vuex.Store({
       state: () => ({
