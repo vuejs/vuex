@@ -50,10 +50,6 @@ export default function createLogger ({
   }
 }
 
-function repeat (str, times) {
-  return (new Array(times + 1)).join(str)
-}
-
 function pad (num, maxLength) {
-  return repeat('0', maxLength - num.toString().length) + num
+  return ('00' + num).slice(-maxLength)
 }
