@@ -287,11 +287,14 @@ describe('Store', () => {
   })
 
   it('should not call root state function twice', () => {
-    const spy = jasmine.createSpy().and.returnValue(1)
+    const secondSpy = jasmine.createSpy()
+    const firstSpy = jasmine.createSpy().and.returnValue(secondSpy)
+
     new Vuex.Store({
-      state: spy
+      state: firstSpy
     })
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(firstSpy).toHaveBeenCalledTimes(1)
+    expect(secondSpy).not.toHaveBeenCalled()
   })
 
   it('subscribe: should handle subscriptions / unsubscriptions', () => {
