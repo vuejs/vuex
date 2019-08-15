@@ -20,7 +20,7 @@ export class Store {
       // and set babel presets property useBuiltIns is 'usage'
       // then the polyfill will be loaded when Promise used
       // so this way has a bug when we webpack,if we use vuex without used Promise,always show this error
-      //assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
+      // assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
       try {
         new Promise(() => {});
       } catch (error) {
