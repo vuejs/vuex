@@ -22,7 +22,7 @@ export class Store {
       // so this way has a bug when we webpack,if we use vuex without used Promise,always show this error
       //assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
       try {
-        let tempPromise = new Promise();
+        let tempPromise = new Promise(() => {});
         tempPromise = null;
       } catch (error) {
         assert(false, `vuex requires a Promise polyfill in this browser.`)
