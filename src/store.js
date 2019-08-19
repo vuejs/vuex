@@ -224,7 +224,7 @@ export class Store {
 }
 
 function genericSubscribe (fn, subs) {
-  if (subs.indexOf(fn) < 0) {
+  if (!subs.includes(fn)) {
     subs.push(fn)
   }
   return () => {
