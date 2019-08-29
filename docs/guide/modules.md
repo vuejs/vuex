@@ -303,6 +303,8 @@ It may be likely that you want to preserve the previous state when registering a
 
 When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
 
+In a Server Side Rendered app, you should set `preserveState: true` in the client code and `preserveState: false` in the server code. Setting `preserveState: true` in the server code will result in the state being undefined in the server code.
+
 ### Module Reuse
 
 Sometimes we may need to create multiple instances of a module, for example:
