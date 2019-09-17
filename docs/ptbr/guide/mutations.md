@@ -88,7 +88,7 @@ Como o estado de um _store_ Vuex é reativado pelo Vue, quando alteramos o estad
 
   - Usar `Vue.set(obj, 'newProp', 123)`, ou
 
-  - Substitua esse objeto por um novo. Por exemplo, usando o _stage-3_ [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) nós podemos escrevê-lo assim:
+  - Substitua esse objeto por um novo. Por exemplo, usando o _stage-4_ [object spread syntax](https://github.com/tc39/proposal-object-rest-spread) nós podemos escrevê-lo assim:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
