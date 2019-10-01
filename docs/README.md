@@ -35,7 +35,7 @@ It is a self-contained app with the following parts:
 - The **view**, a declarative mapping of the **state**;
 - The **actions**, the possible ways the state could change in reaction to user inputs from the **view**.
 
-This is an simple representation of the concept of "one-way data flow":
+This is a simple representation of the concept of "one-way data flow":
 
 <p style="text-align: center; margin: 2em">
   <img style="width:100%;max-width:450px;" src="/flow.png">
