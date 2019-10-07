@@ -669,12 +669,12 @@ describe('Modules', () => {
       )
     })
 
-    it('action before/after subscribers', (done) => {
+    it('action before/after subscribers with resolve()', (done) => {
       const beforeSpy = jasmine.createSpy()
       const afterSpy = jasmine.createSpy()
       const store = new Vuex.Store({
         actions: {
-          [TEST]: () => Promise.resolve()
+          [TEST]: () => Promise.resolve('resolve')
         },
         plugins: [
           store => {
@@ -694,7 +694,43 @@ describe('Modules', () => {
       Vue.nextTick(() => {
         expect(afterSpy).toHaveBeenCalledWith(
           { type: TEST, payload: 2 },
-          store.state
+          store.state,
+          false,
+          'resolve'
+        )
+        done()
+      })
+    })
+  })
+
+    it('action before/after subscribers with reject()', (done) => {
+      const beforeSpy = jasmine.createSpy()
+      const afterSpy = jasmine.createSpy()
+      const store = new Vuex.Store({
+        actions: {
+          [TEST]: () => Promise.reject('reject')
+        },
+        plugins: [
+          store => {
+            store.subscribeAction({
+              before: beforeSpy,
+              after: afterSpy
+            })
+          }
+        ]
+      })
+      store.dispatch(TEST, 2)
+      expect(beforeSpy).toHaveBeenCalledWith(
+        { type: TEST, payload: 2 },
+        store.state
+      )
+      expect(afterSpy).not.toHaveBeenCalled()
+      Vue.nextTick(() => {
+        expect(afterSpy).toHaveBeenCalledWith(
+          { type: TEST, payload: 2 },
+          store.state,
+          false,
+          'reject'
         )
         done()
       })
