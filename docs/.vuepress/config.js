@@ -90,7 +90,8 @@ module.exports = {
           '/guide/strict',
           '/guide/forms',
           '/guide/testing',
-          '/guide/hot-reload'
+          '/guide/hot-reload',
+          '/guide/typescript'
         ]
       },
       '/zh/': {
