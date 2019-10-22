@@ -1,6 +1,6 @@
 # TypeScript
 
-Vuex supports TypeScript for state, actions, mutations, getters **using the module system**
+Vuex supports TypeScript for state, actions, mutations and getters **using the module system**
 
 ## Getting Started
 
@@ -130,7 +130,7 @@ const actions: ActionTree<MyModuleState, RootState> = {
 
 ## Mutations
 
-Mutations can be use with the `MutationTree<S>` interface where `S` is the current store type. It works exactly the same as a normal mutation but with the power of types.
+Mutations can be used with the `MutationTree<S>` interface where `S` is the current store type. It works exactly the same as a normal mutation but with the power of types.
 
 ### Example
 
@@ -144,7 +144,7 @@ const mutations: MutationTree<MyModuleState> = {
 
 ## Getters
 
-getters can be used with the `GetterTree<S, R>` interface which `S` is the current store type and `R` corresponds to the `RootState` and works exactly the same as a normal getter.
+Getters can be used with the `GetterTree<S, R>` interface which `S` is the current store type and `R` corresponds to the `RootState` and works exactly the same as a normal getter.
 
 ### Example
 
