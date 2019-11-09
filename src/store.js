@@ -35,6 +35,7 @@ export class Store {
     this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
     this._watcherVM = new Vue()
+    this._makeLocalGettersCache = Object.create(null)
 
     // bind commit and dispatch to self
     const store = this
@@ -253,7 +254,7 @@ function resetStoreVM (store, state, hot) {
   // bind store public getters
   store.getters = {}
   // reset local getters cache
-  makeLocalGettersCache = {}
+  store._makeLocalGettersCache = Object.create(null)
   const wrappedGetters = store._wrappedGetters
   const computed = {}
   forEachValue(wrappedGetters, (fn, key) => {
@@ -395,10 +396,8 @@ function makeLocalContext (store, namespace, path) {
   return local
 }
 
-let makeLocalGettersCache = {}
-
 function makeLocalGetters (store, namespace) {
-  if (!makeLocalGettersCache[namespace]) {
+  if (!store._makeLocalGettersCache[namespace]) {
     const gettersProxy = {}
     const splitPos = namespace.length
     Object.keys(store.getters).forEach(type => {
@@ -416,10 +415,10 @@ function makeLocalGetters (store, namespace) {
         enumerable: true
       })
     })
-    makeLocalGettersCache[namespace] = gettersProxy
+    store._makeLocalGettersCache[namespace] = gettersProxy
   }
 
-  return makeLocalGettersCache[namespace]
+  return store._makeLocalGettersCache[namespace]
 }
 
 function registerMutation (store, type, handler, local) {
