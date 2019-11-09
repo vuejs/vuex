@@ -252,6 +252,8 @@ function resetStoreVM (store, state, hot) {
 
   // bind store public getters
   store.getters = {}
+  // reset local getters cache
+  makeLocalGettersCache = {}
   const wrappedGetters = store._wrappedGetters
   const computed = {}
   forEachValue(wrappedGetters, (fn, key) => {
@@ -394,14 +396,8 @@ function makeLocalContext (store, namespace, path) {
 }
 
 let makeLocalGettersCache = {}
-let cacheStore = {}
 
 function makeLocalGetters (store, namespace) {
-  if (cacheStore !== store) {
-    makeLocalGettersCache = {}
-    cacheStore = store
-  }
-
   if (!makeLocalGettersCache[namespace]) {
     const gettersProxy = {}
     const splitPos = namespace.length
