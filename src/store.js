@@ -35,6 +35,7 @@ export class Store {
     this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
     this._watcherVM = new Vue()
+    this._makeLocalGettersCache = Object.create(null)
 
     // bind commit and dispatch to self
     const store = this
@@ -252,6 +253,8 @@ function resetStoreVM (store, state, hot) {
 
   // bind store public getters
   store.getters = {}
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null)
   const wrappedGetters = store._wrappedGetters
   const computed = {}
   forEachValue(wrappedGetters, (fn, key) => {
@@ -397,26 +400,28 @@ function makeLocalContext (store, namespace, path) {
 }
 
 function makeLocalGetters (store, namespace) {
-  const gettersProxy = {}
+  if (!store._makeLocalGettersCache[namespace]) {
+    const gettersProxy = {}
+    const splitPos = namespace.length
+    Object.keys(store.getters).forEach(type => {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) return
 
-  const splitPos = namespace.length
-  Object.keys(store.getters).forEach(type => {
-    // skip if the target getter is not match this namespace
-    if (type.slice(0, splitPos) !== namespace) return
+      // extract local getter type
+      const localType = type.slice(splitPos)
 
-    // extract local getter type
-    const localType = type.slice(splitPos)
-
-    // Add a port to the getters proxy.
-    // Define as getter property because
-    // we do not want to evaluate the getters in this time.
-    Object.defineProperty(gettersProxy, localType, {
-      get: () => store.getters[type],
-      enumerable: true
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: () => store.getters[type],
+        enumerable: true
+      })
     })
-  })
+    store._makeLocalGettersCache[namespace] = gettersProxy
+  }
 
-  return gettersProxy
+  return store._makeLocalGettersCache[namespace]
 }
 
 function registerMutation (store, type, handler, local) {
