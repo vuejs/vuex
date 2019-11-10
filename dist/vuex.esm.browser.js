@@ -1,5 +1,5 @@
 /**
- * vuex v3.1.1
+ * vuex v3.1.2
  * (c) 2019 Evan You
  * @license MIT
  */
@@ -316,6 +316,7 @@ class Store {
     this._modulesNamespaceMap = Object.create(null);
     this._subscribers = [];
     this._watcherVM = new Vue();
+    this._makeLocalGettersCache = Object.create(null);
 
     // bind commit and dispatch to self
     const store = this;
@@ -532,12 +533,14 @@ function resetStoreVM (store, state, hot) {
 
   // bind store public getters
   store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
   const wrappedGetters = store._wrappedGetters;
   const computed = {};
   forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldVm.
-    // using partial to return function with only arguments preserved in closure enviroment.
+    // using partial to return function with only arguments preserved in closure environment.
     computed[key] = partial(fn, store);
     Object.defineProperty(store.getters, key, {
       get: () => store._vm[key],
@@ -581,6 +584,9 @@ function installModule (store, rootState, path, module, hot) {
 
   // register in namespace map
   if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && "development" !== 'production') {
+      console.error(`[vuex] duplicate namespace ${namespace} for the namespaced module ${path.join('/')}`);
+    }
     store._modulesNamespaceMap[namespace] = module;
   }
 
@@ -589,6 +595,13 @@ function installModule (store, rootState, path, module, hot) {
     const parentState = getNestedState(rootState, path.slice(0, -1));
     const moduleName = path[path.length - 1];
     store._withCommit(() => {
+      {
+        if (moduleName in parentState) {
+          console.warn(
+            `[vuex] state field "${moduleName}" was overridden by a module with the same name at "${path.join('.')}"`
+          );
+        }
+      }
       Vue.set(parentState, moduleName, module.state);
     });
   }
@@ -674,26 +687,28 @@ function makeLocalContext (store, namespace, path) {
 }
 
 function makeLocalGetters (store, namespace) {
-  const gettersProxy = {};
+  if (!store._makeLocalGettersCache[namespace]) {
+    const gettersProxy = {};
+    const splitPos = namespace.length;
+    Object.keys(store.getters).forEach(type => {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) return
 
-  const splitPos = namespace.length;
-  Object.keys(store.getters).forEach(type => {
-    // skip if the target getter is not match this namespace
-    if (type.slice(0, splitPos) !== namespace) return
+      // extract local getter type
+      const localType = type.slice(splitPos);
 
-    // extract local getter type
-    const localType = type.slice(splitPos);
-
-    // Add a port to the getters proxy.
-    // Define as getter property because
-    // we do not want to evaluate the getters in this time.
-    Object.defineProperty(gettersProxy, localType, {
-      get: () => store.getters[type],
-      enumerable: true
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: () => store.getters[type],
+        enumerable: true
+      });
     });
-  });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
 
-  return gettersProxy
+  return store._makeLocalGettersCache[namespace]
 }
 
 function registerMutation (store, type, handler, local) {
@@ -705,7 +720,7 @@ function registerMutation (store, type, handler, local) {
 
 function registerAction (store, type, handler, local) {
   const entry = store._actions[type] || (store._actions[type] = []);
-  entry.push(function wrappedActionHandler (payload, cb) {
+  entry.push(function wrappedActionHandler (payload) {
     let res = handler.call(store, {
       dispatch: local.dispatch,
       commit: local.commit,
@@ -713,7 +728,7 @@ function registerAction (store, type, handler, local) {
       state: local.state,
       rootGetters: store.getters,
       rootState: store.state
-    }, payload, cb);
+    }, payload);
     if (!isPromise(res)) {
       res = Promise.resolve(res);
     }
@@ -794,6 +809,9 @@ function install (_Vue) {
  */
 const mapState = normalizeNamespace((namespace, states) => {
   const res = {};
+  if (!isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
       let state = this.$store.state;
@@ -824,6 +842,9 @@ const mapState = normalizeNamespace((namespace, states) => {
  */
 const mapMutations = normalizeNamespace((namespace, mutations) => {
   const res = {};
+  if (!isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
       // Get the commit method from store
@@ -851,6 +872,9 @@ const mapMutations = normalizeNamespace((namespace, mutations) => {
  */
 const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {};
+  if (!isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(getters).forEach(({ key, val }) => {
     // The namespace has been mutated by normalizeNamespace
     val = namespace + val;
@@ -878,6 +902,9 @@ const mapGetters = normalizeNamespace((namespace, getters) => {
  */
 const mapActions = normalizeNamespace((namespace, actions) => {
   const res = {};
+  if (!isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
       // get dispatch function from store
@@ -917,9 +944,21 @@ const createNamespacedHelpers = (namespace) => ({
  * @return {Object}
  */
 function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
   return Array.isArray(map)
     ? map.map(key => ({ key, val: key }))
     : Object.keys(map).map(key => ({ key, val: map[key] }))
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
 }
 
 /**
@@ -957,7 +996,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store,
   install,
-  version: '3.1.1',
+  version: '3.1.2',
   mapState,
   mapMutations,
   mapGetters,
