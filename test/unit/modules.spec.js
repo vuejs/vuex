@@ -550,18 +550,22 @@ describe('Modules', () => {
     it('module: warn when module overrides state', () => {
       spyOn(console, 'warn')
       const store = new Vuex.Store({
-        state () {
-          return { value: 1 }
-        },
         modules: {
-          value: {
-            state: () => 2
+          foo: {
+            state () {
+              return { value: 1 }
+            },
+            modules: {
+              value: {
+                state: () => 2
+              }
+            }
           }
         }
       })
-      expect(store.state.value).toBe(2)
+      expect(store.state.foo.value).toBe(2)
       expect(console.warn).toHaveBeenCalledWith(
-        `[vuex] state field "value" was overridden by a module with the same name`
+        `[vuex] state field "value" was overridden by a module with the same name at "foo.value"`
       )
     })
 
