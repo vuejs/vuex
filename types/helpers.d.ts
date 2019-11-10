@@ -2,10 +2,10 @@ import Vue from 'vue';
 import { Dispatch, Commit } from './index';
 
 type Computed = () => any;
-type InlineComputed<T> = T extends (...args: any[]) => infer R ? () => R : never
+type InlineComputed<T extends Function> = T extends (...args: any[]) => infer R ? () => R : never
 type MutationMethod = (...args: any[]) => void;
 type ActionMethod = (...args: any[]) => Promise<any>;
-type InlineMethod<T> = T extends (fn: any, ...args: infer Args) => infer R ? (...args: Args) => R : never
+type InlineMethod<T extends (fn: any, ...args: any[]) => any> = T extends (fn: any, ...args: infer Args) => infer R ? (...args: Args) => R : never
 type CustomVue = Vue & Record<string, any>;
 
 interface Mapper<R> {
