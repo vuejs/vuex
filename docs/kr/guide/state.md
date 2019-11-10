@@ -96,7 +96,7 @@ computed: mapState([
 
 ### 객체 전개 연산자 (Object Spread Operator)
 
-`mapState`는 객체를 반환합니다. 다른 로컬 영역의 계산된 속성과 함께 사용하려면 어떻게 해야 하나요? 일반적으로, 최종 객체를 `computed`에 전달할 수 있도록 여러 객체를 하나로 병합하는 유틸리티를 사용해야합니다. 그러나 (3 단계 ECMAScript 스펙) [객체 전개 연산자 (Object Spread Operator)](https://github.com/sebmarkbage/ecmascript-rest-spread)을 사용하면 문법을 매우 단순화 할 수 있습니다.
+`mapState`는 객체를 반환합니다. 다른 로컬 영역의 계산된 속성과 함께 사용하려면 어떻게 해야 하나요? 일반적으로, 최종 객체를 `computed`에 전달할 수 있도록 여러 객체를 하나로 병합하는 유틸리티를 사용해야합니다. 그러나 [객체 전개 연산자 (Object Spread Operator)](https://github.com/tc39/proposal-object-rest-spread)을 사용하면 문법을 매우 단순화 할 수 있습니다.
 
 ``` js
 computed: {

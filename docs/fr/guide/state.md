@@ -96,7 +96,7 @@ computed: mapState([
 
 ### Opérateur de décomposition
 
-Notez que `mapState` renvoie un objet. Comment l'utiliser en complément des autres propriétés calculées locales ? Normalement, il faudrait utiliser un outil pour fusionner les multiples objets en un seul afin de passer cet objet final à `computed`. Cependant avec l'[opérateur de décomposition](https://github.com/sebmarkbage/ecmascript-rest-spread) (qui est une proposition stage-4 ECMAScript), nous pouvons grandement simplifier la syntaxe :
+Notez que `mapState` renvoie un objet. Comment l'utiliser en complément des autres propriétés calculées locales ? Normalement, il faudrait utiliser un outil pour fusionner les multiples objets en un seul afin de passer cet objet final à `computed`. Cependant avec l'[opérateur de décomposition](https://github.com/tc39/proposal-object-rest-spread), nous pouvons grandement simplifier la syntaxe :
 
 ``` js
 computed: {

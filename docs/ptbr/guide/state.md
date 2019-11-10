@@ -98,7 +98,7 @@ computed: mapState([
 
 ### Objeto Spread Operator
 
-Observe que _mapState_ retorna um objeto. Como usá-lo em combinação com outros dados computados locais? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [Spread Operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta de ECMAScript em estágio 4), podemos simplificar muito a sintaxe:
+Observe que _mapState_ retorna um objeto. Como usá-lo em combinação com outros dados computados locais? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [Spread Operator](https://github.com/tc39/proposal-object-rest-spread), podemos simplificar muito a sintaxe:
 
 ``` js
 computed: {
