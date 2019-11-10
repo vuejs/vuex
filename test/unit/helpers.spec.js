@@ -94,6 +94,22 @@ describe('Helpers', () => {
     expect(vm.value.b).toBeUndefined()
   })
 
+  it('mapState (with undefined states)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { a: 1 }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapState('foo')
+    })
+    expect(vm.a).toBeUndefined()
+  })
+
   it('mapMutations (array)', () => {
     const store = new Vuex.Store({
       state: { count: 0 },
@@ -204,6 +220,27 @@ describe('Helpers', () => {
     })
     vm.plus(42)
     expect(store.state.foo.count).toBe(43)
+  })
+
+  it('mapMutations (with undefined mutations)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapMutations('foo')
+    })
+    expect(vm.inc).toBeUndefined()
+    expect(vm.dec).toBeUndefined()
   })
 
   it('mapGetters (array)', () => {
@@ -351,6 +388,31 @@ describe('Helpers', () => {
     expect(vm.count).toBe(9)
   })
 
+  it('mapGetters (with undefined getters)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          },
+          getters: {
+            hasAny: ({ count }) => count > 0,
+            negative: ({ count }) => count < 0
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      computed: mapGetters('foo')
+    })
+    expect(vm.a).toBeUndefined()
+    expect(vm.b).toBeUndefined()
+  })
+
   it('mapActions (array)', () => {
     const a = jasmine.createSpy()
     const b = jasmine.createSpy()
@@ -459,6 +521,26 @@ describe('Helpers', () => {
     })
     vm.foo('foo')
     expect(a.calls.argsFor(0)[1]).toBe('foobar')
+  })
+
+  it('mapActions (with undefined actions)', () => {
+    const a = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          actions: {
+            a
+          }
+        }
+      }
+    })
+    const vm = new Vue({
+      store,
+      methods: mapActions('foo/')
+    })
+    expect(vm.a).toBeUndefined()
+    expect(a).not.toHaveBeenCalled()
   })
 
   it('createNamespacedHelpers', () => {
