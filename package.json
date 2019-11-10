@@ -63,7 +63,7 @@
     "selenium-server": "^2.53.1",
     "terser": "^3.17.0",
     "todomvc-app-css": "^2.1.0",
-    "typescript": "^3.2.2",
+    "typescript": "^3.7.2",
     "vue": "^2.5.22",
     "vue-loader": "^15.2.1",
     "vue-template-compiler": "^2.5.22",
