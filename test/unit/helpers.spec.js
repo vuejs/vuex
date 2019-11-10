@@ -95,6 +95,7 @@ describe('Helpers', () => {
   })
 
   it('mapState (with undefined states)', () => {
+    spyOn(console, 'error')
     const store = new Vuex.Store({
       modules: {
         foo: {
@@ -108,6 +109,7 @@ describe('Helpers', () => {
       computed: mapState('foo')
     })
     expect(vm.a).toBeUndefined()
+    expect(console.error).toHaveBeenCalledWith('[vuex] mapState: mapper parameter must be either an Array or an Object')
   })
 
   it('mapMutations (array)', () => {
@@ -223,6 +225,7 @@ describe('Helpers', () => {
   })
 
   it('mapMutations (with undefined mutations)', () => {
+    spyOn(console, 'error')
     const store = new Vuex.Store({
       modules: {
         foo: {
@@ -241,6 +244,7 @@ describe('Helpers', () => {
     })
     expect(vm.inc).toBeUndefined()
     expect(vm.dec).toBeUndefined()
+    expect(console.error).toHaveBeenCalledWith('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
   })
 
   it('mapGetters (array)', () => {
@@ -389,6 +393,7 @@ describe('Helpers', () => {
   })
 
   it('mapGetters (with undefined getters)', () => {
+    spyOn(console, 'error')
     const store = new Vuex.Store({
       modules: {
         foo: {
@@ -411,6 +416,7 @@ describe('Helpers', () => {
     })
     expect(vm.a).toBeUndefined()
     expect(vm.b).toBeUndefined()
+    expect(console.error).toHaveBeenCalledWith('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
   })
 
   it('mapActions (array)', () => {
@@ -524,6 +530,7 @@ describe('Helpers', () => {
   })
 
   it('mapActions (with undefined actions)', () => {
+    spyOn(console, 'error')
     const a = jasmine.createSpy()
     const store = new Vuex.Store({
       modules: {
@@ -541,6 +548,7 @@ describe('Helpers', () => {
     })
     expect(vm.a).toBeUndefined()
     expect(a).not.toHaveBeenCalled()
+    expect(console.error).toHaveBeenCalledWith('[vuex] mapActions: mapper parameter must be either an Array or an Object')
   })
 
   it('createNamespacedHelpers', () => {

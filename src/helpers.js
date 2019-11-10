@@ -9,7 +9,7 @@ import { isObject } from './util'
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(states)) {
-    console.error('[vuex] states parameter must be either an Array/Object')
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
@@ -42,7 +42,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
 export const mapMutations = normalizeNamespace((namespace, mutations) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(mutations)) {
-    console.error('[vuex] mutations parameter must be either an Array/Object')
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
@@ -72,7 +72,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(getters)) {
-    console.error('[vuex] getters parameter must be either an Array/Object')
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(getters).forEach(({ key, val }) => {
     // The namespace has been mutated by normalizeNamespace
@@ -102,7 +102,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
 export const mapActions = normalizeNamespace((namespace, actions) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(actions)) {
-    console.error('[vuex] actions parameter must be either an Array/Object')
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
