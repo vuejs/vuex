@@ -89,7 +89,7 @@ mutations: {
 
     * Использовать `Vue.set(obj, 'newProp', 123)`, или
 
-    * Целиком заменить старый объект новым. Например, используя [синтаксис расширения объектов](https://github.com/sebmarkbage/ecmascript-rest-spread) можно написать так:
+    * Целиком заменить старый объект новым. Например, используя [синтаксис расширения объектов](https://github.com/tc39/proposal-object-rest-spread) можно написать так:
 
     ```js
     state.obj = { ...state.obj, newProp: 123 };

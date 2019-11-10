@@ -90,7 +90,7 @@ Vuex ストアの状態は Vue によってリアクティブになっている�
 
   - `Vue.set(obj, 'newProp', 123)` を使用する。あるいは
 
-  - 全く新しいオブジェクトで既存のオブジェクトを置き換える。例えば、[スプレッドシンタックス（object spread syntax）](https://github.com/sebmarkbage/ecmascript-rest-spread) を使用して、次のように書くことができます:
+  - 全く新しいオブジェクトで既存のオブジェクトを置き換える。例えば、[スプレッドシンタックス（object spread syntax）](https://github.com/tc39/proposal-object-rest-spread) を使用して、次のように書くことができます:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
