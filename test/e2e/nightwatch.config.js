@@ -6,7 +6,9 @@ module.exports = {
   'custom_assertions_path': ['node_modules/nightwatch-helpers/assertions'],
 
   'webdriver': {
-    'start_process': true
+    'start_process': true,
+    'port': 9515,
+    'server_path': require('chromedriver').path
   },
 
   'test_settings': {
@@ -21,11 +23,6 @@ module.exports = {
     },
 
     'chrome': {
-      'webdriver': {
-        'port': 9515,
-        'server_path': require('chromedriver').path
-      },
-
       'desiredCapabilities': {
         'browserName': 'chrome',
         'javascriptEnabled': true,
