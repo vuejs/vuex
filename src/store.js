@@ -489,9 +489,7 @@ function enableStrictMode (store) {
 }
 
 function getNestedState (state, path) {
-  return path.length
-    ? path.reduce((state, key) => state[key], state)
-    : state
+  return path.reduce((state, key) => state[key], state)
 }
 
 function unifyObjectStyle (type, payload, options) {
