@@ -261,7 +261,7 @@ function resetStoreVM (store, state, hot) {
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldVm.
     // using partial to return function with only arguments preserved in closure environment.
-    computed[key] = partial(fn, store)
+    computed[key] = partial(fn)
     Object.defineProperty(store.getters, key, {
       get: () => store._vm[key],
       enumerable: true // for local getters
@@ -470,7 +470,7 @@ function registerGetter (store, type, rawGetter, local) {
     }
     return
   }
-  store._wrappedGetters[type] = function wrappedGetter (store) {
+  store._wrappedGetters[type] = function wrappedGetter () {
     return rawGetter(
       local.state, // local state
       local.getters, // local getters
