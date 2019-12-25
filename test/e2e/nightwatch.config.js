@@ -5,20 +5,14 @@ module.exports = {
   'custom_commands_path': ['node_modules/nightwatch-helpers/commands'],
   'custom_assertions_path': ['node_modules/nightwatch-helpers/assertions'],
 
-  'selenium': {
+  'webdriver': {
     'start_process': true,
-    'server_path': require('selenium-server').path,
-    'host': '127.0.0.1',
-    'port': 4444,
-    'cli_args': {
-      'webdriver.chrome.driver': require('chromedriver').path
-    }
+    'port': 9515,
+    'server_path': require('chromedriver').path
   },
 
   'test_settings': {
     'default': {
-      'selenium_port': 4444,
-      'selenium_host': 'localhost',
       'silent': true,
       'screenshots': {
         'enabled': true,
@@ -32,16 +26,10 @@ module.exports = {
       'desiredCapabilities': {
         'browserName': 'chrome',
         'javascriptEnabled': true,
-        'acceptSslCerts': true
-      }
-    },
-
-    'phantomjs': {
-      'desiredCapabilities': {
-        'browserName': 'phantomjs',
-        'javascriptEnabled': true,
         'acceptSslCerts': true,
-        'phantomjs.binary.path': require('phantomjs-prebuilt').path
+        'chromeOptions': {
+          'args': ['--headless']
+        }
       }
     }
   }
