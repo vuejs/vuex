@@ -101,7 +101,10 @@ export class Store {
         handler(payload)
       })
     })
-    this._subscribers.forEach(sub => sub(mutation, this.state))
+
+    this._subscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .forEach(sub => sub(mutation, this.state))
 
     if (
       process.env.NODE_ENV !== 'production' &&
@@ -132,6 +135,7 @@ export class Store {
 
     try {
       this._actionSubscribers
+        .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
         .filter(sub => sub.before)
         .forEach(sub => sub.before(action, this.state))
     } catch (e) {
