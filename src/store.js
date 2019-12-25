@@ -104,7 +104,7 @@ export class Store {
 
     this._subscribers
       .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
-      .forEach(sub => sub(message, state))
+      .forEach(sub => sub(mutation, this.state))
 
     if (
       process.env.NODE_ENV !== 'production' &&
