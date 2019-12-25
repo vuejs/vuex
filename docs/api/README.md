@@ -120,7 +120,7 @@ const store = new Vuex.Store({ ...options })
 
 - type: `Boolean`
 
-  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page. 
+  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
 
   ``` js
   {
@@ -169,7 +169,7 @@ const store = new Vuex.Store({ ...options })
 
 -  `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as [Vue's `vm.$watch` method](https://vuejs.org/v2/api/#watch).
+  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as [Vue's `vm.$watch` method](https://vuejs.org/v2/api/#vm-watch).
 
   To stop watching, call the returned unwatch function.
 
@@ -206,6 +206,21 @@ const store = new Vuex.Store({ ...options })
   ```
 
   To stop subscribing, call the returned unsubscribe function.
+
+  > New in 3.1.0
+
+  Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
 
   Most commonly used in plugins. [Details](../guide/plugins.md)
 

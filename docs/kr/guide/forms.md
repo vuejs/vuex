@@ -1,5 +1,7 @@
 # 폼 핸들링
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 strict 모드로 Vuex를 사용하는 경우 Vuex에 포함된 부분에 `v-model`을 사용하는 것은 약간 까다로울 수 있습니다.
 
 ``` html

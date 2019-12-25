@@ -1,5 +1,7 @@
 # プラグイン
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 Vuex ストア は、各ミューテーションへのフックを公開する `plugins` オプションを受け付けます。 Vuex プラグインは、単一の引数としてストアを受けつけるただの関数です:
 
 ``` js
@@ -25,7 +27,7 @@ const store = new Vuex.Store({
 
 プラグインは直接、状態を変更できません。これはコンポーネントに似ています。プラグインはコンポーネント同様に、ミューテーションのコミットによる変更のトリガーだけで状態を変更できます。
 
-ミューテーションのコミットによるストアとデータソースの同期をプラグインで実現できます。 websocket データソースとストアを例にします (これは不自然な例です。実際には、さらに複雑なタスクのために `createPlugin` 関数は、追加でいくつかのオプションを受け取れます):
+ミューテーションのコミットによるストアとデータソースの同期をプラグインで実現できます。 websocket データソースとストアを例にします (これは不自然な例です。実際には、さらに複雑なタスクのために `createWebSocketPlugin` 関数は、追加でいくつかのオプションを受け取れます):
 
 ``` js
 export default function createWebSocketPlugin (socket) {

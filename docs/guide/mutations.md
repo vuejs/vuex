@@ -1,5 +1,7 @@
 # Mutations
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
 
 ``` js
@@ -86,7 +88,7 @@ Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vu
 
   - Use `Vue.set(obj, 'newProp', 123)`, or
 
-  - Replace that Object with a fresh one. For example, using the [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) we can write it like this:
+  - Replace that Object with a fresh one. For example, using the [object spread syntax](https://github.com/tc39/proposal-object-rest-spread) we can write it like this:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }

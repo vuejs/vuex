@@ -1,5 +1,7 @@
 # Геттеры
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Пройдите этот урок на Scrimba</a></div>
+
 Иногда может потребоваться вычислять производное состояние на основе состояния хранилища, например, отфильтровать список и затем подсчитать количество элементов:
 
 ```js
@@ -47,7 +49,7 @@ getters: {
   // ...
   doneTodosCount: (state, getters) => {
     return getters.doneTodos.length;
-  };
+  }
 }
 ```
 
@@ -76,7 +78,7 @@ getters: {
   // ...
   getTodoById: state => id => {
     return state.todos.find(todo => todo.id === id);
-  };
+  }
 }
 ```
 

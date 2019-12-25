@@ -1,6 +1,9 @@
-const devtoolHook =
-  typeof window !== 'undefined' &&
-  window.__VUE_DEVTOOLS_GLOBAL_HOOK__
+const target = typeof window !== 'undefined'
+  ? window
+  : typeof global !== 'undefined'
+    ? global
+    : {}
+const devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__
 
 export default function devtoolPlugin (store) {
   if (!devtoolHook) return

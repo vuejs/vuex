@@ -1,5 +1,7 @@
 # 测试
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
+
 我们主要想针对 Vuex 中的 mutation 和 action 进行单元测试。
 
 ### 测试 Mutation

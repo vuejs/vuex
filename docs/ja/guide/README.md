@@ -1,5 +1,7 @@
 # Vuex 入門
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cMPa2Uk" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 Vuex アプリケーションの中心にあるものは**ストア**です。"ストア" は、基本的にアプリケーションの **状態（state）** を保持するコンテナです。単純なグローバルオブジェクトとの違いが 2つあります。
 
 1. Vuex ストアはリアクティブです。Vue コンポーネントがストアから状態を取り出すとき、もしストアの状態が変化したら、ストアはリアクティブかつ効率的に更新を行います。

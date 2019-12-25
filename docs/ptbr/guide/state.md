@@ -2,9 +2,13 @@
 
 ### Árvore Única de Estado
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 O Vuex usa uma **árvore única de estado** - ou seja, esse único objeto contém todo o estado do seu nível de aplicação e serve como a "única fonte da verdade". Isso também significa que você terá apenas um _store_ para cada aplicativo. Uma árvore única de estado facilita a localização de uma parte específica do estado, e permite capturar facilmente momentos do estado atual do aplicativo para fins de depuração.
 
 A árvore única de estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
+
+O tipo de dados guardados no Vuex segue as mesmas regras que `data` em instâncias Vue, ou seja o _state_ têm de ser um objeto simples. [Detalhes](https://br.vuejs.org/v2/api/index.html#data)
 
 ### Obtendo o Estado Vuex nos Componentes Vue
 
@@ -58,6 +62,8 @@ const Counter = {
 
 ### O Auxiliar `mapState`
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Quando um componente precisa fazer uso de várias propriedades do estado do _store_ ou _getters_, declarar todos esses dados computados pode ser repetitivo e verboso. Para lidar com isso, podemos usar o auxiliar `mapState` que gera funções _getter_ computadas para nós, economizando algumas linhas de código:
 
 ``` js
@@ -92,7 +98,7 @@ computed: mapState([
 
 ### Objeto Spread Operator
 
-Observe que _mapState_ retorna um objeto. Como usá-lo em combinação com outros dados computados locais? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [Spread Operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta de ECMAScript em estágio 4), podemos simplificar muito a sintaxe:
+Observe que _mapState_ retorna um objeto. Como usá-lo em combinação com outros dados computados locais? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [Spread Operator](https://github.com/tc39/proposal-object-rest-spread), podemos simplificar muito a sintaxe:
 
 ``` js
 computed: {

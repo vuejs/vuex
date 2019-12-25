@@ -50,7 +50,9 @@ Alors pourquoi ne pas extraire l'état global partagé des composants, et le gé
 
 De plus, en définissant et en séparant les concepts impliqués dans la gestion de l'état global et en appliquant certaines règles, on donne aussi une structure et une maintenabilité à notre code.
 
-Voilà l'idée de base derrière Vuex, inspiré par [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) et [l'architecture Elm](https://guide.elm-lang.org/architecture/). À l'inverse des autres modèles, Vuex est aussi une bibliothèque d'implémentation conçue spécialement pour Vue.js afin de bénéficier de son système de réactivité granulaire pour des modifications efficaces.
+Voilà l'idée de base derrière Vuex, inspiré par [Flux](https://facebook.github.io/flux/docs/overview), [Redux](http://redux.js.org/) et [l'architecture Elm](https://guide.elm-lang.org/architecture/). À l'inverse des autres modèles, Vuex est aussi une bibliothèque d'implémentation conçue spécialement pour Vue.js afin de bénéficier de son système de réactivité granulaire pour des modifications efficaces.
+
+Si vous voulez apprendre Vuex de manière interactive, jetez un oeil à ce [cours sur Vuex sur Scrimba.](https://scrimba.com/g/gvuex)
 
 ![vuex](/vuex.png)
 

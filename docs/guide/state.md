@@ -2,9 +2,13 @@
 
 ### Single State Tree
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth". This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
 
 The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
+
+The data you store in Vuex follows the same rules as the `data` in a Vue instance, ie the state object must be plain. **See also:** [Vue#data](https://vuejs.org/v2/api/#data).
 
 ### Getting Vuex State into Vue Components
 
@@ -58,6 +62,8 @@ const Counter = {
 
 ### The `mapState` Helper
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us, saving us some keystrokes:
 
 ``` js
@@ -92,7 +98,7 @@ computed: mapState([
 
 ### Object Spread Operator
 
-Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (which is a stage-4 ECMAScript proposal), we can greatly simplify the syntax:
+Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/tc39/proposal-object-rest-spread), we can greatly simplify the syntax:
 
 ``` js
 computed: {

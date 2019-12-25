@@ -1,5 +1,7 @@
 # Testing
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 The main parts we want to unit test in Vuex are mutations and actions.
 
 ### Testing Mutations

@@ -1,5 +1,7 @@
 # Mutations
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 La seule façon de vraiment modifier l'état dans un store Vuex est d'acter une mutation. Les mutations Vuex sont très similaires aux évènements : chaque mutation a un **type** sous forme de chaine de caractères et un **gestionnaire**. La fonction de gestion est en charge de procéder aux véritables modifications de l'état, et elle reçoit l'état en premier argument :
 
 ``` js
@@ -86,7 +88,7 @@ Puisqu'un état de store de Vuex est rendu réactif par Vue, lorsque nous mutons
 
   - Utiliser `Vue.set(obj, 'newProp', 123)`, ou
 
-  - Remplacer cet objet par un nouvel objet. Par exemple, en utilisant [opérateur de décomposition](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/Op%C3%A9rateur_de_d%C3%A9composition) (stage-2), il est possible d'écrire :
+  - Remplacer cet objet par un nouvel objet. Par exemple, en utilisant [opérateur de décomposition](https://github.com/tc39/proposal-object-rest-spread), il est possible d'écrire :
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
