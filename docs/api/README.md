@@ -128,6 +128,19 @@ const store = new Vuex.Store({ ...options })
   }
   ```
 
+### mixins
+
+- type: `Object`
+
+  An object containing mixins to be merged into each module, in the shape of:
+
+  ``` js
+  {
+    mutations?,
+    actions?,
+    getters?
+  }
+  ```
 
 ## Vuex.Store Instance Properties
 

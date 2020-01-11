@@ -64,4 +64,19 @@ export default class Module {
       forEachValue(this._rawModule.mutations, fn)
     }
   }
+
+  applyMixins (mixins) {
+    const { mutations, actions, getters } = mixins
+    if (mutations) {
+      this._rawModule.mutations = Object.assign({}, mutations, (this._rawModule.mutations || {}))
+    }
+
+    if (actions) {
+      this._rawModule.actions = Object.assign({}, actions, (this._rawModule.actions || {}))
+    }
+
+    if (getters) {
+      this._rawModule.getters = Object.assign({}, getters, (this._rawModule.getters || {}))
+    }
+  }
 }

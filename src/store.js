@@ -22,7 +22,8 @@ export class Store {
 
     const {
       plugins = [],
-      strict = false
+      strict = false,
+      mixins = {}
     } = options
 
     // store internal state
@@ -36,6 +37,7 @@ export class Store {
     this._subscribers = []
     this._watcherVM = new Vue()
     this._makeLocalGettersCache = Object.create(null)
+    this._mixins = mixins
 
     // bind commit and dispatch to self
     const store = this
@@ -305,6 +307,9 @@ function resetStoreVM (store, state, hot) {
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
   const namespace = store._modules.getNamespace(path)
+
+  // mixins
+  module.applyMixins(store._mixins)
 
   // register in namespace map
   if (module.namespaced) {

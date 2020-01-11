@@ -31,14 +31,14 @@ const getters = {
 const actions = {
   checkout ({ commit, state }, products) {
     const savedCartItems = [...state.items]
-    commit('setCheckoutStatus', null)
+    commit('changeState', { checkoutStatus: null })
     // empty cart
     commit('setCartItems', { items: [] })
     shop.buyProducts(
       products,
-      () => commit('setCheckoutStatus', 'successful'),
+      () => commit('changeState', { checkoutStatus: 'successful' }),
       () => {
-        commit('setCheckoutStatus', 'failed')
+        commit('changeState', { checkoutStatus: 'failed' })
         // rollback to the cart saved before sending the request
         commit('setCartItems', { items: savedCartItems })
       }
@@ -46,7 +46,7 @@ const actions = {
   },
 
   addProductToCart ({ state, commit }, product) {
-    commit('setCheckoutStatus', null)
+    commit('changeState', { checkoutStatus: null })
     if (product.inventory > 0) {
       const cartItem = state.items.find(item => item.id === product.id)
       if (!cartItem) {
@@ -76,10 +76,6 @@ const mutations = {
 
   setCartItems (state, { items }) {
     state.items = items
-  },
-
-  setCheckoutStatus (state, status) {
-    state.checkoutStatus = status
   }
 }
 

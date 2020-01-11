@@ -14,5 +14,18 @@ export default new Vuex.Store({
     products
   },
   strict: debug,
-  plugins: debug ? [createLogger()] : []
+  plugins: debug ? [createLogger()] : [],
+  mixins: {
+    mutations: {
+      changeState: function(state, changed) {
+        // changed = {
+        //   ['properties'] : value
+        // }
+        Object.entries(changed)
+          .forEach(([name, value]) => {
+            state[name] = value
+          })
+      }
+    }
+  }
 })

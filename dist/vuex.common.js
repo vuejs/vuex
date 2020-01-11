@@ -1,6 +1,6 @@
 /**
  * vuex v3.1.2
- * (c) 2019 Evan You
+ * (c) 2020 Evan You
  * @license MIT
  */
 'use strict';
@@ -164,6 +164,23 @@ Module.prototype.forEachMutation = function forEachMutation (fn) {
   }
 };
 
+Module.prototype.applyMixins = function applyMixins (mixins) {
+  var mutations = mixins.mutations;
+    var actions = mixins.actions;
+    var getters = mixins.getters;
+  if (mutations) {
+    this._rawModule.mutations = Object.assign({}, mutations, (this._rawModule.mutations || {}));
+  }
+
+  if (actions) {
+    this._rawModule.actions = Object.assign({}, actions, (this._rawModule.actions || {}));
+  }
+
+  if (getters) {
+    this._rawModule.getters = Object.assign({}, getters, (this._rawModule.getters || {}));
+  }
+};
+
 Object.defineProperties( Module.prototype, prototypeAccessors );
 
 var ModuleCollection = function ModuleCollection (rawRootModule) {
@@ -312,6 +329,7 @@ var Store = function Store (options) {
 
   var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
   var strict = options.strict; if ( strict === void 0 ) strict = false;
+  var mixins = options.mixins; if ( mixins === void 0 ) mixins = {};
 
   // store internal state
   this._committing = false;
@@ -324,6 +342,7 @@ var Store = function Store (options) {
   this._subscribers = [];
   this._watcherVM = new Vue();
   this._makeLocalGettersCache = Object.create(null);
+  this._mixins = mixins;
 
   // bind commit and dispatch to self
   var store = this;
@@ -394,7 +413,10 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
       handler(payload);
     });
   });
-  this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
 
   if (
     process.env.NODE_ENV !== 'production' &&
@@ -426,6 +448,7 @@ Store.prototype.dispatch = function dispatch (_type, _payload) {
 
   try {
     this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
       .filter(function (sub) { return sub.before; })
       .forEach(function (sub) { return sub.before(action, this$1.state); });
   } catch (e) {
@@ -604,6 +627,9 @@ function resetStoreVM (store, state, hot) {
 function installModule (store, rootState, path, module, hot) {
   var isRoot = !path.length;
   var namespace = store._modules.getNamespace(path);
+
+  // mixins
+  module.applyMixins(store._mixins);
 
   // register in namespace map
   if (module.namespaced) {
@@ -794,9 +820,7 @@ function enableStrictMode (store) {
 }
 
 function getNestedState (state, path) {
-  return path.length
-    ? path.reduce(function (state, key) { return state[key]; }, state)
-    : state
+  return path.reduce(function (state, key) { return state[key]; }, state)
 }
 
 function unifyObjectStyle (type, payload, options) {
