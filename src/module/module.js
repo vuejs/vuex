@@ -12,6 +12,9 @@ export default class Module {
 
     // Store the origin module's state
     this.state = (typeof rawState === 'function' ? rawState() : rawState) || {}
+
+    // Preserving orignal module's state
+    this.originalState = Object.assign({}, this.state)
   }
 
   get namespaced () {

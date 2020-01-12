@@ -226,6 +226,11 @@ export class Store {
     fn()
     this._committing = committing
   }
+
+  reset () {
+    const originalState = getOriginalState(this._modules.root)
+    this.replaceState(originalState)
+  }
 }
 
 function genericSubscribe (fn, subs) {
@@ -508,6 +513,15 @@ function unifyObjectStyle (type, payload, options) {
   }
 
   return { type, payload, options }
+}
+
+function getOriginalState (module) {
+  const state = module.originalState || {}
+  module.forEachChild((child, key) => {
+    state[key] = getOriginalState(child)
+  })
+
+  return state
 }
 
 export function install (_Vue) {

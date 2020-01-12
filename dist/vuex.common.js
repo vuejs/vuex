@@ -1,6 +1,6 @@
 /**
  * vuex v3.1.2
- * (c) 2019 Evan You
+ * (c) 2020 Evan You
  * @license MIT
  */
 'use strict';
@@ -109,6 +109,9 @@ var Module = function Module (rawModule, runtime) {
 
   // Store the origin module's state
   this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+
+  // Preserving orignal module's state
+  this.originalState = Object.assign({}, this.state);
 };
 
 var prototypeAccessors = { namespaced: { configurable: true } };
@@ -394,7 +397,10 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
       handler(payload);
     });
   });
-  this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
 
   if (
     process.env.NODE_ENV !== 'production' &&
@@ -426,6 +432,7 @@ Store.prototype.dispatch = function dispatch (_type, _payload) {
 
   try {
     this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
       .filter(function (sub) { return sub.before; })
       .forEach(function (sub) { return sub.before(action, this$1.state); });
   } catch (e) {
@@ -523,6 +530,11 @@ Store.prototype._withCommit = function _withCommit (fn) {
   this._committing = true;
   fn();
   this._committing = committing;
+};
+
+Store.prototype.reset = function reset () {
+  var originalState = getOriginalState(this._modules.root);
+  this.replaceState(originalState);
 };
 
 Object.defineProperties( Store.prototype, prototypeAccessors$1 );
@@ -794,9 +806,7 @@ function enableStrictMode (store) {
 }
 
 function getNestedState (state, path) {
-  return path.length
-    ? path.reduce(function (state, key) { return state[key]; }, state)
-    : state
+  return path.reduce(function (state, key) { return state[key]; }, state)
 }
 
 function unifyObjectStyle (type, payload, options) {
@@ -811,6 +821,15 @@ function unifyObjectStyle (type, payload, options) {
   }
 
   return { type: type, payload: payload, options: options }
+}
+
+function getOriginalState (module) {
+  var state = module.originalState || {};
+  module.forEachChild(function (child, key) {
+    state[key] = getOriginalState(child);
+  });
+
+  return state
 }
 
 function install (_Vue) {

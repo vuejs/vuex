@@ -434,5 +434,42 @@ describe('Store', () => {
         })
       })
     })
+
+    it('reset: Store resets to initial', done => {
+      const store = new Vuex.Store({
+        state: {
+          count: 0
+        },
+        mutations: {
+          [TEST]: state => state.count++
+        },
+        modules: {
+          sub: {
+            namespaced: true,
+            state: {
+              count: 0
+            },
+            mutations: {
+              [TEST]: state => state.count++
+            }
+          }
+        }
+      })
+
+      store.commit(TEST)
+      store.commit('sub/' + TEST)
+
+      Vue.nextTick(() => {
+        expect(store.state.count).toBe(1)
+        expect(store.state.sub.count).toBe(1)
+
+        store.reset()
+        Vue.nextTick(() => {
+          expect(store.state.count).toBe(0)
+          expect(store.state.sub.count).toBe(0)
+          done()
+        })
+      })
+    })
   }
 })
