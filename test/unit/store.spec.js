@@ -438,10 +438,18 @@ describe('Store', () => {
     it('reset: Store resets to initial', done => {
       const store = new Vuex.Store({
         state: {
-          count: 0
+          count: 0,
+          arr: [],
+          obj: {
+            name: 0
+          }
         },
         mutations: {
-          [TEST]: state => state.count++
+          [TEST]: state => {
+            state.count++
+            state.arr.push(1)
+            state.obj.name = 1
+          }
         },
         modules: {
           sub: {
@@ -455,17 +463,20 @@ describe('Store', () => {
           }
         }
       })
-
       store.commit(TEST)
       store.commit('sub/' + TEST)
 
       Vue.nextTick(() => {
         expect(store.state.count).toBe(1)
+        expect(store.state.arr.length).toBe(1)
+        expect(store.state.obj.name).toBe(1)
         expect(store.state.sub.count).toBe(1)
 
         store.reset()
         Vue.nextTick(() => {
           expect(store.state.count).toBe(0)
+          expect(store.state.arr.length).toBe(0)
+          expect(store.state.obj.name).toBe(0)
           expect(store.state.sub.count).toBe(0)
           done()
         })

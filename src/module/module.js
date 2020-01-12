@@ -1,4 +1,4 @@
-import { forEachValue } from '../util'
+import { forEachValue, deepCopy } from '../util'
 
 // Base data struct for store's module, package with some attribute and method
 export default class Module {
@@ -14,7 +14,7 @@ export default class Module {
     this.state = (typeof rawState === 'function' ? rawState() : rawState) || {}
 
     // Preserving orignal module's state
-    this.originalState = Object.assign({}, this.state)
+    this.originalState = deepCopy(this.state)
   }
 
   get namespaced () {
