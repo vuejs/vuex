@@ -15,6 +15,12 @@ export const mutations = {
   },
 
   editTodo (state, { todo, text = todo.text, done = todo.done }) {
-    state.todos.splice(state.todos.indexOf(todo), 1, { ...todo, text, done })
+    const index = state.todos.indexOf(todo)
+
+    state.todos.splice(index, 1, {
+      ...todo,
+      text,
+      done
+    })
   }
 }
