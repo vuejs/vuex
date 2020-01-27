@@ -15,7 +15,6 @@ export const mutations = {
   },
 
   editTodo (state, { todo, text = todo.text, done = todo.done }) {
-    todo.text = text
-    todo.done = done
+    state.todos.splice(state.todos.indexOf(todo), 1, { ...todo, text, done })
   }
 }
