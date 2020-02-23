@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.common.js'
 import Vuex, { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from '../../dist/vuex.common.js'
+import { wrapHelpers } from '../../src/helpers.js'
 
 describe('Helpers', () => {
   it('mapState (array)', () => {
@@ -66,6 +67,51 @@ describe('Helpers', () => {
       foo: { a: 3 }
     })
     expect(vm.a).toBe(7)
+  })
+
+  it('mapState (with store)', () => {
+    const store = new Vuex.Store({
+      state: { a: 1 },
+      getters: {
+        b: state => state.a + 1
+      }
+    })
+    const reactive = mapState(store, {
+      a: (state, getters) => {
+        return state.a + getters.b
+      }
+    })
+    expect(reactive.a()).toBe(3)
+    store.state.a++
+    expect(reactive.a()).toBe(5)
+    store.replaceState({ a: 3 })
+    expect(reactive.a()).toBe(7)
+  })
+
+  it('mapState (with store and namespace)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { a: 1 },
+          getters: {
+            b: state => state.a + 1
+          }
+        }
+      }
+    })
+    const reactive = mapState(store, 'foo', {
+      a: (state, getters) => {
+        return state.a + getters.b
+      }
+    })
+    expect(reactive.a()).toBe(3)
+    store.state.foo.a++
+    expect(reactive.a()).toBe(5)
+    store.replaceState({
+      foo: { a: 3 }
+    })
+    expect(reactive.a()).toBe(7)
   })
 
   // #708
@@ -195,6 +241,41 @@ describe('Helpers', () => {
     vm.plus()
     expect(store.state.foo.count).toBe(1)
     vm.minus()
+    expect(store.state.foo.count).toBe(0)
+  })
+
+  it('mapMutations (with store)', () => {
+    const store = new Vuex.Store({
+      state: { count: 0 },
+      mutations: {
+        inc: state => state.count++,
+        dec: state => state.count--
+      }
+    })
+    const mutations = mapMutations(store, ['inc', 'dec'])
+    mutations.inc()
+    expect(store.state.count).toBe(1)
+    mutations.dec()
+    expect(store.state.count).toBe(0)
+  })
+
+  it('mapMutations (with store and namespace)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          }
+        }
+      }
+    })
+    const mutations = mapMutations(store, 'foo', ['inc', 'dec'])
+    mutations.inc()
+    expect(store.state.foo.count).toBe(1)
+    mutations.dec()
     expect(store.state.foo.count).toBe(0)
   })
 
@@ -337,6 +418,61 @@ describe('Helpers', () => {
     store.commit('foo/dec')
     expect(vm.a).toBe(false)
     expect(vm.b).toBe(true)
+  })
+
+  it('mapGetters (with store)', () => {
+    const store = new Vuex.Store({
+      state: { count: 0 },
+      mutations: {
+        inc: state => state.count++,
+        dec: state => state.count--
+      },
+      getters: {
+        hasAny: ({ count }) => count > 0,
+        negative: ({ count }) => count < 0
+      }
+    })
+    const getters = mapGetters(store, ['hasAny', 'negative'])
+
+    expect(getters.hasAny()).toBe(false)
+    expect(getters.negative()).toBe(false)
+    store.commit('inc')
+    expect(getters.hasAny()).toBe(true)
+    expect(getters.negative()).toBe(false)
+    store.commit('dec')
+    store.commit('dec')
+    expect(getters.hasAny()).toBe(false)
+    expect(getters.negative()).toBe(true)
+  })
+
+  it('mapGetters (with store and namespace)', () => {
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          },
+          getters: {
+            hasAny: ({ count }) => count > 0,
+            negative: ({ count }) => count < 0
+          }
+        }
+      }
+    })
+    const getters = mapGetters(store, 'foo', ['hasAny', 'negative'])
+
+    expect(getters.hasAny()).toBe(false)
+    expect(getters.negative()).toBe(false)
+    store.commit('foo/inc')
+    expect(getters.hasAny()).toBe(true)
+    expect(getters.negative()).toBe(false)
+    store.commit('foo/dec')
+    store.commit('foo/dec')
+    expect(getters.hasAny()).toBe(false)
+    expect(getters.negative()).toBe(true)
   })
 
   it('mapGetters (with namespace and nested module)', () => {
@@ -507,6 +643,48 @@ describe('Helpers', () => {
     expect(b).toHaveBeenCalled()
   })
 
+  it('mapActions (with store)', () => {
+    const a = jasmine.createSpy()
+    const b = jasmine.createSpy()
+    const store = new Vuex.Store({
+      actions: {
+        a,
+        b
+      }
+    })
+    const actions = mapActions(store, ['a', 'b'])
+    actions.a()
+    expect(a).toHaveBeenCalled()
+    expect(b).not.toHaveBeenCalled()
+    actions.b()
+    expect(b).toHaveBeenCalled()
+  })
+
+  it('mapActions (with store and namespace)', () => {
+    const a = jasmine.createSpy()
+    const b = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          actions: {
+            a,
+            b
+          }
+        }
+      }
+    })
+    const actions = mapActions(store, 'foo/', {
+      foo: 'a',
+      bar: 'b'
+    })
+    actions.foo()
+    expect(a).toHaveBeenCalled()
+    expect(b).not.toHaveBeenCalled()
+    actions.bar()
+    expect(b).toHaveBeenCalled()
+  })
+
   it('mapActions (function with namespace)', () => {
     const a = jasmine.createSpy()
     const store = new Vuex.Store({
@@ -605,6 +783,119 @@ describe('Helpers', () => {
     expect(actionA).toHaveBeenCalled()
     expect(actionB).not.toHaveBeenCalled()
     vm.actionB()
+    expect(actionB).toHaveBeenCalled()
+  })
+
+  it('wrapHelpers', () => {
+    const actionA = jasmine.createSpy()
+    const actionB = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          getters: {
+            isEven: state => state.count % 2 === 0
+          },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          },
+          actions: {
+            actionA,
+            actionB
+          }
+        }
+      }
+    })
+    const { createNamespacedHelpers } = wrapHelpers(store)
+    const {
+      mapState,
+      mapGetters,
+      mapMutations,
+      mapActions
+    } = createNamespacedHelpers('foo/')
+    const vm = new Vue({
+      store,
+      computed: {
+        ...mapState(['count']),
+        ...mapGetters(['isEven'])
+      },
+      methods: {
+        ...mapMutations(['inc', 'dec']),
+        ...mapActions(['actionA', 'actionB'])
+      }
+    })
+    expect(vm.count).toBe(0)
+    expect(vm.isEven).toBe(true)
+    store.state.foo.count++
+    expect(vm.count).toBe(1)
+    expect(vm.isEven).toBe(false)
+    vm.inc()
+    expect(store.state.foo.count).toBe(2)
+    expect(store.getters['foo/isEven']).toBe(true)
+    vm.dec()
+    expect(store.state.foo.count).toBe(1)
+    expect(store.getters['foo/isEven']).toBe(false)
+    vm.actionA()
+    expect(actionA).toHaveBeenCalled()
+    expect(actionB).not.toHaveBeenCalled()
+    vm.actionB()
+    expect(actionB).toHaveBeenCalled()
+  })
+
+  it('wrapHelpers (using outside of a component context)', () => {
+    const actionA = jasmine.createSpy()
+    const actionB = jasmine.createSpy()
+    const store = new Vuex.Store({
+      modules: {
+        foo: {
+          namespaced: true,
+          state: { count: 0 },
+          getters: {
+            isEven: state => state.count % 2 === 0
+          },
+          mutations: {
+            inc: state => state.count++,
+            dec: state => state.count--
+          },
+          actions: {
+            actionA,
+            actionB
+          }
+        }
+      }
+    })
+    const { createNamespacedHelpers } = wrapHelpers(store)
+    const {
+      mapState,
+      mapGetters,
+      mapMutations,
+      mapActions
+    } = createNamespacedHelpers('foo/')
+    const computed = {
+      ...mapState(['count']),
+      ...mapGetters(['isEven'])
+    }
+    const methods = {
+      ...mapMutations(['inc', 'dec']),
+      ...mapActions(['actionA', 'actionB'])
+    }
+    expect(computed.count()).toBe(0)
+    expect(computed.isEven()).toBe(true)
+    store.state.foo.count++
+    expect(computed.count()).toBe(1)
+    expect(computed.isEven()).toBe(false)
+    methods.inc()
+    expect(store.state.foo.count).toBe(2)
+    expect(store.getters['foo/isEven']).toBe(true)
+    methods.dec()
+    expect(store.state.foo.count).toBe(1)
+    expect(store.getters['foo/isEven']).toBe(false)
+    methods.actionA()
+    expect(actionA).toHaveBeenCalled()
+    expect(actionB).not.toHaveBeenCalled()
+    methods.actionB()
     expect(actionB).toHaveBeenCalled()
   })
 })
