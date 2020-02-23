@@ -83,6 +83,6 @@ export declare const mapActions: Mapper<ActionMethod>
   & MapperForAction
   & MapperForActionWithNamespace;
 
-export declare function createNamespacedHelpers<S = any>(namespace: string, store: Store<S>): NamespacedMappers;
+export declare function createNamespacedHelpers<S = any>(namespace: string, store?: Store<S>): NamespacedMappers;
 
 export declare function wrapHelpers<S = any>(store: Store<S>): ({ createNamespacedHelpers: (namespace: string) => NamespacedMappers});
