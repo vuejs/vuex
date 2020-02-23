@@ -138,10 +138,10 @@ export const mapActions = normalizeNamespace((namespace, store, actions) => {
  * @return {Object}
  */
 export const createNamespacedHelpers = (namespace, store = null) => ({
-  mapState: mapState.bind(null, store, namespace),
-  mapGetters: mapGetters.bind(null, store, namespace),
-  mapMutations: mapMutations.bind(null, store, namespace),
-  mapActions: mapActions.bind(null, store, namespace)
+  mapState: mapState.bind(null, namespace, store),
+  mapGetters: mapGetters.bind(null, namespace, store),
+  mapMutations: mapMutations.bind(null, namespace, store),
+  mapActions: mapActions.bind(null, namespace, store)
 })
 
 /**
