@@ -2,12 +2,12 @@ import { isObject } from './util'
 
 /**
  * Reduce the code which written in Vue.js for getting the state.
- * @param {String} [namespace] - Module's namespace
  * @param {Object} [store] - Vuex Store Object
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
  * @param {Object}
  */
-export const mapState = normalizeNamespace((namespace, store, states) => {
+export const mapState = normalizeNamespace((store, namespace, states) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(states)) {
     console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
@@ -37,12 +37,12 @@ export const mapState = normalizeNamespace((namespace, store, states) => {
 
 /**
  * Reduce the code which written in Vue.js for committing the mutation
- * @param {String} [namespace] - Module's namespace
  * @param {Object} [store] - Vuex Store Object
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
-export const mapMutations = normalizeNamespace((namespace, store, mutations) => {
+export const mapMutations = normalizeNamespace((store, namespace, mutations) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(mutations)) {
     console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
@@ -69,12 +69,12 @@ export const mapMutations = normalizeNamespace((namespace, store, mutations) => 
 
 /**
  * Reduce the code which written in Vue.js for getting the getters
- * @param {String} [namespace] - Module's namespace
  * @param {Object} [store] - Vuex Store Object
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} getters
  * @return {Object}
  */
-export const mapGetters = normalizeNamespace((namespace, store, getters) => {
+export const mapGetters = normalizeNamespace((store, namespace, getters) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(getters)) {
     console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
@@ -101,12 +101,12 @@ export const mapGetters = normalizeNamespace((namespace, store, getters) => {
 
 /**
  * Reduce the code which written in Vue.js for dispatch the action
- * @param {String} [namespace] - Module's namespace
  * @param {Object} [store] - Vuex Store Object
+ * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
-export const mapActions = normalizeNamespace((namespace, store, actions) => {
+export const mapActions = normalizeNamespace((store, namespace, actions) => {
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(actions)) {
     console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object')
@@ -138,10 +138,10 @@ export const mapActions = normalizeNamespace((namespace, store, actions) => {
  * @return {Object}
  */
 export const createNamespacedHelpers = (namespace, store = null) => ({
-  mapState: mapState.bind(null, namespace, store),
-  mapGetters: mapGetters.bind(null, namespace, store),
-  mapMutations: mapMutations.bind(null, namespace, store),
-  mapActions: mapActions.bind(null, namespace, store)
+  mapState: mapState.bind(null, store, namespace),
+  mapGetters: mapGetters.bind(null, store, namespace),
+  mapMutations: mapMutations.bind(null, store, namespace),
+  mapActions: mapActions.bind(null, store, namespace)
 })
 
 /**
@@ -184,15 +184,19 @@ function isValidMap (map) {
  * @return {Function}
  */
 function normalizeNamespace (fn) {
-  return (namespace, store, map) => {
+  return (store, namespace, map) => {
+    if (!isObject(store)) {
+      map = namespace
+      namespace = store
+      store = null
+    }
     if (typeof namespace !== 'string') {
-      map = store
       store = namespace
       namespace = ''
     } else if (namespace.charAt(namespace.length - 1) !== '/') {
       namespace += '/'
     }
-    return fn(namespace, store, map)
+    return fn(store, namespace, map)
   }
 }
 
