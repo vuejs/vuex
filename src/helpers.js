@@ -49,7 +49,7 @@ export const mapMutations = normalizeNamespace((namespace, store, mutations) => 
   }
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
-      const $store = store || this.$store;
+      const $store = store || this.$store
       // Get the commit method from store
       let commit = $store.commit
       if (namespace) {
@@ -83,7 +83,7 @@ export const mapGetters = normalizeNamespace((namespace, store, getters) => {
     // The namespace has been mutated by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
-      const $store = store || this.$store;
+      const $store = store || this.$store
       if (namespace && !getModuleByNamespace($store, 'mapGetters', namespace)) {
         return
       }
@@ -113,7 +113,7 @@ export const mapActions = normalizeNamespace((namespace, store, actions) => {
   }
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
-      const $store = store || this.$store;
+      const $store = store || this.$store
       // get dispatch function from store
       let dispatch = $store.dispatch
       if (namespace) {
