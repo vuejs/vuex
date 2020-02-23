@@ -14,7 +14,7 @@ export const mapState = normalizeNamespace((namespace, store, states) => {
   }
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
-      const $store = store || this.$store;
+      const $store = store || this.$store
       let state = $store.state
       let getters = $store.getters
       if (namespace) {
