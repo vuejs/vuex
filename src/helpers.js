@@ -26,7 +26,7 @@ export const mapState = normalizeNamespace((namespace, store, states) => {
         getters = module.context.getters
       }
       return typeof val === 'function'
-        ? val.call($store || this, state, getters)
+        ? val.call(this, state, getters)
         : state[val]
     }
     // mark vuex getter for devtools
@@ -60,7 +60,7 @@ export const mapMutations = normalizeNamespace((namespace, store, mutations) => 
         commit = module.context.commit
       }
       return typeof val === 'function'
-        ? val.apply($store || this, [commit].concat(args))
+        ? val.apply(this, [commit].concat(args))
         : commit.apply($store, [val].concat(args))
     }
   })
@@ -124,7 +124,7 @@ export const mapActions = normalizeNamespace((namespace, store, actions) => {
         dispatch = module.context.dispatch
       }
       return typeof val === 'function'
-        ? val.apply($store || this, [dispatch].concat(args))
+        ? val.apply(this, [dispatch].concat(args))
         : dispatch.apply($store, [val].concat(args))
     }
   })
