@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Dispatch, Commit } from './index';
+import { Dispatch, Commit, Store } from './index';
 
 type Computed = () => any;
 type InlineComputed<T extends Function> = T extends (...args: any[]) => infer R ? () => R : never
@@ -83,4 +83,6 @@ export declare const mapActions: Mapper<ActionMethod>
   & MapperForAction
   & MapperForActionWithNamespace;
 
-export declare function createNamespacedHelpers(namespace: string): NamespacedMappers;
+export declare function createNamespacedHelpers<S = any>(namespace: string, store: Store<S>): NamespacedMappers;
+
+export declare function wrapHelpers<S = any>(store: Store<S>): ({ createNamespacedHelpers: (namespace: string) => NamespacedMappers});
