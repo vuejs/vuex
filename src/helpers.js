@@ -186,7 +186,8 @@ function isValidMap (map) {
 function normalizeNamespace (fn) {
   return (namespace, store, map) => {
     if (typeof namespace !== 'string') {
-      map = namespace
+      map = store
+      store = namespace
       namespace = ''
     } else if (namespace.charAt(namespace.length - 1) !== '/') {
       namespace += '/'
