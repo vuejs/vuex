@@ -7,16 +7,18 @@ import { isObject } from './util'
  * @param {Object}
  */
 export const mapState = normalizeNamespace((namespace, states) => {
+  const store = this;
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(states)) {
     console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
-      let state = this.$store.state
-      let getters = this.$store.getters
+      const $store = store || this.$store;
+      let state = $store.state
+      let getters = $store.getters
       if (namespace) {
-        const module = getModuleByNamespace(this.$store, 'mapState', namespace)
+        const module = getModuleByNamespace($store, 'mapState', namespace)
         if (!module) {
           return
         }
@@ -24,7 +26,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
         getters = module.context.getters
       }
       return typeof val === 'function'
-        ? val.call(this, state, getters)
+        ? val.call($store || this, state, getters)
         : state[val]
     }
     // mark vuex getter for devtools
@@ -40,24 +42,26 @@ export const mapState = normalizeNamespace((namespace, states) => {
  * @return {Object}
  */
 export const mapMutations = normalizeNamespace((namespace, mutations) => {
+  const store = this;
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(mutations)) {
     console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
+      const $store = store || this.$store;
       // Get the commit method from store
-      let commit = this.$store.commit
+      let commit = $store.commit
       if (namespace) {
-        const module = getModuleByNamespace(this.$store, 'mapMutations', namespace)
+        const module = getModuleByNamespace($store, 'mapMutations', namespace)
         if (!module) {
           return
         }
         commit = module.context.commit
       }
       return typeof val === 'function'
-        ? val.apply(this, [commit].concat(args))
-        : commit.apply(this.$store, [val].concat(args))
+        ? val.apply($store || this, [commit].concat(args))
+        : commit.apply($store, [val].concat(args))
     }
   })
   return res
@@ -70,6 +74,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
  * @return {Object}
  */
 export const mapGetters = normalizeNamespace((namespace, getters) => {
+  const store = this;
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(getters)) {
     console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
@@ -78,14 +83,15 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
     // The namespace has been mutated by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+      const $store = store || this.$store;
+      if (namespace && !getModuleByNamespace($store, 'mapGetters', namespace)) {
         return
       }
-      if (process.env.NODE_ENV !== 'production' && !(val in this.$store.getters)) {
+      if (process.env.NODE_ENV !== 'production' && !(val in $store.getters)) {
         console.error(`[vuex] unknown getter: ${val}`)
         return
       }
-      return this.$store.getters[val]
+      return $store.getters[val]
     }
     // mark vuex getter for devtools
     res[key].vuex = true
@@ -100,24 +106,26 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
  * @return {Object}
  */
 export const mapActions = normalizeNamespace((namespace, actions) => {
+  const store = this;
   const res = {}
   if (process.env.NODE_ENV !== 'production' && !isValidMap(actions)) {
     console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
+      const $store = store || this.$store;
       // get dispatch function from store
-      let dispatch = this.$store.dispatch
+      let dispatch = $store.dispatch
       if (namespace) {
-        const module = getModuleByNamespace(this.$store, 'mapActions', namespace)
+        const module = getModuleByNamespace($store, 'mapActions', namespace)
         if (!module) {
           return
         }
         dispatch = module.context.dispatch
       }
       return typeof val === 'function'
-        ? val.apply(this, [dispatch].concat(args))
-        : dispatch.apply(this.$store, [val].concat(args))
+        ? val.apply($store || this, [dispatch].concat(args))
+        : dispatch.apply($store, [val].concat(args))
     }
   })
   return res
@@ -126,13 +134,23 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
 /**
  * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
  * @param {String} namespace
+ * @param {Object} Vuex Store bject
  * @return {Object}
  */
-export const createNamespacedHelpers = (namespace) => ({
-  mapState: mapState.bind(null, namespace),
-  mapGetters: mapGetters.bind(null, namespace),
-  mapMutations: mapMutations.bind(null, namespace),
-  mapActions: mapActions.bind(null, namespace)
+export const createNamespacedHelpers = (namespace, store = null) => ({
+  mapState: mapState.bind(store, namespace),
+  mapGetters: mapGetters.binds(store, namespace),
+  mapMutations: mapMutations.bind(store, namespace),
+  mapActions: mapActions.bind(store, namespace)
+})
+
+/**
+ * Wrap a store object in order to gain ability to createNamespacedHelpers outside vue components system.
+ * @param {Object} Vuex Store bject
+ * @return {Object}
+ */
+export const wrapHelpers = (store) => ({
+  createNamespacedHelpers: (namespace) => createNamespacedHelpers(namespace, store)
 })
 
 /**
