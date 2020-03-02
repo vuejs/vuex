@@ -280,6 +280,8 @@ export function createPlugin (options = {}) {
 You can register a module **after** the store has been created with the `store.registerModule` method:
 
 ``` js
+import { store } from 'vuex'
+
 // register a module `myModule`
 store.registerModule('myModule', {
   // ...
