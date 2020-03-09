@@ -39,6 +39,9 @@
     "url": "https://github.com/vuejs/vuex/issues"
   },
   "homepage": "https://github.com/vuejs/vuex#readme",
+  "peerDependencies": {
+    "vue": "^2.0.0"
+  },
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^7.1.2",
