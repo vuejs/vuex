@@ -1,6 +1,6 @@
 /**
- * vuex v3.1.2
- * (c) 2019 Evan You
+ * vuex v3.1.3
+ * (c) 2020 Evan You
  * @license MIT
  */
 function applyMixin (Vue) {
@@ -382,7 +382,10 @@ class Store {
         handler(payload);
       });
     });
-    this._subscribers.forEach(sub => sub(mutation, this.state));
+
+    this._subscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .forEach(sub => sub(mutation, this.state));
 
     if (
       options && options.silent
@@ -412,6 +415,7 @@ class Store {
 
     try {
       this._actionSubscribers
+        .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
         .filter(sub => sub.before)
         .forEach(sub => sub.before(action, this.state));
     } catch (e) {
@@ -769,9 +773,7 @@ function enableStrictMode (store) {
 }
 
 function getNestedState (state, path) {
-  return path.length
-    ? path.reduce((state, key) => state[key], state)
-    : state
+  return path.reduce((state, key) => state[key], state)
 }
 
 function unifyObjectStyle (type, payload, options) {
@@ -996,7 +998,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store,
   install,
-  version: '3.1.2',
+  version: '3.1.3',
   mapState,
   mapMutations,
   mapGetters,
