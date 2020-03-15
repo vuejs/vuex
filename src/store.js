@@ -1,21 +1,29 @@
+import { reactive, computed, watch } from 'vue'
 import applyMixin from './mixin'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
 import { forEachValue, isObject, isPromise, assert, partial } from './util'
 
-let Vue // bind on install
+// let Vue // bind on install
+
+export function createStore (options) {
+  return new Store(options)
+}
 
 export class Store {
   constructor (options = {}) {
+    // TODO: Bring back this one if needed.
+    //
     // Auto install if it is not done yet and `window` has `Vue`.
     // To allow users to avoid auto-installation in some cases,
     // this code should be placed here. See #731
-    if (!Vue && typeof window !== 'undefined' && window.Vue) {
-      install(window.Vue)
-    }
+    // if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    //   install(window.Vue)
+    // }
 
     if (process.env.NODE_ENV !== 'production') {
-      assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
+      // TODO: Maybe we can remove this depending on the new implementation.
+      // assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
       assert(this instanceof Store, `store must be called with the new operator.`)
     }
@@ -34,7 +42,6 @@ export class Store {
     this._modules = new ModuleCollection(options)
     this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
-    this._watcherVM = new Vue()
     this._makeLocalGettersCache = Object.create(null)
 
     // bind commit and dispatch to self
@@ -64,10 +71,27 @@ export class Store {
     // apply plugins
     plugins.forEach(plugin => plugin(this))
 
-    const useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools
+    const useDevtools = options.devtools !== undefined ? options.devtools : /* Vue.config.devtools */ true
     if (useDevtools) {
       devtoolPlugin(this)
     }
+  }
+
+  install (app, injectKey) {
+    // TODO: Removing double install check for now. Maybe we can bring this
+    // feature back again if needed.
+    //
+    // if (Vue && _Vue === Vue) {
+    //   if (process.env.NODE_ENV !== 'production') {
+    //     console.error(
+    //       '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+    //     )
+    //   }
+    //   return
+    // }
+    // Vue = _Vue
+
+    applyMixin(app, this, injectKey)
   }
 
   get state () {
@@ -177,7 +201,7 @@ export class Store {
     if (process.env.NODE_ENV !== 'production') {
       assert(typeof getter === 'function', `store.watch only accepts a function.`)
     }
-    return this._watcherVM.$watch(() => getter(this.state, this.getters), cb, options)
+    return watch(() => getter(this.state, this.getters), cb, Object.assign({}, options))
   }
 
   replaceState (state) {
@@ -210,7 +234,7 @@ export class Store {
     this._modules.unregister(path)
     this._withCommit(() => {
       const parentState = getNestedState(this.state, path.slice(0, -1))
-      Vue.delete(parentState, path[path.length - 1])
+      delete parentState[path[path.length - 1]]
     })
     resetStore(this)
   }
@@ -260,30 +284,42 @@ function resetStoreVM (store, state, hot) {
   // reset local getters cache
   store._makeLocalGettersCache = Object.create(null)
   const wrappedGetters = store._wrappedGetters
-  const computed = {}
+  const computedObj = {}
   forEachValue(wrappedGetters, (fn, key) => {
+    // TODO: Refactor following code and comment. We can simplify many things
+    // using computed function.
+    //
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldVm.
     // using partial to return function with only arguments preserved in closure environment.
-    computed[key] = partial(fn, store)
+    computedObj[key] = partial(fn, store)
     Object.defineProperty(store.getters, key, {
-      get: () => store._vm[key],
+      get: () => computed(() => computedObj[key]()).value,
       enumerable: true // for local getters
     })
   })
 
+  // TODO: Bring back this if it's still needed.
+  //
   // use a Vue instance to store the state tree
   // suppress warnings just in case the user has added
   // some funky global mixins
-  const silent = Vue.config.silent
-  Vue.config.silent = true
-  store._vm = new Vue({
-    data: {
+  // const silent = Vue.config.silent
+  // Vue.config.silent = true
+
+  // TODO: Refactor the code and remove this comment.
+  //
+  // New impl with reactive. Defining redundunt keys to make it as close as
+  // the old impl api.
+  store._vm = reactive({
+    _data: {
       $$state: state
-    },
-    computed
+    }
   })
-  Vue.config.silent = silent
+
+  // TODO: Bring back maybe?
+  //
+  // Vue.config.silent = silent
 
   // enable strict mode for new vm
   if (store.strict) {
@@ -298,7 +334,8 @@ function resetStoreVM (store, state, hot) {
         oldVm._data.$$state = null
       })
     }
-    Vue.nextTick(() => oldVm.$destroy())
+    // TODO: I think we don't need this anymore since we're not using vm?
+    // Vue.nextTick(() => oldVm.$destroy())
   }
 }
 
@@ -326,7 +363,7 @@ function installModule (store, rootState, path, module, hot) {
           )
         }
       }
-      Vue.set(parentState, moduleName, module.state)
+      parentState[moduleName] = module.state
     })
   }
 
@@ -485,11 +522,11 @@ function registerGetter (store, type, rawGetter, local) {
 }
 
 function enableStrictMode (store) {
-  store._vm.$watch(function () { return this._data.$$state }, () => {
+  watch(() => store._vm._data.$$state, () => {
     if (process.env.NODE_ENV !== 'production') {
       assert(store._committing, `do not mutate vuex store state outside mutation handlers.`)
     }
-  }, { deep: true, sync: true })
+  }, { deep: true, flush: 'sync' })
 }
 
 function getNestedState (state, path) {
@@ -508,17 +545,4 @@ function unifyObjectStyle (type, payload, options) {
   }
 
   return { type, payload, options }
-}
-
-export function install (_Vue) {
-  if (Vue && _Vue === Vue) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error(
-        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
-      )
-    }
-    return
-  }
-  Vue = _Vue
-  applyMixin(Vue)
 }

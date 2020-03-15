@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { nextTick } from 'vue'
 import Vuex from '../../dist/vuex.common.js'
 
 const TEST = 'TEST'
@@ -120,7 +120,7 @@ describe('Modules', () => {
     store.registerModule(['b', 'c'], {
       state: { value: 2 }
     })
-    Vue.nextTick(() => {
+    nextTick(() => {
       expect(spy).not.toHaveBeenCalled()
       done()
     })
@@ -713,7 +713,7 @@ describe('Modules', () => {
         store.state
       )
       expect(afterSpy).not.toHaveBeenCalled()
-      Vue.nextTick(() => {
+      nextTick(() => {
         expect(afterSpy).toHaveBeenCalledWith(
           { type: TEST, payload: 2 },
           store.state

@@ -27,23 +27,23 @@ jobs:
           paths:
             - vuex
 
-  lint-types:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Linting
-          command: |
-            yarn lint --format junit --output-file test-results/eslint/results.xml
-      - run:
-          name: Testing Types
-          command: |
-            yarn test:types
-      - store_test_results:
-          path: test-results
-      - store_artifacts:
-          path: test-results
+  # lint-types:
+  #   <<: *defaults
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Linting
+  #         command: |
+  #           yarn lint --format junit --output-file test-results/eslint/results.xml
+  #     - run:
+  #         name: Testing Types
+  #         command: |
+  #           yarn test:types
+  #     - store_test_results:
+  #         path: test-results
+  #     - store_artifacts:
+  #         path: test-results
 
   test-unit:
     <<: *defaults
@@ -80,9 +80,9 @@ workflows:
   install-and-parallel-test:
     jobs:
       - install
-      - lint-types:
-          requires:
-            - install
+      # - lint-types:
+      #     requires:
+      #       - install
       - test-unit:
           requires:
             - install

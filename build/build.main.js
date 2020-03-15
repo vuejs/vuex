@@ -27,6 +27,8 @@ function build (builds) {
 }
 
 function buildEntry ({ input, output }) {
+  input.external = ['vue']
+  output.globals = { vue: 'Vue' }
   const { file, banner } = output
   const isProd = /min\.js$/.test(file)
   return rollup.rollup(input)

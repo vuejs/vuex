@@ -19,6 +19,10 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use(express.static(__dirname))
 
+app.use((req, res, next) => {
+  res.redirect('/')
+})
+
 const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
