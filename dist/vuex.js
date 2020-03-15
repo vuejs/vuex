@@ -1,48 +1,37 @@
 /**
- * vuex v3.1.3
+ * vuex v4.0.0-alpha.1
  * (c) 2020 Evan You
  * @license MIT
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Vuex = factory());
-}(this, function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('vue')) :
+  typeof define === 'function' && define.amd ? define(['vue'], factory) :
+  (global = global || self, global.Vuex = factory(global.Vue));
+}(this, function (vue) { 'use strict';
 
-  function applyMixin (Vue) {
-    var version = Number(Vue.version.split('.')[0]);
+  var storeKey = 'store';
 
-    if (version >= 2) {
-      Vue.mixin({ beforeCreate: vuexInit });
-    } else {
-      // override init and inject vuex init procedure
-      // for 1.x backwards compatibility.
-      var _init = Vue.prototype._init;
-      Vue.prototype._init = function (options) {
-        if ( options === void 0 ) options = {};
+  function useStore (key) {
+    if ( key === void 0 ) key = null;
 
-        options.init = options.init
-          ? [vuexInit].concat(options.init)
-          : vuexInit;
-        _init.call(this, options);
-      };
-    }
+    return vue.inject(key !== null ? key : storeKey)
+  }
 
-    /**
-     * Vuex init hook, injected into each instances init hooks list.
-     */
+  function applyMixin (app, store, injectKey) {
+    app.provide(injectKey || storeKey, store);
 
-    function vuexInit () {
-      var options = this.$options;
-      // store injection
-      if (options.store) {
-        this.$store = typeof options.store === 'function'
-          ? options.store()
-          : options.store;
-      } else if (options.parent && options.parent.$store) {
-        this.$store = options.parent.$store;
+    // TODO: Refactor this to use `provide/inject`. It's currently
+    // not possible because Vue 3 doesn't work with `$` prefixed
+    // `provide/inject` at the moment.
+    app.mixin({
+      beforeCreate: function beforeCreate () {
+        if (!this.parent) {
+          this.$store = typeof store === 'function' ? store() : store;
+        } else {
+          this.$store = this.parent.$options.$store;
+        }
       }
-    }
+    });
   }
 
   var target = typeof window !== 'undefined'
@@ -295,21 +284,28 @@
     return buf
   }
 
-  var Vue; // bind on install
+  // let Vue // bind on install
+
+  function createStore (options) {
+    return new Store(options)
+  }
 
   var Store = function Store (options) {
     var this$1 = this;
     if ( options === void 0 ) options = {};
 
+    // TODO: Bring back this one if needed.
+    //
     // Auto install if it is not done yet and `window` has `Vue`.
     // To allow users to avoid auto-installation in some cases,
     // this code should be placed here. See #731
-    if (!Vue && typeof window !== 'undefined' && window.Vue) {
-      install(window.Vue);
-    }
+    // if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    // install(window.Vue)
+    // }
 
     {
-      assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+      // TODO: Maybe we can remove this depending on the new implementation.
+      // assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
       assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
       assert(this instanceof Store, "store must be called with the new operator.");
     }
@@ -326,7 +322,6 @@
     this._modules = new ModuleCollection(options);
     this._modulesNamespaceMap = Object.create(null);
     this._subscribers = [];
-    this._watcherVM = new Vue();
     this._makeLocalGettersCache = Object.create(null);
 
     // bind commit and dispatch to self
@@ -358,13 +353,30 @@
     // apply plugins
     plugins.forEach(function (plugin) { return plugin(this$1); });
 
-    var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+    var useDevtools = options.devtools !== undefined ? options.devtools : /* Vue.config.devtools */ true;
     if (useDevtools) {
       devtoolPlugin(this);
     }
   };
 
   var prototypeAccessors$1 = { state: { configurable: true } };
+
+  Store.prototype.install = function install (app, injectKey) {
+    // TODO: Removing double install check for now. Maybe we can bring this
+    // feature back again if needed.
+    //
+    // if (Vue && _Vue === Vue) {
+    // if ("development" !== 'production') {
+    //   console.error(
+    //     '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+    //   )
+    // }
+    // return
+    // }
+    // Vue = _Vue
+
+    applyMixin(app, this, injectKey);
+  };
 
   prototypeAccessors$1.state.get = function () {
     return this._vm._data.$$state
@@ -470,13 +482,13 @@
     return genericSubscribe(subs, this._actionSubscribers)
   };
 
-  Store.prototype.watch = function watch (getter, cb, options) {
+  Store.prototype.watch = function watch$1 (getter, cb, options) {
       var this$1 = this;
 
     {
       assert(typeof getter === 'function', "store.watch only accepts a function.");
     }
-    return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+    return vue.watch(function () { return getter(this$1.state, this$1.getters); }, cb, Object.assign({}, options))
   };
 
   Store.prototype.replaceState = function replaceState (state) {
@@ -515,7 +527,7 @@
     this._modules.unregister(path);
     this._withCommit(function () {
       var parentState = getNestedState(this$1.state, path.slice(0, -1));
-      Vue.delete(parentState, path[path.length - 1]);
+      delete parentState[path[path.length - 1]];
     });
     resetStore(this);
   };
@@ -566,30 +578,42 @@
     // reset local getters cache
     store._makeLocalGettersCache = Object.create(null);
     var wrappedGetters = store._wrappedGetters;
-    var computed = {};
+    var computedObj = {};
     forEachValue(wrappedGetters, function (fn, key) {
+      // TODO: Refactor following code and comment. We can simplify many things
+      // using computed function.
+      //
       // use computed to leverage its lazy-caching mechanism
       // direct inline function use will lead to closure preserving oldVm.
       // using partial to return function with only arguments preserved in closure environment.
-      computed[key] = partial(fn, store);
+      computedObj[key] = partial(fn, store);
       Object.defineProperty(store.getters, key, {
-        get: function () { return store._vm[key]; },
+        get: function () { return vue.computed(function () { return computedObj[key](); }).value; },
         enumerable: true // for local getters
       });
     });
 
+    // TODO: Bring back this if it's still needed.
+    //
     // use a Vue instance to store the state tree
     // suppress warnings just in case the user has added
     // some funky global mixins
-    var silent = Vue.config.silent;
-    Vue.config.silent = true;
-    store._vm = new Vue({
-      data: {
+    // const silent = Vue.config.silent
+    // Vue.config.silent = true
+
+    // TODO: Refactor the code and remove this comment.
+    //
+    // New impl with reactive. Defining redundunt keys to make it as close as
+    // the old impl api.
+    store._vm = vue.reactive({
+      _data: {
         $$state: state
-      },
-      computed: computed
+      }
     });
-    Vue.config.silent = silent;
+
+    // TODO: Bring back maybe?
+    //
+    // Vue.config.silent = silent
 
     // enable strict mode for new vm
     if (store.strict) {
@@ -604,7 +628,8 @@
           oldVm._data.$$state = null;
         });
       }
-      Vue.nextTick(function () { return oldVm.$destroy(); });
+      // TODO: I think we don't need this anymore since we're not using vm?
+      // Vue.nextTick(() => oldVm.$destroy())
     }
   }
 
@@ -632,7 +657,7 @@
             );
           }
         }
-        Vue.set(parentState, moduleName, module.state);
+        parentState[moduleName] = module.state;
       });
     }
 
@@ -793,11 +818,11 @@
   }
 
   function enableStrictMode (store) {
-    store._vm.$watch(function () { return this._data.$$state }, function () {
+    vue.watch(function () { return store._vm._data.$$state; }, function () {
       {
         assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
       }
-    }, { deep: true, sync: true });
+    }, { deep: true, flush: 'sync' });
   }
 
   function getNestedState (state, path) {
@@ -816,19 +841,6 @@
     }
 
     return { type: type, payload: payload, options: options }
-  }
-
-  function install (_Vue) {
-    if (Vue && _Vue === Vue) {
-      {
-        console.error(
-          '[vuex] already installed. Vue.use(Vuex) should be called only once.'
-        );
-      }
-      return
-    }
-    Vue = _Vue;
-    applyMixin(Vue);
   }
 
   /**
@@ -1042,9 +1054,10 @@
   }
 
   var index = {
+    version: '4.0.0-alpha.1',
+    createStore: createStore,
     Store: Store,
-    install: install,
-    version: '3.1.3',
+    useStore: useStore,
     mapState: mapState,
     mapMutations: mapMutations,
     mapGetters: mapGetters,
