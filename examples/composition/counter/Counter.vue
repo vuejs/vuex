@@ -19,16 +19,10 @@ export default {
     return {
       count: computed(() => store.state.count),
       evenOrOdd: computed(() => store.getters.evenOrOdd),
-      // increment: () => store.dispatch('increment'),
+      increment: () => store.dispatch('increment'),
       decrement: () => store.dispatch('decrement'),
       incrementIfOdd: () => store.dispatch('incrementIfOdd'),
       incrementAsync: () => store.dispatch('incrementAsync')
-    }
-  },
-
-  methods: {
-    increment () {
-      this.$store.dispatch('increment')
     }
   }
 }
