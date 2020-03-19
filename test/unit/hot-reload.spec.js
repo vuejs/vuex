@@ -357,7 +357,7 @@ describe('Hot Reload', () => {
     expect(actionSpy.calls.count()).toBe(2)
 
     // should not be called
-    store.commit('a/foo')
+    expect(function () { store.commit('a/foo') }).toThrow()
     expect(mutationSpy.calls.count()).toBe(1)
 
     // should be called

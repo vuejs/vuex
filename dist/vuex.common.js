@@ -385,7 +385,7 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
   var entry = this._mutations[type];
   if (!entry) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error(("[vuex] unknown mutation type: " + type));
+      throw new Error(("[vuex] unknown mutation type: " + type))
     }
     return
   }
