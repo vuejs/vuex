@@ -37,7 +37,7 @@ import { createApp } from 'vue'
 import store from './store'
 import App from './APP.vue'
 
-const app = createApp(Counter)
+const app = createApp(App)
 
 app.use(store)
 
