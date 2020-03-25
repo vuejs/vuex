@@ -53,6 +53,14 @@ export default class ModuleCollection {
 
     parent.removeChild(key)
   }
+
+  isRegistered (path) {
+    const parent = this.get(path.slice(0, -1))
+    const key = path[path.length - 1]
+
+    return parent.hasChild(key)
+  }
+
 }
 
 function update (path, targetModule, newModule) {
