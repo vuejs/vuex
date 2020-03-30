@@ -28,6 +28,9 @@ export declare class Store<S> {
   unregisterModule(path: string): void;
   unregisterModule(path: string[]): void;
 
+  hasModule(path: string): boolean;
+  hasModule(path: string[]): boolean;
+
   hotUpdate(options: {
     actions?: ActionTree<S, S>;
     mutations?: MutationTree<S>;
