@@ -40,10 +40,10 @@
   },
   "homepage": "https://github.com/vuejs/vuex#readme",
   "peerDependencies": {
-    "vue": "^3.0.0-alpha.8"
+    "vue": "^3.0.0-alpha.10"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "3.0.0-alpha.8",
+    "@vue/compiler-sfc": "3.0.0-alpha.10",
     "babel-core": "^6.22.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -66,7 +66,7 @@
     "terser": "^3.17.0",
     "todomvc-app-css": "^2.1.0",
     "typescript": "^3.7.2",
-    "vue": "3.0.0-alpha.8",
+    "vue": "3.0.0-alpha.10",
     "vue-loader": "16.0.0-alpha.3",
     "vue-template-compiler": "^2.5.22",
     "vuepress": "^0.14.1",
