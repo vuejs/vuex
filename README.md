@@ -44,7 +44,7 @@ app.use(store)
 app.mount('#app')
 ```
 
-## Kown issues
+## Known issues
 
 - The code is kept as close to Vuex 3 code base as possible, and there're plenty of places where we should refactor. However, we are waiting for all of the test cases to pass before doing so (some tests require Vue 3 update).
 - TypeScript support is not ready yet. Please use JS environment to test this for now.
