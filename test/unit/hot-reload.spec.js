@@ -1,8 +1,9 @@
-// import { createApp, nextTick } from 'vue'
+import { nextTick } from 'vue'
+import { mount } from './support/helpers'
 import Vuex from '../../dist/vuex.common.js'
 
 const TEST = 'TEST'
-// const isSSR = process.env.VUE_ENV === 'server'
+const isSSR = process.env.VUE_ENV === 'server'
 
 describe('Hot Reload', () => {
   it('mutations', function () {
@@ -233,67 +234,62 @@ describe('Hot Reload', () => {
     expect(store.state.list.join()).toBe('1,2,3,2,4,5')
   })
 
-  // Skipping for now due to unkown error;
-  // TypeError: Cannot read property 'createComment' of null
-  //
-  // it('getters', done => {
-  //   const store = new Vuex.Store({
-  //     state: {
-  //       count: 0
-  //     },
-  //     mutations: {
-  //       inc: state => state.count++
-  //     },
-  //     getters: {
-  //       count: state => state.count
-  //     },
-  //     actions: {
-  //       check ({ getters }, value) {
-  //         expect(getters.count).toBe(value)
-  //       }
-  //     }
-  //   })
+  it('getters', done => {
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        inc: state => state.count++
+      },
+      getters: {
+        count: state => state.count
+      },
+      actions: {
+        check ({ getters }, value) {
+          expect(getters.count).toBe(value)
+        }
+      }
+    })
 
-  //   const spy = jasmine.createSpy()
-  //   const app = createApp({
-  //     computed: {
-  //       a: () => store.getters.count
-  //     },
-  //     watch: {
-  //       a: spy
-  //     },
-  //     render () {}
-  //   })
-  //   app.use(Vuex, store)
-  //   const vm = app.mount({ appendChild: () => {} })
+    const spy = jasmine.createSpy()
 
-  //   expect(vm.a).toBe(0)
-  //   store.dispatch('check', 0)
+    const vm = mount(store, {
+      computed: {
+        a: () => store.getters.count
+      },
+      watch: {
+        a: spy
+      }
+    })
 
-  //   store.commit('inc')
+    expect(vm.a).toBe(0)
+    store.dispatch('check', 0)
 
-  //   expect(vm.a).toBe(1)
-  //   store.dispatch('check', 1)
+    store.commit('inc')
 
-  //   // update getters
-  //   store.hotUpdate({
-  //     getters: {
-  //       count: state => state.count * 10
-  //     }
-  //   })
+    expect(vm.a).toBe(1)
+    store.dispatch('check', 1)
 
-  //   expect(vm.a).toBe(10)
-  //   store.dispatch('check', 10)
+    // update getters
+    store.hotUpdate({
+      getters: {
+        count: state => state.count * 10
+      }
+    })
 
-  //   if (isSSR) {
-  //     done()
-  //   } else {
-  //     nextTick(() => {
-  //       expect(spy).toHaveBeenCalled()
-  //       done()
-  //     })
-  //   }
-  // })
+    expect(vm.a).toBe(10)
+    store.dispatch('check', 10)
+
+    if (isSSR) {
+      done()
+    } else {
+      nextTick(() => {
+        expect(spy).toHaveBeenCalled()
+        done()
+      })
+    }
+  })
 
   it('provide warning if a new module is given', () => {
     const store = new Vuex.Store({})
