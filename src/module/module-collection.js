@@ -60,7 +60,6 @@ export default class ModuleCollection {
 
     return parent.hasChild(key)
   }
-
 }
 
 function update (path, targetModule, newModule) {
