@@ -14,13 +14,21 @@ then
   # build
   VERSION=$VERSION npm run build
 
+  # generate the version so that the changelog can be generated too
+  yarn version --no-git-tag-version --no-commit-hooks --new-version $VERSION
+
+  # changelog
+  yarn changelog
+  echo "Please check the git history and the changelog and press enter"
+  read OKAY
+
   # commit
   git add -A
-  git commit -m "[build] $VERSION"
-  npm version $VERSION --message "[release] $VERSION"
+  git commit -m "realese: v$VERSION"
+  git tag "v$VERSION"
 
   # publish
-  git push origin refs/tags/v$VERSION
-  git push
-  npm publish
+  # git push origin refs/tags/v$VERSION
+  # git push
+  # npm publish
 fi
