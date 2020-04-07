@@ -11,7 +11,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
   if (process.env.NODE_ENV !== 'production' && !isValidMap(states)) {
     console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
   }
-  normalizeMap(states).forEach(([ key, val ]) => {
+  normalizeMap(states).forEach(([key, val]) => {
     res[key] = function mappedState () {
       let state = this.$store.state
       let getters = this.$store.getters
@@ -44,7 +44,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
   if (process.env.NODE_ENV !== 'production' && !isValidMap(mutations)) {
     console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
   }
-  normalizeMap(mutations).forEach(([ key, val ]) => {
+  normalizeMap(mutations).forEach(([key, val]) => {
     res[key] = function mappedMutation (...args) {
       // Get the commit method from store
       let commit = this.$store.commit
@@ -74,7 +74,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
   if (process.env.NODE_ENV !== 'production' && !isValidMap(getters)) {
     console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
   }
-  normalizeMap(getters).forEach(([ key, val ]) => {
+  normalizeMap(getters).forEach(([key, val]) => {
     // The namespace has been mutated by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
@@ -104,7 +104,7 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
   if (process.env.NODE_ENV !== 'production' && !isValidMap(actions)) {
     console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object')
   }
-  normalizeMap(actions).forEach(([ key, val ]) => {
+  normalizeMap(actions).forEach(([key, val]) => {
     res[key] = function mappedAction (...args) {
       // get dispatch function from store
       let dispatch = this.$store.dispatch
