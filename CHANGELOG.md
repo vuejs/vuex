@@ -1,12 +1,3 @@
-# [5.0.0](https://github.com/vuejs/vuex/compare/v3.1.3...v5.0.0) (2020-04-02)
-
-
-### Features
-
-* add Store#hasModule(path) API ([#834](https://github.com/vuejs/vuex/issues/834)) ([d65d142](https://github.com/vuejs/vuex/commit/d65d14276e87aca17cfbd3fbf4af9e8dbb808f24))
-
-
-
 ## [3.1.3](https://github.com/vuejs/vuex/compare/v3.1.2...v3.1.3) (2020-03-09)
 
 

@@ -28,7 +28,7 @@ then
   git tag "v$VERSION"
 
   # publish
-  # git push origin refs/tags/v$VERSION
-  # git push
-  # npm publish
+  git push origin refs/tags/v$VERSION
+  git push
+  npm publish
 fi
