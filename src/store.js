@@ -260,9 +260,6 @@ function resetStoreState (store, state, hot) {
   const wrappedGetters = store._wrappedGetters
   const computedObj = {}
   forEachValue(wrappedGetters, (fn, key) => {
-    // TODO: Refactor following code and comment. We can simplify many things
-    // using computed function.
-    //
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldVm.
     // using partial to return function with only arguments preserved in closure environment.
