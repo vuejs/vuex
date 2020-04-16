@@ -13,14 +13,3 @@ export default {
   mapActions,
   createNamespacedHelpers
 }
-
-export {
-  createStore,
-  Store,
-  useStore,
-  mapState,
-  mapMutations,
-  mapGetters,
-  mapActions,
-  createNamespacedHelpers
-}
