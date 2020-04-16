@@ -10,18 +10,7 @@ export function createStore (options) {
 
 export class Store {
   constructor (options = {}) {
-    // TODO: Bring back this one if needed.
-    //
-    // Auto install if it is not done yet and `window` has `Vue`.
-    // To allow users to avoid auto-installation in some cases,
-    // this code should be placed here. See #731
-    // if (!Vue && typeof window !== 'undefined' && window.Vue) {
-    //   install(window.Vue)
-    // }
-
     if (process.env.NODE_ENV !== 'production') {
-      // TODO: Maybe we can remove this depending on the new implementation.
-      // assert(Vue, `must call Vue.use(Vuex) before creating a store instance.`)
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
       assert(this instanceof Store, `store must be called with the new operator.`)
     }
