@@ -53,6 +53,6 @@ app.mount('#app')
 
 - Add TypeScript support
 - ~Make all unit test working~
-- Refactor the codebase
+- ~Refactor the codebase~
 - Update the build system to align with Vue 3
 - Update docs
