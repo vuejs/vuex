@@ -51,9 +51,9 @@ export class Store {
     // and collects all module getters inside this._wrappedGetters
     installModule(this, state, [], this._modules.root)
 
-    // initialize the store vm, which is responsible for the reactivity
+    // initialize the store state, which is responsible for the reactivity
     // (also registers _wrappedGetters as computed properties)
-    resetStoreVM(this, state)
+    resetStoreState(this, state)
 
     // apply plugins
     plugins.forEach(plugin => plugin(this))
@@ -69,7 +69,7 @@ export class Store {
   }
 
   get state () {
-    return this._vm._data.$$state
+    return this._state.data
   }
 
   set state (v) {
@@ -180,7 +180,7 @@ export class Store {
 
   replaceState (state) {
     this._withCommit(() => {
-      this._vm._data.$$state = state
+      this._state.data = state
     })
   }
 
@@ -195,7 +195,7 @@ export class Store {
     this._modules.register(path, rawModule)
     installModule(this, this.state, path, this._modules.get(path), options.preserveState)
     // reset store to update getters...
-    resetStoreVM(this, this.state)
+    resetStoreState(this, this.state)
   }
 
   unregisterModule (path) {
@@ -246,12 +246,12 @@ function resetStore (store, hot) {
   const state = store.state
   // init all modules
   installModule(store, state, [], store._modules.root, true)
-  // reset vm
-  resetStoreVM(store, state, hot)
+  // reset state
+  resetStoreState(store, state, hot)
 }
 
-function resetStoreVM (store, state, hot) {
-  const oldVm = store._vm
+function resetStoreState (store, state, hot) {
+  const oldState = store._state
 
   // bind store public getters
   store.getters = {}
@@ -277,23 +277,21 @@ function resetStoreVM (store, state, hot) {
   //
   // New impl with reactive. Defining redundunt keys to make it as close as
   // the old impl api.
-  store._vm = reactive({
-    _data: {
-      $$state: state
-    }
+  store._state = reactive({
+    data: state
   })
 
-  // enable strict mode for new vm
+  // enable strict mode for new state
   if (store.strict) {
     enableStrictMode(store)
   }
 
-  if (oldVm) {
+  if (oldState) {
     if (hot) {
       // dispatch changes in all subscribed watchers
       // to force getter re-evaluation for hot reloading.
       store._withCommit(() => {
-        oldVm._data.$$state = null
+        oldState.data = null
       })
     }
     // TODO: I think we don't need this anymore since we're not using vm?
@@ -394,7 +392,7 @@ function makeLocalContext (store, namespace, path) {
   }
 
   // getters and state object must be gotten lazily
-  // because they will be changed by vm update
+  // because they will be changed by state update
   Object.defineProperties(local, {
     getters: {
       get: noNamespace
@@ -484,7 +482,7 @@ function registerGetter (store, type, rawGetter, local) {
 }
 
 function enableStrictMode (store) {
-  watch(() => store._vm._data.$$state, () => {
+  watch(() => store._state.data, () => {
     if (process.env.NODE_ENV !== 'production') {
       assert(store._committing, `do not mutate vuex store state outside mutation handlers.`)
     }
