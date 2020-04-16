@@ -4,8 +4,6 @@ import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
 import { forEachValue, isObject, isPromise, assert, partial } from './util'
 
-// let Vue // bind on install
-
 export function createStore (options) {
   return new Store(options)
 }
@@ -78,19 +76,6 @@ export class Store {
   }
 
   install (app, injectKey) {
-    // TODO: Removing double install check for now. Maybe we can bring this
-    // feature back again if needed.
-    //
-    // if (Vue && _Vue === Vue) {
-    //   if (process.env.NODE_ENV !== 'production') {
-    //     console.error(
-    //       '[vuex] already installed. Vue.use(Vuex) should be called only once.'
-    //     )
-    //   }
-    //   return
-    // }
-    // Vue = _Vue
-
     applyMixin(app, this, injectKey)
   }
 
