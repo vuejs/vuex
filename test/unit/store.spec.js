@@ -1,4 +1,5 @@
 import { nextTick } from 'vue'
+import { mount } from './support/helpers'
 import Vuex from '../../dist/vuex.common.js'
 
 const TEST = 'TEST'
@@ -239,16 +240,11 @@ describe('Store', () => {
     store.dispatch('check', 'hasAny')
   })
 
-  // Injecting `$` prefixed property doesn't work yet. Waiting for
-  // Vue 3 update.
-  // it('store injection', () => {
-  //   const store = new Vuex.Store()
-  //   const vm = new Vue({
-  //     store
-  //   })
-  //   const child = new Vue({ parent: vm })
-  //   expect(child.$store).toBe(store)
-  // })
+  it('store injection', () => {
+    const store = new Vuex.Store()
+    const vm = mount(store, {})
+    expect(vm.$store).toBe(store)
+  })
 
   it('should warn silent option depreciation', () => {
     spyOn(console, 'warn')
@@ -366,7 +362,7 @@ describe('Store', () => {
 
   // store.watch should only be asserted in non-SSR environment
   if (!isSSR) {
-    // This is working but can't make the test to pass because it throws;
+    // TODO: This is working but can't make the test to pass because it throws;
     // [Vue warn]: Unhandled error during execution of watcher callback
     //
     // it('strict mode: warn mutations outside of handlers', () => {
