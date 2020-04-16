@@ -273,10 +273,6 @@ function resetStoreState (store, state, hot) {
     })
   })
 
-  // TODO: Refactor the code and remove this comment.
-  //
-  // New impl with reactive. Defining redundunt keys to make it as close as
-  // the old impl api.
   store._state = reactive({
     data: state
   })
@@ -294,8 +290,6 @@ function resetStoreState (store, state, hot) {
         oldState.data = null
       })
     }
-    // TODO: I think we don't need this anymore since we're not using vm?
-    // Vue.nextTick(() => oldVm.$destroy())
   }
 }
 
