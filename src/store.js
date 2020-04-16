@@ -273,14 +273,6 @@ function resetStoreVM (store, state, hot) {
     })
   })
 
-  // TODO: Bring back this if it's still needed.
-  //
-  // use a Vue instance to store the state tree
-  // suppress warnings just in case the user has added
-  // some funky global mixins
-  // const silent = Vue.config.silent
-  // Vue.config.silent = true
-
   // TODO: Refactor the code and remove this comment.
   //
   // New impl with reactive. Defining redundunt keys to make it as close as
@@ -290,10 +282,6 @@ function resetStoreVM (store, state, hot) {
       $$state: state
     }
   })
-
-  // TODO: Bring back maybe?
-  //
-  // Vue.config.silent = silent
 
   // enable strict mode for new vm
   if (store.strict) {
