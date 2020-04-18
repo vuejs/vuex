@@ -2,17 +2,17 @@
  * Extends interfaces in Vue.js
  */
 
-import Vue, { ComponentOptions } from "vue";
+import { ComponentCustomOptions, ComponentCustomProperties } from "vue";
 import { Store } from "./index";
 
-declare module "vue/types/options" {
-  interface ComponentOptions<V extends Vue> {
+declare module "@vue/runtime-core" {
+  interface ComponentCustomOptions {
     store?: Store<any>;
   }
 }
 
-declare module "vue/types/vue" {
-  interface Vue {
+declare module "@vue/runtime-core" {
+  interface ComponentCustomProperties {
     $store: Store<any>;
   }
 }

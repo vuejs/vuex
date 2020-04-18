@@ -1,4 +1,4 @@
-import _Vue, { WatchOptions } from "vue";
+import { App, WatchOptions, InjectionKey } from "vue";
 
 // augment typings of Vue.js
 import "./vue";
@@ -12,6 +12,8 @@ export declare class Store<S> {
 
   readonly state: S;
   readonly getters: any;
+
+  install(app: App, injectKey?: InjectionKey<Store<any>>): void;
 
   replaceState(state: S): void;
 
@@ -39,7 +41,7 @@ export declare class Store<S> {
   }): void;
 }
 
-export declare function install(Vue: typeof _Vue): void;
+export function createStore<S>(options: StoreOptions<S>): Store<S>;
 
 export interface Dispatch {
   (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
@@ -142,7 +144,6 @@ export interface ModuleTree<R> {
 
 declare const _default: {
   Store: typeof Store;
-  install: typeof install;
   mapState: typeof mapState,
   mapMutations: typeof mapMutations,
   mapGetters: typeof mapGetters,

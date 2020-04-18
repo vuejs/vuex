@@ -1,8 +1,5 @@
-import Vue from "vue";
 import * as Vuex from "../index";
 import createLogger from "../../dist/logger";
-
-Vue.use(Vuex);
 
 namespace StoreInstance {
   const store = new Vuex.Store({
