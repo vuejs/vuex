@@ -1,5 +1,5 @@
 /**
- * vuex v3.1.3
+ * vuex v3.2.0
  * (c) 2020 Evan You
  * @license MIT
  */
@@ -133,6 +133,10 @@
     return this._children[key]
   };
 
+  Module.prototype.hasChild = function hasChild (key) {
+    return key in this._children
+  };
+
   Module.prototype.update = function update (rawModule) {
     this._rawModule.namespaced = rawModule.namespaced;
     if (rawModule.actions) {
@@ -223,6 +227,13 @@
     if (!parent.getChild(key).runtime) { return }
 
     parent.removeChild(key);
+  };
+
+  ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+    var parent = this.get(path.slice(0, -1));
+    var key = path[path.length - 1];
+
+    return parent.hasChild(key)
   };
 
   function update (path, targetModule, newModule) {
@@ -518,6 +529,16 @@
       Vue.delete(parentState, path[path.length - 1]);
     });
     resetStore(this);
+  };
+
+  Store.prototype.hasModule = function hasModule (path) {
+    if (typeof path === 'string') { path = [path]; }
+
+    {
+      assert(Array.isArray(path), "module path must be a string or an Array.");
+    }
+
+    return this._modules.isRegistered(path)
   };
 
   Store.prototype.hotUpdate = function hotUpdate (newOptions) {
@@ -1044,7 +1065,7 @@
   var index = {
     Store: Store,
     install: install,
-    version: '3.1.3',
+    version: '3.2.0',
     mapState: mapState,
     mapMutations: mapMutations,
     mapGetters: mapGetters,

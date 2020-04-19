@@ -1,5 +1,5 @@
 /**
- * vuex v3.1.3
+ * vuex v3.2.0
  * (c) 2020 Evan You
  * @license MIT
  */
@@ -129,6 +129,10 @@ Module.prototype.getChild = function getChild (key) {
   return this._children[key]
 };
 
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
 Module.prototype.update = function update (rawModule) {
   this._rawModule.namespaced = rawModule.namespaced;
   if (rawModule.actions) {
@@ -219,6 +223,13 @@ ModuleCollection.prototype.unregister = function unregister (path) {
   if (!parent.getChild(key).runtime) { return }
 
   parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  return parent.hasChild(key)
 };
 
 function update (path, targetModule, newModule) {
@@ -515,6 +526,16 @@ Store.prototype.unregisterModule = function unregisterModule (path) {
     Vue.delete(parentState, path[path.length - 1]);
   });
   resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if (process.env.NODE_ENV !== 'production') {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
 };
 
 Store.prototype.hotUpdate = function hotUpdate (newOptions) {
@@ -1041,7 +1062,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index = {
   Store: Store,
   install: install,
-  version: '3.1.3',
+  version: '3.2.0',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
