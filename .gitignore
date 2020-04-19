@@ -1,4 +1,5 @@
 /dist
+!/dist/logger.d.ts
 /docs/.vuepress/dist
 /examples/**/build.js
 /node_modules
