@@ -1,11 +1,8 @@
 set -e
+echo "Enter release version: "
+read VERSION
 
-read -p "Enter release version: " VERSION
-read -p "Enter release tag (latest): " TAG
-
-TAG=${TAG:-latest}
-
-read -p "Releasing $VERSION for the tag '$TAG' - are you sure? (y/n)" -n 1 -r
+read -p "Releasing $VERSION - are you sure? (y/n)" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -33,5 +30,5 @@ then
   # publish
   git push origin refs/tags/v$VERSION
   git push
-  npm publish --tag $TAG
+  npm publish --tag next
 fi
