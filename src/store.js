@@ -213,6 +213,16 @@ export class Store {
     resetStore(this)
   }
 
+  hasModule (path) {
+    if (typeof path === 'string') path = [path]
+
+    if (process.env.NODE_ENV !== 'production') {
+      assert(Array.isArray(path), `module path must be a string or an Array.`)
+    }
+
+    return this._modules.isRegistered(path)
+  }
+
   hotUpdate (newOptions) {
     this._modules.update(newOptions)
     resetStore(this, true)

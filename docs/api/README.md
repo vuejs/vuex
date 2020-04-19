@@ -238,6 +238,14 @@ const store = new Vuex.Store({ ...options })
 
   Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
 
+### hasModule
+
+- `hasModule(path: string | Array<string>)`
+
+  Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
+
+  > New in 3.2.0
+
 ### hotUpdate
 
 -  `hotUpdate(newOptions: Object)`

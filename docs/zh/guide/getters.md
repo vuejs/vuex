@@ -111,7 +111,7 @@ export default {
 如果你想将一个 getter 属性另取一个名字，使用对象形式：
 
 ``` js
-mapGetters({
+...mapGetters({
   // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })

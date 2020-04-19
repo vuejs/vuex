@@ -292,6 +292,8 @@ namespace RegisterModule {
     state: { value: 1 }
   });
 
+  store.hasModule('a')
+
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   });
@@ -299,6 +301,8 @@ namespace RegisterModule {
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   }, { preserveState: true });
+
+  store.hasModule(['a', 'b'])
 
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");

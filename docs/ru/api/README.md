@@ -237,6 +237,14 @@ store.subscribeAction({
 
 Удаление зарегистрированного динамического модуля. [Подробнее](../guide/modules.md#динамическая-регистрация-модуnей)
 
+### hasModule
+
+* `hasModule(path: string | Array<string>)`
+
+Проверка, не зарегистрирован ли уже модуль с заданным именем. [Подробнее](../guide/modules.md#динамическая-регистрация-модуnей)
+
+> Добавлено в версии 3.2.0
+
 ### hotUpdate
 
 * `hotUpdate(newOptions: Object)`

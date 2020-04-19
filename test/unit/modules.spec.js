@@ -81,6 +81,16 @@ describe('Modules', () => {
       expect(mutationSpy).toHaveBeenCalled()
     })
 
+    it('dynamic module existance test', () => {
+      const store = new Vuex.Store({})
+
+      store.registerModule('bonjour', {})
+
+      expect(store.hasModule('bonjour')).toBe(true)
+      store.unregisterModule('bonjour')
+      expect(store.hasModule('bonjour')).toBe(false)
+    })
+
     it('dynamic module registration preserving hydration', () => {
       const store = new Vuex.Store({})
       store.replaceState({ a: { foo: 'state' }})
