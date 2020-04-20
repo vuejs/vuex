@@ -4,8 +4,9 @@
   "description": "state management for Vue.js",
   "main": "dist/vuex.cjs.js",
   "module": "dist/vuex.esm-bundler.js",
-  "browser": "dist/vuex.esm.js",
+  "browser": "dist/vuex.esm-browser.js",
   "unpkg": "dist/vuex.global.js",
+  "jsdelivr": "dist/vuex.global.js",
   "typings": "types/index.d.ts",
   "sideEffects": false,
   "files": [
