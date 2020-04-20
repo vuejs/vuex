@@ -32,9 +32,17 @@ const store = new Vuex.Store({
 })
 ```
 
-In order to have an access to `this.$store` property in your Vue components, you need to provide the created store to Vue instance. Vuex has a mechanism to "inject" the store into all child components from the root component with the `store` option
+Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
 
-```js
+``` js
+store.commit('increment')
+
+console.log(store.state.count) // -> 1
+```
+
+In order to have an access to `this.$store` property in your Vue components, you need to provide the created store to Vue instance. Vuex has a mechanism to "inject" the store into all child components from the root component with the `store` option:
+
+``` js
 new Vue({
   el: '#app',
   store: store,
@@ -52,21 +60,12 @@ new Vue({
 ```
 :::
 
-
-Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
+Now we can commit a mutation from component's method:
 
 ``` js
-store.commit('increment')
-
-console.log(store.state.count) // -> 1
-```
-
-However, this pattern causes the component to rely on the global store singleton. When using a module system, it requires importing the store in every component that uses store state, and also requires mocking when testing the component. With store provided into the root Vue instance, you will be able to use the following syntax:
-
-```js
 methods: {
   increment() {
-    this.$store.commit('increment');
+    this.$store.commit('increment')
     console.log(this.$store.state.count)
   }
 }
