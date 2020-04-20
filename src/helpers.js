@@ -8,7 +8,7 @@ import { isObject } from './util'
  */
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
-  if (process.env.NODE_ENV !== 'production' && !isValidMap(states)) {
+  if (__DEV__ && !isValidMap(states)) {
     console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(states).forEach(({ key, val }) => {
@@ -41,7 +41,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
  */
 export const mapMutations = normalizeNamespace((namespace, mutations) => {
   const res = {}
-  if (process.env.NODE_ENV !== 'production' && !isValidMap(mutations)) {
+  if (__DEV__ && !isValidMap(mutations)) {
     console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(mutations).forEach(({ key, val }) => {
@@ -71,7 +71,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
  */
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
-  if (process.env.NODE_ENV !== 'production' && !isValidMap(getters)) {
+  if (__DEV__ && !isValidMap(getters)) {
     console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(getters).forEach(({ key, val }) => {
@@ -81,7 +81,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
         return
       }
-      if (process.env.NODE_ENV !== 'production' && !(val in this.$store.getters)) {
+      if (__DEV__ && !(val in this.$store.getters)) {
         console.error(`[vuex] unknown getter: ${val}`)
         return
       }
@@ -101,7 +101,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
  */
 export const mapActions = normalizeNamespace((namespace, actions) => {
   const res = {}
-  if (process.env.NODE_ENV !== 'production' && !isValidMap(actions)) {
+  if (__DEV__ && !isValidMap(actions)) {
     console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(actions).forEach(({ key, val }) => {
@@ -186,7 +186,7 @@ function normalizeNamespace (fn) {
  */
 function getModuleByNamespace (store, helper, namespace) {
   const module = store._modulesNamespaceMap[namespace]
-  if (process.env.NODE_ENV !== 'production' && !module) {
+  if (__DEV__ && !module) {
     console.error(`[vuex] module namespace not found in ${helper}(): ${namespace}`)
   }
   return module
