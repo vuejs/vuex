@@ -106,7 +106,7 @@ function test (browser, url) {
     .assert.focused('.todo:nth-child(1) .edit')
   deleteValue('.todo:nth-child(1) .edit', 'test2')
     .setValue('.todo:nth-child(1) .edit', 'edited!')
-    .click('footer') // blur
+    .click('.footer') // blur
     .assert.count('.todo.editing', 0)
     .assert.containsText('.todo:nth-child(1) label', 'edited!')
 
