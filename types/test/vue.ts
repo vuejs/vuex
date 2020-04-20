@@ -10,7 +10,3 @@ const store = new Vuex.Store({
 const app = createApp({
   store
 });
-
-const vm = app.mount('#el')
-
-vm.$store.state.value;

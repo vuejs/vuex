@@ -10,9 +10,3 @@ declare module "@vue/runtime-core" {
     store?: Store<any>;
   }
 }
-
-declare module "@vue/runtime-core" {
-  interface ComponentCustomProperties {
-    $store: Store<any>;
-  }
-}
