@@ -122,7 +122,7 @@ const store = new Vuex.Store({ ...options });
 
   Интеграция в devtools конкретного экземпляра Vuex. Например, передача `false` сообщает экземпляру хранилища Vuex, что не требуется подписываться на плагин devtools. Это будет полезно если у вас несколько хранилищ на одной странице.
   
-  ``` js
+  ```js
   {
     devtools: false
   }
@@ -210,7 +210,7 @@ store.subscribeAction((action, state) => {
 
 Начиная с версии 3.1.0, в `subscribeAction` также можно определять, должен ли обработчик вызываться *до* или *после* вызова действия (по умолчанию поведение *до*):
 
-``` js
+```js
 store.subscribeAction({
   before: (action, state) => {
     console.log(`before action ${action.type}`)
