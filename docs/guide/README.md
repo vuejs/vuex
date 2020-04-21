@@ -10,7 +10,9 @@ At the center of every Vuex application is the **store**. A "store" is basically
 
 ### The Simplest Store
 
-> **NOTE:** We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
+:::tip NOTE
+We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
+:::
 
 After [installing](../installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
 

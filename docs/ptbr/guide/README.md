@@ -10,7 +10,9 @@ No centro de cada aplicação Vuex existe o **_store_**. Um "_store_" é basicam
 
 ### O Store Mais Simples 
 
-> **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto da documentação. Se você ainda não aprendeu como usá-la, [veja aqui](https://babeljs.io/docs/learn-es2015/)!
+:::tip NOTA
+Vamos usar a sintaxe ES2015 para exemplos de código para o resto da documentação. Se você ainda não aprendeu como usá-la, [veja aqui](https://babeljs.io/docs/learn-es2015/)!
+:::
 
 Após [instalar](../installation.md) o Vuex, vamos criar um _store_. É bem simples - basta fornecer um objeto de estado inicial, e algumas mutações:
 
