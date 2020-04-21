@@ -239,6 +239,14 @@ const store = new Vuex.Store({ ...options })
 
   卸载一个动态模块。[详细介绍](../guide/modules.md#模块动态注册)
 
+### hasModule
+
+- `hasModule(path: string | Array<string>)`
+
+  检查该模块的名字是否已经被注册。[详细介绍](../guide/modules.md#模块动态注册)
+
+  > 3.2.0 新增
+
 ### hotUpdate
 
 - `hotUpdate(newOptions: Object)`
