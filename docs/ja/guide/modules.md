@@ -297,7 +297,13 @@ store.registerModule(['nested', 'myModule'], {
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
 
-サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション(`store.registerModule('a', module, { preserveState: true })`)でこれを実現できます。
+また、すでに動的なモジュールが登録されているかどうかを `store.hasModule(moduleName)` メソッドを使って確認することができます。
+
+#### ステートの保持
+
+サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション（`store.registerModule('a', module, { preserveState: true })`）でこれを実現できます。
+
+`preserveState: true` を設定した場合、モジュールを登録する際、アクション、ミューテーション、そしてゲッターは登録されますがステートは登録されません。これはステートがすでにモジュールに登録されていることを前提としており、ステートを上書きしないようにするためです。
 
 ### モジュールの再利用
 
