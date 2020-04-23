@@ -154,8 +154,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
-- **`dispatch(type: string, payload?: any, options?: Object)`**
-- **`dispatch(action: Object, options?: Object)`**
+- **`dispatch(type: string, payload?: any, options?: Object): Promise<any>`**
+- **`dispatch(action: Object, options?: Object): Promise<any>`**
 
   アクションをディスパッチします。`options` は[名前空間付きモジュール](../guide/modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](../guide/actions.md)
 
@@ -240,7 +240,7 @@ const store = new Vuex.Store({ ...options })
 
 ### hasModule
 
-- `hasModule(path: string | Array<string>)`
+- `hasModule(path: string | Array<string>): boolean`
 
   動的なモジュールがすでに登録されているかどうかを確認します。[詳細](../guide/modules.md#dynamic-module-registration)
 

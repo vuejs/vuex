@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options });
 
 ### strict
 
-* тип: `Boolean`
+* тип: `boolean`
 * по умолчанию: `false`
 
   Форсирует использование «строгого режима» в хранилище Vuex. В нём любые изменения состояния, происходящие вне обработчиков мутаций, будут выбрасывать ошибки.
@@ -118,10 +118,10 @@ const store = new Vuex.Store({ ...options });
 
 ### devtools
 
-* тип: `Boolean`
+* тип: `boolean`
 
   Интеграция в devtools конкретного экземпляра Vuex. Например, передача `false` сообщает экземпляру хранилища Vuex, что не требуется подписываться на плагин devtools. Это будет полезно если у вас несколько хранилищ на одной странице.
-  
+
   ```js
   {
     devtools: false
@@ -153,8 +153,8 @@ const store = new Vuex.Store({ ...options });
 
 ### dispatch
 
-* `dispatch(type: string, payload?: any, options?: Object)`
-* `dispatch(action: Object, options?: Object)`
+* `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+* `dispatch(action: Object, options?: Object): Promise<any>`
 
 Запуск действия. `options` может содержать опцию `root: true` что позволяет запускать корневые (root) действия [в модулях со своим пространством имён](../guide/modules.md#пространства-имён). Возвращает Promise который разрешает все обработчики инициируемых действий. [Подробнее](../guide/actions.md)
 
@@ -239,7 +239,7 @@ store.subscribeAction({
 
 ### hasModule
 
-* `hasModule(path: string | Array<string>)`
+* `hasModule(path: string | Array<string>): boolean`
 
 Проверка, не зарегистрирован ли уже модуль с заданным именем. [Подробнее](../guide/modules.md#динамическая-регистрация-модуnей)
 

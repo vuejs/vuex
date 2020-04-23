@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- type: `Boolean`
+- type: `boolean`
 - default: `false`
 
   Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
@@ -118,7 +118,7 @@ const store = new Vuex.Store({ ...options })
 
 ### devtools
 
-- type: `Boolean`
+- type: `boolean`
 
   Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
 
@@ -127,7 +127,6 @@ const store = new Vuex.Store({ ...options })
     devtools: false
   }
   ```
-
 
 ## Vuex.Store Instance Properties
 
@@ -154,8 +153,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
--  `dispatch(type: string, payload?: any, options?: Object)`
--  `dispatch(action: Object, options?: Object)`
+-  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+-  `dispatch(action: Object, options?: Object): Promise<any>`
 
   Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
 
@@ -240,7 +239,7 @@ const store = new Vuex.Store({ ...options })
 
 ### hasModule
 
-- `hasModule(path: string | Array<string>)`
+- `hasModule(path: string | Array<string>): boolean`
 
   Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
 
