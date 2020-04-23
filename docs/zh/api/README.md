@@ -111,7 +111,7 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- 类型: `Boolean`
+- 类型: `boolean`
 - 默认值: `false`
 
   使 Vuex store 进入严格模式，在严格模式下，任何 mutation 处理函数以外修改 Vuex state 都会抛出错误。
@@ -120,7 +120,7 @@ const store = new Vuex.Store({ ...options })
 
 ### devtools
 
-- 类型：`Boolean`
+- 类型：`boolean`
 
   为某个特定的 Vuex 实例打开或关闭 devtools。对于传入 `false` 的实例来说 Vuex store 不会订阅到 devtools 插件。可用于一个页面中有多个 store 的情况。
 
@@ -155,8 +155,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
-- `dispatch(type: string, payload?: any, options?: Object)`
-- `dispatch(action: Object, options?: Object)`
+- `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+- `dispatch(action: Object, options?: Object): Promise<any>`
 
   分发 action。`options` 里可以有 `root: true`，它允许在[命名空间模块](../guide/modules.md#命名空间)里分发根的 action。返回一个解析所有被触发的 action 处理器的 Promise。[详细介绍](../guide/actions.md)
 
@@ -238,6 +238,14 @@ const store = new Vuex.Store({ ...options })
 - `unregisterModule(path: string | Array<string>)`
 
   卸载一个动态模块。[详细介绍](../guide/modules.md#模块动态注册)
+
+### hasModule
+
+- `hasModule(path: string | Array<string>): boolean`
+
+  检查该模块的名字是否已经被注册。[详细介绍](../guide/modules.md#模块动态注册)
+
+  > 3.2.0 新增
 
 ### hotUpdate
 
