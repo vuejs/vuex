@@ -238,6 +238,12 @@ const store = new Vuex.Store({ ...options })
 
   動的なモジュールを解除します。[詳細](../guide/modules.md#dynamic-module-registration)
 
+### hasModule
+
+- `hasModule(path: string | Array<string>)`
+
+  動的なモジュールがすでに登録されているかどうかを確認します。[詳細](../guide/modules.md#dynamic-module-registration)
+
 ### hotUpdate
 
 - **`hotUpdate(newOptions: Object)`**
