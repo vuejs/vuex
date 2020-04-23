@@ -44,6 +44,27 @@ app.use(store)
 app.mount('#app')
 ```
 
+### Typings for `ComponentCustomProperties`
+
+Vuex 4 removes its global typings for `this.$store` within Vue Component due to solving [issue #994](https://github.com/vuejs/vuex/issues/994). When using TypeScript, you must provide your own augment declaration.
+
+Please place the following code in your project to have `this.$store` working.
+
+```ts
+// vuex-shim.d.ts
+
+declare module "@vue/runtime-core" {
+  // Declare your own store states.
+  interface State {
+    count: number
+  }
+
+  interface ComponentCustomProperties {
+    $store: Store<State>;
+  }
+}
+```
+
 ## Known issues
 
 - The code is kept as close to Vuex 3 code base as possible, and there're plenty of places where we should refactor. However, we are waiting for all of the test cases to pass before doing so (some tests require Vue 3 update).
