@@ -1,5 +1,5 @@
 import { reactive, computed, watch } from 'vue'
-import applyMixin from './mixin'
+import { storeKey } from './injectKey'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
 import { forEachValue, isObject, isPromise, assert, partial } from './util'
@@ -65,7 +65,8 @@ export class Store {
   }
 
   install (app, injectKey) {
-    applyMixin(app, this, injectKey)
+    app.provide(injectKey || storeKey, this)
+    app.config.globalProperties.$store = this
   }
 
   get state () {
