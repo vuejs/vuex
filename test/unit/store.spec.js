@@ -77,6 +77,30 @@ describe('Store', () => {
     expect(store.state.a).toBe(3)
   })
 
+  it('dispatching actions without a payload', () => {
+    const store = new Vuex.Store({
+      state: {
+        a: false
+      },
+      mutations: {
+        [TEST] (state) {
+          state.a = true
+        }
+      },
+      actions: {
+        [TEST] ({ commit }) {
+          expect(arguments.length).toBe(1)
+          commit(TEST)
+        },
+        action ({ dispatch }) {
+          dispatch(TEST)
+        }
+      }
+    })
+    store.dispatch('action')
+    expect(store.state.a).toBe(true)
+  })
+
   it('dispatching with object style', () => {
     const store = new Vuex.Store({
       state: {

@@ -384,7 +384,7 @@ function makeLocalContext (store, namespace, path) {
         }
       }
 
-      return store.dispatch(type, payload)
+      return payload ? store.dispatch(type, payload) : store.dispatch(type)
     },
 
     commit: noNamespace ? store.commit : (_type, _payload, _options) => {
