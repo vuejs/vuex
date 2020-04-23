@@ -96,9 +96,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
 
     try {
       expect(mutation.type).to.equal(type)
-      if (payload) {
-        expect(mutation.payload).to.deep.equal(payload)
-      }
+      expect(mutation.payload).to.deep.equal(payload)
     } catch (error) {
       done(error)
     }
@@ -136,9 +134,9 @@ describe('actions', () => {
   it('getAllProducts', () => {
     const commit = sinon.spy()
     const state = {}
-    
+
     actions.getAllProducts({ commit, state })
-    
+
     expect(commit.args).to.deep.equal([
       ['REQUEST_PRODUCTS'],
       ['RECEIVE_PRODUCTS', { /* mocked response */ }]
