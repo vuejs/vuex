@@ -10,6 +10,10 @@ export interface LoggerOption<S> {
   filter?: <P extends Payload>(mutation: P, stateBefore: S, stateAfter: S) => boolean;
   transformer?: (state: S) => any;
   mutationTransformer?: <P extends Payload>(mutation: P) => any;
+  actionFilter?: <P extends Payload>(action: P, state: S) => boolean;
+  actionTransformer?: <P extends Payload>(action: P) => any;
+  logActions?: boolean;
+  logMutations?: boolean;
 }
 
 export default function createLogger<S>(option?: LoggerOption<S>): Plugin<S>;
