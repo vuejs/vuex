@@ -1,5 +1,7 @@
 # 플러그인
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 Vuex 저장소는 각 변이에 대한 훅을 노출하는 `plugins` 옵션을 허용합니다. Vuex 플러그인은 저장소를 유일한 전달인자로 받는 함수입니다.
 
 ``` js
@@ -25,7 +27,7 @@ const store = new Vuex.Store({
 
 플러그인은 상태를 직접 변이할 수 없습니다. 컴포넌트와 마찬가지로 변이를 커밋하여 변경을 트리거 할 수 있습니다.
 
-변이을 커밋함으로써 플러그인을 사용하여 데이터 소스를 저장소에 동기화 할 수 있습니다. 예를 들어, websocket 데이터 소스를 저장소에 동기화하려면 (이는 사실 인위적인 예제입니다. 실제로 `createPlugin` 함수는 더 복잡한 작업을 위해 몇 가지 추가 옵션을 필요로 할 수 있습니다)
+변이를 커밋함으로써 플러그인을 사용하여 데이터 소스를 저장소에 동기화 할 수 있습니다. 예를 들어, websocket 데이터 소스를 저장소에 동기화하려면 (이는 사실 인위적인 예제입니다. 실제로 `createPlugin` 함수는 더 복잡한 작업을 위해 몇 가지 추가 옵션을 필요로 할 수 있습니다)
 
 ``` js
 export default function createWebSocketPlugin (socket) {

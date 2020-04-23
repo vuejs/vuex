@@ -111,12 +111,24 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- 类型: `Boolean`
+- 类型: `boolean`
 - 默认值: `false`
 
   使 Vuex store 进入严格模式，在严格模式下，任何 mutation 处理函数以外修改 Vuex state 都会抛出错误。
 
   [详细介绍](../guide/strict.md)
+
+### devtools
+
+- 类型：`boolean`
+
+  为某个特定的 Vuex 实例打开或关闭 devtools。对于传入 `false` 的实例来说 Vuex store 不会订阅到 devtools 插件。可用于一个页面中有多个 store 的情况。
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
 
 ## Vuex.Store 实例属性
 
@@ -143,8 +155,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
-- `dispatch(type: string, payload?: any, options?: Object)`
-- `dispatch(action: Object, options?: Object)`
+- `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+- `dispatch(action: Object, options?: Object): Promise<any>`
 
   分发 action。`options` 里可以有 `root: true`，它允许在[命名空间模块](../guide/modules.md#命名空间)里分发根的 action。返回一个解析所有被触发的 action 处理器的 Promise。[详细介绍](../guide/actions.md)
 
@@ -158,7 +170,7 @@ const store = new Vuex.Store({ ...options })
 
 - `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 `vm.$watch` 方法的参数。
+  响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 [`vm.$watch`](https://cn.vuejs.org/v2/api/#vm-watch) 方法的参数。
 
   要停止侦听，调用此方法返回的函数即可停止侦听。
 
@@ -196,6 +208,21 @@ const store = new Vuex.Store({ ...options })
 
   要停止订阅，调用此方法返回的函数即可停止订阅。
 
+  > 3.1.0 新增
+
+  从 3.1.0 起，`subscribeAction` 也可以指定订阅处理函数的被调用时机应该在一个 action 分发*之前*还是*之后* (默认行为是*之前*)：
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
+
   该功能常用于插件。[详细介绍](../guide/plugins.md)
 
 ### registerModule
@@ -211,6 +238,14 @@ const store = new Vuex.Store({ ...options })
 - `unregisterModule(path: string | Array<string>)`
 
   卸载一个动态模块。[详细介绍](../guide/modules.md#模块动态注册)
+
+### hasModule
+
+- `hasModule(path: string | Array<string>): boolean`
+
+  检查该模块的名字是否已经被注册。[详细介绍](../guide/modules.md#模块动态注册)
+
+  > 3.2.0 新增
 
 ### hotUpdate
 

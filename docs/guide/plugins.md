@@ -1,5 +1,7 @@
 # Plugins
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 Vuex stores accept the `plugins` option that exposes hooks for each mutation. A Vuex plugin is simply a function that receives the store as the only argument:
 
 ``` js
@@ -25,7 +27,7 @@ const store = new Vuex.Store({
 
 Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by committing mutations.
 
-By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createPlugin` function can take some additional options for more complex tasks):
+By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createWebSocketPlugin` function can take some additional options for more complex tasks):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -107,6 +109,11 @@ const logger = createLogger({
     // `mutation` is a `{ type, payload }`
     return mutation.type !== "aBlacklistedMutation"
   },
+  actionFilter (action, state) {
+    // same as `filter` but for actions
+    // `action` is a `{ type, payload }`
+    return action.type !== "aBlacklistedAction"
+  },
   transformer (state) {
     // transform the state before logging it.
     // for example return only a specific sub-tree
@@ -117,6 +124,12 @@ const logger = createLogger({
     // we can format it any way we want.
     return mutation.type
   },
+  actionTransformer (action) {
+    // Same as mutationTransformer but for actions
+    return action.type
+  },
+  logActions: true, // Log Actions
+  logMutations: true, // Log mutations
   logger: console, // implementation of the `console` API, default `console`
 })
 ```

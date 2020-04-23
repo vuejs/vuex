@@ -81,6 +81,16 @@ describe('Modules', () => {
       expect(mutationSpy).toHaveBeenCalled()
     })
 
+    it('dynamic module existance test', () => {
+      const store = new Vuex.Store({})
+
+      store.registerModule('bonjour', {})
+
+      expect(store.hasModule('bonjour')).toBe(true)
+      store.unregisterModule('bonjour')
+      expect(store.hasModule('bonjour')).toBe(false)
+    })
+
     it('dynamic module registration preserving hydration', () => {
       const store = new Vuex.Store({})
       store.replaceState({ a: { foo: 'state' }})
@@ -547,6 +557,28 @@ describe('Modules', () => {
       store.dispatch('parent/test')
     })
 
+    it('module: warn when module overrides state', () => {
+      spyOn(console, 'warn')
+      const store = new Vuex.Store({
+        modules: {
+          foo: {
+            state () {
+              return { value: 1 }
+            },
+            modules: {
+              value: {
+                state: () => 2
+              }
+            }
+          }
+        }
+      })
+      expect(store.state.foo.value).toBe(2)
+      expect(console.warn).toHaveBeenCalledWith(
+        `[vuex] state field "value" was overridden by a module with the same name at "foo.value"`
+      )
+    })
+
     it('dispatching multiple actions in different modules', done => {
       const store = new Vuex.Store({
         modules: {
@@ -667,6 +699,37 @@ describe('Modules', () => {
         { type: TEST, payload: 2 },
         store.state
       )
+    })
+
+    it('action before/after subscribers', (done) => {
+      const beforeSpy = jasmine.createSpy()
+      const afterSpy = jasmine.createSpy()
+      const store = new Vuex.Store({
+        actions: {
+          [TEST]: () => Promise.resolve()
+        },
+        plugins: [
+          store => {
+            store.subscribeAction({
+              before: beforeSpy,
+              after: afterSpy
+            })
+          }
+        ]
+      })
+      store.dispatch(TEST, 2)
+      expect(beforeSpy).toHaveBeenCalledWith(
+        { type: TEST, payload: 2 },
+        store.state
+      )
+      expect(afterSpy).not.toHaveBeenCalled()
+      Vue.nextTick(() => {
+        expect(afterSpy).toHaveBeenCalledWith(
+          { type: TEST, payload: 2 },
+          store.state
+        )
+        done()
+      })
     })
   })
 

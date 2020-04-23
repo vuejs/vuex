@@ -34,7 +34,7 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Novamente, a razão pela qual estamos fazendo _commit_ de uma mutação em vez de mudar `store.state.count` diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa ter melhores argumetos sobre as mudanças de estado em seu aplicativo ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, tirar _snapshots_ de estado ou mesmo realizar depuração viajando pelo histórico de estado (_time travel_).
+Novamente, a razão pela qual estamos fazendo _commit_ de uma mutação em vez de mudar `store.state.count` diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa ter melhores argumentos sobre as mudanças de estado em seu aplicativo ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, tirar _snapshots_ de estado ou mesmo realizar depuração viajando pelo histórico de estado (_time travel_).
 
 Usar o estado do _store_ em um componente simplesmente envolve o retorno do estado dentro de um dado computado, porque o estado do _store_ é reativo. Fazer alterações simplesmente significa fazer _commit_ de mutações nos métodos dos componentes.
 

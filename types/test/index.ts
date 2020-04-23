@@ -39,10 +39,39 @@ namespace StoreInstance {
     state.value;
   });
 
-  store.subscribeAction((mutation, state) => {
-    mutation.type;
-    mutation.payload;
+  store.subscribeAction((action, state) => {
+    action.type;
+    action.payload;
     state.value;
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    }
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    }
+  });
+
+  store.subscribeAction({
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    }
   });
 
   store.replaceState({ value: 10 });
@@ -96,6 +125,15 @@ namespace RootDefaultModule {
     },
     strict: true
   });
+}
+
+namespace InitialStateFunction {
+  const store = new Vuex.Store({
+    state: () => ({
+      value: 1
+    })
+  });
+  const n: number = store.state.value;
 }
 
 namespace NestedModules {
@@ -254,6 +292,8 @@ namespace RegisterModule {
     state: { value: 1 }
   });
 
+  store.hasModule('a')
+
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   });
@@ -261,6 +301,8 @@ namespace RegisterModule {
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   }, { preserveState: true });
+
+  store.hasModule(['a', 'b'])
 
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");

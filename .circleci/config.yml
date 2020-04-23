@@ -1,0 +1,94 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/vuex
+  docker:
+    - image: circleci/node:12-browsers
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-vuex-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - v1-vuex-{{ .Branch }}
+            - v1-vuex
+      - run:
+          name: Installing Dependencies
+          command: yarn
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-vuex-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - vuex
+
+  lint-types:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Linting
+          command: |
+            yarn lint --format junit --output-file test-results/eslint/results.xml
+      - run:
+          name: Testing Types
+          command: |
+            yarn test:types
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+
+  test-unit:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Running Unit Tests
+          command: |
+            yarn test:unit
+
+  test-e2e:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Running End-to-end Tests
+          command: |
+            yarn test:e2e
+
+  test-ssr:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Running Server-side Rendering Tests
+          command: |
+            yarn test:ssr
+
+workflows:
+  version: 2
+  install-and-parallel-test:
+    jobs:
+      - install
+      - lint-types:
+          requires:
+            - install
+      - test-unit:
+          requires:
+            - install
+      - test-e2e:
+          requires:
+            - install
+      - test-ssr:
+          requires:
+            - install

@@ -24,6 +24,10 @@ $ npm install
 $ npm run dev # serve examples at localhost:8080
 ```
 
+## Contribution
+
+Please make sure to read the [Contributing Guide](https://github.com/vuejs/vuex/blob/dev/.github/contributing.md) before making a pull request.
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)

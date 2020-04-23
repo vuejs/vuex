@@ -1,5 +1,7 @@
 # モジュール
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 単一ステートツリーを使うため、アプリケーションの全ての状態は、一つの大きなストアオブジェクトに内包されます。しかしながら、アプリケーションが大きくなるにつれて、ストアオブジェクトは膨れ上がってきます。
 
 そのような場合に役立てるため Vuex ではストアを**モジュール**に分割できるようになっています。それぞれのモジュールは、モジュール自身の状態（state）、ミューテーション、アクション、ゲッター、モジュールさえも内包できます（モジュールをネストできます）- トップからボトムまでフラクタル構造です:
@@ -170,6 +172,32 @@ modules: {
 }
 ```
 
+#### 名前空間付きモジュールでのグローバルアクションへの登録
+
+名前空間付きモジュールでグローバルアクションに登録したい場合、`root: true` でそれをマークでき、そしてアクション定義を `handler` 関数に置くことができます。例えば:
+
+``` js
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+       actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+```
+
+
 #### 名前空間によるバインディングヘルパー
 
 `mapState`、`mapGetters`、`mapActions`、そして `mapMutations` ヘルパーを使って名前空間付きモジュールをコンポーネントにバインディングするとき、少し冗長になります:
@@ -183,8 +211,8 @@ computed: {
 },
 methods: {
   ...mapActions([
-    'some/nested/module/foo',
-    'some/nested/module/bar'
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
   ])
 }
 ```
@@ -200,8 +228,8 @@ computed: {
 },
 methods: {
   ...mapActions('some/nested/module', [
-    'foo',
-    'bar'
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
   ])
 }
 ```
@@ -269,7 +297,13 @@ store.registerModule(['nested', 'myModule'], {
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
 
-サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション(`store.registerModule('a', module, { preserveState: true })`)でこれを実現できます。
+また、すでに動的なモジュールが登録されているかどうかを `store.hasModule(moduleName)` メソッドを使って確認することができます。
+
+#### ステートの保持
+
+サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション（`store.registerModule('a', module, { preserveState: true })`）でこれを実現できます。
+
+`preserveState: true` を設定した場合、モジュールを登録する際、アクション、ミューテーション、そしてゲッターは登録されますがステートは登録されません。これはステートがすでにモジュールに登録されていることを前提としており、ステートを上書きしないようにするためです。
 
 ### モジュールの再利用
 

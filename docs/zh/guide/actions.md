@@ -1,5 +1,7 @@
 # Action
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">在 scrimba 上尝试这节课</a></div>
+
 Action 类似于 mutation，不同在于：
 
 - Action 提交的是 mutation，而不是直接变更状态。

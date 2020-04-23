@@ -1,5 +1,7 @@
 # Getter
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">在 scrimba 上尝试这节课</a></div>
+
 有时候我们需要从 store 中的 state 中派生出一些状态，例如对列表进行过滤并计数：
 
 ``` js
@@ -109,7 +111,7 @@ export default {
 如果你想将一个 getter 属性另取一个名字，使用对象形式：
 
 ``` js
-mapGetters({
+...mapGetters({
   // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
   doneCount: 'doneTodosCount'
 })

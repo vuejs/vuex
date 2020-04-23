@@ -1,7 +1,7 @@
 import applyMixin from './mixin'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
-import { forEachValue, isObject, isPromise, assert } from './util'
+import { forEachValue, isObject, isPromise, assert, partial } from './util'
 
 let Vue // bind on install
 
@@ -35,6 +35,7 @@ export class Store {
     this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
     this._watcherVM = new Vue()
+    this._makeLocalGettersCache = Object.create(null)
 
     // bind commit and dispatch to self
     const store = this
@@ -63,7 +64,8 @@ export class Store {
     // apply plugins
     plugins.forEach(plugin => plugin(this))
 
-    if (Vue.config.devtools) {
+    const useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools
+    if (useDevtools) {
       devtoolPlugin(this)
     }
   }
@@ -99,7 +101,10 @@ export class Store {
         handler(payload)
       })
     })
-    this._subscribers.forEach(sub => sub(mutation, this.state))
+
+    this._subscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .forEach(sub => sub(mutation, this.state))
 
     if (
       process.env.NODE_ENV !== 'production' &&
@@ -128,11 +133,35 @@ export class Store {
       return
     }
 
-    this._actionSubscribers.forEach(sub => sub(action, this.state))
+    try {
+      this._actionSubscribers
+        .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+        .filter(sub => sub.before)
+        .forEach(sub => sub.before(action, this.state))
+    } catch (e) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(`[vuex] error in before action subscribers: `)
+        console.error(e)
+      }
+    }
 
-    return entry.length > 1
+    const result = entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
+
+    return result.then(res => {
+      try {
+        this._actionSubscribers
+          .filter(sub => sub.after)
+          .forEach(sub => sub.after(action, this.state))
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn(`[vuex] error in after action subscribers: `)
+          console.error(e)
+        }
+      }
+      return res
+    })
   }
 
   subscribe (fn, options) {
@@ -140,7 +169,8 @@ export class Store {
   }
 
   subscribeAction (fn, options) {
-    return genericSubscribe(fn, this._actionSubscribers, options)
+    const subs = typeof fn === 'function' ? { before: fn } : fn
+    return genericSubscribe(subs, this._actionSubscribers, options)
   }
 
   watch (getter, cb, options) {
@@ -183,6 +213,16 @@ export class Store {
       Vue.delete(parentState, path[path.length - 1])
     })
     resetStore(this)
+  }
+
+  hasModule (path) {
+    if (typeof path === 'string') path = [path]
+
+    if (process.env.NODE_ENV !== 'production') {
+      assert(Array.isArray(path), `module path must be a string or an Array.`)
+    }
+
+    return this._modules.isRegistered(path)
   }
 
   hotUpdate (newOptions) {
@@ -229,11 +269,15 @@ function resetStoreVM (store, state, hot) {
 
   // bind store public getters
   store.getters = {}
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null)
   const wrappedGetters = store._wrappedGetters
   const computed = {}
   forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
-    computed[key] = () => fn(store)
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store)
     Object.defineProperty(store.getters, key, {
       get: () => store._vm[key],
       enumerable: true // for local getters
@@ -276,6 +320,9 @@ function installModule (store, rootState, path, module, hot) {
 
   // register in namespace map
   if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && process.env.NODE_ENV !== 'production') {
+      console.error(`[vuex] duplicate namespace ${namespace} for the namespaced module ${path.join('/')}`)
+    }
     store._modulesNamespaceMap[namespace] = module
   }
 
@@ -284,6 +331,13 @@ function installModule (store, rootState, path, module, hot) {
     const parentState = getNestedState(rootState, path.slice(0, -1))
     const moduleName = path[path.length - 1]
     store._withCommit(() => {
+      if (process.env.NODE_ENV !== 'production') {
+        if (moduleName in parentState) {
+          console.warn(
+            `[vuex] state field "${moduleName}" was overridden by a module with the same name at "${path.join('.')}"`
+          )
+        }
+      }
       Vue.set(parentState, moduleName, module.state)
     })
   }
@@ -369,26 +423,28 @@ function makeLocalContext (store, namespace, path) {
 }
 
 function makeLocalGetters (store, namespace) {
-  const gettersProxy = {}
+  if (!store._makeLocalGettersCache[namespace]) {
+    const gettersProxy = {}
+    const splitPos = namespace.length
+    Object.keys(store.getters).forEach(type => {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) return
 
-  const splitPos = namespace.length
-  Object.keys(store.getters).forEach(type => {
-    // skip if the target getter is not match this namespace
-    if (type.slice(0, splitPos) !== namespace) return
+      // extract local getter type
+      const localType = type.slice(splitPos)
 
-    // extract local getter type
-    const localType = type.slice(splitPos)
-
-    // Add a port to the getters proxy.
-    // Define as getter property because
-    // we do not want to evaluate the getters in this time.
-    Object.defineProperty(gettersProxy, localType, {
-      get: () => store.getters[type],
-      enumerable: true
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: () => store.getters[type],
+        enumerable: true
+      })
     })
-  })
+    store._makeLocalGettersCache[namespace] = gettersProxy
+  }
 
-  return gettersProxy
+  return store._makeLocalGettersCache[namespace]
 }
 
 function registerMutation (store, type, handler, local) {
@@ -400,7 +456,7 @@ function registerMutation (store, type, handler, local) {
 
 function registerAction (store, type, handler, local) {
   const entry = store._actions[type] || (store._actions[type] = [])
-  entry.push(function wrappedActionHandler (payload, cb) {
+  entry.push(function wrappedActionHandler (payload) {
     let res = handler.call(store, {
       dispatch: local.dispatch,
       commit: local.commit,
@@ -408,7 +464,7 @@ function registerAction (store, type, handler, local) {
       state: local.state,
       rootGetters: store.getters,
       rootState: store.state
-    }, payload, cb)
+    }, payload)
     if (!isPromise(res)) {
       res = Promise.resolve(res)
     }
@@ -449,9 +505,7 @@ function enableStrictMode (store) {
 }
 
 function getNestedState (state, path) {
-  return path.length
-    ? path.reduce((state, key) => state[key], state)
-    : state
+  return path.reduce((state, key) => state[key], state)
 }
 
 function unifyObjectStyle (type, payload, options) {

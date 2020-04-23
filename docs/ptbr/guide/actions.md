@@ -1,5 +1,7 @@
 # Ações
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 As ações são semelhantes às mutações, as diferenças são as seguintes:
 
 - Em vez de mudar o estado, as ações confirmam (ou fazem _commit_ de) mutações.

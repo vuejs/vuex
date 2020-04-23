@@ -9,7 +9,7 @@ const state = {
   count: 0
 }
 
-// mutations are operations that actually mutates the state.
+// mutations are operations that actually mutate the state.
 // each mutation handler gets the entire state tree as the
 // first argument, followed by additional payload arguments.
 // mutations must be synchronous and can be recorded by plugins
@@ -43,7 +43,7 @@ const actions = {
   }
 }
 
-// getters are functions
+// getters are functions.
 const getters = {
   evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
 }

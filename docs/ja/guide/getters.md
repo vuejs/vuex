@@ -1,5 +1,7 @@
 # ゲッター
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 例えば項目のリストをフィルタリングしたりカウントするときのように、ストアの状態を算出したいときがあります。
 
 ``` js
@@ -109,7 +111,7 @@ export default {
 
 ``` js
 ...mapGetters({
-  // `this.doneCount` を `store.getters.doneTodosCount` にマッピングさせる
+  // `this.doneCount` を `this.$store.getters.doneTodosCount` にマッピングさせる
   doneCount: 'doneTodosCount'
 })
 ```

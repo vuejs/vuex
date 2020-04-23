@@ -109,12 +109,24 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- type: `Boolean`
+- type: `boolean`
 - default: `false`
 
   Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
 
   [Details](../guide/strict.md)
+
+### devtools
+
+- type: `boolean`
+
+  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
 
 ## Vuex.Store Instance Properties
 
@@ -141,8 +153,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
--  `dispatch(type: string, payload?: any, options?: Object)`
--  `dispatch(action: Object, options?: Object)`
+-  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+-  `dispatch(action: Object, options?: Object): Promise<any>`
 
   Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
 
@@ -156,7 +168,7 @@ const store = new Vuex.Store({ ...options })
 
 -  `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as Vue's `vm.$watch` method.
+  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as [Vue's `vm.$watch` method](https://vuejs.org/v2/api/#vm-watch).
 
   To stop watching, call the returned unwatch function.
 
@@ -206,6 +218,21 @@ const store = new Vuex.Store({ ...options })
 
   To stop subscribing, call the returned unsubscribe function.
 
+  > New in 3.1.0
+
+  Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`before action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`after action ${action.type}`)
+    }
+  })
+  ```
+
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### registerModule
@@ -221,6 +248,14 @@ const store = new Vuex.Store({ ...options })
 -  `unregisterModule(path: string | Array<string>)`
 
   Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+
+### hasModule
+
+- `hasModule(path: string | Array<string>): boolean`
+
+  Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
+
+  > New in 3.2.0
 
 ### hotUpdate
 

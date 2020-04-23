@@ -109,12 +109,24 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- type: `Boolean`
+- type: `boolean`
 - default: `false`
 
   Força o _store_ Vuex em modo estrito. No modo estrito, qualquer mutação ao estado do Vuex fora dos manipuladores de mutação acusará um erro.
 
   [Detalhes](../guide/strict.md)
+
+### devtools
+
+- type: `boolean`
+
+  Ative ou desative as ferramentas de desenvolvedor para uma determinada instância vuex. Passar _false_ à instância diz ao _store_ Vuex para não se integrar ao _devtools_. Útil para quando se tem vários _stores_ em uma _single page_.
+
+  ``` js
+  {
+    devtools: false
+  }
+  ```
 
 ## Vuex.Store Propriedades da Instância
 
@@ -141,8 +153,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
--  `dispatch(type: string, payload?: any, options?: Object)`
--  `dispatch(action: Object, options?: Object)`
+-  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+-  `dispatch(action: Object, options?: Object): Promise<any>`
 
   Despacha uma ação. _options_ pode ter _root: true_ que permite despachar ações para raiz em [módulos namespaced](../guide/modules.md#namespacing). Retorna um _Promise_ que resolve todos os manipuladores de ação acionados. [Detalhes](../guide/actions.md)
 
@@ -193,6 +205,21 @@ const store = new Vuex.Store({ ...options })
   ```
 
   Para cancelar a assinatura, chame a função _unsubscribe_ retornada.
+
+  > Novo em 3.1.0
+
+  A partir da 3.1.0, `subscribeAction` também pode especificar se o manipulador do _subscribe_ deve ser chamado *antes de* ou *depois de* um despacho de ação (o comportamento padrão é *antes*):
+
+  ``` js
+  store.subscribeAction({
+    before: (action, state) => {
+      console.log(`antes da action ${action.type}`)
+    },
+    after: (action, state) => {
+      console.log(`depois da action ${action.type}`)
+    }
+  })
+  ```
 
   Mais comumente usado em plugins. [Detalhes](../guide/plugins.md)
 

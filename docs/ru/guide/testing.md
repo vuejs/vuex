@@ -1,5 +1,7 @@
 # Тестирование
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Пройдите этот урок на Scrimba</a></div>
+
 В основном предметом модульного тестирования во Vuex являются мутации и действия.
 
 ### Тестирование мутаций
@@ -97,9 +99,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
 
     try {
       expect(type).to.equal(mutation.type);
-      if (payload) {
-        expect(payload).to.deep.equal(mutation.payload);
-      }
+      expect(payload).to.deep.equal(mutation.payload);
     } catch (error) {
       done(error);
     }

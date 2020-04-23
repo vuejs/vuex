@@ -29,11 +29,26 @@ module.exports = {
       lang: 'pt-BR',
       title: 'Vuex',
       description: 'Gerenciamento de Estado Centralizado para Vue.js'
+    },
+    '/fr/': {
+        lang: 'fr-FR',
+        title: 'Vuex',
+        description: 'Gestion d\'état centralisé pour Vue.js'
     }
   },
+  head: [
+    ['link', { rel: 'icon', href: `/logo.png` }],
+    ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
+    ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
+    ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
+  ],
   serviceWorker: true,
   theme: 'vue',
   themeConfig: {
+    algolia: {
+      apiKey: '97f135e4b5f5487fb53f0f2dae8db59d',
+      indexName: 'vuex',
+    },
     repo: 'vuejs/vuex',
     docsDir: 'docs',
     locales: {
@@ -280,7 +295,48 @@ module.exports = {
           '/ptbr/guide/testing',
           '/ptbr/guide/hot-reload'
         ]
-      }
+      },
+      '/fr/': {
+          label: 'Français',
+          selectText: 'Langues',
+          editLinkText: 'Éditer la page sur GitHub',
+          nav: [
+              {
+                  text: 'Guide',
+                  link: '/fr/guide/'
+              },
+              {
+                  text: 'API',
+                  link: '/fr/api/'
+              },
+              {
+                  text: 'Notes de release',
+                  link: 'https://github.com/vuejs/vuex/releases'
+              }
+          ],
+          sidebar: [
+              '/fr/installation',
+              '/fr/',
+              '/fr/guide/',
+              {
+                  title: 'Concepts centraux',
+                  collapsable: false,
+                  children: [
+                      '/fr/guide/state',
+                      '/fr/guide/getters',
+                      '/fr/guide/mutations',
+                      '/fr/guide/actions',
+                      '/fr/guide/modules'
+                  ]
+              },
+              '/fr/guide/structure',
+              '/fr/guide/plugins',
+              '/fr/guide/strict',
+              '/fr/guide/forms',
+              '/fr/guide/testing',
+              '/fr/guide/hot-reload'
+          ]
+      },
     }
   }
 }

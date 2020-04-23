@@ -1,5 +1,7 @@
 # Module
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
+
 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。
 
 为了解决以上问题，Vuex 允许我们将 store 分割成**模块（module）**。每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：
@@ -132,7 +134,7 @@ const store = new Vuex.Store({
 
 #### 在带命名空间的模块内访问全局内容（Global Assets）
 
-如果你希望使用全局 state 和 getter，`rootState` 和 `rootGetter` 会作为第三和第四参数传入 getter，也会通过 `context` 对象的属性传入 action。
+如果你希望使用全局 state 和 getter，`rootState` 和 `rootGetters` 会作为第三和第四参数传入 getter，也会通过 `context` 对象的属性传入 action。
 
 若需要在全局命名空间内分发 action 或提交 mutation，将 `{ root: true }` 作为第三参数传给 `dispatch` 或 `commit` 即可。
 
@@ -209,8 +211,8 @@ computed: {
 },
 methods: {
   ...mapActions([
-    'some/nested/module/foo',
-    'some/nested/module/bar'
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
   ])
 }
 ```
@@ -226,8 +228,8 @@ computed: {
 },
 methods: {
   ...mapActions('some/nested/module', [
-    'foo',
-    'bar'
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
   ])
 }
 ```
@@ -278,6 +280,10 @@ export function createPlugin (options = {}) {
 在 store 创建**之后**，你可以使用 `store.registerModule` 方法注册模块：
 
 ``` js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({ /* 选项 */ })
+
 // 注册模块 `myModule`
 store.registerModule('myModule', {
   // ...
@@ -294,7 +300,13 @@ store.registerModule(['nested', 'myModule'], {
 
 你也可以使用 `store.unregisterModule(moduleName)` 来动态卸载模块。注意，你不能使用此方法卸载静态模块（即创建 store 时声明的模块）。
 
+注意，你可以通过 `store.hasModule(moduleName)` 方法检查该模块是否已经被注册到 store。
+
+#### 保留 state
+
 在注册一个新 module 时，你很有可能想保留过去的 state，例如从一个服务端渲染的应用保留 state。你可以通过 `preserveState` 选项将其归档：`store.registerModule('a', module, { preserveState: true })`。
+
+当你设置 `preserveState: true` 时，该模块会被注册，action、mutation 和 getter 会被添加到 store 中，但是 state 不会。这里假设 store 的 state 已经包含了这个 module 的 state 并且你不希望将其覆写。
 
 ### 模块重用
 

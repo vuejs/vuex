@@ -30,6 +30,10 @@ export default class Module {
     return this._children[key]
   }
 
+  hasChild (key) {
+    return key in this._children
+  }
+
   update (rawModule) {
     this._rawModule.namespaced = rawModule.namespaced
     if (rawModule.actions) {

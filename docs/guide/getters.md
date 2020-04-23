@@ -1,5 +1,7 @@
 # Getters
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
 
 ``` js

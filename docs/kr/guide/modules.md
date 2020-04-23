@@ -1,5 +1,7 @@
 # 모듈
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 단일 상태 트리를 사용하기 때문에 애플리케이션의 모든 상태가 하나의 큰 객체 안에 포함됩니다. 그러나 규모가 커짐에 따라 저장소는 매우 비대해질 수 있습니다.
 
 이를 위해 Vuex는 저장소를 **모듈** 로 나눌 수 있습니다. 각 모듈은 자체 상태, 변이, 액션, 게터 및 심지어 중첩된 모듈을 포함 할 수 있습니다.
@@ -209,8 +211,8 @@ computed: {
 },
 methods: {
   ...mapActions([
-    'some/nested/module/foo',
-    'some/nested/module/bar'
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
   ])
 }
 ```
@@ -226,8 +228,8 @@ computed: {
 },
 methods: {
   ...mapActions('some/nested/module', [
-    'foo',
-    'bar'
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
   ])
 }
 ```

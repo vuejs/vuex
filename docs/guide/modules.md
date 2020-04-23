@@ -1,5 +1,7 @@
 # Modules
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 Due to using a single state tree, all state of our application is contained inside one big object. However, as our application grows in scale, the store can get really bloated.
 
 To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
@@ -209,8 +211,8 @@ computed: {
 },
 methods: {
   ...mapActions([
-    'some/nested/module/foo',
-    'some/nested/module/bar'
+    'some/nested/module/foo', // -> this['some/nested/module/foo']()
+    'some/nested/module/bar' // -> this['some/nested/module/bar']()
   ])
 }
 ```
@@ -226,8 +228,8 @@ computed: {
 },
 methods: {
   ...mapActions('some/nested/module', [
-    'foo',
-    'bar'
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
   ])
 }
 ```
@@ -278,6 +280,10 @@ export function createPlugin (options = {}) {
 You can register a module **after** the store has been created with the `store.registerModule` method:
 
 ``` js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({ /* options */ })
+
 // register a module `myModule`
 store.registerModule('myModule', {
   // ...
@@ -295,7 +301,13 @@ Dynamic module registration makes it possible for other Vue plugins to also leve
 
 You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
 
-It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can do achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
+Note that you may check if the module is already registered to the store or not via `store.hasModule(moduleName)` method.
+
+#### Preserving state
+
+It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
+
+When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state is not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
 
 ### Module Reuse
 

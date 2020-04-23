@@ -6,7 +6,7 @@ describe('util', () => {
     expect(find(list, function (a) { return a % 2 === 0 })).toEqual(22)
   })
 
-  it('deepCopy: nornal structure', () => {
+  it('deepCopy: normal structure', () => {
     const original = {
       a: 1,
       b: 'string',

@@ -1,5 +1,7 @@
 # Actions
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 Actions are similar to mutations, the differences being that:
 
 - Instead of mutating the state, actions commit mutations.
@@ -25,7 +27,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
+Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. We can even call other actions with `context.dispatch`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
 
 In practice, we often use ES2015 [argument destructuring](https://github.com/lukehoban/es6features#destructuring) to simplify the code a bit (especially when we need to call `commit` multiple times):
 
@@ -45,7 +47,7 @@ Actions are triggered with the `store.dispatch` method:
 store.dispatch('increment')
 ```
 
-This may look dumb at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Remember that **mutations have to be synchronous**? Actions don't. We can perform **asynchronous** operations inside an action:
+This may look silly at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Remember that **mutations have to be synchronous**. Actions don't. We can perform **asynchronous** operations inside an action:
 
 ``` js
 actions: {

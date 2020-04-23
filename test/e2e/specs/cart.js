@@ -1,7 +1,7 @@
 module.exports = {
   'shopping cart': function (browser) {
     browser
-    .url('http://localhost:8080/shopping-cart/')
+      .url('http://localhost:8080/shopping-cart/')
       .waitForElementVisible('#app', 1000)
       .waitFor(120) // api simulation
       .assert.count('li', 3)
@@ -20,7 +20,7 @@ module.exports = {
       .assert.containsText('.cart', 'H&M T-Shirt White - $10.99 x 1')
       .assert.containsText('.cart', 'Total: $1,011.01')
       .click('.cart button')
-      .waitFor(120)
+      .waitFor(200)
       .assert.containsText('.cart', 'Please add some products to cart')
       .assert.containsText('.cart', 'Total: $0.00')
       .assert.containsText('.cart', 'Checkout successful')
