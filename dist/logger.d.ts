@@ -1,7 +1,5 @@
-/**
- * Types for the logger plugin.
- * This file must be put alongside the JavaScript file of the logger.
- */
+// Types for the logger plugin. This file must be put alongside the bundled
+// JavaScript file of the logger.
 
 import { Payload, Plugin } from "../types/index";
 
@@ -12,8 +10,8 @@ export interface LoggerOption<S> {
   mutationTransformer?: <P extends Payload>(mutation: P) => any;
   actionFilter?: <P extends Payload>(action: P, state: S) => boolean;
   actionTransformer?: <P extends Payload>(action: P) => any;
-  logActions?: boolean;
   logMutations?: boolean;
+  logActions?: boolean;
 }
 
 export default function createLogger<S>(option?: LoggerOption<S>): Plugin<S>;

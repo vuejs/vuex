@@ -9,8 +9,8 @@ export default function createLogger ({
   mutationTransformer = mut => mut,
   actionFilter = (action, state) => true,
   actionTransformer = act => act,
-  logActions = true,
   logMutations = true,
+  logActions = true,
   logger = console
 } = {}) {
   return store => {
