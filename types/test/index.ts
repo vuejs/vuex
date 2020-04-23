@@ -39,6 +39,8 @@ namespace StoreInstance {
     state.value;
   });
 
+  store.subscribe(() => {}, { prepend: true });
+
   store.subscribeAction((action, state) => {
     action.type;
     action.payload;
@@ -73,6 +75,8 @@ namespace StoreInstance {
       state.value;
     }
   });
+
+  store.subscribeAction({}, { prepend: true });
 
   store.replaceState({ value: 10 });
 }
