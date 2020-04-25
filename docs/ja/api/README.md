@@ -186,7 +186,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `hanlder` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
 
   ``` js
   store.subscribe(handler, { prepend: true })
@@ -211,7 +211,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `hanlder` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
 
   ``` js
   store.subscribeAction(handler, { prepend: true })
