@@ -2,11 +2,11 @@
 
 This is the Vue 3 compatible version of Vuex. The focus is compatibility, and it provides the exact same API as Vuex 3, so users can reuse their existing Vuex code for Vue 3.
 
-## Status: Alpha
+## Status: Beta
 
 All Vuex 3 feature works. There are a few breaking changes described in a later section, so please check them out. You can find basic usage with both option and composition API at `example` folder.
 
-Please note that it's still unstable, and there might be bugs. Please provide us feedback if you find anything. You may use [vue-next-webpack-preview](https://github.com/vuejs/vue-next-webpack-preview) to test out Vue 3 with Vuex 4.
+Please provide us feedback if you find anything. You may use [vue-next-webpack-preview](https://github.com/vuejs/vue-next-webpack-preview) to test out Vue 3 with Vuex 4.
 
 ## Breaking changes
 
