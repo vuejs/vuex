@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../dist/vuex.common.js'
+import Vuex from '../../src/index.esm'
 
 const TEST = 'TEST'
 
