@@ -107,6 +107,11 @@ const logger = createLogger({
     // `mutation` — это объект `{ type, payload }`
     return mutation.type !== 'aBlacklistedMutation';
   },
+  actionFilter (action, state) {
+    // аналогично `filter`, но для действий
+    // `action` будет объектом `{ type, payload }`
+    return action.type !== 'aBlacklistedAction'
+  },
   transformer(state) {
     // обработать состояние перед логированием
     // например, позволяет рассматривать только конкретное поддерево
@@ -117,6 +122,12 @@ const logger = createLogger({
     // но это можно изменить
     return mutation.type;
   },
+  actionTransformer (action) {
+    // аналогично `mutationTransformer`, но для действий
+    return action.type
+  },
+  logActions: true, // логирование действий
+  logMutations: true, // логирование мутаций
   logger: console // реализация API `console`, по умолчанию `console`
 });
 ```
