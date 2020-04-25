@@ -44,6 +44,23 @@ app.use(store)
 app.mount('#app')
 ```
 
+### Bundles are now aligned with Vue 3
+
+The bundles are generated as below to align with Vue 3 bundles.
+
+- `vuex.global(.prod).js`
+  - For direct use via `<script src="...">` in the browser. Exposes the Vuex global.
+  - Note that global builds are not UMD builds. They are built as IIFEs and is only meant for direct use via `<script src="...">`.
+  - Contains hard-coded prod/dev branches, and the prod build is pre-minified. Use the `.prod.js` files for production.
+- `vuex.esm-browser(.prod).js`
+  - For usage via native ES modules imports (in browser via `<script type="module">`.
+- `vuex.esm-bundler.js`
+  - For use with bundlers like `webpack`, `rollup` and `parcel`.
+  - Leaves prod/dev branches with `process.env.NODE_ENV` guards (must be replaced by bundler).
+  - Does not ship minified builds (to be done together with the rest of the code after bundling).
+- `vuex.cjs.js`
+  - For use in Node.js server-side rendering via `require()`.
+
 ### Typings for `ComponentCustomProperties`
 
 Vuex 4 removes its global typings for `this.$store` within Vue Component due to solving [issue #994](https://github.com/vuejs/vuex/issues/994). When using TypeScript, you must provide your own augment declaration.
@@ -65,15 +82,6 @@ declare module "@vue/runtime-core" {
 }
 ```
 
-## Known issues
+## TODOs as of 4.0.0-beta.1
 
-- The code is kept as close to Vuex 3 code base as possible, and there're plenty of places where we should refactor. However, we are waiting for all of the test cases to pass before doing so (some tests require Vue 3 update).
-- TypeScript support is not ready yet. Please use JS environment to test this for now.
-
-## TODOs as of 4.0.0-alpha.1
-
-- ~Add TypeScript support~
-- ~Make all unit test working~
-- ~Refactor the codebase~
-- ~Update the build system to align with Vue 3~
 - Update docs
