@@ -174,7 +174,7 @@ const store = new Vuex.Store({ ...options });
 
 ### subscribe
 
-* `subscribe(handler: Function): Function`
+* `subscribe(handler: Function, options?: Object): Function`
 
 Отслеживание вызова мутаций хранилища. Обработчик `handler` вызывается после каждой мутации и получает в качестве параметров дескриптор мутации и состояние после мутации:
 
@@ -185,13 +185,19 @@ store.subscribe((mutation, state) => {
 });
 ```
 
+По умолчанию, новый обработчик добавляется в конец цепочки, поэтому он будет выполняться после других обработчиков, добавленных раньше. Это поведение можно переопределить добавив `prepend: true` в `options`, что позволит добавлять обработчик в начало цепочки.
+
+```js
+store.subscribe(handler, { prepend: true })
+```
+
 Для прекращения отслеживания, необходимо вызвать возвращаемую методом функцию.
 
 Чаще всего используется в плагинах. [Подробнее](../guide/plugins.md)
 
 ### subscribeAction
 
-* `subscribeAction(handler: Function): Function`
+* `subscribeAction(handler: Function, options?: Object): Function`
 
 > Добавлено в версии 2.5.0
 
@@ -202,6 +208,12 @@ store.subscribeAction((action, state) => {
   console.log(action.type);
   console.log(action.payload);
 });
+```
+
+По умолчанию, новый обработчик добавляется в конец цепочки, поэтому он будет выполняться после других обработчиков, добавленных раньше. Это поведение можно переопределить добавив `prepend: true` в `options`, что позволит добавлять обработчик в начало цепочки.
+
+```js
+store.subscribeAction(handler, { prepend: true })
 ```
 
 Для прекращения отслеживания, необходимо вызвать возвращаемую методом функцию.
