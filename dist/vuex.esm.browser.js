@@ -1,5 +1,5 @@
 /**
- * vuex v3.2.0
+ * vuex v3.3.0
  * (c) 2020 Evan You
  * @license MIT
  */
@@ -57,7 +57,11 @@ function devtoolPlugin (store) {
 
   store.subscribe((mutation, state) => {
     devtoolHook.emit('vuex:mutation', mutation, state);
-  });
+  }, { prepend: true });
+
+  store.subscribeAction((action, state) => {
+    devtoolHook.emit('vuex:action', action, state);
+  }, { prepend: true });
 }
 
 /**
@@ -455,13 +459,13 @@ class Store {
     })
   }
 
-  subscribe (fn) {
-    return genericSubscribe(fn, this._subscribers)
+  subscribe (fn, options) {
+    return genericSubscribe(fn, this._subscribers, options)
   }
 
-  subscribeAction (fn) {
+  subscribeAction (fn, options) {
     const subs = typeof fn === 'function' ? { before: fn } : fn;
-    return genericSubscribe(subs, this._actionSubscribers)
+    return genericSubscribe(subs, this._actionSubscribers, options)
   }
 
   watch (getter, cb, options) {
@@ -529,9 +533,11 @@ class Store {
   }
 }
 
-function genericSubscribe (fn, subs) {
+function genericSubscribe (fn, subs, options) {
   if (subs.indexOf(fn) < 0) {
-    subs.push(fn);
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
   }
   return () => {
     const i = subs.indexOf(fn);
@@ -1019,7 +1025,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store,
   install,
-  version: '3.2.0',
+  version: '3.3.0',
   mapState,
   mapMutations,
   mapGetters,
