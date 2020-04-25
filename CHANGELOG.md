@@ -1,3 +1,19 @@
+# [3.3.0](https://github.com/vuejs/vuex/compare/v3.2.0...v3.3.0) (2020-04-25)
+
+
+### Bug Fixes
+
+* Prepend devtool handler ([#1358](https://github.com/vuejs/vuex/issues/1358)) ([a39d076](https://github.com/vuejs/vuex/commit/a39d0767e4041cdd5cf8050774106c01d39024e0)), closes [vuejs/vue-devtools#678](https://github.com/vuejs/vue-devtools/issues/678)
+* **types:** Add `devtools` to store options type ([#1478](https://github.com/vuejs/vuex/issues/1478)) ([38c11dc](https://github.com/vuejs/vuex/commit/38c11dcbaea7d7e661a1623cabb5aef7c6e47ba7))
+
+
+### Features
+
+* Add `prepend` option for `subscribe` and `subscribeAction` ([#1358](https://github.com/vuejs/vuex/issues/1358)) ([a39d076](https://github.com/vuejs/vuex/commit/a39d0767e4041cdd5cf8050774106c01d39024e0))
+* **logger:** `createLogger` can optionally log actions ([#987](https://github.com/vuejs/vuex/issues/987)) ([18be128](https://github.com/vuejs/vuex/commit/18be128ad933d1fca6da05c060f7664ce0c819ae))
+
+
+
 # [3.2.0](https://github.com/vuejs/vuex/compare/v3.1.3...v3.2.0) (2020-04-19)
 
 
