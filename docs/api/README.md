@@ -213,7 +213,7 @@ const store = new Vuex.Store({ ...options })
   By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overriden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
 
   ``` js
-  store.subscribe(handler, { prepend: true })
+  store.subscribeAction(handler, { prepend: true })
   ```
 
   To stop subscribing, call the returned unsubscribe function.
