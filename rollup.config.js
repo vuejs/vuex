@@ -37,9 +37,9 @@ function createEntry(config) {
 
   c.plugins.push(replace({
     __VERSION__: pkg.version,
-    'process.env.NODE_ENV': (config.format === 'es' && !config.browser) || config.format === 'cjs'
-      ? `process.env.NODE_ENV`
-      : JSON.stringify(config.env)
+    __DEV__: config.format === 'es' && !config.browser
+      ? `(process.env.NODE_ENV !== 'production')`
+      : config.env !== 'production'
   }))
 
   if (config.transpile !== false) {

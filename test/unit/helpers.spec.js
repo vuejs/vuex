@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex, { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from '../../src/index.esm'
+import Vuex, { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from '../../src/index'
 
 describe('Helpers', () => {
   it('mapState (array)', () => {

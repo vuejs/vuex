@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../src/index.esm'
+import Vuex from '../../src/index'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
