@@ -70,17 +70,17 @@ Place the following code in your project to allow `this.$store` to be typed corr
 ```ts
 // vuex-shim.d.ts
 
-import { Store } from "vuex";
-import { ComponentCustomProperties } from "vue";
+import { ComponentCustomProperties } from 'vue'
+import { Store } from 'vuex'
 
-declare module "@vue/runtime-core" {
+declare module '@vue/runtime-core' {
   // Declare your own store states.
   interface State {
     count: number
   }
 
   interface ComponentCustomProperties {
-    $store: Store<State>;
+    $store: Store<State>
   }
 }
 ```
