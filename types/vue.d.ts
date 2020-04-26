@@ -2,7 +2,7 @@
  * Extends interfaces in Vue.js
  */
 
-import { ComponentCustomOptions, ComponentCustomProperties } from "vue";
+import { ComponentCustomOptions } from "vue";
 import { Store } from "./index";
 
 declare module "@vue/runtime-core" {
