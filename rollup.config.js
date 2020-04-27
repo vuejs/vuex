@@ -37,7 +37,7 @@ function createEntry(config) {
 
   c.plugins.push(replace({
     __VERSION__: pkg.version,
-    __DEV__: config.format === 'es' && !config.browser
+    __DEV__: config.format !== 'umd' && !config.browser
       ? `(process.env.NODE_ENV !== 'production')`
       : config.env !== 'production'
   }))
