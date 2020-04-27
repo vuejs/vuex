@@ -1,9 +1,9 @@
 /docs/.vuepress/dist
 /examples/**/build.js
-/node_modules
 /test/e2e/reports
 /test/e2e/screenshots
 /types/typings
 /types/test/*.js
 *.log
 .DS_Store
+node_modules
