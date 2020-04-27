@@ -1,5 +1,5 @@
-import Vue from 'vue/dist/vue.common.js'
-import Vuex from '../../dist/vuex.common.js'
+import Vue from 'vue'
+import Vuex from '../../src/index'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
@@ -267,7 +267,7 @@ describe('Store', () => {
   it('asserts the call with the new operator', () => {
     expect(() => {
       Vuex.Store({})
-    }).toThrowError(/store must be called with the new operator/)
+    }).toThrowError(/Cannot call a class as a function/)
   })
 
   it('should accept state as function', () => {
