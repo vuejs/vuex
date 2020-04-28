@@ -720,23 +720,24 @@ describe('Modules', () => {
         }
       ]
     })
-    store.dispatch(TEST, 2)
-    expect(beforeSpy).toHaveBeenCalledWith(
-      { type: TEST, payload: 2 },
-      store.state
-    )
-    expect(afterSpy).not.toHaveBeenCalled()
-    Vue.nextTick(() => {
-      expect(afterSpy).not.toHaveBeenCalledWith(
+    store.dispatch(TEST, 2).catch(() => {
+      expect(beforeSpy).toHaveBeenCalledWith(
         { type: TEST, payload: 2 },
         store.state
       )
-      expect(catchSpy).toHaveBeenCalledWith(
-        { type: TEST, payload: 2 },
-        store.state,
-        error
-      )
-      done()
+      expect(afterSpy).not.toHaveBeenCalled()
+      Vue.nextTick(() => {
+        expect(afterSpy).not.toHaveBeenCalledWith(
+          { type: TEST, payload: 2 },
+          store.state
+        )
+        expect(catchSpy).toHaveBeenCalledWith(
+          { type: TEST, payload: 2 },
+          store.state,
+          error
+        )
+        done()
+      })
     })
   })
 

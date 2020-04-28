@@ -144,30 +144,32 @@ export class Store {
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
 
-    return result.then(res => {
-      try {
-        this._actionSubscribers
-          .filter(sub => sub.after)
-          .forEach(sub => sub.after(action, this.state))
-      } catch (e) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.warn(`[vuex] error in after action subscribers: `)
-          console.error(e)
+    return new Promise((resolve, reject) => {
+      result.then(res => {
+        try {
+          this._actionSubscribers
+            .filter(sub => sub.after)
+            .forEach(sub => sub.after(action, this.state))
+        } catch (e) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn(`[vuex] error in after action subscribers: `)
+            console.error(e)
+          }
         }
-      }
-      return res
-    }, e => {
-      try {
-        this._actionSubscribers
-          .filter(sub => sub.catch)
-          .forEach(sub => sub.catch(action, this.state, e))
-      } catch (_e) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.warn(`[vuex] error in after action catch subscribers: `)
-          console.error(_e)
+        resolve(res)
+      }, e => {
+        try {
+          this._actionSubscribers
+            .filter(sub => sub.catch)
+            .forEach(sub => sub.catch(action, this.state, e))
+        } catch (_e) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn(`[vuex] error in after action catch subscribers: `)
+            console.error(_e)
+          }
         }
-      }
-      throw e
+        reject(e)
+      })
     })
   }
 
