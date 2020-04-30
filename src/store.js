@@ -156,7 +156,7 @@ export class Store {
             .filter(sub => sub.after)
             .forEach(sub => sub.after(action, this.state))
         } catch (e) {
-          if (process.env.NODE_ENV !== 'production') {
+          if (__DEV__) {
             console.warn(`[vuex] error in after action subscribers: `)
             console.error(e)
           }
@@ -168,7 +168,7 @@ export class Store {
             .filter(sub => sub.error)
             .forEach(sub => sub.error(action, this.state, e))
         } catch (_e) {
-          if (process.env.NODE_ENV !== 'production') {
+          if (__DEV__) {
             console.warn(`[vuex] error in after action catch subscribers: `)
             console.error(_e)
           }
