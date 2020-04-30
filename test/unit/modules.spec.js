@@ -733,10 +733,10 @@ describe('Modules', () => {
     })
   })
 
-  it('action catch subscribers', (done) => {
+  it('action error subscribers', (done) => {
     const beforeSpy = jasmine.createSpy()
     const afterSpy = jasmine.createSpy()
-    const catchSpy = jasmine.createSpy()
+    const errorSpy = jasmine.createSpy()
     const error = new Error()
     const store = new Vuex.Store({
       actions: {
@@ -747,7 +747,7 @@ describe('Modules', () => {
           store.subscribeAction({
             before: beforeSpy,
             after: afterSpy,
-            catch: catchSpy
+            error: errorSpy
           })
         }
       ]
@@ -763,7 +763,7 @@ describe('Modules', () => {
           { type: TEST, payload: 2 },
           store.state
         )
-        expect(catchSpy).toHaveBeenCalledWith(
+        expect(errorSpy).toHaveBeenCalledWith(
           { type: TEST, payload: 2 },
           store.state,
           error

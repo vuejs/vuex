@@ -74,7 +74,7 @@ namespace StoreInstance {
       action.payload;
       state.value;
     },
-    catch(action, state, error) {
+    error(action, state, error) {
       action.type;
       action.payload;
       state.value;
@@ -93,7 +93,7 @@ namespace StoreInstance {
       action.payload;
       state.value;
     },
-    catch(action, state, error) {
+    error(action, state, error) {
       action.type;
       action.payload;
       state.value;
@@ -115,7 +115,7 @@ namespace StoreInstance {
       action.payload;
       state.value;
     },
-    catch(action, state, error) {
+    error(action, state, error) {
       action.type;
       action.payload;
       state.value;
@@ -124,7 +124,7 @@ namespace StoreInstance {
   });
 
   store.subscribeAction({
-    catch(action, state, error) {
+    error(action, state, error) {
       action.type;
       action.payload;
       state.value;
