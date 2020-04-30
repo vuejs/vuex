@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- type: `Boolean`
+- type: `boolean`
 - default: `false`
 
   Força o _store_ Vuex em modo estrito. No modo estrito, qualquer mutação ao estado do Vuex fora dos manipuladores de mutação acusará um erro.
@@ -118,7 +118,7 @@ const store = new Vuex.Store({ ...options })
 
 ### devtools
 
-- type: `Boolean`
+- type: `boolean`
 
   Ative ou desative as ferramentas de desenvolvedor para uma determinada instância vuex. Passar _false_ à instância diz ao _store_ Vuex para não se integrar ao _devtools_. Útil para quando se tem vários _stores_ em uma _single page_.
 
@@ -127,7 +127,6 @@ const store = new Vuex.Store({ ...options })
     devtools: false
   }
   ```
-
 
 ## Vuex.Store Propriedades da Instância
 
@@ -154,8 +153,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
--  `dispatch(type: string, payload?: any, options?: Object)`
--  `dispatch(action: Object, options?: Object)`
+-  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+-  `dispatch(action: Object, options?: Object): Promise<any>`
 
   Despacha uma ação. _options_ pode ter _root: true_ que permite despachar ações para raiz em [módulos namespaced](../guide/modules.md#namespacing). Retorna um _Promise_ que resolve todos os manipuladores de ação acionados. [Detalhes](../guide/actions.md)
 

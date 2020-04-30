@@ -50,7 +50,7 @@ describe('mutations', () => {
 ```
 
 ### アクションのテスト
- 
+
 アクションは外部の API を呼び出す可能性があるため、ミューテーションのテストよりも少し注意が必要です。アクションをテストするとき、通常、いくつかの段階でモックを作る必要があります。例えば API 呼び出しをサービスとして抽象化し、そしてテストの内部ではそのサービスをモックにすることができます。簡単に依存関係をモック化するために、webpack と [inject-loader](https://github.com/plasticine/inject-loader) を使ってテストファイルをバンドルすることができます。
 
 非同期なアクションのテストの例:
@@ -96,9 +96,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
 
     try {
       expect(type).to.equal(mutation.type)
-      if (payload) {
-        expect(payload).to.deep.equal(mutation.payload)
-      }
+      expect(payload).to.deep.equal(mutation.payload)
     } catch (error) {
       done(error)
     }
@@ -233,7 +231,7 @@ mocha test-bundle.js
 1. `mocha-loader` をインストールする
 2. 上記 webpack 設定から `entry` を `'mocha-loader!babel-loader!./test.js'` に変更する
 3. 設定を使用して `webpack-dev-server` を開始する
-4. ブラウザで `localhost:8080/webpack-dev-server/test-bundle` を開く 
+4. ブラウザで `localhost:8080/webpack-dev-server/test-bundle` を開く
 
 #### Karma + karma-webpack を使ったブラウザでの実行
 

@@ -1,5 +1,7 @@
 import 'babel-polyfill'
-import Vue from 'vue/dist/vue.common.js'
-import Vuex from '../../dist/vuex.common.js'
+import Vue from 'vue'
+import Vuex from '../../src/index'
 
 Vue.use(Vuex)
+
+global.__DEV__ = true

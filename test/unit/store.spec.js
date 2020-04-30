@@ -1,5 +1,5 @@
-import Vue from 'vue/dist/vue.common.js'
-import Vuex from '../../dist/vuex.common.js'
+import Vue from 'vue'
+import Vuex from '../../src/index'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
@@ -267,7 +267,7 @@ describe('Store', () => {
   it('asserts the call with the new operator', () => {
     expect(() => {
       Vuex.Store({})
-    }).toThrowError(/store must be called with the new operator/)
+    }).toThrowError(/Cannot call a class as a function/)
   })
 
   it('should accept state as function', () => {
@@ -318,6 +318,48 @@ describe('Store', () => {
     expect(secondSubscribeSpy).toHaveBeenCalled()
     expect(subscribeSpy.calls.count()).toBe(1)
     expect(secondSubscribeSpy.calls.count()).toBe(2)
+  })
+
+  it('subscribe: should handle subscriptions with synchronous unsubscriptions', () => {
+    const subscribeSpy = jasmine.createSpy()
+    const testPayload = 2
+    const store = new Vuex.Store({
+      state: {},
+      mutations: {
+        [TEST]: () => {}
+      }
+    })
+
+    const unsubscribe = store.subscribe(() => unsubscribe())
+    store.subscribe(subscribeSpy)
+    store.commit(TEST, testPayload)
+
+    expect(subscribeSpy).toHaveBeenCalledWith(
+      { type: TEST, payload: testPayload },
+      store.state
+    )
+    expect(subscribeSpy.calls.count()).toBe(1)
+  })
+
+  it('subscribeAction: should handle subscriptions with synchronous unsubscriptions', () => {
+    const subscribeSpy = jasmine.createSpy()
+    const testPayload = 2
+    const store = new Vuex.Store({
+      state: {},
+      actions: {
+        [TEST]: () => {}
+      }
+    })
+
+    const unsubscribe = store.subscribeAction(() => unsubscribe())
+    store.subscribeAction(subscribeSpy)
+    store.dispatch(TEST, testPayload)
+
+    expect(subscribeSpy).toHaveBeenCalledWith(
+      { type: TEST, payload: testPayload },
+      store.state
+    )
+    expect(subscribeSpy.calls.count()).toBe(1)
   })
 
   // store.watch should only be asserted in non-SSR environment

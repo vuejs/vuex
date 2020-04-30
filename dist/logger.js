@@ -62,47 +62,79 @@
     var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
     var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
     var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
+    var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
+    var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
+    var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
+    var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
     var logger = ref.logger; if ( logger === void 0 ) logger = console;
 
     return function (store) {
       var prevState = deepCopy(store.state);
 
-      store.subscribe(function (mutation, state) {
-        if (typeof logger === 'undefined') {
-          return
-        }
-        var nextState = deepCopy(state);
+      if (typeof logger === 'undefined') {
+        return
+      }
 
-        if (filter(mutation, prevState, nextState)) {
-          var time = new Date();
-          var formattedTime = " @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3));
-          var formattedMutation = mutationTransformer(mutation);
-          var message = "mutation " + (mutation.type) + formattedTime;
-          var startMessage = collapsed
-            ? logger.groupCollapsed
-            : logger.group;
+      if (logMutations) {
+        store.subscribe(function (mutation, state) {
+          var nextState = deepCopy(state);
 
-          // render
-          try {
-            startMessage.call(logger, message);
-          } catch (e) {
-            console.log(message);
+          if (filter(mutation, prevState, nextState)) {
+            var formattedTime = getFormattedTime();
+            var formattedMutation = mutationTransformer(mutation);
+            var message = "mutation " + (mutation.type) + formattedTime;
+
+            startMessage(logger, message, collapsed);
+            logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+            logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+            logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+            endMessage(logger);
           }
 
-          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
-          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
-          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          prevState = nextState;
+        });
+      }
 
-          try {
-            logger.groupEnd();
-          } catch (e) {
-            logger.log('—— log end ——');
+      if (logActions) {
+        store.subscribeAction(function (action, state) {
+          if (actionFilter(action, state)) {
+            var formattedTime = getFormattedTime();
+            var formattedAction = actionTransformer(action);
+            var message = "action " + (action.type) + formattedTime;
+
+            startMessage(logger, message, collapsed);
+            logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+            endMessage(logger);
           }
-        }
-
-        prevState = nextState;
-      });
+        });
+      }
     }
+  }
+
+  function startMessage (logger, message, collapsed) {
+    var startMessage = collapsed
+      ? logger.groupCollapsed
+      : logger.group;
+
+    // render
+    try {
+      startMessage.call(logger, message);
+    } catch (e) {
+      logger.log(message);
+    }
+  }
+
+  function endMessage (logger) {
+    try {
+      logger.groupEnd();
+    } catch (e) {
+      logger.log('—— log end ——');
+    }
+  }
+
+  function getFormattedTime () {
+    var time = new Date();
+    return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
   }
 
   function repeat (str, times) {

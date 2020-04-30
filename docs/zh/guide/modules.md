@@ -134,7 +134,7 @@ const store = new Vuex.Store({
 
 #### 在带命名空间的模块内访问全局内容（Global Assets）
 
-如果你希望使用全局 state 和 getter，`rootState` 和 `rootGetter` 会作为第三和第四参数传入 getter，也会通过 `context` 对象的属性传入 action。
+如果你希望使用全局 state 和 getter，`rootState` 和 `rootGetters` 会作为第三和第四参数传入 getter，也会通过 `context` 对象的属性传入 action。
 
 若需要在全局命名空间内分发 action 或提交 mutation，将 `{ root: true }` 作为第三参数传给 `dispatch` 或 `commit` 即可。
 
@@ -280,6 +280,10 @@ export function createPlugin (options = {}) {
 在 store 创建**之后**，你可以使用 `store.registerModule` 方法注册模块：
 
 ``` js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({ /* 选项 */ })
+
 // 注册模块 `myModule`
 store.registerModule('myModule', {
   // ...
@@ -295,6 +299,8 @@ store.registerModule(['nested', 'myModule'], {
 模块动态注册功能使得其他 Vue 插件可以通过在 store 中附加新模块的方式来使用 Vuex 管理状态。例如，[`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) 插件就是通过动态注册模块将 vue-router 和 vuex 结合在一起，实现应用的路由状态管理。
 
 你也可以使用 `store.unregisterModule(moduleName)` 来动态卸载模块。注意，你不能使用此方法卸载静态模块（即创建 store 时声明的模块）。
+
+注意，你可以通过 `store.hasModule(moduleName)` 方法检查该模块是否已经被注册到 store。
 
 #### 保留 state
 

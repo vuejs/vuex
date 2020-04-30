@@ -18,8 +18,8 @@ export declare class Store<S> {
   dispatch: Dispatch;
   commit: Commit;
 
-  subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any): () => void;
-  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>): () => void;
+  subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any, options?: SubscribeOptions): () => void;
+  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>, options?: SubscribeOptions): () => void;
   watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
   registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
@@ -27,6 +27,9 @@ export declare class Store<S> {
 
   unregisterModule(path: string): void;
   unregisterModule(path: string[]): void;
+
+  hasModule(path: string): boolean;
+  hasModule(path: string[]): boolean;
 
   hotUpdate(options: {
     actions?: ActionTree<S, S>;
@@ -69,6 +72,10 @@ export interface ActionPayload extends Payload {
   payload: any;
 }
 
+export interface SubscribeOptions {
+  prepend?: boolean
+}
+
 export type ActionSubscriber<P, S> = (action: P, state: S) => any;
 export type ActionCatchSubscriber<P, S> = (action: P, state: S, error: Error) => any;
 
@@ -97,6 +104,7 @@ export interface StoreOptions<S> {
   modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];
   strict?: boolean;
+  devtools?: boolean;
 }
 
 export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload?: any) => any;

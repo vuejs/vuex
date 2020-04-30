@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../dist/vuex.common.js'
+import Vuex from '../../src/index'
 
 const TEST = 'TEST'
 
@@ -79,6 +79,16 @@ describe('Modules', () => {
 
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
+    })
+
+    it('dynamic module existance test', () => {
+      const store = new Vuex.Store({})
+
+      store.registerModule('bonjour', {})
+
+      expect(store.hasModule('bonjour')).toBe(true)
+      store.unregisterModule('bonjour')
+      expect(store.hasModule('bonjour')).toBe(false)
     })
 
     it('dynamic module registration preserving hydration', () => {
@@ -545,6 +555,28 @@ describe('Modules', () => {
       })
 
       store.dispatch('parent/test')
+    })
+
+    it('module: warn when module overrides state', () => {
+      spyOn(console, 'warn')
+      const store = new Vuex.Store({
+        modules: {
+          foo: {
+            state () {
+              return { value: 1 }
+            },
+            modules: {
+              value: {
+                state: () => 2
+              }
+            }
+          }
+        }
+      })
+      expect(store.state.foo.value).toBe(2)
+      expect(console.warn).toHaveBeenCalledWith(
+        `[vuex] state field "value" was overridden by a module with the same name at "foo.value"`
+      )
     })
 
     it('dispatching multiple actions in different modules', done => {

@@ -10,7 +10,9 @@ Au cœur de chaque application Vuex, il y a la **zone de stockage (« store »)*
 
 ### Le store le plus simple
 
-> **NOTE:** Nous allons utiliser la syntaxe ES2015 dans les exemples de code pour le reste de la documentation. Si vous ne vous êtes pas encore penché dessus, [vous devriez](https://babeljs.io/docs/learn-es2015/) !
+:::tip NOTE
+Nous allons utiliser la syntaxe ES2015 dans les exemples de code pour le reste de la documentation. Si vous ne vous êtes pas encore penché dessus, [vous devriez](https://babeljs.io/docs/learn-es2015/) !
+:::
 
 Après [avoir installé](../installation.md) Vuex, nous allons créer un store. C'est assez simple ; définissez juste un objet d'état initial et quelques mutations :
 

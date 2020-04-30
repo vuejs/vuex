@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- type: `Boolean`
+- type: `boolean`
 - default: `false`
 
   Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
@@ -118,7 +118,7 @@ const store = new Vuex.Store({ ...options })
 
 ### devtools
 
-- type: `Boolean`
+- type: `boolean`
 
   Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
 
@@ -127,7 +127,6 @@ const store = new Vuex.Store({ ...options })
     devtools: false
   }
   ```
-
 
 ## Vuex.Store Instance Properties
 
@@ -154,8 +153,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
--  `dispatch(type: string, payload?: any, options?: Object)`
--  `dispatch(action: Object, options?: Object)`
+-  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+-  `dispatch(action: Object, options?: Object): Promise<any>`
 
   Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
 
@@ -175,7 +174,7 @@ const store = new Vuex.Store({ ...options })
 
 ### subscribe
 
--  `subscribe(handler: Function): Function`
+-  `subscribe(handler: Function, options?: Object): Function`
 
   Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
 
@@ -186,13 +185,19 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overriden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+
+  ``` js
+  store.subscribe(handler, { prepend: true })
+  ```
+
   To stop subscribing, call the returned unsubscribe function.
 
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### subscribeAction
 
--  `subscribeAction(handler: Function): Function`
+-  `subscribeAction(handler: Function, options?: Object): Function`
 
   > New in 2.5.0
 
@@ -203,6 +208,12 @@ const store = new Vuex.Store({ ...options })
     console.log(action.type)
     console.log(action.payload)
   })
+  ```
+
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overriden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+
+  ``` js
+  store.subscribeAction(handler, { prepend: true })
   ```
 
   To stop subscribing, call the returned unsubscribe function.
@@ -237,6 +248,14 @@ const store = new Vuex.Store({ ...options })
 -  `unregisterModule(path: string | Array<string>)`
 
   Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+
+### hasModule
+
+- `hasModule(path: string | Array<string>): boolean`
+
+  Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
+
+  > New in 3.2.0
 
 ### hotUpdate
 

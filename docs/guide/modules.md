@@ -280,6 +280,10 @@ export function createPlugin (options = {}) {
 You can register a module **after** the store has been created with the `store.registerModule` method:
 
 ``` js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({ /* options */ })
+
 // register a module `myModule`
 store.registerModule('myModule', {
   // ...
@@ -297,11 +301,13 @@ Dynamic module registration makes it possible for other Vue plugins to also leve
 
 You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
 
+Note that you may check if the module is already registered to the store or not via `store.hasModule(moduleName)` method.
+
 #### Preserving state
 
 It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
 
-When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
+When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state is not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
 
 ### Module Reuse
 

@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options });
 
 ### strict
 
-* тип: `Boolean`
+* тип: `boolean`
 * по умолчанию: `false`
 
   Форсирует использование «строгого режима» в хранилище Vuex. В нём любые изменения состояния, происходящие вне обработчиков мутаций, будут выбрасывать ошибки.
@@ -118,11 +118,11 @@ const store = new Vuex.Store({ ...options });
 
 ### devtools
 
-* тип: `Boolean`
+* тип: `boolean`
 
   Интеграция в devtools конкретного экземпляра Vuex. Например, передача `false` сообщает экземпляру хранилища Vuex, что не требуется подписываться на плагин devtools. Это будет полезно если у вас несколько хранилищ на одной странице.
-  
-  ``` js
+
+  ```js
   {
     devtools: false
   }
@@ -153,8 +153,8 @@ const store = new Vuex.Store({ ...options });
 
 ### dispatch
 
-* `dispatch(type: string, payload?: any, options?: Object)`
-* `dispatch(action: Object, options?: Object)`
+* `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+* `dispatch(action: Object, options?: Object): Promise<any>`
 
 Запуск действия. `options` может содержать опцию `root: true` что позволяет запускать корневые (root) действия [в модулях со своим пространством имён](../guide/modules.md#пространства-имён). Возвращает Promise который разрешает все обработчики инициируемых действий. [Подробнее](../guide/actions.md)
 
@@ -174,7 +174,7 @@ const store = new Vuex.Store({ ...options });
 
 ### subscribe
 
-* `subscribe(handler: Function): Function`
+* `subscribe(handler: Function, options?: Object): Function`
 
 Отслеживание вызова мутаций хранилища. Обработчик `handler` вызывается после каждой мутации и получает в качестве параметров дескриптор мутации и состояние после мутации:
 
@@ -185,13 +185,19 @@ store.subscribe((mutation, state) => {
 });
 ```
 
+По умолчанию, новый обработчик добавляется в конец цепочки, поэтому он будет выполняться после других обработчиков, добавленных раньше. Это поведение можно переопределить добавив `prepend: true` в `options`, что позволит добавлять обработчик в начало цепочки.
+
+```js
+store.subscribe(handler, { prepend: true })
+```
+
 Для прекращения отслеживания, необходимо вызвать возвращаемую методом функцию.
 
 Чаще всего используется в плагинах. [Подробнее](../guide/plugins.md)
 
 ### subscribeAction
 
-* `subscribeAction(handler: Function): Function`
+* `subscribeAction(handler: Function, options?: Object): Function`
 
 > Добавлено в версии 2.5.0
 
@@ -204,13 +210,19 @@ store.subscribeAction((action, state) => {
 });
 ```
 
+По умолчанию, новый обработчик добавляется в конец цепочки, поэтому он будет выполняться после других обработчиков, добавленных раньше. Это поведение можно переопределить добавив `prepend: true` в `options`, что позволит добавлять обработчик в начало цепочки.
+
+```js
+store.subscribeAction(handler, { prepend: true })
+```
+
 Для прекращения отслеживания, необходимо вызвать возвращаемую методом функцию.
 
 > Добавлено в версии 3.1.0
 
 Начиная с версии 3.1.0, в `subscribeAction` также можно определять, должен ли обработчик вызываться *до* или *после* вызова действия (по умолчанию поведение *до*):
 
-``` js
+```js
 store.subscribeAction({
   before: (action, state) => {
     console.log(`before action ${action.type}`)
@@ -236,6 +248,14 @@ store.subscribeAction({
 * `unregisterModule(path: string | Array<string>)`
 
 Удаление зарегистрированного динамического модуля. [Подробнее](../guide/modules.md#динамическая-регистрация-модуnей)
+
+### hasModule
+
+* `hasModule(path: string | Array<string>): boolean`
+
+Проверка, не зарегистрирован ли уже модуль с заданным именем. [Подробнее](../guide/modules.md#динамическая-регистрация-модуnей)
+
+> Добавлено в версии 3.2.0
 
 ### hotUpdate
 

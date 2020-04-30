@@ -28,8 +28,8 @@ if (module.hot) {
   module.hot.accept(['./mutations', './modules/a'], () => {
     // 更新されたモジュールをインポートする
     // babel 6 のモジュール出力のため、ここでは .default を追加しなければならない
-    const newActions = require('./actions').default
     const newMutations = require('./mutations').default
+    const newModuleA = require('./modules/a').default
     // 新しいモジュールとミューテーションにスワップ
     store.hotUpdate({
       mutations: newMutations,

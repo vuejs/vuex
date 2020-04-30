@@ -147,27 +147,27 @@ const store = new Vuex.Store({ ...options })
 
 ### commit
 
-- **`commit(type: string, payload?: any, options?: Object)`**
-- **`commit(mutation: Object, options?: Object)`**
+- `commit(type: string, payload?: any, options?: Object)`
+- `commit(mutation: Object, options?: Object)`
 
   ミューテーションをコミットします。`options` は[名前空間付きモジュール](../guide/modules.md#名前空間)で root なミューテーションにコミットできる `root: true` を持つことできます。[詳細](../guide/mutations.md)
 
 ### dispatch
 
-- **`dispatch(type: string, payload?: any, options?: Object)`**
-- **`dispatch(action: Object, options?: Object)`**
+- `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+- `dispatch(action: Object, options?: Object): Promise<any>`
 
   アクションをディスパッチします。`options` は[名前空間付きモジュール](../guide/modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](../guide/actions.md)
 
 ### replaceState
 
-- **`replaceState(state: Object)`**
+- `replaceState(state: Object)`
 
   ストアのルートステートを置き換えます。これは、ステートのハイドレーションやタイムトラベルのためだけに利用すべきです。
 
 ### watch
 
-- **`watch(fn: Function, callback: Function, options?: Object): Function`**
+- `watch(fn: Function, callback: Function, options?: Object): Function`
 
   `fn`が返す値をリアクティブに監視し、値が変わった時にコールバックを呼びます。`fn`は最初の引数としてストアのステートを、2番目の引数としてゲッターを受け取ります。 [Vue の`vm.$watch`メソッド](https://jp.vuejs.org/v2/api/#watch)と同じオプションをオプションのオブジェクトとして受け付けます。
 
@@ -175,7 +175,7 @@ const store = new Vuex.Store({ ...options })
 
 ### subscribe
 
-- **`subscribe(handler: Function): Function`**
+- `subscribe(handler: Function, options?: Object): Function`
 
   ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリプタとミューテーション後の状態を受け取ります。
 
@@ -186,13 +186,19 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
+
+  ``` js
+  store.subscribe(handler, { prepend: true })
+  ```
+
   購読を停止するには、返された unsubscribe 関数呼び出します。
 
   プラグインの中でもっともよく利用されます。[詳細](../guide/plugins.md)
 
 ### subscribeAction
 
-- **`subscribeAction(handler: Function)`**
+- `subscribeAction(handler: Function, options?: Object): Function`
 
   > 2.5.0 で新規追加
 
@@ -203,6 +209,12 @@ const store = new Vuex.Store({ ...options })
     console.log(action.type)
     console.log(action.payload)
   })
+  ```
+
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
+
+  ``` js
+  store.subscribeAction(handler, { prepend: true })
   ```
 
 　購読を停止するには、返された購読解除関数を呼びます。
@@ -226,7 +238,7 @@ const store = new Vuex.Store({ ...options })
 
 ### registerModule
 
-- **`registerModule(path: string | Array<string>, module: Module, options?: Object)`**
+- `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
   動的なモジュールを登録します。[詳細](../guide/modules.md#dynamic-module-registration)
 
@@ -234,13 +246,19 @@ const store = new Vuex.Store({ ...options })
 
 ### unregisterModule
 
-- **`unregisterModule(path: string | Array<string>)`**
+- `unregisterModule(path: string | Array<string>)`
 
   動的なモジュールを解除します。[詳細](../guide/modules.md#dynamic-module-registration)
 
+### hasModule
+
+- `hasModule(path: string | Array<string>): boolean`
+
+  動的なモジュールがすでに登録されているかどうかを確認します。[詳細](../guide/modules.md#dynamic-module-registration)
+
 ### hotUpdate
 
-- **`hotUpdate(newOptions: Object)`**
+- `hotUpdate(newOptions: Object)`
 
   新しいアクションとミューテーションをホットスワップします。[詳細](../guide/hot-reload.md)
 
@@ -248,7 +266,7 @@ const store = new Vuex.Store({ ...options })
 
 ### mapState
 
-- **`mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`**
+- `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](../guide/state.md#the-mapstate-helper)
 
@@ -258,7 +276,7 @@ const store = new Vuex.Store({ ...options })
 
 ### mapGetters
 
-- **`mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`**
+- `mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`
 
   ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](../guide/getters.md#the-mapgetters-helper)
 
@@ -266,7 +284,7 @@ const store = new Vuex.Store({ ...options })
 
 ### mapActions
 
-- **`mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`**
+- `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](../guide/actions.md#dispatching-actions-in-components)
 
@@ -276,7 +294,7 @@ const store = new Vuex.Store({ ...options })
 
 ### mapMutations
 
-- **`mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`**
+- `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](../guide/mutations.md#commiting-mutations-in-components)
 
@@ -286,6 +304,6 @@ const store = new Vuex.Store({ ...options })
 
 ### createNamespaceHelpers
 
-- **`createNamespacedHelpers(namespace: string): Object`**
+- `createNamespacedHelpers(namespace: string): Object`
 
   名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](../guide/modules.md#binding-helpers-with-namespace)

@@ -109,16 +109,27 @@ const logger = createLogger({
     // `mutation` は `{ type, payload }` です
     return mutation.type !== "aBlacklistedMutation"
   },
+  actionFilter (action, state) {
+    // `filter` と同等ですが、アクション用です
+    // `action` は `{ type, payloed }` です
+    return action.type !== "aBlacklistedAction"
+  },
   transformer (state) {
     // ロギングの前に、状態を変換します
     // 例えば、特定のサブツリーのみを返します
     return state.subTree
+  },
+  actionTransformer (action) {
+    // `mutationTransformer` と同等ですが、アクション用です
+    return action.type
   },
   mutationTransformer (mutation) {
     // ミューテーションは、`{ type, payload }` の形式でログ出力されます
     // 任意の方法でそれをフォーマットできます
     return mutation.type
   },
+  logActions: true, // アクションログを出力します。
+  logMutations: true, // ミューテーションログを出力します。
   logger: console, // `console` API の実装, デフォルトは `console`
 })
 ```

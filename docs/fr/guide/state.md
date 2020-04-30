@@ -10,7 +10,7 @@ L'arbre d'état unique n'entre pas en conflit avec la modularité. Dans les proc
 
 ### Récupération d'état Vuex dans des composants Vue
 
-Alors, comment affichons-nous l'état du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple d'y « récupérer » l'état est tout simplement de retourner une partie de l'état depuis une [une propriété calculée](https://fr.vuejs.org/guide/computed.html) :
+Alors, comment affichons-nous l'état du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple d'y « récupérer » l'état est tout simplement de retourner une partie de l'état depuis une [propriété calculée](https://fr.vuejs.org/guide/computed.html) :
 
 ``` js
 // créons un composant Counter
@@ -96,7 +96,7 @@ computed: mapState([
 
 ### Opérateur de décomposition
 
-Notez que `mapState` renvoie un objet. Comment l'utiliser en complément des autres propriétés calculées locales ? Normalement, il faudrait utiliser un outil pour fusionner les multiples objets en un seul afin de passer cet objet final à `computed`. Cependant avec l'[opérateur de décomposition](https://github.com/sebmarkbage/ecmascript-rest-spread) (qui est une proposition stage-4 ECMAScript), nous pouvons grandement simplifier la syntaxe :
+Notez que `mapState` renvoie un objet. Comment l'utiliser en complément des autres propriétés calculées locales ? Normalement, il faudrait utiliser un outil pour fusionner les multiples objets en un seul afin de passer cet objet final à `computed`. Cependant avec l'[opérateur de décomposition](https://github.com/tc39/proposal-object-rest-spread), nous pouvons grandement simplifier la syntaxe :
 
 ``` js
 computed: {
