@@ -113,7 +113,7 @@ const store = new Vuex.Store({
         myPage: {
           state: () => ({ ... }),
           getters: {
-            profile () { ... } // -> getters['account/profile']
+            profile () { ... } // -> getters['account/myPage/profile']
           }
         },
 
