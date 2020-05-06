@@ -169,7 +169,7 @@ export class Store {
             .forEach(sub => sub.error(action, this.state, e))
         } catch (_e) {
           if (__DEV__) {
-            console.warn(`[vuex] error in after action catch subscribers: `)
+            console.warn(`[vuex] error in error action subscribers: `)
             console.error(_e)
           }
         }
