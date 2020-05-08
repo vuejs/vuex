@@ -162,18 +162,18 @@ export class Store {
           }
         }
         resolve(res)
-      }, e => {
+      }, error => {
         try {
           this._actionSubscribers
             .filter(sub => sub.error)
-            .forEach(sub => sub.error(action, this.state, e))
-        } catch (_e) {
+            .forEach(sub => sub.error(action, this.state, error))
+        } catch (e) {
           if (__DEV__) {
             console.warn(`[vuex] error in error action subscribers: `)
-            console.error(_e)
+            console.error(e)
           }
         }
-        reject(e)
+        reject(error)
       })
     })
   }
