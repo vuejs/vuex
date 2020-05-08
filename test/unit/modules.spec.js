@@ -733,6 +733,46 @@ describe('Modules', () => {
     })
   })
 
+  it('action error subscribers', (done) => {
+    const beforeSpy = jasmine.createSpy()
+    const afterSpy = jasmine.createSpy()
+    const errorSpy = jasmine.createSpy()
+    const error = new Error()
+    const store = new Vuex.Store({
+      actions: {
+        [TEST]: () => Promise.reject(error)
+      },
+      plugins: [
+        store => {
+          store.subscribeAction({
+            before: beforeSpy,
+            after: afterSpy,
+            error: errorSpy
+          })
+        }
+      ]
+    })
+    store.dispatch(TEST, 2).catch(() => {
+      expect(beforeSpy).toHaveBeenCalledWith(
+        { type: TEST, payload: 2 },
+        store.state
+      )
+      expect(afterSpy).not.toHaveBeenCalled()
+      Vue.nextTick(() => {
+        expect(afterSpy).not.toHaveBeenCalledWith(
+          { type: TEST, payload: 2 },
+          store.state
+        )
+        expect(errorSpy).toHaveBeenCalledWith(
+          { type: TEST, payload: 2 },
+          store.state,
+          error
+        )
+        done()
+      })
+    })
+  })
+
   it('asserts a mutation should be a function', () => {
     expect(() => {
       new Vuex.Store({

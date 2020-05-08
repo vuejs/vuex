@@ -149,18 +149,32 @@ export class Store {
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
 
-    return result.then(res => {
-      try {
-        this._actionSubscribers
-          .filter(sub => sub.after)
-          .forEach(sub => sub.after(action, this.state))
-      } catch (e) {
-        if (__DEV__) {
-          console.warn(`[vuex] error in after action subscribers: `)
-          console.error(e)
+    return new Promise((resolve, reject) => {
+      result.then(res => {
+        try {
+          this._actionSubscribers
+            .filter(sub => sub.after)
+            .forEach(sub => sub.after(action, this.state))
+        } catch (e) {
+          if (__DEV__) {
+            console.warn(`[vuex] error in after action subscribers: `)
+            console.error(e)
+          }
         }
-      }
-      return res
+        resolve(res)
+      }, e => {
+        try {
+          this._actionSubscribers
+            .filter(sub => sub.error)
+            .forEach(sub => sub.error(action, this.state, e))
+        } catch (_e) {
+          if (__DEV__) {
+            console.warn(`[vuex] error in error action subscribers: `)
+            console.error(_e)
+          }
+        }
+        reject(e)
+      })
     })
   }
 
