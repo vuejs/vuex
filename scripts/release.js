@@ -17,7 +17,7 @@ const tags = [
   'next'
 ]
 
-const inc = (i) => semver.inc(currentVersion, i, 'alpha')
+const inc = (i) => semver.inc(currentVersion, i)
 const bin = (name) => path.resolve(__dirname, `../node_modules/.bin/${name}`)
 const run = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...opts })
 const step = (msg) => console.log(chalk.cyan(msg))
@@ -68,7 +68,6 @@ async function main() {
 
   // Run tests before release.
   step('\nRunning tests...')
-  await run('yarn', ['lint'])
   await run('yarn', ['test'])
 
   // Update the package version.
