@@ -46,7 +46,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
     "@babel/preset-env": "^7.9.5",
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^11.1.0",
