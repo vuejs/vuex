@@ -233,7 +233,20 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  Most commonly used in plugins. [Details](../guide/plugins.md)
+  > New in 3.4.0
+
+  Since 3.4.0, `subscribeAction` can also specify the `error` option to catch the error thrown during the action dispatch. The `error` option will take an additional `error` object as the 3rd argument.
+
+  ``` js
+  store.subscribeAction({
+    after: (action, state, error) => {
+      console.log(`error action ${action.type}`)
+      console.error(error)
+    }
+  })
+  ```
+
+  The `subscribeAction` method is most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### registerModule
 
