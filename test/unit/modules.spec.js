@@ -62,8 +62,8 @@ describe('Modules', () => {
           }
         }
       })
-      const actionSpy = jasmine.createSpy()
-      const mutationSpy = jasmine.createSpy()
+      const actionSpy = jest.fn()
+      const mutationSpy = jest.fn()
       store.registerModule(['a', 'b'], {
         state: { value: 1 },
         getters: { foo: state => state.value },
@@ -94,8 +94,8 @@ describe('Modules', () => {
     it('dynamic module registration preserving hydration', () => {
       const store = new Vuex.Store({})
       store.replaceState({ a: { foo: 'state' }})
-      const actionSpy = jasmine.createSpy()
-      const mutationSpy = jasmine.createSpy()
+      const actionSpy = jest.fn()
+      const mutationSpy = jest.fn()
       store.registerModule('a', {
         namespaced: true,
         getters: { foo: state => state.foo },
@@ -116,7 +116,7 @@ describe('Modules', () => {
 
   // #524
   it('should not fire an unrelated watcher', done => {
-    const spy = jasmine.createSpy()
+    const spy = jest.fn()
     const store = new Vuex.Store({
       modules: {
         a: {
@@ -349,8 +349,8 @@ describe('Modules', () => {
     })
 
     it('module: namespace', () => {
-      const actionSpy = jasmine.createSpy()
-      const mutationSpy = jasmine.createSpy()
+      const actionSpy = jest.fn()
+      const mutationSpy = jest.fn()
 
       const store = new Vuex.Store({
         modules: {
@@ -385,8 +385,8 @@ describe('Modules', () => {
       const actionSpys = []
       const mutationSpys = []
       const createModule = (name, namespaced, children) => {
-        const actionSpy = jasmine.createSpy()
-        const mutationSpy = jasmine.createSpy()
+        const actionSpy = jest.fn()
+        const mutationSpy = jest.fn()
 
         actionSpys.push(actionSpy)
         mutationSpys.push(mutationSpy)
@@ -435,7 +435,7 @@ describe('Modules', () => {
         store.dispatch(type)
       })
       actionSpys.forEach(spy => {
-        expect(spy.calls.count()).toBe(1)
+        expect(spy).toHaveBeenCalledTimes(1)
       })
 
       // mutations
@@ -443,7 +443,7 @@ describe('Modules', () => {
         store.commit(type)
       })
       mutationSpys.forEach(spy => {
-        expect(spy.calls.count()).toBe(1)
+        expect(spy).toHaveBeenCalledTimes(1)
       })
     })
 
@@ -472,10 +472,10 @@ describe('Modules', () => {
     })
 
     it('module: action context is namespaced in namespaced module', done => {
-      const rootActionSpy = jasmine.createSpy()
-      const rootMutationSpy = jasmine.createSpy()
-      const moduleActionSpy = jasmine.createSpy()
-      const moduleMutationSpy = jasmine.createSpy()
+      const rootActionSpy = jest.fn()
+      const rootMutationSpy = jest.fn()
+      const moduleActionSpy = jest.fn()
+      const moduleMutationSpy = jest.fn()
 
       const store = new Vuex.Store({
         state: { value: 'root' },
@@ -494,14 +494,14 @@ describe('Modules', () => {
                 expect(rootGetters.foo).toBe('root')
 
                 dispatch('foo')
-                expect(moduleActionSpy.calls.count()).toBe(1)
+                expect(moduleActionSpy).toHaveBeenCalledTimes(1)
                 dispatch('foo', null, { root: true })
-                expect(rootActionSpy.calls.count()).toBe(1)
+                expect(rootActionSpy).toHaveBeenCalledTimes(1)
 
                 commit('foo')
-                expect(moduleMutationSpy.calls.count()).toBe(1)
+                expect(moduleMutationSpy).toHaveBeenCalledTimes(1)
                 commit('foo', null, { root: true })
-                expect(rootMutationSpy.calls.count()).toBe(1)
+                expect(rootMutationSpy).toHaveBeenCalledTimes(1)
 
                 done()
               }
@@ -515,8 +515,8 @@ describe('Modules', () => {
     })
 
     it('module: use other module that has same namespace', done => {
-      const actionSpy = jasmine.createSpy()
-      const mutationSpy = jasmine.createSpy()
+      const actionSpy = jest.fn()
+      const mutationSpy = jest.fn()
 
       const store = new Vuex.Store({
         modules: {
@@ -558,7 +558,7 @@ describe('Modules', () => {
     })
 
     it('module: warn when module overrides state', () => {
-      spyOn(console, 'warn')
+      jest.spyOn(console, 'warn').mockImplementation()
       const store = new Vuex.Store({
         modules: {
           foo: {
@@ -662,9 +662,9 @@ describe('Modules', () => {
 
     it('plugins', function () {
       let initState
-      const actionSpy = jasmine.createSpy()
+      const actionSpy = jest.fn()
       const mutations = []
-      const subscribeActionSpy = jasmine.createSpy()
+      const subscribeActionSpy = jest.fn()
       const store = new Vuex.Store({
         state: {
           a: 1
@@ -702,8 +702,8 @@ describe('Modules', () => {
     })
 
     it('action before/after subscribers', (done) => {
-      const beforeSpy = jasmine.createSpy()
-      const afterSpy = jasmine.createSpy()
+      const beforeSpy = jest.fn()
+      const afterSpy = jest.fn()
       const store = new Vuex.Store({
         actions: {
           [TEST]: () => Promise.resolve()
