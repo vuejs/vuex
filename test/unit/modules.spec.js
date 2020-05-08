@@ -734,9 +734,9 @@ describe('Modules', () => {
   })
 
   it('action error subscribers', (done) => {
-    const beforeSpy = jasmine.createSpy()
-    const afterSpy = jasmine.createSpy()
-    const errorSpy = jasmine.createSpy()
+    const beforeSpy = jest.fn()
+    const afterSpy = jest.fn()
+    const errorSpy = jest.fn()
     const error = new Error()
     const store = new Vuex.Store({
       actions: {
