@@ -235,11 +235,11 @@ const store = new Vuex.Store({ ...options })
 
   > New in 3.4.0
 
-  Since 3.4.0, `subscribeAction` can also specify the `error` option to catch the error thrown during the action dispatch. The `error` option will take an additional `error` object as the 3rd argument.
+  Since 3.4.0, `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
 
   ``` js
   store.subscribeAction({
-    after: (action, state, error) => {
+    error: (action, state, error) => {
       console.log(`error action ${action.type}`)
       console.error(error)
     }
