@@ -4,8 +4,6 @@ Vuex supports hot-reloading mutations, modules, actions and getters during devel
 
 For mutations and modules, you need to use the `store.hotUpdate()` API method:
 
-## Example
-
 ``` js
 // store.js
 import Vue from 'vue'
