@@ -49,12 +49,12 @@ If you use modules exclusively, you can use `require.context` to load and hot re
 
 ```js
 // store.js
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
 // Load all modules.
 function loadModules() {
-  const context = require.context("./modules", false, /([a-z_]+)\.js$/i);
+  const context = require.context("./modules", false, /([a-z_]+)\.js$/i)
 
   const modules = context
     .keys()
@@ -65,29 +65,27 @@ function loadModules() {
         [name]: context(key).default,
       }),
       {}
-    );
+    )
 
-  return { context, modules };
+  return { context, modules }
 }
 
-const { context, modules } = loadModules();
+const { context, modules } = loadModules()
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules
-});
-
-export default store;
+})
 
 if (module.hot) {
   // Hot reload whenever any module changes.
   module.hot.accept(context.id, () => {
-    const { modules } = loadModules();
+    const { modules } = loadModules()
 
     store.hotUpdate({
       modules,
-    });
-  });
+    })
+  })
 }
 ```
