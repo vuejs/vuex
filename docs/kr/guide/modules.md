@@ -8,14 +8,14 @@
 
 ``` js
 const moduleA = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... },
   getters: { ... }
 }
 
 const moduleB = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... }
 }
@@ -37,7 +37,9 @@ store.state.b // -> moduleB'의 상태
 
 ``` js
 const moduleA = {
-  state: { count: 0 },
+  state: () => ({
+    count: 0
+  }),
   mutations: {
     increment (state) {
       // state는 지역 모듈 상태 입니다
@@ -94,7 +96,7 @@ const store = new Vuex.Store({
       namespaced: true,
 
       // 모듈 자산
-      state: { ... }, // 모듈 상태는 이미 중첩되어 있고, 네임스페이스 옵션의 영향을 받지 않음
+      state: () => ({ ... }), // 모듈 상태는 이미 중첩되어 있고, 네임스페이스 옵션의 영향을 받지 않음
       getters: {
         isAdmin () { ... } // -> getters['account/isAdmin']
       },
@@ -109,7 +111,7 @@ const store = new Vuex.Store({
       modules: {
         // 부모 모듈로부터 네임스페이스를 상속받음
         myPage: {
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             profile () { ... } // -> getters['account/profile']
           }
@@ -119,7 +121,7 @@ const store = new Vuex.Store({
         posts: {
           namespaced: true,
 
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             popular () { ... } // -> getters['account/posts/popular']
           }
@@ -311,11 +313,9 @@ Server Side Rendered 앱에서 상태를 유지하는 것처럼 새 모듈을 �
 
 ``` js
 const MyReusableModule = {
-  state () {
-    return {
-      foo: 'bar'
-    }
-  },
+  state: () => ({
+    foo: 'bar'
+  }),
   // 변이, 액션, getters...
 }
 ```

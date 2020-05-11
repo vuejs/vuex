@@ -1,4 +1,4 @@
-import { find, deepCopy, forEachValue, isObject, isPromise, assert } from '../../src/util'
+import { find, deepCopy, forEachValue, isObject, isPromise, assert } from '@/util'
 
 describe('util', () => {
   it('find', () => {

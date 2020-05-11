@@ -185,7 +185,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overriden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
 
   ``` js
   store.subscribe(handler, { prepend: true })
@@ -210,10 +210,10 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overriden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
 
   ``` js
-  store.subscribe(handler, { prepend: true })
+  store.subscribeAction(handler, { prepend: true })
   ```
 
   To stop subscribing, call the returned unsubscribe function.
@@ -233,7 +233,20 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  Most commonly used in plugins. [Details](../guide/plugins.md)
+  > New in 3.4.0
+
+  Since 3.4.0, `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
+
+  ``` js
+  store.subscribeAction({
+    error: (action, state, error) => {
+      console.log(`error action ${action.type}`)
+      console.error(error)
+    }
+  })
+  ```
+
+  The `subscribeAction` method is most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### registerModule
 

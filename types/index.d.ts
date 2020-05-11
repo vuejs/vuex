@@ -81,10 +81,12 @@ export interface SubscribeOptions {
 }
 
 export type ActionSubscriber<P, S> = (action: P, state: S) => any;
+export type ActionErrorSubscriber<P, S> = (action: P, state: S, error: Error) => any;
 
 export interface ActionSubscribersObject<P, S> {
   before?: ActionSubscriber<P, S>;
   after?: ActionSubscriber<P, S>;
+  error?: ActionErrorSubscriber<P, S>;
 }
 
 export type SubscribeActionOptions<P, S> = ActionSubscriber<P, S> | ActionSubscribersObject<P, S>;

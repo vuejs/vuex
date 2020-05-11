@@ -66,10 +66,66 @@ namespace StoreInstance {
   });
 
   store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
     after(action, state) {
       action.type;
       action.payload;
       state.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    }
+  });
+
+  store.subscribeAction({
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
     }
   });
 

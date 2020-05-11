@@ -8,14 +8,14 @@ Pour y remédier, Vuex nous permet de diviser notre store en **modules**. Chaque
 
 ``` js
 const moduleA = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... },
   getters: { ... }
 }
 
 const moduleB = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... }
 }
@@ -37,7 +37,9 @@ Dans les mutations et accesseurs d'un module, le premier argument reçu sera **l
 
 ``` js
 const moduleA = {
-  state: { count: 0 },
+  state: () => ({
+    count: 0
+  }),
   mutations: {
     increment (state) {
       // `state` est l'état du module local
@@ -87,14 +89,14 @@ Par défaut, les actions, mutations et accesseurs à l'intérieur d'un module so
 
 Si vous souhaitez que votre module soit autosuffisant et réutilisable, vous pouvez le ranger sous un espace de nom avec `namespaced: true`. Quand le module est enregistré, tous ses accesseurs, actions et mutations seront automatiquement basés sur l'espace de nom du module dans lesquels ils sont rangés. Par exemple :
 
-```js
+``` js
 const store = new Vuex.Store({
   modules: {
     account: {
       namespaced: true,
 
       // propriétés du module
-      state: { ... }, // l'état du module est déjà imbriqué et n'est pas affecté par l'option `namespace`
+      state: () => ({ ... }), // l'état du module est déjà imbriqué et n'est pas affecté par l'option `namespace`
       getters: {
         isAdmin () { ... } // -> getters['account/isAdmin']
       },
@@ -109,7 +111,7 @@ const store = new Vuex.Store({
       modules: {
         // hérite de l'espace de nom du module parent
         myPage: {
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             profile () { ... } // -> getters['account/profile']
           }
@@ -119,7 +121,7 @@ const store = new Vuex.Store({
         posts: {
           namespaced: true,
 
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             popular () { ... } // -> getters['account/posts/popular']
           }
@@ -262,7 +264,7 @@ export default {
 
 Vous devez faire attention au nom d'espace imprévisible pour vos modules quand vous créez un [plugin](./plugins.md) qui fournit les modules et laisser les utilisateurs les ajouter au store de Vuex. Vos modules seront également sous espace de nom si l'utilisateur du plugin l'ajoute sous un module sous espace de nom. Pour vous adapter à la situation, vous devez recevoir la valeur de l'espace de nom via vos options de plugin :
 
-```js
+``` js
 // passer la valeur d'espace de nom via une option du plugin
 // et retourner une fonction de plugin Vuex
 export function createPlugin (options = {}) {
@@ -311,11 +313,9 @@ C'est exactement le même problème qu'avec `data` dans un composant Vue. Ainsi 
 
 ``` js
 const MyReusableModule = {
-  state () {
-    return {
-      foo: 'bar'
-    }
-  },
+  state: () => ({
+    foo: 'bar'
+  }),
   // mutations, actions, accesseurs...
 }
 ```

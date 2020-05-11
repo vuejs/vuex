@@ -252,7 +252,7 @@ describe('Hot Reload', () => {
       }
     })
 
-    const spy = jasmine.createSpy()
+    const spy = jest.fn()
 
     const vm = mount(store, {
       computed: {
@@ -294,7 +294,7 @@ describe('Hot Reload', () => {
   it('provide warning if a new module is given', () => {
     const store = new Vuex.Store({})
 
-    spyOn(console, 'warn')
+    jest.spyOn(console, 'warn').mockImplementation()
 
     store.hotUpdate({
       modules: {
@@ -314,10 +314,10 @@ describe('Hot Reload', () => {
 
   it('update namespace', () => {
     // prevent to print notification of unknown action/mutation
-    spyOn(console, 'error')
+    jest.spyOn(console, 'error').mockImplementation()
 
-    const actionSpy = jasmine.createSpy()
-    const mutationSpy = jasmine.createSpy()
+    const actionSpy = jest.fn()
+    const mutationSpy = jest.fn()
 
     const store = new Vuex.Store({
       modules: {
@@ -334,9 +334,9 @@ describe('Hot Reload', () => {
     expect(store.state.a.value).toBe(1)
     expect(store.getters['a/foo']).toBe(1)
     store.dispatch('a/foo')
-    expect(actionSpy.calls.count()).toBe(1)
+    expect(actionSpy).toHaveBeenCalledTimes(1)
     store.commit('a/foo')
-    expect(actionSpy.calls.count()).toBe(1)
+    expect(actionSpy).toHaveBeenCalledTimes(1)
 
     store.hotUpdate({
       modules: {
@@ -352,18 +352,18 @@ describe('Hot Reload', () => {
 
     // should not be called
     store.dispatch('a/foo')
-    expect(actionSpy.calls.count()).toBe(1)
+    expect(actionSpy).toHaveBeenCalledTimes(1)
 
     // should be called
     store.dispatch('foo')
-    expect(actionSpy.calls.count()).toBe(2)
+    expect(actionSpy).toHaveBeenCalledTimes(2)
 
     // should not be called
     store.commit('a/foo')
-    expect(mutationSpy.calls.count()).toBe(1)
+    expect(mutationSpy).toHaveBeenCalledTimes(1)
 
     // should be called
     store.commit('foo')
-    expect(mutationSpy.calls.count()).toBe(2)
+    expect(mutationSpy).toHaveBeenCalledTimes(2)
   })
 })

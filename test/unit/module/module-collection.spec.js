@@ -1,4 +1,4 @@
-import ModuleCollection from '../../../src/module/module-collection'
+import ModuleCollection from '@/module/module-collection'
 
 describe('ModuleCollection', () => {
   it('get', () => {

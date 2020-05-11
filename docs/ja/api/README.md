@@ -175,7 +175,7 @@ const store = new Vuex.Store({ ...options })
 
 ### subscribe
 
-- `subscribe(handler: Function): Function`
+- `subscribe(handler: Function, options?: Object): Function`
 
   ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリプタとミューテーション後の状態を受け取ります。
 
@@ -186,13 +186,19 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
+
+  ``` js
+  store.subscribe(handler, { prepend: true })
+  ```
+
   購読を停止するには、返された unsubscribe 関数呼び出します。
 
   プラグインの中でもっともよく利用されます。[詳細](../guide/plugins.md)
 
 ### subscribeAction
 
-- `subscribeAction(handler: Function)`
+- `subscribeAction(handler: Function, options?: Object): Function`
 
   > 2.5.0 で新規追加
 
@@ -203,6 +209,12 @@ const store = new Vuex.Store({ ...options })
     console.log(action.type)
     console.log(action.payload)
   })
+  ```
+
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
+
+  ``` js
+  store.subscribeAction(handler, { prepend: true })
   ```
 
 　購読を停止するには、返された購読解除関数を呼びます。

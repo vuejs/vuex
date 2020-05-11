@@ -148,18 +148,32 @@ export class Store {
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
 
-    return result.then(res => {
-      try {
-        this._actionSubscribers
-          .filter(sub => sub.after)
-          .forEach(sub => sub.after(action, this.state))
-      } catch (e) {
-        if (__DEV__) {
-          console.warn(`[vuex] error in after action subscribers: `)
-          console.error(e)
+    return new Promise((resolve, reject) => {
+      result.then(res => {
+        try {
+          this._actionSubscribers
+            .filter(sub => sub.after)
+            .forEach(sub => sub.after(action, this.state))
+        } catch (e) {
+          if (__DEV__) {
+            console.warn(`[vuex] error in after action subscribers: `)
+            console.error(e)
+          }
         }
-      }
-      return res
+        resolve(res)
+      }, error => {
+        try {
+          this._actionSubscribers
+            .filter(sub => sub.error)
+            .forEach(sub => sub.error(action, this.state, error))
+        } catch (e) {
+          if (__DEV__) {
+            console.warn(`[vuex] error in error action subscribers: `)
+            console.error(e)
+          }
+        }
+        reject(error)
+      })
     })
   }
 
@@ -217,7 +231,7 @@ export class Store {
   hasModule (path) {
     if (typeof path === 'string') path = [path]
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
     }
 
