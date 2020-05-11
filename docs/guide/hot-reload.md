@@ -62,7 +62,7 @@ function loadModules() {
     .reduce(
       (modules, { key, name }) => ({
         ...modules,
-        [name]: context(key).default,
+        [name]: context(key).default
       }),
       {}
     )
@@ -84,7 +84,7 @@ if (module.hot) {
     const { modules } = loadModules()
 
     store.hotUpdate({
-      modules,
+      modules
     })
   })
 }
