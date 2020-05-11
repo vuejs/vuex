@@ -1,11 +1,10 @@
 # [4.0.0-beta.2](https://github.com/vuejs/vuex/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2020-05-11)
 
 
-### Features
+### Bug Fixes
 
-* Allow action subscribers to catch rejections. ([#1740](https://github.com/vuejs/vuex/issues/1740)) ([6ebbe64](https://github.com/vuejs/vuex/commit/6ebbe64c5821d19e55a41dc8b1d81cfce6cbd195)), closes [#1489](https://github.com/vuejs/vuex/issues/1489) [#1558](https://github.com/vuejs/vuex/issues/1558) [#1625](https://github.com/vuejs/vuex/issues/1625)
-
-
+- types: add `useStore` function ([#1736](https://github.com/vuejs/vuex/issues/1736)) [#1739](https://github.com/vuejs/vuex/issues/1736)
+- build: fix `iife` build containing `process.env`.
 
 # [4.0.0-beta.1](https://github.com/vuejs/vuex/compare/v3.3.0...v4.0.0-beta.1) (2020-04-25)
 
@@ -104,6 +103,14 @@ app.mount('#app')
 
 - The code is kept as close to Vuex 3 code base as possible, and there're plenty of places where we should refactor. However, we are waiting for all of the test cases to pass before doing so (some tests require Vue 3 update).
 - TypeScript support is not ready yet. Please use JS environment to test this for now.
+
+
+# [3.4.0](https://github.com/vuejs/vuex/compare/v3.3.0...v3.4.0) (2020-05-11)
+
+
+### Features
+
+* Allow action subscribers to catch rejections. ([#1740](https://github.com/vuejs/vuex/issues/1740)) ([6ebbe64](https://github.com/vuejs/vuex/commit/6ebbe64c5821d19e55a41dc8b1d81cfce6cbd195)), closes [#1489](https://github.com/vuejs/vuex/issues/1489) [#1558](https://github.com/vuejs/vuex/issues/1558) [#1625](https://github.com/vuejs/vuex/issues/1625)
 
 
 # [3.3.0](https://github.com/vuejs/vuex/compare/v3.2.0...v3.3.0) (2020-04-25)
