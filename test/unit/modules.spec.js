@@ -1,5 +1,5 @@
 import { nextTick } from 'vue'
-import Vuex from '../../src/index'
+import Vuex from '@/index'
 
 const TEST = 'TEST'
 
@@ -758,7 +758,7 @@ describe('Modules', () => {
         store.state
       )
       expect(afterSpy).not.toHaveBeenCalled()
-      Vue.nextTick(() => {
+      nextTick(() => {
         expect(afterSpy).not.toHaveBeenCalledWith(
           { type: TEST, payload: 2 },
           store.state

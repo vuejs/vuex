@@ -1,6 +1,6 @@
 import { nextTick } from 'vue'
-import { mount } from './support/helpers'
-import Vuex from '@/src/index'
+import { mount } from 'test/helpers'
+import Vuex from '@/index'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
