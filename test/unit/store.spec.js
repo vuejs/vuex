@@ -1,5 +1,5 @@
-import Vue from 'vue/dist/vue.common.js'
-import Vuex from '../../dist/vuex.common.js'
+import Vue from 'vue'
+import Vuex from '@/index'
 
 const TEST = 'TEST'
 const isSSR = process.env.VUE_ENV === 'server'
@@ -171,11 +171,11 @@ describe('Store', () => {
         }
       }
     })
-    const spy = jasmine.createSpy()
+    const spy = jest.fn()
     store._devtoolHook = {
       emit: spy
     }
-    const thenSpy = jasmine.createSpy()
+    const thenSpy = jest.fn()
     store.dispatch(TEST)
       .then(thenSpy)
       .catch(err => {
@@ -249,7 +249,7 @@ describe('Store', () => {
   })
 
   it('should warn silent option depreciation', () => {
-    spyOn(console, 'warn')
+    jest.spyOn(console, 'warn').mockImplementation()
 
     const store = new Vuex.Store({
       mutations: {
@@ -267,7 +267,7 @@ describe('Store', () => {
   it('asserts the call with the new operator', () => {
     expect(() => {
       Vuex.Store({})
-    }).toThrowError(/store must be called with the new operator/)
+    }).toThrowError(/Cannot call a class as a function/)
   })
 
   it('should accept state as function', () => {
@@ -287,7 +287,7 @@ describe('Store', () => {
   })
 
   it('should not call root state function twice', () => {
-    const spy = jasmine.createSpy().and.returnValue(1)
+    const spy = jest.fn().mockReturnValue(1)
     new Vuex.Store({
       state: spy
     })
@@ -295,8 +295,8 @@ describe('Store', () => {
   })
 
   it('subscribe: should handle subscriptions / unsubscriptions', () => {
-    const subscribeSpy = jasmine.createSpy()
-    const secondSubscribeSpy = jasmine.createSpy()
+    const subscribeSpy = jest.fn()
+    const secondSubscribeSpy = jest.fn()
     const testPayload = 2
     const store = new Vuex.Store({
       state: {},
@@ -316,12 +316,12 @@ describe('Store', () => {
       store.state
     )
     expect(secondSubscribeSpy).toHaveBeenCalled()
-    expect(subscribeSpy.calls.count()).toBe(1)
-    expect(secondSubscribeSpy.calls.count()).toBe(2)
+    expect(subscribeSpy).toHaveBeenCalledTimes(1)
+    expect(secondSubscribeSpy).toHaveBeenCalledTimes(2)
   })
 
   it('subscribe: should handle subscriptions with synchronous unsubscriptions', () => {
-    const subscribeSpy = jasmine.createSpy()
+    const subscribeSpy = jest.fn()
     const testPayload = 2
     const store = new Vuex.Store({
       state: {},
@@ -338,11 +338,11 @@ describe('Store', () => {
       { type: TEST, payload: testPayload },
       store.state
     )
-    expect(subscribeSpy.calls.count()).toBe(1)
+    expect(subscribeSpy).toHaveBeenCalledTimes(1)
   })
 
   it('subscribeAction: should handle subscriptions with synchronous unsubscriptions', () => {
-    const subscribeSpy = jasmine.createSpy()
+    const subscribeSpy = jest.fn()
     const testPayload = 2
     const store = new Vuex.Store({
       state: {},
@@ -359,12 +359,14 @@ describe('Store', () => {
       { type: TEST, payload: testPayload },
       store.state
     )
-    expect(subscribeSpy.calls.count()).toBe(1)
+    expect(subscribeSpy).toHaveBeenCalledTimes(1)
   })
 
   // store.watch should only be asserted in non-SSR environment
   if (!isSSR) {
     it('strict mode: warn mutations outside of handlers', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation()
+
       const store = new Vuex.Store({
         state: {
           a: 1
@@ -372,7 +374,8 @@ describe('Store', () => {
         strict: true
       })
       Vue.config.silent = true
-      expect(() => { store.state.a++ }).toThrow()
+      store.state.a++
+      expect(spy).toHaveBeenCalled()
       Vue.config.silent = false
     })
 
@@ -386,7 +389,7 @@ describe('Store', () => {
         }
       })
 
-      const spy = jasmine.createSpy()
+      const spy = jest.fn()
       store.watch(state => state.count, spy)
 
       // reset store vm
@@ -419,8 +422,8 @@ describe('Store', () => {
       const getter = function getter (state, getters) {
         return state.count
       }
-      const spy = spyOn({ getter }, 'getter').and.callThrough()
-      const spyCb = jasmine.createSpy()
+      const spy = jest.spyOn({ getter }, 'getter')
+      const spyCb = jest.fn()
 
       store.watch(spy, spyCb)
 

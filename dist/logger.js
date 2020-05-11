@@ -1,8 +1,13 @@
+/*!
+ * vuex v3.4.0
+ * (c) 2020 Evan You
+ * @license MIT
+ */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.createVuexLogger = factory());
-}(this, function () { 'use strict';
+  (global = global || self, global.Vuex = factory());
+}(this, (function () { 'use strict';
 
   /**
    * Get the first item that pass the test
@@ -147,4 +152,4 @@
 
   return createLogger;
 
-}));
+})));

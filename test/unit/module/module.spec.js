@@ -1,4 +1,4 @@
-import Module from '../../../src/module/module'
+import Module from '@/module/module'
 
 describe('Module', () => {
   it('get state', () => {
