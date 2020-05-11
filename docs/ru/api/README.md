@@ -233,7 +233,20 @@ store.subscribeAction({
 })
 ```
 
-Чаще всего используется в плагинах. [Подробнее](../guide/plugins.md)
+> Добавлено в версии 3.4.0
+
+С версии 3.4.0 в `subscribeAction` также можно указывать обработчик `error` для перехвата ошибки, выброшенной при выполнении действия. В качестве третьего аргумента функция получает объект `error`.
+
+``` js
+store.subscribeAction({
+  error: (action, state, error) => {
+    console.log(`error action ${action.type}`)
+    console.error(error)
+  }
+})
+```
+
+Метод `subscribeAction` чаще всего используется в плагинах. [Подробнее](../guide/plugins.md)
 
 ### registerModule
 
