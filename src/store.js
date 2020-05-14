@@ -10,7 +10,7 @@ export function createStore (options) {
 
 export class Store {
   constructor (options = {}) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       assert(typeof Promise !== 'undefined', `vuex requires a Promise polyfill in this browser.`)
       assert(this instanceof Store, `store must be called with the new operator.`)
     }
