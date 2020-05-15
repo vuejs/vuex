@@ -236,7 +236,7 @@ const store = new Vuex.Store({ ...options })
 
   > 3.4.0 で新規追加
 
-  3.4.0から、`subscribeAction` に `error` ハンドラが追加されました。このハンドラでは、アクションディスパッチの中で投げられたエラーをキャッチすることができます。`error` ハンドラは投げれた `error` オブジェクトを第3引数として受け取ります。
+  3.4.0から、`subscribeAction` に `error` ハンドラが追加されました。このハンドラでは、アクションディスパッチの中で投げられたエラーをキャッチすることができます。`error` ハンドラは投げられた `error` オブジェクトを第3引数として受け取ります。
 
   ``` js
   store.subscribeAction({
