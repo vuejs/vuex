@@ -112,7 +112,7 @@ export default {
     ...mapActions([
       'increment' // this.increment()을 this.$store.dispatch('increment')에 매핑
 
-      // mapActions는 payloads도 지원을 한다.
+      // mapActions는 페이로드를 지원합니다.
       'incrementBy' // this.incrementBy(amount)를 this.$store.dispatch('incrementBy', amount)에 매핑
     ]),
     ...mapActions({
