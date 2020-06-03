@@ -69,6 +69,14 @@ computed: {
 
 Note that getters accessed as properties are cached as part of Vue's reactivity system.
 
+### Property-Style Access with Modules
+
+Module properties will be merged into a single key of the form 'ModuleName/PropertyName'. Getters must be be accessed with bracket notation in this case:
+
+``` js
+store.getters['ModuleName/PropertyName']
+```
+
 ### Method-Style Access
 
 You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
