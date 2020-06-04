@@ -299,7 +299,7 @@ store.registerModule(['nested', 'myModule'], {
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
 
-また、すでに動的なモジュールが登録されているかどうかを `store.hasModule(moduleName)` メソッドを使って確認することができます。
+また、すでにモジュールが登録されているかどうかを `store.hasModule(moduleName)` メソッドを使って確認することができます。
 
 #### ステートの保持
 
