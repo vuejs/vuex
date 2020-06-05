@@ -3,7 +3,7 @@
  */
 
 import Vue from "vue";
-import { TStore } from "@imsunhao/vuex/types/default/store";
+import { TStore } from "vuex/types/default/store";
 
 declare module "vue/types/options" {
   interface ComponentOptions<V extends Vue> {
