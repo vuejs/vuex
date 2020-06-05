@@ -1,6 +1,6 @@
 {
-  "name": "vuex",
-  "version": "3.3.0",
+  "name": "@imsunhao/vuex",
+  "version": "3.3.1",
   "description": "state management for Vue.js",
   "main": "dist/vuex.common.js",
   "module": "dist/vuex.esm.js",
@@ -9,6 +9,7 @@
   "typings": "types/index.d.ts",
   "files": [
     "dist",
+    "types/default",
     "types/index.d.ts",
     "types/helpers.d.ts",
     "types/vue.d.ts"
@@ -44,6 +45,7 @@
     "vue": "^2.0.0"
   },
   "devDependencies": {
+    "@imsunhao/vuex": "^3.3.1",
     "babel-core": "^6.22.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
