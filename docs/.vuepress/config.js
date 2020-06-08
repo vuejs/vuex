@@ -310,7 +310,7 @@ module.exports = {
                   link: '/fr/api/'
               },
               {
-                  text: 'Notes de release',
+                  text: 'Notes de version',
                   link: 'https://github.com/vuejs/vuex/releases'
               }
           ],
