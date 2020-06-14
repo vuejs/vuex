@@ -107,12 +107,12 @@ const logger = createLogger({
   filter (mutation, stateBefore, stateAfter) {
     // ミューテーションを記録する必要がある場合は、`true` を返します
     // `mutation` は `{ type, payload }` です
-    return mutation.type !== "aBlacklistedMutation"
+    return mutation.type !== "aBlocklistedMutation"
   },
   actionFilter (action, state) {
     // `filter` と同等ですが、アクション用です
     // `action` は `{ type, payloed }` です
-    return action.type !== "aBlacklistedAction"
+    return action.type !== "aBlocklistedAction"
   },
   transformer (state) {
     // ロギングの前に、状態を変換します

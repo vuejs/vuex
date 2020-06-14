@@ -105,12 +105,12 @@ const logger = createLogger({
   filter(mutation, stateBefore, stateAfter) {
     // возвращает `true`, если мутация должна быть залогирована
     // `mutation` — это объект `{ type, payload }`
-    return mutation.type !== 'aBlacklistedMutation';
+    return mutation.type !== 'aBlocklistedMutation';
   },
   actionFilter (action, state) {
     // аналогично `filter`, но для действий
     // `action` будет объектом `{ type, payload }`
-    return action.type !== 'aBlacklistedAction'
+    return action.type !== 'aBlocklistedAction'
   },
   transformer(state) {
     // обработать состояние перед логированием
