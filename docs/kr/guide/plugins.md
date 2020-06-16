@@ -108,7 +108,7 @@ const logger = createLogger({
   filter (mutation, stateBefore, stateAfter) {
     // 변이시 항상 로깅해야 한다면 true 를 반환하십시오.
     // 변이는 { type, payload }의 포맷입니다.
-    return mutation.type !== "aBlacklistedMutation"
+    return mutation.type !== "aBlocklistedMutation"
   },
   transformer (state) {
     // 로깅하기전 상태를 변이 하십시오.
