@@ -1,9 +1,14 @@
 import { find, deepCopy, forEachValue, isObject, isPromise, assert } from '@/util'
 
 describe('util', () => {
-  it('find', () => {
+  it('find: returns item when it was found', () => {
     const list = [33, 22, 112, 222, 43]
     expect(find(list, function (a) { return a % 2 === 0 })).toEqual(22)
+  })
+
+  it('find: returns undefined when item was not found', () => {
+    const list = [1, 2, 3]
+    expect(find(list, function (a) { return a === 9000 })).toEqual(undefined)
   })
 
   it('deepCopy: normal structure', () => {
