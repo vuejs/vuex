@@ -234,7 +234,20 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-　プラグインで最も一般的に使用されます。[詳細](../guide/plugins.md)
+  > 3.4.0 で新規追加
+
+  3.4.0から、`subscribeAction` に `error` ハンドラが追加されました。このハンドラでは、アクションディスパッチの中で投げられたエラーをキャッチすることができます。`error` ハンドラは投げられた `error` オブジェクトを第3引数として受け取ります。
+
+  ``` js
+  store.subscribeAction({
+    error: (action, state, error) => {
+      console.log(`error action ${action.type}`)
+      console.error(error)
+    }
+  })
+  ```
+
+　`subscribeAction` メソッドはプラグインで最も一般的に使用されます。[詳細](../guide/plugins.md)
 
 ### registerModule
 

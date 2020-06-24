@@ -42,3 +42,50 @@ if (module.hot) {
 ```
 
 ホットリローディングを試したい場合は、[counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot)をチェックアウトしてください。
+
+## 動的モジュールホットリローディング
+
+もしストアでモジュールだけを使用している場合には、`require.context` を使って全てのモジュールを動的に読み込むこともできます。
+
+```js
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+// 全てのモジュールをロードする
+function loadModules() {
+  const context = require.context("./modules", false, /([a-z_]+)\.js$/i)
+
+  const modules = context
+    .keys()
+    .map((key) => ({ key, name: key.match(/([a-z_]+)\.js$/i)[1] }))
+    .reduce(
+      (modules, { key, name }) => ({
+        ...modules,
+        [name]: context(key).default
+      }),
+      {}
+    )
+
+  return { context, modules }
+}
+
+const { context, modules } = loadModules()
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  modules
+})
+
+if (module.hot) {
+  // モジュールに変更があった場合にホットリロードする
+  module.hot.accept(context.id, () => {
+    const { modules } = loadModules()
+
+    store.hotUpdate({
+      modules
+    })
+  })
+}
+```

@@ -176,7 +176,7 @@ const store = new Vuex.Store({ ...options })
 
 ### subscribe
 
-- `subscribe(handler: Function): Function`
+- `subscribe(handler: Function, options?: Object): Function`
 
   订阅 store 的 mutation。`handler` 会在每个 mutation 完成后调用，接收 mutation 和经过 mutation 后的状态作为参数：
 
@@ -187,13 +187,18 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
+  默认情况下，新的处理函数会被添加到其链的尾端，因此它会在其它之前已经被添加了的处理函数之后执行。这一行为可以通过向 `options` 添加 `prepend: true` 来覆写，即把处理函数添加到其链的最开始。
+
+  ``` js
+  store.subscribe(handler, { prepend: true })
+  ```
   要停止订阅，调用此方法返回的函数即可停止订阅。
 
   通常用于插件。[详细介绍](../guide/plugins.md)
 
 ### subscribeAction
 
-- `subscribeAction(handler: Function): Function`
+- `subscribeAction(handler: Function, options?: Object): Function`
 
   > 2.5.0 新增
 
@@ -204,6 +209,12 @@ const store = new Vuex.Store({ ...options })
     console.log(action.type)
     console.log(action.payload)
   })
+  ```
+
+  默认情况下，新的处理函数会被添加到其链的尾端，因此它会在其它之前已经被添加了的处理函数之后执行。这一行为可以通过向 `options` 添加 `prepend: true` 来覆写，即把处理函数添加到其链的最开始。
+
+  ``` js
+  store.subscribeAction(handler, { prepend: true })
   ```
 
   要停止订阅，调用此方法返回的函数即可停止订阅。
@@ -223,7 +234,20 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  该功能常用于插件。[详细介绍](../guide/plugins.md)
+  > 3.4.0 新增
+
+  自 3.4.0 起，`subscribeAction` 也可以指定一个 `error` 处理函数以捕获分发 action 的时候被抛出的错误。该函数会从第三个参数接收到一个 `error` 对象。
+
+  ``` js
+  store.subscribeAction({
+    error: (action, state, error) => {
+      console.log(`error action ${action.type}`)
+      console.error(error)
+    }
+  })
+  ```
+
+  该 `subscribeAction` 方法常用于插件。[详细介绍](../guide/plugins.md)
 
 ### registerModule
 
