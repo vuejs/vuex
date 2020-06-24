@@ -1,5 +1,6 @@
 import { Store, install } from './store'
 import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from './helpers'
+import createLogger from './plugins/logger'
 
 export default {
   Store,
@@ -9,7 +10,8 @@ export default {
   mapMutations,
   mapGetters,
   mapActions,
-  createNamespacedHelpers
+  createNamespacedHelpers,
+  createLogger
 }
 
 export {
@@ -19,5 +21,6 @@ export {
   mapMutations,
   mapGetters,
   mapActions,
-  createNamespacedHelpers
+  createNamespacedHelpers,
+  createLogger
 }
