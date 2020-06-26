@@ -1,6 +1,5 @@
 import Vue from "vue";
 import * as Vuex from "../index";
-import createLogger from "../../dist/logger";
 
 Vue.use(Vuex);
 
@@ -438,7 +437,7 @@ namespace Plugins {
     });
   }
 
-  const logger = createLogger<{ value: number }>({
+  const logger = Vuex.createLogger<{ value: number }>({
     collapsed: true,
     transformer: state => state.value,
     mutationTransformer: (mutation: { type: string }) => mutation.type
