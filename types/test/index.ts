@@ -1,5 +1,4 @@
 import * as Vuex from "../index";
-import createLogger from "../../dist/logger";
 
 namespace StoreInstance {
   const store = new Vuex.Store({
@@ -447,7 +446,7 @@ namespace Plugins {
     });
   }
 
-  const logger = createLogger<{ value: number }>({
+  const logger = Vuex.createLogger<{ value: number }>({
     collapsed: true,
     transformer: state => state.value,
     mutationTransformer: (mutation: { type: string }) => mutation.type

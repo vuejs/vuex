@@ -4,8 +4,10 @@ import { App, WatchOptions, InjectionKey } from "vue";
 import "./vue";
 
 import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from "./helpers";
+import createLogger from "./logger";
 
 export * from "./helpers";
+export * from "./logger";
 
 export declare class Store<S> {
   constructor(options: StoreOptions<S>);
@@ -151,6 +153,8 @@ export interface ModuleTree<R> {
   [key: string]: Module<any, R>;
 }
 
+export { createLogger }
+
 declare const _default: {
   Store: typeof Store;
   mapState: typeof mapState,
@@ -158,5 +162,6 @@ declare const _default: {
   mapGetters: typeof mapGetters,
   mapActions: typeof mapActions,
   createNamespacedHelpers: typeof createNamespacedHelpers,
+  createLogger: typeof createLogger
 };
 export default _default;

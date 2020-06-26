@@ -1,6 +1,7 @@
 import { createStore, Store } from './store'
 import { useStore } from './injectKey'
 import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from './helpers'
+import createLogger from './plugins/logger'
 
 export default {
   version: '__VERSION__',
@@ -11,7 +12,8 @@ export default {
   mapMutations,
   mapGetters,
   mapActions,
-  createNamespacedHelpers
+  createNamespacedHelpers,
+  createLogger
 }
 
 export {
@@ -22,5 +24,6 @@ export {
   mapMutations,
   mapGetters,
   mapActions,
-  createNamespacedHelpers
+  createNamespacedHelpers,
+  createLogger
 }
