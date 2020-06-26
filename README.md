@@ -85,6 +85,14 @@ declare module '@vue/runtime-core' {
 }
 ```
 
-## TODOs as of 4.0.0-beta.1
+### `createLogger` function is exported from the core module
+
+In Vuex 3, `createLogger` function was exported from `vuex/dist/logger` but it's now included in the core package. You should import the function directly from `vuex` package.
+
+```js
+import { createLogger } from 'vuex'
+```
+
+## TODOs as of 4.0.0-beta.2
 
 - Update docs

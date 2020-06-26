@@ -4,16 +4,25 @@ const execa = require('execa')
 const { gzipSync } = require('zlib')
 const { compress } = require('brotli')
 
-async function run(config, files) {
-  await build(config)
-  checkAllSizes(files)
+const files = [
+  'dist/vuex.esm-browser.js',
+  'dist/vuex.esm-browser.prod.js',
+  'dist/vuex.esm-bundler.js',
+  'dist/vuex.global.js',
+  'dist/vuex.global.prod.js',
+  'dist/vuex.cjs.js'
+]
+
+async function run() {
+  await build()
+  checkAllSizes()
 }
 
-async function build(config) {
-  await execa('rollup', ['-c', config], { stdio: 'inherit' })
+async function build() {
+  await execa('rollup', ['-c', 'rollup.config.js'], { stdio: 'inherit' })
 }
 
-function checkAllSizes(files) {
+function checkAllSizes() {
   console.log()
   files.map((f) => checkSize(f))
   console.log()
@@ -33,4 +42,4 @@ function checkSize(file) {
   )
 }
 
-module.exports = { run }
+run()

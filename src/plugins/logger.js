@@ -2,7 +2,7 @@
 
 import { deepCopy } from '../util'
 
-export default function createLogger ({
+export function createLogger ({
   collapsed = true,
   filter = (mutation, stateBefore, stateAfter) => true,
   transformer = state => state,

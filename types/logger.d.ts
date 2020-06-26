@@ -11,4 +11,4 @@ export interface LoggerOption<S> {
   logActions?: boolean;
 }
 
-export default function createLogger<S>(option?: LoggerOption<S>): Plugin<S>;
+export function createLogger<S>(option?: LoggerOption<S>): Plugin<S>;

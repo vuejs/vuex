@@ -4,7 +4,7 @@ import { App, WatchOptions, InjectionKey } from "vue";
 import "./vue";
 
 import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from "./helpers";
-import createLogger from "./logger";
+import { createLogger } from "./logger";
 
 export * from "./helpers";
 export * from "./logger";
@@ -152,8 +152,6 @@ export interface MutationTree<S> {
 export interface ModuleTree<R> {
   [key: string]: Module<any, R>;
 }
-
-export { createLogger }
 
 declare const _default: {
   Store: typeof Store;
