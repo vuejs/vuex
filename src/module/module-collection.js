@@ -49,7 +49,21 @@ export default class ModuleCollection {
   unregister (path) {
     const parent = this.get(path.slice(0, -1))
     const key = path[path.length - 1]
-    if (!parent.getChild(key).runtime) return
+    const child = parent.getChild(key)
+
+    if (!child) {
+      if (__DEV__) {
+        console.warn(
+          `[vuex] trying to unregister module '${key}', which is ` +
+          `not registered`
+        )
+      }
+      return
+    }
+
+    if (!child.runtime) {
+      return
+    }
 
     parent.removeChild(key)
   }
