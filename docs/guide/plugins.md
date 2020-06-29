@@ -92,12 +92,16 @@ The plugin will be used by default. For production, you will need [DefinePlugin]
 Vuex comes with a logger plugin for common debugging usage:
 
 ``` js
-import createLogger from 'vuex/dist/logger'
+import { createLogger } from 'vuex'
 
 const store = new Vuex.Store({
   plugins: [createLogger()]
 })
 ```
+
+:::warning WARNING
+Before v3.5.0, the `createLogger` function is exported at `vuex/dist/logger` package. PLease checkout the "Before Vuex v3.5.0" setion of this page.
+:::
 
 The `createLogger` function takes a few options:
 
@@ -137,3 +141,15 @@ const logger = createLogger({
 The logger file can also be included directly via a `<script>` tag, and will expose the `createVuexLogger` function globally.
 
 Note the logger plugin takes state snapshots, so use it only during development.
+
+#### Before Vuex v3.5.0
+
+Before v3.5.0, the `createLogger` function is exported at `vuex/dist/logger` package.
+
+``` js
+import createLogger from 'vuex/dist/logger'
+
+const store = new Vuex.Store({
+  plugins: [createLogger()]
+})
+```
