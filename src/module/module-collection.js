@@ -49,8 +49,9 @@ export default class ModuleCollection {
   unregister (path) {
     const parent = this.get(path.slice(0, -1))
     const key = path[path.length - 1]
+    const child = parent.getChild(key)
 
-    if (!parent.getChild(key)) {
+    if (!child) {
       if (__DEV__) {
         console.warn(
           `[vuex] trying to unregister module '${key}', which is ` +
@@ -60,7 +61,7 @@ export default class ModuleCollection {
       return
     }
 
-    if (!parent.getChild(key).runtime) {
+    if (!child.runtime) {
       return
     }
 
