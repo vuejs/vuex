@@ -1,3 +1,22 @@
+# [4.0.0-beta.3](https://github.com/vuejs/vuex/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2020-06-29)
+
+
+### Bug Fixes
+
+* UMD bundle containing `process.env` flag ([#1749](https://github.com/vuejs/vuex/issues/1749)) ([0fea8c4](https://github.com/vuejs/vuex/commit/0fea8c44060d08b3b421f1ddaa809fdffbc89b00))
+
+
+### Features
+
+* include `createLogger` function in core export ([afa566d](https://github.com/vuejs/vuex/commit/afa566d7f7b8e516389463b437fbfcb9eafdbd1b))
+* include logger plugin to the core export ([#1783](https://github.com/vuejs/vuex/issues/1783)) ([04e2bd8](https://github.com/vuejs/vuex/commit/04e2bd8b3509c67398a6fe73a3d53660069feca8))
+
+
+
+# [3.4.0](https://github.com/vuejs/vuex/compare/4.0.0-beta.2...v3.4.0) (2020-05-11)
+
+
+
 # [4.0.0-beta.2](https://github.com/vuejs/vuex/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2020-05-11)
 
 
