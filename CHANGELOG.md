@@ -1,3 +1,12 @@
+# [3.5.0](https://github.com/vuejs/vuex/compare/v3.4.0...v3.5.0) (2020-06-29)
+
+
+### Features
+
+* include logger plugin to the core export ([#1783](https://github.com/vuejs/vuex/issues/1783)) ([04e2bd8](https://github.com/vuejs/vuex/commit/04e2bd8b3509c67398a6fe73a3d53660069feca8))
+
+
+
 # [3.4.0](https://github.com/vuejs/vuex/compare/v3.3.0...v3.4.0) (2020-05-11)
 
 
