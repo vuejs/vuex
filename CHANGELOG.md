@@ -1,3 +1,13 @@
+## [3.5.1](https://github.com/vuejs/vuex/compare/v3.5.0...v3.5.1) (2020-06-29)
+
+
+### Bug Fixes
+
+* **types:** add missing `logger.d.ts` file to the package ([#1789](https://github.com/vuejs/vuex/issues/1789)) ([a477334](https://github.com/vuejs/vuex/commit/a477334b909913f6a92bdbedcf4a3016a62eab7a))
+* warn when unregistering non existing module ([#1786](https://github.com/vuejs/vuex/issues/1786)) ([7cec79d](https://github.com/vuejs/vuex/commit/7cec79d339b874ec41f35891c891dfd27460c1d3))
+
+
+
 # [3.5.0](https://github.com/vuejs/vuex/compare/v3.4.0...v3.5.0) (2020-06-29)
 
 

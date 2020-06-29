@@ -1,5 +1,5 @@
 /*!
- * vuex v3.5.0
+ * vuex v3.5.1
  * (c) 2020 Evan You
  * @license MIT
  */
@@ -255,7 +255,21 @@ class ModuleCollection {
   unregister (path) {
     const parent = this.get(path.slice(0, -1));
     const key = path[path.length - 1];
-    if (!parent.getChild(key).runtime) return
+    const child = parent.getChild(key);
+
+    if (!child) {
+      {
+        console.warn(
+          `[vuex] trying to unregister module '${key}', which is ` +
+          `not registered`
+        );
+      }
+      return
+    }
+
+    if (!child.runtime) {
+      return
+    }
 
     parent.removeChild(key);
   }
@@ -1169,7 +1183,7 @@ function pad (num, maxLength) {
 var index = {
   Store,
   install,
-  version: '3.5.0',
+  version: '3.5.1',
   mapState,
   mapMutations,
   mapGetters,
