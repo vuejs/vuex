@@ -12,6 +12,7 @@
     "dist",
     "types/index.d.ts",
     "types/helpers.d.ts",
+    "types/logger.d.ts",
     "types/vue.d.ts"
   ],
   "scripts": {
