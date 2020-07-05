@@ -30,7 +30,7 @@ Plugins are not allowed to directly mutate state - similar to your components, t
 By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createWebSocketPlugin` function can take some additional options for more complex tasks):
 
 ``` js
-export default function createWebSocketPlugin (socket) {
+export default function createWebSocketPlugin(socket) {
   return store => {
     socket.on('data', data => {
       store.commit('receiveData', data)
@@ -59,8 +59,9 @@ const store = new Vuex.Store({
 Sometimes a plugin may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. To achieve that, you will need to perform a deep-copy on the state object:
 
 ``` js
-const myPluginWithSnapshot = store => {
+function myPluginWithSnapshot(store) {
   let prevState = _.cloneDeep(store.state)
+
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
@@ -108,27 +109,27 @@ The `createLogger` function takes a few options:
 ``` js
 const logger = createLogger({
   collapsed: false, // auto-expand logged mutations
-  filter (mutation, stateBefore, stateAfter) {
+  filter(mutation, stateBefore, stateAfter) {
     // returns `true` if a mutation should be logged
     // `mutation` is a `{ type, payload }`
     return mutation.type !== "aBlocklistedMutation"
   },
-  actionFilter (action, state) {
+  actionFilter(action, state) {
     // same as `filter` but for actions
     // `action` is a `{ type, payload }`
     return action.type !== "aBlocklistedAction"
   },
-  transformer (state) {
+  transformer(state) {
     // transform the state before logging it.
     // for example return only a specific sub-tree
     return state.subTree
   },
-  mutationTransformer (mutation) {
+  mutationTransformer(mutation) {
     // mutations are logged in the format of `{ type, payload }`
     // we can format it any way we want.
     return mutation.type
   },
-  actionTransformer (action) {
+  actionTransformer(action) {
     // Same as mutationTransformer but for actions
     return action.type
   },

@@ -10,7 +10,7 @@ const store = new Vuex.Store({
     count: 1
   },
   mutations: {
-    increment (state) {
+    increment(state) {
       // mutate state
       state.count++
     }
@@ -31,7 +31,7 @@ You can pass an additional argument to `store.commit`, which is called the **pay
 ``` js
 // ...
 mutations: {
-  increment (state, n) {
+  increment(state, n) {
     state.count += n
   }
 }
@@ -45,7 +45,7 @@ In most cases, the payload should be an object so that it can contain multiple f
 ``` js
 // ...
 mutations: {
-  increment (state, payload) {
+  increment(state, payload) {
     state.count += payload.amount
   }
 }
@@ -72,7 +72,7 @@ When using object-style commit, the entire object will be passed as the payload 
 
 ``` js
 mutations: {
-  increment (state, payload) {
+  increment(state, payload) {
     state.count += payload.amount
   }
 }
@@ -113,7 +113,7 @@ const store = new Vuex.Store({
   mutations: {
     // we can use the ES2015 computed property name feature
     // to use a constant as the function name
-    [SOME_MUTATION] (state) {
+    [SOME_MUTATION](state) {
       // mutate state
     }
   }
@@ -128,7 +128,7 @@ One important rule to remember is that **mutation handler functions must be sync
 
 ``` js
 mutations: {
-  someMutation (state) {
+  someMutation(state) {
     api.callAsyncMethod(() => {
       state.count++
     })

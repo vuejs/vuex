@@ -8,14 +8,14 @@ To help with that, Vuex allows us to divide our store into **modules**. Each mod
 
 ``` js
 const moduleA = {
-  state: () => ({ ... }),
+  state() { ... },
   mutations: { ... },
   actions: { ... },
   getters: { ... }
 }
 
 const moduleB = {
-  state: () => ({ ... }),
+  state() { ... },
   mutations: { ... },
   actions: { ... }
 }
@@ -37,18 +37,18 @@ Inside a module's mutations and getters, the first argument received will be **t
 
 ``` js
 const moduleA = {
-  state: () => ({
-    count: 0
-  }),
+  state() {
+    return { count: 0 }
+  },
   mutations: {
-    increment (state) {
+    increment(state) {
       // `state` is the local module state
       state.count++
     }
   },
 
   getters: {
-    doubleCount (state) {
+    doubleCount(state) {
       return state.count * 2
     }
   }
@@ -61,7 +61,7 @@ Similarly, inside module actions, `context.state` will expose the local state, a
 const moduleA = {
   // ...
   actions: {
-    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+    incrementIfOddOnRootSum({ state, commit, rootState }) {
       if ((state.count + rootState.count) % 2 === 1) {
         commit('increment')
       }
@@ -76,7 +76,7 @@ Also, inside module getters, the root state will be exposed as their 3rd argumen
 const moduleA = {
   // ...
   getters: {
-    sumWithRootCount (state, getters, rootState) {
+    sumWithRootCount(state, getters, rootState) {
       return state.count + rootState.count
     }
   }
@@ -96,24 +96,24 @@ const store = new Vuex.Store({
       namespaced: true,
 
       // module assets
-      state: () => ({ ... }), // module state is already nested and not affected by namespace option
+      state() { ... }, // module state is already nested and not affected by namespace option
       getters: {
-        isAdmin () { ... } // -> getters['account/isAdmin']
+        isAdmin() { ... } // -> getters['account/isAdmin']
       },
       actions: {
-        login () { ... } // -> dispatch('account/login')
+        login() { ... } // -> dispatch('account/login')
       },
       mutations: {
-        login () { ... } // -> commit('account/login')
+        login() { ... } // -> commit('account/login')
       },
 
       // nested modules
       modules: {
         // inherits the namespace from parent module
         myPage: {
-          state: () => ({ ... }),
+          state() { ... },
           getters: {
-            profile () { ... } // -> getters['account/profile']
+            profile() { ... } // -> getters['account/profile']
           }
         },
 
@@ -121,9 +121,9 @@ const store = new Vuex.Store({
         posts: {
           namespaced: true,
 
-          state: () => ({ ... }),
+          state() { ... },
           getters: {
-            popular () { ... } // -> getters['account/posts/popular']
+            popular() { ... } // -> getters['account/posts/popular']
           }
         }
       }
@@ -148,7 +148,7 @@ modules: {
     getters: {
       // `getters` is localized to this module's getters
       // you can use rootGetters via 4th argument of getters
-      someGetter (state, getters, rootState, rootGetters) {
+      someGetter(state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
         rootGetters.someOtherGetter // -> 'someOtherGetter'
       },
@@ -158,7 +158,7 @@ modules: {
     actions: {
       // dispatch and commit are also localized for this module
       // they will accept `root` option for the root dispatch/commit
-      someAction ({ dispatch, commit, getters, rootGetters }) {
+      someAction({ dispatch, commit, getters, rootGetters }) {
         getters.someGetter // -> 'foo/someGetter'
         rootGetters.someGetter // -> 'someGetter'
 
@@ -168,7 +168,7 @@ modules: {
         commit('someMutation') // -> 'foo/someMutation'
         commit('someMutation', null, { root: true }) // -> 'someMutation'
       },
-      someOtherAction (ctx, payload) { ... }
+      someOtherAction(ctx, payload) { ... }
     }
   }
 }
@@ -181,7 +181,7 @@ If you want to register global actions in namespaced modules, you can mark it wi
 ``` js
 {
   actions: {
-    someOtherAction ({dispatch}) {
+    someOtherAction({dispatch}) {
       dispatch('someAction')
     }
   },
@@ -192,7 +192,7 @@ If you want to register global actions in namespaced modules, you can mark it wi
       actions: {
         someAction: {
           root: true,
-          handler (namespacedContext, payload) { ... } // -> 'someAction'
+          handler(namespacedContext, payload) { ... } // -> 'someAction'
         }
       }
     }
@@ -332,9 +332,9 @@ This is actually the exact same problem with `data` inside Vue components. So th
 
 ``` js
 const MyReusableModule = {
-  state: () => ({
-    foo: 'bar'
-  }),
+  state() {
+    return { foo: 'bar' }
+  },
   // mutations, actions, getters...
 }
 ```

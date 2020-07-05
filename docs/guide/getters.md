@@ -6,7 +6,7 @@ Sometimes we may need to compute derived state based on store state, for example
 
 ``` js
 computed: {
-  doneTodosCount () {
+  doneTodosCount() {
     return this.$store.state.todos.filter(todo => todo.done).length
   }
 }
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
     ]
   },
   getters: {
-    doneTodos: state => {
+    doneTodos(state) {
       return state.todos.filter(todo => todo.done)
     }
   }
@@ -47,7 +47,7 @@ Getters will also receive other getters as the 2nd argument:
 ``` js
 getters: {
   // ...
-  doneTodosCount: (state, getters) => {
+  doneTodosCount(state, getters) {
     return getters.doneTodos.length
   }
 }
@@ -61,7 +61,7 @@ We can now easily make use of it inside any component:
 
 ``` js
 computed: {
-  doneTodosCount () {
+  doneTodosCount() {
     return this.$store.getters.doneTodosCount
   }
 }
@@ -76,8 +76,8 @@ You can also pass arguments to getters by returning a function. This is particul
 ```js
 getters: {
   // ...
-  getTodoById: (state) => (id) => {
-    return state.todos.find(todo => todo.id === id)
+  getTodoById(state){
+    return id => state.todos.find(todo => todo.id === id)
   }
 }
 ```

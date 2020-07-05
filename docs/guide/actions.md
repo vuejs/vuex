@@ -15,12 +15,12 @@ const store = new Vuex.Store({
     count: 0
   },
   mutations: {
-    increment (state) {
+    increment(state) {
       state.count++
     }
   },
   actions: {
-    increment (context) {
+    increment(context) {
       context.commit('increment')
     }
   }
@@ -33,7 +33,7 @@ In practice, we often use ES2015 [argument destructuring](https://github.com/luk
 
 ``` js
 actions: {
-  increment ({ commit }) {
+  increment({ commit }) {
     commit('increment')
   }
 }
@@ -51,7 +51,7 @@ This may look silly at first sight: if we want to increment the count, why don't
 
 ``` js
 actions: {
-  incrementAsync ({ commit }) {
+  incrementAsync({ commit }) {
     setTimeout(() => {
       commit('increment')
     }, 1000)
@@ -78,7 +78,7 @@ A more practical example of real-world actions would be an action to checkout a 
 
 ``` js
 actions: {
-  checkout ({ commit, state }, products) {
+  checkout({ commit, state }, products) {
     // save the items currently in the cart
     const savedCartItems = [...state.cart.added]
     // send out checkout request, and optimistically
@@ -129,7 +129,7 @@ The first thing to know is that `store.dispatch` can handle Promise returned by 
 
 ``` js
 actions: {
-  actionA ({ commit }) {
+  actionA({ commit }) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         commit('someMutation')
@@ -153,7 +153,7 @@ And also in another action:
 ``` js
 actions: {
   // ...
-  actionB ({ dispatch, commit }) {
+  actionB({ dispatch, commit }) {
     return dispatch('actionA').then(() => {
       commit('someOtherMutation')
     })
@@ -167,10 +167,10 @@ Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asy
 // assuming `getData()` and `getOtherData()` return Promises
 
 actions: {
-  async actionA ({ commit }) {
+  async actionA({ commit }) {
     commit('gotData', await getData())
   },
-  async actionB ({ dispatch, commit }) {
+  async actionB({ dispatch, commit }) {
     await dispatch('actionA') // wait for `actionA` to finish
     commit('gotOtherData', await getOtherData())
   }

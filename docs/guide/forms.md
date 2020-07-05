@@ -23,7 +23,7 @@ computed: {
   })
 },
 methods: {
-  updateMessage (e) {
+  updateMessage(e) {
     this.$store.commit('updateMessage', e.target.value)
   }
 }
@@ -34,7 +34,7 @@ And here's the mutation handler:
 ``` js
 // ...
 mutations: {
-  updateMessage (state, message) {
+  updateMessage(state, message) {
     state.obj.message = message
   }
 }
@@ -51,10 +51,10 @@ Admittedly, the above is quite a bit more verbose than `v-model` + local state, 
 // ...
 computed: {
   message: {
-    get () {
+    get() {
       return this.$store.state.obj.message
     },
-    set (value) {
+    set(value) {
       this.$store.commit('updateMessage', value)
     }
   }

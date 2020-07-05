@@ -25,7 +25,9 @@ Example testing a mutation using Mocha + Chai (you can use any framework/asserti
 ``` js
 // mutations.js
 export const mutations = {
-  increment: state => state.count++
+  increment(state) {
+    state.count++
+  }
 }
 ```
 
@@ -59,8 +61,9 @@ Example testing an async action:
 // actions.js
 import shop from '../api/shop'
 
-export const getAllProducts = ({ commit }) => {
+export function getAllProducts({ commit }) {
   commit('REQUEST_PRODUCTS')
+  
   shop.getProducts(products => {
     commit('RECEIVE_PRODUCTS', products)
   })
@@ -92,7 +95,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0
 
   // mock commit
-  const commit = (type, payload) => {
+  function commit(type, payload) {
     const mutation = expectedMutations[count]
 
     try {

@@ -19,7 +19,7 @@ So how do we display state inside the store in our Vue components? Since Vuex st
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count () {
+    count() {
       return store.state.count
     }
   }
@@ -53,7 +53,7 @@ By providing the `store` option to the root instance, the store will be injected
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count () {
+    count() {
       return this.$store.state.count
     }
   }
@@ -74,13 +74,15 @@ export default {
   // ...
   computed: mapState({
     // arrow functions can make the code very succinct!
-    count: state => state.count,
+    count(state) {
+      return state.count
+    },
 
     // passing the string value 'count' is same as `state => state.count`
     countAlias: 'count',
 
     // to access local state with `this`, a normal function must be used
-    countPlusLocalState (state) {
+    countPlusLocalState(state) {
       return state.count + this.localCount
     }
   })
@@ -102,7 +104,7 @@ Note that `mapState` returns an object. How do we use it in combination with oth
 
 ``` js
 computed: {
-  localComputed () { /* ... */ },
+  localComputed() { /* ... */ },
   // mix this into the outer object with the object spread operator
   ...mapState({
     // ...
