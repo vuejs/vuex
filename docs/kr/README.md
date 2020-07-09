@@ -52,7 +52,7 @@ new Vue({
 
 이는 [Flux](https://facebook.github.io/flux/docs/overview), [Redux](http://redux.js.org/), [The Elm Architecture](https://guide.elm-lang.org/architecture/)에서 영감을 받은 Vuex의 기본 아이디어 입니다. 다른 패턴과 달리 Vuex는 Vue.js가 효율적인 업데이트를 위해 세분화된 반응 시스템을 활용하도록 특별히 고안된 라이브러리입니다.
 
-대화식으로 Vuex를 배우고 싶다면 [Scrimba]((https://scrimba.com/g/gvuex))의 Vuex 과정에 등록하십시오.
+대화식으로 Vuex를 배우고 싶다면 [Scrimba](https://scrimba.com/g/gvuex)의 Vuex 과정에 등록하십시오.
 
 ![vuex](/vuex.png)
 
