@@ -9,10 +9,10 @@ import createLogger from "./logger";
 export * from "./helpers";
 export * from "./logger";
 
-export declare class Store<S> {
-  constructor(options: StoreOptions<S>);
+export declare class Store<S, T extends ModuleTree<S> = {}> {
+  constructor(options: StoreOptions<S, T>);
 
-  readonly state: S;
+  readonly state: State<S, T>;
   readonly getters: any;
 
   replaceState(state: S): void;
@@ -42,6 +42,10 @@ export declare class Store<S> {
 }
 
 export declare function install(Vue: typeof _Vue): void;
+
+export type State<S, T extends ModuleTree<S>> = (S extends () => any ? ReturnType<S> : S) & {
+  [P in keyof T]: State<T[P]['state'], T[P] extends { modules: object } ? T[P]['modules'] : {}>
+}
 
 export interface Dispatch {
   (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
@@ -98,12 +102,12 @@ export interface CommitOptions {
   root?: boolean;
 }
 
-export interface StoreOptions<S> {
+export interface StoreOptions<S, T extends ModuleTree<S> = ModuleTree<S>> {
   state?: S | (() => S);
   getters?: GetterTree<S, S>;
   actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
-  modules?: ModuleTree<S>;
+  modules?: T;
   plugins?: Plugin<S>[];
   strict?: boolean;
   devtools?: boolean;
