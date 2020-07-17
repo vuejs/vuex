@@ -107,7 +107,7 @@ export interface StoreOptions<S, T extends ModuleTree<S> = ModuleTree<S>> {
   getters?: GetterTree<S, S>;
   actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
-  modules?: T;
+  modules?: T & ModuleTree<S>;
   plugins?: Plugin<S>[];
   strict?: boolean;
   devtools?: boolean;
