@@ -31,9 +31,9 @@ module.exports = {
       description: 'Gerenciamento de Estado Centralizado para Vue.js'
     },
     '/fr/': {
-        lang: 'fr-FR',
-        title: 'Vuex',
-        description: 'Gestion d\'état centralisé pour Vue.js'
+      lang: 'fr-FR',
+      title: 'Vuex',
+      description: 'Gestion d\'état centralisé pour Vue.js'
     }
   },
   head: [
@@ -43,7 +43,6 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
   ],
   serviceWorker: true,
-  theme: 'vue',
   themeConfig: {
     algolia: {
       apiKey: '97f135e4b5f5487fb53f0f2dae8db59d',
@@ -57,40 +56,43 @@ module.exports = {
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         nav: [
-          {
-            text: 'Guide',
-            link: '/guide/'
-          },
-          {
-            text: 'API Reference',
-            link: '/api/'
-          },
-          {
-            text: 'Release Notes',
-            link: 'https://github.com/vuejs/vuex/releases'
-          }
+          { text: 'Guide', link: '/guide/' },
+          { text: 'API Reference', link: '/api/' },
+          { text: 'Release Notes', link: 'https://github.com/vuejs/vuex/releases' }
         ],
         sidebar: [
-          '/installation',
-          '/',
-          '/guide/',
+          {
+            title: 'Introduction',
+            collapsable: false,
+            children: [
+              { title: 'What is Vuex?', path: '/' },
+              { title: 'Installation', path: '/installation' },
+              { title: 'Getting Started', path: '/guide/' }
+            ]
+          },
           {
             title: 'Core Concepts',
             collapsable: false,
             children: [
-              '/guide/state',
-              '/guide/getters',
-              '/guide/mutations',
-              '/guide/actions',
-              '/guide/modules'
+              { title: 'State', path: '/guide/state' },
+              { title: 'Getters', path: '/guide/getters' },
+              { title: 'Mutations', path: '/guide/mutations' },
+              { title: 'Actions', path: '/guide/actions' },
+              { title: 'Modules', path: '/guide/modules' }
             ]
           },
-          '/guide/structure',
-          '/guide/plugins',
-          '/guide/strict',
-          '/guide/forms',
-          '/guide/testing',
-          '/guide/hot-reload'
+          {
+            title: 'Advanced',
+            collapsable: false,
+            children: [
+              { title: 'Application Structure', path: '/guide/structure' },
+              { title: 'Plugins', path: '/guide/plugins' },
+              { title: 'Strict Mode', path: '/guide/strict' },
+              { title: 'Form Handling', path: '/guide/forms' },
+              { title: 'Testing', path: '/guide/testing' },
+              { title: 'Hot Reloading', path: '/guide/hot-reload' }
+            ]
+          }
         ]
       },
       '/zh/': {
@@ -98,80 +100,87 @@ module.exports = {
         selectText: '选择语言',
         editLinkText: '在 GitHub 上编辑此页',
         nav: [
-          {
-            text: '指南',
-            link: '/zh/guide/'
-          },
-          {
-            text: 'API 参考',
-            link: '/zh/api/'
-          },
-          {
-            text: '更新记录',
-            link: 'https://github.com/vuejs/vuex/releases'
-          }
+          { text: '指南', link: '/zh/guide/' },
+          { text: 'API 参考', link: '/zh/api/' },
+          { text: '更新记录', link: 'https://github.com/vuejs/vuex/releases' }
         ],
         sidebar: [
-          '/zh/installation',
-          '/zh/',
-          '/zh/guide/',
+          {
+            title: 'Introduction',
+            collapsable: false,
+            children: [
+              { title: 'Vuex 是什么？', path: '/zh/' },
+              { title: '安装', path: '/zh/installation' },
+              { title: '开始', path: '/zh/guide/' }
+            ]
+          },
           {
             title: '核心概念',
             collapsable: false,
             children: [
-              '/zh/guide/state',
-              '/zh/guide/getters',
-              '/zh/guide/mutations',
-              '/zh/guide/actions',
-              '/zh/guide/modules'
+              { title: 'State', path: '/zh/guide/state' },
+              { title: 'Getters', path: '/zh/guide/getters' },
+              { title: 'Mutations', path: '/zh/guide/mutations' },
+              { title: 'Actions', path: '/zh/guide/actions' },
+              { title: 'Modules', path: '/zh/guide/modules' }
             ]
           },
-          '/zh/guide/structure',
-          '/zh/guide/plugins',
-          '/zh/guide/strict',
-          '/zh/guide/forms',
-          '/zh/guide/testing',
-          '/zh/guide/hot-reload'
+          {
+            title: 'Advanced',
+            collapsable: false,
+            children: [
+              { title: '项目结构', path: '/zh/guide/structure' },
+              { title: '插件', path: '/zh/guide/plugins' },
+              { title: '严格模式', path: '/zh/guide/strict' },
+              { title: '表单处理', path: '/zh/guide/forms' },
+              { title: '测试', path: '/zh/guide/testing' },
+              { title: '热重载', path: '/zh/guide/hot-reload' }
+            ]
+          }
         ]
       },
       '/ja/': {
         label: '日本語',
         selectText: '言語',
         editLinkText: 'GitHub 上でこのページを編集する',
-        nav: [{
-            text: 'ガイド',
-            link: '/ja/guide/'
-          },
-          {
-            text: 'API リファレンス',
-            link: '/ja/api/'
-          },
-          {
-            text: 'リリースノート',
-            link: 'https://github.com/vuejs/vuex/releases'
-          }
+        nav: [
+          { text: 'ガイド', link: '/ja/guide/' },
+          { text: 'API リファレンス', link: '/ja/api/' },
+          { text: 'リリースノート', link: 'https://github.com/vuejs/vuex/releases' }
         ],
         sidebar: [
-          '/ja/installation',
-          '/ja/',
-          '/ja/guide/',
+          {
+            title: 'はじめに',
+            collapsable: false,
+            children: [
+              { title: 'Vuex とは何か？', path: '/ja/' },
+              { title: 'インストール', path: '/ja/installation' },
+              { title: 'Vuex 入門', path: '/ja/guide/' }
+            ]
+          },
           {
             title: 'コアコンセプト',
             collapsable: false,
             children: [
-              '/ja/guide/state',
-              '/ja/guide/getters',
-              '/ja/guide/mutations',
-              '/ja/guide/actions',
-              '/ja/guide/modules'
+              { title: 'ステート', path: '/ja/guide/state' },
+              { title: 'ゲッター', path: '/ja/guide/getters' },
+              { title: 'ミューテーション', path: '/ja/guide/mutations' },
+              { title: 'アクション', path: '/ja/guide/actions' },
+              { title: 'モジュール', path: '/ja/guide/modules' }
             ]
           },
-          '/ja/guide/structure',
-          '/ja/guide/plugins',
-          '/ja/guide/strict',
-          '/ja/guide/forms',
-          '/ja/guide/testing',
-          '/ja/guide/hot-reload'
+          {
+            title: 'アドバンスド',
+            collapsable: false,
+            children: [
+              { title: 'アプリケーションの構造', path: '/ja/guide/structure' },
+              { title: 'プラグイン', path: '/ja/guide/plugins' },
+              { title: '厳格モード', path: '/ja/guide/strict' },
+              { title: 'フォームの扱い', path: '/ja/guide/forms' },
+              { title: 'テスト', path: '/ja/guide/testing' },
+              { title: 'ホットリローディング', path: '/ja/guide/hot-reload' }
+            ]
+          }
         ]
       },
       '/ru/': {
@@ -179,80 +188,87 @@ module.exports = {
         selectText: 'Переводы',
         editLinkText: 'Изменить эту страницу на GitHub',
         nav: [
-          {
-            text: 'Руководство',
-            link: '/ru/guide/'
-          },
-          {
-            text: 'Справочник API',
-            link: '/ru/api/'
-          },
-          {
-            text: 'История изменений',
-            link: 'https://github.com/vuejs/vuex/releases'
-          }
+          { text: 'Руководство', link: '/ru/guide/' },
+          { text: 'Справочник API', link: '/ru/api/' },
+          { text: 'История изменений', link: 'https://github.com/vuejs/vuex/releases' }
         ],
         sidebar: [
-          '/ru/installation',
-          '/ru/',
-          '/ru/guide/',
+          {
+            title: 'Introduction',
+            collapsable: false,
+            children: [
+              { title: 'Что такое Vuex?', path: '/ru/' },
+              { title: 'Установка', path: '/ru/installation' },
+              { title: 'Введение', path: '/ru/guide/' }
+            ]
+          },
           {
             title: 'Основные понятия',
             collapsable: false,
             children: [
-              '/ru/guide/state',
-              '/ru/guide/getters',
-              '/ru/guide/mutations',
-              '/ru/guide/actions',
-              '/ru/guide/modules'
+              { title: 'Состояние', path: '/ru/guide/state' },
+              { title: 'Геттеры', path: '/ru/guide/getters' },
+              { title: 'Мутации', path: '/ru/guide/mutations' },
+              { title: 'Действия', path: '/ru/guide/actions' },
+              { title: 'Модули', path: '/ru/guide/modules' }
             ]
           },
-          '/ru/guide/structure',
-          '/ru/guide/plugins',
-          '/ru/guide/strict',
-          '/ru/guide/forms',
-          '/ru/guide/testing',
-          '/ru/guide/hot-reload'
+          {
+            title: 'Advanced',
+            collapsable: false,
+            children: [
+              { title: 'Структура приложения', path: '/ru/guide/structure' },
+              { title: 'Плагины', path: '/ru/guide/plugins' },
+              { title: 'Строгий режим (strict mode)', path: '/ru/guide/strict' },
+              { title: 'Работа с формами', path: '/ru/guide/forms' },
+              { title: 'Тестирование', path: '/ru/guide/testing' },
+              { title: 'Горячая перезагрузка', path: '/ru/guide/hot-reload' }
+            ]
+          }
         ]
       },
       '/kr/': {
         label: '한국어',
         selectText: '언어 변경',
         editLinkText: 'GitHub에서 이 페이지 수정',
-        nav: [{
-            text: '가이드',
-            link: '/kr/guide/'
-          },
-          {
-            text: 'API 레퍼런스',
-            link: '/kr/api/'
-          },
-          {
-            text: '릴리즈 노트',
-            link: 'https://github.com/vuejs/vuex/releases'
-          }
+        nav: [
+          { text: '가이드', link: '/kr/guide/' },
+          { text: 'API 레퍼런스', link: '/kr/api/' },
+          { text: '릴리즈 노트', link: 'https://github.com/vuejs/vuex/releases' }
         ],
         sidebar: [
-          '/kr/installation',
-          '/kr/',
-          '/kr/guide/',
+          {
+            title: 'Introduction',
+            collapsable: false,
+            children: [
+              { title: 'Vuex가 무엇인가요?', path: '/kr/' },
+              { title: '설치', path: '/kr/installation' },
+              { title: '시작하기', path: '/kr/guide/' }
+            ]
+          },
           {
             title: '핵심 컨셉',
             collapsable: false,
             children: [
-              '/kr/guide/state',
-              '/kr/guide/getters',
-              '/kr/guide/mutations',
-              '/kr/guide/actions',
-              '/kr/guide/modules'
+              { title: '상태', path: '/kr/guide/state' },
+              { title: 'Getters', path: '/kr/guide/getters' },
+              { title: '변이', path: '/kr/guide/mutations' },
+              { title: '액션', path: '/kr/guide/actions' },
+              { title: '모듈', path: '/kr/guide/modules' }
             ]
           },
-          '/kr/guide/structure',
-          '/kr/guide/plugins',
-          '/kr/guide/strict',
-          '/kr/guide/forms',
-          '/kr/guide/testing',
-          '/kr/guide/hot-reload'
+          {
+            title: 'Advanced',
+            collapsable: false,
+            children: [
+              { title: '애플리케이션 구조', path: '/kr/guide/structure' },
+              { title: '플러그인', path: '/kr/guide/plugins' },
+              { title: 'Strict 모드', path: '/kr/guide/strict' },
+              { title: '폼 핸들링', path: '/kr/guide/forms' },
+              { title: '테스팅', path: '/kr/guide/testing' },
+              { title: '핫 리로딩', path: '/kr/guide/hot-reload' }
+            ]
+          }
         ]
       },
       '/ptbr/': {
@@ -260,83 +276,89 @@ module.exports = {
         selectText: 'Idiomas',
         editLinkText: 'Edite esta página no GitHub',
         nav: [
-          {
-            text: 'Guia',
-            link: '/ptbr/guide/'
-          },
-          {
-            text: 'Referência da API',
-            link: '/ptbr/api/'
-          },
-          {
-            text: 'Notas da Versão',
-            link: 'https://github.com/vuejs/vuex/releases'
-          }
+          { text: 'Guia', link: '/ptbr/guide/' },
+          { text: 'Referência da API', link: '/ptbr/api/' },
+          { text: 'Notas da Versão', link: 'https://github.com/vuejs/vuex/releases' }
         ],
         sidebar: [
-          '/ptbr/installation',
-          '/ptbr/',
-          '/ptbr/guide/',
+          {
+            title: 'Introduction',
+            collapsable: false,
+            children: [
+              { title: 'O que é Vuex?', path: '/ptbr/' },
+              { title: 'Instalação', path: '/ptbr/installation' },
+              { title: 'Começando', path: '/ptbr/guide/' }
+            ]
+          },
           {
             title: 'Conceitos Básicos',
             collapsable: false,
             children: [
-              '/ptbr/guide/state',
-              '/ptbr/guide/getters',
-              '/ptbr/guide/mutations',
-              '/ptbr/guide/actions',
-              '/ptbr/guide/modules'
+              { title: 'Estado', path: '/ptbr/guide/state' },
+              { title: 'Getters', path: '/ptbr/guide/getters' },
+              { title: 'Mutações', path: '/ptbr/guide/mutations' },
+              { title: 'Ações', path: '/ptbr/guide/actions' },
+              { title: 'Módulos', path: '/ptbr/guide/modules' }
             ]
           },
-          '/ptbr/guide/structure',
-          '/ptbr/guide/plugins',
-          '/ptbr/guide/strict',
-          '/ptbr/guide/forms',
-          '/ptbr/guide/testing',
-          '/ptbr/guide/hot-reload'
+          {
+            title: 'Advanced',
+            collapsable: false,
+            children: [
+              { title: 'Estrutura da Aplicação', path: '/ptbr/guide/structure' },
+              { title: 'Plugins', path: '/ptbr/guide/plugins' },
+              { title: 'Modo Estrito', path: '/ptbr/guide/strict' },
+              { title: 'Manipulação de Formulários', path: '/ptbr/guide/forms' },
+              { title: 'Testando', path: '/ptbr/guide/testing' },
+              { title: 'Hot Reloading (Recarregamento Rápido)', path: '/ptbr/guide/hot-reload' }
+            ]
+          }
         ]
       },
       '/fr/': {
-          label: 'Français',
-          selectText: 'Langues',
-          editLinkText: 'Éditer la page sur GitHub',
-          nav: [
-              {
-                  text: 'Guide',
-                  link: '/fr/guide/'
-              },
-              {
-                  text: 'API',
-                  link: '/fr/api/'
-              },
-              {
-                  text: 'Notes de version',
-                  link: 'https://github.com/vuejs/vuex/releases'
-              }
-          ],
-          sidebar: [
-              '/fr/installation',
-              '/fr/',
-              '/fr/guide/',
-              {
-                  title: 'Concepts centraux',
-                  collapsable: false,
-                  children: [
-                      '/fr/guide/state',
-                      '/fr/guide/getters',
-                      '/fr/guide/mutations',
-                      '/fr/guide/actions',
-                      '/fr/guide/modules'
-                  ]
-              },
-              '/fr/guide/structure',
-              '/fr/guide/plugins',
-              '/fr/guide/strict',
-              '/fr/guide/forms',
-              '/fr/guide/testing',
-              '/fr/guide/hot-reload'
-          ]
-      },
+        label: 'Français',
+        selectText: 'Langues',
+        editLinkText: 'Éditer la page sur GitHub',
+        nav: [
+          { text: 'Guide', link: '/fr/guide/' },
+          { text: 'API', link: '/fr/api/' },
+          { text: 'Notes de version', link: 'https://github.com/vuejs/vuex/releases' }
+        ],
+        sidebar: [
+          {
+            title: 'Introduction',
+            collapsable: false,
+            children: [
+              { title: "Vuex, qu'est-ce que c'est ?", path: '/fr/' },
+              { title: 'Installation', path: '/fr/installation' },
+              { title: 'Pour commencer', path: '/fr/guide/' }
+            ]
+          },
+          {
+            title: 'Concepts centraux',
+            collapsable: false,
+            children: [
+              { title: 'State', path: '/fr/guide/state' },
+              { title: 'Accesseurs', path: '/fr/guide/getters' },
+              { title: 'Mutations', path: '/fr/guide/mutations' },
+              { title: 'Actions', path: '/fr/guide/actions' },
+              { title: 'Modules', path: '/fr/guide/modules' }
+            ]
+          },
+          {
+            title: 'Advanced',
+            collapsable: false,
+            children: [
+              { title: "Structure d'une application", path: '/fr/guide/structure' },
+              { title: 'Plugins', path: '/fr/guide/plugins' },
+              { title: 'Mode strict', path: '/fr/guide/strict' },
+              { title: 'Gestion des formulaires', path: '/fr/guide/forms' },
+              { title: 'Tests', path: '/fr/guide/testing' },
+              { title: 'Rechargement à chaud', path: '/fr/guide/hot-reload' }
+            ]
+          }
+        ]
+      }
     }
   }
 }
