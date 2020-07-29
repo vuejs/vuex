@@ -106,7 +106,7 @@ module.exports = {
         ],
         sidebar: [
           {
-            title: 'Introduction',
+            title: '介绍',
             collapsable: false,
             children: [
               { title: 'Vuex 是什么？', path: '/zh/' },
@@ -126,7 +126,7 @@ module.exports = {
             ]
           },
           {
-            title: 'Advanced',
+            title: '进阶',
             collapsable: false,
             children: [
               { title: '项目结构', path: '/zh/guide/structure' },
@@ -170,7 +170,7 @@ module.exports = {
             ]
           },
           {
-            title: 'アドバンスド',
+            title: '高度な活用',
             collapsable: false,
             children: [
               { title: 'アプリケーションの構造', path: '/ja/guide/structure' },
@@ -194,7 +194,7 @@ module.exports = {
         ],
         sidebar: [
           {
-            title: 'Introduction',
+            title: 'Введение',
             collapsable: false,
             children: [
               { title: 'Что такое Vuex?', path: '/ru/' },
@@ -214,7 +214,7 @@ module.exports = {
             ]
           },
           {
-            title: 'Advanced',
+            title: 'Продвинутые темы',
             collapsable: false,
             children: [
               { title: 'Структура приложения', path: '/ru/guide/structure' },
@@ -282,7 +282,7 @@ module.exports = {
         ],
         sidebar: [
           {
-            title: 'Introduction',
+            title: 'Introdução',
             collapsable: false,
             children: [
               { title: 'O que é Vuex?', path: '/ptbr/' },
@@ -346,7 +346,7 @@ module.exports = {
             ]
           },
           {
-            title: 'Advanced',
+            title: 'Avancés',
             collapsable: false,
             children: [
               { title: "Structure d'une application", path: '/fr/guide/structure' },
