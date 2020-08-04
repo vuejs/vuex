@@ -15,7 +15,7 @@ export declare class Store<S> {
   readonly state: S;
   readonly getters: any;
 
-  install(app: App, injectKey?: InjectionKey<Store<any>>): void;
+  install(app: App, injectKey?: InjectionKey<Store<any>> | string): void;
 
   replaceState(state: S): void;
 
@@ -45,7 +45,7 @@ export declare class Store<S> {
 
 export function createStore<S>(options: StoreOptions<S>): Store<S>;
 
-export function useStore<S = any>(key?: string): Store<S>;
+export function useStore<S = any>(injectKey?: InjectionKey<Store<any>> | string): Store<S>;
 
 export interface Dispatch {
   (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
