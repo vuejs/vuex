@@ -302,7 +302,7 @@ module.exports = {
             ]
           },
           {
-            title: 'Advanced',
+            title: 'Avançado',
             collapsable: false,
             children: [
               { title: 'Estrutura da Aplicação', path: '/ptbr/guide/structure' },
