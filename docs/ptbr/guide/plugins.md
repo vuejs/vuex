@@ -107,7 +107,7 @@ const logger = createLogger({
   filter (mutation, stateBefore, stateAfter) {
     // retorna `true` se uma mutação deve ser registrada no log
     // `mutation` é um `{ type, payload }`
-    return mutation.type !== "aBlacklistedMutation"
+    return mutation.type !== "aBlocklistedMutation"
   },
   transformer (state) {
     // transforma o estado antes de regitrá-lo no log.

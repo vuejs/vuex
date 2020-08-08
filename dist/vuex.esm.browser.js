@@ -1,5 +1,5 @@
 /*!
- * vuex v3.4.0
+ * vuex v3.5.1
  * (c) 2020 Evan You
  * @license MIT
  */
@@ -72,6 +72,45 @@ function devtoolPlugin (store) {
  * @param {Function} f
  * @return {*}
  */
+function find (list, f) {
+  return list.filter(f)[0]
+}
+
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+function deepCopy (obj, cache = []) {
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  // if obj is hit, it is in circular structure
+  const hit = find(cache, c => c.original === obj);
+  if (hit) {
+    return hit.copy
+  }
+
+  const copy = Array.isArray(obj) ? [] : {};
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy
+  });
+
+  Object.keys(obj).forEach(key => {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+
+  return copy
+}
 
 /**
  * forEach for object
@@ -216,7 +255,21 @@ class ModuleCollection {
   unregister (path) {
     const parent = this.get(path.slice(0, -1));
     const key = path[path.length - 1];
-    if (!parent.getChild(key).runtime) return
+    const child = parent.getChild(key);
+
+    if (!child) {
+      {
+        console.warn(
+          `[vuex] trying to unregister module '${key}', which is ` +
+          `not registered`
+        );
+      }
+      return
+    }
+
+    if (!child.runtime) {
+      return
+    }
 
     parent.removeChild(key);
   }
@@ -1037,16 +1090,107 @@ function getModuleByNamespace (store, helper, namespace) {
   return module
 }
 
+// Credits: borrowed code from fcomb/redux-logger
+
+function createLogger ({
+  collapsed = true,
+  filter = (mutation, stateBefore, stateAfter) => true,
+  transformer = state => state,
+  mutationTransformer = mut => mut,
+  actionFilter = (action, state) => true,
+  actionTransformer = act => act,
+  logMutations = true,
+  logActions = true,
+  logger = console
+} = {}) {
+  return store => {
+    let prevState = deepCopy(store.state);
+
+    if (typeof logger === 'undefined') {
+      return
+    }
+
+    if (logMutations) {
+      store.subscribe((mutation, state) => {
+        const nextState = deepCopy(state);
+
+        if (filter(mutation, prevState, nextState)) {
+          const formattedTime = getFormattedTime();
+          const formattedMutation = mutationTransformer(mutation);
+          const message = `mutation ${mutation.type}${formattedTime}`;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          endMessage(logger);
+        }
+
+        prevState = nextState;
+      });
+    }
+
+    if (logActions) {
+      store.subscribeAction((action, state) => {
+        if (actionFilter(action, state)) {
+          const formattedTime = getFormattedTime();
+          const formattedAction = actionTransformer(action);
+          const message = `action ${action.type}${formattedTime}`;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+          endMessage(logger);
+        }
+      });
+    }
+  }
+}
+
+function startMessage (logger, message, collapsed) {
+  const startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group;
+
+  // render
+  try {
+    startMessage.call(logger, message);
+  } catch (e) {
+    logger.log(message);
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd();
+  } catch (e) {
+    logger.log('—— log end ——');
+  }
+}
+
+function getFormattedTime () {
+  const time = new Date();
+  return ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}`
+}
+
+function repeat (str, times) {
+  return (new Array(times + 1)).join(str)
+}
+
+function pad (num, maxLength) {
+  return repeat('0', maxLength - num.toString().length) + num
+}
+
 var index = {
   Store,
   install,
-  version: '3.4.0',
+  version: '3.5.1',
   mapState,
   mapMutations,
   mapGetters,
   mapActions,
-  createNamespacedHelpers
+  createNamespacedHelpers,
+  createLogger
 };
 
 export default index;
-export { Store, createNamespacedHelpers, install, mapActions, mapGetters, mapMutations, mapState };
+export { Store, createLogger, createNamespacedHelpers, install, mapActions, mapGetters, mapMutations, mapState };

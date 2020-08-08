@@ -25,9 +25,9 @@ const store = new Vuex.Store({
 
 ### プラグイン内でのミューテーションのコミット
 
-プラグインは直接、状態を変更できません。これはコンポーネントに似ています。プラグインはコンポーネント同様に、ミューテーションのコミットによる変更のトリガーだけで状態を変更できます。
+プラグインは直接、状態を変更できません。これはコンポーネントに似ています。プラグインはコンポーネント同様に、ミューテーションのコミットをトリガーすることで状態を変更できます。
 
-ミューテーションのコミットによるストアとデータソースの同期をプラグインで実現できます。 websocket データソースとストアを例にします (これは不自然な例です。実際には、さらに複雑なタスクのために `createWebSocketPlugin` 関数は、追加でいくつかのオプションを受け取れます):
+ミューテーションのコミットによるストアとデータソースの同期をプラグインで実現できます。 websocket データソースとストアを例にします (これは不自然で作為的な例です。実際には `createWebSocketPlugin` 関数は、さらに複雑なタスクのために追加でいくつかのオプションを受け取れます):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -107,12 +107,12 @@ const logger = createLogger({
   filter (mutation, stateBefore, stateAfter) {
     // ミューテーションを記録する必要がある場合は、`true` を返します
     // `mutation` は `{ type, payload }` です
-    return mutation.type !== "aBlacklistedMutation"
+    return mutation.type !== "aBlocklistedMutation"
   },
   actionFilter (action, state) {
     // `filter` と同等ですが、アクション用です
     // `action` は `{ type, payloed }` です
-    return action.type !== "aBlacklistedAction"
+    return action.type !== "aBlocklistedAction"
   },
   transformer (state) {
     // ロギングの前に、状態を変換します
