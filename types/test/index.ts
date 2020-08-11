@@ -1,3 +1,4 @@
+import { InjectionKey } from "vue";
 import * as Vuex from "../index";
 
 namespace StoreInstance {
@@ -137,6 +138,14 @@ namespace UseStoreFunction {
   interface State {
     a: string
   }
+
+  const key: InjectionKey<string> = Symbol('store')
+
+  const storeWithKey = Vuex.useStore(key)
+  storeWithKey.state.a
+
+  const storeWithKeyString = Vuex.useStore('store')
+  storeWithKeyString.state.a
 
   const storeWithState = Vuex.useStore<State>()
   storeWithState.state.a
