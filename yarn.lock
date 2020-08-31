@@ -2064,6 +2064,13 @@
     "@webassemblyjs/helper-wasm-bytecode" "1.7.11"
     "@webassemblyjs/wast-parser" "1.7.11"
 
+"@vuepress/theme-vue@^1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@vuepress/theme-vue/-/theme-vue-1.5.4.tgz#692eaff101d01be37ceb80b6f1b936dc0c61c902"
+  integrity sha512-YLE3SdqYtgsdzYAltVWOBVBPnDqdT7JXIFE5L49vzR6WbdPx24NQNIqbF2wP3nVW0+2QKf/MY1Vdqraz0LKW0A==
+  dependencies:
+    "@vuepress/theme-default" "1.5.4"
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
