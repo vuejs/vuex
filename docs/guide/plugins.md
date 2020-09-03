@@ -100,7 +100,7 @@ const store = new Vuex.Store({
 ```
 
 :::warning WARNING
-Before v3.5.0, the `createLogger` function is exported at `vuex/dist/logger` package. PLease checkout the "Before Vuex v3.5.0" setion of this page.
+Before v3.5.0, the `createLogger` function is exported at `vuex/dist/logger` package. Please checkout the "Before Vuex v3.5.0" section of this page.
 :::
 
 The `createLogger` function takes a few options:
