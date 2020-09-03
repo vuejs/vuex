@@ -1,0 +1,39 @@
+.scrimba {
+  position: relative;
+  margin-top: 16px;
+  border-radius: 2px;
+  padding: 1em 1.25em;
+  color: #486491;
+  background-color: #e7ecf3;
+}
+
+.scrimba a {
+  position: relative;
+  padding-left: 36px;
+  color: #486491 !important;
+}
+
+.scrimba a::before {
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  display: block;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: #73abfe;
+  content: "";
+}
+
+.scrimba a::after {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  display: block;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #ffffff;
+  width: 0;
+  height: 0;
+  content: "";
+}

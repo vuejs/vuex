@@ -24,9 +24,9 @@ export default {
     open() {
       // dropped v-if/v-else way to fix autoplay issue on Chrome
       // https://github.com/vuejs/vuex/pull/1453#issuecomment-441507095
-      const { $el, url } = this;
+      const { $el, url } = this
       if (!$el || !$el.parentNode) {
-        return;
+        return
       }
       const attrs = {
         width: 640,
@@ -36,12 +36,12 @@ export default {
         webkitallowfullscreen: true,
         mozallowfullscreen: true,
         allowfullscreen: true
-      };
-      const video = document.createElement('iframe');
-      for (const name in attrs) {
-        video.setAttribute(name, attrs[name]);
       }
-      $el.parentNode.replaceChild(video, $el);
+      const video = document.createElement('iframe')
+      for (const name in attrs) {
+        video.setAttribute(name, attrs[name])
+      }
+      $el.parentNode.replaceChild(video, $el)
     }
   }
 }
