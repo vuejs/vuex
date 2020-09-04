@@ -315,7 +315,7 @@ const store = new Vuex.Store({ ...options })
 
   第2引数のオブジェクトのメンバーには関数 `function(commit: function, ...args: any[])` を指定できます。
 
-### createNamespaceHelpers
+### createNamespacedHelpers
 
 - `createNamespacedHelpers(namespace: string): Object`
 
