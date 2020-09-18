@@ -19,21 +19,42 @@ Include `vuex` after Vue and it will install itself automatically:
 
 ``` bash
 npm install vuex --save
+
+# If using Vue 3.0 + Vuex 4.0:
+npm install vuex@next --save
 ```
 
 ### Yarn
 
 ``` bash
 yarn add vuex
+
+# If using Vue 3.0 + Vuex 4.0:
+yarn add vuex@next --save
 ```
 
-When used with a module system, you must explicitly install Vuex via `Vue.use()`:
+When used with a module system, you must explicitly install Vuex as a plugin:
+
+
+#### With Vue 2
 
 ``` js
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+```
+
+#### With Vue 3
+
+``` js
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
+
+const app = createApp({ ... })
+const store = createStore({ ... })
+
+app.use(store)
 ```
 
 You don't need to do this when using global script tags.

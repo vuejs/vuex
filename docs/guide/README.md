@@ -16,6 +16,8 @@ We will be using ES2015 syntax for code examples for the rest of the docs. If yo
 
 After [installing](../installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
 
+#### Vuex 3.x (for Vue 2)
+
 ``` js
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -32,6 +34,24 @@ const store = new Vuex.Store({
     }
   }
 })
+```
+
+#### Vuex 4.x (for Vue 3)
+
+``` js
+import { createStore } from 'vuex'
+import { createApp } from 'vue'
+
+const store = createStore({
+  state () {
+    return {
+      count: 1
+    }
+  }
+})
+
+const app = createApp({ /* your root component */ })
+app.use(store)
 ```
 
 Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
