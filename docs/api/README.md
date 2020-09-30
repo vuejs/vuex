@@ -176,13 +176,20 @@ const store = new Vuex.Store({ ...options })
 
 -  `subscribe(handler: Function, options?: Object): Function`
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
+
+:::warning WARNING
+A subscription created within a Vue component will remain after the component destroyed. You must call `unsubscribe` to prevent resource leaks.
+:::
 
   ``` js
-  store.subscribe((mutation, state) => {
+  const unsubscribe = store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
   })
+
+  // remember to call unsubscribe
+  unsubscribe()
   ```
 
   By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
@@ -201,13 +208,20 @@ const store = new Vuex.Store({ ...options })
 
   > New in 2.5.0
 
-  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
+
+:::warning WARNING
+A subscription created within a Vue component will remain after the component destroyed. You must call `unsubscribe` to prevent resource leaks.
+:::
 
   ``` js
-  store.subscribeAction((action, state) => {
+  const unsubscribe = store.subscribeAction((action, state) => {
     console.log(action.type)
     console.log(action.payload)
   })
+
+  // remember to call unsubscribe
+  unsubscribe()
   ```
 
   By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
