@@ -177,10 +177,7 @@ const store = new Vuex.Store({ ...options })
 -  `subscribe(handler: Function, options?: Object): Function`
 
   Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
-
-:::warning WARNING
-A subscription created within a Vue component will remain after the component destroyed. You must call `unsubscribe` to prevent resource leaks.
-:::
+  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
 
   ``` js
   const unsubscribe = store.subscribe((mutation, state) => {
@@ -198,8 +195,6 @@ A subscription created within a Vue component will remain after the component de
   store.subscribe(handler, { prepend: true })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
-
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### subscribeAction
@@ -209,10 +204,7 @@ A subscription created within a Vue component will remain after the component de
   > New in 2.5.0
 
   Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
-
-:::warning WARNING
-A subscription created within a Vue component will remain after the component destroyed. You must call `unsubscribe` to prevent resource leaks.
-:::
+  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
 
   ``` js
   const unsubscribe = store.subscribeAction((action, state) => {
@@ -229,8 +221,6 @@ A subscription created within a Vue component will remain after the component de
   ``` js
   store.subscribeAction(handler, { prepend: true })
   ```
-
-  To stop subscribing, call the returned unsubscribe function.
 
   > New in 3.1.0
 
