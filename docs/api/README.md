@@ -177,7 +177,6 @@ const store = new Vuex.Store({ ...options })
 -  `subscribe(handler: Function, options?: Object): Function`
 
   Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
-  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
 
   ``` js
   const unsubscribe = store.subscribe((mutation, state) => {
@@ -185,7 +184,7 @@ const store = new Vuex.Store({ ...options })
     console.log(mutation.payload)
   })
 
-  // remember to call unsubscribe
+  // You may call unsubscribe to stop the subscription
   unsubscribe()
   ```
 
@@ -194,6 +193,8 @@ const store = new Vuex.Store({ ...options })
   ``` js
   store.subscribe(handler, { prepend: true })
   ```
+
+  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribe` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
 
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
@@ -212,7 +213,7 @@ const store = new Vuex.Store({ ...options })
     console.log(action.payload)
   })
 
-  // remember to call unsubscribe
+  // You may call unsubscribe to stop the subscription
   unsubscribe()
   ```
 
@@ -221,6 +222,8 @@ const store = new Vuex.Store({ ...options })
   ``` js
   store.subscribeAction(handler, { prepend: true })
   ```
+
+  The `subscribeAction` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribeAction` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
 
   > New in 3.1.0
 
