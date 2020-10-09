@@ -184,7 +184,7 @@ const store = new Vuex.Store({ ...options })
     console.log(mutation.payload)
   })
 
-  // You may call unsubscribe to stop the subscription
+  // you may call unsubscribe to stop the subscription
   unsubscribe()
   ```
 
@@ -213,7 +213,7 @@ const store = new Vuex.Store({ ...options })
     console.log(action.payload)
   })
 
-  // You may call unsubscribe to stop the subscription
+  // you may call unsubscribe to stop the subscription
   unsubscribe()
   ```
 
