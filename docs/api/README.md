@@ -176,13 +176,16 @@ const store = new Vuex.Store({ ...options })
 
 -  `subscribe(handler: Function, options?: Object): Function`
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
 
   ``` js
-  store.subscribe((mutation, state) => {
+  const unsubscribe = store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
   })
+
+  // You may call unsubscribe to stop the subscription
+  unsubscribe()
   ```
 
   By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
@@ -191,7 +194,7 @@ const store = new Vuex.Store({ ...options })
   store.subscribe(handler, { prepend: true })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribe` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
 
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
@@ -201,13 +204,17 @@ const store = new Vuex.Store({ ...options })
 
   > New in 2.5.0
 
-  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
+  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
 
   ``` js
-  store.subscribeAction((action, state) => {
+  const unsubscribe = store.subscribeAction((action, state) => {
     console.log(action.type)
     console.log(action.payload)
   })
+
+  // You may call unsubscribe to stop the subscription
+  unsubscribe()
   ```
 
   By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
@@ -216,7 +223,7 @@ const store = new Vuex.Store({ ...options })
   store.subscribeAction(handler, { prepend: true })
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  The `subscribeAction` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribeAction` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
 
   > New in 3.1.0
 
