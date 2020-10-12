@@ -3,7 +3,7 @@
 To enable strict mode, simply pass in `strict: true` when creating a Vuex store:
 
 ```js
-const store = new Vuex.Store({
+const store = createStore({
   // ...
   strict: true
 })
@@ -18,7 +18,7 @@ In strict mode, whenever Vuex state is mutated outside of mutation handlers, an 
 Similar to plugins, we can let the build tools handle that:
 
 ```js
-const store = new Vuex.Store({
+const store = createStore({
   // ...
   strict: process.env.NODE_ENV !== 'production'
 })
