@@ -1,6 +1,6 @@
 # Installation
 
-### Direct Download / CDN
+## Direct Download / CDN
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
@@ -10,41 +10,61 @@
 
 Include `vuex` after Vue and it will install itself automatically:
 
-``` html
+```html
 <script src="/path/to/vue.js"></script>
 <script src="/path/to/vuex.js"></script>
 ```
 
-### NPM
+## NPM
 
-``` bash
+```bash
 npm install vuex --save
+
+# If using Vue 3.0 + Vuex 4.0:
+npm install vuex@next --save
 ```
 
-### Yarn
+## Yarn
 
-``` bash
+```bash
 yarn add vuex
+
+# If using Vue 3.0 + Vuex 4.0:
+yarn add vuex@next --save
 ```
 
-When used with a module system, you must explicitly install Vuex via `Vue.use()`:
+When used with a module system, you must explicitly install Vuex as a plugin:
 
-``` js
+### With Vue 2
+
+```js
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
 ```
 
+### With Vue 3
+
+```js
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
+
+const app = createApp({ ... })
+const store = createStore({ ... })
+
+app.use(store)
+```
+
 You don't need to do this when using global script tags.
 
-### Promise
+## Promise
 
 Vuex requires [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). If your supporting browsers do not implement Promise (e.g. IE), you can use a polyfill library, such as [es6-promise](https://github.com/stefanpenner/es6-promise).
 
 You can include it via CDN:
 
-``` html
+```html
 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
 ```
 
@@ -52,22 +72,22 @@ Then `window.Promise` will be available automatically.
 
 If you prefer using a package manager such as NPM or Yarn, install it with the following commands:
 
-``` bash
+```bash
 npm install es6-promise --save # NPM
 yarn add es6-promise # Yarn
 ```
 
 Furthermore, add the below line into anywhere in your code before using Vuex:
 
-``` js
+```js
 import 'es6-promise/auto'
 ```
 
-### Dev Build
+## Dev Build
 
 You will have to clone directly from GitHub and build `vuex` yourself if you want to use the latest dev build.
 
-``` bash
+```bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex
 cd node_modules/vuex
 npm install
