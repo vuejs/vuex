@@ -4,15 +4,21 @@ sidebar: auto
 
 # API Reference
 
-## Vuex.Store
+## Store
 
-```js
-import Vuex from 'vuex'
+### createStore
 
-const store = new Vuex.Store({ ...options })
-```
+- `createStore<S>(options: StoreOptions<S>): Store<S>`
 
-## Vuex.Store Constructor Options
+  Creates a new store.
+
+  ```js
+  import { createStore } from 'vuex'
+
+  const store = createStore({ ...options })
+  ```
+
+## Store Constructor Options
 
 ### state
 
@@ -128,7 +134,7 @@ const store = new Vuex.Store({ ...options })
   }
   ```
 
-## Vuex.Store Instance Properties
+## Store Instance Properties
 
 ### state
 
@@ -142,7 +148,7 @@ const store = new Vuex.Store({ ...options })
 
   Exposes registered getters. Read only.
 
-## Vuex.Store Instance Methods
+## Store Instance Methods
 
 ### commit
 
@@ -202,8 +208,6 @@ const store = new Vuex.Store({ ...options })
 
 -  `subscribeAction(handler: Function, options?: Object): Function`
 
-  > New in 2.5.0
-
   Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
   The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
 
@@ -225,9 +229,7 @@ const store = new Vuex.Store({ ...options })
 
   The `subscribeAction` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribeAction` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
 
-  > New in 3.1.0
-
-  Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+  `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
 
   ```js
   store.subscribeAction({
@@ -240,9 +242,7 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  > New in 3.4.0
-
-  Since 3.4.0, `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
+  `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
 
   ```js
   store.subscribeAction({
@@ -274,8 +274,6 @@ const store = new Vuex.Store({ ...options })
 - `hasModule(path: string | Array<string>): boolean`
 
   Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
-
-  > New in 3.2.0
 
 ### hotUpdate
 
@@ -328,3 +326,73 @@ const store = new Vuex.Store({ ...options })
 -  `createNamespacedHelpers(namespace: string): Object`
 
   Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](../guide/modules.md#binding-helpers-with-namespace)
+
+## Composable Functions
+
+### useStore
+
+- `useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;`
+
+  Fetches the injected store object when called inside `setup` hook. When using Composition API, you may retrieve the store instance by calling this method.
+
+  ```js
+  import { useStore } from 'vuex'
+
+  export default {
+    setup () {
+      const store = useStore()
+    }
+  }
+  ```
+
+  When using TypeScript, you may pass `injectionKey` to retrieve the typed store. In order for it to work, you must define the injection key and pass it along with a store instance, when installing the store instance to the Vue app.
+
+  At first, you may declare the injection key by using `InjectionKey` type exposed from `vue` package.
+
+  ```ts
+  // store.ts
+  import { InjectionKey } from 'vue'
+  import { createStore, Store } from 'vuex'
+
+  export interface State {
+    count: number
+  }
+
+  export const key: InjectionKey<Store<State>> = Symbol()
+
+  export const store = createStore<State>({
+    state: {
+      count: 0
+    }
+  })
+  ```
+
+  Then, pass the defined injection key as the second argument for the `app.use` method.
+
+  ```ts
+  // main.ts
+  import { createApp } from 'vue'
+  import { store, key } from './store'
+
+  const app = createApp({ ... })
+
+  app.use(store, key)
+
+  app.mount('#app')
+  ```
+
+  Finally, you can pass the key to the `useStore` method to retrieve typed store instance.
+
+  ```ts
+  // in a vue component
+  import { useStore } from 'vuex'
+  import { key } from './store'
+
+  export default {
+    setup () {
+      const store = useStore(key)
+
+      store.state.count // typed as number
+    }
+  }
+  ```
