@@ -6,7 +6,7 @@ sidebar: auto
 
 ## Vuex.Store
 
-``` js
+```js
 import Vuex from 'vuex'
 
 const store = new Vuex.Store({ ...options })
@@ -36,7 +36,7 @@ const store = new Vuex.Store({ ...options })
 
   Register actions on the store. The handler function receives a `context` object that exposes the following properties:
 
-  ``` js
+  ```js
   {
     state,      // same as `store.state`, or local state if in modules
     rootState,  // same as `store.state`, only in modules
@@ -81,7 +81,7 @@ const store = new Vuex.Store({ ...options })
 
   An object containing sub modules to be merged into the store, in the shape of:
 
-  ``` js
+  ```js
   {
     key: {
       state,
@@ -122,7 +122,7 @@ const store = new Vuex.Store({ ...options })
 
   Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
 
-  ``` js
+  ```js
   {
     devtools: false
   }
@@ -178,7 +178,7 @@ const store = new Vuex.Store({ ...options })
 
   Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
 
-  ``` js
+  ```js
   const unsubscribe = store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
@@ -190,7 +190,7 @@ const store = new Vuex.Store({ ...options })
 
   By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
 
-  ``` js
+  ```js
   store.subscribe(handler, { prepend: true })
   ```
 
@@ -207,7 +207,7 @@ const store = new Vuex.Store({ ...options })
   Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
   The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
 
-  ``` js
+  ```js
   const unsubscribe = store.subscribeAction((action, state) => {
     console.log(action.type)
     console.log(action.payload)
@@ -219,7 +219,7 @@ const store = new Vuex.Store({ ...options })
 
   By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
 
-  ``` js
+  ```js
   store.subscribeAction(handler, { prepend: true })
   ```
 
@@ -229,7 +229,7 @@ const store = new Vuex.Store({ ...options })
 
   Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
 
-  ``` js
+  ```js
   store.subscribeAction({
     before: (action, state) => {
       console.log(`before action ${action.type}`)
@@ -244,7 +244,7 @@ const store = new Vuex.Store({ ...options })
 
   Since 3.4.0, `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
 
-  ``` js
+  ```js
   store.subscribeAction({
     error: (action, state, error) => {
       console.log(`error action ${action.type}`)

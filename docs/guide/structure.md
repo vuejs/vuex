@@ -12,7 +12,7 @@ As long as you follow these rules, it's up to you how to structure your project.
 
 For any non-trivial app, we will likely need to leverage modules. Here's an example project structure:
 
-``` bash
+```bash
 ├── index.html
 ├── main.js
 ├── api

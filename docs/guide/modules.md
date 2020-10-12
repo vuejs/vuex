@@ -6,7 +6,7 @@ Due to using a single state tree, all states of our application are contained in
 
 To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
 
-``` js
+```js
 const moduleA = {
   state: () => ({ ... }),
   mutations: { ... },
@@ -31,11 +31,11 @@ store.state.a // -> `moduleA`'s state
 store.state.b // -> `moduleB`'s state
 ```
 
-### Module Local State
+## Module Local State
 
 Inside a module's mutations and getters, the first argument received will be **the module's local state**.
 
-``` js
+```js
 const moduleA = {
   state: () => ({
     count: 0
@@ -57,7 +57,7 @@ const moduleA = {
 
 Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
 
-``` js
+```js
 const moduleA = {
   // ...
   actions: {
@@ -72,7 +72,7 @@ const moduleA = {
 
 Also, inside module getters, the root state will be exposed as their 3rd argument:
 
-``` js
+```js
 const moduleA = {
   // ...
   getters: {
@@ -83,13 +83,13 @@ const moduleA = {
 }
 ```
 
-### Namespacing
+## Namespacing
 
 By default, actions, mutations and getters inside modules are still registered under the **global namespace** - this allows multiple modules to react to the same mutation/action type.
 
 If you want your modules to be more self-contained or reusable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
 
-``` js
+```js
 const store = new Vuex.Store({
   modules: {
     account: {
@@ -134,13 +134,13 @@ const store = new Vuex.Store({
 
 Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. Toggling between namespaced or not does not affect the code inside the module.
 
-#### Accessing Global Assets in Namespaced Modules
+### Accessing Global Assets in Namespaced Modules
 
 If you want to use global state and getters, `rootState` and `rootGetters` are passed as the 3rd and 4th arguments to getter functions, and also exposed as properties on the `context` object passed to action functions.
 
 To dispatch actions or commit mutations in the global namespace, pass `{ root: true }` as the 3rd argument to `dispatch` and `commit`.
 
-``` js
+```js
 modules: {
   foo: {
     namespaced: true,
@@ -176,11 +176,11 @@ modules: {
 }
 ```
 
-#### Register Global Action in Namespaced Modules
+### Register Global Action in Namespaced Modules
 
 If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler`. For example:
 
-``` js
+```js
 {
   actions: {
     someOtherAction ({dispatch}) {
@@ -202,11 +202,11 @@ If you want to register global actions in namespaced modules, you can mark it wi
 }
 ```
 
-#### Binding Helpers with Namespace
+### Binding Helpers with Namespace
 
 When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:
 
-``` js
+```js
 computed: {
   ...mapState({
     a: state => state.some.nested.module.a,
@@ -227,7 +227,7 @@ methods: {
 
 In such cases, you can pass the module namespace string as the first argument to the helpers so that all bindings are done using that module as the context. The above can be simplified to:
 
-``` js
+```js
 computed: {
   ...mapState('some/nested/module', {
     a: state => state.a,
@@ -248,7 +248,7 @@ methods: {
 
 Furthermore, you can create namespaced helpers by using `createNamespacedHelpers`. It returns an object having new component binding helpers that are bound with the given namespace value:
 
-``` js
+```js
 import { createNamespacedHelpers } from 'vuex'
 
 const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
@@ -271,11 +271,11 @@ export default {
 }
 ```
 
-#### Caveat for Plugin Developers
+### Caveat for Plugin Developers
 
 You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
 
-``` js
+```js
 // get namespace value via plugin option
 // and returns Vuex plugin function
 export function createPlugin (options = {}) {
@@ -287,11 +287,11 @@ export function createPlugin (options = {}) {
 }
 ```
 
-### Dynamic Module Registration
+## Dynamic Module Registration
 
 You can register a module **after** the store has been created with the `store.registerModule` method:
 
-``` js
+```js
 import Vuex from 'vuex'
 
 const store = new Vuex.Store({ /* options */ })
@@ -315,13 +315,13 @@ You can also remove a dynamically registered module with `store.unregisterModule
 
 Note that you may check if the module is already registered to the store or not via `store.hasModule(moduleName)` method.
 
-#### Preserving state
+### Preserving state
 
 It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
 
 When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state is not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
 
-### Module Reuse
+## Module Reuse
 
 Sometimes we may need to create multiple instances of a module, for example:
 
@@ -332,7 +332,7 @@ If we use a plain object to declare the state of the module, then that state obj
 
 This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
 
-``` js
+```js
 const MyReusableModule = {
   state: () => ({
     foo: 'bar'
