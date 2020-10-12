@@ -16,32 +16,11 @@ We will be using ES2015 syntax for code examples for the rest of the docs. If yo
 
 After [installing](../installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
 
-### Vuex 3.x (for Vue 2)
-
 ```js
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
-})
-```
-
-### Vuex 4.x (for Vue 3)
-
-```js
-import { createStore } from 'vuex'
 import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
+// Create a new store instance.
 const store = createStore({
   state () {
     return {
@@ -51,6 +30,8 @@ const store = createStore({
 })
 
 const app = createApp({ /* your root component */ })
+
+// Install the store instance as a plugin
 app.use(store)
 ```
 
@@ -62,27 +43,7 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-In order to have an access to `this.$store` property in your Vue components, you need to provide the created store to Vue instance. Vuex has a mechanism to "inject" the store into all child components from the root component with the `store` option:
-
-```js
-new Vue({
-  el: '#app',
-  store: store,
-})
-```
-
-:::tip
-If you're using ES6, you can also go for ES6 object property shorthand notation (it's used when object key has the same name as the variable passed-in as a property):
-
-```js
-new Vue({
-  el: '#app',
-  store
-})
-```
-:::
-
-Now we can commit a mutation from component's method:
+In a Vue components, you may access the store instance as `this.$store`. Now we can commit a mutation from component's method:
 
 ```js
 methods: {
@@ -96,7 +57,5 @@ methods: {
 Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
 
 Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
-
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/n9jmu5v7/1269/).
 
 Next, we will discuss each core concept in much finer details, starting with [State](state.md).

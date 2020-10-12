@@ -8,7 +8,7 @@ Vuex uses a **single state tree** - that is, this single object contains all you
 
 The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
 
-The data you store in Vuex follows the same rules as the `data` in a Vue instance, ie the state object must be plain. **See also:** [Vue#data](https://vuejs.org/v2/api/#data).
+The data you store in Vuex follows the same rules as the `data` in a Vue instance, ie the state object must be plain. **See also:** [Vue#data](https://v3.vuejs.org/api/options-data.html#data-2).
 
 ## Getting Vuex State into Vue Components
 
@@ -30,24 +30,7 @@ Whenever `store.state.count` changes, it will cause the computed property to re-
 
 However, this pattern causes the component to rely on the global store singleton. When using a module system, it requires importing the store in every component that uses store state, and also requires mocking when testing the component.
 
-Vuex provides a mechanism to "inject" the store into all child components from the root component with the `store` option (enabled by `Vue.use(Vuex)`):
-
-```js
-const app = new Vue({
-  el: '#app',
-  // provide the store using the "store" option.
-  // this will inject the store instance to all child components.
-  store,
-  components: { Counter },
-  template: `
-    <div class="app">
-      <counter></counter>
-    </div>
-  `
-})
-```
-
-By providing the `store` option to the root instance, the store will be injected into all child components of the root and will be available on them as `this.$store`. Let's update our `Counter` implementation:
+Vuex "injects" the store into all child components from the root component through Vue's plugin system, and will be available on them as `this.$store`. Let's update our `Counter` implementation:
 
 ```js
 const Counter = {
