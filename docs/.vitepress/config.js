@@ -57,7 +57,8 @@ module.exports = {
               { text: 'Strict Mode', link: '/guide/strict' },
               { text: 'Form Handling', link: '/guide/forms' },
               { text: 'Testing', link: '/guide/testing' },
-              { text: 'Hot Reloading', link: '/guide/hot-reload' }
+              { text: 'Hot Reloading', link: '/guide/hot-reload' },
+              { text: 'TypeScript Support', link: '/guide/typescript-support' },
             ]
           }
         ]
