@@ -52,6 +52,7 @@ module.exports = {
             text: 'Advanced',
             children: [
               { text: 'Application Structure', link: '/guide/structure' },
+              { text: 'Composition API', link: '/guide/composition-api' },
               { text: 'Plugins', link: '/guide/plugins' },
               { text: 'Strict Mode', link: '/guide/strict' },
               { text: 'Form Handling', link: '/guide/forms' },
