@@ -100,4 +100,18 @@ describe('ModuleCollection', () => {
     collection.unregister(['a'])
     expect(spy).toHaveBeenCalled()
   })
+
+  it('isRegistered', () => {
+    const collection = new ModuleCollection({})
+    collection.register(['a'], {
+      state: { value: true }
+    })
+    collection.register(['a', 'b'], {
+      state: { value: false }
+    })
+    expect(collection.isRegistered(['a'])).toBe(true)
+    expect(collection.isRegistered(['a', 'b'])).toBe(true)
+    expect(collection.isRegistered(['c'])).toBe(false)
+    expect(collection.isRegistered(['c', 'd'])).toBe(false)
+  })
 })
