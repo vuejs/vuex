@@ -1,0 +1,21 @@
+tasks:
+  - name: Examples 
+    init: | 
+      yarn install  
+      gp sync-done install
+      yarn build
+    command: |
+      export PORT="8000"
+      yarn dev
+
+  - name: Docs
+    init: |
+      gp sync-await install
+    command: yarn docs
+    openMode: split-right
+
+ports:
+  - port: 8000
+    onOpen: open-preview 
+  - port: 8080
+    onOpen: open-preview
