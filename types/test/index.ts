@@ -455,10 +455,17 @@ namespace Plugins {
     });
   }
 
+  class MyLogger {
+    log(message: string) {
+       console.log(message);
+    }
+  }
+
   const logger = Vuex.createLogger<{ value: number }>({
     collapsed: true,
     transformer: state => state.value,
-    mutationTransformer: (mutation: { type: string }) => mutation.type
+    mutationTransformer: (mutation: { type: string }) => mutation.type,
+    logger: new MyLogger()
   });
 
   const store = new Vuex.Store<{ value: number }>({
