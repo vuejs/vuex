@@ -1,7 +1,7 @@
 import { Payload, Plugin } from "./index";
 
 interface Logger extends Partial<Pick<Console, 'groupCollapsed' | 'group' | 'groupEnd'>> {
-  log(message: string, colour: string, action: any): void;
+  log(message: string, color: string, payload: any): void;
   log(message: string): void;
 }
 
