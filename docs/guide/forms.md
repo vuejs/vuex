@@ -15,6 +15,7 @@ The "Vuex way" to deal with it is binding the `<input>`'s value and call a metho
 ``` html
 <input :value="message" @input="updateMessage">
 ```
+
 ``` js
 // ...
 computed: {
@@ -40,13 +41,14 @@ mutations: {
 }
 ```
 
-### Two-way Computed Property
+## Two-way Computed Property
 
 Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
 
 ``` html
 <input v-model="message">
 ```
+
 ``` js
 // ...
 computed: {

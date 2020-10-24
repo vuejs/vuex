@@ -84,7 +84,7 @@ const store = new Vuex.Store({
 })
 ```
 
-O _plugin_ vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor de  `process.env.NODE_ENV !== 'production'` para `false` na build final.
+O _plugin_ vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor de  `process.env.NODE_ENV !== 'production'` para `false` na build final.
 
 ### _Plugin_ de _Log_ Embutido
 

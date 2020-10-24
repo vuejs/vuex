@@ -34,7 +34,7 @@ const store = new Vuex.Store({
 })
 ```
 
-### Property-Style Access
+## Property-Style Access
 
 The getters will be exposed on the `store.getters` object, and you access values as properties:
 
@@ -69,7 +69,7 @@ computed: {
 
 Note that getters accessed as properties are cached as part of Vue's reactivity system.
 
-### Method-Style Access
+## Method-Style Access
 
 You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
 
@@ -88,7 +88,7 @@ store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 
 Note that getters accessed via methods will run each time you call them, and the result is not cached.
 
-### The `mapGetters` Helper
+## The `mapGetters` Helper
 
 The `mapGetters` helper simply maps store getters to local computed properties:
 

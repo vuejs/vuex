@@ -4,11 +4,11 @@
 
 Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
 
-### What is a "State Management Pattern"?
+## What is a "State Management Pattern"?
 
 Let's start with a simple Vue counter app:
 
-``` js
+```js
 new Vue({
   // state
   data () {
@@ -58,7 +58,7 @@ If you want to learn Vuex in an interactive way you can check out this [Vuex cou
 
 ![vuex](/vuex.png)
 
-### When Should I Use It?
+## When Should I Use It?
 
 Vuex helps us deal with shared state management with the cost of more concepts and boilerplate. It's a trade-off between short term and long term productivity.
 
