@@ -245,7 +245,7 @@ store.subscribeAction({
 
 С версии 3.4.0 в `subscribeAction` также можно указывать обработчик `error` для перехвата ошибки, выброшенной при выполнении действия. В качестве третьего аргумента функция получает объект `error`.
 
-``` js
+```js
 store.subscribeAction({
   error: (action, state, error) => {
     console.log(`error action ${action.type}`)
