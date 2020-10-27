@@ -286,13 +286,17 @@ function resetStoreState (store, state, hot) {
   store._makeLocalGettersCache = Object.create(null)
   const wrappedGetters = store._wrappedGetters
   const computedObj = {}
+  const computedCache = {}
   forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldVm.
     // using partial to return function with only arguments preserved in closure environment.
     computedObj[key] = partial(fn, store)
+    computedCache[key] = computed(() => {
+      return computedObj[key]()
+    })
     Object.defineProperty(store.getters, key, {
-      get: () => computed(() => computedObj[key]()).value,
+      get: () => computedCache[key].value,
       enumerable: true // for local getters
     })
   })
