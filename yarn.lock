@@ -9006,10 +9006,10 @@ vite@^1.0.0-rc.4:
     vue "^3.0.0-rc.5"
     ws "^7.2.3"
 
-vitepress@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.6.0.tgz#805bd529a21ceccc2b43da5a7be0c4e526512a91"
-  integrity sha512-+bkHmRx5QjbdU0rBxbJtBffESQk9CwPoRjtlqcYX1jozurCX/09oAik6tHP5+Hzoz4DMPCVgTG9jnjFjGi1wug==
+vitepress@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.7.0.tgz#08b9867c23282471baccfbab27128e613532639e"
+  integrity sha512-mcYN0rz9uR5XRnJKyxdOw2tir3jJZQ3nJ/vb23YCV98utnPSxTFUZ33Th7N7XCj2bh1Q3JjodU220W8w3kH+tA==
   dependencies:
     "@vue/compiler-sfc" "^3.0.0-rc.11"
     "@vue/server-renderer" "^3.0.0-rc.11"
