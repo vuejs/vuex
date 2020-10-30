@@ -292,9 +292,7 @@ function resetStoreState (store, state, hot) {
     // direct inline function use will lead to closure preserving oldVm.
     // using partial to return function with only arguments preserved in closure environment.
     computedObj[key] = partial(fn, store)
-    computedCache[key] = computed(() => {
-      return computedObj[key]()
-    })
+    computedCache[key] = computed(() => computedObj[key]())
     Object.defineProperty(store.getters, key, {
       get: () => computedCache[key].value,
       enumerable: true // for local getters
