@@ -60,6 +60,12 @@ module.exports = {
               { text: 'Hot Reloading', link: '/guide/hot-reload' },
               { text: 'TypeScript Support', link: '/guide/typescript-support' },
             ]
+          },
+          {
+            text: 'Migration Guide',
+            children: [
+              { text: 'Migrating to 4.0 from 3.x', link: '/guide/migrating-to-4-0-from-3-x' }
+            ]
           }
         ]
       }
