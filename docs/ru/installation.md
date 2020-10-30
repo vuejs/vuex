@@ -1,6 +1,6 @@
 # Установка
 
-### Скачивание напрямую / CDN
+## Скачивание напрямую / CDN
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
@@ -17,30 +17,50 @@
 <script src="/path/to/vuex.js"></script>
 ```
 
-### NPM
+## NPM
 
 ```bash
 npm install vuex --save
+
+# При использовании Vue 3.0 + Vuex 4.0:
+npm install vuex@next --save
 ```
 
-### Yarn
+## Yarn
 
 ```bash
 yarn add vuex
+
+# При использовании Vue 3.0 + Vuex 4.0:
+yarn add vuex@next --save
 ```
 
-При использовании системы сборки — явно установите Vuex с помощью команды `Vue.use()`:
+При использовании системы сборки необходимо явно устанавливать как плагин:
+
+### Для Vue 2
 
 ```js
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
+```
+
+### Для Vue 3
+
+```js
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
+
+const app = createApp({ ... })
+const store = createStore({ ... })
+
+app.use(store)
 ```
 
 При использовании глобальных тегов `<script>` в этом нет необходимости.
 
-### Promise
+## Promise
 
 Vuex использует в своей работе [Promise](https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Ispolzovanie_promisov). Если необходимо поддерживать старые браузеры, которые не реализуют Promise (например, IE) — добавьте полифил, например [es6-promise](https://github.com/stefanpenner/es6-promise).
 
@@ -65,7 +85,7 @@ yarn add es6-promise # Yarn
 import 'es6-promise/auto';
 ```
 
-### Версия для разработки
+## Версия для разработки
 
 Для использования самой новой dev-сборки `vuex` — склонируйте репозиторий с GitHub вручную и запустите сборку:
 
