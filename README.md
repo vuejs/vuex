@@ -2,7 +2,7 @@
 
 This is the Vue 3 compatible version of Vuex. The focus is compatibility, and it provides the exact same API as Vuex 3, so users can reuse their existing Vuex code with Vue 3.
 
-## Status: Beta
+## Status: RC
 
 All Vuex 3 features work. There are a few breaking changes described in a later section, so please check them out. You can find basic usage with both option and Composition API in the `example` directory.
 
@@ -93,6 +93,6 @@ In Vuex 3, `createLogger` function was exported from `vuex/dist/logger` but it's
 import { createLogger } from 'vuex'
 ```
 
-## TODOs as of 4.0.0-beta.2
+## TODOs as of 4.0.0-rc.1
 
 - Update docs
