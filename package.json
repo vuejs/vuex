@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "4.0.0-beta.4",
+  "version": "4.0.0-rc.1",
   "description": "state management for Vue.js",
   "main": "dist/vuex.cjs.js",
   "module": "dist/vuex.esm-bundler.js",

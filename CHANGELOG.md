@@ -1,3 +1,22 @@
+# [4.0.0-rc.1](https://github.com/vuejs/vuex/compare/v4.0.0-beta.4...v4.0.0-rc.1) (2020-10-30)
+
+
+### Bug Fixes
+
+* fix getters getting re-evaluated on every access ([#1823](https://github.com/vuejs/vuex/issues/1823)) ([#1860](https://github.com/vuejs/vuex/issues/1860)) ([0006765](https://github.com/vuejs/vuex/commit/0006765ca3c5641ef732bad9df58e01f05c6f19c))
+* **types:** add lost argument of useStore ([#1803](https://github.com/vuejs/vuex/issues/1803)) ([657afe3](https://github.com/vuejs/vuex/commit/657afe3db42c8d1d721216955fc2be3132e9fe6c))
+
+
+### Features
+
+* **types:** adding logger type for logger plugin ([#1853](https://github.com/vuejs/vuex/issues/1853)) ([cb3198d](https://github.com/vuejs/vuex/commit/cb3198d5998bdb11ef05dfa5ef98d5c5fa873089))
+
+
+
+## [3.5.1](https://github.com/vuejs/vuex/compare/v4.0.0-beta.3...v3.5.1) (2020-06-29)
+
+
+
 # [4.0.0-beta.4](https://github.com/vuejs/vuex/compare/v4.0.0-beta.3...v4.0.0-beta.4) (2020-06-29)
 
 
