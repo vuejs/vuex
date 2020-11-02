@@ -8,6 +8,10 @@ All Vuex 3 features work. There are a few breaking changes described in a later 
 
 Feedback is welcome should you discover any issues. You may use [vue-next-webpack-preview](https://github.com/vuejs/vue-next-webpack-preview) to test out Vue 3 with Vuex 4.
 
+## Documentation
+
+To check out docs, visit [next.vuex.vuejs.org](https://next.vuex.vuejs.org/).
+
 ## Breaking changes
 
 ### Installation process has changed
@@ -93,6 +97,8 @@ In Vuex 3, `createLogger` function was exported from `vuex/dist/logger` but it's
 import { createLogger } from 'vuex'
 ```
 
-## TODOs as of 4.0.0-rc.1
+## License
 
-- Update docs
+[MIT](LICENCE)
+
+Copyright (c) 2015-present Evan You
