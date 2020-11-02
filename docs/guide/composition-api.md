@@ -1,6 +1,6 @@
 # Composition API
 
-When creating Vue Component with Composition API, you may use `useStore` composition function to retrieve the store.
+To access the store within the `setup` hook, you can call the `useStore` function. This is the equivalent of retrieving `this.$store` within a component using the Option API.
 
 ```js
 import { useStore } from 'vuex'
@@ -12,11 +12,9 @@ export default {
 }
 ```
 
-By calling the `useStore` composition function, you'll retrieve the store, which is equivalent to referencing `this.$store` in Option API.
-
 ## Accessing State and Getters
 
-When accessing states and getters, remember to wrap them within `computed` function to retain the reactivity. It's as same as how you would reference them inside `computed` property in Option API Vue Component.
+In order to access state and getters, you will want to create `computed` references to retain reactivity. This is the equivalent of creating computed properties using the Option API.
 
 ```js
 import { computed } from 'vuex'
@@ -39,7 +37,7 @@ export default {
 
 ## Accessing Mutations and Actions
 
-When accessing mutations and actions, you may simply call `commit` and `dispatch` method inside the `setup` hook.
+When accessing mutations and actions, you can simply provide the `commit` and `dispatch` function inside the `setup` hook.
 
 ```js
 import { useStore } from 'vuex'
@@ -61,4 +59,4 @@ export default {
 
 ## Examples
 
-Check out [Composition API Example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) to see the example application built with Vuex and Vue Composition API.
+Check out the [Composition API example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) to see example applications utilising Vuex and Vue's Composition API.
