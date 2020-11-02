@@ -17,7 +17,7 @@ export default {
 In order to access state and getters, you will want to create `computed` references to retain reactivity. This is the equivalent of creating computed properties using the Option API.
 
 ```js
-import { computed } from 'vuex'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
