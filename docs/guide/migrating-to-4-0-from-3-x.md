@@ -48,7 +48,7 @@ Whilst this is not technically a breaking change, you may still use the new Stor
 
 ### TypeScript support
 
-Vuex 4 removes its global typings for `this.$store` within Vue Component to solve [issue #994](https://github.com/vuejs/vuex/issues/994). When used with TypeScript, you must declare your own module augmentation.
+Vuex 4 removes its global typings for `this.$store` within a Vue component to solve [issue #994](https://github.com/vuejs/vuex/issues/994). When used with TypeScript, you must declare your own module augmentation.
 
 Place the following code in your project to allow `this.$store` to be typed correctly:
 
@@ -70,7 +70,7 @@ declare module '@vue/runtime-core' {
 }
 ```
 
-You may learn more at [TypeScript Support](./typescript-support) page.
+You can learn more in the [TypeScript Support](./typescript-support) section.
 
 ### Bundles are now aligned with Vue 3
 
@@ -91,7 +91,7 @@ The following bundles are generated to align with Vue 3 bundles:
 
 ### `createLogger` function is exported from the core module
 
-In Vuex 3, `createLogger` function was exported from `vuex/dist/logger` but it's now included in the core package. You should import the function directly from `vuex` package.
+In Vuex 3, `createLogger` function was exported from `vuex/dist/logger` but it's now included in the core package. The function should be imported directly from the `vuex` package.
 
 ```js
 import { createLogger } from 'vuex'
@@ -101,7 +101,7 @@ import { createLogger } from 'vuex'
 
 ### New `useStore` composition function
 
-Vuex 4 introduces a new API to interact with the store in Composition API. You may use `useStore` composition function to retrieve store instance within Vue Component's `setup` hook.
+Vuex 4 introduces a new API to interact with the store in Composition API. You can use the `useStore` composition function to retrieve the store within the component `setup` hook.
 
 ```js
 import { useStore } from 'vuex'
@@ -113,4 +113,4 @@ export default {
 }
 ```
 
-You may learn more at [Composition API](./composition-api) page.
+You can learn more in the [Composition API](./composition-api) section.
