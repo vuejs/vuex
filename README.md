@@ -99,6 +99,6 @@ import { createLogger } from 'vuex'
 
 ## License
 
-[MIT](LICENCE)
+[MIT](https://github.com/vuejs/vuex/blob/dev/LICENSE)
 
 Copyright (c) 2015-present Evan You
