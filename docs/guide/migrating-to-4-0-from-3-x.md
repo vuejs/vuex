@@ -14,7 +14,7 @@ Almost all Vuex 4 APIs have remained unchanged from Vuex 3. However, there are s
 
 ### Installation process
 
-To align with the new Vue 3 initialization process, the installation process of Vuex has changed. To create a new store instance, users are now encouraged to use the newly introduced createStore function.
+To align with the new Vue 3 initialization process, the installation process of Vuex has changed. To create a new store, users are now encouraged to use the newly introduced createStore function.
 
 ```js
 import { createStore } from 'vuex'
@@ -28,7 +28,7 @@ export const store = createStore({
 })
 ```
 
-To install Vuex to a Vue instance, pass the store instance instead of Vuex.
+To install Vuex to a Vue instance, pass the `store` instead of Vuex.
 
 ```js
 import { createApp } from 'vue'
@@ -43,7 +43,7 @@ app.mount('#app')
 ```
 
 :::tip NOTE
-Whilst this is not technically a breaking change, you may still use the new Store(...) syntax, we recommend this approach to align with Vue 3 and Vue Router Next.
+Whilst this is not technically a breaking change, you may still use the `new Store(...)` syntax, we recommend this approach to align with Vue 3 and Vue Router Next.
 :::
 
 ### TypeScript support

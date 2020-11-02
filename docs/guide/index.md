@@ -43,7 +43,7 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-In a Vue components, you may access the store instance as `this.$store`. Now we can commit a mutation from component's method:
+In a Vue component, you can access the store as `this.$store`. Now we can commit a mutation using a component method:
 
 ```js
 methods: {

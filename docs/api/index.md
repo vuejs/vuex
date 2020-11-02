@@ -126,7 +126,7 @@ sidebar: auto
 
 - type: `boolean`
 
-  Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
+  Turn the devtools on or off for a particular Vuex instance. For instance, passing `false` tells the Vuex store to not subscribe to devtools plugin. Useful when you have multiple stores on a single page.
 
   ```js
   {
@@ -333,7 +333,7 @@ sidebar: auto
 
 - `useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;`
 
-  Fetches the injected store instance when called inside the `setup` hook. When using the Composition API, you may retrieve the store instance by calling this method.
+  Fetches the injected store when called inside the `setup` hook. When using the Composition API, you can retrieve the store by calling this method.
 
   ```js
   import { useStore } from 'vuex'
@@ -345,7 +345,7 @@ sidebar: auto
   }
   ```
 
-  TypeScript users can use an `injectionKey` to retrieve a typed store. In order for it to work, you must define the injection key and pass it along with the store when installing the store instance to the Vue app.
+  TypeScript users can use an injection key to retrieve a typed store. In order for this to work, you must define the injection key and pass it along with the store when installing the store instance to the Vue app.
 
   First, declare the injection key using Vue's `InjectionKey` interface.
 
@@ -367,7 +367,7 @@ sidebar: auto
   })
   ```
 
-  Then, pass the defined injection key as the second argument for the `app.use` method.
+  Then, pass the defined key as the second argument for the `app.use` method.
 
   ```ts
   // main.ts
