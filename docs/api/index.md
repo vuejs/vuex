@@ -333,7 +333,7 @@ sidebar: auto
 
 - `useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;`
 
-  Fetches the injected store object when called inside `setup` hook. When using Composition API, you may retrieve the store instance by calling this method.
+  Fetches the injected store instance when called inside the `setup` hook. When using the Composition API, you may retrieve the store instance by calling this method.
 
   ```js
   import { useStore } from 'vuex'
@@ -345,9 +345,9 @@ sidebar: auto
   }
   ```
 
-  When using TypeScript, you may pass `injectionKey` to retrieve the typed store. In order for it to work, you must define the injection key and pass it along with a store instance, when installing the store instance to the Vue app.
+  TypeScript users can use an `injectionKey` to retrieve a typed store. In order for it to work, you must define the injection key and pass it along with the store when installing the store instance to the Vue app.
 
-  At first, you may declare the injection key by using `InjectionKey` type exposed from `vue` package.
+  First, declare the injection key using Vue's `InjectionKey` interface.
 
   ```ts
   // store.ts
@@ -381,7 +381,7 @@ sidebar: auto
   app.mount('#app')
   ```
 
-  Finally, you can pass the key to the `useStore` method to retrieve typed store instance.
+  Finally, you can pass the key to the `useStore` method to retrieve the typed store instance.
 
   ```ts
   // in a vue component
