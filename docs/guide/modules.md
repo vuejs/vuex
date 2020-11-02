@@ -20,7 +20,7 @@ const moduleB = {
   actions: { ... }
 }
 
-const store = new Vuex.Store({
+const store = createStore({
   modules: {
     a: moduleA,
     b: moduleB
@@ -46,7 +46,6 @@ const moduleA = {
       state.count++
     }
   },
-
   getters: {
     doubleCount (state) {
       return state.count * 2
@@ -90,7 +89,7 @@ By default, actions, mutations and getters inside modules are still registered u
 If you want your modules to be more self-contained or reusable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
 
 ```js
-const store = new Vuex.Store({
+const store = createStore({
   modules: {
     account: {
       namespaced: true,
@@ -292,9 +291,9 @@ export function createPlugin (options = {}) {
 You can register a module **after** the store has been created with the `store.registerModule` method:
 
 ```js
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
-const store = new Vuex.Store({ /* options */ })
+const store = createStore({ /* options */ })
 
 // register a module `myModule`
 store.registerModule('myModule', {

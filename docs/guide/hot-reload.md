@@ -6,16 +6,13 @@ For mutations and modules, you need to use the `store.hotUpdate()` API method:
 
 ``` js
 // store.js
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import mutations from './mutations'
 import moduleA from './modules/a'
 
-Vue.use(Vuex)
-
 const state = { ... }
 
-const store = new Vuex.Store({
+const store = createStore({
   state,
   mutations,
   modules: {
@@ -49,8 +46,7 @@ If you use modules exclusively, you can use `require.context` to load and hot re
 
 ```js
 // store.js
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
 // Load all modules.
 function loadModules() {
@@ -72,9 +68,7 @@ function loadModules() {
 
 const { context, modules } = loadModules()
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
+const store = createStore({
   modules
 })
 

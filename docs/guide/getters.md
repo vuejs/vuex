@@ -19,7 +19,7 @@ Vuex allows us to define "getters" in the store. You can think of them as comput
 Getters will receive the state as their 1st argument:
 
 ``` js
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     todos: [
       { id: 1, text: '...', done: true },
@@ -27,7 +27,7 @@ const store = new Vuex.Store({
     ]
   },
   getters: {
-    doneTodos: state => {
+    doneTodos (state) {
       return state.todos.filter(todo => todo.done)
     }
   }
@@ -47,7 +47,7 @@ Getters will also receive other getters as the 2nd argument:
 ``` js
 getters: {
   // ...
-  doneTodosCount: (state, getters) => {
+  doneTodosCount (state, getters) {
     return getters.doneTodos.length
   }
 }

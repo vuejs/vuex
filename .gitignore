@@ -1,7 +1,6 @@
 /dist
-/docs/.vuepress/dist
 /coverage
-/docs/.vuepress/dist
+/docs/.vitepress/dist
 /test/e2e/reports
 /test/e2e/screenshots
 *.log

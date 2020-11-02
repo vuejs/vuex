@@ -5,7 +5,7 @@
 The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
 
 ```js
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     count: 1
   },
@@ -79,22 +79,6 @@ mutations: {
 }
 ```
 
-## Mutations Follow Vue's Reactivity Rules
-
-Since a Vuex store's state is made reactive by Vue, when we mutate the state, Vue components observing the state will update automatically. This also means Vuex mutations are subject to the same reactivity caveats when working with plain Vue:
-
-1. Prefer initializing your store's initial state with all desired fields upfront.
-
-2. When adding new properties to an Object, you should either:
-
-  - Use `Vue.set(obj, 'newProp', 123)`, or
-
-  - Replace that Object with a fresh one. For example, using the [object spread syntax](https://github.com/tc39/proposal-object-rest-spread) we can write it like this:
-
-    ```js
-    state.obj = { ...state.obj, newProp: 123 }
-    ```
-
 ## Using Constants for Mutation Types
 
 It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allows the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
@@ -106,10 +90,10 @@ export const SOME_MUTATION = 'SOME_MUTATION'
 
 ```js
 // store.js
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import { SOME_MUTATION } from './mutation-types'
 
-const store = new Vuex.Store({
+const store = createStore({
   state: { ... },
   mutations: {
     // we can use the ES2015 computed property name feature

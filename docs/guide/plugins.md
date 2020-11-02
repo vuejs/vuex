@@ -5,7 +5,7 @@
 Vuex stores accept the `plugins` option that exposes hooks for each mutation. A Vuex plugin is simply a function that receives the store as the only argument:
 
 ```js
-const myPlugin = store => {
+const myPlugin = (store) => {
   // called when the store is initialized
   store.subscribe((mutation, state) => {
     // called after every mutation.
@@ -17,7 +17,7 @@ const myPlugin = store => {
 And can be used like this:
 
 ```js
-const store = new Vuex.Store({
+const store = createStore({
   // ...
   plugins: [myPlugin]
 })
@@ -31,7 +31,7 @@ By committing mutations, a plugin can be used to sync a data source to the store
 
 ```js
 export default function createWebSocketPlugin (socket) {
-  return store => {
+  return (store) => {
     socket.on('data', data => {
       store.commit('receiveData', data)
     })
@@ -47,7 +47,7 @@ export default function createWebSocketPlugin (socket) {
 ```js
 const plugin = createWebSocketPlugin(socket)
 
-const store = new Vuex.Store({
+const store = createStore({
   state,
   mutations,
   plugins: [plugin]
@@ -59,7 +59,7 @@ const store = new Vuex.Store({
 Sometimes a plugin may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. To achieve that, you will need to perform a deep-copy on the state object:
 
 ```js
-const myPluginWithSnapshot = store => {
+const myPluginWithSnapshot = (store) => {
   let prevState = _.cloneDeep(store.state)
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
@@ -75,7 +75,7 @@ const myPluginWithSnapshot = store => {
 **Plugins that take state snapshots should be used only during development.** When using webpack or Browserify, we can let our build tools handle that for us:
 
 ```js
-const store = new Vuex.Store({
+const store = createStore({
   // ...
   plugins: process.env.NODE_ENV !== 'production'
     ? [myPluginWithSnapshot]
@@ -94,14 +94,10 @@ Vuex comes with a logger plugin for common debugging usage:
 ```js
 import { createLogger } from 'vuex'
 
-const store = new Vuex.Store({
+const store = createStore({
   plugins: [createLogger()]
 })
 ```
-
-:::warning WARNING
-Before v3.5.0, the `createLogger` function is exported at `vuex/dist/logger` package. Please checkout the "Before Vuex v3.5.0" section of this page.
-:::
 
 The `createLogger` function takes a few options:
 
@@ -141,15 +137,3 @@ const logger = createLogger({
 The logger file can also be included directly via a `<script>` tag, and will expose the `createVuexLogger` function globally.
 
 Note the logger plugin takes state snapshots, so use it only during development.
-
-### Before Vuex v3.5.0
-
-Before v3.5.0, the `createLogger` function is exported at `vuex/dist/logger` package.
-
-```js
-import createLogger from 'vuex/dist/logger'
-
-const store = new Vuex.Store({
-  plugins: [createLogger()]
-})
-```
