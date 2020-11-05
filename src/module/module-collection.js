@@ -72,7 +72,11 @@ export default class ModuleCollection {
     const parent = this.get(path.slice(0, -1))
     const key = path[path.length - 1]
 
-    return parent.hasChild(key)
+    if (parent) {
+      return parent.hasChild(key)
+    }
+
+    return false
   }
 }
 

@@ -91,6 +91,18 @@ describe('Modules', () => {
       expect(store.hasModule('bonjour')).toBe(false)
     })
 
+    it('dynamic module existance test with nested modules', () => {
+      const store = new Vuex.Store({})
+
+      store.registerModule('a', {})
+      store.registerModule(['a', 'b'], {})
+
+      expect(store.hasModule(['a'])).toBe(true)
+      expect(store.hasModule(['a', 'b'])).toBe(true)
+      expect(store.hasModule(['c'])).toBe(false)
+      expect(store.hasModule(['c', 'd'])).toBe(false)
+    })
+
     it('dynamic module registration preserving hydration', () => {
       const store = new Vuex.Store({})
       store.replaceState({ a: { foo: 'state' }})
