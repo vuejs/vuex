@@ -6568,6 +6568,11 @@ p-locate@^4.1.0:
   dependencies:
     p-limit "^2.2.0"
 
+p-map-series@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/p-map-series/-/p-map-series-2.1.0.tgz#7560d4c452d9da0c07e692fdbfe6e2c81a2a91f2"
+  integrity sha512-RpYIIK1zXSNEOdwxcfe7FdvGcs7+y5n8rifMhMNWvaxRNMPINJHF5GDeuVxWqnfrcHPSCnp7Oo5yNXHId9Av2Q==
+
 p-try@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
@@ -8779,10 +8784,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite@^1.0.0-rc.8:
-  version "1.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-1.0.0-rc.8.tgz#26ebe3d6cb7c36f0bceb04398eef0d5d2d7c10df"
-  integrity sha512-HLRVbtsRYr7zIcq2IbKGq13URP2bOw/hrJ3Ufjp+TRM8PM6Ncquvqrr0WswIJOT6a+z3NGDJPi61Z97A0mdVvA==
+vite@^1.0.0-rc.9:
+  version "1.0.0-rc.9"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-1.0.0-rc.9.tgz#63621a39cf36fe9a6dccafdb11360a5ebbdb2663"
+  integrity sha512-u0PT2sKMes2RtE5rZsLY0nFm6kEmce7IhVRWKFXmrsjn0MBOCNEi+S6iNnJDmsj1nzvU2dMZ5MHhFyXIqTgjzA==
   dependencies:
     "@babel/parser" "^7.12.3"
     "@koa/cors" "^3.1.0"
@@ -8822,6 +8827,7 @@ vite@^1.0.0-rc.8:
     minimist "^1.2.5"
     open "^7.2.1"
     ora "^5.1.0"
+    p-map-series "^2.1.0"
     postcss-discard-comments "^4.0.2"
     postcss-import "^12.0.1"
     postcss-load-config "^3.0.0"
@@ -8836,10 +8842,10 @@ vite@^1.0.0-rc.8:
     vue "^3.0.2"
     ws "^7.3.1"
 
-vitepress@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.7.1.tgz#bf7901f03df188df740ce5581c73abc4473fbd63"
-  integrity sha512-DGC0qDga/AOxIiGv8s8g9mC9fx4vF5hAzMnZy9YJ0Ad0PIYSpXi2bln1TUOF9D9lgIRkJsuWp4Av+oS4eaCtog==
+vitepress@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.7.3.tgz#61e05b5973aff22db80671a5cdff27176bcb9fdd"
+  integrity sha512-sRIkh4Ug+37qqvoHM4ZgLys5JD93DST4pV987O+1i1OajLWQFckyeXXlVu2GXIfvpnqMYkWdUNPczqn7wbXUqA==
   dependencies:
     "@vue/compiler-sfc" "^3.0.2"
     "@vue/server-renderer" "^3.0.2"
@@ -8858,7 +8864,7 @@ vitepress@^0.7.1:
     minimist "^1.2.5"
     prismjs "^1.20.0"
     slash "^3.0.0"
-    vite "^1.0.0-rc.8"
+    vite "^1.0.0-rc.9"
     vue "^3.0.2"
 
 vm-browserify@^1.0.1:
