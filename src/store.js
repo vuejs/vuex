@@ -289,7 +289,7 @@ function resetStoreState (store, state, hot) {
   const computedCache = {}
   forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
-    // direct inline function use will lead to closure preserving oldVm.
+    // direct inline function use will lead to closure preserving oldState.
     // using partial to return function with only arguments preserved in closure environment.
     computedObj[key] = partial(fn, store)
     computedCache[key] = computed(() => computedObj[key]())
