@@ -15,17 +15,17 @@ export declare class Store<S, T extends ModuleTree<S> = {}> {
   readonly state: State<S, T>;
   readonly getters: any;
 
-  replaceState(state: S): void;
+  replaceState(state: State<S, T>): void;
 
   dispatch: Dispatch;
   commit: Commit;
 
-  subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any, options?: SubscribeOptions): () => void;
-  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>, options?: SubscribeOptions): () => void;
-  watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
+  subscribe<P extends MutationPayload>(fn: (mutation: P, state: State<S, T>) => any, options?: SubscribeOptions): () => void;
+  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, State<S, T>>, options?: SubscribeOptions): () => void;
+  watch<U>(getter: (state: State<S, T>, getters: any) => U, cb: (value: U, oldValue: U) => void, options?: WatchOptions): () => void;
 
-  registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
-  registerModule<T>(path: string[], module: Module<T, S>, options?: ModuleOptions): void;
+  registerModule<U>(path: string, module: Module<U, State<S, T>>, options?: ModuleOptions): void;
+  registerModule<U>(path: string[], module: Module<U, State<S, T>>, options?: ModuleOptions): void;
 
   unregisterModule(path: string): void;
   unregisterModule(path: string[]): void;
