@@ -136,6 +136,192 @@ namespace StoreInstance {
   store.replaceState({ value: 10 });
 }
 
+namespace StoreInstanceWithModules {
+  const store = new Vuex.Store({
+    state: {
+      value: 0
+    },
+    modules: {
+      a: {
+        state: { value: 1 },
+        modules: {
+          b: {
+            state: { value: 2 }
+          }
+        }
+      },
+      c: {
+        state: { value: 1 },
+      }
+    }
+  });
+
+  store.state.value;
+  store.state.a.value;
+  store.state.a.b.value;
+  store.state.c.value;
+  store.getters.foo;
+
+  store.watch(state => state.value + state.a.b.value + state.c.value, value => {
+    value = value + 1;
+  }, {
+    immediate: true,
+    deep: true
+  });
+
+  store.subscribe((mutation, state) => {
+    mutation.type;
+    mutation.payload;
+    state.value;
+    state.a.value;
+    state.a.b.value;
+    state.c.value;
+  });
+
+  store.subscribeAction((action, state) => {
+    action.type;
+    action.payload;
+    state.value;
+    state.a.value;
+    state.a.b.value;
+    state.c.value;
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    }
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    },
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    }
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    },
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    }
+  });
+
+  store.subscribeAction({
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      state.a.value;
+      state.a.b.value;
+      state.c.value;
+      error;
+    }
+  });
+
+  store.replaceState({
+    value: 10,
+    a: {
+      value: 20,
+      b: {
+        value: 30
+      }
+    },
+    c: {
+      value: 40
+    }
+  });
+}
+
 namespace RootModule {
   const store = new Vuex.Store({
     state: {
@@ -239,7 +425,7 @@ namespace NestedModules {
     }
   };
 
-  const store = new Vuex.Store<RootState>({
+  const store = new Vuex.Store({
     getters: {
       root: state => state
     },
@@ -250,9 +436,9 @@ namespace NestedModules {
           c: module,
           d: module,
           e: {
-            state: {
+            state: () => ({
               value: 0
-            },
+            }),
             actions: {
               foo(context: ActionStore, payload) {
                 this.state.a;
@@ -263,6 +449,11 @@ namespace NestedModules {
       }
     }
   });
+
+  store.state.a.value;
+  store.state.b.c.value;
+  store.state.b.d.value;
+  store.state.b.e.value;
 }
 
 namespace NamespacedModule {
@@ -332,30 +523,39 @@ namespace NamespacedModule {
 }
 
 namespace RegisterModule {
-  interface RootState {
-    value: number;
-    a?: {
-      value: number;
-      b?: {
-        value: number;
-      }
-    };
-  }
-
-  const store = new Vuex.Store<RootState>({
+  const store = new Vuex.Store({
     state: {
       value: 0
+    },
+    modules: {
+      c: {
+        state: { value: 3 }
+      }
     }
   });
 
   store.registerModule("a", {
-    state: { value: 1 }
+    state: { value: 1 },
+    getters: {
+      foo(state, getters, rootState, rootGetters) {
+        state.value;
+        rootState.value;
+        rootState.c.value;
+      }
+    }
   });
 
   store.hasModule('a')
 
   store.registerModule(["a", "b"], {
-    state: { value: 2 }
+    state: { value: 2 },
+    getters: {
+      foo(state, getters, rootState, rootGetters) {
+        state.value;
+        rootState.value;
+        rootState.c.value;
+      }
+    }
   });
 
   store.registerModule(["a", "b"], {
@@ -411,7 +611,7 @@ namespace HotUpdate {
     }
   };
 
-  const store = new Vuex.Store<RootState>({
+  const store = new Vuex.Store({
     state: {
       value: 0
     } as any,
