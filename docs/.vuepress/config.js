@@ -59,7 +59,13 @@ module.exports = {
         nav: [
           { text: 'Guide', link: '/guide/' },
           { text: 'API Reference', link: '/api/' },
-          { text: 'Release Notes', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: 'Release Notes', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v3.x',
+            items: [
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {
@@ -103,7 +109,13 @@ module.exports = {
         nav: [
           { text: '指南', link: '/zh/guide/' },
           { text: 'API 参考', link: '/zh/api/' },
-          { text: '更新记录', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: '更新记录', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v3.x',
+            items: [
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {
@@ -147,7 +159,13 @@ module.exports = {
         nav: [
           { text: 'ガイド', link: '/ja/guide/' },
           { text: 'API リファレンス', link: '/ja/api/' },
-          { text: 'リリースノート', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: 'リリースノート', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v3.x',
+            items: [
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {
@@ -191,7 +209,13 @@ module.exports = {
         nav: [
           { text: 'Руководство', link: '/ru/guide/' },
           { text: 'Справочник API', link: '/ru/api/' },
-          { text: 'История изменений', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: 'История изменений', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v3.x',
+            items: [
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {
@@ -235,7 +259,13 @@ module.exports = {
         nav: [
           { text: '가이드', link: '/kr/guide/' },
           { text: 'API 레퍼런스', link: '/kr/api/' },
-          { text: '릴리즈 노트', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: '릴리즈 노트', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v3.x',
+            items: [
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {
@@ -279,7 +309,13 @@ module.exports = {
         nav: [
           { text: 'Guia', link: '/ptbr/guide/' },
           { text: 'Referência da API', link: '/ptbr/api/' },
-          { text: 'Notas da Versão', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: 'Notas da Versão', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v3.x',
+            items: [
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {
@@ -323,7 +359,13 @@ module.exports = {
         nav: [
           { text: 'Guide', link: '/fr/guide/' },
           { text: 'API', link: '/fr/api/' },
-          { text: 'Notes de version', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: 'Notes de version', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v3.x',
+            items: [
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {
