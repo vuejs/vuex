@@ -27,7 +27,13 @@ module.exports = {
         nav: [
           { text: 'Guide', link: '/guide/' },
           { text: 'API Reference', link: '/api/' },
-          { text: 'Release Notes', link: 'https://github.com/vuejs/vuex/releases' }
+          { text: 'Release Notes', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v4.x',
+            items: [
+              { text: 'v3.x', link: 'https://vuex.vuejs.org/' }
+            ]
+          }
         ],
         sidebar: [
           {

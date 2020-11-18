@@ -87,8 +87,6 @@ The plugin will be used by default. For production, you will need [DefinePlugin]
 
 ## Built-in Logger Plugin
 
-> If you are using [vue-devtools](https://github.com/vuejs/vue-devtools) you probably don't need this.
-
 Vuex comes with a logger plugin for common debugging usage:
 
 ```js
