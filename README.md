@@ -1,104 +1,55 @@
-# Vuex 4
+# Vuex
 
-This is the Vue 3 compatible version of Vuex. The focus is compatibility, and it provides the exact same API as Vuex 3, so users can reuse their existing Vuex code with Vue 3.
+[![npm](https://img.shields.io/npm/v/vuex/next.svg)](https://npmjs.com/package/vuex)
+[![ci status](https://circleci.com/gh/vuejs/vuex/tree/dev.png?style=shield)](https://circleci.com/gh/vuejs/vuex)
 
-## Status: RC
+---
 
-All Vuex 3 features work. There are a few breaking changes described in a later section, so please check them out. You can find basic usage with both option and Composition API in the `example` directory.
+:fire: **HEADS UP!** You're currently looking at Vuex 4 branch. If you're looking for Vuex 3, [please check out `dev` branch](https://github.com/vuejs/vuex).
 
-Feedback is welcome should you discover any issues. You may use [vue-next-webpack-preview](https://github.com/vuejs/vue-next-webpack-preview) to test out Vue 3 with Vuex 4.
+---
+
+Vuex is a state management pattern + library for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
+
+Learn more about Vuex at "[What is Vuex?](https://vuex.vuejs.org/)", or get started by looking into [full documentation](http://vuex.vuejs.org/).
 
 ## Documentation
 
-To check out docs, visit [next.vuex.vuejs.org](https://next.vuex.vuejs.org/).
+To check out docs, visit [vuex.vuejs.org](https://vuex.vuejs.org/).
 
-## Breaking changes
+## Examples
 
-### Installation process has changed
+You may find example applications built with Vuex under the `examples` directory.
 
-To align with the new Vue 3 initialization process, the installation process of Vuex has changed.
+Running the examples:
 
-To create a new store instance, users are now encouraged to use the newly introduced `createStore` function.
-
-```js
-import { createStore } from 'vuex'
-
-export const store = createStore({
-  state () {
-    return {
-      count: 1
-    }
-  }
-})
+```bash
+$ npm install
+$ npm run dev # serve examples at localhost:8080
 ```
 
-> Whilst this is not technically a breaking change, you may still use the `new Store(...)` syntax, we recommend this approach to align with Vue 3 and Vue Router Next.
+## Questions
 
-To install Vuex to a Vue instance, pass the store instance instead of Vuex.
+For questions and support please use the [Discord chat server](https://chat.vuejs.org) or [the official forum](http://forum.vuejs.org). The issue list of this repo is **exclusively** for bug reports and feature requests.
 
-```js
-import { createApp } from 'vue'
-import { store } from './store'
-import App from './App.vue'
+## Issues
 
-const app = createApp(App)
+Please make sure to read the [Issue Reporting Checklist](https://github.com/vuejs/vuex/blob/dev/.github/contributing.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
-app.use(store)
+## Changelog
 
-app.mount('#app')
-```
+Detailed changes for each release are documented in the [release notes](https://github.com/vuejs/vuex/releases).
 
-### Bundles are now aligned with Vue 3
+## Stay In Touch
 
-The following bundles are generated to align with Vue 3 bundles:
+For latest releases and announcements, follow on Twitter: [@vuejs](https://twitter.com/vuejs).
 
-- `vuex.global(.prod).js`
-  - For direct use with `<script src="...">` in the browser. Exposes the Vuex global.
-  - Global build is built as IIFE, and not UMD, and is only meant for direct use with `<script src="...">`.
-  - Contains hard-coded prod/dev branches and the prod build is pre-minified. Use the `.prod.js` files for production.
-- `vuex.esm-browser(.prod).js`
-  - For use with native ES module imports (including module supporting browsers via `<script type="module">`.
-- `vuex.esm-bundler.js`
-  - For use with bundlers such as `webpack`, `rollup` and `parcel`.
-  - Leaves prod/dev branches with `process.env.NODE_ENV` guards (must be replaced by bundler).
-  - Does not ship minified builds (to be done together with the rest of the code after bundling).
-- `vuex.cjs.js`
-  - For use in Node.js server-side rendering with `require()`.
+## Contribution
 
-### Typings for `ComponentCustomProperties`
-
-Vuex 4 removes its global typings for `this.$store` within Vue Component to solve [issue #994](https://github.com/vuejs/vuex/issues/994). When used with TypeScript, you must declare your own module augmentation.
-
-Place the following code in your project to allow `this.$store` to be typed correctly:
-
-```ts
-// vuex-shim.d.ts
-
-import { ComponentCustomProperties } from 'vue'
-import { Store } from 'vuex'
-
-declare module '@vue/runtime-core' {
-  // Declare your own store states.
-  interface State {
-    count: number
-  }
-
-  interface ComponentCustomProperties {
-    $store: Store<State>
-  }
-}
-```
-
-### `createLogger` function is exported from the core module
-
-In Vuex 3, `createLogger` function was exported from `vuex/dist/logger` but it's now included in the core package. You should import the function directly from `vuex` package.
-
-```js
-import { createLogger } from 'vuex'
-```
+Please make sure to read the [Contributing Guide](https://github.com/vuejs/vuex/blob/dev/.github/contributing.md) before making a pull request.
 
 ## License
 
-[MIT](https://github.com/vuejs/vuex/blob/dev/LICENSE)
+[MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2015-present Evan You
