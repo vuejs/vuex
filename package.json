@@ -6,7 +6,7 @@
   "exports": {
     ".": {
       "require": "./dist/vuex.common.js",
-      "import": "./src/index.mjs"
+      "import": "./dist/vuex.mjs"
     },
     "./": "./"
   },
