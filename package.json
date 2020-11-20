@@ -29,7 +29,8 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js",
     "docs": "vitepress dev docs",
-    "docs:build": "vitepress build docs"
+    "docs:build": "vitepress build docs",
+    "docs:serve": "yarn docs:build && vitepress serve docs"
   },
   "repository": {
     "type": "git",
@@ -75,7 +76,7 @@
     "start-server-and-test": "^1.11.0",
     "todomvc-app-css": "2.1.0",
     "typescript": "^4.0.5",
-    "vitepress": "^0.7.3",
+    "vitepress": "^0.8.0",
     "vue": "^3.0.2",
     "vue-loader": "^16.0.0-beta.1",
     "vue-style-loader": "^4.1.2",

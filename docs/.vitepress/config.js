@@ -21,9 +21,14 @@ module.exports = {
   themeConfig: {
     repo: 'vuejs/vuex',
     docsDir: 'docs',
+    docsBranch: '4.0',
+
+    editLinks: true,
 
     locales: {
       '/': {
+        editLinkText: 'Edit this page on GitHub',
+
         nav: [
           { text: 'Guide', link: '/guide/' },
           { text: 'API Reference', link: '/api/' },
@@ -35,6 +40,7 @@ module.exports = {
             ]
           }
         ],
+
         sidebar: [
           {
             text: 'Introduction',
