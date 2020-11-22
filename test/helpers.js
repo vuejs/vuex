@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer'
 export function mount (store, component) {
   const el = createElement()
 
-  component.render = () => {}
+  component.render = component.render ? component.render : () => {}
 
   const app = createApp(component)
 

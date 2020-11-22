@@ -1,4 +1,5 @@
-import { nextTick } from 'vue'
+import { h, nextTick } from 'vue'
+import { mount } from 'test/helpers'
 import Vuex from '@/index'
 
 const TEST = 'TEST'
@@ -123,6 +124,49 @@ describe('Modules', () => {
 
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
+    })
+
+    it.only('should keep getters when component gets destroyed', async () => {
+      const store = new Vuex.Store()
+
+      const moduleA = {
+        namespaced: true,
+        state: () => ({ value: 1 }),
+        getters: {
+          getState: (state) => state.value
+        },
+        mutations: {
+          increment: (state) => { state.value++ }
+        }
+      }
+
+      const CompA = {
+        template: `<div />`,
+        created () {
+          this.$store.registerModule('moduleA', moduleA)
+        }
+      }
+
+      const CompB = {
+        template: `<div />`
+      }
+
+      const vm = mount(store, {
+        components: { CompA, CompB },
+        data: () => ({ show: 'a' }),
+        render () {
+          return this.show === 'a' ? h(CompA) : h(CompB)
+        }
+      })
+
+      expect(store.getters['moduleA/getState']).toBe(1)
+
+      vm.show = 'b'
+      await nextTick()
+
+      store.commit('moduleA/increment')
+      console.log(store.state.moduleA.value)
+      expect(store.getters['moduleA/getState']).toBe(2)
     })
   })
 
