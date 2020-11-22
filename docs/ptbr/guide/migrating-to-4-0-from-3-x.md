@@ -2,13 +2,13 @@
 
 Quase todas as APIs do Vuex 4 permaneceram inalteradas desde o Vuex 3. No entanto, ainda existem algumas mudanças importantes que você deve corrigir.
 
-- [Alterações Importantes](#alterações-importantes)
-  - [Processo de instalação](#processo-de-instalação)
+- [Alterações Importantes](#alteracoes-importantes)
+  - [Processo de instalação](#processo-de-instalacao)
   - [Suporte ao TypeScript](#suporte-ao-typescript)
-  - [Os pacotes agora estão alinhados com Vue 3](#os-pacotes-agora-estão-alinhados-com-vue-3)
-  - [A função "createLogger" é exportada do módulo principal](#a-função-createLogger-é-exportada-do-módulo-principal)
-- [Novas Características](#novas-características)
-  - [Nova função de composição "useStore"](#nova-função-de-composição-useStore)
+  - [Os pacotes agora estão alinhados com Vue 3](#os-pacotes-agora-estao-alinhados-com-vue-3)
+  - [A função "createLogger" é exportada do módulo principal](#a-funcao-createlogger-e-exportada-do-modulo-principal)
+- [Novas Características](#novas-caracteristicas)
+  - [Nova função de composição "useStore"](#nova-funcao-de-composicao-usestore)
 
 ## Alterações Importantes
 
