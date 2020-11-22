@@ -289,7 +289,7 @@ sidebar: auto
 
   Cria dados computados do componente que retornam a subárvore do _store_ Vuex. [Detalhes](../guide/state.md#o-auxiliar-mapstate)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#vinculando-metodos-auxiliares-com-namespace)
 
   O segundo objeto que compõem os argumentos pode ser uma função. `function(state: any)`
 
@@ -299,7 +299,7 @@ sidebar: auto
 
   Cria dados computados do componente que retornam o valor calculado de um _getter_. [Detalhes](../guide/getters.md#o-auxiliar-mapgetters)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#vinculando-metodos-auxiliares-com-namespace)
 
 ### mapActions
 
@@ -307,7 +307,7 @@ sidebar: auto
 
   Cria opções de métodos nos componentes que despacham uma ação. [Detalhes](../guide/actions.md#despachando-acoes-em-componentes)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#vinculando-metodos-auxiliares-com-namespace)
 
   O segundo objeto que compõem os argumentos pode ser uma função. `function(dispatch: function, ...args: any[])`
 
@@ -317,7 +317,7 @@ sidebar: auto
 
   Cria opções de métodos nos componentes que confirmam (ou fazem um _commit_ de) uma mutação. [Detalhes](../guide/mutations.md#confirmando-ou-fazendo-commits-de-mutacoes-em-componentes)
 
-  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
+  O 1º argumento pode ser opcionalmente uma _String_ com _namespace_. [Detalhes](../guide/modules.md#vinculando-metodos-auxiliares-com-namespace)
 
   O segundo objeto que compõem os argumentos pode ser uma função. `function(commit: function, ...args: any[])`
 
@@ -325,7 +325,7 @@ sidebar: auto
 
 -  `createNamespacedHelpers(namespace: string): Object`
 
-  Cria métodos auxiliares de componentes vinculados por um nome. O objeto retornado conterá `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão vinculados ao _namespace_ fornecido. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
+  Cria métodos auxiliares de componentes vinculados por um nome. O objeto retornado conterá `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão vinculados ao _namespace_ fornecido. [Detalhes](../guide/modules.md#vinculando-metodos-auxiliares-com-namespace)
 
 ## Funções de Composição
 

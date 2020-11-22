@@ -2,13 +2,13 @@
 
 Quase todas as APIs do Vuex 4 permaneceram inalteradas desde o Vuex 3. No entanto, ainda existem algumas mudanças importantes que você deve corrigir.
 
-- [Alterações Importantes](#alterações-importantes)
-  - [Processo de instalação](#processo-de-instalação)
+- [Alterações Importantes](#alteracoes-importantes)
+  - [Processo de instalação](#processo-de-instalacao)
   - [Suporte ao TypeScript](#suporte-ao-typescript)
-  - [Os pacotes agora estão alinhados com Vue 3](#os-pacotes-agora-estão-alinhados-com-vue-3)
-  - [A função "createLogger" é exportada do módulo principal](#a-função-createLogger-é-exportada-do-módulo-principal)
-- [Novas Características](#novas-características)
-  - [Nova função de composição "useStore"](#nova-função-de-composição-useStore)
+  - [Os pacotes agora estão alinhados com Vue 3](#os-pacotes-agora-estao-alinhados-com-vue-3)
+  - [A função "createLogger" é exportada do módulo principal](#a-funcao-createlogger-e-exportada-do-modulo-principal)
+- [Novas Características](#novas-caracteristicas)
+  - [Nova função de composição "useStore"](#nova-funcao-de-composicao-usestore)
 
 ## Alterações Importantes
 
@@ -85,7 +85,6 @@ Os seguintes pacotes são gerados para se alinhar aos pacotes Vue 3:
 - `vuex.esm-bundler.js`
   - Para uso com empacotadores como `webpack`, `rollup` e `parcel`.
   - Deixa os branches de prod/dev com os guardas de tipo `process.env.NODE_ENV` (deve ser substituído pelo empacotador).
-  - Does not ship minified builds (to be done together with the rest of the code after bundling).
   - Não envia distribuições (ou _builds_) minificados (para ser feito junto com o resto do código após o empacotamento).
 - `vuex.cjs.js`
   - Para uso em renderização do lado do servidor (_server-side_ _rendering_) no Node.js com `require()`.

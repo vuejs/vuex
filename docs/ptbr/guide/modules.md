@@ -308,7 +308,7 @@ store.registerModule(['nested', 'myModule'], {
 
 Os estados do módulo serão expostos como `store.state.myModule` e `store.state.nested.myModule`.
 
-O registro de módulo dinâmico possibilita que outros _plugins_ Vue aproveitem também o Vuex para gerenciamento de estado, anexando um módulo ao _store_ da aplicação. Por exemplo, a biblioteca [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra o vue-router com o vuex gerenciando o estado da rota do aplicativo em um módulo conectado dinamicamente.
+O registro de módulo dinâmico possibilita que outros _plugins_ Vue aproveitem também o Vuex para gerenciamento de estado, anexando um módulo ao _store_ da aplicação. Por exemplo, a biblioteca [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra o vue-router com o vuex gerenciando o estado da rota da aplicação em um módulo conectado dinamicamente.
 
 Você também pode remover um módulo dinamicamente registrado com o `store.unregisterModule(moduleName)`. Note que você não pode remover módulos estáticos (declarados na criação do _store_) com este método.
 
@@ -316,7 +316,7 @@ Observe que você pode verificar se o módulo já está registrado no _store_ ou
 
 ### Preservando o estado
 
-É bem provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Renderizado no Lado do Servidor (_Server_ _Side_ _Rendered_). Você pode fazer isso com a opção `preserveState`:`store.registerModule('a', module, {preserveState: true})`
+É bem provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de uma aplicação Renderizada no Lado do Servidor (_Server_ _Side_ _Rendered_). Você pode fazer isso com a opção `preserveState`:`store.registerModule('a', module, {preserveState: true})`
 
 Quando você define `preserveState: true`, o módulo é registrado, as ações, mutações e _getters_ são incluídos no _store_, mas o estado não. É assumido que estado da sua _store_ já contém um estado para aquele módulo e você não quer sobrescrevê-lo.
 
