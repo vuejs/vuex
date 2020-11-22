@@ -8,6 +8,11 @@ module.exports = {
       lang: 'en-US',
       title: 'Vuex',
       description: 'Centralized State Management for Vue.js'
+    },
+    '/ptbr/': {
+      lang: 'pt-BR',
+      title: 'Vuex',
+      description: 'Gerenciamento de Estado Centralizado para Vue.js'
     }
   },
 
@@ -77,6 +82,58 @@ module.exports = {
             text: 'Migration Guide',
             children: [
               { text: 'Migrating to 4.0 from 3.x', link: '/guide/migrating-to-4-0-from-3-x' }
+            ]
+          }
+        ]
+      },
+      '/ptbr/': {
+        nav: [
+          { text: 'Guia', link: '/ptbr/guide/' },
+          { text: 'Referência da API', link: '/ptbr/api/' },
+          { text: 'Notas de Lançamento', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v4.x',
+            items: [
+              { text: 'v3.x', link: 'https://vuex.vuejs.org/ptbr/' }
+            ]
+          }
+        ],
+        sidebar: [
+          {
+            text: 'Introdução',
+            children: [
+              { text: 'O que é Vuex?', link: '/ptbr/' },
+              { text: 'Instalação', link: '/ptbr/installation' },
+              { text: 'Começando', link: '/ptbr/guide/' }
+            ]
+          },
+          {
+            text: 'Conceitos Básicos',
+            children: [
+              { text: 'Estado', link: '/ptbr/guide/state' },
+              { text: 'Getters', link: '/ptbr/guide/getters' },
+              { text: 'Mutações', link: '/ptbr/guide/mutations' },
+              { text: 'Ações', link: '/ptbr/guide/actions' },
+              { text: 'Módulos', link: '/ptbr/guide/modules' }
+            ]
+          },
+          {
+            text: 'Avançado',
+            children: [
+              { text: 'Estrutura da Aplicação', link: '/ptbr/guide/structure' },
+              { text: 'Composition API', link: '/ptbr/guide/composition-api' },
+              { text: 'Plugins', link: '/ptbr/guide/plugins' },
+              { text: 'Modo Strict', link: '/ptbr/guide/strict' },
+              { text: 'Manipulação de Formulários', link: '/ptbr/guide/forms' },
+              { text: 'Testando', link: '/ptbr/guide/testing' },
+              { text: 'Hot Reloading', link: '/ptbr/guide/hot-reload' },
+              { text: 'Suporte ao TypeScript', link: '/ptbr/guide/typescript-support' },
+            ]
+          },
+          {
+            text: 'Guia de Migração',
+            children: [
+              { text: 'Migrando do 3.x para 4.0', link: '/ptbr/guide/migrating-to-4-0-from-3-x' }
             ]
           }
         ]

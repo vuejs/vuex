@@ -1,0 +1,25 @@
+# Strict Mode
+
+Para habilitar o modo estrito, simplesmente passe `strict: true` ao criar um _store_ Vuex:
+
+```js
+const store = createStore({
+  // ...
+  strict: true
+})
+```
+
+Em modo estrito, sempre que o estado do Vuex é mudado fora das funções manipuladoras de mutação, um erro será lançado. Isso garante que todas as mutações do estado possam ser explicitamente rastreadas por ferramentas de depuração.
+
+## Desenvolvimento vs. Produção
+
+**Não habilite o modo estrito ao fazer um _deploy_ para a produção!** O modo estrito executa um observador profundo síncrono na árvore de estados para detectar mutações inapropriadas e pode ser bastante caro quando você faz grande quantidade de mutações no estado. Certifique-se de desligá-lo em produção para evitar o custo de desempenho.
+
+Semelhante aos plugins, podemos deixar as ferramentas de compilação lidar com isso:
+
+```js
+const store = createStore({
+  // ...
+  strict: process.env.NODE_ENV !== 'production'
+})
+```
