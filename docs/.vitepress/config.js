@@ -32,6 +32,8 @@ module.exports = {
 
     locales: {
       '/': {
+        label: 'English',
+        selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
 
         nav: [
@@ -86,7 +88,12 @@ module.exports = {
           }
         ]
       },
+
       '/ptbr/': {
+        label: 'Português',
+        selectText: 'Idiomas',
+        editLinkText: 'Edite esta página no GitHub',
+
         nav: [
           { text: 'Guia', link: '/ptbr/guide/' },
           { text: 'Referência da API', link: '/ptbr/api/' },
@@ -98,6 +105,7 @@ module.exports = {
             ]
           }
         ],
+
         sidebar: [
           {
             text: 'Introdução',
