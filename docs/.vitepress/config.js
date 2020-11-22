@@ -105,6 +105,7 @@ module.exports = {
             ]
           }
         ],
+
         sidebar: [
           {
             text: 'Introdução',
