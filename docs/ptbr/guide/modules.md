@@ -131,7 +131,7 @@ const store = createStore({
 })
 ```
 
-Os _getters_ e as ações com _namespace_ receberão _getters_, _dispatch_ e _commit_ localizados. Em outras palavras, você pode usar os recursos do módulo sem escrever prefixo no mesmo módulo. Alternar entre com _namespace_ ou não, não afeta o código dentro do módulo.
+Os _getters_ e as ações com _namespace_ receberão `getters`, `dispatch` e `commit` localizados. Em outras palavras, você pode usar os recursos do módulo sem escrever prefixo no mesmo módulo. Alternar entre com _namespace_ ou não, não afeta o código dentro do módulo.
 
 ### Acessando Recursos Globais em Módulos com Namespaces
 
@@ -272,7 +272,7 @@ export default {
 
 ### Advertência para Desenvolvedores de Plug-ins
 
-Você pode se preocupar com _namespacing_ imprevisível para seus módulos ao criar um [plugin] (plugins.md) que fornece os módulos e permite que os usuários os adicionem a um _store_ Vuex. Seus módulos também terão _namespaces_ se os usuários do _plugin_ adicionarem seus módulos em um módulo com _namespace_. Para se adaptar a essa situação, pode ser necessário receber um valor de _namespace_ por meio das opções do seu _plug-in_:
+Você pode se preocupar com _namespacing_ imprevisível para seus módulos ao criar um [plugin] (plugins.md) que fornece os módulos e permite que os usuários os adicionem a um _store_ Vuex. Seus módulos também terão _namespaces_ se os usuários do _plugin_ adicionarem seus módulos em um módulo com _namespace_. Para se adaptar a essa situação, pode ser necessário receber um valor de _namespace_ por meio das opções do seu _plugin_:
 
 ```js
 // obtem valor do namespace via opção do plugin

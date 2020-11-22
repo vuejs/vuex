@@ -48,7 +48,7 @@ Embora esta não seja tecnicamente uma alteração importante, você ainda pode 
 
 ### Suporte ao TypeScript
 
-Vuex 4 remove suas tipagens globais para `this.$store` dentro de um componente Vue para resolver essa [issue #994](https://github.com/vuejs/vuex/issues/994). Quando usado com TypeScript, você deve declarar seu próprio _module augmentation_.
+Vuex 4 remove suas tipagens globais para `this.$store` dentro de um componente Vue para resolver essa [issue #994](https://github.com/vuejs/vuex/issues/994). Quando usado com TypeScript, você deve declarar seu próprio _module_ _augmentation_.
 
 Coloque o seguinte código em seu projeto para permitir que `this.$store` seja tipado corretamente:
 
@@ -70,7 +70,7 @@ declare module '@vue/runtime-core' {
 }
 ```
 
-Você pode aprender mais na seção [suporte ao TypeScript](./typescript-support).
+Você pode aprender mais na seção [Suporte ao TypeScript](./typescript-support).
 
 ### Os pacotes agora estão alinhados com Vue 3
 

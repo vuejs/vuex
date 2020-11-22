@@ -77,7 +77,7 @@ sidebar: auto
   rootGetters  // todos os getters
   ```
 
-  Os _getters_ registrados estão expostos em _store.getters_.
+  Os _getters_ registrados estão expostos em `store.getters`.
 
   [Detalhes](../guide/getters.md)
 
@@ -126,7 +126,7 @@ sidebar: auto
 
 - type: `boolean`
 
-  Ative ou desative o _devtools_ para uma determinada instância Vuex. Passar _false_ à instância diz ao _store_ Vuex para não se integrar ao _devtools_. Bem útil quando se tem vários _stores_ em uma _single page_.
+  Ative ou desative o _devtools_ para uma determinada instância Vuex. Passar `false` à instância diz ao _store_ Vuex para não se integrar ao _devtools_. Bem útil quando se tem vários _stores_ em uma _single_ _page_.
 
   ```js
   {
@@ -174,7 +174,7 @@ sidebar: auto
 
 -  `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  Visualiza de forma reativa um valor de retorno de `fn`, e chama o _callback_ para o retorno de chamada quando o valor for alterado. O `fn` recebe o estado do _store_ como o 1º argumento, e os _getters_ como o 2º argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o [método _vm.$watch_ do Vue](https://vuejs.org/v2/api/#vm-watch).
+  Visualiza de forma reativa um valor de retorno de `fn`, e chama o _callback_ para o retorno de chamada quando o valor for alterado. O `fn` recebe o estado do _store_ como o 1º argumento, e os _getters_ como o 2º argumento. Aceita um objeto de opções opcional que leva as mesmas opções que o [método vm.$watch do Vue](https://vuejs.org/v2/api/#vm-watch).
 
   Para parar um _watch_, chame a função _unwatch_ retornada.
 
@@ -367,7 +367,7 @@ sidebar: auto
   })
   ```
 
-  Então, passe a _key_ definida como o 2º argumento para o método _app.use_.
+  Então, passe a _key_ definida como o 2º argumento para o método `app.use`.
 
   ```ts
   // main.ts

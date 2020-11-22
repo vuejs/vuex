@@ -82,7 +82,7 @@ mutations: {
 
 ## Usando Constantes para Declarar os Tipos de Mutação
 
-É um padrão comumente visto usar constantes para declarar tipos de mutação em várias implementações do _Flux_. Isso permite que o código aproveite as ferramentas como os _linters_, e colocar todas as constantes em um único arquivo permite que seus colaboradores tenham uma visão geral das mutações possíveis em toda a aplicação:
+É um padrão comumente visto usar constantes para declarar tipos de mutação em várias implementações do Flux. Isso permite que o código aproveite as ferramentas como os _linters_, e colocar todas as constantes em um único arquivo permite que seus colaboradores tenham uma visão geral das mutações possíveis em toda a aplicação:
 
 ```js
 // mutation-types.js

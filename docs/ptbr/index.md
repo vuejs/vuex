@@ -39,7 +39,6 @@ createApp(Counter).mount('#app')
 - A **_view_**, que é apenas um mapeamento declarativo do **estado**;
 - As **ações** (_actions_), que são as possíveis maneiras pelas quais o estado pode mudar em reação às interações dos usuários da **_view_**.
 
-This is a simple representation of the concept of "one-way data flow":
 Esta é uma representação simples do conceito de "fluxo de dados unidirecional" (_one-way_):
 
 <p style="text-align: center; margin: 2em">

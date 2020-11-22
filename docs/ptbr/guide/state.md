@@ -12,7 +12,6 @@ Os dados que você armazena no Vuex seguem as mesmas regras que o `data` em uma 
 
 ## Obtendo o Estado Vuex nos Componentes Vue
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](https://vuejs.org/guide/computed.html):
 Então, como exibimos o estado dentro do _store_ em nossos componentes Vue? Como os _stores_ Vuex são reativos, a maneira mais simples de "recuperar" o estado dele é simplesmente retornar algum estado do _store_ de dentro de um [dado computado](https://vuejs.org/guide/computed.html):
 
 ```js
@@ -27,7 +26,7 @@ const Counter = {
 }
 ```
 
-Sempre que o `store.state.count` mudar, fará com que o dado computado seja reavaliado e ative as atualizações de _DOM_ associadas.
+Sempre que o `store.state.count` mudar, fará com que o dado computado seja reavaliado e ative as atualizações de DOM associadas.
 
 No entanto, esse padrão faz com que o componente dependa do _singleton_ do _store_ global. Ao usar um sistema de módulo, ele precisa importar o _store_ em todos os componentes que usam o estado do _store_ e também requer dados fictícios (ou _mocking_) ao testar o componente.
 

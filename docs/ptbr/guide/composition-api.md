@@ -1,6 +1,6 @@
 # API de Composição (ou Composition API)
 
-Para acessar o _store_ dentro do gatilho (ou _hook_) `setup`, você pode chamar a função` useStore`. Isso é o equivalente a recuperar `this.$store` dentro de um componente usando a API de Opções (ou _Option_ API).
+Para acessar o _store_ dentro do gatilho (ou _hook_) `setup`, você pode chamar a função `useStore`. Isso é o equivalente a recuperar `this.$store` dentro de um componente usando a API de Opções (ou _Option_ API).
 
 ```js
 import { useStore } from 'vuex'
@@ -37,7 +37,7 @@ export default {
 
 ## Acessando Mutações e Ações
 
-Ao acessar mutações e ações, você pode simplesmente fornecer as funções `commit` e` dispatch` dentro do gatilho (ou _hook_) `setup`.
+Ao acessar mutações e ações, você pode simplesmente fornecer as funções `commit` e `dispatch` dentro do gatilho (ou _hook_) `setup`.
 
 ```js
 import { useStore } from 'vuex'
@@ -59,4 +59,4 @@ export default {
 
 ## Exemplos
 
-Confira o [exemplo da API de Composição](https://github.com/vuejs/vuex/tree/4.0/examples/composition) para ver exemplos de aplicações que utilizam Vuex e a API de Composição do Vue.
+Confira o [exemplo da API de Composição](https://github.com/vuejs/vuex/tree/4.0/examples/composition) para ver exemplos de aplicações que utilizam Vuex e a API de Composição (ou _Composition_ API) do Vue.

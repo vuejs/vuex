@@ -6,7 +6,7 @@ As partes principais que queremos testar unitáriamente no Vuex são mutações 
 
 ## Testando Mutações
 
-As mutações são muito simples de testar, porque são apenas funções que dependem completamente de seus argumentos. Um truque é que se você estiver usando módulos _ES2015_ e colocar suas mutações dentro do arquivo `store.js`, além da exportação padrão, você também deve exportar as mutações como uma exportação nomeada:
+As mutações são muito simples de testar, porque são apenas funções que dependem completamente de seus argumentos. Um truque é que se você estiver usando módulos ES2015 e colocar suas mutações dentro do arquivo `store.js`, além da exportação padrão, você também deve exportar as mutações como uma exportação nomeada:
 
 ```js
 const state = { ... }
@@ -51,7 +51,7 @@ describe('mutations', () => {
 
 ## Testando Ações
 
-As ações podem ser um pouco mais complicadas porque podem chamar as _APIs_ externas. Ao testar ações, geralmente precisamos fazer algum nível de _mocking_ - por exemplo, podemos abistrair as chamadas da API em um serviço e simular (ou mockar (_mock_)) esse serviço dentro de nossos testes. A fim de simular facilmente as dependências, podemos usar o _webpack_ e [inject-loader](https://github.com/plasticine/inject-loader) para empacotar (ou criar um _bundle_ dos) nossos arquivos de teste.
+As ações podem ser um pouco mais complicadas porque podem chamar as APIs externas. Ao testar ações, geralmente precisamos fazer algum nível de _mocking_ - por exemplo, podemos abistrair as chamadas da API em um serviço e simular (ou mockar (_mock_)) esse serviço dentro de nossos testes. A fim de simular facilmente as dependências, podemos usar o _webpack_ e [inject-loader](https://github.com/plasticine/inject-loader) para empacotar (ou criar um _bundle_ dos) nossos arquivos de teste.
 
 Exemplo de teste de uma ação assíncrona:
 
