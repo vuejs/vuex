@@ -14,13 +14,17 @@ const files = [
 ]
 
 async function run() {
-  await build()
+  await Promise.all([build(), copy()])
   checkAllSizes()
 }
 
 async function build() {
   await execa('rollup', ['-c', 'rollup.config.js'], { stdio: 'inherit' })
 }
+
+async function copy() {
+   await fs.copy('src/index.mjs', 'dist/vuex.mjs')
+ }
 
 function checkAllSizes() {
   console.log()
