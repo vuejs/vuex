@@ -7587,6 +7587,13 @@ rollup@^2.32.1, rollup@^2.33.0:
   optionalDependencies:
     fsevents "~2.1.2"
 
+rollup@^2.33.3:
+  version "2.33.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.33.3.tgz#ae72ce31f992b09a580072951bfea76e9df17342"
+  integrity sha512-RpayhPTe4Gu/uFGCmk7Gp5Z9Qic2VsqZ040G+KZZvsZYdcuWaJg678JeDJJvJeEQXminu24a2au+y92CUWVd+w==
+  optionalDependencies:
+    fsevents "~2.1.2"
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
@@ -8842,13 +8849,14 @@ vite@^1.0.0-rc.9:
     vue "^3.0.2"
     ws "^7.3.1"
 
-vitepress@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.7.3.tgz#61e05b5973aff22db80671a5cdff27176bcb9fdd"
-  integrity sha512-sRIkh4Ug+37qqvoHM4ZgLys5JD93DST4pV987O+1i1OajLWQFckyeXXlVu2GXIfvpnqMYkWdUNPczqn7wbXUqA==
+vitepress@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.8.0.tgz#6c842e67909b584ea9977835705a823dd5d5c36a"
+  integrity sha512-jPfxpamlR3SOn20R9I+X2X0YE//wQhVwjB4LGll6pSycG5WFt91HoarSgGQk5f27nCgyefAQAOBAucjL1hLQQg==
   dependencies:
     "@vue/compiler-sfc" "^3.0.2"
     "@vue/server-renderer" "^3.0.2"
+    chalk "^4.1.0"
     debug "^4.1.1"
     diacritics "^1.3.0"
     escape-html "^1.0.3"
@@ -8862,7 +8870,9 @@ vitepress@^0.7.3:
     markdown-it-emoji "^1.4.0"
     markdown-it-table-of-contents "^0.4.4"
     minimist "^1.2.5"
+    ora "^5.1.0"
     prismjs "^1.20.0"
+    rollup "^2.33.3"
     slash "^3.0.0"
     vite "^1.0.0-rc.9"
     vue "^3.0.2"

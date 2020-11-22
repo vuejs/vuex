@@ -26,9 +26,16 @@ module.exports = {
   themeConfig: {
     repo: 'vuejs/vuex',
     docsDir: 'docs',
+    docsBranch: '4.0',
+
+    editLinks: true,
 
     locales: {
       '/': {
+        label: 'English',
+        selectText: 'Languages',
+        editLinkText: 'Edit this page on GitHub',
+
         nav: [
           { text: 'Guide', link: '/guide/' },
           { text: 'API Reference', link: '/api/' },
@@ -40,6 +47,7 @@ module.exports = {
             ]
           }
         ],
+
         sidebar: [
           {
             text: 'Introduction',
@@ -80,7 +88,12 @@ module.exports = {
           }
         ]
       },
+
       '/ptbr/': {
+        label: 'Português',
+        selectText: 'Idiomas',
+        editLinkText: 'Edite esta página no GitHub',
+
         nav: [
           { text: 'Guia', link: '/ptbr/guide/' },
           { text: 'Referência da API', link: '/ptbr/api/' },
