@@ -4,6 +4,10 @@
 /en/intro.html /en/guide/
 /en/* /guide/:splat
 
+/ptbr/api.html  /api/
+/ptbr/intro.html /ptbr/guide/
+/ptbr/* /guide/:splat
+
 /zh-cn/api.html  /zh/api/
 /zh-cn/intro.html /zh/guide/
 /zh-cn/* /zh/guide/:splat
