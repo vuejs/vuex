@@ -1,4 +1,5 @@
 import Vuex from '../dist/vuex.common.js'
+
 const {
   Store,
   install,

@@ -1,5 +1,7 @@
 import assert from 'assert'
+
 import { createRequire } from 'module'
+
 import Vuex, {
   Store,
   install,
@@ -13,7 +15,9 @@ import Vuex, {
 } from 'vuex'
 
 const require = createRequire(import.meta.url)
+
 const cjs = require('vuex')
+
 assert.equal(Vuex, cjs)
 assert.equal(Store, cjs.Store)
 assert.equal(install, cjs.install)

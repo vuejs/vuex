@@ -5,10 +5,7 @@ const { gzipSync } = require('zlib')
 const { compress } = require('brotli')
 
 async function run(config, files) {
-  await Promise.all([
-    build(config),
-    copy()
-  ])
+  await Promise.all([build(config), copy()])
   checkAllSizes(files)
 }
 
@@ -17,10 +14,7 @@ async function build(config) {
 }
 
 async function copy() {
-  await fs.copy(
-    'src/index.mjs',
-    'dist/vuex.mjs'
-  )
+  await fs.copy('src/index.mjs', 'dist/vuex.mjs')
 }
 
 function checkAllSizes(files) {
