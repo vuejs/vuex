@@ -1,5 +1,7 @@
 # Accesseurs
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Parfois nous avons besoin de calculer des valeurs basées sur l'état du store, par exemple pour filtrer une liste d'éléments et les compter :
 
 ``` js

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import * as Vuex from "../index";
-import createLogger from "../../dist/logger";
 
 Vue.use(Vuex);
 
@@ -39,6 +38,8 @@ namespace StoreInstance {
     state.value;
   });
 
+  store.subscribe(() => {}, { prepend: true });
+
   store.subscribeAction((action, state) => {
     action.type;
     action.payload;
@@ -67,12 +68,70 @@ namespace StoreInstance {
   });
 
   store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    before(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
     after(action, state) {
       action.type;
       action.payload;
       state.value;
     }
   });
+
+  store.subscribeAction({
+    after(action, state) {
+      action.type;
+      action.payload;
+      state.value;
+    },
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({
+    error(action, state, error) {
+      action.type;
+      action.payload;
+      state.value;
+      error;
+    }
+  });
+
+  store.subscribeAction({}, { prepend: true });
 
   store.replaceState({ value: 10 });
 }
@@ -98,7 +157,8 @@ namespace RootModule {
     mutations: {
       bar (state, payload) {}
     },
-    strict: true
+    strict: true,
+    devtools: true
   });
 }
 
@@ -292,6 +352,8 @@ namespace RegisterModule {
     state: { value: 1 }
   });
 
+  store.hasModule('a')
+
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   });
@@ -299,6 +361,8 @@ namespace RegisterModule {
   store.registerModule(["a", "b"], {
     state: { value: 2 }
   }, { preserveState: true });
+
+  store.hasModule(['a', 'b'])
 
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");
@@ -373,10 +437,17 @@ namespace Plugins {
     });
   }
 
-  const logger = createLogger<{ value: number }>({
+  class MyLogger {
+    log(message: string) {
+       console.log(message);
+    }
+  }
+
+  const logger = Vuex.createLogger<{ value: number }>({
     collapsed: true,
     transformer: state => state.value,
-    mutationTransformer: (mutation: { type: string }) => mutation.type
+    mutationTransformer: (mutation: { type: string }) => mutation.type,
+    logger: new MyLogger()
   });
 
   const store = new Vuex.Store<{ value: number }>({

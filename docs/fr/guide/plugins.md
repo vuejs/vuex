@@ -1,5 +1,7 @@
 # Plugins
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Les stores Vuex prennent une option `plugins` qui expose des hooks pour chaque mutation. Un plugin Vuex est simplement une fonction qui reçoit un store comme unique argument :
 
 ``` js
@@ -105,7 +107,7 @@ const logger = createLogger({
   filter (mutation, stateBefore, stateAfter) {
     // retourne `true` si une mutation devrait être logguée
     // `mutation` est un `{ type, payload }`
-    return mutation.type !== "aBlacklistedMutation"
+    return mutation.type !== "aBlocklistedMutation"
   },
   transformer (state) {
     // transforme l'état avant de le logguer.

@@ -1,5 +1,7 @@
 # Testando
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 As partes principais que queremos testar no Vuex são mutações e ações.
 
 ### Testando Mutações
@@ -95,9 +97,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
 
     try {
       expect(type).to.equal(mutation.type)
-      if (payload) {
-        expect(payload).to.deep.equal(mutation.payload)
-      }
+      expect(payload).to.deep.equal(mutation.payload)
     } catch (error) {
       done(error)
     }
@@ -135,9 +135,9 @@ describe('actions', () => {
   it('getAllProducts', () => {
     const commit = sinon.spy()
     const state = {}
-    
+
     actions.getAllProducts({ commit, state })
-    
+
     expect(commit.args).to.deep.equal([
       ['REQUEST_PRODUCTS'],
       ['RECEIVE_PRODUCTS', { /* resposta simulada */ }]

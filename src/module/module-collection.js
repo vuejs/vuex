@@ -26,7 +26,7 @@ export default class ModuleCollection {
   }
 
   register (path, rawModule, runtime = true) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       assertRawModule(path, rawModule)
     }
 
@@ -49,14 +49,39 @@ export default class ModuleCollection {
   unregister (path) {
     const parent = this.get(path.slice(0, -1))
     const key = path[path.length - 1]
-    if (!parent.getChild(key).runtime) return
+    const child = parent.getChild(key)
+
+    if (!child) {
+      if (__DEV__) {
+        console.warn(
+          `[vuex] trying to unregister module '${key}', which is ` +
+          `not registered`
+        )
+      }
+      return
+    }
+
+    if (!child.runtime) {
+      return
+    }
 
     parent.removeChild(key)
+  }
+
+  isRegistered (path) {
+    const parent = this.get(path.slice(0, -1))
+    const key = path[path.length - 1]
+
+    if (parent) {
+      return parent.hasChild(key)
+    }
+
+    return false
   }
 }
 
 function update (path, targetModule, newModule) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (__DEV__) {
     assertRawModule(path, newModule)
   }
 
@@ -67,7 +92,7 @@ function update (path, targetModule, newModule) {
   if (newModule.modules) {
     for (const key in newModule.modules) {
       if (!targetModule.getChild(key)) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (__DEV__) {
           console.warn(
             `[vuex] trying to add a new module '${key}' on hot reloading, ` +
             'manual reload is needed'

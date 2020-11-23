@@ -1,5 +1,7 @@
 # ミューテーション
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 実際に Vuex のストアの状態を変更できる唯一の方法は、ミューテーションをコミットすることです。Vuex のミューテーションはイベントにとても近い概念です: 各ミューテーションは**タイプ**と**ハンドラ**を持ちます。ハンドラ関数は Vuex の状態（state）を第1引数として取得し、実際に状態の変更を行います:
 
 ``` js
@@ -88,7 +90,7 @@ Vuex ストアの状態は Vue によってリアクティブになっている�
 
   - `Vue.set(obj, 'newProp', 123)` を使用する。あるいは
 
-  - 全く新しいオブジェクトで既存のオブジェクトを置き換える。例えば、stage-3 の[スプレッドシンタックス（object spread syntax）](https://github.com/sebmarkbage/ecmascript-rest-spread) を使用して、次のように書くことができます:
+  - 全く新しいオブジェクトで既存のオブジェクトを置き換える。例えば、[スプレッドシンタックス（object spread syntax）](https://github.com/tc39/proposal-object-rest-spread) を使用して、次のように書くことができます:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }

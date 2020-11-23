@@ -1,5 +1,7 @@
 # Começando
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cMPa2Uk" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 No centro de cada aplicação Vuex existe o **_store_**. Um "_store_" é basicamente um recipiente que contém o **estado** da sua aplicação. Há duas coisas que tornam um _store_ Vuex diferente de um objeto global simples:
 
 1. Os _stores_ Vuex são reativos. Quando os componentes do Vue obtêm o estado dele, eles atualizarão de forma reativa e eficiente se o estado do _store_ mudar.
@@ -8,7 +10,9 @@ No centro de cada aplicação Vuex existe o **_store_**. Um "_store_" é basicam
 
 ### O Store Mais Simples 
 
-> **NOTA:** Vamos usar a sintaxe ES2015 para exemplos de código para o resto da documentação. Se você ainda não aprendeu como usá-la, [veja aqui](https://babeljs.io/docs/learn-es2015/)!
+:::tip NOTA
+Vamos usar a sintaxe ES2015 para exemplos de código para o resto da documentação. Se você ainda não aprendeu como usá-la, [veja aqui](https://babeljs.io/docs/learn-es2015/)!
+:::
 
 Após [instalar](../installation.md) o Vuex, vamos criar um _store_. É bem simples - basta fornecer um objeto de estado inicial, e algumas mutações:
 

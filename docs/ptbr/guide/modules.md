@@ -1,19 +1,21 @@
 # Módulos
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Devido ao uso de uma única árvore de estado, todo o estado de nossa aplicação está contido dentro de um grande objeto. No entanto, à medida que nosso aplicativo cresce em escala, o _store_ pode ficar realmente inchado.
 
 Para ajudar com isso, o Vuex nos permite dividir nosso _store_ em **módulos**. Cada módulo pode conter seu próprio estado, mutações, ações, _getters_ e até módulos aninhados - é todo o complexo caminho abaixo:
 
 ``` js
 const moduleA = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... },
   getters: { ... }
 }
 
 const moduleB = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... }
 }
@@ -35,7 +37,9 @@ Dentro das mutações e _getters_ de um módulo, o 1º argumento recebido será 
 
 ``` js
 const moduleA = {
-  state: { count: 0 },
+  state: () => ({
+    count: 0
+  }),
   mutations: {
     increment (state) {
       // `state` é o estado local do módulo
@@ -92,7 +96,7 @@ const store = new Vuex.Store({
       namespaced: true,
 
       // module assets
-      state: { ... }, // o estado do módulo já está aninhado e não é afetado pela opção de namespace
+      state: () => ({ ... }), // o estado do módulo já está aninhado e não é afetado pela opção de namespace
       getters: {
         isAdmin () { ... } // -> getters['account/isAdmin']
       },
@@ -107,7 +111,7 @@ const store = new Vuex.Store({
       modules: {
         // herda o namespace do modulo pai
         myPage: {
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             profile () { ... } // -> getters['account/profile']
           }
@@ -117,7 +121,7 @@ const store = new Vuex.Store({
         posts: {
           namespaced: true,
 
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             popular () { ... } // -> getters['account/posts/popular']
           }
@@ -296,7 +300,11 @@ O registro de módulo dinâmico possibilita que outros plug-ins Vue aproveitem t
 
 Você também pode remover um módulo dinamicamente registrado com o `store.unregisterModule(moduleName)`. Note que você não pode remover módulos estáticos (declarados na criação do _store_) com este método.
 
+#### Preservando o estado
+
 É bem provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Renderizado no Lado do Servidor (_Server_ _Side_ _Rendered_). Você pode fazer isso com a opção `preserveState`:`store.registerModule('a', module, {preserveState: true})`
+
+Quando você informa `preserveState: true`, o módulo é registrado, as ações, mutações e _getters_ são incluídos no _store_, mas o estado não. É assumido que estado da sua _store_ já contém um estado para aquele módulo e você não quer sobrescrevê-lo.
 
 ### Reutilização do Módulo
 
@@ -311,11 +319,9 @@ Este é exatamente o mesmo problema com `data` dentro dos componentes Vue. Entã
 
 ``` js
 const MyReusableModule = {
-  state () {
-    return {
-      foo: 'bar'
-    }
-  },
+  state: () => ({
+    foo: 'bar'
+  }),
   // mutações, ações, getters...
 }
 ```

@@ -6,7 +6,7 @@ sidebar: auto
 
 ## Vuex.Store
 
-``` js
+```js
 import Vuex from 'vuex'
 
 const store = new Vuex.Store({ ...options })
@@ -36,7 +36,7 @@ const store = new Vuex.Store({ ...options })
 
   Register actions on the store. The handler function receives a `context` object that exposes the following properties:
 
-  ``` js
+  ```js
   {
     state,      // same as `store.state`, or local state if in modules
     rootState,  // same as `store.state`, only in modules
@@ -81,7 +81,7 @@ const store = new Vuex.Store({ ...options })
 
   An object containing sub modules to be merged into the store, in the shape of:
 
-  ``` js
+  ```js
   {
     key: {
       state,
@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- type: `Boolean`
+- type: `boolean`
 - default: `false`
 
   Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
@@ -118,16 +118,15 @@ const store = new Vuex.Store({ ...options })
 
 ### devtools
 
-- type: `Boolean`
+- type: `boolean`
 
   Turn the devtools on or off for a particular vuex instance.  For instance passing false tells the Vuex store to not subscribe to devtools plugin.  Useful for if you have multiple stores on a single page.
 
-  ``` js
+  ```js
   {
     devtools: false
   }
   ```
-
 
 ## Vuex.Store Instance Properties
 
@@ -154,8 +153,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
--  `dispatch(type: string, payload?: any, options?: Object)`
--  `dispatch(action: Object, options?: Object)`
+-  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+-  `dispatch(action: Object, options?: Object): Promise<any>`
 
   Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
 
@@ -175,43 +174,62 @@ const store = new Vuex.Store({ ...options })
 
 ### subscribe
 
--  `subscribe(handler: Function): Function`
+-  `subscribe(handler: Function, options?: Object): Function`
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments:
+  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
 
-  ``` js
-  store.subscribe((mutation, state) => {
+  ```js
+  const unsubscribe = store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
   })
+
+  // you may call unsubscribe to stop the subscription
+  unsubscribe()
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+
+  ```js
+  store.subscribe(handler, { prepend: true })
+  ```
+
+  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribe` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
 
   Most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### subscribeAction
 
--  `subscribeAction(handler: Function): Function`
+-  `subscribeAction(handler: Function, options?: Object): Function`
 
   > New in 2.5.0
 
-  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments:
+  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
+  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
 
-  ``` js
-  store.subscribeAction((action, state) => {
+  ```js
+  const unsubscribe = store.subscribeAction((action, state) => {
     console.log(action.type)
     console.log(action.payload)
   })
+
+  // you may call unsubscribe to stop the subscription
+  unsubscribe()
   ```
 
-  To stop subscribing, call the returned unsubscribe function.
+  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+
+  ```js
+  store.subscribeAction(handler, { prepend: true })
+  ```
+
+  The `subscribeAction` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribeAction` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
 
   > New in 3.1.0
 
   Since 3.1.0, `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
 
-  ``` js
+  ```js
   store.subscribeAction({
     before: (action, state) => {
       console.log(`before action ${action.type}`)
@@ -222,7 +240,20 @@ const store = new Vuex.Store({ ...options })
   })
   ```
 
-  Most commonly used in plugins. [Details](../guide/plugins.md)
+  > New in 3.4.0
+
+  Since 3.4.0, `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
+
+  ```js
+  store.subscribeAction({
+    error: (action, state, error) => {
+      console.log(`error action ${action.type}`)
+      console.error(error)
+    }
+  })
+  ```
+
+  The `subscribeAction` method is most commonly used in plugins. [Details](../guide/plugins.md)
 
 ### registerModule
 
@@ -237,6 +268,14 @@ const store = new Vuex.Store({ ...options })
 -  `unregisterModule(path: string | Array<string>)`
 
   Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+
+### hasModule
+
+- `hasModule(path: string | Array<string>): boolean`
+
+  Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
+
+  > New in 3.2.0
 
 ### hotUpdate
 

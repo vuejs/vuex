@@ -1,5 +1,7 @@
 # Mutation
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
+
 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 **事件类型 (type)** 和 一个 **回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
 
 ``` js
@@ -86,7 +88,7 @@ mutations: {
 
   - 使用 `Vue.set(obj, 'newProp', 123)`, 或者
 
-  - 以新对象替换老对象。例如，利用 stage-3 的[对象展开运算符](https://github.com/sebmarkbage/ecmascript-rest-spread)我们可以这样写：
+  - 以新对象替换老对象。例如，利用[对象展开运算符](https://github.com/tc39/proposal-object-rest-spread)我们可以这样写：
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }

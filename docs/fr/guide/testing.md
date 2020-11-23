@@ -1,5 +1,7 @@
 # Tests
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Essayez cette partie sur Scrimba (EN)</a></div>
+
 Les parties principales que l'on veut couvrir par des tests unitaires avec Vuex sont les mutations et les actions.
 
 ### Tester les mutations
@@ -95,9 +97,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
 
     try {
       expect(mutation.type).to.equal(type)
-      if (payload) {
-        expect(payload).to.deep.equal(mutation.payload)
-      }
+      expect(payload).to.deep.equal(mutation.payload)
     } catch (error) {
       done(error)
     }

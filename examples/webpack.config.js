@@ -33,7 +33,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      vuex: path.resolve(__dirname, '../src/index.esm.js')
+      vuex: path.resolve(__dirname, '../src/index.js')
     }
   },
 
@@ -52,7 +52,12 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      __DEV__: JSON.stringify(true),
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      }
+    })
   ]
-
 }

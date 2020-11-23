@@ -1,5 +1,7 @@
 # Manipulação de Formulários
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Ao usar o Vuex no modo estrito, pode ser um pouco complicado usar `v-model` em um pedaço do estado que pertence ao Vuex:
 
 ``` html
