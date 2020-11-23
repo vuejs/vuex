@@ -71,7 +71,7 @@ const store = new Vuex.Store({ ...options })
   rootGetters  // todos os getters
   ```
 
-  Os _getters_ registrados estão expostos em _store.getters_.
+  Os _getters_ registrados estão expostos em `store.getters`.
 
   [Detalhes](../guide/getters.md)
 
@@ -95,7 +95,7 @@ const store = new Vuex.Store({ ...options })
   }
   ```
 
-  Cada módulo pode conter `estado` e `mutações` semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz do _store_ usando a chave do módulo. As mutações e _getters_ de um módulo receberão apenas o estado local do módulo como o 1º argumento em vez do estado da raiz e as ações do módulo _context.state_ também apontarão para o estado local.
+  Cada módulo pode conter `estado` e `mutações` semelhantes às opções raiz. O estado de um módulo será anexado ao estado da raiz do _store_ usando a chave do módulo. As mutações e _getters_ de um módulo receberão apenas o estado local do módulo como o 1º argumento em vez do estado da raiz e as ações do módulo `context.state` também apontarão para o estado local.
 
   [Detalhes](../guide/modules.md)
 
@@ -103,7 +103,7 @@ const store = new Vuex.Store({ ...options })
 
 - type: `Array<Function>`
 
-  Um _Array_ de funções de plug-in a serem aplicadas no _store_. O plug-in simplesmente recebe o _store_ como o único argumento e pode ouvir mutações (para persistência de dados de saída, registro ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou _observables_).
+  Um _Array_ de funções de _plugin_ a serem aplicadas no _store_. O _plugin_ simplesmente recebe o _store_ como o único argumento e pode ouvir mutações (para persistência de dados de saída, registro ou depuração) ou mutações de despacho (para dados de entrada, por exemplo, websockets ou _observables_).
 
   [Detalhes](../guide/plugins.md)
 
@@ -120,7 +120,7 @@ const store = new Vuex.Store({ ...options })
 
 - type: `boolean`
 
-  Ative ou desative as ferramentas de desenvolvedor para uma determinada instância vuex. Passar _false_ à instância diz ao _store_ Vuex para não se integrar ao _devtools_. Útil para quando se tem vários _stores_ em uma _single page_.
+  Ative ou desative as ferramentas de desenvolvedor para uma determinada instância vuex. Passar `false` à instância diz ao _store_ Vuex para não se integrar ao _devtools_. Útil para quando se tem vários _stores_ em uma _single_ _page_.
 
   ``` js
   {
@@ -149,14 +149,14 @@ const store = new Vuex.Store({ ...options })
 -  `commit(type: string, payload?: any, options?: Object)`
 -  `commit(mutation: Object, options?: Object)`
 
-  Confirma (ou faz um _Commit_ de) uma mutação. _options_ pode ter _root: true_ que permite confirmar mutações da raiz em [módulos namespaced](../guide/modules.md#namespacing). [Detalhes](../guide/mutations.md)
+  Confirma (ou faz um _Commit_ de) uma mutação. _options_ pode ter `root: true` que permite confirmar mutações da raiz em [módulos namespaced](../guide/modules.md#namespacing). [Detalhes](../guide/mutations.md)
 
 ### dispatch
 
 -  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
 -  `dispatch(action: Object, options?: Object): Promise<any>`
 
-  Despacha uma ação. _options_ pode ter _root: true_ que permite despachar ações para raiz em [módulos namespaced](../guide/modules.md#namespacing). Retorna um _Promise_ que resolve todos os manipuladores de ação acionados. [Detalhes](../guide/actions.md)
+  Despacha uma ação. _options_ pode ter `root: true` que permite despachar ações para raiz em [módulos namespaced](../guide/modules.md#namespacing). Retorna um _Promise_ que resolve todos os manipuladores de ação acionados. [Detalhes](../guide/actions.md)
 
 ### replaceState
 
@@ -229,7 +229,7 @@ const store = new Vuex.Store({ ...options })
 
   Registra um módulo dinâmico. [Detalhes](../guide/modules.md#registro-de-modulo-dinamico)
 
-  _options_ can have _preserveState: true_ que permite preservar o estado anterior. Útil com renderização do lado do servidor (_server-side-rendering_).
+  _options_ can have `preserveState: true` que permite preservar o estado anterior. Útil com renderização do lado do servidor (_server-side-rendering_).
 
 ### unregisterModule
 
@@ -287,4 +287,4 @@ const store = new Vuex.Store({ ...options })
 
 -  `createNamespacedHelpers(namespace: string): Object`
 
-  Cria um componente _namespaced_ dos métodos auxiliares. O objeto retornado possui _mapState_, _mapGetters_, _mapActions_ e _mapMutations_, que estão conectados com o dado _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)
+  Cria um componente _namespaced_ dos métodos auxiliares. O objeto retornado possui `mapState`, `mapGetters`, `mapActions` e `mapMutations`, que estão conectados com o dado _namespace_. [Detalhes](../guide/modules.md#usando-metodos-auxiliares-com-namespace)

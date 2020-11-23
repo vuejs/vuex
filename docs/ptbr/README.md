@@ -1,12 +1,16 @@
 # O que é Vuex?
 
+::: tip NOTE
+Esta documentação é para o Vuex 3, que funciona com Vue 2. Se você está procurando a documentação para o Vuex 4, que funciona com Vue 3, [por favor, confira aqui](https://next.vuex.vuejs.org/ptbr/).
+:::
+
 <VideoPreview />
 
-O Vuex é um **padrão de gerenciamento de estado + biblioteca** para aplicativos Vue.js. Ele serve como um _store_ centralizado para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível. Ele também se integra com a extensão oficial [Vue devtools](https://github.com/vuejs/vue-devtools) para fornecer recursos avançados sem configurações adicionais, como depuração viajando pelo histórico de estado (_time travel_) e exportação/importação de registros de estado em determinado momento.
+O Vuex é um **padrão de gerenciamento de estado + biblioteca** para aplicações Vue.js. Ele serve como um _store_ centralizado para todos os componentes em uma aplicação, com regras garantindo que o estado só possa ser mutado de forma previsível. Ele também se integra com a extensão oficial [Vue devtools](https://github.com/vuejs/vue-devtools) para fornecer recursos avançados sem configurações adicionais, como depuração viajando pelo histórico de estado (_time travel_) e exportação/importação de registros de estado em determinado momento.
 
 ### O que é um "Padrão de Gerenciamento do Estado"?
 
-Vamos começar com um aplicativo simples de contador Vue:
+Vamos começar com uma aplicação simples de contador Vue:
 
 ``` js
 new Vue({
@@ -29,9 +33,9 @@ new Vue({
 })
 ```
 
-É um aplicativo independente com as seguintes partes:
+É uma aplicação independente com as seguintes partes:
 
-- O **estado** (_state_), que é a fonte da verdade que direciona nosso aplicativo;
+- O **estado** (_state_), que é a fonte da verdade que direciona nossa aplicação;
 - A **_view_**, que é apenas um mapeamento declarativo do **estado**;
 - As **ações** (_actions_), que são as possíveis maneiras pelas quais o estado pode mudar em reação às interações dos usuários da **_view_**.
 
@@ -62,6 +66,6 @@ Se você quiser aprender Vuex de um modo interativo, você pode conferir esse cu
 
 Embora o Vuex nos ajude a lidar com o gerenciamento de estado compartilhado, ele também vem com o custo de mais conceitos e códigos repetitivos. É uma escolha de prós e contras entre produtividade de curto e longo prazo
 
-Se você nunca construiu um SPA em grande escala e for direto para o Vuex, ele pode parecer detalhado e desanimador. Isso é perfeitamente normal - se o seu aplicativo é simples, você provavelmente ficará bem sem o Vuex. Um simples [store pattern](https://br.vuejs.org/v2/guide/state-management.html#Gerenciamento-de-Estado-do-Zero) pode ser tudo que você precisa. Mas, se você está criando um SPA de médio a grande porte, é provável que tenha encontrado situações que fazem você pensar em como lidar melhor com o estado fora de seus componentes do Vue, e o Vuex será o próximo passo natural para você. Há uma boa citação de Dan Abramov, o autor do Redux:
+Se você nunca construiu um SPA em grande escala e for direto para o Vuex, ele pode parecer detalhado e desanimador. Isso é perfeitamente normal - se a sua aplicação é simples, você provavelmente ficará bem sem o Vuex. Um simples [store pattern](https://br.vuejs.org/v2/guide/state-management.html#Gerenciamento-de-Estado-do-Zero) pode ser tudo que você precisa. Mas, se você está criando um SPA de médio a grande porte, é provável que tenha encontrado situações que fazem você pensar em como lidar melhor com o estado fora de seus componentes do Vue, e o Vuex será o próximo passo natural para você. Há uma boa citação de Dan Abramov, o autor do Redux:
 
 > As bibliotecas _Flux_ são como óculos: você saberá quando precisar delas.

@@ -2,7 +2,7 @@
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
 
-Devido ao uso de uma única árvore de estado, todo o estado de nossa aplicação está contido dentro de um grande objeto. No entanto, à medida que nosso aplicativo cresce em escala, o _store_ pode ficar realmente inchado.
+Devido ao uso de uma única árvore de estado, todo o estado de nossa aplicação está contido dentro de um grande objeto. No entanto, à medida que nossa aplicação cresce em escala, o _store_ pode ficar realmente inchado.
 
 Para ajudar com isso, o Vuex nos permite dividir nosso _store_ em **módulos**. Cada módulo pode conter seu próprio estado, mutações, ações, _getters_ e até módulos aninhados - é todo o complexo caminho abaixo:
 
@@ -55,7 +55,7 @@ const moduleA = {
 }
 ```
 
-Da mesma forma, dentro das ações do módulo, _context.state_ irá expor o estado local, e o estado raiz será exposto como _context.rootState_:
+Da mesma forma, dentro das ações do módulo, `context.state` irá expor o estado local, e o estado raiz será exposto como `context.rootState`:
 
 ``` js
 const moduleA = {
@@ -87,7 +87,7 @@ const moduleA = {
 
 Por padrão, ações, mutações e _getters_ dentro dos módulos ainda são registrados sob o **_namespace_ global** - isso permite que vários módulos reajam ao mesmo tipo de ação/mutação.
 
-Se você quer que seus módulos sejam mais independentes ou reutilizáveis, você pode marcá-los como _namespaced_ com _namespaced: true_. Quando o módulo é registrado, todos os _getters_, ações e mutações serão automaticamente _namespaced_ com base no caminho no qual o módulo está registrado. Por exemplo:
+Se você quer que seus módulos sejam mais independentes ou reutilizáveis, você pode marcá-los como _namespaced_ com `namespaced: true`. Quando o módulo é registrado, todos os _getters_, ações e mutações serão automaticamente _namespaced_ com base no caminho no qual o módulo está registrado. Por exemplo:
 
 ``` js
 const store = new Vuex.Store({
@@ -136,7 +136,7 @@ Os _getters_ e as ações _namespaced_ receberão _getters_, _dispatch_ e _commi
 
 #### Acessando Recursos Globais em Módulos Namespaced
 
-Se você quiser usar estado global e _getters_, _rootState_ e _rootGetters_ são passados como o 3º e 4º argumentos para funções _getter_, e também expostos como propriedades no objeto _context_ passado para funções de ação.
+Se você quiser usar estado global e _getters_, `rootState` e `rootGetters` são passados como o 3º e 4º argumentos para funções _getter_, e também expostos como propriedades no objeto _context_ passado para funções de ação.
 
 Para despachar ações confirmar (ou fazer um _commit_ de) mutações no _namespace_ global, passe `{root: true}` como o 3º argumento para _dispatch_ e _commit_.
 
@@ -176,7 +176,7 @@ modules: {
 
 #### Registrar Ação Global em Módulos com Namespaces
 
-Se você quiser registrar ações globais em módulos com namespaces, você pode marcá-lo com _root: true_ e colocar a definição de ação na função _handler_. Por exemplo:
+Se você quiser registrar ações globais em módulos com namespaces, você pode marcá-lo com `root: true` e colocar a definição de ação na função _handler_. Por exemplo:
 
 ``` js
 {
@@ -202,7 +202,7 @@ Se você quiser registrar ações globais em módulos com namespaces, você pode
 
 #### Usando Métodos Auxiliares com Namespace
 
-Ao vincular um módulo com _namespace_ aos componentes com os auxiliares _mapState_, _mapGetters_, _mapActions_ e _mapMutations_, ele pode ficar um pouco verboso:
+Ao vincular um módulo com _namespace_ aos componentes com os auxiliares `mapState`, `mapGetters`, `mapActions` e `mapMutations`, ele pode ficar um pouco verboso:
 
 ``` js
 computed: {
@@ -280,7 +280,7 @@ export function createPlugin (options = {}) {
 
 ### Registro de Módulo Dinâmico
 
-Você pode registrar um módulo **após** o _store_ ser criado com o método _store.registerModule_:
+Você pode registrar um módulo **após** o _store_ ser criado com o método `store.registerModule`:
 
 ``` js
 // registra um módulo `myModule`
@@ -294,15 +294,15 @@ store.registerModule(['nested', 'myModule'], {
 })
 ```
 
-Os estados do módulo serão expostos como _store.state.myModule_ e _store.state.nested.myModule_.
+Os estados do módulo serão expostos como `store.state.myModule` e `store.state.nested.myModule`.
 
-O registro de módulo dinâmico possibilita que outros plug-ins Vue aproveitem também o Vuex para gerenciamento de estado, anexando um módulo ao _store_ do aplicativo. Por exemplo, a biblioteca [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra o vue-router com o vuex gerenciando o estado da rota do aplicativo em um módulo conectado dinamicamente.
+O registro de módulo dinâmico possibilita que outros _plugins_ Vue aproveitem também o Vuex para gerenciamento de estado, anexando um módulo ao _store_ da aplicação. Por exemplo, a biblioteca [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) integra o vue-router com o vuex gerenciando o estado da rota da aplicação em um módulo conectado dinamicamente.
 
 Você também pode remover um módulo dinamicamente registrado com o `store.unregisterModule(moduleName)`. Note que você não pode remover módulos estáticos (declarados na criação do _store_) com este método.
 
 #### Preservando o estado
 
-É bem provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de um aplicativo Renderizado no Lado do Servidor (_Server_ _Side_ _Rendered_). Você pode fazer isso com a opção `preserveState`:`store.registerModule('a', module, {preserveState: true})`
+É bem provável que você queira preservar o estado anterior ao registrar um novo módulo, como preservar o estado de uma aplicação Renderizada no Lado do Servidor (_Server_ _Side_ _Rendered_). Você pode fazer isso com a opção `preserveState`:`store.registerModule('a', module, {preserveState: true})`
 
 Quando você informa `preserveState: true`, o módulo é registrado, as ações, mutações e _getters_ são incluídos no _store_, mas o estado não. É assumido que estado da sua _store_ já contém um estado para aquele módulo e você não quer sobrescrevê-lo.
 
@@ -310,7 +310,7 @@ Quando você informa `preserveState: true`, o módulo é registrado, as ações,
 
 Às vezes, podemos precisar criar várias instâncias de um módulo, por exemplo:
 
-- Criando multiplos _stores_ que usam o mesmo módulo (e.g. Para [evitar Singletons com informações de estado no SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) quando a opção _runInNewContext_ é _false_ ou `'_once_'`);
+- Criando multiplos _stores_ que usam o mesmo módulo (e.g. Para [evitar Singletons com informações de estado no SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) quando a opção _runInNewContext_ é `false` ou `'_once_'`);
 - Registrar o mesmo módulo várias vezes no mesmo _store_.
 
 Se usarmos um objeto simples para declarar o estado do módulo, esse objeto de estado será compartilhado por referência e causará poluição entre estados de _store_/módulo quando ele sofrer uma mutação.
