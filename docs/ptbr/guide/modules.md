@@ -310,7 +310,7 @@ Quando você informa `preserveState: true`, o módulo é registrado, as ações,
 
 Às vezes, podemos precisar criar várias instâncias de um módulo, por exemplo:
 
-- Criando multiplos _stores_ que usam o mesmo módulo (e.g. Para [evitar Singletons com informações de estado no SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) quando a opção _runInNewContext_ é `false` ou `'_once_'`);
+- Criando multiplos _stores_ que usam o mesmo módulo (e.g. Para [evitar Singletons com informações de estado no SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) quando a opção `runInNewContext` é `false` ou `'_once_'`);
 - Registrar o mesmo módulo várias vezes no mesmo _store_.
 
 Se usarmos um objeto simples para declarar o estado do módulo, esse objeto de estado será compartilhado por referência e causará poluição entre estados de _store_/módulo quando ele sofrer uma mutação.
