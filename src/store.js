@@ -1,4 +1,4 @@
-import { reactive, computed, watch } from 'vue'
+import { reactive, watch } from 'vue'
 import { storeKey } from './injectKey'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
@@ -286,15 +286,15 @@ function resetStoreState (store, state, hot) {
   store._makeLocalGettersCache = Object.create(null)
   const wrappedGetters = store._wrappedGetters
   const computedObj = {}
-  const computedCache = {}
   forEachValue(wrappedGetters, (fn, key) => {
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldState.
     // using partial to return function with only arguments preserved in closure environment.
     computedObj[key] = partial(fn, store)
-    computedCache[key] = computed(() => computedObj[key]())
     Object.defineProperty(store.getters, key, {
-      get: () => computedCache[key].value,
+      // TODO: use `computed` when it's possible. at the moment we can't due to
+      // https://github.com/vuejs/vuex/pull/1883
+      get: () => computedObj[key](),
       enumerable: true // for local getters
     })
   })
