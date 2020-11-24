@@ -32,7 +32,7 @@ sidebar: auto
 
 - type: `{ [type: string]: Function }`
 
-  Registra mutações no _store_. A função do manipulador sempre recebe _state_ como o 1º argumento (será o estado local do módulo se definido em um módulo) e receberá um 2º argumento _payload_ se houver um.
+  Registra mutações no _store_. A função manipuladora (ou _handler_) sempre recebe _state_ como o 1º argumento (será o estado local do módulo se definido em um módulo) e receberá um 2º argumento _payload_ se houver um.
 
   [Detalhes](../guide/mutations.md)
 
@@ -40,7 +40,7 @@ sidebar: auto
 
 - type: `{ [type: string]: Function }`
 
-  Registra ações no _store_. A função do manipulador recebe um objeto _context_ que expõe as seguintes propriedades:
+  Registra ações no _store_. A função manipuladora (ou _handler_) recebe um objeto _context_ que expõe as seguintes propriedades:
 
   ```js
   {
