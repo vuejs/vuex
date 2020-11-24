@@ -26,6 +26,12 @@ const store = createStore({
     return {
       count: 1
     }
+  },
+  mutations: {
+    increment (state) {
+      // mutate state
+      state.count++
+    }
   }
 })
 
