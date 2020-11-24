@@ -35,6 +35,7 @@ module.exports = {
         label: 'English',
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
+        lastUpdated: 'Last Updated',
 
         nav: [
           { text: 'Guide', link: '/guide/' },
@@ -93,6 +94,7 @@ module.exports = {
         label: 'Português',
         selectText: 'Idiomas',
         editLinkText: 'Edite esta página no GitHub',
+        lastUpdated: 'Última Atualização',
 
         nav: [
           { text: 'Guia', link: '/ptbr/guide/' },

@@ -8849,10 +8849,10 @@ vite@^1.0.0-rc.9:
     vue "^3.0.2"
     ws "^7.3.1"
 
-vitepress@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.8.0.tgz#6c842e67909b584ea9977835705a823dd5d5c36a"
-  integrity sha512-jPfxpamlR3SOn20R9I+X2X0YE//wQhVwjB4LGll6pSycG5WFt91HoarSgGQk5f27nCgyefAQAOBAucjL1hLQQg==
+vitepress@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.9.0.tgz#87840e5fb284eecbfd814d324d8fbc66ef57e74a"
+  integrity sha512-E/Hv8sMsVB8Gno4i7tcv60ipcwx+HNAYpM5mrC5WJYkG383ZkMEBm2vjBNNXYSt3vKZrUcOSeuD6Fo526KoGmA==
   dependencies:
     "@vue/compiler-sfc" "^3.0.2"
     "@vue/server-renderer" "^3.0.2"
