@@ -24,7 +24,7 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      count: 1
+      count: 0
     }
   },
   mutations: {
