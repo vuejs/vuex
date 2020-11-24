@@ -1,6 +1,6 @@
 # Modo Estrito
 
-Para habilitar o modo estrito, simplesmente passe _strict: true_ ao criar um _store_ Vuex:
+Para habilitar o modo estrito, simplesmente passe `strict: true` ao criar um _store_ Vuex:
 
 ``` js
 const store = new Vuex.Store({

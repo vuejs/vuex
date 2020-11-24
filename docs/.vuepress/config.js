@@ -313,7 +313,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/ptbr/' }
             ]
           }
         ],

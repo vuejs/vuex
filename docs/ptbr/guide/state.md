@@ -4,7 +4,7 @@
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
 
-O Vuex usa uma **árvore única de estado** - ou seja, esse único objeto contém todo o estado do seu nível de aplicação e serve como a "única fonte da verdade". Isso também significa que você terá apenas um _store_ para cada aplicativo. Uma árvore única de estado facilita a localização de uma parte específica do estado, e permite capturar facilmente momentos do estado atual do aplicativo para fins de depuração.
+O Vuex usa uma **árvore única de estado** - ou seja, esse único objeto contém todo o estado do seu nível de aplicação e serve como a "única fonte da verdade". Isso também significa que você terá apenas um _store_ para cada aplicação. Uma árvore única de estado facilita a localização de uma parte específica do estado, e permite capturar facilmente momentos do estado atual da aplicação para fins de depuração.
 
 A árvore única de estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
 
@@ -26,9 +26,9 @@ const Counter = {
 }
 ```
 
-Sempre que o _store.state.count_ muda, fará com que o dado computado seja reavaliado e ative as atualizações de _DOM_ associadas.
+Sempre que o `store.state.count` muda, fará com que o dado computado seja reavaliado e ative as atualizações de DOM associadas.
 
-No entanto, esse padrão faz com que o componente dependa do _store_ _singleton_ global. Ao usar um sistema de módulo, ele precisa importar o _store_ em todos os componentes que usam o estado do _store_ e também requer _mocking_ ao testar o componente.
+No entanto, esse padrão faz com que o componente dependa do _store_ _singleton_ global. Ao usar um sistema de módulo, ele precisa importar o _store_ em todos os componentes que usam o estado do _store_ e também requer requer dados fictícios (ou _mocking_) ao testar o componente.
 
 O Vuex fornece um mecanismo para "injetar" o _store_ em todos os componentes filho do componente raiz com a opção _store_ (habilitada por `Vue.use(Vuex)`):
 
@@ -87,7 +87,7 @@ export default {
 }
 ```
 
-Também podemos passar um _Array_ de _Strings_ para _mapState_ quando o nome de um dado computado mapeado é o mesmo que um nome de árvore secundária do estado.
+Também podemos passar um _Array_ de _Strings_ para `mapState` quando o nome de um dado computado mapeado é o mesmo que um nome de árvore secundária do estado.
 
 ``` js
 computed: mapState([
