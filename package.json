@@ -1,6 +1,6 @@
 {
   "name": "vuex",
-  "version": "4.0.0-rc.1",
+  "version": "4.0.0-rc.2",
   "description": "state management for Vue.js",
   "main": "dist/vuex.cjs.js",
   "exports": {

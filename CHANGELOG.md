@@ -1,3 +1,14 @@
+# [4.0.0-rc.2](https://github.com/vuejs/vuex/compare/v4.0.0-rc.1...v4.0.0-rc.2) (2020-11-25)
+
+### Bug Fixes
+
+* fix getters stop working when component is destroyed ([#1884](https://github.com/vuejs/vuex/issues/1884)) ([c3a695e](https://github.com/vuejs/vuex/commit/c3a695e10682ab1b7288e72669861c9ca959df76))
+* stop throwing an error on `hasModule` when parent does not exists ([#1850](https://github.com/vuejs/vuex/issues/1850)) ([f76d72d](https://github.com/vuejs/vuex/commit/f76d72d6c1f7cd30de9d459e23c371890c56f463))
+
+### Features
+
+* **build:** enable named esm module import on node.js >= 14 ([4f4a909](https://github.com/vuejs/vuex/commit/4f4a9096b46aa61580c32371adb19445157ba80c))
+
 # [4.0.0-rc.1](https://github.com/vuejs/vuex/compare/v4.0.0-beta.4...v4.0.0-rc.1) (2020-10-30)
 
 
