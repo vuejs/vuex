@@ -1,5 +1,5 @@
 /*!
- * vuex v3.5.1
+ * vuex v3.6.0
  * (c) 2020 Evan You
  * @license MIT
  */
@@ -278,7 +278,11 @@ class ModuleCollection {
     const parent = this.get(path.slice(0, -1));
     const key = path[path.length - 1];
 
-    return parent.hasChild(key)
+    if (parent) {
+      return parent.hasChild(key)
+    }
+
+    return false
   }
 }
 
@@ -1183,7 +1187,7 @@ function pad (num, maxLength) {
 var index = {
   Store,
   install,
-  version: '3.5.1',
+  version: '3.6.0',
   mapState,
   mapMutations,
   mapGetters,

@@ -1,3 +1,14 @@
+# [3.6.0](https://github.com/vuejs/vuex/compare/v3.5.1...v3.6.0) (2020-11-25)
+
+### Bug Fixes
+
+* stop throwing an error on `hasModule` when parent does not exists ([#1850](https://github.com/vuejs/vuex/issues/1850)) ([#1851](https://github.com/vuejs/vuex/issues/1851)) ([12aabe4](https://github.com/vuejs/vuex/commit/12aabe4cc470916d40691097dcb95badb8212f5c))
+
+### Features
+
+* **types:** adding logger type for logger plugin ([#1853](https://github.com/vuejs/vuex/issues/1853)) ([cb3198d](https://github.com/vuejs/vuex/commit/cb3198d5998bdb11ef05dfa5ef98d5c5fa873089))
+* **build:** enable named esm module import on node.js >= 14 ([#1872](https://github.com/vuejs/vuex/issues/1872)) ([acddab2](https://github.com/vuejs/vuex/commit/acddab20769d1bb6125f2da78ac47561c682fc98))
+
 ## [3.5.1](https://github.com/vuejs/vuex/compare/v3.5.0...v3.5.1) (2020-06-29)
 
 
