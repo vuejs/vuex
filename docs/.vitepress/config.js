@@ -13,7 +13,12 @@ module.exports = {
       lang: 'pt-BR',
       title: 'Vuex',
       description: 'Gerenciamento de Estado Centralizado para Vue.js'
-    }
+    },
+    '/zh/': {
+      lang: 'zh-CN',
+      title: 'Vuex',
+      description: 'Vue.js 的中心化状态管理方案'
+    },
   },
 
   head: [
@@ -147,7 +152,66 @@ module.exports = {
             ]
           }
         ]
-      }
+      },
+
+      '/zh/': {
+        label: '简体中文',
+        selectText: '选择语言',
+        editLinkText: '在 GitHub 上编辑此页',
+        lastUpdated: '上次更新',
+
+        nav: [
+          { text: '指南', link: '/zh/guide/' },
+          { text: 'API 参考', link: '/zh/api/' },
+          { text: '更新记录', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v4.x',
+            items: [
+              { text: 'v3.x', link: 'https://vuex.vuejs.org/' }
+            ]
+          }
+        ],
+
+        sidebar: [
+          {
+            text: '介绍',
+            children: [
+              { text: 'Vuex 是什么？', link: '/zh/' },
+              { text: '安装', link: '/zh/installation' },
+              { text: '开始', link: '/zh/guide/' }
+            ]
+          },
+          {
+            text: '核心概念',
+            children: [
+              { text: 'State', link: '/zh/guide/state' },
+              { text: 'Getters', link: '/zh/guide/getters' },
+              { text: 'Mutations', link: '/zh/guide/mutations' },
+              { text: 'Actions', link: '/zh/guide/actions' },
+              { text: 'Modules', link: '/zh/guide/modules' }
+            ]
+          },
+          {
+            text: '进阶',
+            children: [
+              { text: '项目结构', link: '/zh/guide/structure' },
+              { text: '组合式 API', link: '/zh/guide/composition-api' },
+              { text: '插件', link: '/zh/guide/plugins' },
+              { text: '严格模式', link: '/zh/guide/strict' },
+              { text: '表单处理', link: '/zh/guide/forms' },
+              { text: '测试', link: '/zh/guide/testing' },
+              { text: '热重载', link: '/zh/guide/hot-reload' },
+              { text: 'TypeScript 支持', link: '/zh/guide/typescript-support' },
+            ]
+          },
+          {
+            text: '迁移指南',
+            children: [
+              { text: 'Migrating to 4.0 from 3.x', link: '/zh/guide/migrating-to-4-0-from-3-x' }
+            ]
+          }
+        ]
+      },
     }
   }
 }
