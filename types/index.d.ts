@@ -9,11 +9,11 @@ import { createLogger } from "./logger";
 export * from "./helpers";
 export * from "./logger";
 
-export declare class Store<S> {
+export declare class Store<S, G = any> {
   constructor(options: StoreOptions<S>);
 
   readonly state: S;
-  readonly getters: any;
+  readonly getters: G;
 
   install(app: App, injectKey?: InjectionKey<Store<any>> | string): void;
 
@@ -24,7 +24,7 @@ export declare class Store<S> {
 
   subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any, options?: SubscribeOptions): () => void;
   subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>, options?: SubscribeOptions): () => void;
-  watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
+  watch<T>(getter: (state: S, getters: G) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
   registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
   registerModule<T>(path: string[], module: Module<T, S>, options?: ModuleOptions): void;
@@ -38,7 +38,7 @@ export declare class Store<S> {
   hotUpdate(options: {
     actions?: ActionTree<S, S>;
     mutations?: MutationTree<S>;
-    getters?: GetterTree<S, S>;
+    getters?: GetterTree<S, S, G, G>;
     modules?: ModuleTree<S>;
   }): void;
 }
@@ -57,13 +57,13 @@ export interface Commit {
   <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
 }
 
-export interface ActionContext<S, R> {
+export interface ActionContext<S, R, G = any, RG = any> {
   dispatch: Dispatch;
   commit: Commit;
   state: S;
-  getters: any;
+  getters: G;
   rootState: R;
-  rootGetters: any;
+  rootGetters: RG;
 }
 
 export interface Payload {
@@ -119,15 +119,15 @@ export interface ActionObject<S, R> {
   handler: ActionHandler<S, R>;
 }
 
-export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
+export type Getter<S, R, G = any, RG = any> = (state: S, getters: G, rootState: R, rootGetters: RG) => any;
 export type Action<S, R> = ActionHandler<S, R> | ActionObject<S, R>;
 export type Mutation<S> = (state: S, payload?: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
-export interface Module<S, R> {
+export interface Module<S, R, G = any, RG = any> {
   namespaced?: boolean;
   state?: S | (() => S);
-  getters?: GetterTree<S, R>;
+  getters?: GetterTree<S, R, G, RG>;
   actions?: ActionTree<S, R>;
   mutations?: MutationTree<S>;
   modules?: ModuleTree<R>;
@@ -137,8 +137,8 @@ export interface ModuleOptions {
   preserveState?: boolean;
 }
 
-export interface GetterTree<S, R> {
-  [key: string]: Getter<S, R>;
+export interface GetterTree<S, R, G = any, RG = any> {
+  [key: string]: Getter<S, R, G, RG>;
 }
 
 export interface ActionTree<S, R> {
