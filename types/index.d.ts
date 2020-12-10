@@ -10,7 +10,7 @@ export * from "./helpers";
 export * from "./logger";
 
 export declare class Store<S, G = any> {
-  constructor(options: StoreOptions<S>);
+  constructor(options: StoreOptions<S, G>);
 
   readonly state: S;
   readonly getters: G;
@@ -43,9 +43,9 @@ export declare class Store<S, G = any> {
   }): void;
 }
 
-export function createStore<S>(options: StoreOptions<S>): Store<S>;
+export function createStore<S, G = any>(options: StoreOptions<S, G>): Store<S, G>;
 
-export function useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;
+export function useStore<S = any, G = any>(injectKey?: InjectionKey<Store<S, G>> | string): Store<S, G>;
 
 export interface Dispatch {
   (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
@@ -102,9 +102,9 @@ export interface CommitOptions {
   root?: boolean;
 }
 
-export interface StoreOptions<S> {
+export interface StoreOptions<S, G> {
   state?: S | (() => S);
-  getters?: GetterTree<S, S>;
+  getters?: GetterTree<S, S, G, G>;
   actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
   modules?: ModuleTree<S>;
