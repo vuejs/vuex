@@ -8,7 +8,7 @@ Almost all Vuex 4 APIs have remained unchanged from Vuex 3. However, there are s
   - [Bundles are now aligned with Vue 3](#bundles-are-now-aligned-with-vue-3)
   - ["createLogger" function is exported from the core module](#createlogger-function-is-exported-from-the-core-module)
 - [New Features](#new-features)
-  - [New "useStore" composition function](#new-useStore-composition-function)
+  - [New "useStore" composition function](#new-usestore-composition-function)
 
 ## Breaking Changes
 
