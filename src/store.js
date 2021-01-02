@@ -2,6 +2,7 @@ import applyMixin from './mixin'
 import devtoolPlugin from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
 import { forEachValue, isObject, isPromise, assert, partial } from './util'
+import deepmerge from 'deepmerge'
 
 let Vue // bind on install
 
@@ -209,7 +210,7 @@ export class Store {
     }
 
     this._modules.register(path, rawModule)
-    installModule(this, this.state, path, this._modules.get(path), options.preserveState)
+    installModule(this, this.state, path, this._modules.get(path), options.preserveState, options.preserveStateType)
     // reset store to update getters...
     resetStoreVM(this, this.state)
   }
@@ -328,7 +329,7 @@ function resetStoreVM (store, state, hot) {
   }
 }
 
-function installModule (store, rootState, path, module, hot) {
+function installModule (store, rootState, path, module, preserveState, preserveStateType = 'always') {
   const isRoot = !path.length
   const namespace = store._modules.getNamespace(path)
 
@@ -341,9 +342,15 @@ function installModule (store, rootState, path, module, hot) {
   }
 
   // set state
-  if (!isRoot && !hot) {
-    const parentState = getNestedState(rootState, path.slice(0, -1))
-    const moduleName = path[path.length - 1]
+  const parentState = getNestedState(rootState, path.slice(0, -1))
+  const moduleName = path[path.length - 1]
+  const moduleStateExists = moduleName && moduleName in parentState
+  if (!isRoot && (
+    !preserveState ||
+    (preserveStateType === 'existing' && !moduleStateExists) ||
+    (preserveStateType === 'mergeReplaceArrays' && !moduleStateExists) ||
+    (preserveStateType === 'mergeConcatArrays' && !moduleStateExists)
+  )) {
     store._withCommit(() => {
       if (__DEV__) {
         if (moduleName in parentState) {
@@ -352,7 +359,25 @@ function installModule (store, rootState, path, module, hot) {
           )
         }
       }
+
       Vue.set(parentState, moduleName, module.state)
+    })
+  }
+
+  // merge stored state with default state, replace arrays
+  if (!isRoot && preserveState && preserveStateType === 'mergeReplaceArrays' && moduleStateExists) {
+    const moduleOriginalState = parentState[moduleName]
+
+    store._withCommit(() => {
+      Vue.set(parentState, moduleName, deepmerge(module.state, moduleOriginalState, { arrayMerge: (target, source, options) => source }))
+    })
+  }
+
+  // merge stored state with default state, concat arrays
+  if (!isRoot && preserveState && preserveStateType === 'mergeConcatArrays' && moduleStateExists) {
+    const moduleOriginalState = parentState[moduleName]
+    store._withCommit(() => {
+      Vue.set(parentState, moduleName, deepmerge(module.state, moduleOriginalState, { arrayMerge: (target, source, options) => target.concat(...source) }))
     })
   }
 
@@ -375,7 +400,7 @@ function installModule (store, rootState, path, module, hot) {
   })
 
   module.forEachChild((child, key) => {
-    installModule(store, rootState, path.concat(key), child, hot)
+    installModule(store, rootState, path.concat(key), child, preserveState)
   })
 }
 

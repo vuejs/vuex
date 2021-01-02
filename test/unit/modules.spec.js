@@ -124,6 +124,60 @@ describe('Modules', () => {
       store.commit('a/foo')
       expect(mutationSpy).toHaveBeenCalled()
     })
+
+    it('dynamic module registration ignoring hydration if it does not exist', () => {
+      const store = new Vuex.Store({})
+
+      store.registerModule('test', {
+        namespaced: true,
+        state: () => ({ data: '12345' })
+      }, { preserveState: true, preserveStateType: 'existing' })
+
+      expect(store.state.test.data).toBe('12345')
+    })
+
+    it('dynamic module registration merging hydration', () => {
+      const store = new Vuex.Store({})
+      store.replaceState({ test: {
+        foo: 'hello'
+      }})
+
+      store.registerModule('test', {
+        namespaced: true,
+        state: () => ({ bar: 'world' })
+      }, { preserveState: true, preserveStateType: 'mergeReplaceArrays' })
+
+      expect(store.state.test.foo).toBe('hello')
+      expect(store.state.test.bar).toBe('world')
+    })
+
+    it('dynamic module registration merging hydration by replacing arrays', () => {
+      const store = new Vuex.Store({})
+      store.replaceState({ test: {
+        data: ['hello', 'world']
+      }})
+
+      store.registerModule('test', {
+        namespaced: true,
+        state: () => ({ data: ['foo', 'bar'] })
+      }, { preserveState: true, preserveStateType: 'mergeReplaceArrays' })
+
+      expect(store.state.test.data).toEqual(['hello', 'world'])
+    })
+
+    it('dynamic module registration merging hydration by concating arrays', () => {
+      const store = new Vuex.Store({})
+      store.replaceState({ test: {
+        data: ['hello', 'world']
+      }})
+
+      store.registerModule('test', {
+        namespaced: true,
+        state: () => ({ data: ['foo', 'bar'] })
+      }, { preserveState: true, preserveStateType: 'mergeConcatArrays' })
+
+      expect(store.state.test.data).toEqual(['foo', 'bar', 'hello', 'world'])
+    })
   })
 
   // #524

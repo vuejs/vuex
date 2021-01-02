@@ -321,6 +321,10 @@ It may be likely that you want to preserve the previous state when registering a
 
 When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state is not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
 
+If you want state to be preserved only if the existing state actually exists, you can set the `preserveStateType` to `existing`. In this case, the state from the module will be registered if the existing state does not exist.
+
+You can also set `preserveStateType` to `mergeReplaceArrays` or `mergeConcatArrays`, to merge the existing state with the module state using `deepmerge`, either by replacing arrays or combining them. Individual keys from the existing state will overwrite the default ones from the module.
+
 ## Module Reuse
 
 Sometimes we may need to create multiple instances of a module, for example:
