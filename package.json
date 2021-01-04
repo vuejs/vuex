@@ -30,7 +30,7 @@
     "lint": "eslint src test",
     "test": "npm run lint && npm run test:types && npm run test:unit && npm run test:ssr && npm run test:e2e && npm run test:esm",
     "test:unit": "jest --testPathIgnorePatterns test/e2e",
-    "test:e2e": "start-server-and-test dev http://localhost:8080 'jest --testPathIgnorePatterns test/unit'",
+    "test:e2e": "start-server-and-test dev http://localhost:8080 \"jest --testPathIgnorePatterns test/unit\"",
     "test:ssr": "cross-env VUE_ENV=server jest --testPathIgnorePatterns test/e2e",
     "test:types": "tsc -p types/test",
     "test:esm": "node test/esm/esm-test.js",
