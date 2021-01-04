@@ -96,7 +96,7 @@ Under the hood, Vuex installs the store to the Vue app using Vue's [Provide/Inje
 Having to import `InjectionKey` and passing it to `useStore` everywhere it's used can quickly become a repetitive task. To simplify matters, you can define your own composable function to retrieve a typed store:
 
 ```ts
-// store.js
+// store.ts
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 
