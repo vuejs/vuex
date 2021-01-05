@@ -120,7 +120,7 @@ describe('e2e/todomvc', () => {
     expect(await isFocused('.todo:nth-child(1) .edit')).toBe(true)
     await clearValue('.todo:nth-child(1) .edit')
     await setValue('.todo:nth-child(1) .edit', 'edited!')
-    await click('footer') // blur
+    await click('.todo-count') // blur
     expect(await count('.todo.editing')).toBe(0)
     expect(await text('.todo:nth-child(1) label')).toBe('edited!')
 
