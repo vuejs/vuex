@@ -5,6 +5,7 @@
   "main": "dist/vuex.common.js",
   "exports": {
     ".": {
+      "module": "./dist/vuex.esm-bundler.js",
       "require": "./dist/vuex.common.js",
       "import": "./dist/vuex.mjs"
     },
