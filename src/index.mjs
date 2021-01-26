@@ -3,6 +3,7 @@ import Vuex from '../dist/vuex.cjs.js'
 const {
   version,
   Store,
+  storeKey,
   createStore,
   install,
   useStore,
@@ -18,6 +19,7 @@ export {
   Vuex as default,
   version,
   Store,
+  storeKey,
   createStore,
   install,
   useStore,

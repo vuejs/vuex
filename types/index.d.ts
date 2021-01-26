@@ -43,6 +43,8 @@ export declare class Store<S> {
   }): void;
 }
 
+export const storeKey: string;
+
 export function createStore<S>(options: StoreOptions<S>): Store<S>;
 
 export function useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;
