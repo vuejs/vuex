@@ -1,6 +1,6 @@
 /*!
- * vuex v3.6.0
- * (c) 2020 Evan You
+ * vuex v3.6.1
+ * (c) 2021 Evan You
  * @license MIT
  */
 (function (global, factory) {
