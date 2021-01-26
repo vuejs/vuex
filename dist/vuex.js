@@ -1,5 +1,5 @@
 /*!
- * vuex v3.6.1
+ * vuex v3.6.2
  * (c) 2021 Evan You
  * @license MIT
  */
@@ -1236,7 +1236,7 @@
   var index_cjs = {
     Store: Store,
     install: install,
-    version: '3.6.1',
+    version: '3.6.2',
     mapState: mapState,
     mapMutations: mapMutations,
     mapGetters: mapGetters,
