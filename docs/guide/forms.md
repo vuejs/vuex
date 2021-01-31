@@ -2,6 +2,31 @@
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
 
+## Two-way Computed Property
+
+The simpliest approach to handling form inputs within a component is to use a two-way computed property with a getter and setter:
+
+``` html
+<input v-model="message">
+```
+
+``` js
+// ...
+computed: {
+  message: {
+    get () {
+      return this.$store.state.obj.message
+    },
+    set (value) {
+      this.$store.commit('updateMessage', value)
+    }
+  }
+}
+```
+
+
+## Strict Mode and the "Vuex Way"
+
 When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
 
 ``` html
@@ -37,28 +62,6 @@ And here's the mutation handler:
 mutations: {
   updateMessage (state, message) {
     state.obj.message = message
-  }
-}
-```
-
-## Two-way Computed Property
-
-Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
-
-``` html
-<input v-model="message">
-```
-
-``` js
-// ...
-computed: {
-  message: {
-    get () {
-      return this.$store.state.obj.message
-    },
-    set (value) {
-      this.$store.commit('updateMessage', value)
-    }
   }
 }
 ```
