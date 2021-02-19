@@ -40,12 +40,12 @@ const store = new Vuex.Store({ ...options })
 
   ``` js
   {
-    state,      // 等同于 `store.state`，若在模块中则为局部状态
-    rootState,  // 等同于 `store.state`，只存在于模块中
+    state,      // 等同于 `store.state`，若在 modules 中则为局部 state
+    rootState,  // 等同于 `store.state`，只存在于 modules 中
     commit,     // 等同于 `store.commit`
     dispatch,   // 等同于 `store.dispatch`
-    getters,    // 等同于 `store.getters`
-    rootGetters // 等同于 `store.getters`，只存在于模块中
+    getters,    // 等同于 `store.getters`，若在 modules 中则为局部 getters
+    rootGetters // 等同于 `store.getters`，只存在于 modules 中
   }
   ```
 
@@ -60,15 +60,15 @@ const store = new Vuex.Store({ ...options })
 在 store 上注册 getter，getter 方法接受以下参数：
 
   ```
-  state,     // 如果在模块中定义则为模块的局部状态
+  state,     // 若定义在 module 中则为局部 state
   getters,   // 等同于 store.getters
   ```
 
   当定义在一个模块里时会特别一些：
 
   ```
-  state,       // 如果在模块中定义则为模块的局部状态
-  getters,     // 等同于 store.getters
+  state,       // 若定义在 modules 中为局部 state
+  getters,     // 若定义在 modules 中为局部 getters
   rootState    // 等同于 store.state
   rootGetters  // 所有 getters
   ```
