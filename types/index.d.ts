@@ -3,31 +3,55 @@ import { App, WatchOptions, InjectionKey } from "vue";
 // augment typings of Vue.js
 import "./vue";
 
-import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from "./helpers";
+import {
+  mapState,
+  mapMutations,
+  mapGetters,
+  mapActions,
+  createNamespacedHelpers,
+} from "./helpers";
 import { createLogger } from "./logger";
 
 export * from "./helpers";
 export * from "./logger";
 
-export declare class Store<S> {
-  constructor(options: StoreOptions<S>);
+export declare class Store<SO extends StoreOptions<any>> {
+  constructor(options: SO);
 
-  readonly state: S;
-  readonly getters: any;
+  readonly state: SO["state"];
+  readonly getters: SO["getters"];
 
   install(app: App, injectKey?: InjectionKey<Store<any>> | string): void;
 
-  replaceState(state: S): void;
+  replaceState(state: SO["state"]): Store<SO>;
 
-  dispatch: Dispatch;
-  commit: Commit;
+  dispatch: Dispatch<SO["actions"]>;
+  commit: Commit<SO["mutations"]>;
 
-  subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any, options?: SubscribeOptions): () => void;
-  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>, options?: SubscribeOptions): () => void;
-  watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
+  subscribe<P extends MutationPayload>(
+    fn: (mutation: P, state: SO["state"]) => any,
+    options?: SubscribeOptions
+  ): () => void;
+  subscribeAction<P extends ActionPayload>(
+    fn: SubscribeActionOptions<P, SO["state"]>,
+    options?: SubscribeOptions
+  ): () => void;
+  watch<T>(
+    getter: (state: SO["state"], getters: any) => T,
+    cb: (value: T, oldValue: T) => void,
+    options?: WatchOptions
+  ): () => void;
 
-  registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
-  registerModule<T>(path: string[], module: Module<T, S>, options?: ModuleOptions): void;
+  registerModule<T>(
+    path: string,
+    module: Module<T, SO["state"]>,
+    options?: ModuleOptions
+  ): void;
+  registerModule<T>(
+    path: string[],
+    module: Module<T, SO["state"]>,
+    options?: ModuleOptions
+  ): void;
 
   unregisterModule(path: string): void;
   unregisterModule(path: string[]): void;
@@ -36,27 +60,55 @@ export declare class Store<S> {
   hasModule(path: string[]): boolean;
 
   hotUpdate(options: {
-    actions?: ActionTree<S, S>;
-    mutations?: MutationTree<S>;
-    getters?: GetterTree<S, S>;
-    modules?: ModuleTree<S>;
+    actions?: ActionTree<SO["state"], SO["state"]>;
+    mutations?: MutationTree<SO["state"]>;
+    getters?: GetterTree<SO["state"], SO["state"]>;
+    modules?: ModuleTree<SO["state"]>;
   }): void;
 }
 
 export const storeKey: string;
 
-export function createStore<S>(options: StoreOptions<S>): Store<S>;
+export function createStore<SO>(options: SO): Store<SO>;
 
-export function useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;
+export function useStore<SO = any>(
+  injectKey?: InjectionKey<Store<SO>> | string
+): Store<SO>;
 
-export interface Dispatch {
-  (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
-  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
+export interface Dispatch<AT extends ActionTree<any, any> | undefined = any> {
+  <T extends keyof AT, A extends AT[T]>(
+    type: T,
+    payload?: A extends ActionHandler<any, any>
+      ? Parameters<A>[1]
+      : A extends ActionObject<any, any>
+      ? Parameters<A["handler"]>[1]
+      : undefined,
+    options?: DispatchOptions
+  ): A extends ActionHandler<any, any>
+    ? ReturnType<A>
+    : A extends ActionObject<any, any>
+    ? ReturnType<A["handler"]>
+    : Promise<any>;
+  <T extends keyof AT, A extends AT[T], P extends Payload<T>>(
+    payloadWithType: P,
+    options?: DispatchOptions
+  ): A extends ActionHandler<any, any>
+    ? ReturnType<A>
+    : A extends ActionObject<any, any>
+    ? ReturnType<A["handler"]>
+    : Promise<any>;
 }
 
-export interface Commit {
-  (type: string, payload?: any, options?: CommitOptions): void;
-  <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
+export interface Commit<MT extends MutationTree<any> | undefined = any> {
+  <T extends keyof MT, M extends MT[T]>(
+    type: T,
+    payload?: M extends Mutation<any> ? Parameters<M>[1] : undefined,
+    options?: CommitOptions
+  ): void;
+  <T extends keyof MT, P extends Payload<T>>(
+    payloadWithType: P,
+    options?: CommitOptions
+  ): void;
 }
 
 export interface ActionContext<S, R> {
@@ -68,8 +120,8 @@ export interface ActionContext<S, R> {
   rootGetters: any;
 }
 
-export interface Payload {
-  type: string;
+export interface Payload<T = string> {
+  type: T;
 }
 
 export interface MutationPayload extends Payload {
@@ -81,11 +133,15 @@ export interface ActionPayload extends Payload {
 }
 
 export interface SubscribeOptions {
-  prepend?: boolean
+  prepend?: boolean;
 }
 
 export type ActionSubscriber<P, S> = (action: P, state: S) => any;
-export type ActionErrorSubscriber<P, S> = (action: P, state: S, error: Error) => any;
+export type ActionErrorSubscriber<P, S> = (
+  action: P,
+  state: S,
+  error: Error
+) => any;
 
 export interface ActionSubscribersObject<P, S> {
   before?: ActionSubscriber<P, S>;
@@ -93,7 +149,9 @@ export interface ActionSubscribersObject<P, S> {
   error?: ActionErrorSubscriber<P, S>;
 }
 
-export type SubscribeActionOptions<P, S> = ActionSubscriber<P, S> | ActionSubscribersObject<P, S>;
+export type SubscribeActionOptions<P, S> =
+  | ActionSubscriber<P, S>
+  | ActionSubscribersObject<P, S>;
 
 export interface DispatchOptions {
   root?: boolean;
@@ -115,13 +173,22 @@ export interface StoreOptions<S> {
   devtools?: boolean;
 }
 
-export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload?: any) => any;
+export type ActionHandler<S, R> = (
+  this: Store<R>,
+  injectee: ActionContext<S, R>,
+  payload?: any
+) => any;
 export interface ActionObject<S, R> {
   root?: boolean;
   handler: ActionHandler<S, R>;
 }
 
-export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
+export type Getter<S, R> = (
+  state: S,
+  getters: any,
+  rootState: R,
+  rootGetters: any
+) => any;
 export type Action<S, R> = ActionHandler<S, R> | ActionObject<S, R>;
 export type Mutation<S> = (state: S, payload?: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
@@ -157,11 +224,11 @@ export interface ModuleTree<R> {
 
 declare const _default: {
   Store: typeof Store;
-  mapState: typeof mapState,
-  mapMutations: typeof mapMutations,
-  mapGetters: typeof mapGetters,
-  mapActions: typeof mapActions,
-  createNamespacedHelpers: typeof createNamespacedHelpers,
-  createLogger: typeof createLogger
+  mapState: typeof mapState;
+  mapMutations: typeof mapMutations;
+  mapGetters: typeof mapGetters;
+  mapActions: typeof mapActions;
+  createNamespacedHelpers: typeof createNamespacedHelpers;
+  createLogger: typeof createLogger;
 };
 export default _default;
