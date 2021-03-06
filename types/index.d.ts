@@ -15,41 +15,41 @@ import { createLogger } from "./logger";
 export * from "./helpers";
 export * from "./logger";
 
-export declare class Store<SO extends StoreOptions<any>> {
+export declare class Store<S, SO extends StoreOptions<any> = StoreOptions<S>> {
   constructor(options: SO);
 
-  readonly state: SO["state"];
+  readonly state: S;
   readonly getters: SO["getters"];
 
   install(app: App, injectKey?: InjectionKey<Store<any>> | string): void;
 
-  replaceState(state: SO["state"]): Store<SO>;
+  replaceState(state: S): Store<S, SO>;
 
   dispatch: Dispatch<SO["actions"]>;
   commit: Commit<SO["mutations"]>;
 
   subscribe<P extends MutationPayload>(
-    fn: (mutation: P, state: SO["state"]) => any,
+    fn: (mutation: P, state: S) => any,
     options?: SubscribeOptions
   ): () => void;
   subscribeAction<P extends ActionPayload>(
-    fn: SubscribeActionOptions<P, SO["state"]>,
+    fn: SubscribeActionOptions<P, S>,
     options?: SubscribeOptions
   ): () => void;
   watch<T>(
-    getter: (state: SO["state"], getters: any) => T,
+    getter: (state: S, getters: any) => T,
     cb: (value: T, oldValue: T) => void,
     options?: WatchOptions
   ): () => void;
 
   registerModule<T>(
     path: string,
-    module: Module<T, SO["state"]>,
+    module: Module<T, S>,
     options?: ModuleOptions
   ): void;
   registerModule<T>(
     path: string[],
-    module: Module<T, SO["state"]>,
+    module: Module<T, S>,
     options?: ModuleOptions
   ): void;
 
@@ -60,20 +60,23 @@ export declare class Store<SO extends StoreOptions<any>> {
   hasModule(path: string[]): boolean;
 
   hotUpdate(options: {
-    actions?: ActionTree<SO["state"], SO["state"]>;
-    mutations?: MutationTree<SO["state"]>;
-    getters?: GetterTree<SO["state"], SO["state"]>;
-    modules?: ModuleTree<SO["state"]>;
+    actions?: ActionTree<S, S>;
+    mutations?: MutationTree<S>;
+    getters?: GetterTree<S, S>;
+    modules?: ModuleTree<S>;
   }): void;
 }
 
 export const storeKey: string;
 
-export function createStore<SO>(options: SO): Store<SO>;
+export function createStore<S, SO extends StoreOptions<any> = StoreOptions<S>>(
+  options: SO
+): Store<SO["state"], SO>;
 
-export function useStore<SO = any>(
-  injectKey?: InjectionKey<Store<SO>> | string
-): Store<SO>;
+export function useStore<
+  S = any,
+  SO extends StoreOptions<any> = StoreOptions<S>
+>(injectKey?: InjectionKey<Store<S, SO>> | string): Store<S, SO>;
 
 export interface Dispatch<AT extends ActionTree<any, any> | undefined = any> {
   <T extends keyof AT, A extends AT[T]>(
