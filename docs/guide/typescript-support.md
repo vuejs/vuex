@@ -118,7 +118,7 @@ export function useStore () {
 }
 ```
 
-Now, by importing your own composable function, you can retrieve the typed store **without** having to provide the injection key and it's typing:
+Now, by importing your own composable function, you can retrieve the typed store **without** having to provide the injection key and its typing:
 
 ```ts
 // in a vue component
