@@ -15,10 +15,28 @@ import { createLogger } from "./logger";
 export * from "./helpers";
 export * from "./logger";
 
-export declare class Store<S, SO extends StoreOptions<any> = StoreOptions<S>> {
+type YieldState<S, T extends ModuleTree<S> | undefined> = (S extends () => any
+  ? ReturnType<S>
+  : S) &
+  (T extends ModuleTree<S>
+    ? {
+        [K in keyof T]: T extends ModuleTree<S>
+          ? YieldState<
+              T[K]["state"],
+              T[K] extends { modules: object } ? T[K]["modules"] : {}
+            >
+          : never;
+      }
+    : {});
+
+export declare class Store<
+  T,
+  SO extends StoreOptions<any> = StoreOptions<T>,
+  S = SO["state"] extends T ? SO["state"] : T
+> {
   constructor(options: SO);
 
-  readonly state: S;
+  readonly state: YieldState<S, SO["modules"]>;
   readonly getters: SO["getters"];
 
   install(app: App, injectKey?: InjectionKey<Store<any>> | string): void;
