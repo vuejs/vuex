@@ -30,9 +30,9 @@ type YieldState<S, T extends ModuleTree<S> | undefined> = (S extends () => any
     : {});
 
 export declare class Store<
-  T,
-  SO extends StoreOptions<any> = StoreOptions<T>,
-  S = SO["state"] extends T ? SO["state"] : T
+  _,
+  SO extends StoreOptions<any> = StoreOptions<_>,
+  S = SO["state"] extends _ ? SO["state"] : _
 > {
   constructor(options: SO);
 
