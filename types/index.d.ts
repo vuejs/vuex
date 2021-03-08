@@ -25,8 +25,8 @@ export declare class Store<S, SO extends StoreOptions<any> = StoreOptions<S>> {
 
   replaceState(state: S): Store<S, SO>;
 
-  dispatch: Dispatch<SO["actions"]>;
-  commit: Commit<SO["mutations"]>;
+  dispatch: Dispatch<SO>;
+  commit: Commit<SO>;
 
   subscribe<P extends MutationPayload>(
     fn: (mutation: P, state: S) => any,
@@ -78,7 +78,36 @@ export function useStore<
   SO extends StoreOptions<any> = StoreOptions<S>
 >(injectKey?: InjectionKey<Store<S, SO>> | string): Store<S, SO>;
 
-export interface Dispatch<AT extends ActionTree<any, any> | undefined = any> {
+type StrictString<T> = T extends string ? T : never;
+
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I
+) => void
+  ? I
+  : never;
+
+type ExtractObjects<
+  T,
+  S extends string = "actions",
+  P extends string = ""
+> = (T extends {
+  [_ in S]: infer O;
+}
+  ? { [K in keyof O as `${P}${StrictString<K>}`]: O[K] }
+  : {}) &
+  (T extends {
+    modules: infer O;
+  }
+    ? UnionToIntersection<
+        {
+          [K in keyof O]: ExtractObjects<O[K], S, `${P}${StrictString<K>}/`>;
+        }[keyof O]
+      >
+    : {});
+export interface Dispatch<
+  SO extends StoreOptions<any> = any,
+  AT = ExtractObjects<SO, "actions">
+> {
   <T extends keyof AT, A extends AT[T]>(
     type: T,
     payload?: A extends ActionHandler<any, any>
@@ -102,7 +131,10 @@ export interface Dispatch<AT extends ActionTree<any, any> | undefined = any> {
     : Promise<any>;
 }
 
-export interface Commit<MT extends MutationTree<any> | undefined = any> {
+export interface Commit<
+  SO extends StoreOptions<any> = any,
+  MT = ExtractObjects<SO, "mutations">
+> {
   <T extends keyof MT, M extends MT[T]>(
     type: T,
     payload?: M extends Mutation<any> ? Parameters<M>[1] : undefined,
