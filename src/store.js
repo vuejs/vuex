@@ -1,6 +1,6 @@
 import { reactive, watch } from 'vue'
 import { storeKey } from './injectKey'
-import devtoolPlugin from './plugins/devtool'
+import { addDevtools } from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
 import { forEachValue, isObject, isPromise, assert, partial } from './util'
 
@@ -57,16 +57,15 @@ export class Store {
 
     // apply plugins
     plugins.forEach(plugin => plugin(this))
-
-    const useDevtools = options.devtools !== undefined ? options.devtools : /* Vue.config.devtools */ true
-    if (useDevtools) {
-      devtoolPlugin(this)
-    }
   }
 
   install (app, injectKey) {
     app.provide(injectKey || storeKey, this)
     app.config.globalProperties.$store = this
+
+    if (__DEV__ || __VUE_PROD_DEVTOOLS__) {
+      addDevtools(app, this)
+    }
   }
 
   get state () {

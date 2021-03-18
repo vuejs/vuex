@@ -1,26 +1,14 @@
-const target = typeof window !== 'undefined'
-  ? window
-  : typeof global !== 'undefined'
-    ? global
-    : {}
-const devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__
+import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
-export default function devtoolPlugin (store) {
-  if (!devtoolHook) return
-
-  store._devtoolHook = devtoolHook
-
-  devtoolHook.emit('vuex:init', store)
-
-  devtoolHook.on('vuex:travel-to-state', targetState => {
-    store.replaceState(targetState)
+export function addDevtools (app, store) {
+  setupDevtoolsPlugin({
+    id: 'vuex',
+    app,
+    label: 'Vuex',
+    homepage: 'https://next.vuex.vuejs.org/',
+    logo: 'https://vuejs.org/images/icons/favicon-96x96.png',
+    packageName: 'vuex'
+  }, api => {
+    // @TODO
   })
-
-  store.subscribe((mutation, state) => {
-    devtoolHook.emit('vuex:mutation', mutation, state)
-  }, { prepend: true })
-
-  store.subscribeAction((action, state) => {
-    devtoolHook.emit('vuex:action', action, state)
-  }, { prepend: true })
 }

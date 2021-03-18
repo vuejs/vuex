@@ -48,11 +48,13 @@ function createEntry(config) {
     c.output.name = c.output.name || 'Vuex'
   }
 
+  const useBuildFlags = config.format !== 'iife' && !config.browser
   c.plugins.push(replace({
     __VERSION__: pkg.version,
-    __DEV__: config.format !== 'iife' && !config.browser
+    __DEV__: useBuildFlags
       ? `(process.env.NODE_ENV !== 'production')`
-      : config.env !== 'production'
+      : config.env !== 'production',
+    __VUE_PROD_DEVTOOLS__: useBuildFlags ? '__VUE_PROD_DEVTOOLS__' : 'false'
   }))
 
   if (config.transpile !== false) {
