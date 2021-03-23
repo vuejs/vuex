@@ -1,4 +1,4 @@
-import Vuex from '../dist/vuex.cjs.js'
+import Vuex from "../dist/vuex.cjs.js";
 
 const {
   version,
@@ -11,9 +11,13 @@ const {
   mapMutations,
   mapGetters,
   mapActions,
+  useState,
+  useMutations,
+  useGetters,
+  useActions,
   createNamespacedHelpers,
-  createLogger
-} = Vuex
+  createLogger,
+} = Vuex;
 
 export {
   Vuex as default,
@@ -27,6 +31,10 @@ export {
   mapMutations,
   mapGetters,
   mapActions,
+  useState,
+  useMutations,
+  useGetters,
+  useActions,
   createNamespacedHelpers,
-  createLogger
-}
+  createLogger,
+};
