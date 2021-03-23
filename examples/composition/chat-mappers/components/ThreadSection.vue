@@ -17,18 +17,17 @@
 </template>
 
 <script>
-import { computed } from "vue";
-import { useGetters, useActions } from "vuex";
-import Thread from "./Thread.vue";
+import { useGetters, useActions } from 'vuex'
+import Thread from './Thread.vue'
 
 export default {
-  name: "ThreadSection",
+  name: 'ThreadSection',
   components: { Thread },
   setup() {
     return {
-      ...useGetters(["threads", "currentThread", "unreadCount"]),
-      ...useActions(["switchThread"]),
-    };
-  },
-};
+      ...useGetters(['threads', 'currentThread', 'unreadCount']),
+      ...useActions(['switchThread'])
+    }
+  }
+}
 </script>

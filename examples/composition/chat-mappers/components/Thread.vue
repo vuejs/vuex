@@ -2,7 +2,8 @@
   <li
     class="thread-list-item"
     :class="{ active }"
-    @click="$emit('switch-thread', thread.id)">
+    @click="$emit('switch-thread', thread.id)"
+  >
     <h5 class="thread-name">{{ thread.name }}</h5>
     <div class="thread-time">
       {{ time(thread.lastMessage.timestamp) }}
@@ -20,9 +21,9 @@ export default {
     thread: Object,
     active: Boolean
   },
-  setup () {
+  setup() {
     return {
-      time: value => new Date(value).toLocaleTimeString()
+      time: (value) => new Date(value).toLocaleTimeString()
     }
   }
 }

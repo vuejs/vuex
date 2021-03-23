@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import ThreadSection from "./ThreadSection.vue";
-import MessageSection from "./MessageSection.vue";
+import ThreadSection from './ThreadSection.vue'
+import MessageSection from './MessageSection.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     ThreadSection,
-    MessageSection,
-  },
-};
+    MessageSection
+  }
+}
 </script>

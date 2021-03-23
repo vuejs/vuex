@@ -13,9 +13,9 @@ sidebar: auto
   Creates a new store.
 
   ```js
-  import { createStore } from "vuex";
+  import { createStore } from 'vuex'
 
-  const store = createStore({ ...options });
+  const store = createStore({ ...options })
   ```
 
 ## Store Constructor Options
@@ -49,7 +49,7 @@ sidebar: auto
       commit, // same as `store.commit`
       dispatch, // same as `store.dispatch`
       getters, // same as `store.getters`, or local getters if in modules
-      rootGetters; // same as `store.getters`, only in modules
+      rootGetters // same as `store.getters`, only in modules
   }
   ```
 
@@ -130,7 +130,7 @@ sidebar: auto
 
   ```js
   {
-    devtools: false;
+    devtools: false
   }
   ```
 
@@ -186,18 +186,18 @@ Subscribe to store mutations. The `handler` is called after every mutation and r
 
 ```js
 const unsubscribe = store.subscribe((mutation, state) => {
-  console.log(mutation.type);
-  console.log(mutation.payload);
-});
+  console.log(mutation.type)
+  console.log(mutation.payload)
+})
 
 // you may call unsubscribe to stop the subscription
-unsubscribe();
+unsubscribe()
 ```
 
 By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
 
 ```js
-store.subscribe(handler, { prepend: true });
+store.subscribe(handler, { prepend: true })
 ```
 
 The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribe` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
@@ -213,18 +213,18 @@ The `subscribe` method will return an `unsubscribe` function, which should be ca
 
 ```js
 const unsubscribe = store.subscribeAction((action, state) => {
-  console.log(action.type);
-  console.log(action.payload);
-});
+  console.log(action.type)
+  console.log(action.payload)
+})
 
 // you may call unsubscribe to stop the subscription
-unsubscribe();
+unsubscribe()
 ```
 
 By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
 
 ```js
-store.subscribeAction(handler, { prepend: true });
+store.subscribeAction(handler, { prepend: true })
 ```
 
 The `subscribeAction` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribeAction` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
@@ -234,12 +234,12 @@ The `subscribeAction` method will return an `unsubscribe` function, which should
 ```js
 store.subscribeAction({
   before: (action, state) => {
-    console.log(`before action ${action.type}`);
+    console.log(`before action ${action.type}`)
   },
   after: (action, state) => {
-    console.log(`after action ${action.type}`);
-  },
-});
+    console.log(`after action ${action.type}`)
+  }
+})
 ```
 
 `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
@@ -247,10 +247,10 @@ store.subscribeAction({
 ```js
 store.subscribeAction({
   error: (action, state, error) => {
-    console.log(`error action ${action.type}`);
-    console.error(error);
-  },
-});
+    console.log(`error action ${action.type}`)
+    console.error(error)
+  }
+})
 ```
 
 The `subscribeAction` method is most commonly used in plugins. [Details](../guide/plugins.md)
@@ -374,13 +374,13 @@ The second object argument's members can be a function. `function(commit: functi
   Fetches the injected store when called inside the `setup` hook. When using the Composition API, you can retrieve the store by calling this method.
 
   ```js
-  import { useStore } from "vuex";
+  import { useStore } from 'vuex'
 
   export default {
     setup() {
-      const store = useStore();
-    },
-  };
+      const store = useStore()
+    }
+  }
   ```
 
   TypeScript users can use an injection key to retrieve a typed store. In order for this to work, you must define the injection key and pass it along with the store when installing the store instance to the Vue app.
@@ -389,20 +389,20 @@ The second object argument's members can be a function. `function(commit: functi
 
   ```ts
   // store.ts
-  import { InjectionKey } from "vue";
-  import { createStore, Store } from "vuex";
+  import { InjectionKey } from 'vue'
+  import { createStore, Store } from 'vuex'
 
   export interface State {
-    count: number;
+    count: number
   }
 
-  export const key: InjectionKey<Store<State>> = Symbol();
+  export const key: InjectionKey<Store<State>> = Symbol()
 
   export const store = createStore<State>({
     state: {
-      count: 0,
-    },
-  });
+      count: 0
+    }
+  })
   ```
 
   Then, pass the defined key as the second argument for the `app.use` method.
@@ -423,14 +423,14 @@ The second object argument's members can be a function. `function(commit: functi
 
   ```ts
   // in a vue component
-  import { useStore } from "vuex";
-  import { key } from "./store";
+  import { useStore } from 'vuex'
+  import { key } from './store'
 
   export default {
     setup() {
-      const store = useStore(key);
+      const store = useStore(key)
 
-      store.state.count; // typed as number
-    },
-  };
+      store.state.count // typed as number
+    }
+  }
   ```

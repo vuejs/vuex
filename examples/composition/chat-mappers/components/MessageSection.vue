@@ -14,41 +14,38 @@
 </template>
 
 <script>
-import { ref, watch, nextTick } from "vue";
-import { useGetters, useActions } from "vuex";
-import Message from "./Message.vue";
+import { ref, watch, nextTick } from 'vue'
+import { useGetters, useActions } from 'vuex'
+import Message from './Message.vue'
 
 export default {
-  name: "MessageSection",
+  name: 'MessageSection',
   components: { Message },
   setup() {
-    const list = ref(null);
+    const list = ref(null)
 
-    const text = ref("");
+    const text = ref('')
 
-    const { thread, messages } = useGetters([
-      "currentThread",
-      "sortedMessages",
-    ]);
+    const { thread, messages } = useGetters(['currentThread', 'sortedMessages'])
     const { sendMessageAction } = useActions({
-      sendMessageAction: "sendMessage",
-    });
+      sendMessageAction: 'sendMessage'
+    })
 
     watch(
       () => thread.value.lastMessage,
       () => {
         nextTick(() => {
-          const ul = list.value;
-          ul.scrollTop = ul.scrollHeight;
-        });
+          const ul = list.value
+          ul.scrollTop = ul.scrollHeight
+        })
       }
-    );
+    )
 
     function sendMessage() {
-      const trimedText = text.value.trim();
+      const trimedText = text.value.trim()
       if (trimedText) {
-        sendMessageAction(trimedText, thread);
-        this.text = "";
+        sendMessageAction(trimedText, thread)
+        this.text = ''
       }
     }
 
@@ -57,8 +54,8 @@ export default {
       text,
       thread,
       messages,
-      sendMessage,
-    };
-  },
-};
+      sendMessage
+    }
+  }
+}
 </script>

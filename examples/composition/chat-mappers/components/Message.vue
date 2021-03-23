@@ -10,14 +10,14 @@
 
 <script>
 export default {
-  name: "Message",
+  name: 'Message',
   props: {
-    message: Object,
+    message: Object
   },
   setup() {
     return {
-      time: (value) => new Date(value).toLocaleTimeString(),
-    };
-  },
-};
+      time: (value) => new Date(value).toLocaleTimeString()
+    }
+  }
+}
 </script>

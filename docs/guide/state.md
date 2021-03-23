@@ -20,10 +20,10 @@ const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
     count() {
-      return store.state.count;
-    },
-  },
-};
+      return store.state.count
+    }
+  }
+}
 ```
 
 Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
@@ -37,10 +37,10 @@ const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
     count() {
-      return this.$store.state.count;
-    },
-  },
-};
+      return this.$store.state.count
+    }
+  }
+}
 ```
 
 ## The `mapState` Helper
@@ -51,7 +51,7 @@ When a component needs to make use of multiple store state properties or getters
 
 ```js
 // in full builds helpers are exposed as Vuex.mapState
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
   // ...
@@ -60,14 +60,14 @@ export default {
     count: (state) => state.count,
 
     // passing the string value 'count' is same as `state => state.count`
-    countAlias: "count",
+    countAlias: 'count',
 
     // to access local state with `this`, a normal function must be used
     countPlusLocalState(state) {
-      return state.count + this.localCount;
-    },
-  }),
-};
+      return state.count + this.localCount
+    }
+  })
+}
 ```
 
 We can also pass a string array to `mapState` when the name of a mapped computed property is the same as a state sub tree name.
@@ -75,8 +75,8 @@ We can also pass a string array to `mapState` when the name of a mapped computed
 ```js
 computed: mapState([
   // map this.count to store.state.count
-  "count",
-]);
+  'count'
+])
 ```
 
 ## Object Spread Operator
@@ -114,15 +114,15 @@ export default {
 or object destructuring
 
 ```js
-import { useState } from "vuex";
+import { useState } from 'vuex'
 
 export default {
   setup() {
     return {
-      ...useState(["count"]),
-    };
-  },
-};
+      ...useState(['count'])
+    }
+  }
+}
 ```
 
 You can learn more in the [Composition API](./composition-api#New-helper-methods-for-Composition-API) section.

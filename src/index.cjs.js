@@ -1,5 +1,5 @@
-import { Store, createStore } from "./store";
-import { storeKey, useStore } from "./injectKey";
+import { Store, createStore } from './store'
+import { storeKey, useStore } from './injectKey'
 import {
   mapState,
   mapMutations,
@@ -9,12 +9,12 @@ import {
   useState,
   useMutations,
   useGetters,
-  useActions,
-} from "./helpers";
-import { createLogger } from "./plugins/logger";
+  useActions
+} from './helpers'
+import { createLogger } from './plugins/logger'
 
 export default {
-  version: "__VERSION__",
+  version: '__VERSION__',
   Store,
   storeKey,
   createStore,
@@ -28,5 +28,5 @@ export default {
   useGetters,
   useActions,
   createNamespacedHelpers,
-  createLogger,
-};
+  createLogger
+}

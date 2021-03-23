@@ -12,19 +12,19 @@ Let's register a simple action:
 ```js
 const store = createStore({
   state: {
-    count: 0,
+    count: 0
   },
   mutations: {
     increment(state) {
-      state.count++;
-    },
+      state.count++
+    }
   },
   actions: {
     increment(context) {
-      context.commit("increment");
-    },
-  },
-});
+      context.commit('increment')
+    }
+  }
+})
 ```
 
 Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. We can even call other actions with `context.dispatch`. We will see why this context object is not the store instance itself when we introduce [Modules](modules.md) later.
@@ -44,7 +44,7 @@ actions: {
 Actions are triggered with the `store.dispatch` method:
 
 ```js
-store.dispatch("increment");
+store.dispatch('increment')
 ```
 
 This may look silly at first sight: if we want to increment the count, why don't we just call `store.commit('increment')` directly? Remember that **mutations have to be synchronous**. Actions don't. We can perform **asynchronous** operations inside an action:
@@ -63,15 +63,15 @@ Actions support the same payload format and object-style dispatch:
 
 ```js
 // dispatch with a payload
-store.dispatch("incrementAsync", {
-  amount: 10,
-});
+store.dispatch('incrementAsync', {
+  amount: 10
+})
 
 // dispatch with an object
 store.dispatch({
-  type: "incrementAsync",
-  amount: 10,
-});
+  type: 'incrementAsync',
+  amount: 10
+})
 ```
 
 A more practical example of real-world actions would be an action to checkout a shopping cart, which involves **calling an async API** and **committing multiple mutations**:
@@ -103,22 +103,22 @@ Note we are performing a flow of asynchronous operations, and recording the side
 You can dispatch actions in components with `this.$store.dispatch('xxx')`, or use the `mapActions` helper which maps component methods to `store.dispatch` calls (requires root `store` injection):
 
 ```js
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 
 export default {
   // ...
   methods: {
     ...mapActions([
-      "increment", // map `this.increment()` to `this.$store.dispatch('increment')`
+      'increment', // map `this.increment()` to `this.$store.dispatch('increment')`
 
       // `mapActions` also supports payloads:
-      "incrementBy", // map `this.incrementBy(amount)` to `this.$store.dispatch('incrementBy', amount)`
+      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.dispatch('incrementBy', amount)`
     ]),
     ...mapActions({
-      add: "increment", // map `this.add()` to `this.$store.dispatch('increment')`
-    }),
-  },
-};
+      add: 'increment' // map `this.add()` to `this.$store.dispatch('increment')`
+    })
+  }
+}
 ```
 
 ## Composing Actions
@@ -143,9 +143,9 @@ actions: {
 Now you can do:
 
 ```js
-store.dispatch("actionA").then(() => {
+store.dispatch('actionA').then(() => {
   // ...
-});
+})
 ```
 
 And also in another action:
@@ -200,15 +200,15 @@ export default {
 or object destructuring
 
 ```js
-import { useActions } from "vuex";
+import { useActions } from 'vuex'
 
 export default {
   setup() {
     return {
-      ...useActions(["increment"]),
-    };
-  },
-};
+      ...useActions(['increment'])
+    }
+  }
+}
 ```
 
 You can learn more in the [Composition API](./composition-api#New-helper-methods-for-Composition-API) section.

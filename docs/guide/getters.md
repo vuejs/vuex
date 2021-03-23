@@ -26,16 +26,16 @@ Getters will receive the state as their 1st argument:
 const store = createStore({
   state: {
     todos: [
-      { id: 1, text: "...", done: true },
-      { id: 2, text: "...", done: false },
-    ],
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false }
+    ]
   },
   getters: {
     doneTodos(state) {
-      return state.todos.filter((todo) => todo.done);
-    },
-  },
-});
+      return state.todos.filter((todo) => todo.done)
+    }
+  }
+})
 ```
 
 ## Property-Style Access
@@ -43,7 +43,7 @@ const store = createStore({
 The getters will be exposed on the `store.getters` object, and you access values as properties:
 
 ```js
-store.getters.doneTodos; // -> [{ id: 1, text: '...', done: true }]
+store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
 Getters will also receive other getters as the 2nd argument:
@@ -58,7 +58,7 @@ getters: {
 ```
 
 ```js
-store.getters.doneTodosCount; // -> 1
+store.getters.doneTodosCount // -> 1
 ```
 
 We can now easily make use of it inside any component:
@@ -81,13 +81,13 @@ You can also pass arguments to getters by returning a function. This is particul
 getters: {
   // ...
   getTodoById: (state) => (id) => {
-    return state.todos.find((todo) => todo.id === id);
-  };
+    return state.todos.find((todo) => todo.id === id)
+  }
 }
 ```
 
 ```js
-store.getters.getTodoById(2); // -> { id: 2, text: '...', done: false }
+store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
 Note that getters accessed via methods will run each time you call them, and the result is not cached.
@@ -97,19 +97,19 @@ Note that getters accessed via methods will run each time you call them, and the
 The `mapGetters` helper simply maps store getters to local computed properties:
 
 ```js
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   // ...
   computed: {
     // mix the getters into computed with object spread operator
     ...mapGetters([
-      "doneTodosCount",
-      "anotherGetter",
+      'doneTodosCount',
+      'anotherGetter'
       // ...
-    ]),
-  },
-};
+    ])
+  }
+}
 ```
 
 If you want to map a getter to a different name, use an object:
@@ -143,15 +143,15 @@ export default {
 or object destructuring
 
 ```js
-import { useGetters } from "vuex";
+import { useGetters } from 'vuex'
 
 export default {
   setup() {
     return {
-      ...useGetters(["doneTodosCount", "anotherGetter"]),
-    };
-  },
-};
+      ...useGetters(['doneTodosCount', 'anotherGetter'])
+    }
+  }
+}
 ```
 
 You can learn more in the [Composition API](./composition-api#New-helper-methods-for-Composition-API) section.
