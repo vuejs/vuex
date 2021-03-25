@@ -312,7 +312,7 @@ Dynamic module registration makes it possible for other Vue plugins to also leve
 
 You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
 
-Note that you may check if the module is already registered to the store or not via `store.hasModule(moduleName)` method. One thing to keep in mind is that nested modules should be past as arrays for both the `registerModule` and `hasModule` and not as a string with the path to the module.
+Note that you may check if the module is already registered to the store or not via `store.hasModule(moduleName)` method. One thing to keep in mind is that nested modules should be passed as arrays for both the `registerModule` and `hasModule` and not as a string with the path to the module.
 
 ### Preserving state
 
