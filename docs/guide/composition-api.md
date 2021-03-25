@@ -59,4 +59,4 @@ export default {
 
 ## Examples
 
-Check out the [Composition API example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) to see example applications utilising Vuex and Vue's Composition API.
+Check out the [Composition API example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) to see example applications utilizing Vuex and Vue's Composition API.
