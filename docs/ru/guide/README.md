@@ -16,8 +16,6 @@
 
 После [установки](../installation.md) Vuex, давайте создадим хранилище. Это довольно просто — необходимо указать начальный объект состояния и некоторые мутации:
 
-### Vuex 3.x (для Vue 2)
-
 ```js
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -34,23 +32,6 @@ const store = new Vuex.Store({
     }
   }
 })
-```
-
-### Vuex 4.x (для Vue 3)
-
-```js
-import { createStore } from 'vuex'
-import { createApp } from 'vue'
-
-const store = createStore({
-  state () {
-    return {
-      count: 1
-    }
-  }
-})
-const app = createApp({ /* ваш корневой компонент */ })
-app.use(store)
 ```
 
 Теперь можно получить доступ к объекту состояния через `store.state` и вызвать изменение состояния с помощью метода `store.commit`:
