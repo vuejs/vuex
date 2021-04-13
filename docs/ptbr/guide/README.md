@@ -31,7 +31,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Agora, você pode acessar o objeto de estado como _store.state_ e acionar uma mudança de estado com o método _store.commit_:
+Agora, você pode acessar o objeto de estado como `store.state` e acionar uma mudança de estado com o método `store.commit`:
 
 ``` js
 store.commit('increment')
@@ -39,10 +39,10 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-Novamente, a razão pela qual estamos confirmando (ou fazendo _commit_ de) uma mutação em vez de mudar _store.state.count_ diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa ter melhores argumetos sobre as mudanças de estado em seu aplicativo ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, capturar momentos do estado ou mesmo realizar depuração viajando pelo histórico de estado (_time travel_).
+Novamente, a razão pela qual estamos confirmando (ou fazendo _commit_ de) uma mutação em vez de mudar `store.state.count` diretamente, é porque queremos rastreá-la explicitamente. Esta convenção simples torna sua intenção mais explícita, de modo que você possa ter melhores argumetos sobre as mudanças de estado em sua aplicação ao ler o código. Além disso, isso nos dá a oportunidade de implementar ferramentas que podem registrar cada mutação, capturar momentos do estado ou mesmo realizar depuração viajando pelo histórico de estado (_time travel_).
 
 Usar o estado do _store_ em um componente simplesmente envolve o retorno do estado dentro de um dado computado, porque o estado do _store_ é reativo. Acionar alterações simplesmente significa confirmar (ou fazer _commit_ de) mutações nos métodos dos componentes.
 
-Aqui está um exemplo do [aplicativo de contador do Vuex mais básico](https://jsfiddle.net/n9jmu5v7/1269/).
+Aqui está um exemplo da [aplicação de contador do Vuex mais básico](https://jsfiddle.net/n9jmu5v7/1269/).
 
 Em seguida, discutiremos cada conceito chave em mais detalhes, começando com [Estado](state.md).

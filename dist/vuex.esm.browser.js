@@ -1,6 +1,6 @@
 /*!
- * vuex v3.5.1
- * (c) 2020 Evan You
+ * vuex v3.6.2
+ * (c) 2021 Evan You
  * @license MIT
  */
 function applyMixin (Vue) {
@@ -278,7 +278,11 @@ class ModuleCollection {
     const parent = this.get(path.slice(0, -1));
     const key = path[path.length - 1];
 
-    return parent.hasChild(key)
+    if (parent) {
+      return parent.hasChild(key)
+    }
+
+    return false
   }
 }
 
@@ -934,7 +938,7 @@ const mapState = normalizeNamespace((namespace, states) => {
 /**
  * Reduce the code which written in Vue.js for committing the mutation
  * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
 const mapMutations = normalizeNamespace((namespace, mutations) => {
@@ -1183,7 +1187,7 @@ function pad (num, maxLength) {
 var index = {
   Store,
   install,
-  version: '3.5.1',
+  version: '3.6.2',
   mapState,
   mapMutations,
   mapGetters,

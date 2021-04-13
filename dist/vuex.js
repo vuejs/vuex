@@ -1,12 +1,12 @@
 /*!
- * vuex v3.5.1
- * (c) 2020 Evan You
+ * vuex v3.6.2
+ * (c) 2021 Evan You
  * @license MIT
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Vuex = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Vuex = factory());
 }(this, (function () { 'use strict';
 
   function applyMixin (Vue) {
@@ -292,7 +292,11 @@
     var parent = this.get(path.slice(0, -1));
     var key = path[path.length - 1];
 
-    return parent.hasChild(key)
+    if (parent) {
+      return parent.hasChild(key)
+    }
+
+    return false
   };
 
   function update (path, targetModule, newModule) {
@@ -967,7 +971,7 @@
   /**
    * Reduce the code which written in Vue.js for committing the mutation
    * @param {String} [namespace] - Module's namespace
-   * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+   * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
    * @return {Object}
    */
   var mapMutations = normalizeNamespace(function (namespace, mutations) {
@@ -1232,7 +1236,7 @@
   var index_cjs = {
     Store: Store,
     install: install,
-    version: '3.5.1',
+    version: '3.6.2',
     mapState: mapState,
     mapMutations: mapMutations,
     mapGetters: mapGetters,

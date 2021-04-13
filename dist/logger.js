@@ -1,12 +1,12 @@
 /*!
- * vuex v3.5.1
- * (c) 2020 Evan You
+ * vuex v3.6.2
+ * (c) 2021 Evan You
  * @license MIT
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Vuex = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Vuex = factory());
 }(this, (function () { 'use strict';
 
   /**
