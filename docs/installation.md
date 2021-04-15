@@ -2,10 +2,10 @@
 
 ## Direct Download / CDN
 
-[https://unpkg.com/vuex](https://unpkg.com/vuex)
+[https://unpkg.com/vuex@4](https://unpkg.com/vuex@4)
 
 <!--email_off-->
-[Unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like `https://unpkg.com/vuex@2.0.0`.
+[Unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like `https://unpkg.com/vuex@4.0.0/dist/vuex.global.js`.
 <!--/email_off-->
 
 Include `vuex` after Vue and it will install itself automatically:
