@@ -485,7 +485,7 @@ function registerAction (store, type, handler, local) {
     if (store._devtoolHook) {
       return res.catch(err => {
         store._devtoolHook.emit('vuex:error', err)
-        throw err
+        return Promise.reject(error)
       })
     } else {
       return res
