@@ -5,6 +5,8 @@ const MUTATIONS_LAYER_ID = 'vuex:mutations'
 const ACTIONS_LAYER_ID = 'vuex:actions'
 const INSPECTOR_ID = 'vuex'
 
+let actionId = 0
+
 export function addDevtools (app, store) {
   setupDevtoolsPlugin(
     {
@@ -85,6 +87,7 @@ export function addDevtools (app, store) {
           if (action.payload) {
             data.payload = action.payload
           }
+          action.id = actionId++
           action.time = Date.now()
           data.state = state
 

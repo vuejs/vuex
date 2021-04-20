@@ -23,7 +23,6 @@ export class Store {
     // store internal state
     this._committing = false
     this._actions = Object.create(null)
-    this._actionId = 0
     this._actionSubscribers = []
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
@@ -123,11 +122,7 @@ export class Store {
       payload
     } = unifyObjectStyle(_type, _payload)
 
-    const action = {
-      id: this._actionId++,
-      type,
-      payload
-    }
+    const action = { type, payload }
     const entry = this._actions[type]
     if (!entry) {
       if (__DEV__) {
