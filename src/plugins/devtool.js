@@ -1,9 +1,6 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
 const LABEL_VUEX_BINDINGS = 'vuex bindings'
-/** @type {boolean | undefined} */
-let isAlreadyInstalled
-
 const MUTATIONS_LAYER_ID = 'vuex:mutations'
 const ACTIONS_LAYER_ID = 'vuex:actions'
 const INSPECTOR_ID = 'vuex'
@@ -20,52 +17,44 @@ export function addDevtools (app, store) {
       componentStateTypes: [LABEL_VUEX_BINDINGS]
     },
     (api) => {
-      if (!isAlreadyInstalled) {
-        api.addTimelineLayer({
-          id: MUTATIONS_LAYER_ID,
-          label: 'Vuex Mutations',
-          color: COLOR_LIME_500
-        })
+      api.addTimelineLayer({
+        id: MUTATIONS_LAYER_ID,
+        label: 'Vuex Mutations',
+        color: COLOR_LIME_500
+      })
 
-        api.addTimelineLayer({
-          id: ACTIONS_LAYER_ID,
-          label: 'Vuex Actions',
-          color: COLOR_LIME_500
-        })
+      api.addTimelineLayer({
+        id: ACTIONS_LAYER_ID,
+        label: 'Vuex Actions',
+        color: COLOR_LIME_500
+      })
 
-        api.addInspector({
-          id: INSPECTOR_ID,
-          label: 'Vuex',
-          icon: 'storage',
-          treeFilterPlaceholder: 'Filter stores...'
-        })
+      api.addInspector({
+        id: INSPECTOR_ID,
+        label: 'Vuex',
+        icon: 'storage',
+        treeFilterPlaceholder: 'Filter stores...'
+      })
 
-        isAlreadyInstalled = true
-
-        api.on.getInspectorTree((payload) => {
-          if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
+      api.on.getInspectorTree((payload) => {
+        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
           // TODO: filter with payload
-            payload.rootNodes = [
-              formatStoreForInspectorTree(store._modules.root, '')
-            ]
-          }
-        })
+          payload.rootNodes = [
+            formatStoreForInspectorTree(store._modules.root, '')
+          ]
+        }
+      })
 
-        api.on.getInspectorState((payload) => {
-          if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
-            const modulePath = payload.nodeId
-            payload.state = formatStoreForInspectorState(
-              getStoreModule(store._modules, modulePath),
-              store._makeLocalGettersCache,
-              modulePath
-            )
-          }
-        })
-      } else {
-        api.notifyComponentUpdate()
-        api.sendInspectorTree(INSPECTOR_ID)
-        api.sendInspectorState(INSPECTOR_ID)
-      }
+      api.on.getInspectorState((payload) => {
+        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
+          const modulePath = payload.nodeId
+          payload.state = formatStoreForInspectorState(
+            getStoreModule(store._modules, modulePath),
+            store._makeLocalGettersCache,
+            modulePath
+          )
+        }
+      })
 
       store.subscribe((mutation, state) => {
         const data = {}
