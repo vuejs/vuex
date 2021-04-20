@@ -87,16 +87,16 @@ export function addDevtools (app, store) {
           if (action.payload) {
             data.payload = action.payload
           }
-          action.id = actionId++
-          action.time = Date.now()
+          action._id = actionId++
+          action._time = Date.now()
           data.state = state
 
           api.addTimelineEvent({
             layerId: ACTIONS_LAYER_ID,
             event: {
-              time: action.time,
+              time: action._time,
               title: action.type,
-              groupId: action.id,
+              groupId: action._id,
               subtitle: 'start',
               data
             }
@@ -104,7 +104,7 @@ export function addDevtools (app, store) {
         },
         after: (action, state) => {
           const data = {}
-          const duration = Date.now() - action.time
+          const duration = Date.now() - action._time
           data.duration = {
             _custom: {
               type: 'duration',
@@ -123,7 +123,7 @@ export function addDevtools (app, store) {
             event: {
               time: Date.now(),
               title: action.type,
-              groupId: action.id,
+              groupId: action._id,
               subtitle: 'end',
               data
             }
