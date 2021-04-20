@@ -61,11 +61,13 @@ export function addDevtools (app, store) {
       }
 
       store.subscribe((mutation, state) => {
-        const data = { state }
+        const data = {}
 
         if (mutation.payload) {
           data.payload = mutation.payload
         }
+
+        data.state = state
 
         api.notifyComponentUpdate()
         api.sendInspectorTree(INSPECTOR_ID)
