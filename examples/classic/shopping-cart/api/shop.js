@@ -14,7 +14,7 @@ export default {
   },
 
   async buyProducts (products) {
-    await wait(1000)
+    await wait(100)
     if (
       // simulate random checkout failure.
       (Math.random() > 0.5 || navigator.webdriver)
