@@ -40,10 +40,15 @@ export function addDevtools (app, store) {
 
       api.on.getInspectorTree((payload) => {
         if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
-          // TODO: filter with payload
-          payload.rootNodes = [
-            formatStoreForInspectorTree(store._modules.root, '')
-          ]
+          if (payload.filter) {
+            const nodes = []
+            flattenStoreForInspectorTree(nodes, store._modules.root, payload.filter, '')
+            payload.rootNodes = nodes
+          } else {
+            payload.rootNodes = [
+              formatStoreForInspectorTree(store._modules.root, '')
+            ]
+          }
         }
       })
 
@@ -180,6 +185,26 @@ function formatStoreForInspectorTree (module, path) {
       )
     )
   }
+}
+
+/**
+ *
+ * @param {import('@vue/devtools-api').CustomInspectorNode[]} result
+ * @param {*} module
+ * @param {string} filter
+ * @param {string} path
+ */
+function flattenStoreForInspectorTree (result, module, filter, path) {
+  if (path.includes(filter)) {
+    result.push({
+      id: path || 'root',
+      label: path.endsWith('/') ? path.slice(0, path.length - 1) : path || 'Root',
+      tags: module.namespaced ? [TAG_NAMESPACED] : []
+    })
+  }
+  Object.keys(module._children).forEach(moduleName => {
+    flattenStoreForInspectorTree(result, module._children[moduleName], filter, path + moduleName + '/')
+  })
 }
 
 /**
