@@ -5,6 +5,7 @@ const LABEL_VUEX_BINDINGS = 'vuex bindings'
 let isAlreadyInstalled
 
 const MUTATIONS_LAYER_ID = 'vuex:mutations'
+const ACTIONS_LAYER_ID = 'vuex:actions'
 const INSPECTOR_ID = 'vuex'
 
 export function addDevtools (app, store) {
@@ -22,7 +23,13 @@ export function addDevtools (app, store) {
       if (!isAlreadyInstalled) {
         api.addTimelineLayer({
           id: MUTATIONS_LAYER_ID,
-          label: 'Vuex',
+          label: 'Vuex Mutations',
+          color: COLOR_LIME_500
+        })
+
+        api.addTimelineLayer({
+          id: ACTIONS_LAYER_ID,
+          label: 'Vuex Actions',
           color: COLOR_LIME_500
         })
 
@@ -81,6 +88,55 @@ export function addDevtools (app, store) {
             data
           }
         })
+      })
+
+      store.subscribeAction({
+        before: (action, state) => {
+          const data = {}
+          if (action.payload) {
+            data.payload = action.payload
+          }
+          action.time = Date.now()
+          data.state = state
+
+          api.addTimelineEvent({
+            layerId: ACTIONS_LAYER_ID,
+            event: {
+              time: action.time,
+              title: action.type,
+              groupId: action.id,
+              subtitle: 'start',
+              data
+            }
+          })
+        },
+        after: (action, state) => {
+          const data = {}
+          const duration = Date.now() - action.time
+          data.duration = {
+            _custom: {
+              type: 'duration',
+              display: `${duration}ms`,
+              tooltip: 'Action duration',
+              value: duration
+            }
+          }
+          if (action.payload) {
+            data.payload = action.payload
+          }
+          data.state = state
+
+          api.addTimelineEvent({
+            layerId: ACTIONS_LAYER_ID,
+            event: {
+              time: Date.now(),
+              title: action.type,
+              groupId: action.id,
+              subtitle: 'end',
+              data
+            }
+          })
+        }
       })
     }
   )

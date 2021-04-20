@@ -8,16 +8,26 @@ const _products = [
 ]
 
 export default {
-  getProducts (cb) {
-    setTimeout(() => cb(_products), 100)
+  async getProducts () {
+    await wait(100)
+    return _products
   },
 
-  buyProducts (products, cb, errorCb) {
-    setTimeout(() => {
+  async buyProducts (products) {
+    await wait(1000)
+    if (
       // simulate random checkout failure.
       (Math.random() > 0.5 || navigator.webdriver)
-        ? cb()
-        : errorCb()
-    }, 100)
+    ) {
+      return
+    } else {
+      throw new Error('Checkout error')
+    }
   }
+}
+
+function wait (ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms)
+  })
 }
