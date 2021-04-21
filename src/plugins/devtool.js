@@ -1,4 +1,5 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
+import { makeLocalGetters } from '../store-util'
 
 const LABEL_VUEX_BINDINGS = 'vuex bindings'
 const MUTATIONS_LAYER_ID = 'vuex:mutations'
@@ -55,6 +56,7 @@ export function addDevtools (app, store) {
       api.on.getInspectorState((payload) => {
         if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
           const modulePath = payload.nodeId
+          makeLocalGetters(store, modulePath)
           payload.state = formatStoreForInspectorState(
             getStoreModule(store._modules, modulePath),
             store._makeLocalGettersCache,
