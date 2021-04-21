@@ -63,6 +63,19 @@ export function addDevtools (app, store) {
         }
       })
 
+      api.on.editInspectorState((payload) => {
+        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
+          const modulePath = payload.nodeId
+          let path = payload.path
+          if (modulePath !== 'root') {
+            path = [...modulePath.split('/').filter(Boolean), ...path]
+          }
+          store._withCommit(() => {
+            payload.set(store._state.data, path, payload.state.value)
+          })
+        }
+      })
+
       store.subscribe((mutation, state) => {
         const data = {}
 
