@@ -121,6 +121,20 @@ export default {
 }
 ```
 
+You can pass only one argument to action. If you want to pass more than one argument, use an Array or an Object:
+
+```js
+ // Action call from component
+const user = {
+  email: this.email,
+  password: this.password
+}
+this.login(user)
+
+// Action in Vuex
+login({ commit }, { email, password }) {...} 
+```
+
 ## Composing Actions
 
 Actions are often asynchronous, so how do we know when an action is done? And more importantly, how can we compose multiple actions together to handle more complex async flows?
