@@ -105,8 +105,6 @@ export function useStore<
   SO extends StoreOptions<any> = StoreOptions<S>
 >(injectKey?: InjectionKey<Store<S, SO>> | string): Store<S, SO>;
 
-type StrictString<T> = T extends string ? T : never;
-
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I
 ) => void
@@ -120,14 +118,14 @@ type ExtractObjects<
 > = (T extends {
   [_ in S]: infer O;
 }
-  ? { [K in keyof O as `${P}${StrictString<K>}`]: O[K] }
+  ? { [K in keyof O as `${P}${string & K}`]: O[K] }
   : {}) &
   (T extends {
     modules: infer O;
   }
     ? UnionToIntersection<
         {
-          [K in keyof O]: ExtractObjects<O[K], S, `${P}${StrictString<K>}/`>;
+          [K in keyof O]: ExtractObjects<O[K], S, `${P}${string & K}/`>;
         }[keyof O]
       >
     : {});
