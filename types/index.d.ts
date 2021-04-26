@@ -101,8 +101,9 @@ export function createStore<S, SO extends StoreOptions<any> = StoreOptions<S>>(
 ): Store<SO["state"], SO>;
 
 export function useStore<
-  S = any,
-  SO extends StoreOptions<any> = StoreOptions<S>
+  _ = any,
+  SO extends StoreOptions<any> = StoreOptions<_>,
+  S = SO["state"] extends _ ? SO["state"] : _
 >(injectKey?: InjectionKey<Store<S, SO>> | string): Store<S, SO>;
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
