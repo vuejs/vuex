@@ -14,6 +14,11 @@ module.exports = {
       title: 'Vuex',
       description: 'Vue.js 的中心化状态管理方案'
     },
+    '/ja/': {
+      lang: 'ja',
+      title: 'Vuex',
+      description: 'Vue.js のための集中状態管理'
+    },
     '/ptbr/': {
       lang: 'pt-BR',
       title: 'Vuex',
@@ -149,6 +154,65 @@ module.exports = {
             text: '迁移指南',
             children: [
               { text: '从 3.x 迁移到 4.0', link: '/zh/guide/migrating-to-4-0-from-3-x' }
+            ]
+          }
+        ]
+      },
+
+      '/ja/': {
+        label: '日本語',
+        selectText: '言語',
+        editLinkText: 'Github 上でこのページを編集する',
+        lastUpdated: '最終更新日時',
+
+        nav: [
+          { text: 'ガイド', link: '/ja/guide/' },
+          { text: 'API リファレンス', link: '/ja/api/' },
+          { text: 'リリースノート', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v4.x',
+            items: [
+              { text: 'v3.x', link: 'https://vuex.vuejs.org/ja' }
+            ]
+          }
+        ],
+
+        sidebar: [
+          {
+            text: 'はじめに',
+            children: [
+              { text: 'Vuex とは何か？', link: '/ja/' },
+              { text: 'インストール', link: '/ja/installation' },
+              { text: 'Vuex 入門', link: '/ja/guide/' }
+            ]
+          },
+          {
+            text: 'コアコンセプト',
+            children: [
+              { text: 'ステート', link: '/ja/guide/state' },
+              { text: 'ゲッター', link: '/ja/guide/getters' },
+              { text: 'ミューテーション', link: '/ja/guide/mutations' },
+              { text: 'アクション', link: '/ja/guide/actions' },
+              { text: 'モジュール', link: '/ja/guide/modules' }
+            ]
+          },
+          {
+            text: '高度な活用',
+            children: [
+              { text: 'アプリケーションの構造', link: '/ja/guide/structure' },
+              { text: 'Composition API', link: '/ja/guide/composition-api' },
+              { text: 'プラグイン', link: '/ja/guide/plugins' },
+              { text: '厳格モード', link: '/ja/guide/strict' },
+              { text: 'フォームの扱い', link: '/ja/guide/forms' },
+              { text: 'テスト', link: '/ja/guide/testing' },
+              { text: 'ホットリローディング', link: '/ja/guide/hot-reload' },
+              { text: 'TypeScript サポート', link: '/ja/guide/typescript-support' },
+            ]
+          },
+          {
+            text: '移行 ガイド',
+            children: [
+              { text: '3.x から 4.0 への移行', link: '/ja/guide/migrating-to-4-0-from-3-x' }
             ]
           }
         ]
