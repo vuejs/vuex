@@ -47,7 +47,7 @@ export default {
     const store = useStore()
 
     return {
-      // access a mutation
+      // 使用 mutation
       increment: () => store.commit('increment'),
 
       // access an action
