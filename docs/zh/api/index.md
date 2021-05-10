@@ -375,7 +375,7 @@ sidebar: auto
   app.mount('#app')
   ```
 
-  最后，将 key 传递给 `useStore` 方法以检索指定类型的 store 实例。
+  最后，将 key 传递给 `useStore` 方法以获取指定类型的 store 实例。
 
   ```ts
   // vue 组件
