@@ -40,7 +40,7 @@ const app = createApp({ /* 根组件 */ })
 app.use(store)
 ```
 
-现在，你可以通过 `store.state` 来获取状态对象，以及通过 `store.commit` 方法触发状态变更：
+现在，你可以通过 `store.state` 来获取状态对象，并通过 `store.commit` 方法触发状态变更：
 
 ``` js
 store.commit('increment')
