@@ -15,7 +15,7 @@
 <script src="/path/to/vuex.js"></script>
 ```
 
-### NPM
+### npm
 
 ``` bash
 npm install vuex@next --save
