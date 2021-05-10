@@ -37,7 +37,7 @@ export default {
 
 ## 访问 Mutations 和 Actions
 
-访问 mutation 和 action 时，可以仅通过在 `setup` 钩子函数中提供 `commit` 和 `dispatch` 函数。
+要使用 mutation 和 action 时，只需要在 `setup` 钩子函数中调用 `commit` 和 `dispatch` 函数。
 
 ```js
 import { useStore } from 'vuex'
