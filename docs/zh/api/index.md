@@ -339,7 +339,7 @@ sidebar: auto
   }
   ```
 
-  TypeScript用户可以使用 injection key 来检索已经定义了类型的 store。为了使其工作，在安装 store 实例到 Vue 应用中时，必须定义 injection key 并将其与 store 一起传递给 Vue 应用。
+  TypeScript 用户可以使用 injection key 来检索已经定义了类型的 store。为了使其工作，在将 store 实例安装到 Vue 应用中时，必须定义 injection key 并将其与 store 一起传递给 Vue 应用。
 
   首先，使用 Vue 的 `InjectionKey` 接口声明一个 injection key。
 
