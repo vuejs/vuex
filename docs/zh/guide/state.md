@@ -30,7 +30,7 @@ const Counter = {
 
 然而，这种模式导致组件依赖全局状态单例。在模块化的构建系统中，在每个需要使用 state 的组件中需要频繁地导入，并且在测试组件时需要模拟状态。
 
-Vuex 通过 Vue 的插件系统将 store 实例从根组件中注入到所有的子组件里。且子组件能通过 `this.$store` 访问到。让我们更新下 `Counter` 的实现：
+Vuex 通过 Vue 的插件系统将 store 实例从根组件中“注入”到所有的子组件里。且子组件能通过 `this.$store` 访问到。让我们更新下 `Counter` 的实现：
 
 ``` js
 const Counter = {

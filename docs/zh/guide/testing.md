@@ -6,7 +6,7 @@
 
 ## 测试 Mutation
 
-Mutation 很容易被测试，因为它们仅仅是一些完全依赖参数的函数。这里有一个小技巧，如果你在 `store.js` 文件中定义了 mutation，并且使用 ES2015 模块功能默认输出了 Vuex.Store 的实例，那么你仍然可以给 mutation 取个变量名然后把它输出去：
+Mutation 很容易被测试，因为它们仅仅是一些完全依赖参数的函数。这里有一个小技巧，如果你使用了 ES2015 模块，且将 mutation 定义在了 `store.js` 文件中，那么除了模块的默认导出外，你还应该将 mutation 进行命名导出：
 
 ``` js
 const state = { ... }
@@ -194,7 +194,7 @@ describe('getters', () => {
 
 ## 执行测试
 
-如果你的 mutation 和 action 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 Karma + `karma-webpack`在真实浏览器环境中进行测试。
+如果你的 mutation 和 action 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 Karma + `karma-webpack` 在真实浏览器环境中进行测试。
 
 ### 在 Node 中执行测试
 
@@ -236,4 +236,4 @@ mocha test-bundle.js
 
 ### 使用 Karma + karma-webpack 在浏览器中执行测试
 
-详见 [vue-loader documentation](https://vuejs.github.io/vue-loader/workflow/testing.html)。
+详见 [Vue Loader 的文档](https://vuejs.github.io/vue-loader/workflow/testing.html)。

@@ -1,16 +1,16 @@
 # 从 3.x 迁移到 4.0
 
-几乎所有的 Vuex 4 API都与 Vuex 3 保持不变。但是，仍有一些重大变更需要注意。
+几乎所有的 Vuex 4 API 都与 Vuex 3 保持不变。但是，仍有一些非兼容性变更需要注意。
 
-- [重大变更](#重大变更)
+- [非兼容性变更](#非兼容性变更)
   - [安装过程](#安装过程)
   - [TypeScript 支持](#TypeScript-支持)
   - [Bundles 已经与 Vue 3 配套](#Bundles-已经与-Vue-3-配套)
-  - ["createLogger"函数从核心模块导出](#createLogger函数从核心模块导出)
+  - [“createLogger”函数从核心模块导出](#createLogger函数从核心模块导出)
 - [新特性](#新特性)
-  - [全新的 "useStore" 组合式函数](#全新的-usestore-组合式函数)
+  - [全新的“useStore”组合式函数](#全新的-usestore-组合式函数)
 
-## 重大变更
+## 非兼容性变更
 
 ### 安装过程
 
@@ -42,13 +42,13 @@ app.use(store)
 app.mount('#app')
 ```
 
-:::tip NOTE
-从技术上讲这并不是一个重大变更，仍然可以使用 `new Store(...)` 语法，但是建议使用上述方式以保持与 Vue 3 和 Vue Router Next 的一致。
+:::tip 提示
+从技术上讲这并不是一个非兼容性变更，仍然可以使用 `new Store(...)` 语法，但是建议使用上述方式以保持与 Vue 3 和 Vue Router Next 的一致。
 :::
 
 ### TypeScript 支持
 
-为了修复 [issue #994](https://github.com/vuejs/vuex/issues/994)， Vuex 4 删除了 `this.$store` 在 Vue 组件中的全局类型声明。当使用 TypeScript 时， 必须声明自己的[模块补充(module augmentation)](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)。
+为了修复 [issue #994](https://github.com/vuejs/vuex/issues/994)，Vuex 4 删除了 `this.$store` 在 Vue 组件中的全局类型声明。当使用 TypeScript 时，必须声明自己的[模块补充(module augmentation)](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)。
 
 将下面的代码放到项目中，以允许 `this.$store` 能被正确的类型化：
 
@@ -70,7 +70,7 @@ declare module '@vue/runtime-core' {
 }
 ```
 
-在[TypeScript Support](./typescript-support)章节可以了解到更多。
+在 [TypeScript 支持](./typescript-support)章节可以了解到更多。
 
 ### Bundles 已经与 Vue 3 配套
 
@@ -89,7 +89,7 @@ declare module '@vue/runtime-core' {
 - `vuex.cjs.js`
   - 通过 `require` 在 Node.js 服务端渲染使用。
 
-### "createLogger"函数从核心模块导出
+### “createLogger”函数从核心模块导出
 
 在 Vuex 3 中，`createLogger` 方法从 `vuex/dist/logger` 文件中导出，但是现在该方法已经包含在核心包中了，应该直接从 `vuex` 包中引入。
 
@@ -99,7 +99,7 @@ import { createLogger } from 'vuex'
 
 ## 新特性
 
-### 全新的 "useStore" 组合式函数
+### 全新的“useStore”组合式函数
 
 Vuex 4 引入了一个新的 API 用于在组合式 API 中与 store 进行交互。可以在组件的 `setup` 钩子函数中使用 `useStore` 组合式函数来检索 store。
 
@@ -113,4 +113,4 @@ export default {
 }
 ```
 
-在[组合式 API](./composition-api)章节可以了解到更多。
+在 [组合式 API](./composition-api) 章节可以了解到更多。

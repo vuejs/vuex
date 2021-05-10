@@ -2,7 +2,7 @@
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
-更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 **事件类型 (type)** 和 一个 **回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
+更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的**事件类型 (type)**和一个**回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
 
 ``` js
 const store = createStore({
@@ -18,7 +18,7 @@ const store = createStore({
 })
 ```
 
-你不能直接调用一个 mutation handler。这个选项更像是事件注册：“当触发一个类型为 `increment` 的 mutation 时，调用此函数。”要唤醒一个 mutation handler，你需要以相应的 type 调用 **store.commit** 方法：
+你不能直接调用一个 mutation 处理函数。这个选项更像是事件注册：“当触发一个类型为 `increment` 的 mutation 时，调用此函数。”要唤醒一个 mutation 处理函数，你需要以相应的 type 调用 **store.commit** 方法：
 
 ``` js
 store.commit('increment')
@@ -26,7 +26,7 @@ store.commit('increment')
 
 ### 提交载荷（Payload）
 
-你可以向 `store.commit` 传入额外的参数，即 mutation 的 **载荷（payload）**：
+你可以向 `store.commit` 传入额外的参数，即 mutation 的**载荷（payload）**：
 
 ``` js
 // ...
@@ -68,7 +68,7 @@ store.commit({
 })
 ```
 
-当使用对象风格的提交方式，整个对象都作为载荷传给 mutation 函数，因此 handler 保持不变：
+当使用对象风格的提交方式，整个对象都作为载荷传给 mutation 函数，因此处理函数保持不变：
 
 ``` js
 mutations: {
@@ -97,7 +97,7 @@ const store = createStore({
   mutations: {
     // 我们可以使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名
     [SOME_MUTATION] (state) {
-      // mutate state
+      // 修改 state
     }
   }
 })

@@ -1,10 +1,10 @@
 # TypeScript 支持
 
-Vuex 提供了类型声明，因此可以使用 TypeScript 定义 store，并且不需要任何特殊的 TypeScript 配置。请遵循[Vue的基本TypeScript配置](https://v3.cn.vuejs.org/guide/typescript-support.html)来配置项目。
+Vuex 提供了类型声明，因此可以使用 TypeScript 定义 store，并且不需要任何特殊的 TypeScript 配置。请遵循 [Vue 的基本 TypeScript 配置](https://v3.cn.vuejs.org/guide/typescript-support.html) 来配置项目。
 
-但是，如果你用 TypeScript 编写的 Vue 组件，则需要遵循一些步骤才能正确的为 store 提供类型声明。
+但是，如果你使用 TypeScript 来编写 Vue 组件，则需要遵循一些步骤才能正确地为 store 提供类型声明。
 
-## Vue组件中 `$store` 属性类型声明
+## Vue 组件中 `$store` 属性的类型声明
 
 Vuex 没有为 `this.$store` 属性提供开箱即用的类型声明。如果你要使用 TypeScript，首先需要声明自定义的[模块补充(module augmentation)](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)。
 
@@ -16,12 +16,12 @@ import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
 declare module '@vue/runtime-core' {
-  // 声明自己的store state
+  // 声明自己的 store state
   interface State {
     count: number
   }
 
-  // 为`this.$store`提供类型声明
+  // 为 `this.$store` 提供类型声明
   interface ComponentCustomProperties {
     $store: Store<State>
   }
@@ -30,7 +30,7 @@ declare module '@vue/runtime-core' {
 
 ##  `useStore` 组合式函数类型声明
 
-当使用组合式 API 编写 Vue 组件时，您可能希望 `useStore` 返回类型化的 store。为了 `useStore` 能正确返回类型化的 store， 必须执行以下步骤：
+当使用组合式 API 编写 Vue 组件时，您可能希望 `useStore` 返回类型化的 store。为了 `useStore` 能正确返回类型化的 store，必须执行以下步骤：
 
 1. 定义类型化的 `InjectionKey`。
 2. 将 store 安装到 Vue 应用时提供类型化的 `InjectionKey` 。
@@ -73,7 +73,7 @@ app.use(store, key)
 app.mount('#app')
 ```
 
-最后，将上述 injection key 传入 `useStore` 方法可以检索到类型化的 store。
+最后，将上述 injection key 传入 `useStore` 方法可以获取类型化的 store。
 
 ```ts
 // vue 组件
