@@ -207,7 +207,7 @@ module.exports = {
           {
             text: '迁移指南',
             children: [
-              { text: 'Migrating to 4.0 from 3.x', link: '/zh/guide/migrating-to-4-0-from-3-x' }
+              { text: '从 3.x 迁移到 4.0', link: '/zh/guide/migrating-to-4-0-from-3-x' }
             ]
           }
         ]
