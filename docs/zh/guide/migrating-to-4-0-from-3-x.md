@@ -5,7 +5,7 @@
 - [非兼容性变更](#非兼容性变更)
   - [安装过程](#安装过程)
   - [TypeScript 支持](#TypeScript-支持)
-  - [Bundles 已经与 Vue 3 配套](#Bundles-已经与-Vue-3-配套)
+  - [打包产物已经与 Vue 3 配套](#打包产物已经与-Vue-3-配套)
   - [“createLogger”函数从核心模块导出](#createLogger函数从核心模块导出)
 - [新特性](#新特性)
   - [全新的“useStore”组合式函数](#全新的-usestore-组合式函数)
