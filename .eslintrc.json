@@ -4,6 +4,7 @@
     "plugin:vue-libs/recommended"
   ],
   "globals": {
-    "__DEV__": true
+    "__DEV__": true,
+    "__VUE_PROD_DEVTOOLS__": true
   }
 }
