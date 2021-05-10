@@ -162,7 +162,7 @@ module.exports = {
       '/ja/': {
         label: '日本語',
         selectText: '言語',
-        editLinkText: 'Github 上でこのページを編集する',
+        editLinkText: 'GitHub 上でこのページを編集する',
         lastUpdated: '最終更新日時',
 
         nav: [
