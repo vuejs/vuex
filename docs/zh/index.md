@@ -12,17 +12,17 @@ Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式 + 库**。
 
 ``` js
 const Counter = {
-  // state
+  // 状态
   data () {
     return {
       count: 0
     }
   },
-  // view
+  // 视图
   template: `
     <div>{{ count }}</div>
   `,
-  // actions
+  // 操作
   methods: {
     increment () {
       this.count++
@@ -35,9 +35,9 @@ createApp(Counter).mount('#app')
 
 这个状态自管理应用包含以下几个部分：
 
-- **state**，驱动应用的数据源；
-- **view**，以声明方式将 **state** 映射到视图；
-- **actions**，响应在 **view** 上的用户输入导致的状态变化。
+- **状态**，驱动应用的数据源；
+- **视图**，以声明方式将**状态**映射到视图；
+- **操作**，响应在**视图**上的用户输入导致的状态变化。
 
 以下是一个表示“单向数据流”理念的简单示意：
 

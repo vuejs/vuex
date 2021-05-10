@@ -72,9 +72,9 @@ declare module '@vue/runtime-core' {
 
 在 [TypeScript 支持](./typescript-support)章节可以了解到更多。
 
-### Bundles 已经与 Vue 3 配套
+### 打包产物已经与 Vue 3 配套
 
-下面的 bundles 分别与 Vue 3 的 bundles 配套：
+下面的打包产物分别与 Vue 3 的打包产物配套：
 
 - `vuex.global(.prod).js`
   - 通过`<script src="...">` 标签直接用在浏览器中，将 Vuex 暴露为全局变量。

@@ -185,10 +185,10 @@ module.exports = {
             text: '核心概念',
             children: [
               { text: 'State', link: '/zh/guide/state' },
-              { text: 'Getters', link: '/zh/guide/getters' },
-              { text: 'Mutations', link: '/zh/guide/mutations' },
-              { text: 'Actions', link: '/zh/guide/actions' },
-              { text: 'Modules', link: '/zh/guide/modules' }
+              { text: 'Getter', link: '/zh/guide/getters' },
+              { text: 'Mutation', link: '/zh/guide/mutations' },
+              { text: 'Action', link: '/zh/guide/actions' },
+              { text: 'Module', link: '/zh/guide/modules' }
             ]
           },
           {

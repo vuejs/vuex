@@ -12,9 +12,9 @@ export default {
 }
 ```
 
-## 访问 State 和 Getters
+## 访问 State 和 Getter
 
-为了访问 state 和 getters，需要创建 `computed` 引用以保留响应性，这与在选项式 API 中创建计算属性等效。
+为了访问 state 和 getter，需要创建 `computed` 引用以保留响应性，这与在选项式 API 中创建计算属性等效。
 
 ```js
 import { computed } from 'vue'
@@ -35,7 +35,7 @@ export default {
 }
 ```
 
-## 访问 Mutations 和 Actions
+## 访问 Mutation 和 Action
 
 要使用 mutation 和 action 时，只需要在 `setup` 钩子函数中调用 `commit` 和 `dispatch` 函数。
 
