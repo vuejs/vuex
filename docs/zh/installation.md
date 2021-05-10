@@ -5,7 +5,7 @@
 [https://unpkg.com/vuex@4](https://unpkg.com/vuex@4)
 
 <!--email_off-->
-[Unpkg.com](https://unpkg.com) 提供了基于 NPM 的 CDN 链接。以上的链接会一直指向 NPM 上发布的最新版本。您也可以通过 `https://unpkg.com/vuex@4.0.0/dist/vuex.global.js` 这样的方式指定特定的版本。
+[Unpkg.com](https://unpkg.com) 提供了基于 npm 的 CDN 链接。以上的链接会一直指向 npm 上发布的最新版本。您也可以通过 `https://unpkg.com/vuex@4.0.0/dist/vuex.global.js` 这样的方式指定特定的版本。
 <!--/email_off-->
 
 在 Vue 之后引入 `vuex` 会进行自动安装：
