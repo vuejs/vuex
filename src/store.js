@@ -25,7 +25,8 @@ export class Store {
 
     const {
       plugins = [],
-      strict = false
+      strict = false,
+      devtools
     } = options
 
     // store internal state
@@ -38,6 +39,7 @@ export class Store {
     this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
     this._makeLocalGettersCache = Object.create(null)
+    this._devtools = devtools
 
     // bind commit and dispatch to self
     const store = this
@@ -71,7 +73,11 @@ export class Store {
     app.provide(injectKey || storeKey, this)
     app.config.globalProperties.$store = this
 
-    if (__DEV__ || __VUE_PROD_DEVTOOLS__) {
+    const useDevtools = this._devtools !== undefined
+      ? this._devtools
+      : __DEV__ || __VUE_PROD_DEVTOOLS__
+
+    if (useDevtools) {
       addDevtools(app, this)
     }
   }
