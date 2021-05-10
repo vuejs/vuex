@@ -113,4 +113,4 @@ export default {
 }
 ```
 
-在 [组合式 API](./composition-api) 章节可以了解到更多。
+在[组合式 API](./composition-api) 章节可以了解到更多。
