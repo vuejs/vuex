@@ -154,15 +154,8 @@ export function addDevtools (app, store) {
   )
 }
 
-/**
- * Extracted from tailwind palette
- */
-const COLOR_PINK_500 = 0xec4899
-const COLOR_BLUE_600 = 0x2563eb
+// extracted from tailwind palette
 const COLOR_LIME_500 = 0x84cc16
-const COLOR_CYAN_400 = 0x22d3ee
-const COLOR_ORANGE_400 = 0xfb923c
-// const COLOR_GRAY_100 = 0xf4f4f5
 const COLOR_DARK = 0x666666
 const COLOR_WHITE = 0xffffff
 
