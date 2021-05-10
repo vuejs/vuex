@@ -1,6 +1,6 @@
 # Getter
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">在 scrimba 上尝试这节课</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
 有时候我们需要从 store 中的 state 中派生出一些状态，例如对列表进行过滤并计数：
 
