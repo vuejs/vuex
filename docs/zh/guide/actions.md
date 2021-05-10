@@ -1,6 +1,6 @@
 # Action
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">在 scrimba 上尝试这节课</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
 Action 类似于 mutation，不同在于：
 
