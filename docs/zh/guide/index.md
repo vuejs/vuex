@@ -36,7 +36,7 @@ const store = createStore({
 
 const app = createApp({ /* 根组件 */ })
 
-// 将store实例作为插件安装
+// 将 store 实例作为插件安装
 app.use(store)
 ```
 
