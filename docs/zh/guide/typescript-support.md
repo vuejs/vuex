@@ -1,6 +1,6 @@
 # TypeScript 支持
 
-Vuex 提供了类型声明，因此可以使用 TypeScript 定义 store，并且不需要任何特殊的 TypeScript 配置。请遵循 [Vue 的基本 TypeScript 配置](https://v3.cn.vuejs.org/guide/typescript-support.html) 来配置项目。
+Vuex 提供了类型声明，因此可以使用 TypeScript 定义 store，并且不需要任何特殊的 TypeScript 配置。请遵循 [Vue 的基本 TypeScript 配置](https://v3.cn.vuejs.org/guide/typescript-support.html)来配置项目。
 
 但是，如果你使用 TypeScript 来编写 Vue 组件，则需要遵循一些步骤才能正确地为 store 提供类型声明。
 
