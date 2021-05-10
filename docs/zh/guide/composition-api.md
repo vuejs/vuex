@@ -28,7 +28,7 @@ export default {
       // 在 computed 函数中访问 state
       count: computed(() => store.state.count),
 
-      // 在computed方法中访问getter
+      // 在 computed 函数中访问 getter
       double: computed(() => store.getters.double)
     }
   }
