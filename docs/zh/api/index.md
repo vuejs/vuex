@@ -10,7 +10,7 @@ sidebar: auto
 
 - `createStore<S>(options: StoreOptions<S>): Store<S>`
 
-  Creates a new store.
+  创建一个 store 实例。
 
   ```js
   import { createStore } from 'vuex'
