@@ -21,41 +21,21 @@
 
 ```bash
 npm install vuex --save
-
-# При использовании Vue 3.0 + Vuex 4.0:
-npm install vuex@next --save
 ```
 
 ## Yarn
 
 ```bash
 yarn add vuex
-
-# При использовании Vue 3.0 + Vuex 4.0:
-yarn add vuex@next --save
 ```
 
 При использовании системы сборки необходимо явно устанавливать как плагин:
-
-### Для Vue 2
 
 ```js
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-```
-
-### Для Vue 3
-
-```js
-import { createApp } from 'vue'
-import { createStore } from 'vuex'
-
-const app = createApp({ ... })
-const store = createStore({ ... })
-
-app.use(store)
 ```
 
 При использовании глобальных тегов `<script>` в этом нет необходимости.
