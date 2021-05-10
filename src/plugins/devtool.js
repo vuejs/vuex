@@ -173,7 +173,6 @@ const TAG_NAMESPACED = {
 }
 
 /**
- *
  * @param {string} path
  */
 function extractNameFromPath (path) {
@@ -181,7 +180,6 @@ function extractNameFromPath (path) {
 }
 
 /**
- *
  * @param {*} module
  * @return {import('@vue/devtools-api').CustomInspectorNode}
  */
@@ -203,7 +201,6 @@ function formatStoreForInspectorTree (module, path) {
 }
 
 /**
- *
  * @param {import('@vue/devtools-api').CustomInspectorNode[]} result
  * @param {*} module
  * @param {string} filter
@@ -223,7 +220,6 @@ function flattenStoreForInspectorTree (result, module, filter, path) {
 }
 
 /**
- *
  * @param {*} module
  * @return {import('@vue/devtools-api').CustomInspectorState}
  */
