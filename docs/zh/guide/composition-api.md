@@ -1,6 +1,6 @@
 # 组合式API
 
-可以通过在 `setup` 钩子函数中调用 `useStore` 方法访问 store，这与在组件中使用选项式API访问 `this.$store`是等效的。
+可以通过调用 `useStore` 函数，来在 `setup` 钩子函数中访问 store。这与在组件中使用选项式 API 访问 `this.$store` 是等效的。
 
 ```js
 import { useStore } from 'vuex'
