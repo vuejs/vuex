@@ -1,6 +1,6 @@
 # 表单处理
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">在 scrimba 上尝试这节课</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
 当在严格模式中使用 Vuex 时，在属于 Vuex 的 state 上使用 `v-model` 会比较棘手：
 
