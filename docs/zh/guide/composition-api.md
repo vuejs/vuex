@@ -25,7 +25,7 @@ export default {
     const store = useStore()
 
     return {
-      // 在computed方法中访问state
+      // 在 computed 函数中访问 state
       count: computed(() => store.state.count),
 
       // 在computed方法中访问getter
