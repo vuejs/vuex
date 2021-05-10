@@ -50,7 +50,7 @@ export default {
       // 使用 mutation
       increment: () => store.commit('increment'),
 
-      // access an action
+      // 使用 action
       asyncIncrement: () => store.dispatch('asyncIncrement')
     }
   }
