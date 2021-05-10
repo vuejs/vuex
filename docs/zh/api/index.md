@@ -386,7 +386,7 @@ sidebar: auto
     setup () {
       const store = useStore(key)
 
-      store.state.count // typed as number
+      store.state.count // 类型为 number
     }
   }
   ```
