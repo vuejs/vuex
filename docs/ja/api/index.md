@@ -2,7 +2,7 @@
 sidebar: auto
 ---
 
-# API Reference
+# API リファレンス
 
 ## Store
 
@@ -10,7 +10,7 @@ sidebar: auto
 
 - `createStore<S>(options: StoreOptions<S>): Store<S>`
 
-  Creates a new store.
+  新しいストアを作成します。
 
   ```js
   import { createStore } from 'vuex'
@@ -18,74 +18,73 @@ sidebar: auto
   const store = createStore({ ...options })
   ```
 
-## Store Constructor Options
+## Store コンストラクタオプション
 
 ### state
 
-- type: `Object | Function`
+- 型: `Object | Function`
+  ストアのための ルートステートオブジェクトです。 [詳細](../guide/state.md)
 
-  The root state object for the Vuex store. [Details](../guide/state.md)
-
-  If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](../guide/modules.md#module-reuse)
+  オブジェクトを返す関数を渡す場合、返されたオブジェクトはルートステートとして使用されます。これは特にモジュールの再利用のためにステートオブジェクトを再利用する場合に便利です。[詳細](../guide/modules.md#モジュールの再利用)
 
 ### mutations
 
-- type: `{ [type: string]: Function }`
+- 型: `{ [type: string]: Function }`
 
-  Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
+  ストアにミューテーションを登録します。ハンドラ関数は第 1 引数に `state` を常に受け取り(モジュール内で定義されていれば、モジュールのローカルステートを受け取り)、指定されていれば第 2 引数に `payload` を受け取ります。
 
-  [Details](../guide/mutations.md)
+  [詳細](../guide/mutations.md)
 
 ### actions
 
-- type: `{ [type: string]: Function }`
+- 型: `{ [type: string]: Function }`
 
-  Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+  ストアにアクションを登録します。ハンドラ関数は次のプロパティを持つ `context` オブジェクトを受け取ります。:
 
   ```js
   {
-    state,      // same as `store.state`, or local state if in modules
-    rootState,  // same as `store.state`, only in modules
-    commit,     // same as `store.commit`
-    dispatch,   // same as `store.dispatch`
-    getters,    // same as `store.getters`, or local getters if in modules
-    rootGetters // same as `store.getters`, only in modules
+    state,      // `store.state` と同じか、モジュール内にあればローカルステート
+    rootState,  // `store.state` と同じ。ただしモジュール内に限る
+    commit,     // `store.commit` と同じ
+    dispatch,   // `store.dispatch` と同じ
+    getters,    // `store.getters` と同じか、モジュール内にあればローカルゲッター
+    rootGetters // `store.getters` と同じ。ただしモジュール内に限る
   }
   ```
 
-  And also receives a second `payload` argument if there is one.
+  そして、第 2 引数の `payload` があれば、それを受け取ります。
 
-  [Details](../guide/actions.md)
+  [詳細](../guide/actions.md)
 
 ### getters
 
-- type: `{ [key: string]: Function }`
+- 型: `{ [key: string]: Function }`
 
-  Register getters on the store. The getter function receives the following arguments:
-
-  ```
-  state,     // will be module local state if defined in a module.
-  getters    // same as store.getters
-  ```
-
-  Specific when defined in a module
+  ストアにゲッターを登録します. ゲッター関数は次の引数を受け取ります:
 
   ```
-  state,       // will be module local state if defined in a module.
-  getters,     // module local getters of the current module
-  rootState,   // global state
-  rootGetters  // all getters
+  state,     // モジュール内で定義されていればモジュールのローカルステート
+  getters    // store.getters と同じ
   ```
 
-  Registered getters are exposed on `store.getters`.
+  モジュールで定義されたときの仕様
 
-  [Details](../guide/getters.md)
+  ```
+  state,       // モジュールで定義された場合、モジュールのローカルステート
+  getters,     // 現在のモジュールのモジュールのローカルゲッター
+  rootState,   // グローバルステート
+  rootGetters  // 全てのゲッター
+  ```
+
+  登録されたゲッターは `store.getters` 上に公開されます。
+
+  [詳細](../guide/getters.md)
 
 ### modules
 
-- type: `Object`
+- 型: `Object`
 
-  An object containing sub modules to be merged into the store, in the shape of:
+  サブモジュールを含む次のような形式のオブジェクトはストアにマージされます。
 
   ```js
   {
@@ -101,32 +100,32 @@ sidebar: auto
   }
   ```
 
-  Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+  各モジュールは、ルートオプションに似た `state` と `mutations` を含むことができます。モジュールの状態は、モジュールのキーを使って、ストアのルートステートに結合されます。モジュールのミューテーションとゲッターは、第 1 引数としてルートステートの代わりに、モジュールのローカルステートだけを受け取り、モジュールのアクションの `context.state` もローカルステートを指すようになります。
 
-  [Details](../guide/modules.md)
+  [詳細](../guide/modules.md)
 
 ### plugins
 
-- type: `Array<Function>`
+- 型: `Array<Function>`
 
-  An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+  プラグイン関数の配列は、ストアに適用されます。このプラグインは、ストアだけを引数として受け取り、外部への永続化、ロギング、デバッギングのために、ミューテーションを監視するか、または、 websocket や observable のような外から渡されるデータのためにミューテーションをディスパッチします。
 
-  [Details](../guide/plugins.md)
+  [詳細](../guide/plugins.md)
 
 ### strict
 
-- type: `boolean`
-- default: `false`
+- 型: `boolean`
+- デフォルト: `false`
 
-  Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+  Vuex ストアを厳格モードにします。厳格モードでは、ミューテーションハンドラ以外で、 Vuex の状態の変更を行うと、エラーが投げられます。
 
-  [Details](../guide/strict.md)
+  [詳細](../guide/strict.md)
 
 ### devtools
 
-- type: `boolean`
+- 型: `boolean`
 
-  Turn the devtools on or off for a particular Vuex instance. For instance, passing `false` tells the Vuex store to not subscribe to devtools plugin. Useful when you have multiple stores on a single page.
+  特定の Vuex インスタンスに対して開発ツールをオン、またはオフにします。インスタンスに false を渡すと、開発ツールのプラグインを購読しないように Vuex ストアに伝えます。1 ページに複数のストアがある時に便利です。
 
   ```js
   {
@@ -134,102 +133,95 @@ sidebar: auto
   }
   ```
 
-## Store Instance Properties
+## Store インスタンスプロパティ
 
 ### state
 
-- type: `Object`
+- 型: `Object`
 
-  The root state. Read only.
+  ルートステート、読み取り専用です。
 
 ### getters
 
-- type: `Object`
+- 型: `Object`
 
-  Exposes registered getters. Read only.
+  登録されているゲッターを公開します。読み取り専用です。
 
-## Store Instance Methods
+## Store インスタンスメソッド
 
 ### commit
 
 -  `commit(type: string, payload?: any, options?: Object)`
 -  `commit(mutation: Object, options?: Object)`
 
-  Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](../guide/modules.md#namespacing). [Details](../guide/mutations.md)
+  ミューテーションをコミットします。`options` は[名前空間付きモジュール](../guide/modules.md#名前空間)で root なミューテーションにコミットできる `root: true` を持つことできます。[詳細](../guide/mutations.md)
 
 ### dispatch
 
 -  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
 -  `dispatch(action: Object, options?: Object): Promise<any>`
 
-  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
+  アクションをディスパッチします。`options` は[名前空間付きモジュール](../guide/modules.md#名前空間)で root なアクションにディスパッチできる `root: true` を持つことできます。 すべてのトリガーされたアクションハンドラを解決するPromiseを返します。[詳細](../guide/actions.md)
 
 ### replaceState
 
 -  `replaceState(state: Object)`
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  ストアのルートステートを置き換えます。これは、ステートのハイドレーションやタイムトラベルのためだけに利用すべきです。
 
 ### watch
 
 -  `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as [Vue's `vm.$watch` method](https://vuejs.org/v2/api/#vm-watch).
+  `fn`が返す値をリアクティブに監視し、値が変わった時にコールバックを呼びます。`fn`は最初の引数としてストアのステートを、2番目の引数としてゲッターを受け取ります。 [Vue の`vm.$watch`メソッド](https://jp.vuejs.org/v2/api/#watch)と同じオプションをオプションのオブジェクトとして受け付けます。
 
-  To stop watching, call the returned unwatch function.
+  監視を止める場合は、返された unwatch 関数を呼び出します。
 
 ### subscribe
 
 -  `subscribe(handler: Function, options?: Object): Function`
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
+  ストアへのミューテーションを購読します。`handler` は、全てのミューテーションの後に呼ばれ、引数として、ミューテーション ディスクリプタとミューテーション後の状態を受け取ります。
 
   ```js
   const unsubscribe = store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
   })
-
-  // you may call unsubscribe to stop the subscription
-  unsubscribe()
   ```
 
-  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
 
   ```js
   store.subscribe(handler, { prepend: true })
   ```
 
-  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribe` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
+  購読を停止するには、返された unsubscribe 関数呼び出します。
 
-  Most commonly used in plugins. [Details](../guide/plugins.md)
+  プラグインの中でもっともよく利用されます。[詳細](../guide/plugins.md)
 
 ### subscribeAction
 
 -  `subscribeAction(handler: Function, options?: Object): Function`
 
-  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
-  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
+  スストアアクションを購読します。`handler` はディスパッチされたアクションごとに呼び出され、アクション記述子と現在のストア状態を引数として受け取ります:
 
   ```js
   const unsubscribe = store.subscribeAction((action, state) => {
     console.log(action.type)
     console.log(action.payload)
   })
-
-  // you may call unsubscribe to stop the subscription
-  unsubscribe()
   ```
 
-  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+  デフォルトでは、新しい `handler` はチェーンの最後に登録されます。つまり、先に追加された他の `handler` が呼び出された後に実行されます。`prepend: true` を `options` に設定することで、`handler` をチェーンの最初に登録することができます。
 
   ```js
   store.subscribeAction(handler, { prepend: true })
   ```
 
-  The `subscribeAction` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribeAction` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
+  購読を停止するには、返された unsubscribe 関数を呼び出します。
 
-  `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+  `subscribeAction` は購読ハンドラがアクションディスパッチの*前 (before)*、または*後 (after)* に呼びだすべきかどうか(デフォルトの動作は、*before* です)指定することもできます。
 
   ```js
   store.subscribeAction({
@@ -242,7 +234,7 @@ sidebar: auto
   })
   ```
 
-  `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
+  `subscribeAction` は `error` ハンドラを指定することもできます。このハンドラは、アクションディスパッチの中で投げられたエラーをキャッチすることができます。`error` ハンドラは投げられた `error` オブジェクトを第 3 引数として受け取ります。
 
   ```js
   store.subscribeAction({
@@ -253,87 +245,87 @@ sidebar: auto
   })
   ```
 
-  The `subscribeAction` method is most commonly used in plugins. [Details](../guide/plugins.md)
+  `subscribeAction` メソッドはプラグインで最も一般的に使用されます。[詳細](../guide/plugins.md)
 
 ### registerModule
 
 -  `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
-  Register a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+   動的なモジュールを登録します。[詳細](../guide/modules.md#dynamic-module-registration)
 
-  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
+  `options` は前の状態を保存する `preserveState: true` を持つことができます。サーバサイドレンダリングに役立ちます。
 
 ### unregisterModule
 
 -  `unregisterModule(path: string | Array<string>)`
 
-  Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+  動的なモジュールを解除します。[詳細](../guide/modules.md#dynamic-module-registration)
 
 ### hasModule
 
 - `hasModule(path: string | Array<string>): boolean`
 
-  Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
+  動的なモジュールがすでに登録されているかどうかを確認します。[詳細](../guide/modules.md#dynamic-module-registration)
 
 ### hotUpdate
 
 -  `hotUpdate(newOptions: Object)`
 
-  Hot swap new actions and mutations. [Details](../guide/hot-reload.md)
+  新しいアクションとミューテーションをホットスワップします。[詳細](../guide/hot-reload.md)
 
-## Component Binding Helpers
+## コンポーネントをバインドするヘルパー
 
 ### mapState
 
 -  `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](../guide/state.md#the-mapstate-helper)
+  ストアのサブツリーを返すコンポーネントの computed オプションを作成します。[詳細](../guide/state.md#the-mapstate-helper)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  第 1 引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  The second object argument's members can be a function. `function(state: any)`
+  第 2 引数のオブジェクトのメンバーには関数 `function(state: any)` を指定できます。
 
 ### mapGetters
 
 -  `mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`
 
-  Create component computed options that return the evaluated value of a getter. [Details](../guide/getters.md#the-mapgetters-helper)
+  ゲッターの評価後の値を返すコンポーネントの computed オプションを作成します。[詳細](../guide/getters.md#the-mapgetters-helper)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  第 1 引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
 ### mapActions
 
 -  `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that dispatch an action. [Details](../guide/actions.md#dispatching-actions-in-components)
+  アクションをディスパッチするコンポーネントの methods オプションを作成します。[詳細](../guide/actions.md#dispatching-actions-in-components)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  第 1 引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  The second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
+  第 2 引数のオブジェクトのメンバーには関数 `function(dispatch: function, ...args: any[])` を指定できます。
 
 ### mapMutations
 
 -  `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that commit a mutation. [Details](../guide/mutations.md#committing-mutations-in-components)
+  ミューテーションをコミットするコンポーネントの methods オプションを作成します。[詳細](../guide/mutations.md#commiting-mutations-in-components)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  第 1 引数は、オプションで名前空間文字列にすることができます。[詳細](../guide/modules.md#binding-helpers-with-namespace)
 
-  The second object argument's members can be a function. `function(commit: function, ...args: any[])`
+  第 2 引数のオブジェクトのメンバーには関数 `function(commit: function, ...args: any[])` を指定できます。
 
 ### createNamespacedHelpers
 
 -  `createNamespacedHelpers(namespace: string): Object`
 
-  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](../guide/modules.md#binding-helpers-with-namespace)
 
-## Composable Functions
+## 構成可能な関数
 
 ### useStore
 
 - `useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;`
 
-  Fetches the injected store when called inside the `setup` hook. When using the Composition API, you can retrieve the store by calling this method.
+  `setup` フックの中で呼ばれた時に、注入されたストアを取得します。Composition API を使用する時、このメソッドを呼ぶことでストアを取得することができます。
 
   ```js
   import { useStore } from 'vuex'
@@ -345,9 +337,9 @@ sidebar: auto
   }
   ```
 
-  TypeScript users can use an injection key to retrieve a typed store. In order for this to work, you must define the injection key and pass it along with the store when installing the store instance to the Vue app.
+  TypeScript ユーザーは、インジェクション・キーを使って型付けされたストアを取得することができます。これを実現するためには、ストアインスタンスを Vue アプリにインストールする時に、インジェクション・キーを定義してストアと一緒に渡す必要があります。
 
-  First, declare the injection key using Vue's `InjectionKey` interface.
+  まず、Vue の `InjectionKey` インターフェースを使って、インジェクション・キーを宣言します。
 
   ```ts
   // store.ts
@@ -367,7 +359,7 @@ sidebar: auto
   })
   ```
 
-  Then, pass the defined key as the second argument for the `app.use` method.
+  そして、その定義したキーを `app.use` メソッドの第 2 引数に渡します。
 
   ```ts
   // main.ts
@@ -381,10 +373,10 @@ sidebar: auto
   app.mount('#app')
   ```
 
-  Finally, you can pass the key to the `useStore` method to retrieve the typed store instance.
+  最後に、`useStore` メソッドにそのキーを渡すことで型付けされたストアインスタンスを取得することができます。
 
   ```ts
-  // in a vue component
+  // vue component 内
   import { useStore } from 'vuex'
   import { key } from './store'
 
@@ -392,7 +384,7 @@ sidebar: auto
     setup () {
       const store = useStore(key)
 
-      store.state.count // typed as number
+      store.state.count // number として型付け
     }
   }
   ```
