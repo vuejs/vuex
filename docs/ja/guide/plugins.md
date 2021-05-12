@@ -1,20 +1,20 @@
-# Plugins
+# プラグイン 
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-Vuex stores accept the `plugins` option that exposes hooks for each mutation. A Vuex plugin is simply a function that receives the store as the only argument:
+Vuex ストア は、各ミューテーションへのフックを公開する `plugins` オプションを受け付けます。 Vuex プラグインは、単一の引数としてストアを受けつけるただの関数です:
 
 ```js
 const myPlugin = (store) => {
-  // called when the store is initialized
+  // ストアが初期化されたときに呼ばれます
   store.subscribe((mutation, state) => {
-    // called after every mutation.
-    // The mutation comes in the format of `{ type, payload }`.
+    // それぞれのミューテーションの後に呼ばれます
+    // ミューテーションは `{ type, payload }` の形式で提供されます
   })
 }
 ```
 
-And can be used like this:
+そして、このように利用することができます:
 
 ```js
 const store = createStore({
@@ -23,11 +23,11 @@ const store = createStore({
 })
 ```
 
-## Committing Mutations Inside Plugins
+## プラグイン内でのミューテーションのコミット
 
-Plugins are not allowed to directly mutate state - similar to your components, they can only trigger changes by committing mutations.
+プラグインは直接、状態を変更できません。これはコンポーネントに似ています。プラグインはコンポーネント同様に、ミューテーションのコミットをトリガーすることで状態を変更できます。
 
-By committing mutations, a plugin can be used to sync a data source to the store. For example, to sync a websocket data source to the store (this is just a contrived example, in reality the `createWebSocketPlugin` function can take some additional options for more complex tasks):
+ミューテーションのコミットによるストアとデータソースの同期をプラグインで実現できます。 websocket データソースとストアを例にします (これは不自然で作為的な例です。実際には `createWebSocketPlugin` 関数は、さらに複雑なタスクのために追加でいくつかのオプションを受け取れます):
 
 ```js
 export default function createWebSocketPlugin (socket) {
@@ -54,9 +54,9 @@ const store = createStore({
 })
 ```
 
-## Taking State Snapshots
+## 状態のスナップショットを撮る
 
-Sometimes a plugin may want to receive "snapshots" of the state, and also compare the post-mutation state with pre-mutation state. To achieve that, you will need to perform a deep-copy on the state object:
+時々、状態の"スナップショット"を撮って、ミューテーション前後の状態を比較したくなることがあるでしょう。それを実現するために、状態オブジェクトのディープコピーを行う必要があります:
 
 ```js
 const myPluginWithSnapshot = (store) => {
@@ -64,15 +64,15 @@ const myPluginWithSnapshot = (store) => {
   store.subscribe((mutation, state) => {
     let nextState = _.cloneDeep(state)
 
-    // compare `prevState` and `nextState`...
+    // `prevState` と `nextState` を比較...
 
-    // save state for next mutation
+    // 次のミューテーションのために状態を保存
     prevState = nextState
   })
 }
 ```
 
-**Plugins that take state snapshots should be used only during development.** When using webpack or Browserify, we can let our build tools handle that for us:
+**状態のスナップショットを撮るプラグインはアプリケーションの開発の間だけ使われるべきです。**  webpack や Browserify を使っていれば、ビルドツールにそれを処理させることができます:
 
 ```js
 const store = createStore({
@@ -83,11 +83,11 @@ const store = createStore({
 })
 ```
 
-The plugin will be used by default. For production, you will need [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) for webpack or [envify](https://github.com/hughsk/envify) for Browserify to convert the value of `process.env.NODE_ENV !== 'production'` to `false` for the final build.
+上のように記述すれば、プラグインはデフォルトで利用されることになります。本番環境( production ) では、 `process.env.NODE_ENV !== 'production'` を `false` に置き換えるために、 webpack では[DefinePlugin](https://webpack.js.org/plugins/define-plugin/) 、 Browserify では[envify](https://github.com/hughsk/envify) が必要になります。
 
-## Built-in Logger Plugin
+## ビルトインロガープラグイン
 
-Vuex comes with a logger plugin for common debugging usage:
+Vuex には、一般的なデバッグに利用する用途の備え付けのロガープラグインがあります。
 
 ```js
 import { createLogger } from 'vuex'
@@ -97,41 +97,41 @@ const store = createStore({
 })
 ```
 
-The `createLogger` function takes a few options:
+`createLogger` 関数はいくつかのオプションを受け取ります:
 
 ```js
 const logger = createLogger({
-  collapsed: false, // auto-expand logged mutations
+  collapsed: false, // ログ出力されたミューテーションを自動で展開します
   filter (mutation, stateBefore, stateAfter) {
-    // returns `true` if a mutation should be logged
-    // `mutation` is a `{ type, payload }`
+    // ミューテーションを記録する必要がある場合は、`true` を返します
+    // `mutation` は `{ type, payload }` です
     return mutation.type !== "aBlocklistedMutation"
   },
   actionFilter (action, state) {
-    // same as `filter` but for actions
-    // `action` is a `{ type, payload }`
+    // `filter` と同等ですが、アクション用です
+    // `action` は `{ type, payloed }` です
     return action.type !== "aBlocklistedAction"
   },
   transformer (state) {
-    // transform the state before logging it.
-    // for example return only a specific sub-tree
+    // ロギングの前に、状態を変換します
+    // 例えば、特定のサブツリーのみを返します
     return state.subTree
   },
   mutationTransformer (mutation) {
-    // mutations are logged in the format of `{ type, payload }`
-    // we can format it any way we want.
+    // ミューテーションは、`{ type, payload }` の形式でログ出力されます
+    // 任意の方法でそれをフォーマットできます
     return mutation.type
   },
   actionTransformer (action) {
-    // Same as mutationTransformer but for actions
+    // `mutationTransformer` と同等ですが、アクション用です
     return action.type
   },
-  logActions: true, // Log Actions
-  logMutations: true, // Log mutations
-  logger: console, // implementation of the `console` API, default `console`
+  logActions: true, // アクションログを出力します。
+  logMutations: true, // ミューテーションログを出力します。
+  logger: console, // `console` API の実装, デフォルトは `console`
 })
 ```
 
-The logger file can also be included directly via a `<script>` tag, and will expose the `createVuexLogger` function globally.
+ロガーファイルは、他にも `<script>` タグで直接読み込むことができ、`createVuexLogger` 関数がグローバルに公開されます。
 
-Note the logger plugin takes state snapshots, so use it only during development.
+ロガープラグインは、状態のスナップショットを撮ることに注意しましょう。スナップショットを撮ることはコストがかかるため、開発中だけ利用してください。

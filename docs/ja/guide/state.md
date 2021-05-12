@@ -1,21 +1,21 @@
-# State
+# ステート
 
-## Single State Tree
+## 単一ステートツリー
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-Vuex uses a **single state tree** - that is, this single object contains all your application level state and serves as the "single source of truth." This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
+Vuex は **単一ステートツリー (single state tree)** を使います。つまり、この単一なオブジェクトはアプリケーションレベルの状態が全て含まれており、"信頼できる唯一の情報源 (single source of truth)" として機能します。これは、通常、アプリケーションごとに1つしかストアは持たないことを意味します。単一ステートツリーは状態の特定の部分を見つけること、デバッグのために現在のアプリケーションの状態のスナップショットを撮ることを容易にします。
 
-The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
+単一ステートツリーはモジュール性と競合しません。以降の章で、アプリケーションの状態とミューテーション(変更)をサブモジュールに分割する方法について説明します。
 
-The data you store in Vuex follows the same rules as the `data` in a Vue instance, ie the state object must be plain. **See also:** [Vue#data](https://v3.vuejs.org/api/options-data.html#data-2).
+Vuexに保存するデータは、Vueインスタンスの `data` と同じルールに従います。つまり、ステートオブジェクトはプレーンでなければなりません。[Vue#data](https://v3.ja.vuejs.org/api/options-data.html#data-2)も参照してください。
 
-## Getting Vuex State into Vue Components
+## Vuex の状態を Vue コンポーネントに入れる
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](https://vuejs.org/guide/computed.html):
+ストアにある状態を Vue コンポーネント に表示するにはどうすればよいのでしょう？　Vuex ストア はリアクティブなので、ストアから状態を"取り出す"一番シンプルな方法は、単純にいくつかのストアの状態を [算出プロパティ](https://jp.vuejs.org/guide/computed.html) で返すことです。
 
 ```js
-// let's create a Counter component
+// Counter コンポーネントをつくってみましょう
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
@@ -26,11 +26,11 @@ const Counter = {
 }
 ```
 
-Whenever `store.state.count` changes, it will cause the computed property to re-evaluate, and trigger associated DOM updates.
+`store.state.count` が変わるたび、算出プロパティの再評価が発生し、関連した DOM の更新をトリガーします。
 
-However, this pattern causes the component to rely on the global store singleton. When using a module system, it requires importing the store in every component that uses store state, and also requires mocking when testing the component.
+しかし、このパターンでは、コンポーネントがグローバルストアシングルトンに依存してしまいます。 モジュールシステムを使っているとき、ストアの状態を使っているすべてのコンポーネントでインポートが必要です。また、コンポーネントのテストのときにモック化が必要となります。
 
-Vuex "injects" the store into all child components from the root component through Vue's plugin system, and will be available on them as `this.$store`. Let's update our `Counter` implementation:
+Vuex は Vue のプラグインシステムを通じて、ルートコンポーネントからすべての子コンポーネントにストアを "注入" し、それらのコンポーネントでは `this.$store` として利用できるようになります。それでは `Counter` の実装を変更しましょう:
 
 ```js
 const Counter = {
@@ -43,26 +43,26 @@ const Counter = {
 }
 ```
 
-## The `mapState` Helper
+## `mapState` ヘルパー
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-When a component needs to make use of multiple store state properties or getters, declaring all these computed properties can get repetitive and verbose. To deal with this we can make use of the `mapState` helper which generates computed getter functions for us, saving us some keystrokes:
+コンポーネントが複数のストアのステートプロパティやゲッターを必要としているとき、これらすべてにおいて、算出プロパティを宣言することは繰り返しで冗長です。これに対処するため、算出ゲッター関数を生成し、いくつかのキーストロークを省くのに役立つ `mapState` ヘルパーを使うことができます:
 
 ```js
-// in full builds helpers are exposed as Vuex.mapState
+// 完全ビルドでは、ヘルパーは Vuex.mapState として公開されています
 import { mapState } from 'vuex'
 
 export default {
   // ...
   computed: mapState({
-    // arrow functions can make the code very succinct!
+    // アロー関数は、コードをとても簡潔にできます！
     count: state => state.count,
 
-    // passing the string value 'count' is same as `state => state.count`
+    // 文字列を渡すことは、`state => state.count` と同じです
     countAlias: 'count',
 
-    // to access local state with `this`, a normal function must be used
+    // `this` からローカルステートを参照するときは、通常の関数を使わなければいけません
     countPlusLocalState (state) {
       return state.count + this.localCount
     }
@@ -70,7 +70,7 @@ export default {
 }
 ```
 
-We can also pass a string array to `mapState` when the name of a mapped computed property is the same as a state sub tree name.
+マップされた算出プロパティの名前がステートサブツリーの名前と同じ場合は、文字列配列を `mapState` に渡すこともできます。
 
 ```js
 computed: mapState([
@@ -79,20 +79,20 @@ computed: mapState([
 ])
 ```
 
-## Object Spread Operator
+## オブジェクトスプレッド演算子
 
-Note that `mapState` returns an object. How do we use it in combination with other local computed properties? Normally, we'd have to use a utility to merge multiple objects into one so that we can pass the final object to `computed`. However with the [object spread operator](https://github.com/tc39/proposal-object-rest-spread), we can greatly simplify the syntax:
+`mapState` はオブジェクトを返すことに注意しましょう。どうやって、他のローカル算出プロパティと組み合わせるのでしょうか？ 通常、最終的にひとつのオブジェクトを `computed` に渡せるように、複数のオブジェクトをひとつにマージするユーティリティを使わなければいけません。しかし、[オブジェクトスプレッド演算子](https://github.com/tc39/proposal-object-rest-spread)で、シンタックスをかなり単純にできます:
 
 ```js
 computed: {
   localComputed () { /* ... */ },
-  // mix this into the outer object with the object spread operator
+  // オブジェクトスプレット演算子で、外のオブジェクトとこのオブジェクトを混ぜる
   ...mapState({
     // ...
   })
 }
 ```
 
-## Components Can Still Have Local State
+## コンポーネントはまだローカルステートを持つことできる
 
-Using Vuex doesn't mean you should put **all** the state in Vuex. Although putting more state into Vuex makes your state mutations more explicit and debuggable, sometimes it could also make the code more verbose and indirect. If a piece of state strictly belongs to a single component, it could be just fine leaving it as local state. You should weigh the trade-offs and make decisions that fit the development needs of your app.
+Vuex を使うということは、**全て**の状態を Vuex の中に置くべき、というわけではありません。多くの状態を Vuex に置くことで、状態の変更がさらに明示的、デバッグ可能になりますが、ときにはコードを冗長でまわりくどいものにします。状態の一部がひとつのコンポーネントだけに属している場合は、それをローカルの状態として残しておくとよいでしょう。あなたは、トレードオフを考慮した上で、あなたのアプリの開発ニーズに合った決定をすべきです。

@@ -1,32 +1,32 @@
-# Application Structure
+# アプリケーションの構造
 
-Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:
+Vuex は実際のところ、あなたがコードを構造化する方法を制限しません。もっと正確に言うと、それより高いレベルの原理原則を適用させます:
 
-1. Application-level state is centralized in the store.
+1. アプリケーションレベルの状態はストアに集約されます。
 
-2. The only way to mutate the state is by committing **mutations**, which are synchronous transactions.
+2. 状態を変更する唯一の方法は、同期的に処理を行う**ミューテーション**をコミットすることのみです。
 
-3. Asynchronous logic should be encapsulated in, and can be composed with **actions**.
+3. 非同期的なロジックはカプセル化されるべきであり、それは**アクション**によって構成されます。
 
-As long as you follow these rules, it's up to you how to structure your project. If your store file gets too big, simply start splitting the actions, mutations and getters into separate files.
+これらのルールに従っている限り、プロジェクトをどのように構造化するかはあなた次第です。もしストアファイルが大きくなり過ぎたら、単純にアクションやミューテーション、ゲッターをそれぞれ別のファイルに切り出すことができます。
 
-For any non-trivial app, we will likely need to leverage modules. Here's an example project structure:
+それなりに手の込んだアプリケーションであれば、モジュールを活用する必要が出てきそうです。プロジェクトの構造の例は以下のようになります:
 
 ```bash
 ├── index.html
 ├── main.js
 ├── api
-│   └── ... # abstractions for making API requests
+│   └── ... # API 呼び出しを抽象化する
 ├── components
 │   ├── App.vue
 │   └── ...
 └── store
-    ├── index.js          # where we assemble modules and export the store
-    ├── actions.js        # root actions
-    ├── mutations.js      # root mutations
+    ├── index.js          # モジュールを集めてストアをエクスポートする
+    ├── actions.js        # アクションのルートファイル
+    ├── mutations.js      # ミューテーションのルートファイル
     └── modules
-        ├── cart.js       # cart module
-        └── products.js   # products module
+        ├── cart.js       # cart モジュール
+        └── products.js   # products モジュール
 ```
 
-As a reference, check out the [Shopping Cart Example](https://github.com/vuejs/vuex/tree/4.0/examples/classic/shopping-cart).
+参考として [Shopping Cart Example](https://github.com/vuejs/vuex/tree/4.0/examples/classic/shopping-cart) をみてみるのもよいでしょう。

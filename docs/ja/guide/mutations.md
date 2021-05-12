@@ -1,8 +1,8 @@
-# Mutations
+# ミューテーション
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string **type** and a **handler**. The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
+実際に Vuex のストアの状態を変更できる唯一の方法は、ミューテーションをコミットすることです。Vuex のミューテーションはイベントにとても近い概念です: 各ミューテーションは**タイプ**と**ハンドラ**を持ちます。ハンドラ関数は Vuex の状態（state）を第1引数として取得し、実際に状態の変更を行います:
 
 ```js
 const store = createStore({
@@ -11,22 +11,22 @@ const store = createStore({
   },
   mutations: {
     increment (state) {
-      // mutate state
+      // 状態を変更する
       state.count++
     }
   }
 })
 ```
 
-You cannot directly call a mutation handler. Think of it more like event registration: "When a mutation with type `increment` is triggered, call this handler." To invoke a mutation handler, you need to call `store.commit` with its type:
+直接ミューテーションハンドラを呼び出すことはできません。この mutations オプションは、どちらかいうと "タイプが `increment` のミューテーションがトリガーされたときに、このハンドラが呼ばれる" といったイベント登録のようなものです。ミューテーションハンドラを起動するためにはミューテーションのタイプを指定して `store.commit` を呼び出す必要があります:
 
 ```js
 store.commit('increment')
 ```
 
-## Commit with Payload
+## 追加の引数を渡してコミットする
 
-You can pass an additional argument to `store.commit`, which is called the **payload** for the mutation:
+`store.commit` に追加の引数を渡すこともできます。この追加の引数は、特定のミューテーションに対する**ペイロード**と呼びます:
 
 ```js
 // ...
@@ -41,7 +41,7 @@ mutations: {
 store.commit('increment', 10)
 ```
 
-In most cases, the payload should be an object so that it can contain multiple fields, and the recorded mutation will also be more descriptive:
+ほとんどの場合、ペイロードはオブジェクトにすべきです。そうすることで複数のフィールドを含められるようになり、またミューテーションがより記述的に記録されるようになります:
 
 ```js
 // ...
@@ -58,9 +58,9 @@ store.commit('increment', {
 })
 ```
 
-## Object-Style Commit
+## オブジェクトスタイルのコミット
 
-An alternative way to commit a mutation is by directly using an object that has a `type` property:
+また `type` プロパティを持つオブジェクトを使って、ミューテーションをコミットすることもできます:
 
 ```js
 store.commit({
@@ -69,7 +69,7 @@ store.commit({
 })
 ```
 
-When using object-style commit, the entire object will be passed as the payload to mutation handlers, so the handler remains the same:
+オブジェクトスタイルでコミットするとき、オブジェクト全体がペイロードとしてミューテーションハンドラに渡されます。したがってハンドラの例は上記と同じです:
 
 ```js
 mutations: {
@@ -79,9 +79,9 @@ mutations: {
 }
 ```
 
-## Using Constants for Mutation Types
+## ミューテーション・タイプに定数を使用する
 
-It is a commonly seen pattern to use constants for mutation types in various Flux implementations. This allows the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application:
+いろいろな Flux 実装において、ミューテーション・タイプに定数を使用することが共通して見られるパターンです。これはコードに対してリントツールのようなツールを利用できるという利点があり、また単一ファイルに全ての定数を設定することによって、共同で作業する人に、アプリケーション全体で何のミューテーションが可能であるかを一目見ただけで理解できるようにします:
 
 ```js
 // mutation-types.js
@@ -96,20 +96,19 @@ import { SOME_MUTATION } from './mutation-types'
 const store = createStore({
   state: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature
-    // to use a constant as the function name
+    // 定数を関数名として使用できる ES2015 の算出プロパティ名（computed property name）機能を使用できます
     [SOME_MUTATION] (state) {
-      // mutate state
+      // 状態を変更する
     }
   }
 })
 ```
 
-Whether to use constants is largely a preference - it can be helpful in large projects with many developers, but it's totally optional if you don't like them.
+定数を使用するかどうかは好みの問題です。多くの開発者による大規模なプロジェクトで役に立ちますが、完全にオプションなので、もしお気に召さなければ使用しなくても構いません。
 
-## Mutations Must Be Synchronous
+## ミューテーションは同期的でなければならない
 
-One important rule to remember is that **mutation handler functions must be synchronous**. Why? Consider the following example:
+ひとつの重要なルールを覚えておきましょう。それは**ミューテーションハンドラ関数は同期的でなければならない**ということです。なぜか？次の例で考えてみましょう:
 
 ```js
 mutations: {
@@ -121,11 +120,11 @@ mutations: {
 }
 ```
 
-Now imagine we are debugging the app and looking at the devtool's mutation logs. For every mutation logged, the devtool will need to capture a "before" and "after" snapshots of the state. However, the asynchronous callback inside the example mutation above makes that impossible: the callback is not called yet when the mutation is committed, and there's no way for the devtool to know when the callback will actually be called - any state mutation performed in the callback is essentially un-trackable!
+いま、開発ツールのミューテーションのログを見ながら、アプリケーションのデバッグを行っていることを想像してください。全てのミューテーションをログに記録するためには、ミューテーションの前後の状態のスナップショットを捕捉することが必要です。しかし、上の例にあるミューテーション内の非同期コールバックは、それを不可能にします: そのコールバックは、ミューテーションがコミットされた時点ではまだ呼び出されていません。そして、コールバックが実際にいつ呼び出されるかを、開発ツールは知る術がありません。いかなる状態変更でも、コールバック内で起きる場合は本質的に追跡不可能です。
 
-## Committing Mutations in Components
+## コンポーネント内におけるミューテーションのコミット
 
-You can commit mutations in components with `this.$store.commit('xxx')`, or use the `mapMutations` helper which maps component methods to `store.commit` calls (requires root `store` injection):
+`this.$store.commit('xxx')` と書くか、もしくはコンポーネントのメソッドを `store.commit` にマッピングする `mapMutations` ヘルパーを呼び出すこと（ルートの `store` の注入が必要）で、コンポーネント内でミューテーションをコミットできます:
 
 ```js
 import { mapMutations } from 'vuex'
@@ -134,26 +133,25 @@ export default {
   // ...
   methods: {
     ...mapMutations([
-      'increment', // map `this.increment()` to `this.$store.commit('increment')`
+      'increment', // `this.increment()` を `this.$store.commit('increment')` にマッピングする
 
-      // `mapMutations` also supports payloads:
-      'incrementBy' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
+      // mapMutations はペイロードサポートする:
+      'incrementBy' // `this.incrementBy(amount)` を `this.$store.commit('incrementBy', amount)` にマッピングする
     ]),
     ...mapMutations({
-      add: 'increment' // map `this.add()` to `this.$store.commit('increment')`
+      add: 'increment' // `this.add()` を `this.$store.commit('increment')` にマッピングする
     })
   }
 }
 ```
 
-## On to Actions
+## アクションへ向けて
 
-Asynchronicity combined with state mutation can make your program very hard to reason about. For example, when you call two methods both with async callbacks that mutate the state, how do you know when they are called and which callback was called first? This is exactly why we want to separate the two concepts. In Vuex, **mutations are synchronous transactions**:
+状態変更を非同期に組み合わせることは、プログラムの動きを予測することを非常に困難にします。例えば、状態を変更する非同期コールバックを持った 2つのメソッドを両方呼び出すとき、それらがいつ呼び出されたか、どちらが先に呼び出されたかを、どうやって知ればよいのでしょう？これがまさに、状態変更と非同期の 2つの概念を分離したいという理由です。Vuex では**全てのミューテーションは同期的に行う**という作法になっています:
 
 ```js
 store.commit('increment')
-// any state change that the "increment" mutation may cause
-// should be done at this moment.
+// "increment" ミューテーションによる状態変更は、この時点で行われるべきです
 ```
 
-To handle asynchronous operations, let's introduce [Actions](actions.md).
+非同期的な命令を扱うために[アクション](actions.md)を見てみましょう。

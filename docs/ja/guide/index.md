@@ -1,26 +1,26 @@
-# Getting Started
+# Vuex 入門
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cMPa2Uk" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cMPa2Uk" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-At the center of every Vuex application is the **store**. A "store" is basically a container that holds your application **state**. There are two things that make a Vuex store different from a plain global object:
+Vuex アプリケーションの中心にあるものは**ストア**です。"ストア" は、基本的にアプリケーションの **状態（state）** を保持するコンテナです。単純なグローバルオブジェクトとの違いが 2つあります。
 
-1. Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+1. Vuex ストアはリアクティブです。Vue コンポーネントがストアから状態を取り出すとき、もしストアの状態が変化したら、ストアはリアクティブかつ効率的に更新を行います。
 
-2. You cannot directly mutate the store's state. The only way to change a store's state is by explicitly **committing mutations**. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
+2. ストアの状態を直接変更することはできません。明示的に**ミューテーションをコミットする**ことによってのみ、ストアの状態を変更します。これによって、全ての状態の変更について追跡可能な記録を残すことが保証され、ツールでのアプリケーションの動作の理解を助けます。
 
-## The Simplest Store
+## シンプルなストア
 
-:::tip NOTE
-We will be using ES2015 syntax for code examples for the rest of the docs. If you haven't picked it up, [you should](https://babeljs.io/docs/learn-es2015/)!
+:::tip 注意
+私たちは、このドキュメントのコード例に ES2015 のシンタックスを利用しています。 もし触れたことがなければ、[ぜひ触れてください](https://babeljs.io/docs/learn-es2015/)！
 :::
 
-After [installing](../installation.md) Vuex, let's create a store. It is pretty straightforward - just provide an initial state object, and some mutations:
+Vuex を[インストール](../installation.md) してから、ストアをつくってみましょう。Vuex ストアの作成は、とても簡単です。ストアオブジェクトの初期状態と、いくつかのミューテーションを準備するだけです。
 
 ```js
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 
-// Create a new store instance.
+// 新しいストアインスタンスを作成します
 const store = createStore({
   state () {
     return {
@@ -34,13 +34,13 @@ const store = createStore({
   }
 })
 
-const app = createApp({ /* your root component */ })
+const app = createApp({ /* ルートコンポーネント */ })
 
-// Install the store instance as a plugin
+// プラグインとしてストアインスタンスをインストールします
 app.use(store)
 ```
 
-Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
+これで `store.state` でストアオブジェクトの状態を参照でき、また `store.commit` メソッドで状態の変更を行うことができます。
 
 ```js
 store.commit('increment')
@@ -48,7 +48,7 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
-In a Vue component, you can access the store as `this.$store`. Now we can commit a mutation using a component method:
+Vue コンポーネントでは、`this.$store` としてストアにアクセスできます。それでは、コンポーネントのメソッドを使ってミューテーションをコミットしてみましょう。
 
 ```js
 methods: {
@@ -59,8 +59,8 @@ methods: {
 }
 ```
 
-Again, the reason we are committing a mutation instead of changing `store.state.count` directly, is because we want to explicitly track it. This simple convention makes your intention more explicit, so that you can reason about state changes in your app better when reading the code. In addition, this gives us the opportunity to implement tools that can log every mutation, take state snapshots, or even perform time travel debugging.
+そして `store.state.count` を直接変更する代わりにミューテーションをコミットする理由は、状態の変更を明確に追跡したいからです。このシンプルな規約は、あなたのコードの意図をさらに明確にし、コードを読んだ時にアプリケーションの状態の変更について、論理的に考えることができるようにします。加えて、私たちに全ての変更のログを取ったり、状態のスナップショットを取ったり、タイムトラベルデバッグを行うようなツールを実装する余地を与えてくれます。
 
-Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
+ストアオブジェクトの状態はリアクティブなので、ストアの状態をコンポーネント内で使うには算出プロパティ内でただ状態を返せば良いです。コンポーネントメソッドでミューテーションをコミットすることによって状態の変更を行います。
 
-Next, we will discuss each core concept in much finer details, starting with [State](state.md).
+これから Vuex のコアコンセプトについて詳しく説明していきます。まずは[状態（state）](state.md)からはじめましょう。

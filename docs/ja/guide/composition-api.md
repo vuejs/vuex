@@ -1,6 +1,6 @@
 # Composition API
 
-To access the store within the `setup` hook, you can call the `useStore` function. This is the equivalent of retrieving `this.$store` within a component using the Option API.
+`setup` フックの中でストアにアクセスするには、`useStore` 関数を呼び出します。これは、Option API を使って、コンポーネント内で `this.$store` を取得するのと同等です。
 
 ```js
 import { useStore } from 'vuex'
@@ -12,9 +12,9 @@ export default {
 }
 ```
 
-## Accessing State and Getters
+## ステートとゲッターへのアクセス
 
-In order to access state and getters, you will want to create `computed` references to retain reactivity. This is the equivalent of creating computed properties using the Option API.
+ステートやゲッターにアクセスするためには、リアクティビティを保持するために `computed` による参照を作成する必要があります。これは、Option API を使って、算出プロパティを作成するのと同じことです。
 
 ```js
 import { computed } from 'vue'
@@ -25,19 +25,19 @@ export default {
     const store = useStore()
 
     return {
-      // access a state in computed function
+      // computed 関数のステートにアクセスします
       count: computed(() => store.state.count),
 
-      // access a getter in computed function
+      // computed 関数のゲッターにアクセスします
       double: computed(() => store.getters.double)
     }
   }
 }
 ```
 
-## Accessing Mutations and Actions
+## ミューテーションとアクションへのアクセス
 
-When accessing mutations and actions, you can simply provide the `commit` and `dispatch` function inside the `setup` hook.
+ミューテーションとアクションにアクセスする際には、`setup` フック内で `commit` と `dispatch` 関数を提供すればよいです。
 
 ```js
 import { useStore } from 'vuex'
@@ -47,16 +47,16 @@ export default {
     const store = useStore()
 
     return {
-      // access a mutation
+      // ミューテーションにアクセスする
       increment: () => store.commit('increment'),
 
-      // access an action
+      // アクションにアクセスする
       asyncIncrement: () => store.dispatch('asyncIncrement')
     }
   }
 }
 ```
 
-## Examples
+## 例
 
-Check out the [Composition API example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) to see example applications utilizing Vuex and Vue's Composition API.
+Vuex と Vue の Composition API を利用したアプリケーションの例は、[Composition API example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) をご覧ください。

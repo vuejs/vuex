@@ -1,8 +1,8 @@
-# Getters
+# ゲッター
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-Sometimes we may need to compute derived state based on store state, for example filtering through a list of items and counting them:
+例えば項目のリストをフィルタリングしたりカウントするときのように、ストアの状態を算出したいときがあります。
 
 ``` js
 computed: {
@@ -12,15 +12,15 @@ computed: {
 }
 ```
 
-If more than one component needs to make use of this, we have to either duplicate the function, or extract it into a shared helper and import it in multiple places - both are less than ideal.
+もしこの関数を複数のコンポーネントで利用したくなったら、関数をコピーするか、あるいは関数を共用のヘルパーに切り出して複数の場所でインポートする必要があります。しかし、どちらも理想的とはいえません。
 
-Vuex allows us to define "getters" in the store. You can think of them as computed properties for stores.
+Vuex を利用するとストア内に "ゲッター" を定義することができます。それらをストアの算出プロパティと考えることができます。
 
-::: warning WARNING
-As of Vue 3.0, the getter's result is **not cached** as the computed property does. This is a known issue that requires Vue 3.1 to be released. You can learn more at [PR #1878](https://github.com/vuejs/vuex/pull/1883).
+::: warning 注意
+Vue 3.0 では、ゲッターの結果は算出プロパティのように**キャッシュされません**。これは既知の問題で、Vue 3.1 がリリースされる必要があります。詳細は [PR #1878](https://github.com/vuejs/vuex/pull/1883) をご確認ください。
 :::
 
-Getters will receive the state as their 1st argument:
+ゲッターは第1引数として、state を受け取ります:
 
 ``` js
 const store = createStore({
@@ -38,15 +38,15 @@ const store = createStore({
 })
 ```
 
-## Property-Style Access
+## プロパティスタイルアクセス
 
-The getters will be exposed on the `store.getters` object, and you access values as properties:
+ゲッターは `store.getters` オブジェクトから取り出され、プロパティとしてアクセスすることができます:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Getters will also receive other getters as the 2nd argument:
+ゲッターは第2引数として他のゲッターを受け取ります:
 
 ``` js
 getters: {
@@ -61,7 +61,7 @@ getters: {
 store.getters.doneTodosCount // -> 1
 ```
 
-We can now easily make use of it inside any component:
+どのコンポーネントの内部でも簡単にゲッターを利用することができます:
 
 ``` js
 computed: {
@@ -71,12 +71,11 @@ computed: {
 }
 ```
 
-Note that getters accessed as properties are cached as part of Vue's reactivity system.
+プロパティとしてアクセスされるゲッターは Vue のリアクティブシステムの一部としてキャッシュされるという点に留意してください。
 
-## Method-Style Access
+## メソッドスタイルアクセス
 
-You can also pass arguments to getters by returning a function. This is particularly useful when you want to query an array in the store:
-
+関数を返り値にすることで、ゲッターに引数を渡すこともできます。これは特にストアの中の配列を検索する時に役立ちます：
 ```js
 getters: {
   // ...
@@ -90,11 +89,11 @@ getters: {
 store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
 ```
 
-Note that getters accessed via methods will run each time you call them, and the result is not cached.
+メソッドによってアクセスされるゲッターは呼び出す度に実行され、その結果はキャッシュされない点に留意してください。
 
-## The `mapGetters` Helper
+## `mapGetters` ヘルパー
 
-The `mapGetters` helper simply maps store getters to local computed properties:
+`mapGetters` ヘルパーはストアのゲッターをローカルの算出プロパティにマッピングさせます:
 
 ``` js
 import { mapGetters } from 'vuex'
@@ -102,7 +101,7 @@ import { mapGetters } from 'vuex'
 export default {
   // ...
   computed: {
-    // mix the getters into computed with object spread operator
+    // ゲッターを、スプレッド演算子（object spread operator）を使って computed に組み込む
     ...mapGetters([
       'doneTodosCount',
       'anotherGetter',
@@ -112,11 +111,11 @@ export default {
 }
 ```
 
-If you want to map a getter to a different name, use an object:
+ゲッターを異なる名前でマッピングさせたいときはオブジェクトを使います:
 
 ``` js
 ...mapGetters({
-  // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+  // `this.doneCount` を `this.$store.getters.doneTodosCount` にマッピングさせる
   doneCount: 'doneTodosCount'
 })
 ```

@@ -1,14 +1,14 @@
-# TypeScript Support
+# TypeScript サポート
 
-Vuex provides its typings so you can use TypeScript to write a store definition. You don't need any special TypeScript configuration for Vuex. Please follow [Vue's basic TypeScript setup](https://v3.vuejs.org/guide/typescript-support.html) to configure your project.
+Vuex は型付けを提供しているので、TypeScript を使ってストア定義を書くことができます。Vuex には特別な TypeScript の設定は必要ありません。[Vue の基本的な TypeScript の設定](https://v3.ja.vuejs.org/guide/typescript-support.html) に従ってプロジェクトの設定を行ってください。
 
-However, if you're writing your Vue components in TypeScript, there're a few steps to follow that require for you to correctly provide typings for a store.
+しかし、Vue コンポーネントを TypeScript で書いている場合は、ストアの型付けを正しく行うために必要な手順がいくつかあります。
 
-## Typing `$store` Property in Vue Component
+## Vue コンポーネントでの `$store` プロパティの型付け
 
-Vuex doesn't provide typings for `this.$store` property out of the box. When used with TypeScript, you must declare your own module augmentation.
+Vuex はすぐに使用できる `this.$store` プロパティの型付けを提供していません。TypeScriptと併用する場合は、独自のモジュール拡張を宣言する必要があります。
 
-To do so, declare custom typings for Vue's `ComponentCustomProperties` by adding a declaration file in your project folder:
+そのためには、プロジェクトフォルダに宣言ファイルを追加して、Vue の `ComponentCustomProperties` のカスタム型付けを宣言します。
 
 ```ts
 // vuex.d.ts
@@ -16,39 +16,39 @@ import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
 declare module '@vue/runtime-core' {
-  // declare your own store states
+  // ストアのステートを宣言する
   interface State {
     count: number
   }
 
-  // provide typings for `this.$store`
+  // `this.$store` の型付けを提供する
   interface ComponentCustomProperties {
     $store: Store<State>
   }
 }
 ```
 
-## Typing `useStore` Composition Function
+## `useStore` 合成関数の型付け
 
-When you're writing your Vue component in Composition API, you will most likely want `useStore` to return the typed store. For `useStore` to correctly return the typed store, you must:
+Composition API で Vue コンポーネントを記述する際には、ほとんどの場合、`useStore`が型付けされたストアを返すようにしたいでしょう。`useStore` が正しく型付けされたストアを返すためには、次のことが必要です。
 
-1. Define the typed `InjectionKey`.
-2. Provide the typed `InjectionKey` when installing a store to the Vue app.
-3. Pass the typed `InjectionKey` to the `useStore` method.
+1. 型付けされた `InjectionKey` を定義します。
+2. ストアをインストールする際に、型付けされた `InjectionKey` を Vue アプリに渡します。
+3. 型付けされた `InjectionKey` を `useStore` メソッドに渡します。
 
-Let's tackle this step by step. First, define the key using Vue's `InjectionKey` interface along with your own store typing definition:
+それでは、順を追って説明していきます。まずは、Vue の `InjectionKey` インターフェースを使って、独自のストアの型定義とともにキーを定義します。
 
 ```ts
 // store.ts
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
 
-// define your typings for the store state
+// ストアのステートに対して型を定義します
 export interface State {
   count: number
 }
 
-// define injection key
+// インジェクションキーを定義します
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
@@ -58,7 +58,7 @@ export const store = createStore<State>({
 })
 ```
 
-Next, pass the defined injection key when installing the store to the Vue app:
+次に、ストアのインストール時に定義したインジェクションキーを Vue アプリに渡します。
 
 ```ts
 // main.ts
@@ -73,7 +73,7 @@ app.use(store, key)
 app.mount('#app')
 ```
 
-Finally, you can pass the key to the `useStore` method to retrieve the typed store.
+最後に、このキーを `useStore` メソッドに渡すことで、型付けされたストアを取得することができます。
 
 ```ts
 // in a vue component
@@ -89,11 +89,11 @@ export default {
 }
 ```
 
-Under the hood, Vuex installs the store to the Vue app using Vue's [Provide/Inject](https://v3.vuejs.org/api/composition-api.html#provide-inject) feature which is why the injection key is an important factor.
+内部的には、Vuex は Vue の [Provide/Inject](https://v3.ja.vuejs.org/api/composition-api.html#provide-inject) 機能を使って Vue アプリにストアをインストールします。これが、インジェクションキーが重要な要素である理由です。
 
-### Simplifying `useStore` usage
+### `useStore` 使用方法の簡略化
 
-Having to import `InjectionKey` and passing it to `useStore` everywhere it's used can quickly become a repetitive task. To simplify matters, you can define your own composable function to retrieve a typed store:
+`InjectionKey` をインポートして、それが使用されるたびに `useStore` に渡さなければならないというのは、すぐに繰り返しの作業になります。問題を簡略化するために、型付けされたストアを取得するための独自のコンポーザブル関数を定義することができます。
 
 ```ts
 // store.ts
@@ -112,23 +112,23 @@ export const store = createStore<State>({
   }
 })
 
-// define your own `useStore` composition function
+// 独自の `useStore` 合成関数を定義します
 export function useStore () {
   return baseUseStore(key)
 }
 ```
 
-Now, by importing your own composable function, you can retrieve the typed store **without** having to provide the injection key and its typing:
+これで、独自の合成関数をインポートすることで、インジェクションキーとその型を**提供しなくても**型付けされたストアを取得することができます。
 
 ```ts
-// in a vue component
+// vue component 内
 import { useStore } from './store'
 
 export default {
   setup () {
     const store = useStore()
 
-    store.state.count // typed as number
+    store.state.count // number として型付け
   }
 }
 ```

@@ -1,21 +1,20 @@
-# Form Handling
+# フォームの扱い
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-When using Vuex in strict mode, it could be a bit tricky to use `v-model` on a piece of state that belongs to Vuex:
+厳格モードで Vuex を使用するとき、Vuex に属する状態の一部で `v-model` を使用するのは少しトリッキーです:
 
 ``` html
 <input v-model="obj.message">
 ```
 
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in an error because the mutation is not performed inside an explicit Vuex mutation handler.
+`obj` がストアからオブジェクトを返す算出プロパティ (computed property) と仮定すると、`v-model` は input でユーザーが入力するとき、直接 `obj.message` を変更します。厳格モードでは、この変更は明示的に Vuex のミューテーションハンドラ内部で処理されていないため、エラーを投げます。
 
-The "Vuex way" to deal with it is binding the `<input>`'s value and call a method on the `input` or `change` event:
+それに対処するための "Vuex way" は、`<input>` の値をバインディングし、`input` または `change` イベントでアクションを呼び出すことです:
 
 ``` html
 <input :value="message" @input="updateMessage">
 ```
-
 ``` js
 // ...
 computed: {
@@ -30,7 +29,7 @@ methods: {
 }
 ```
 
-And here's the mutation handler:
+ミューテーションのハンドラは以下のようになります:
 
 ``` js
 // ...
@@ -41,16 +40,14 @@ mutations: {
 }
 ```
 
-## Two-way Computed Property
+## 双方向算出プロパティ
 
-Admittedly, the above is quite a bit more verbose than `v-model` + local state, and we lose some of the useful features from `v-model` as well. An alternative approach is using a two-way computed property with a setter:
+確かに、上記の例は単純な `v-model` と ローカルステートよりもかなり冗長で、`v-model` のいくつかの有用な機能が使えません。代わりに、セッターで双方向算出プロパティを使うアプローチがあります。
 
 ``` html
 <input v-model="message">
 ```
-
 ``` js
-// ...
 computed: {
   message: {
     get () {

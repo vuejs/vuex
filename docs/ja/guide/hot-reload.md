@@ -1,8 +1,8 @@
-# Hot Reloading
+# ホットリローディング
 
-Vuex supports hot-reloading mutations, modules, actions and getters during development, using webpack's [Hot Module Replacement API](https://webpack.js.org/guides/hot-module-replacement/). You can also use it in Browserify with the [browserify-hmr](https://github.com/AgentME/browserify-hmr/) plugin.
+Vuex は webpack の [Hot Module Replacement API](https://webpack.js.org/guides/hot-module-replacement/) を使用することで、アプリケーションの開発を行っている間のミューテーション、モジュール、アクション、ゲッターのホットリローディングをサポートします。Browserify では [browserify-hmr](https://github.com/AgentME/browserify-hmr/) プラグインを使用することができます。
 
-For mutations and modules, you need to use the `store.hotUpdate()` API method:
+ミューテーションとモジュールのホットリローディングのために、`store.hotUpdate()`  API メソッドを利用する必要があります:
 
 ``` js
 // store.js
@@ -21,13 +21,13 @@ const store = createStore({
 })
 
 if (module.hot) {
-  // accept actions and mutations as hot modules
+  // ホットモジュールとしてアクションとモジュールを受け付けます
   module.hot.accept(['./mutations', './modules/a'], () => {
-    // require the updated modules
-    // have to add .default here due to babel 6 module output
+    // 更新されたモジュールをインポートする
+    // babel 6 のモジュール出力のため、ここでは .default を追加しなければならない
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
-    // swap in the new modules and mutations
+    // 新しいモジュールとミューテーションにスワップ
     store.hotUpdate({
       mutations: newMutations,
       modules: {
@@ -38,17 +38,17 @@ if (module.hot) {
 }
 ```
 
-Checkout the [counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) to play with hot-reload.
+ホットリローディングを試したい場合は、[counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot)をチェックアウトしてください。
 
-## Dynamic module hot reloading
+## 動的モジュールホットリローディング
 
-If you use modules exclusively, you can use `require.context` to load and hot reload all modules dynamically.
+もしストアでモジュールだけを使用している場合には、`require.context` を使って全てのモジュールを動的に読み込むこともできます。
 
 ```js
 // store.js
 import { createStore } from 'vuex'
 
-// Load all modules.
+// 全てのモジュールをロードする
 function loadModules() {
   const context = require.context("./modules", false, /([a-z_]+)\.js$/i)
 
@@ -73,7 +73,7 @@ const store = createStore({
 })
 
 if (module.hot) {
-  // Hot reload whenever any module changes.
+  // モジュールに変更があった場合にホットリロードする
   module.hot.accept(context.id, () => {
     const { modules } = loadModules()
 

@@ -1,10 +1,10 @@
-# Modules
+# モジュール
 
-<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
-Due to using a single state tree, all states of our application are contained inside one big object. However, as our application grows in scale, the store can get really bloated.
+単一ステートツリーを使うため、アプリケーションの全ての状態は、一つの大きなストアオブジェクトに内包されます。しかしながら、アプリケーションが大きくなるにつれて、ストアオブジェクトは膨れ上がってきます。
 
-To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
+そのような場合に役立てるため Vuex ではストアを**モジュール**に分割できるようになっています。それぞれのモジュールは、モジュール自身の状態（state）、ミューテーション、アクション、ゲッター、モジュールさえも内包できます（モジュールをネストできます）- トップからボトムまでフラクタル構造です:
 
 ```js
 const moduleA = {
@@ -27,13 +27,13 @@ const store = createStore({
   }
 })
 
-store.state.a // -> `moduleA`'s state
-store.state.b // -> `moduleB`'s state
+store.state.a // -> `moduleA` のステート
+store.state.b // -> `moduleB` のステート
 ```
 
-## Module Local State
+## モジュールのローカルステート
 
-Inside a module's mutations and getters, the first argument received will be **the module's local state**.
+モジュールのミューテーションやゲッターの中では、渡される第 1 引数は**モジュールのローカルステート**です。
 
 ```js
 const moduleA = {
@@ -42,7 +42,7 @@ const moduleA = {
   }),
   mutations: {
     increment (state) {
-      // `state` is the local module state
+      // `state` はモジュールのローカルステート
       state.count++
     }
   },
@@ -54,7 +54,7 @@ const moduleA = {
 }
 ```
 
-Similarly, inside module actions, `context.state` will expose the local state, and root state will be exposed as `context.rootState`:
+同様に、モジュールのアクションの中では `context.state` はローカルステートにアクセスでき、ルートのステートは `context.rootState` でアクセスできます:
 
 ```js
 const moduleA = {
@@ -69,7 +69,7 @@ const moduleA = {
 }
 ```
 
-Also, inside module getters, the root state will be exposed as their 3rd argument:
+また、モジュールのゲッターの中では、ルートのステートは第3引数でアクセスできます:
 
 ```js
 const moduleA = {
@@ -82,11 +82,11 @@ const moduleA = {
 }
 ```
 
-## Namespacing
+## 名前空間
 
-By default, actions and mutations are still registered under the **global namespace** - this allows multiple modules to react to the same action/mutation type. Getters are also registered in the global namespace by default. However, this currently has no functional purpose (it's as is to avoid breaking changes). You must be careful not to define two getters with the same name in different, non-namespaced modules, resulting in an error.
+デフォルトでは、モジュール内部のアクション、ミューテーション、そしてゲッターは**グローバル名前空間**の元で登録されます - これにより、複数のモジュールが同じミューテーション/アクションタイプに反応することができます。
 
-If you want your modules to be more self-contained or reusable, you can mark it as namespaced with `namespaced: true`. When the module is registered, all of its getters, actions and mutations will be automatically namespaced based on the path the module is registered at. For example:
+モジュールをより自己完結型にまた再利用可能なものにしたい場合は、それを `namespaced: true` によって名前空間に分けることができます。モジュールが登録されると、そのゲッター、アクション、およびミューテーションのすべてが、モジュールが登録されているパスに基づいて自動的に名前空間に入れられます。例えば:
 
 ```js
 const store = createStore({
@@ -94,8 +94,8 @@ const store = createStore({
     account: {
       namespaced: true,
 
-      // module assets
-      state: () => ({ ... }), // module state is already nested and not affected by namespace option
+      // モジュールのアセット
+      state: () => ({ ... }), // モジュールステートはすでにネストされており、名前空間のオプションによって影響を受けません
       getters: {
         isAdmin () { ... } // -> getters['account/isAdmin']
       },
@@ -106,9 +106,9 @@ const store = createStore({
         login () { ... } // -> commit('account/login')
       },
 
-      // nested modules
+      // ネストされたモジュール
       modules: {
-        // inherits the namespace from parent module
+        // 親モジュールから名前空間を継承する
         myPage: {
           state: () => ({ ... }),
           getters: {
@@ -116,7 +116,7 @@ const store = createStore({
           }
         },
 
-        // further nest the namespace
+        // さらに名前空間をネストする
         posts: {
           namespaced: true,
 
@@ -131,13 +131,13 @@ const store = createStore({
 })
 ```
 
-Namespaced getters and actions will receive localized `getters`, `dispatch` and `commit`. In other words, you can use the module assets without writing prefix in the same module. Toggling between namespaced or not does not affect the code inside the module.
+名前空間のゲッターとアクションは、ローカライズされた `getters`、`dispatch`、`commit` を受け取ります。言い換えれば、同じモジュールに接頭辞 (prefix) を書き込まずに、モジュールアセットを使用することができます。名前空間オプションの切り替えは、モジュール内のコードには影響しません。
 
-### Accessing Global Assets in Namespaced Modules
+### 名前空間付きモジュールでのグローバルアセットへのアクセス
 
-If you want to use global state and getters, `rootState` and `rootGetters` are passed as the 3rd and 4th arguments to getter functions, and also exposed as properties on the `context` object passed to action functions.
+グローバルステートとゲッターを使いたい場合、`rootState` と `rootGetters` はゲッター関数の第3引数と第4引数として渡され、アクション関数に渡される `context` オブジェクトのプロパティとしても公開されます。
 
-To dispatch actions or commit mutations in the global namespace, pass `{ root: true }` as the 3rd argument to `dispatch` and `commit`.
+アクションをディスパッチするか、グローバル名前空間にミューテーションをコミットするには、`dispatch` と `commit` の3番目の引数として `{root: true}` を渡します。
 
 ```js
 modules: {
@@ -145,8 +145,8 @@ modules: {
     namespaced: true,
 
     getters: {
-      // `getters` is localized to this module's getters
-      // you can use rootGetters via 4th argument of getters
+      // `getters` はこのモジュールのゲッターにローカライズされています
+      // ゲッターの第4引数経由で rootGetters を使うことができます
       someGetter (state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
         rootGetters.someOtherGetter // -> 'someOtherGetter'
@@ -156,8 +156,8 @@ modules: {
     },
 
     actions: {
-      // dispatch and commit are also localized for this module
-      // they will accept `root` option for the root dispatch/commit
+      // ディスパッチとコミットもこのモジュール用にローカライズされています
+      // ルートディスパッチ/コミットの `root` オプションを受け入れます
       someAction ({ dispatch, commit, getters, rootGetters }) {
         getters.someGetter // -> 'foo/someGetter'
         rootGetters.someGetter // -> 'someGetter'
@@ -175,9 +175,9 @@ modules: {
 }
 ```
 
-### Register Global Action in Namespaced Modules
+### 名前空間付きモジュールでのグローバルアクションへの登録
 
-If you want to register global actions in namespaced modules, you can mark it with `root: true` and place the action definition to function `handler`. For example:
+名前空間付きモジュールでグローバルアクションに登録したい場合、`root: true` でそれをマークでき、そしてアクション定義を `handler` 関数に置くことができます。例えば:
 
 ```js
 {
@@ -201,9 +201,9 @@ If you want to register global actions in namespaced modules, you can mark it wi
 }
 ```
 
-### Binding Helpers with Namespace
+### 名前空間によるバインディングヘルパー
 
-When binding a namespaced module to components with the `mapState`, `mapGetters`, `mapActions` and `mapMutations` helpers, it can get a bit verbose:
+`mapState`、`mapGetters`、`mapActions`、そして `mapMutations` ヘルパーを使って名前空間付きモジュールをコンポーネントにバインディングするとき、少し冗長になります:
 
 ```js
 computed: {
@@ -224,7 +224,7 @@ methods: {
 }
 ```
 
-In such cases, you can pass the module namespace string as the first argument to the helpers so that all bindings are done using that module as the context. The above can be simplified to:
+このような場合は、第1引数としてモジュールの名前空間文字列をヘルパーに渡すことで、そのモジュールをコンテキストとして使用してすべてのバインディングを行うことができます。上記は次のように単純化できます。
 
 ```js
 computed: {
@@ -245,7 +245,7 @@ methods: {
 }
 ```
 
-Furthermore, you can create namespaced helpers by using `createNamespacedHelpers`. It returns an object having new component binding helpers that are bound with the given namespace value:
+さらに、`createNamespacedHelpers` を使用することによって名前空間付けされたヘルパーを作成できます。指定された名前空間の値にバインドされた新しいコンポーネントバインディングヘルパーを持つオブジェクトを返します:
 
 ```js
 import { createNamespacedHelpers } from 'vuex'
@@ -254,14 +254,14 @@ const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
 
 export default {
   computed: {
-    // look up in `some/nested/module`
+    // `some/nested/module` を調べます
     ...mapState({
       a: state => state.a,
       b: state => state.b
     })
   },
   methods: {
-    // look up in `some/nested/module`
+    // `some/nested/module` を調べます
     ...mapActions([
       'foo',
       'bar'
@@ -270,72 +270,73 @@ export default {
 }
 ```
 
-### Caveat for Plugin Developers
+### プラグイン開発者向けの注意事項
 
-You may care about unpredictable namespacing for your modules when you create a [plugin](plugins.md) that provides the modules and let users add them to a Vuex store. Your modules will be also namespaced if the plugin users add your modules under a namespaced module. To adapt this situation, you may need to receive a namespace value via your plugin option:
+モジュールを提供する[プラグイン](plugins.md)を作成し、ユーザーがそれらを Vuex ストアに追加できるようにすると、モジュールの予測できない名前空間が気になるかもしれません。あなたのモジュールは、プラグインユーザーが名前空間付きモジュールの元にモジュールを追加すると、その名前空間に属するようになります。この状況に適応するには、プラグインオプションを使用して名前空間の値を受け取る必要があります。
 
 ```js
-// get namespace value via plugin option
-// and returns Vuex plugin function
+// プラグインオプションで名前空間値を取得し、
+// そして、Vuex プラグイン関数を返す
 export function createPlugin (options = {}) {
   return function (store) {
-    // add namespace to plugin module's types
+    // 名前空間をプラグインモジュールの型に追加する
     const namespace = options.namespace || ''
     store.dispatch(namespace + 'pluginAction')
   }
 }
 ```
 
-## Dynamic Module Registration
+## 動的にモジュールを登録する
 
-You can register a module **after** the store has been created with the `store.registerModule` method:
+ストアが作られた**後**に `store.registerModule` メソッドを使って、モジュールを登録できます:
 
 ```js
 import { createStore } from 'vuex'
 
 const store = createStore({ /* options */ })
 
-// register a module `myModule`
+// `myModule` モジュールを登録します
 store.registerModule('myModule', {
   // ...
 })
 
-// register a nested module `nested/myModule`
+// ネストされた `nested/myModule` モジュールを登録します
 store.registerModule(['nested', 'myModule'], {
   // ...
 })
 ```
 
-The module's state will be exposed as `store.state.myModule` and `store.state.nested.myModule`.
+モジュールのステートには `store.state.myModule` と `store.state.nested.myModule` でアクセスします。
 
-Dynamic module registration makes it possible for other Vue plugins to also leverage Vuex for state management by attaching a module to the application's store. For example, the [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) library integrates vue-router with vuex by managing the application's route state in a dynamically attached module.
+動的なモジュール登録があることで、他の Vue プラグインが、モジュールをアプリケーションのストアに付属させることで、状態の管理に Vuex を活用できます。例えば [`vuex-router-sync`](https://github.com/vuejs/vuex-router-sync) ライブラリは、動的に付属させたモジュール内部でアプリケーションのルーティングのステートを管理することで vue-router と vuex を統合しています。
 
-You can also remove a dynamically registered module with `store.unregisterModule(moduleName)`. Note you cannot remove static modules (declared at store creation) with this method.
+`store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
 
-Note that you may check if the module is already registered to the store or not via `store.hasModule(moduleName)` method. One thing to keep in mind is that nested modules should be passed as arrays for both the `registerModule` and `hasModule` and not as a string with the path to the module.
+また、すでにモジュールが登録されているかどうかを `store.hasModule(moduleName)` メソッドを使って確認することができます。 One thing to keep in mind is that nested modules should be passed as arrays for both the `registerModule` and `hasModule` and not as a string with the path to the module.
+留意すべき点は、入れ子になっているモジュールは、`registerModule` と `hasModule` の両方に、モジュールへのパスを文字列として渡すのではなく、配列として渡す必要があるということです。
 
-### Preserving state
+### ステートの保持
 
-It may be likely that you want to preserve the previous state when registering a new module, such as preserving state from a Server Side Rendered app. You can achieve this with `preserveState` option: `store.registerModule('a', module, { preserveState: true })`
+サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション（`store.registerModule('a', module, { preserveState: true })`）でこれを実現できます。
 
-When you set `preserveState: true`, the module is registered, actions, mutations and getters are added to the store, but the state is not. It's assumed that your store state already contains state for that module and you don't want to overwrite it.
+`preserveState: true` を設定した場合、モジュールを登録する際に、アクション、ミューテーション、そしてゲッターは追加されますがステートは追加されません。これはストアのステートはすでにモジュールのステートを登録しているので、それを上書きしないようにするためです。
 
-## Module Reuse
+## モジュールの再利用
 
-Sometimes we may need to create multiple instances of a module, for example:
+時どき、モジュールの複数インスタンスを作成する必要があるかもしれません。例えば:
 
-- Creating multiple stores that use the same module (e.g. To [avoid stateful singletons in the SSR](https://ssr.vuejs.org/en/structure.html#avoid-stateful-singletons) when the `runInNewContext` option is `false` or `'once'`);
-- Register the same module multiple times in the same store.
+- 同じモジュールを使用する複数のストアを作成する(例: `runInNewContext` オプションが `false` または `'once'` のとき、[SSR でステートフルなシングルトンを避けるためです](https://ssr.vuejs.org/ja/structure.html#ステートフルなシングルトンの回避)。)
+- 同じストアに同じモジュールを複数回登録する
 
-If we use a plain object to declare the state of the module, then that state object will be shared by reference and cause cross store/module state pollution when it's mutated.
+モジュールの状態を宣言するために単純なオブジェクトを使用すると、その状態オブジェクトは参照によって共有され、変更時にクロスストア/モジュールの状態汚染を引き起こします。
 
-This is actually the exact same problem with `data` inside Vue components. So the solution is also the same - use a function for declaring module state (supported in 2.3.0+):
+これは、実際には Vue コンポーネント内部の `data` と全く同じ問題です。従って解決策も同じです。モジュールの状態を宣言するために関数を使用してください (2.3.0 以降でサポートされます):
 
 ```js
 const MyReusableModule = {
   state: () => ({
     foo: 'bar'
   }),
-  // mutations, actions, getters...
+  // ミューテーション、アクション、ゲッター...
 }
 ```
