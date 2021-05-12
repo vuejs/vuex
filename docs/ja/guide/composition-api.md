@@ -12,7 +12,7 @@ export default {
 }
 ```
 
-## ステートとゲッターへのアクセス
+### ステートとゲッターへのアクセス
 
 ステートやゲッターにアクセスするためには、リアクティビティを保持するために `computed` による参照を作成する必要があります。これは、Option API を使って、算出プロパティを作成するのと同じことです。
 
@@ -35,7 +35,7 @@ export default {
 }
 ```
 
-## ミューテーションとアクションへのアクセス
+### ミューテーションとアクションへのアクセス
 
 ミューテーションとアクションにアクセスする際には、`setup` フック内で `commit` と `dispatch` 関数を提供すればよいです。
 
@@ -57,6 +57,6 @@ export default {
 }
 ```
 
-## 例
+### 例
 
 Vuex と Vue の Composition API を利用したアプリケーションの例は、[Composition API example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) をご覧ください。

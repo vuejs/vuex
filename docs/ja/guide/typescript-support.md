@@ -4,7 +4,7 @@ Vuex は型付けを提供しているので、TypeScript を使ってストア�
 
 しかし、Vue コンポーネントを TypeScript で書いている場合は、ストアの型付けを正しく行うために必要な手順がいくつかあります。
 
-## Vue コンポーネントでの `$store` プロパティの型付け
+### Vue コンポーネントでの `$store` プロパティの型付け
 
 Vuex はすぐに使用できる `this.$store` プロパティの型付けを提供していません。TypeScriptと併用する場合は、独自のモジュール拡張を宣言する必要があります。
 
@@ -28,7 +28,7 @@ declare module '@vue/runtime-core' {
 }
 ```
 
-## `useStore` 合成関数の型付け
+### `useStore` 合成関数の型付け
 
 Composition API で Vue コンポーネントを記述する際には、ほとんどの場合、`useStore`が型付けされたストアを返すようにしたいでしょう。`useStore` が正しく型付けされたストアを返すためには、次のことが必要です。
 
@@ -91,7 +91,7 @@ export default {
 
 内部的には、Vuex は Vue の [Provide/Inject](https://v3.ja.vuejs.org/api/composition-api.html#provide-inject) 機能を使って Vue アプリにストアをインストールします。これが、インジェクションキーが重要な要素である理由です。
 
-### `useStore` 使用方法の簡略化
+#### `useStore` 使用方法の簡略化
 
 `InjectionKey` をインポートして、それが使用されるたびに `useStore` に渡さなければならないというのは、すぐに繰り返しの作業になります。問題を簡略化するために、型付けされたストアを取得するための独自のコンポーザブル関数を定義することができます。
 

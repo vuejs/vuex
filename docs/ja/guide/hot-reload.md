@@ -40,7 +40,7 @@ if (module.hot) {
 
 ホットリローディングを試したい場合は、[counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot)をチェックアウトしてください。
 
-## 動的モジュールホットリローディング
+### 動的モジュールホットリローディング
 
 もしストアでモジュールだけを使用している場合には、`require.context` を使って全てのモジュールを動的に読み込むこともできます。
 

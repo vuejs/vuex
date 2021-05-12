@@ -1,6 +1,6 @@
 # ステート
 
-## 単一ステートツリー
+### 単一ステートツリー
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
@@ -10,7 +10,7 @@ Vuex は **単一ステートツリー (single state tree)** を使います。�
 
 Vuexに保存するデータは、Vueインスタンスの `data` と同じルールに従います。つまり、ステートオブジェクトはプレーンでなければなりません。[Vue#data](https://v3.ja.vuejs.org/api/options-data.html#data-2)も参照してください。
 
-## Vuex の状態を Vue コンポーネントに入れる
+### Vuex の状態を Vue コンポーネントに入れる
 
 ストアにある状態を Vue コンポーネント に表示するにはどうすればよいのでしょう？　Vuex ストア はリアクティブなので、ストアから状態を"取り出す"一番シンプルな方法は、単純にいくつかのストアの状態を [算出プロパティ](https://jp.vuejs.org/guide/computed.html) で返すことです。
 
@@ -43,7 +43,7 @@ const Counter = {
 }
 ```
 
-## `mapState` ヘルパー
+### `mapState` ヘルパー
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
@@ -79,7 +79,7 @@ computed: mapState([
 ])
 ```
 
-## オブジェクトスプレッド演算子
+### オブジェクトスプレッド演算子
 
 `mapState` はオブジェクトを返すことに注意しましょう。どうやって、他のローカル算出プロパティと組み合わせるのでしょうか？ 通常、最終的にひとつのオブジェクトを `computed` に渡せるように、複数のオブジェクトをひとつにマージするユーティリティを使わなければいけません。しかし、[オブジェクトスプレッド演算子](https://github.com/tc39/proposal-object-rest-spread)で、シンタックスをかなり単純にできます:
 
@@ -93,6 +93,6 @@ computed: {
 }
 ```
 
-## コンポーネントはまだローカルステートを持つことできる
+### コンポーネントはまだローカルステートを持つことできる
 
 Vuex を使うということは、**全て**の状態を Vuex の中に置くべき、というわけではありません。多くの状態を Vuex に置くことで、状態の変更がさらに明示的、デバッグ可能になりますが、ときにはコードを冗長でまわりくどいものにします。状態の一部がひとつのコンポーネントだけに属している場合は、それをローカルの状態として残しておくとよいでしょう。あなたは、トレードオフを考慮した上で、あなたのアプリの開発ニーズに合った決定をすべきです。
