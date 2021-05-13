@@ -1,14 +1,15 @@
-# What is Vuex?
+# Vuex とは何か？
 
-::: tip NOTE
-This is the docs for Vuex 4, which works with Vue 3. If you're looking for docs for Vuex 3, which works with Vue 2, [please check it out here](https://vuex.vuejs.org/).
+::: tip 注意
+これは、Vue 3 で動作する Vuex 4 のためのドキュメントです。Vue 2 で動作する Vuex 3 のドキュメントをお探しの方は、[こちらをご覧ください](https://vuex.vuejs.org/ja/)。
 :::
 
-Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion.
+Vuex は Vue.js アプリケーションのための **状態管理パターン + ライブラリ**です。
+これは予測可能な方法によってのみ状態の変異を行うというルールを保証し、アプリケーション内の全てのコンポーネントのための集中型のストアとして機能します。
 
-## What is a "State Management Pattern"?
+## "状態管理パターン"とはなんですか？
 
-Let's start with a simple Vue counter app:
+単純な Vue で作られたカウンターアプリをみてみましょう:
 
 ```js
 const Counter = {
@@ -33,39 +34,40 @@ const Counter = {
 createApp(Counter).mount('#app')
 ```
 
-It is a self-contained app with the following parts:
+これはいくつかの要素をアプリ自身に含んでいます:
 
-- The **state**, the source of truth that drives our app;
-- The **view**, a declarative mapping of the **state**;
-- The **actions**, the possible ways the state could change in reaction to user inputs from the **view**.
+- **状態**、これは私達のアプリを動かす信頼できる情報源(the source of truth)です。
+- **ビュー**、これは**状態**のただの宣言的なマッピングです。
+- **アクション**、これは**ビュー**からのユーザー入力に反応して、状態の変更を可能にする方法です。
 
-This is a simple representation of the concept of "one-way data flow":
+これらは"単方向データフロー"のコンセプトの極めてシンプルな責務です:
 
 <p style="text-align: center; margin: 2em">
   <img style="width:100%; max-width:450px;" src="/flow.png">
 </p>
 
-However, the simplicity quickly breaks down when we have **multiple components that share a common state**:
+しかし、単純さは、**共通の状態を共有する複数のコンポーネントを持ったときに**、すぐに破綻します:
 
-- Multiple views may depend on the same piece of state.
-- Actions from different views may need to mutate the same piece of state.
+- 複数のビューが同じ状態に依存することがあります。
+- 異なるビューからのアクションで、同じ状態を変更する必要があります。
 
-For problem one, passing props can be tedious for deeply nested components, and simply doesn't work for sibling components. For problem two, we often find ourselves resorting to solutions such as reaching for direct parent/child instance references or trying to mutate and synchronize multiple copies of the state via events. Both of these patterns are brittle and quickly lead to unmaintainable code.
+一つ目は、プロパティ (props) として深く入れ子になったコンポーネントに渡すのは面倒で、兄弟コンポーネントでは単純に機能しません。二つ目は、親子のインスタンスを直接参照したり、イベントを介して複数の状態のコピーを変更、同期することを試みるソリューションに頼っていることがよくあります。これらのパターンは、いずれも脆く、すぐにメンテナンスが困難なコードに繋がります。
 
-So why don't we extract the shared state out of the components, and manage it in a global singleton? With this, our component tree becomes a big "view", and any component can access the state or trigger actions, no matter where they are in the tree!
+では、コンポーネントから共有している状態を抽出し、それをグローバルシングルトンで管理するのはどうでしょうか？ これにより、コンポーネントツリーは大きな "ビュー" となり、どのコンポーネントもツリー内のどこにあっても状態にアクセスしたり、アクションをトリガーできます!
 
-By defining and separating the concepts involved in state management and enforcing rules that maintain independence between views and states, we give our code more structure and maintainability.
+さらに、状態管理に関わる概念を定義、分離し、特定のルールを敷くことで、コードの構造と保守性を向上させることができます。
 
-This is the basic idea behind Vuex, inspired by [Flux](https://facebook.github.io/flux/docs/overview), [Redux](http://redux.js.org/) and [The Elm Architecture](https://guide.elm-lang.org/architecture/). Unlike the other patterns, Vuex is also a library implementation tailored specifically for Vue.js to take advantage of its granular reactivity system for efficient updates.
+これが Vuex の背景にある基本的なアイディアであり、[Flux](https://facebook.github.io/flux/docs/overview)、 [Redux](http://redux.js.org/) そして [The Elm Architecture](https://guide.elm-lang.org/architecture/)から影響を受けています。
+他のパターンと異なるのは、Vuex は効率的な更新のために、Vue.js の粒度の細かいリアクティビティシステムを利用するよう特別に調整して実装されたライブラリだということです。
 
-If you want to learn Vuex in an interactive way you can check out this [Vuex course on Scrimba](https://scrimba.com/g/gvuex), which gives you a mix of screencast and code playground that you can pause and play around with anytime.
+あなたがもし対話型の方法でVuexを学びたいのであれば、[Scrimba](https://scrimba.com/g/gvuex)のVuexコースをぜひ試してみてください。
 
 ![vuex](/vuex.png)
 
-## When Should I Use It?
+## いつ、Vuexを使うべきでしょうか？
 
-Vuex helps us deal with shared state management with the cost of more concepts and boilerplate. It's a trade-off between short term and long term productivity.
+Vuex は、共有状態の管理に役立ちますが、さらに概念やボイラープレートのコストがかかります。これは、短期的生産性と長期的生産性のトレードオフです。
 
-If you've never built a large-scale SPA and jump right into Vuex, it may feel verbose and daunting. That's perfectly normal - if your app is simple, you will most likely be fine without Vuex. A simple [store pattern](https://v3.vuejs.org/guide/state-management.html#simple-state-management-from-scratch) may be all you need. But if you are building a medium-to-large-scale SPA, chances are you have run into situations that make you think about how to better handle state outside of your Vue components, and Vuex will be the natural next step for you. There's a good quote from Dan Abramov, the author of Redux:
+もし、あなたが大規模な SPA を構築することなく、Vuex を導入した場合、冗長で気が遠くなるように感じるかもしれません。そう感じることは全く普通です。あなたのアプリがシンプルであれば、Vuex なしで問題ないでしょう。単純な [ストアパターン](https://v3.ja.vuejs.org/guide/state-management.html#simple-state-management-from-scratch) が必要なだけかもしれません。しかし、今あなたが中規模から大規模の SPA を構築しているなら、Vue コンポーネントの外の状態をもっとうまく扱えないか考えなくてはならない状況にあるかもしれません。その場合 Vuex は次のステップとして最適でしょう。これは Redux の作者、Dan Abramov からの良い引用です:
 
-> Flux libraries are like glasses: you’ll know when you need them.
+> Flux ライブラリは眼鏡のようなものです: あなたが必要な時にいつでも分かるのです。

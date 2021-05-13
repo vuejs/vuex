@@ -1,14 +1,14 @@
-# Installation
+# インストール
 
-## Direct Download / CDN
+## 直接ダウンロードする / CDN
 
 [https://unpkg.com/vuex@4](https://unpkg.com/vuex@4)
 
 <!--email_off-->
-[Unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like `https://unpkg.com/vuex@4.0.0/dist/vuex.global.js`.
+[Unpkg.com](https://unpkg.com) で NPM ベースの CDN リンクが提供されています。上記リンクは常に NPM の最新のリリースを指します。`https://unpkg.com/vuex@4.0.0/dist/vuex.global.js` のような URL によって特定のバージョン/タグを利用することもできます。
 <!--/email_off-->
 
-Include `vuex` after Vue and it will install itself automatically:
+Vue のあとで `vuex` を取り込むと自動的に Vuex が導入されます:
 
 ```html
 <script src="/path/to/vue.js"></script>
@@ -29,32 +29,32 @@ yarn add vuex@next --save
 
 ## Promise
 
-Vuex requires [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). If your supporting browsers do not implement Promise (e.g. IE), you can use a polyfill library, such as [es6-promise](https://github.com/stefanpenner/es6-promise).
+Vuex は [Promise (プロミス)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) を必要とします。ブラウザで Promise が実装されていない(例 IE)場合は、[es6-promise](https://github.com/stefanpenner/es6-promise) のようなポリフィルライブラリを使用できます。
 
-You can include it via CDN:
+CDN 経由でそれを含めることができます:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
 ```
 
-Then `window.Promise` will be available automatically.
+`window.Promise` は自動的に有効になります。
 
-If you prefer using a package manager such as NPM or Yarn, install it with the following commands:
+NPM または Yarn のようなパッケージマネージャーを使用するのを希望する場合は、以下のコマンドでインストールします:
 
 ```bash
 npm install es6-promise --save # NPM
 yarn add es6-promise # Yarn
 ```
 
-Furthermore, add the below line into anywhere in your code before using Vuex:
+さらに、Vuex を使用する前に、コードのどこかに次の行を追加します:
 
 ```js
 import 'es6-promise/auto'
 ```
 
-## Dev Build
+## 開発版ビルド
 
-You will have to clone directly from GitHub and build `vuex` yourself if you want to use the latest dev build.
+最新の開発版ビルドを利用したい場合には、 GitHub から直接クローンし `vuex` を自身でビルドする必要があります。
 
 ```bash
 git clone https://github.com/vuejs/vuex.git node_modules/vuex
