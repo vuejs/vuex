@@ -10,9 +10,9 @@
 - [新機能](#新機能)
   - [新しい "useStore" 合成関数](#新しい-usestore-合成関数)
 
-### 破壊的変更
+## 破壊的変更
 
-#### インストール手順
+### インストール手順
 
 新しい Vue 3 の初期化の手順に合わせて、Vuex のインストール手順が変更されました。新しいストアを作成するには、新しく導入された createStore 関数を使用することが推奨されます。
 
@@ -46,7 +46,7 @@ app.mount('#app')
 厳密にはこれは破壊的変更ではなく、まだ `new Store(...)` 構文を使用することができますが、Vue 3 と Vue Router Next に合わせるためにこの方法を推奨します。
 :::
 
-#### TypeScript サポート
+### TypeScript サポート
 
 Vuex 4 は、[issue #994](https://github.com/vuejs/vuex/issues/994) を解決するために、Vue コンポーネント内の `this.$store` のグローバルな型付けを削除します。TypeScript で使用する場合は、独自のモジュール拡張を宣言する必要があります。
 
@@ -72,7 +72,7 @@ declare module '@vue/runtime-core' {
 
 詳細は、[TypeScript サポート](./typescript-support) セクションをご覧ください.
 
-#### バンドルが Vue 3 に対応しました
+### バンドルが Vue 3 に対応しました
 
 以下のバンドルは、Vue 3 のバンドルに合わせて生成されます。
 
@@ -89,7 +89,7 @@ declare module '@vue/runtime-core' {
 - `vuex.cjs.js`
   - Node.js のサーバーサイドレンダリングで、`require()`を使って使用されます。
 
-#### "createLogger" 関数はコアモジュールからエクスポートされます
+### "createLogger" 関数はコアモジュールからエクスポートされます
 
 Vuex 3では、`createLogger` 関数は `vuex/dist/logger` からエクスポートされていましたが、現在は core パッケージに含まれています。この関数は `vuex` パッケージから直接インポートする必要があります。
 
@@ -97,9 +97,9 @@ Vuex 3では、`createLogger` 関数は `vuex/dist/logger` からエクスポー
 import { createLogger } from 'vuex'
 ```
 
-### 新機能
+## 新機能
 
-#### 新しい "useStore" 合成関数
+### 新しい "useStore" 合成関数
 
 Vuex 4 では、Composition API でストアを操作するための新しい API が導入されました。合成関数の `useStore` を使って、コンポーネントの `setup` フック内でストアを取得することができます。
 
