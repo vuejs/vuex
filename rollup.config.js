@@ -56,6 +56,7 @@ function createEntry(config) {
   }
 
   c.plugins.push(replace({
+    preventAssignment: true,
     __VERSION__: pkg.version,
     __DEV__: isBunderBuild
       ? `(process.env.NODE_ENV !== 'production')`
