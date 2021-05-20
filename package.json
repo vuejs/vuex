@@ -54,6 +54,9 @@
   "peerDependencies": {
     "vue": "^3.0.2"
   },
+  "dependencies": {
+    "@vue/devtools-api": "^6.0.0-beta.10"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",

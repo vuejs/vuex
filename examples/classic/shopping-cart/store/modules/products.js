@@ -10,10 +10,9 @@ const getters = {}
 
 // actions
 const actions = {
-  getAllProducts ({ commit }) {
-    shop.getProducts(products => {
-      commit('setProducts', products)
-    })
+  async getAllProducts ({ commit }) {
+    const products = await shop.getProducts()
+    commit('setProducts', products)
   }
 }
 

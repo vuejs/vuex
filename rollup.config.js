@@ -25,6 +25,9 @@ function createEntries() {
 }
 
 function createEntry(config) {
+  const isGlobalBuild = config.format === 'iife'
+  const isBunderBuild = config.format !== 'iife' && !config.browser
+
   const c = {
     external: ['vue'],
     input: config.input,
@@ -44,15 +47,20 @@ function createEntry(config) {
     }
   }
 
-  if (config.format === 'iife' || config.format === 'umd') {
+  if (isGlobalBuild) {
     c.output.name = c.output.name || 'Vuex'
+  }
+
+  if (!isGlobalBuild) {
+    c.external.push('@vue/devtools-api')
   }
 
   c.plugins.push(replace({
     __VERSION__: pkg.version,
-    __DEV__: config.format !== 'iife' && !config.browser
+    __DEV__: isBunderBuild
       ? `(process.env.NODE_ENV !== 'production')`
-      : config.env !== 'production'
+      : config.env !== 'production',
+    __VUE_PROD_DEVTOOLS__: isBunderBuild ? '__VUE_PROD_DEVTOOLS__' : 'false'
   }))
 
   if (config.transpile !== false) {
