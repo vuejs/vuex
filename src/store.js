@@ -136,8 +136,7 @@ export class Store {
     try {
       this._actionSubscribers
         .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
-        .filter(sub => sub.before)
-        .forEach(sub => sub.before(action, this.state))
+        .forEach(sub => sub.before && sub.before(action, this.state))
     } catch (e) {
       if (__DEV__) {
         console.warn(`[vuex] error in before action subscribers: `)
@@ -153,8 +152,7 @@ export class Store {
       result.then(res => {
         try {
           this._actionSubscribers
-            .filter(sub => sub.after)
-            .forEach(sub => sub.after(action, this.state))
+            .forEach(sub => sub.after && sub.after(action, this.state))
         } catch (e) {
           if (__DEV__) {
             console.warn(`[vuex] error in after action subscribers: `)
@@ -165,8 +163,7 @@ export class Store {
       }, error => {
         try {
           this._actionSubscribers
-            .filter(sub => sub.error)
-            .forEach(sub => sub.error(action, this.state, error))
+            .forEach(sub => sub.error && sub.error(action, this.state, error))
         } catch (e) {
           if (__DEV__) {
             console.warn(`[vuex] error in error action subscribers: `)
