@@ -232,7 +232,7 @@ function formatStoreForInspectorState (module, getters, path) {
     storeState.getters = Object.keys(tree).map((key) => ({
       key: key.endsWith('/') ? extractNameFromPath(key) : key,
       editable: false,
-      value: tree[key]
+      value: canThrow(() => tree[key])
     }))
   }
 
@@ -259,9 +259,9 @@ function transformPathsToObjectTree (getters) {
         }
         target = target[p]._custom.value
       }
-      target[leafKey] = getters[key]
+      target[leafKey] = canThrow(() => getters[key])
     } else {
-      result[key] = getters[key]
+      result[key] = canThrow(() => getters[key])
     }
   })
   return result
@@ -279,4 +279,12 @@ function getStoreModule (moduleMap, path) {
     },
     path === 'root' ? moduleMap : moduleMap.root._children
   )
+}
+
+function canThrow (cb) {
+  try {
+    return cb()
+  } catch (e) {
+    return e
+  }
 }
