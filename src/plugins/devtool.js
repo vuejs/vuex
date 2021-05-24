@@ -59,7 +59,7 @@ export function addDevtools (app, store) {
           makeLocalGetters(store, modulePath)
           payload.state = formatStoreForInspectorState(
             getStoreModule(store._modules, modulePath),
-            store._makeLocalGettersCache,
+            modulePath === 'root' ? store.getters : store._makeLocalGettersCache,
             modulePath
           )
         }
