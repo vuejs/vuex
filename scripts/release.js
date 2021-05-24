@@ -54,8 +54,6 @@ async function main() {
     choices: tags
   })
 
-  console.log(tag)
-
   const { yes: tagOk } = await prompt({
     type: 'confirm',
     name: 'yes',
