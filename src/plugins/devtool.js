@@ -241,7 +241,7 @@ function formatStoreForInspectorState (module, getters, path) {
 
 function transformPathsToObjectTree (getters) {
   const result = {}
-  Object.keys(getters).map(key => {
+  Object.keys(getters).forEach(key => {
     const path = key.split('/')
     if (path.length > 1) {
       let target = result
