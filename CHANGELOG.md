@@ -1,3 +1,9 @@
+## [4.0.1](https://github.com/vuejs/vuex/compare/v4.0.0...v4.0.1) (2021-05-24)
+
+### Features
+
+* dx: add devtools integration ([#1949](https://github.com/vuejs/vuex/pull/1949))
+
 # [4.0.0](https://github.com/vuejs/vuex/compare/v4.0.0-rc.2...v4.0.0) (2021-02-02)
 
 This is the official Vuex 4 release.
