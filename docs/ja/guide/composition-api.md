@@ -37,7 +37,7 @@ export default {
 
 ## ミューテーションとアクションへのアクセス
 
-ミューテーションとアクションにアクセスする際には、`setup` フック内で `commit` と `dispatch` 関数を提供すればよいです。
+ミューテーションとアクションにアクセスするには、`setup` フック内で `commit` と `dispatch` 関数を呼び出します。
 
 ```js
 import { useStore } from 'vuex'
@@ -57,6 +57,6 @@ export default {
 }
 ```
 
-## 例
+## Composition API での実装例
 
 Vuex と Vue の Composition API を利用したアプリケーションの例は、[Composition API example](https://github.com/vuejs/vuex/tree/4.0/examples/composition) をご覧ください。

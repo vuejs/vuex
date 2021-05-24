@@ -319,13 +319,13 @@ sidebar: auto
 
   名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](../guide/modules.md#binding-helpers-with-namespace)
 
-## 構成可能な関数
+## Composable 関数kannsuu
 
 ### useStore
 
 - `useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;`
 
-  `setup` フックの中で呼ばれた時に、注入されたストアを取得します。Composition API を使用する時、このメソッドを呼ぶことでストアを取得することができます。
+  `setup` フックの中で呼ばれた時に、Vue App インスタンスにインストールされたストアを取得します。Composition API を使用する時、このメソッドを呼ぶことでストアを取得することができます。
 
   ```js
   import { useStore } from 'vuex'
@@ -337,9 +337,9 @@ sidebar: auto
   }
   ```
 
-  TypeScript ユーザーは、インジェクション・キーを使って型付けされたストアを取得することができます。これを実現するためには、ストアインスタンスを Vue アプリにインストールする時に、インジェクション・キーを定義してストアと一緒に渡す必要があります。
+  TypeScript ユーザーは、 `InjectionKey` を使って型付けされたストアを取得することができます。そのためには、ストアインスタンスを Vue App インスタンスにインストールする時、`InjectionKey` を定義してストアと一緒に渡す必要があります。
 
-  まず、Vue の `InjectionKey` インターフェースを使って、インジェクション・キーを宣言します。
+  まず、Vue の `InjectionKey` インターフェースを使って、 `InjectionKey` を宣言します。
 
   ```ts
   // store.ts
@@ -359,7 +359,7 @@ sidebar: auto
   })
   ```
 
-  そして、その定義したキーを `app.use` メソッドの第 2 引数に渡します。
+  次に、定義したキーを `app.use` メソッドの第2引数に渡します。
 
   ```ts
   // main.ts
@@ -373,7 +373,7 @@ sidebar: auto
   app.mount('#app')
   ```
 
-  最後に、`useStore` メソッドにそのキーを渡すことで型付けされたストアインスタンスを取得することができます。
+  最後に、`useStore` 関数にキーを渡すことで、型付けされたストアインスタンスを取得することができます。
 
   ```ts
   // vue component 内
