@@ -118,7 +118,7 @@ export function useStore () {
 }
 ```
 
-この関数を仕様することで、 `InjectionKey` とその型を提供しなくても、型付けされたストアを取得することができます。
+この関数を使用することで、 `InjectionKey` とその型を提供しなくても、型付けされたストアを取得することができます。
 
 ```ts
 // vue component 内

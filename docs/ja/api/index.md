@@ -319,7 +319,7 @@ sidebar: auto
 
   名前空間付けられたコンポーネントバインディングのヘルパーを作成します。返されるオブジェクトは指定された名前空間にバインドされた `mapState`、`mapGetters`、`mapActions` そして `mapMutations` が含まれます。[詳細はこちら](../guide/modules.md#binding-helpers-with-namespace)
 
-## Composable 関数kannsuu
+## Composable 関数
 
 ### useStore
 
