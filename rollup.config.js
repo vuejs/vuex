@@ -61,7 +61,7 @@ function createEntry(config) {
     __DEV__: isBundlerBuild
       ? `(process.env.NODE_ENV !== 'production')`
       : config.env !== 'production',
-    __VUE_PROD_DEVTOOLS__: isBundlerBuild ? '__VUE_PROD_DEVTOOLS__' : 'false'
+    __VUE_PROD_DEVTOOLS__: isBundlerBuild ? 'false' : '__VUE_PROD_DEVTOOLS__'
   }))
 
   if (config.transpile !== false) {
