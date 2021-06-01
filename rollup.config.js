@@ -27,7 +27,7 @@ function createEntries() {
 function createEntry(config) {
   const isGlobalBuild = config.format === 'iife'
   const isBundlerBuild = config.format !== 'iife' && !config.browser
-  const isBundlerESMBuild = config.format === 'es'
+  const isBundlerESMBuild = config.format === 'es' && !config.browser
 
   const c = {
     external: ['vue'],
