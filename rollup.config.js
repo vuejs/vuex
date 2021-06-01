@@ -27,6 +27,7 @@ function createEntries() {
 function createEntry(config) {
   const isGlobalBuild = config.format === 'iife'
   const isBundlerBuild = config.format !== 'iife' && !config.browser
+  const isBundlerESMBuild = config.format === 'es' && !config.browser
 
   const c = {
     external: ['vue'],
@@ -61,7 +62,9 @@ function createEntry(config) {
     __DEV__: isBundlerBuild
       ? `(process.env.NODE_ENV !== 'production')`
       : config.env !== 'production',
-    __VUE_PROD_DEVTOOLS__: isBundlerBuild ? '__VUE_PROD_DEVTOOLS__' : 'false'
+    __VUE_PROD_DEVTOOLS__: isBundlerESMBuild
+      ? '__VUE_PROD_DEVTOOLS__'
+      : 'false'
   }))
 
   if (config.transpile !== false) {
