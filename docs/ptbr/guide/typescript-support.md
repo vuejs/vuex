@@ -96,7 +96,7 @@ Por baixo dos panos, o Vuex instala o _store_ para a aplicação Vue usando o [P
 Ter que importar `InjectionKey` e passá-lo para `useStore` em todos os lugares em que é usado pode rapidamente se tornar uma tarefa repetitiva. Para simplificar as coisas, você pode definir sua própria função combinável (ou _composable_ _function_) para recuperar um _store_ tipado:
 
 ```ts
-// store.js
+// store.ts
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 
