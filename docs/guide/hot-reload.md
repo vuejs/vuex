@@ -30,7 +30,7 @@ if (module.hot) {
     // have to add .default here due to babel 6 module output
     const newMutations = require('./mutations').default
     const newModuleA = require('./modules/a').default
-    // swap in the new actions and mutations
+    // swap in the new modules and mutations
     store.hotUpdate({
       mutations: newMutations,
       modules: {
@@ -42,3 +42,50 @@ if (module.hot) {
 ```
 
 Checkout the [counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot) to play with hot-reload.
+
+## Dynamic module hot reloading
+
+If you use modules exclusively, you can use `require.context` to load and hot reload all modules dynamically.
+
+```js
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+// Load all modules.
+function loadModules() {
+  const context = require.context("./modules", false, /([a-z_]+)\.js$/i)
+
+  const modules = context
+    .keys()
+    .map((key) => ({ key, name: key.match(/([a-z_]+)\.js$/i)[1] }))
+    .reduce(
+      (modules, { key, name }) => ({
+        ...modules,
+        [name]: context(key).default
+      }),
+      {}
+    )
+
+  return { context, modules }
+}
+
+const { context, modules } = loadModules()
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  modules
+})
+
+if (module.hot) {
+  // Hot reload whenever any module changes.
+  module.hot.accept(context.id, () => {
+    const { modules } = loadModules()
+
+    store.hotUpdate({
+      modules
+    })
+  })
+}
+```

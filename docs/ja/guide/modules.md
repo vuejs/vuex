@@ -1,19 +1,21 @@
 # モジュール
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKK4psq" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 単一ステートツリーを使うため、アプリケーションの全ての状態は、一つの大きなストアオブジェクトに内包されます。しかしながら、アプリケーションが大きくなるにつれて、ストアオブジェクトは膨れ上がってきます。
 
 そのような場合に役立てるため Vuex ではストアを**モジュール**に分割できるようになっています。それぞれのモジュールは、モジュール自身の状態（state）、ミューテーション、アクション、ゲッター、モジュールさえも内包できます（モジュールをネストできます）- トップからボトムまでフラクタル構造です:
 
 ``` js
 const moduleA = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... },
   getters: { ... }
 }
 
 const moduleB = {
-  state: { ... },
+  state: () => ({ ... }),
   mutations: { ... },
   actions: { ... }
 }
@@ -35,7 +37,9 @@ store.state.b // -> `moduleB` のステート
 
 ``` js
 const moduleA = {
-  state: { count: 0 },
+  state: () => ({
+    count: 0
+  }),
   mutations: {
     increment (state) {
       // `state` はモジュールのローカルステート
@@ -92,7 +96,7 @@ const store = new Vuex.Store({
       namespaced: true,
 
       // モジュールのアセット
-      state: { ... }, // モジュールステートはすでにネストされており、名前空間のオプションによって影響を受けません
+      state: () => ({ ... }), // モジュールステートはすでにネストされており、名前空間のオプションによって影響を受けません
       getters: {
         isAdmin () { ... } // -> getters['account/isAdmin']
       },
@@ -107,7 +111,7 @@ const store = new Vuex.Store({
       modules: {
         // 親モジュールから名前空間を継承する
         myPage: {
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             profile () { ... } // -> getters['account/profile']
           }
@@ -117,7 +121,7 @@ const store = new Vuex.Store({
         posts: {
           namespaced: true,
 
-          state: { ... },
+          state: () => ({ ... }),
           getters: {
             popular () { ... } // -> getters['account/posts/popular']
           }
@@ -169,6 +173,32 @@ modules: {
   }
 }
 ```
+
+#### 名前空間付きモジュールでのグローバルアクションへの登録
+
+名前空間付きモジュールでグローバルアクションに登録したい場合、`root: true` でそれをマークでき、そしてアクション定義を `handler` 関数に置くことができます。例えば:
+
+``` js
+{
+  actions: {
+    someOtherAction ({dispatch}) {
+      dispatch('someAction')
+    }
+  },
+  modules: {
+    foo: {
+      namespaced: true,
+       actions: {
+        someAction: {
+          root: true,
+          handler (namespacedContext, payload) { ... } // -> 'someAction'
+        }
+      }
+    }
+  }
+}
+```
+
 
 #### 名前空間によるバインディングヘルパー
 
@@ -269,7 +299,13 @@ store.registerModule(['nested', 'myModule'], {
 
 `store.unregisterModule(moduleName)` を呼び出せば、動的に登録したモジュールを削除できます。ただしストア作成（store creation）の際に宣言された、静的なモジュールはこのメソッドで削除できないことに注意してください。
 
-サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション(`store.registerModule('a', module, { preserveState: true })`)でこれを実現できます。
+また、すでにモジュールが登録されているかどうかを `store.hasModule(moduleName)` メソッドを使って確認することができます。
+
+#### ステートの保持
+
+サーバサイドレンダリングされたアプリケーションから状態を保持するなど、新しいモジュールを登録するときに、以前の状態を保持したい場合があります。`preserveState` オプション（`store.registerModule('a', module, { preserveState: true })`）でこれを実現できます。
+
+`preserveState: true` を設定した場合、モジュールを登録する際に、アクション、ミューテーション、そしてゲッターは追加されますがステートは追加されません。これはストアのステートはすでにモジュールのステートを登録しているので、それを上書きしないようにするためです。
 
 ### モジュールの再利用
 
@@ -278,17 +314,15 @@ store.registerModule(['nested', 'myModule'], {
 - 同じモジュールを使用する複数のストアを作成する;
 - 同じストアに同じモジュールを複数回登録する
 
-モジュールの状態を宣言するために単純なオブジェクトを使用すると、その状態オブジェクトは参照によって共有され、変更時にクロスストア/モジュールの状態汚染を引き起こします。(例: `runInNewContext` オプションが `false` または `'once'` のとき、[SSR ではステートフルなシングルトンは避けます](https://ssr.vuejs.org/ja/structure.html#ステートフルなシングルトンの回避)。)
+モジュールの状態を宣言するために単純なオブジェクトを使用すると、その状態オブジェクトは参照によって共有され、変更時にクロスストア/モジュールの状態汚染を引き起こします。(例: `runInNewContext` オプションが `false` または `'once'` のとき、[SSR でステートフルなシングルトンを避けるためです](https://ssr.vuejs.org/ja/structure.html#ステートフルなシングルトンの回避)。)
 
 これは、実際には Vue コンポーネント内部の `data` と全く同じ問題です。従って解決策も同じです。モジュールの状態を宣言するために関数を使用してください (2.3.0 以降でサポートされます):
 
 ``` js
 const MyReusableModule = {
-  state () {
-    return {
-      foo: 'bar'
-    }
-  },
+  state: () => ({
+    foo: 'bar'
+  }),
   // ミューテーション、アクション、ゲッター...
 }
 ```

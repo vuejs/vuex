@@ -64,3 +64,9 @@ export function isPromise (val) {
 export function assert (condition, msg) {
   if (!condition) throw new Error(`[vuex] ${msg}`)
 }
+
+export function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}

@@ -1,9 +1,9 @@
 import shop from '../../api/shop'
 
 // initial state
-const state = {
+const state = () => ({
   all: []
-}
+})
 
 // getters
 const getters = {}

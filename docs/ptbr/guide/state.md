@@ -2,9 +2,13 @@
 
 ### Árvore Única de Estado
 
-O Vuex usa uma **árvore única de estado** - ou seja, esse único objeto contém todo o estado do seu nível de aplicação e serve como a "única fonte da verdade". Isso também significa que você terá apenas um _store_ para cada aplicativo. Uma árvore única de estado facilita a localização de uma parte específica do estado, e permite capturar facilmente momentos do estado atual do aplicativo para fins de depuração.
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
+O Vuex usa uma **árvore única de estado** - ou seja, esse único objeto contém todo o estado do seu nível de aplicação e serve como a "única fonte da verdade". Isso também significa que você terá apenas um _store_ para cada aplicação. Uma árvore única de estado facilita a localização de uma parte específica do estado, e permite capturar facilmente momentos do estado atual da aplicação para fins de depuração.
 
 A árvore única de estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
+
+O tipo de dados guardados no Vuex segue as mesmas regras que `data` em instâncias Vue, ou seja o _state_ têm de ser um objeto simples. [Detalhes](https://br.vuejs.org/v2/api/index.html#data)
 
 ### Obtendo o Estado Vuex nos Componentes Vue
 
@@ -22,9 +26,9 @@ const Counter = {
 }
 ```
 
-Sempre que o _store.state.count_ muda, fará com que o dado computado seja reavaliado e ative as atualizações de _DOM_ associadas.
+Sempre que o `store.state.count` muda, fará com que o dado computado seja reavaliado e ative as atualizações de DOM associadas.
 
-No entanto, esse padrão faz com que o componente dependa do _store_ _singleton_ global. Ao usar um sistema de módulo, ele precisa importar o _store_ em todos os componentes que usam o estado do _store_ e também requer _mocking_ ao testar o componente.
+No entanto, esse padrão faz com que o componente dependa do _store_ _singleton_ global. Ao usar um sistema de módulo, ele precisa importar o _store_ em todos os componentes que usam o estado do _store_ e também requer requer dados fictícios (ou _mocking_) ao testar o componente.
 
 O Vuex fornece um mecanismo para "injetar" o _store_ em todos os componentes filho do componente raiz com a opção _store_ (habilitada por `Vue.use(Vuex)`):
 
@@ -58,6 +62,8 @@ const Counter = {
 
 ### O Auxiliar `mapState`
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Quando um componente precisa fazer uso de várias propriedades do estado do _store_ ou _getters_, declarar todos esses dados computados pode ser repetitivo e verboso. Para lidar com isso, podemos usar o auxiliar `mapState` que gera funções _getter_ computadas para nós, economizando algumas linhas de código:
 
 ``` js
@@ -81,7 +87,7 @@ export default {
 }
 ```
 
-Também podemos passar um _Array_ de _Strings_ para _mapState_ quando o nome de um dado computado mapeado é o mesmo que um nome de árvore secundária do estado.
+Também podemos passar um _Array_ de _Strings_ para `mapState` quando o nome de um dado computado mapeado é o mesmo que um nome de árvore secundária do estado.
 
 ``` js
 computed: mapState([
@@ -92,7 +98,7 @@ computed: mapState([
 
 ### Objeto Spread Operator
 
-Observe que _mapState_ retorna um objeto. Como usá-lo em combinação com outros dados computados locais? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [Spread Operator](https://github.com/sebmarkbage/ecmascript-rest-spread) (que é uma proposta de ECMAScript em estágio 4), podemos simplificar muito a sintaxe:
+Observe que _mapState_ retorna um objeto. Como usá-lo em combinação com outros dados computados locais? Normalmente, teríamos que usar um utilitário para fundir vários objetos em um para que possamos passar o objeto final para `computado`. No entanto, com o [Spread Operator](https://github.com/tc39/proposal-object-rest-spread), podemos simplificar muito a sintaxe:
 
 ``` js
 computed: {

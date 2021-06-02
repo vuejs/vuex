@@ -1,4 +1,4 @@
-import ModuleCollection from '../../../src/module/module-collection'
+import ModuleCollection from '@/module/module-collection'
 
 describe('ModuleCollection', () => {
   it('get', () => {
@@ -81,6 +81,23 @@ describe('ModuleCollection', () => {
     expect(collection.get(['a'])).toBe(undefined)
   })
 
+  it('isRegistered', () => {
+    const collection = new ModuleCollection({})
+
+    collection.register(['a'], {
+      state: { value: true }
+    })
+
+    collection.register(['a', 'b'], {
+      state: { value: false }
+    })
+
+    expect(collection.isRegistered(['a'])).toBe(true)
+    expect(collection.isRegistered(['a', 'b'])).toBe(true)
+    expect(collection.isRegistered(['c'])).toBe(false)
+    expect(collection.isRegistered(['c', 'd'])).toBe(false)
+  })
+
   it('does not unregister initial modules', () => {
     const collection = new ModuleCollection({
       modules: {
@@ -91,5 +108,13 @@ describe('ModuleCollection', () => {
     })
     collection.unregister(['a'])
     expect(collection.get(['a']).state.value).toBe(true)
+  })
+
+  it('warns when unregistering non existing module', () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementation()
+
+    const collection = new ModuleCollection({})
+    collection.unregister(['a'])
+    expect(spy).toHaveBeenCalled()
   })
 })

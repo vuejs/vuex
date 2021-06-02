@@ -52,7 +52,7 @@ new Vue({
 
 さらに、状態管理に関わる概念を定義、分離し、特定のルールを敷くことで、コードの構造と保守性を向上させることができます。
 
-これが Vuex の背景にある基本的なアイディアであり、[Flux](https://facebook.github.io/flux/docs/overview.html)、 [Redux](http://redux.js.org/) そして [The Elm Architecture](https://guide.elm-lang.org/architecture/)から影響を受けています。
+これが Vuex の背景にある基本的なアイディアであり、[Flux](https://facebook.github.io/flux/docs/overview)、 [Redux](http://redux.js.org/) そして [The Elm Architecture](https://guide.elm-lang.org/architecture/)から影響を受けています。
 他のパターンと異なるのは、Vuex は効率的な更新のために、Vue.js の粒度の細かいリアクティビティシステムを利用するよう特別に調整して実装されたライブラリだということです。
 
 ![vuex](./images/vuex.png)

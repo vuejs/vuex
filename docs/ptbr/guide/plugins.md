@@ -1,5 +1,7 @@
 # Plugins
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Os _stores_ do Vuex aceitam a opção _plugins_ que expõe _hooks_ para cada mutação. Um _plugin_ Vuex é simplesmente uma função que recebe um _store_ como seu único argumento:
 
 ``` js
@@ -81,7 +83,7 @@ const store = new Vuex.Store({
 })
 ```
 
-O _plugin_ vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.github.io/docs/list-of-plugins.html#defineplugin) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor do `process.env.NODE_ENV !== 'production'` para _false_ no _build_ final.
+O _plugin_ vai ser usado por padrão. Para produção, você vai precisar do [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) para webpack ou [envify](https://github.com/hughsk/envify) para Browserify para converter o valor do `process.env.NODE_ENV !== 'production'` para `false` no _build_ final.
 
 ### Plugin de Log Integrado
 
@@ -105,7 +107,7 @@ const logger = createLogger({
   filter (mutation, stateBefore, stateAfter) {
     // retorna `true` se uma mutação deve ser registrada no log
     // `mutation` é um `{ type, payload }`
-    return mutation.type !== "aBlacklistedMutation"
+    return mutation.type !== "aBlocklistedMutation"
   },
   transformer (state) {
     // transforma o estado antes de regitrá-lo no log.

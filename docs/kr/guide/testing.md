@@ -1,5 +1,7 @@
 # 테스팅
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 Vuex에서 단위 테스트를 하고자 하는 주요 부분은 변이와 액션입니다.
 
 ### 변이 테스팅
@@ -95,9 +97,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
 
     try {
       expect(type).to.equal(mutation.type)
-      if (payload) {
-        expect(payload).to.deep.equal(mutation.payload)
-      }
+      expect(payload).to.deep.equal(mutation.payload)
     } catch (error) {
       done(error)
     }
@@ -135,9 +135,9 @@ describe('actions', () => {
   it('getAllProducts', () => {
     const commit = sinon.spy()
     const state = {}
-    
+
     actions.getAllProducts({ commit, state })
-    
+
     expect(commit.args).to.deep.equal([
       ['REQUEST_PRODUCTS'],
       ['RECEIVE_PRODUCTS', { /* 모의 응답 */ }]
