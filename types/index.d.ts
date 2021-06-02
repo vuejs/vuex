@@ -43,12 +43,12 @@ export declare class Store<S> {
 
 export declare function install(Vue: typeof _Vue): void;
 
-export interface Dispatch<Actions extends Record<string, never> = any> {
+export interface Dispatch<Actions extends Record<string, (...args: any) => any> = any> {
   <T extends keyof Actions>(type: T, payload?: Parameters<Actions[T]>[1], options?: DispatchOptions): Promise<any>;
   <P extends Payload<Actions>>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
 }
 
-export interface Commit<Mutations extends Record<string, never> = any> {
+export interface Commit<Mutations extends Record<string, (...args: any) => any> = any> {
   <T extends keyof Mutations>(type: T, payload?: Parameters<Mutations[T]>[1], options?: CommitOptions): void;
   <P extends Payload<Mutations>>(payloadWithType: P, options?: CommitOptions): void;
 }
@@ -56,9 +56,9 @@ export interface Commit<Mutations extends Record<string, never> = any> {
 export interface ActionContext<
   State,
   RootState,
-  Getters extends Record<string, never> = any,
-  Mutations extends Record<string, never> = any,
-  Actions extends Record<string, never> = any,
+  Getters extends Record<string, (...args: any) => any> = any,
+  Mutations extends Record<string, (...args: any) => any> = any,
+  Actions extends Record<string, (...args: any) => any> = any,
   RootGetters = any
 > {
   dispatch: Dispatch<Actions>;
@@ -71,7 +71,7 @@ export interface ActionContext<
   rootGetters: RootGetters;
 }
 
-export interface Payload<T extends { [key: string]: never } = {}> {
+export interface Payload<T extends { [key: string]: (...args: any) => any } = {}> {
   type: keyof T;
 }
 
