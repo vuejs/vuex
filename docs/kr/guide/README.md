@@ -1,5 +1,7 @@
 # 시작하기
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cMPa2Uk" target="_blank" rel="noopener noreferrer">Scrimba에서이 수업을 해보십시오.</a></div>
+
 모든 Vuex 애플리케이션의 중심에는 **store** 가 있습니다. "저장소"는 기본적으로 애플리케이션 **상태** 를 보유하고있는 컨테이너입니다. Vuex 저장소가 일반 전역 개체와 두 가지 다른 점이 있습니다.
 
 1. Vuex store는 반응형 입니다. Vue 컴포넌트는 상태를 검색할 때 저장소의 상태가 변경되면 효율적으로 대응하고 업데이트합니다.
@@ -7,7 +9,9 @@
 
 ### 가장 단순한 저장소
 
-> **참고:** 모든 예제는 ES2015 문법을 사용합니다. 사용하고 있지 않은 경우 [꼭 사용해야 합니다!](https://babeljs.io/docs/learn-es2015/)
+:::tip 참고
+모든 예제는 ES2015 문법을 사용합니다. 사용하고 있지 않은 경우 [꼭 사용해야 합니다!](https://babeljs.io/docs/learn-es2015/)
+:::
 
 Vuex를 [설치](../installation.md)한 후 저장소를 만들어 봅시다. 매우 간단합니다. 초기 상태 객체와 일부 변이를 제공하십시오.
 

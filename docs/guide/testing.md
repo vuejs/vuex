@@ -1,5 +1,7 @@
 # Testing
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">Try this lesson on Scrimba</a></div>
+
 The main parts we want to unit test in Vuex are mutations and actions.
 
 ### Testing Mutations
@@ -95,9 +97,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
 
     try {
       expect(type).to.equal(mutation.type)
-      if (payload) {
-        expect(payload).to.deep.equal(mutation.payload)
-      }
+      expect(payload).to.deep.equal(mutation.payload)
     } catch (error) {
       done(error)
     }
@@ -148,7 +148,7 @@ describe('actions', () => {
 
 ### Testing Getters
 
-If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test as same reason as mutations.
+If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test for the same reason as mutations.
 
 Example testing a getter:
 

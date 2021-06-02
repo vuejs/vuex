@@ -1,5 +1,7 @@
 # アクション
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c6ggR3cG" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 アクションはミューテーションと似ていますが、下記の点で異なります:
 
 - アクションは、状態を変更するのではなく、ミューテーションをコミットします。
@@ -25,7 +27,7 @@ const store = new Vuex.Store({
 })
 ```
 
-アクションハンドラはストアインスタンスのメソッドやプロパティのセットと同じものを呼び出せるコンテキストオブジェクトを受け取ります。したがって `context.commit` を呼び出すことでミューテーションをコミットできます。あるいは `context.state` や `context.getters` で、状態やゲッターにアクセスできます。なぜコンテキストオブジェクトがストアインスタンスそのものではないのかは、後ほど[モジュール](modules.md)で説明します。
+アクションハンドラはストアインスタンスのメソッドやプロパティのセットと同じものを呼び出せるコンテキストオブジェクトを受け取ります。したがって `context.commit` を呼び出すことでミューテーションをコミットできます。あるいは `context.state` や `context.getters` で、状態やゲッターにアクセスできます。他のアクションも `context.dispatch` で呼ぶこともできます。なぜコンテキストオブジェクトがストアインスタンスそのものではないのかは、後ほど[モジュール](modules.md)で説明します。
 
 実際にはコードを少しシンプルにするために ES2015 の[引数分割束縛（argument destructuring）](https://github.com/lukehoban/es6features#destructuring)がよく使われます（特に `commit` を複数回呼び出す必要があるとき）:
 

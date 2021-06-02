@@ -50,7 +50,7 @@ Então, por que não extraímos o estado compartilhado dos componentes e gerenci
 Além disso, definindo e separando os conceitos envolvidos na gestão do estado e aplicando certas regras, também damos ao nosso código mais estrutura e capacidade de manutenção.
 
 Esta é a idéia básica por trás do Vuex, inspirada por
- [Flux](https://facebook.github.io/flux/docs/overview.html), [Redux](http://redux.js.org/) e [The Elm Architecture](https://guide.elm-lang.org/architecture/). Ao contrário dos outros padrões, o Vuex também é uma implementação de biblioteca adaptada especificamente para Vue.js para aproveitar seu sistema de reatividade granular para atualizações eficientes.
+ [Flux](https://facebook.github.io/flux/docs/overview), [Redux](http://redux.js.org/) e [The Elm Architecture](https://guide.elm-lang.org/architecture/). Ao contrário dos outros padrões, o Vuex também é uma implementação de biblioteca adaptada especificamente para Vue.js para aproveitar seu sistema de reatividade granular para atualizações eficientes.
 
 ![vuex](./images/vuex.png)
 

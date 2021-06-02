@@ -3,7 +3,9 @@
     <h2>Your Cart</h2>
     <p v-show="!products.length"><i>Please add some products to cart.</i></p>
     <ul>
-      <li v-for="product in products">
+      <li
+        v-for="product in products"
+        :key="product.id">
         {{ product.title }} - {{ product.price | currency }} x {{ product.quantity }}
       </li>
     </ul>

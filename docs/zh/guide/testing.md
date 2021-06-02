@@ -1,5 +1,7 @@
 # 测试
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cPGkpJhq" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
+
 我们主要想针对 Vuex 中的 mutation 和 action 进行单元测试。
 
 ### 测试 Mutation
@@ -94,9 +96,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
 
     try {
       expect(mutation.type).to.equal(type)
-      if (payload) {
-        expect(mutation.payload).to.deep.equal(payload)
-      }
+      expect(mutation.payload).to.deep.equal(payload)
     } catch (error) {
       done(error)
     }
@@ -134,9 +134,9 @@ describe('actions', () => {
   it('getAllProducts', () => {
     const commit = sinon.spy()
     const state = {}
-    
+
     actions.getAllProducts({ commit, state })
-    
+
     expect(commit.args).to.deep.equal([
       ['REQUEST_PRODUCTS'],
       ['RECEIVE_PRODUCTS', { /* mocked response */ }]

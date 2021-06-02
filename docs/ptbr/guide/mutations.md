@@ -1,5 +1,7 @@
 # Mutações
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 A única maneira de realmente mudar de estado em um _store_ Vuex é por confirmar (ou fazer _commit_ de) uma mutação. As mutações do Vuex são muito semelhantes aos eventos: cada mutação tem uma cadeia de caracteres **tipo** e um **manipulador**. A função do manipulador é onde realizamos modificações de estado reais e ele receberá o estado como o 1º argumento:
 
 ``` js
@@ -16,7 +18,7 @@ const store = new Vuex.Store({
 })
 ```
 
-Você não pode chamar diretamente um manipulador de mutação. Pense nisso mais como registro de evento: "Quando uma mutação com o tipo _increment_ é acionada, chame este manipulador." Para invocar um manipulador de mutação, você precisa chamar _store.commit_ com seu tipo:
+Você não pode chamar diretamente um manipulador de mutação. Pense nisso mais como registro de evento: "Quando uma mutação com o tipo _increment_ é acionada, chame este manipulador." Para invocar um manipulador de mutação, você precisa chamar `store.commit` com seu tipo:
 
 ``` js
 store.commit('increment')
@@ -24,7 +26,7 @@ store.commit('increment')
 
 ### Commit com Payload
 
-Você pode passar um argumento adicional para o _store.commit_, que é chamado de **_payload_** para a mutação:
+Você pode passar um argumento adicional para o `store.commit`, que é chamado de **_payload_** para a mutação:
 
 ``` js
 // ...
@@ -86,7 +88,7 @@ Como o estado de um _store_ Vuex é reativado pelo Vue, quando alteramos o estad
 
   - Usar `Vue.set(obj, 'newProp', 123)`, ou
 
-  - Substitua esse objeto por um novo. Por exemplo, usando o _stage-3_ [object spread syntax](https://github.com/sebmarkbage/ecmascript-rest-spread) nós podemos escrevê-lo assim:
+  - Substitua esse objeto por um novo. Por exemplo, usando o [object spread syntax](https://github.com/tc39/proposal-object-rest-spread) nós podemos escrevê-lo assim:
 
     ``` js
     state.obj = { ...state.obj, newProp: 123 }
@@ -94,7 +96,7 @@ Como o estado de um _store_ Vuex é reativado pelo Vue, quando alteramos o estad
 
 ### Usando Constantes para Tipos de Mutação
 
-É um padrão comumente visto usar constantes para tipos de mutação em várias implementações do _Flux_. Isso permite que o código aproveite as ferramentas como os _linters_, e colocar todas as constantes em um único arquivo permite que seus colaboradores tenham uma visão geral das mutações possíveis em todo o aplicativo:
+É um padrão comumente visto usar constantes para tipos de mutação em várias implementações do _Flux_. Isso permite que o código aproveite as ferramentas como os _linters_, e colocar todas as constantes em um único arquivo permite que seus colaboradores tenham uma visão geral das mutações possíveis em toda a aplicação:
 
 ``` js
 // mutation-types.js
@@ -134,11 +136,11 @@ mutations: {
 }
 ```
 
-Agora imagine que estamos depurando o aplicativo e observando os logs de mutação do devtool. Para cada mutação registrada, o devtool precisará capturar os momentos "antes" e "depois" do estado. No entanto, o _callback_ assíncrono dentro da mutação de exemplo acima torna isso impossível: o _callback_ ainda não é chamado quando a mutação é confirmada (ou o _commit_ da mutação é feito) e não há como o devtool saber quando o _callback_ será realmente chamado - qualquer mutação de estado executada no _callback_ é essencialmente impossível de rastrear!
+Agora imagine que estamos depurando a aplicação e observando os logs de mutação do devtool. Para cada mutação registrada, o devtool precisará capturar os momentos "antes" e "depois" do estado. No entanto, o _callback_ assíncrono dentro da mutação de exemplo acima torna isso impossível: o _callback_ ainda não é chamado quando a mutação é confirmada (ou o _commit_ da mutação é feito) e não há como o devtool saber quando o _callback_ será realmente chamado - qualquer mutação de estado executada no _callback_ é essencialmente impossível de rastrear!
 
 ### Confirmando (ou fazendo Commits de) Mutações em Componentes
 
-Você pode confirmar (ou fazer _commit_ de) mutações em componentes com `this.$store.commit('xxx')`, ou use o auxiliar `mapMutations` que mapeia métodos de componentes para chamadas _store.commit_ (requer injeção _store_ raiz):
+Você pode confirmar (ou fazer _commit_ de) mutações em componentes com `this.$store.commit('xxx')`, ou use o auxiliar `mapMutations` que mapeia métodos de componentes para chamadas `store.commit` (requer injeção _store_ raiz):
 
 ``` js
 import { mapMutations } from 'vuex'

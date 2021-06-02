@@ -1,5 +1,7 @@
 # プラグイン
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 Vuex ストア は、各ミューテーションへのフックを公開する `plugins` オプションを受け付けます。 Vuex プラグインは、単一の引数としてストアを受けつけるただの関数です:
 
 ``` js
@@ -23,9 +25,9 @@ const store = new Vuex.Store({
 
 ### プラグイン内でのミューテーションのコミット
 
-プラグインは直接、状態を変更できません。これはコンポーネントに似ています。プラグインはコンポーネント同様に、ミューテーションのコミットによる変更のトリガーだけで状態を変更できます。
+プラグインは直接、状態を変更できません。これはコンポーネントに似ています。プラグインはコンポーネント同様に、ミューテーションのコミットをトリガーすることで状態を変更できます。
 
-ミューテーションのコミットによるストアとデータソースの同期をプラグインで実現できます。 websocket データソースとストアを例にします (これは不自然な例です。実際には、さらに複雑なタスクのために `createPlugin` 関数は、追加でいくつかのオプションを受け取れます):
+ミューテーションのコミットによるストアとデータソースの同期をプラグインで実現できます。 websocket データソースとストアを例にします (これは不自然で作為的な例です。実際には `createWebSocketPlugin` 関数は、さらに複雑なタスクのために追加でいくつかのオプションを受け取れます):
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -105,18 +107,29 @@ const logger = createLogger({
   filter (mutation, stateBefore, stateAfter) {
     // ミューテーションを記録する必要がある場合は、`true` を返します
     // `mutation` は `{ type, payload }` です
-    return mutation.type !== "aBlacklistedMutation"
+    return mutation.type !== "aBlocklistedMutation"
+  },
+  actionFilter (action, state) {
+    // `filter` と同等ですが、アクション用です
+    // `action` は `{ type, payloed }` です
+    return action.type !== "aBlocklistedAction"
   },
   transformer (state) {
     // ロギングの前に、状態を変換します
     // 例えば、特定のサブツリーのみを返します
     return state.subTree
   },
+  actionTransformer (action) {
+    // `mutationTransformer` と同等ですが、アクション用です
+    return action.type
+  },
   mutationTransformer (mutation) {
     // ミューテーションは、`{ type, payload }` の形式でログ出力されます
     // 任意の方法でそれをフォーマットできます
     return mutation.type
   },
+  logActions: true, // アクションログを出力します。
+  logMutations: true, // ミューテーションログを出力します。
   logger: console, // `console` API の実装, デフォルトは `console`
 })
 ```

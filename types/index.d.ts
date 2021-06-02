@@ -3,7 +3,11 @@ import _Vue, { WatchOptions } from "vue";
 // augment typings of Vue.js
 import "./vue";
 
+import { mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers } from "./helpers";
+import createLogger from "./logger";
+
 export * from "./helpers";
+export * from "./logger";
 
 export declare class Store<S> {
   constructor(options: StoreOptions<S>);
@@ -16,8 +20,8 @@ export declare class Store<S> {
   dispatch: Dispatch;
   commit: Commit;
 
-  subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any): () => void;
-  subscribeAction<P extends ActionPayload>(fn: (action: P, state: S) => any): () => void;
+  subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any, options?: SubscribeOptions): () => void;
+  subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>, options?: SubscribeOptions): () => void;
   watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
   registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
@@ -25,6 +29,9 @@ export declare class Store<S> {
 
   unregisterModule(path: string): void;
   unregisterModule(path: string[]): void;
+
+  hasModule(path: string): boolean;
+  hasModule(path: string[]): boolean;
 
   hotUpdate(options: {
     actions?: ActionTree<S, S>;
@@ -67,6 +74,21 @@ export interface ActionPayload extends Payload {
   payload: any;
 }
 
+export interface SubscribeOptions {
+  prepend?: boolean
+}
+
+export type ActionSubscriber<P, S> = (action: P, state: S) => any;
+export type ActionErrorSubscriber<P, S> = (action: P, state: S, error: Error) => any;
+
+export interface ActionSubscribersObject<P, S> {
+  before?: ActionSubscriber<P, S>;
+  after?: ActionSubscriber<P, S>;
+  error?: ActionErrorSubscriber<P, S>;
+}
+
+export type SubscribeActionOptions<P, S> = ActionSubscriber<P, S> | ActionSubscribersObject<P, S>;
+
 export interface DispatchOptions {
   root?: boolean;
 }
@@ -77,16 +99,17 @@ export interface CommitOptions {
 }
 
 export interface StoreOptions<S> {
-  state?: S;
+  state?: S | (() => S);
   getters?: GetterTree<S, S>;
   actions?: ActionTree<S, S>;
   mutations?: MutationTree<S>;
   modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];
   strict?: boolean;
+  devtools?: boolean;
 }
 
-export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload: any) => any;
+export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload?: any) => any;
 export interface ActionObject<S, R> {
   root?: boolean;
   handler: ActionHandler<S, R>;
@@ -94,7 +117,7 @@ export interface ActionObject<S, R> {
 
 export type Getter<S, R> = (state: S, getters: any, rootState: R, rootGetters: any) => any;
 export type Action<S, R> = ActionHandler<S, R> | ActionObject<S, R>;
-export type Mutation<S> = (state: S, payload: any) => any;
+export type Mutation<S> = (state: S, payload?: any) => any;
 export type Plugin<S> = (store: Store<S>) => any;
 
 export interface Module<S, R> {
@@ -126,8 +149,16 @@ export interface ModuleTree<R> {
   [key: string]: Module<any, R>;
 }
 
+export { createLogger }
+
 declare const _default: {
   Store: typeof Store;
   install: typeof install;
+  mapState: typeof mapState,
+  mapMutations: typeof mapMutations,
+  mapGetters: typeof mapGetters,
+  mapActions: typeof mapActions,
+  createNamespacedHelpers: typeof createNamespacedHelpers,
+  createLogger: typeof createLogger
 };
 export default _default;

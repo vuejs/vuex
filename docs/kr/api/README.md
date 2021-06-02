@@ -109,7 +109,7 @@ const store = new Vuex.Store({ ...options })
 
 ### strict
 
-- 자료형: `Boolean`
+- 자료형: `boolean`
 - 기본값: `false`
 
   Vuex 저장소를 strict 모드로 변경합니다. strict 모드에서 변이 핸들러 외부의 Vuex 상태에 대한 임의의 변이는 오류를 발생시킵니다.
@@ -141,8 +141,8 @@ const store = new Vuex.Store({ ...options })
 
 ### dispatch
 
-- `dispatch(type: string, payload?: any, options?: Object)`
-- `dispatch(action: Object, options?: Object)`
+- `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+- `dispatch(action: Object, options?: Object): Promise<any>`
 
   액션을 디스패치 합니다. `options` 에 `root:true` 를 포함하면 [네임스페이스 모듈](../guide/modules.md#네임스페이스) 의 root 액션에 디스패치를 허용합니다. 모든 트리거된 액션 핸들러를 처리하는 Promise를 반환합니다. [상세](../guide/actions.md)
 

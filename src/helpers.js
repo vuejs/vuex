@@ -1,3 +1,5 @@
+import { isObject } from './util'
+
 /**
  * Reduce the code which written in Vue.js for getting the state.
  * @param {String} [namespace] - Module's namespace
@@ -6,6 +8,9 @@
  */
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
+  if (__DEV__ && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
+  }
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
       let state = this.$store.state
@@ -31,11 +36,14 @@ export const mapState = normalizeNamespace((namespace, states) => {
 /**
  * Reduce the code which written in Vue.js for committing the mutation
  * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
 export const mapMutations = normalizeNamespace((namespace, mutations) => {
   const res = {}
+  if (__DEV__ && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
+  }
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
       // Get the commit method from store
@@ -63,14 +71,17 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
  */
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
+  if (__DEV__ && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
+  }
   normalizeMap(getters).forEach(({ key, val }) => {
-    // thie namespace has been mutate by normalizeNamespace
+    // The namespace has been mutated by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
         return
       }
-      if (process.env.NODE_ENV !== 'production' && !(val in this.$store.getters)) {
+      if (__DEV__ && !(val in this.$store.getters)) {
         console.error(`[vuex] unknown getter: ${val}`)
         return
       }
@@ -90,6 +101,9 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
  */
 export const mapActions = normalizeNamespace((namespace, actions) => {
   const res = {}
+  if (__DEV__ && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object')
+  }
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
       // get dispatch function from store
@@ -129,9 +143,21 @@ export const createNamespacedHelpers = (namespace) => ({
  * @return {Object}
  */
 function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
   return Array.isArray(map)
     ? map.map(key => ({ key, val: key }))
     : Object.keys(map).map(key => ({ key, val: map[key] }))
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
 }
 
 /**
@@ -160,7 +186,7 @@ function normalizeNamespace (fn) {
  */
 function getModuleByNamespace (store, helper, namespace) {
   const module = store._modulesNamespaceMap[namespace]
-  if (process.env.NODE_ENV !== 'production' && !module) {
+  if (__DEV__ && !module) {
     console.error(`[vuex] module namespace not found in ${helper}(): ${namespace}`)
   }
   return module

@@ -1,12 +1,12 @@
 # Manipulação de Formulários
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cqKRgEC9" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Ao usar o Vuex no modo estrito, pode ser um pouco complicado usar `v-model` em um pedaço do estado que pertence ao Vuex:
 
 ``` html
 <input v-model="obj.message">
 ```
-
-Assuming `obj` is a computed property that returns an Object from the store, the `v-model` here will attempt to directly mutate `obj.message` when the user types in the input. In strict mode, this will result in an error because the mutation is not performed inside an explicit Vuex mutation handler.
 
 Assumindo que `obj` é um dado computado que retorna um Objeto do _store_, o `v-model` aqui tentará alterar diretamente o `obj.message` quando o usuário digitar alguma coisa. No modo estrito, isso resultará em um erro porque a mutação não é executada dentro de um manipulador explícito de mutação Vuex.
 

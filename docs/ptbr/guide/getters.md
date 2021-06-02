@@ -1,5 +1,7 @@
 # Getters
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c2Be7TB" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
+
 Às vezes, talvez precisemos calcular o estado derivado com base no estado do _store_, por exemplo, filtrar através de uma lista de itens e contá-los:
 
 ``` js
@@ -34,13 +36,13 @@ const store = new Vuex.Store({
 
 ### Acesso Estilo-Propriedade
 
-Os _getters_ serão expostos no objeto _store.getters_ e você acessa valores como propriedades:
+Os _getters_ serão expostos no objeto `store.getters` e você acessa valores como propriedades:
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
 ```
 
-Os _getters_ também receberão outros _getters_ como o 2º argumento:
+Os _getters_ também receberão outros `getters` como o 2º argumento:
 
 ``` js
 getters: {

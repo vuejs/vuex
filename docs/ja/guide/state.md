@@ -2,6 +2,8 @@
 
 ### 単一ステートツリー
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 Vuex は **単一ステートツリー (single state tree)** を使います。つまり、この単一なオブジェクトはアプリケーションレベルの状態が全て含まれており、"信頼できる唯一の情報源 (single source of truth)" として機能します。これは、通常、アプリケーションごとに1つしかストアは持たないことを意味します。単一ステートツリーは状態の特定の部分を見つけること、デバッグのために現在のアプリケーションの状態のスナップショットを撮ることを容易にします。
 
 単一ステートツリーはモジュール性と競合しません。以降の章で、アプリケーションの状態とミューテーション(変更)をサブモジュールに分割する方法について説明します。
@@ -57,6 +59,8 @@ const Counter = {
 
 ### `mapState`  ヘルパー
 
+<div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
+
 コンポーネントが複数のストアのステートプロパティやゲッターを必要としているとき、これらすべてにおいて、算出プロパティを宣言することは繰り返しで冗長です。これに対処するため、算出ゲッター関数を生成し、いくつかのキーストロークを省くのに役立つ `mapState` ヘルパーを使うことができます:
 
 ```js
@@ -89,7 +93,7 @@ computed: mapState([
 
 ### オブジェクトスプレッド演算子
 
-`mapState` はオブジェクトを返すことに注意しましょう。どうやって、他のローカル算出プロパティと組み合わせるのでしょうか？ 通常、最終的にひとつのオブジェクトを `computed` に渡せるように、複数のオブジェクトをひとつにマージするユーティリティを使わなければいけません。しかし、[オブジェクトスプレッド演算子](https://github.com/sebmarkbage/ecmascript-rest-spread) (ECMAScript プロポーサルの state-4 です) で、シンタックスをかなり単純にできます:
+`mapState` はオブジェクトを返すことに注意しましょう。どうやって、他のローカル算出プロパティと組み合わせるのでしょうか？ 通常、最終的にひとつのオブジェクトを `computed` に渡せるように、複数のオブジェクトをひとつにマージするユーティリティを使わなければいけません。しかし、[オブジェクトスプレッド演算子](https://github.com/tc39/proposal-object-rest-spread)で、シンタックスをかなり単純にできます:
 
 ```js
 computed: {
