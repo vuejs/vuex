@@ -153,15 +153,14 @@ export class Store {
       ? Promise.all(entry.map(handler => handler(payload)))
       : entry[0](payload)
 
-    return new Promise((resolve, reject) => {
-      result.then(res => {
+    return Promise.resolve(result)
+      .then(res => {
         callActionSubscribes('after')
-        resolve(res)
+        return res
       }, error => {
         callActionSubscribes('error', error)
-        reject(error)
+        throw error
       })
-    })
   }
 
   subscribe (fn, options) {
