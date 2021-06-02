@@ -133,17 +133,21 @@ export class Store {
       return
     }
 
-    try {
-      this._actionSubscribers
-        .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
-        .filter(sub => sub.before)
-        .forEach(sub => sub.before(action, this.state))
-    } catch (e) {
-      if (__DEV__) {
-        console.warn(`[vuex] error in before action subscribers: `)
-        console.error(e)
+    const callActionSubscribes = (type, ...additionalArgs) => {
+      try {
+        this._actionSubscribers
+          .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+          .filter(sub => sub[type])
+          .forEach(sub => sub[type](action, this.state, ...additionalArgs))
+      } catch (e) {
+        if (__DEV__) {
+          console.warn(`[vuex] error in ${type} action subscribers: `)
+          console.error(e)
+        }
       }
     }
+
+    callActionSubscribes('before')
 
     const result = entry.length > 1
       ? Promise.all(entry.map(handler => handler(payload)))
@@ -151,28 +155,10 @@ export class Store {
 
     return new Promise((resolve, reject) => {
       result.then(res => {
-        try {
-          this._actionSubscribers
-            .filter(sub => sub.after)
-            .forEach(sub => sub.after(action, this.state))
-        } catch (e) {
-          if (__DEV__) {
-            console.warn(`[vuex] error in after action subscribers: `)
-            console.error(e)
-          }
-        }
+        callActionSubscribes('after')
         resolve(res)
       }, error => {
-        try {
-          this._actionSubscribers
-            .filter(sub => sub.error)
-            .forEach(sub => sub.error(action, this.state, error))
-        } catch (e) {
-          if (__DEV__) {
-            console.warn(`[vuex] error in error action subscribers: `)
-            console.error(e)
-          }
-        }
+        callActionSubscribes('error', error)
         reject(error)
       })
     })
