@@ -43,27 +43,36 @@ export declare class Store<S> {
 
 export declare function install(Vue: typeof _Vue): void;
 
-export interface Dispatch {
-  (type: string, payload?: any, options?: DispatchOptions): Promise<any>;
-  <P extends Payload>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
+export interface Dispatch<Actions extends Record<string, never> = any> {
+  <T extends keyof Actions>(type: T, payload?: Parameters<Actions[T]>[1], options?: DispatchOptions): Promise<any>;
+  <P extends Payload<Actions>>(payloadWithType: P, options?: DispatchOptions): Promise<any>;
 }
 
-export interface Commit {
-  (type: string, payload?: any, options?: CommitOptions): void;
-  <P extends Payload>(payloadWithType: P, options?: CommitOptions): void;
+export interface Commit<Mutations extends Record<string, never> = any> {
+  <T extends keyof Mutations>(type: T, payload?: Parameters<Mutations[T]>[1], options?: CommitOptions): void;
+  <P extends Payload<Mutations>>(payloadWithType: P, options?: CommitOptions): void;
 }
 
-export interface ActionContext<S, R> {
-  dispatch: Dispatch;
-  commit: Commit;
-  state: S;
-  getters: any;
-  rootState: R;
-  rootGetters: any;
+export interface ActionContext<
+  State,
+  RootState,
+  Getters extends Record<string, never> = any,
+  Mutations extends Record<string, never> = any,
+  Actions extends Record<string, never> = any,
+  RootGetters = any
+> {
+  dispatch: Dispatch<Actions>;
+  commit: Commit<Mutations>;
+  state: State;
+  getters: {
+    [K in keyof Getters]: ReturnType<Getters[K]>;
+  };
+  rootState: RootState;
+  rootGetters: RootGetters;
 }
 
-export interface Payload {
-  type: string;
+export interface Payload<T extends { [key: string]: never } = {}> {
+  type: keyof T;
 }
 
 export interface MutationPayload extends Payload {
