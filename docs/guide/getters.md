@@ -16,6 +16,10 @@ If more than one component needs to make use of this, we have to either duplicat
 
 Vuex allows us to define "getters" in the store. You can think of them as computed properties for stores. Like computed properties, a getter's result is cached based on its dependencies, and will only re-evaluate when some of its dependencies have changed.
 
+::: warning WARNING
+As of Vue 3.0, the getter's result is **not cached** as the computed property does. This is a known issue that requires Vue 3.2 to be released. You can learn more at [PR #1878](https://github.com/vuejs/vuex/pull/1883).
+:::
+
 Getters will receive the state as their 1st argument:
 
 ``` js
