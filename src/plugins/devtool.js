@@ -246,7 +246,7 @@ function transformPathsToObjectTree (getters) {
     if (path.length > 1) {
       let target = result
       const leafKey = path.pop()
-      for (const p of path) {
+      path.forEach((p) => {
         if (!target[p]) {
           target[p] = {
             _custom: {
@@ -258,7 +258,7 @@ function transformPathsToObjectTree (getters) {
           }
         }
         target = target[p]._custom.value
-      }
+      })
       target[leafKey] = canThrow(() => getters[key])
     } else {
       result[key] = canThrow(() => getters[key])
