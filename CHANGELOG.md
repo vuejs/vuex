@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/vuejs/vuex/compare/v4.0.1...v4.0.2) (2021-06-17)
+
+### Bug Fixes
+
+* **devtools:** fix no getters displayed on root module + better getters inspector ([#1986](https://github.com/vuejs/vuex/issues/1986)) ([bc20295](https://github.com/vuejs/vuex/commit/bc20295331eb2bee40d6ae779d1ada31c542604c))
+* **build:** cjs build failing due to `__VUE_PROD_DEVTOOLS__` defined ([#1991](https://github.com/vuejs/vuex/issues/1991)) ([#1992](https://github.com/vuejs/vuex/issues/1992)) ([7151622](https://github.com/vuejs/vuex/commit/7151622d646968686546f1c4c80f7575c9b99176))
+
 ## [4.0.1](https://github.com/vuejs/vuex/compare/v4.0.0...v4.0.1) (2021-05-24)
 
 ### Features
