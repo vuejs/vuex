@@ -20,6 +20,10 @@ Vuex allows us to define "getters" in the store. You can think of them as comput
 As of Vue 3.0, the getter's result is **not cached** as the computed property does. This is a known issue that requires Vue 3.1 to be released. You can learn more at [PR #1878](https://github.com/vuejs/vuex/pull/1883).
 :::
 
+::: warning WARNING
+As of Vue 3.0, the getter's result is **not cached** as the computed property does. This is a known issue that requires Vue 3.2 to be released. You can learn more at [PR #1883](https://github.com/vuejs/vuex/pull/1883).
+:::
+
 Getters will receive the state as their 1st argument:
 
 ``` js
