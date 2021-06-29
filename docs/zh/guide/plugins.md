@@ -90,9 +90,10 @@ const store = createStore({
 Vuex 自带一个日志插件用于一般的调试:
 
 ``` js
-import createLogger from 'vuex/dist/logger'
+import { createStore } from 'vuex'
+import { createLogger } from 'vuex'
 
-const store = new Vuex.Store({
+const store = createStore({
   plugins: [createLogger()]
 })
 ```
