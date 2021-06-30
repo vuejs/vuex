@@ -201,7 +201,7 @@ export class Store {
   }
 
   registerModule (path, rawModule, options = {}) {
-    if (typeof path === 'string') path = [path]
+    if (typeof path === 'string') path = path.split('/').filter(Boolean)
 
     if (__DEV__) {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
@@ -215,7 +215,7 @@ export class Store {
   }
 
   unregisterModule (path) {
-    if (typeof path === 'string') path = [path]
+    if (typeof path === 'string') path = path.split('/').filter(Boolean)
 
     if (__DEV__) {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
@@ -230,7 +230,7 @@ export class Store {
   }
 
   hasModule (path) {
-    if (typeof path === 'string') path = [path]
+    if (typeof path === 'string') path = path.split('/').filter(Boolean)
 
     if (__DEV__) {
       assert(Array.isArray(path), `module path must be a string or an Array.`)
