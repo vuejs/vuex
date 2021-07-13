@@ -27,31 +27,6 @@ npm install vuex@next --save
 yarn add vuex@next --save
 ```
 
-## Promise
-
-Vuex requer [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). Se os seus navegadores não implementarem o _Promise_ (e.g. IE), você pode usar uma biblioteca _polyfill_, como a [es6-promise](https://github.com/stefanpenner/es6-promise).
-
-Você pode incluí-la via CDN:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
-```
-
-Então o `window.Promise` estará disponível automaticamente.
-
-Se você preferir usar um gerenciador de pacotes como NPM ou Yarn, instale-o com os seguintes comandos:
-
-```bash
-npm install es6-promise --save # NPM
-yarn add es6-promise # Yarn
-```
-
-Além disso, adicione a linha abaixo em qualquer lugar no seu código antes de usar o Vuex:
-
-```js
-import 'es6-promise/auto'
-```
-
 ## Dev Build
 
 Você terá que clonar diretamente do GitHub e fazer a distribuição (_build_) do `vuex` se
