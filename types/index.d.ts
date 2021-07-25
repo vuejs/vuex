@@ -109,7 +109,7 @@ export interface StoreOptions<S> {
   devtools?: boolean;
 }
 
-export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload?: any) => any;
+export type ActionHandler<S, R> = (this: Store<R>, injectee: ActionContext<S, R>, payload?: ActionPayload) => any;
 export interface ActionObject<S, R> {
   root?: boolean;
   handler: ActionHandler<S, R>;
