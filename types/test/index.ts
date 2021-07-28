@@ -1,6 +1,57 @@
 import { InjectionKey } from "vue";
 import * as Vuex from "../index";
 
+namespace StricterStoreInstance {
+  const store = Vuex.createStore(
+    {
+      state: { state1: 1 },
+      getters: { getter1: () => 1 },
+      mutations: { mutation1: (state, payload: { a: string }) => {} },
+      actions: { action1: async (context, payload: { a: string }) => 1 },
+      modules: {
+        module1: {
+          namespaced: true,
+          state: { state2: "" },
+          getters: { getter2: () => "" },
+          mutations: { mutation2: (state, payload: { b: number }) => {} },
+          actions: { action2: async (context, payload: { b: number }) => "" },
+          modules: {
+            module2: {
+              namespaced: false,
+              state: { state3: true },
+              getters: { getter3: () => true },
+              mutations: { mutation3: (state, payload: { c: boolean }) => {} },
+              actions: {
+                action3: async (context, payload: { c: boolean }) => true,
+              },
+            },
+          },
+        },
+      },
+    },
+    true
+  );
+
+  const state1 = store.state.state1;
+  const state2 = store.state.module1.state2;
+  const state3 = store.state.module1.module2.state3;
+
+  const getter1 = store.getters.getter1;
+  const getter2 = store.getters["module1/getter2"];
+
+  let commitResult1 = store.commit("mutation1", { a: "" });
+  let commitResult2 = store.commit("module1/mutation2", { b: 1 });
+
+  commitResult1 = store.commit({ type: "mutation1", a: "" });
+  commitResult2 = store.commit({ type: "module1/mutation2", b: 1 });
+
+  let dispatchResult1 = store.dispatch("action1", { a: "" });
+  let dispatchResult2 = store.dispatch("module1/action2", { b: 1 });
+
+  dispatchResult1 = store.dispatch({ type: "action1", a: "" });
+  dispatchResult2 = store.dispatch({ type: "module1/action2", b: 1 });
+}
+
 namespace StoreInstance {
   const store = new Vuex.Store({
     state: {
