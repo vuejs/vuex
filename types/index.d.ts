@@ -192,7 +192,7 @@ export interface StricterStore<
   dispatch: StricterDispatch<RootState, RootState, Actions, Modules>;
   commit: StricterCommit<RootState, Mutations, Modules>;
 }
-type StoreState<
+export type StoreState<
   State,
   RootState,
   Modules extends ModuleTree<RootState>
@@ -208,7 +208,7 @@ type StoreState<
         : {});
   };
 
-type StoreGetters<
+export type StoreGetters<
   State,
   RootState,
   Getters extends GetterTree<State, RootState>,
@@ -233,7 +233,7 @@ type StoreGetters<
       : never;
   };
 
-interface StricterDispatch<
+export interface StricterDispatch<
   State = any,
   RootState = any,
   Actions extends ActionTree<State, RootState> = any,
@@ -255,7 +255,7 @@ interface StricterDispatch<
     options?: DispatchOptions
   ): Promise<any>;
 }
-type DispatchType<
+export type DispatchType<
   State,
   RootState,
   Actions extends ActionTree<State, RootState>,
@@ -263,7 +263,7 @@ type DispatchType<
 > =
   | (string & keyof Actions)
   | ExtractNamespacedPaths<RootState, Modules, "actions">;
-type DispatchAction<
+export type DispatchAction<
   State,
   RootState,
   Actions extends ActionTree<State, RootState>,
@@ -283,7 +283,7 @@ type DispatchAction<
       : never
     : never
   : never;
-type EnsureActionHandler<
+export type EnsureActionHandler<
   State,
   RootState,
   ActionType extends Action<State, RootState>
@@ -310,14 +310,14 @@ export interface StricterCommit<
     options?: CommitOptions
   ): void;
 }
-type CommitType<
+export type CommitType<
   RootState,
   Mutations extends MutationTree<RootState>,
   Modules extends ModuleTree<RootState>
 > =
   | (string & keyof Mutations)
   | ExtractNamespacedPaths<RootState, Modules, "mutations">;
-type CommitMutation<
+export type CommitMutation<
   RootState,
   Mutations extends MutationTree<RootState>,
   Modules extends ModuleTree<RootState>,
@@ -337,11 +337,11 @@ type CommitMutation<
     : never
   : never;
 
-type ExtractPayloadType<
+export type ExtractPayloadType<
   T extends (_: any, payload: any, ...args: any[]) => any
 > = Parameters<T>[1];
 
-type ExtractNamespacedPaths<
+export type ExtractNamespacedPaths<
   RootState,
   Modules extends ModuleTree<RootState>,
   KeysFrom extends keyof Module<unknown, unknown>
@@ -360,7 +360,7 @@ type ExtractNamespacedPaths<
 } extends infer T
   ? T[keyof T]
   : never;
-type ResolveNamespacedPath<
+export type ResolveNamespacedPath<
   Path extends string,
   KeysFrom extends keyof Module<unknown, unknown>,
   RootState,
