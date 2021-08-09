@@ -34,10 +34,8 @@ const store = createStore({
   }
 })
 
-const app = createApp({ /* your root component */ })
-
 // Install the store instance as a plugin
-app.use(store)
+createApp({ /* your root component */ }).use(store)
 ```
 
 Now, you can access the state object as `store.state`, and trigger a state change with the `store.commit` method:
