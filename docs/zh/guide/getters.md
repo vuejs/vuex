@@ -31,7 +31,7 @@ const store = createStore({
     ]
   },
   getters: {
-    doneTodos (state) => {
+    doneTodos: (state) => {
       return state.todos.filter(todo => todo.done)
     }
   }
