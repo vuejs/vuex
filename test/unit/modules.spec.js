@@ -126,7 +126,7 @@ describe('Modules', () => {
       expect(mutationSpy).toHaveBeenCalled()
     })
 
-    it.only('should keep getters when component gets destroyed', async () => {
+    it('should keep getters when component gets destroyed', async () => {
       const store = new Vuex.Store()
 
       const moduleA = {
@@ -165,7 +165,7 @@ describe('Modules', () => {
       await nextTick()
 
       store.commit('moduleA/increment')
-      console.log(store.state.moduleA.value)
+
       expect(store.getters['moduleA/getState']).toBe(2)
     })
   })

@@ -39,6 +39,12 @@ export class Store {
     this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
     this._makeLocalGettersCache = Object.create(null)
+
+    // EffectScope instance. when registering new getters, we wrap them inside
+    // EffectScope so that getters (computed) would not be destroyed on
+    // component unmount.
+    this._scope = null
+
     this._devtools = devtools
 
     // bind commit and dispatch to self
