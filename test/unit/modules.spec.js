@@ -129,11 +129,16 @@ describe('Modules', () => {
     it('should keep getters when component gets destroyed', async () => {
       const store = new Vuex.Store()
 
+      const spy = jest.fn()
+
       const moduleA = {
         namespaced: true,
         state: () => ({ value: 1 }),
         getters: {
-          getState: (state) => state.value
+          getState (state) {
+            spy()
+            return state.value
+          }
         },
         mutations: {
           increment: (state) => { state.value++ }
@@ -160,6 +165,7 @@ describe('Modules', () => {
       })
 
       expect(store.getters['moduleA/getState']).toBe(1)
+      expect(spy).toHaveBeenCalledTimes(1)
 
       vm.show = 'b'
       await nextTick()
@@ -167,6 +173,7 @@ describe('Modules', () => {
       store.commit('moduleA/increment')
 
       expect(store.getters['moduleA/getState']).toBe(2)
+      expect(spy).toHaveBeenCalledTimes(2)
     })
   })
 
