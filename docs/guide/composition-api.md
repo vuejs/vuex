@@ -37,7 +37,7 @@ export default {
 
 ## Accessing Mutations and Actions
 
-When accessing mutations and actions, you can simply provide the `commit` and `dispatch` function inside the `setup` hook.
+When accessing mutations and actions, you can simply provide the `commit` and `dispatch` method inside the `setup` hook.
 
 ```js
 import { useStore } from 'vuex'
