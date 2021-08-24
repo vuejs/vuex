@@ -4,6 +4,7 @@ import * as Vuex from "../index";
 namespace StricterStoreInstance {
   const store = Vuex.createStore(
     {
+      stricterTypes: true,
       state: { state1: 1 },
       getters: { getter1: () => 1 },
       mutations: { mutation1: (state, payload: { a: string }) => {} },
@@ -29,7 +30,6 @@ namespace StricterStoreInstance {
         },
       },
     },
-    true
   );
 
   const state1 = store.state.state1;

@@ -169,8 +169,7 @@ export default _default;
 // Stricter Types
 
 export function createStore<Options extends StoreOptions<any>>(
-  options: Options,
-  stricterTypes: true
+  options: Options & { stricterTypes: true }
 ): StricterStore<
   Options extends StoreOptions<infer State> ? State : never,
   NonNullable<Options["getters"]>,
