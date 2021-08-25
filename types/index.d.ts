@@ -8,6 +8,7 @@ import { createLogger } from "./logger";
 
 export * from "./helpers";
 export * from "./logger";
+export * from "./util";
 
 export declare class Store<S> {
   constructor(options: StoreOptions<S>);
