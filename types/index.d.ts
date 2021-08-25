@@ -47,7 +47,8 @@ export const storeKey: string;
 
 export function createStore<S>(options: StoreOptions<S>): Store<S>;
 
-export function useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;
+export function useStore<StoreType extends Store<any> | StricterStore<any, any, any, any, any>>(injectKey: InjectionKey<StoreType>): StoreType;
+export function useStore<State = any>(injectKey?: InjectionKey<Store<State>> | string): Store<State>;
 
 export interface Dispatch {
   (type: string, payload?: any, options?: DispatchOptions): Promise<any>;

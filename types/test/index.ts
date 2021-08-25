@@ -190,9 +190,9 @@ namespace UseStoreFunction {
     a: string
   }
 
-  const key: InjectionKey<string> = Symbol('store')
+  const tokenKey: InjectionKey<string> = Symbol('store')
 
-  const storeWithKey = Vuex.useStore(key)
+  const storeWithKey = Vuex.useStore(tokenKey)
   storeWithKey.state.a
 
   const storeWithKeyString = Vuex.useStore('store')
@@ -203,6 +203,9 @@ namespace UseStoreFunction {
 
   const storeAsAny = Vuex.useStore()
   storeAsAny.state.a
+
+  const storeKey: InjectionKey<Vuex.StricterStore<any, any, any, any, any>> = Symbol()
+  const storeWithStoreKey = Vuex.useStore(storeKey)
 }
 
 namespace RootModule {
