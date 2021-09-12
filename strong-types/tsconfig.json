@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "lib": ["ES2015"],
+        "extendedDiagnostics": true,
+        "traceResolution": true,
+        "noEmit": true,
+        "alwaysStrict": true,
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules/**/*"]
+}
