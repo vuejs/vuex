@@ -1,4 +1,4 @@
-import { reactive, watch } from 'vue'
+import { reactive, computed, watch, effectScope } from 'vue'
 import { forEachValue, isObject, isPromise, assert, partial } from './util'
 
 export function genericSubscribe (fn, subs, options) {
@@ -29,6 +29,7 @@ export function resetStore (store, hot) {
 
 export function resetStoreState (store, state, hot) {
   const oldState = store._state
+  const oldScope = store._scope
 
   // bind store public getters
   store.getters = {}
@@ -36,22 +37,33 @@ export function resetStoreState (store, state, hot) {
   store._makeLocalGettersCache = Object.create(null)
   const wrappedGetters = store._wrappedGetters
   const computedObj = {}
-  forEachValue(wrappedGetters, (fn, key) => {
-    // use computed to leverage its lazy-caching mechanism
-    // direct inline function use will lead to closure preserving oldState.
-    // using partial to return function with only arguments preserved in closure environment.
-    computedObj[key] = partial(fn, store)
-    Object.defineProperty(store.getters, key, {
-      // TODO: use `computed` when it's possible. at the moment we can't due to
-      // https://github.com/vuejs/vuex/pull/1883
-      get: () => computedObj[key](),
-      enumerable: true // for local getters
+  const computedCache = {}
+
+  // create a new effect scope and create computed object inside it to avoid
+  // getters (computed) getting destroyed on component unmount.
+  const scope = effectScope(true)
+
+  scope.run(() => {
+    forEachValue(wrappedGetters, (fn, key) => {
+      // use computed to leverage its lazy-caching mechanism
+      // direct inline function use will lead to closure preserving oldState.
+      // using partial to return function with only arguments preserved in closure environment.
+      computedObj[key] = partial(fn, store)
+      computedCache[key] = computed(() => computedObj[key]())
+      Object.defineProperty(store.getters, key, {
+        get: () => computedCache[key].value,
+        enumerable: true // for local getters
+      })
     })
   })
 
   store._state = reactive({
     data: state
   })
+
+  // register the newly created effect scope to the store so that we can
+  // dispose the effects when this method runs again in the future.
+  store._scope = scope
 
   // enable strict mode for new state
   if (store.strict) {
@@ -66,6 +78,11 @@ export function resetStoreState (store, state, hot) {
         oldState.data = null
       })
     }
+  }
+
+  // dispose previously registered effect scope if there is one.
+  if (oldScope) {
+    oldScope.stop()
   }
 }
 
