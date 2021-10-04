@@ -9,6 +9,7 @@
       "require": "./dist/vuex.cjs.js",
       "import": "./dist/vuex.mjs"
     },
+    "./*": "./*",
     "./": "./"
   },
   "module": "dist/vuex.esm-bundler.js",
