@@ -12,7 +12,6 @@ To do so, declare custom typings for Vue's `ComponentCustomProperties` by adding
 
 ```ts
 // vuex.d.ts
-import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
 declare module '@vue/runtime-core' {
