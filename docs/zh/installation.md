@@ -1,6 +1,6 @@
 # 安装
 
-### 直接下载 / CDN 引用
+## 直接下载 / CDN 引用
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
@@ -15,13 +15,13 @@
 <script src="/path/to/vuex.js"></script>
 ```
 
-### NPM
+## NPM
 
 ``` bash
 npm install vuex --save
 ```
 
-### Yarn
+## Yarn
 
 ``` bash
 yarn add vuex
@@ -38,7 +38,7 @@ Vue.use(Vuex)
 
 当使用全局 script 标签引用 Vuex 时，不需要以上安装过程。
 
-### Promise
+## Promise
 
 Vuex 依赖 [Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises)。如果你支持的浏览器并没有实现 Promise (比如 IE)，那么你可以使用一个 polyfill 的库，例如 [es6-promise](https://github.com/stefanpenner/es6-promise)。
 
@@ -63,7 +63,7 @@ yarn add es6-promise # Yarn
 import 'es6-promise/auto'
 ```
 
-### 自己构建
+## 自己构建
 
 如果需要使用 dev 分支下的最新版本，您可以直接从 GitHub 上克隆代码并自己构建。
 

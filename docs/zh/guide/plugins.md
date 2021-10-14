@@ -23,7 +23,7 @@ const store = new Vuex.Store({
 })
 ```
 
-### 在插件内提交 Mutation
+## 在插件内提交 Mutation
 
 在插件中不允许直接修改状态——类似于组件，只能通过提交 mutation 来触发变化。
 
@@ -54,7 +54,7 @@ const store = new Vuex.Store({
 })
 ```
 
-### 生成 State 快照
+## 生成 State 快照
 
 有时候插件需要获得状态的“快照”，比较改变的前后状态。想要实现这项功能，你需要对状态对象进行深拷贝：
 
@@ -85,7 +85,7 @@ const store = new Vuex.Store({
 
 上面插件会默认启用。在发布阶段，你需要使用 webpack 的 [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) 或者是 Browserify 的 [envify](https://github.com/hughsk/envify) 使 `process.env.NODE_ENV !== 'production'` 为 `false`。
 
-### 内置 Logger 插件
+## 内置 Logger 插件
 
 > 如果正在使用 [vue-devtools](https://github.com/vuejs/vue-devtools)，你可能不需要此插件。
 

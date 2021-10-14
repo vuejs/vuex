@@ -1,6 +1,6 @@
 # インストール
 
-### 直接ダウンロードする / CDN
+## 直接ダウンロードする / CDN
 
 [https://unpkg.com/vuex](https://unpkg.com/vuex)
 
@@ -15,13 +15,13 @@ Vue のあとで `vuex` を取り込むと自動的に Vuex が導入されま�
 <script src="/path/to/vuex.js"></script>
 ```
 
-### NPM
+## NPM
 
 ``` bash
 npm install vuex --save
 ```
 
-### Yarn
+## Yarn
 
 ``` bash
 yarn add vuex
@@ -38,7 +38,7 @@ Vue.use(Vuex)
 
 グローバルなスクリプトタグを利用する場合にはこのようにする必要はありません。
 
-### Promise
+## Promise
 
 Vuex は [Promise (プロミス)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) を必要とします。ブラウザで Promise が実装されていない(例 IE)場合は、[es6-promise](https://github.com/stefanpenner/es6-promise) のようなポリフィルライブラリを使用できます。
 
@@ -63,7 +63,7 @@ yarn add es6-promise # Yarn
 import 'es6-promise/auto'
 ```
 
-### 開発版ビルド
+## 開発版ビルド
 
 最新の開発版ビルドを利用したい場合には、 Github から直接クローンし `vuex` を自身でビルドする必要があります。
 
