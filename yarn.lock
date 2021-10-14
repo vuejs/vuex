@@ -7041,7 +7041,7 @@ pretty-format@^26.6.2:
     ansi-styles "^4.0.0"
     react-is "^17.0.1"
 
-prismjs@^1.23.0:
+prismjs@^1.25.0:
   version "1.25.0"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.25.0.tgz#6f822df1bdad965734b310b315a23315cf999756"
   integrity sha512-WCjJHl1KEWbnkQom1+SzftbtXMKQoezOCYs5rECqMN+jP+apI7ftoflyqigqzopSO3hMhTEb0mFClA8lkolgEg==
@@ -8733,7 +8733,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite@^2.5.0:
+vite@^2.6.5:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/vite/-/vite-2.6.7.tgz#e15c1d8327950720b5d7c4ec3fb36a5a58ccf7cb"
   integrity sha512-ewk//jve9k6vlU8PfJmWUHN8k0YYdw4VaKOMvoQ3nT2Pb6k5OSMKQi4jPOzVH/TlUqMsCrq7IJ80xcuDDVyigg==
@@ -8745,17 +8745,17 @@ vite@^2.5.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitepress@^0.19.0:
-  version "0.19.2"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.19.2.tgz#125d9c218201486f3c51b6b8dcbca37c7f27a76c"
-  integrity sha512-F8KY5gTfIa9B61by6rlGQE2K/fw2FIflld6UuB3SHTp0E5cblYGUkGfVwMiai+ets2ztDqWIiJJqpDBm/Cam1Q==
+vitepress@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.20.0.tgz#eb4f86abb7a90e9dc52c595fb5cc63ca2b717c60"
+  integrity sha512-+PZy1BAWha46hcaWqhB1Vet+2dwhebTnk900ZzrAgLiw4Dx0dQpnMRnDlrp5HR8fgmLNB1Ij9PJO4gh4tvb6gQ==
   dependencies:
     "@docsearch/css" "^1.0.0-alpha.28"
     "@docsearch/js" "^1.0.0-alpha.28"
     "@vitejs/plugin-vue" "^1.9.0"
-    prismjs "^1.23.0"
-    vite "^2.5.0"
-    vue "^3.2.13"
+    prismjs "^1.25.0"
+    vite "^2.6.5"
+    vue "^3.2.19"
 
 vm-browserify@^1.0.1:
   version "1.1.2"
@@ -8791,7 +8791,7 @@ vue-style-loader@^4.1.3:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue@^3.2.13:
+vue@^3.2.19:
   version "3.2.20"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.20.tgz#940f8aa8bf3e3be78243ca582bad41fcd45ae3e6"
   integrity sha512-81JjEP4OGk9oO8+CU0h2nFPGgJBm9mNa3kdCX2k6FuRdrWrC+CNe+tOnuIeTg8EWwQuI+wwdra5Q7vSzp7p4Iw==
