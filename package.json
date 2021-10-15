@@ -89,7 +89,7 @@
     "start-server-and-test": "^1.12.3",
     "todomvc-app-css": "^2.4.1",
     "typescript": "^4.2.4",
-    "vitepress": "^0.11.5",
+    "vitepress": "^0.20.0",
     "vue": "^3.2.4",
     "vue-loader": "^16.5.0",
     "vue-style-loader": "^4.1.3",
