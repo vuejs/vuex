@@ -4,7 +4,7 @@
 
 The main parts we want to unit test in Vuex are mutations and actions.
 
-### Testing Mutations
+## Testing Mutations
 
 Mutations are very straightforward to test, because they are just functions that completely rely on their arguments. One trick is that if you are using ES2015 modules and put your mutations inside your `store.js` file, in addition to the default export, you should also export the mutations as a named export:
 
@@ -49,7 +49,7 @@ describe('mutations', () => {
 })
 ```
 
-### Testing Actions
+## Testing Actions
 
 Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
 
@@ -146,7 +146,7 @@ describe('actions', () => {
 })
 ```
 
-### Testing Getters
+## Testing Getters
 
 If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test for the same reason as mutations.
 
@@ -193,11 +193,11 @@ describe('getters', () => {
 })
 ```
 
-### Running Tests
+## Running Tests
 
 If your mutations and actions are written properly, the tests should have no direct dependency on Browser APIs after proper mocking. Thus you can simply bundle the tests with webpack and run it directly in Node. Alternatively, you can use `mocha-loader` or Karma + `karma-webpack` to run the tests in real browsers.
 
-#### Running in Node
+### Running in Node
 
 Create the following webpack config (together with proper [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)):
 
@@ -228,13 +228,13 @@ webpack
 mocha test-bundle.js
 ```
 
-#### Running in Browser
+### Running in Browser
 
 1. Install `mocha-loader`.
 2. Change the `entry` from the webpack config above to `'mocha-loader!babel-loader!./test.js'`.
 3. Start `webpack-dev-server` using the config.
 4. Go to `localhost:8080/webpack-dev-server/test-bundle`.
 
-#### Running in Browser with Karma + karma-webpack
+### Running in Browser with Karma + karma-webpack
 
 Consult the setup in [vue-loader documentation](https://vue-loader.vuejs.org/en/workflow/testing.html).

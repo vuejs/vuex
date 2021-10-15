@@ -4,7 +4,7 @@
 
 我们主要想针对 Vuex 中的 mutation 和 action 进行单元测试。
 
-### 测试 Mutation
+## 测试 Mutation
 
 Mutation 很容易被测试，因为它们仅仅是一些完全依赖参数的函数。这里有一个小技巧，如果你在 `store.js` 文件中定义了 mutation，并且使用 ES2015 模块功能默认输出了 Vuex.Store 的实例，那么你仍然可以给 mutation 取个变量名然后把它输出去：
 
@@ -49,7 +49,7 @@ describe('mutations', () => {
 })
 ```
 
-### 测试 Action
+## 测试 Action
 
 Action 应对起来略微棘手，因为它们可能需要调用外部的 API。当测试 action 的时候，我们需要增加一个 mocking 服务层——例如，我们可以把 API 调用抽象成服务，然后在测试文件中用 mock 服务回应 API 调用。为了便于解决 mock 依赖，可以用 webpack 和 [inject-loader](https://github.com/plasticine/inject-loader) 打包测试文件。
 
@@ -145,7 +145,7 @@ describe('actions', () => {
 })
 ```
 
-### 测试 Getter
+## 测试 Getter
 
 如果你的 getter 包含很复杂的计算过程，很有必要测试它们。Getter 的测试与 mutation 一样直截了当。
 
@@ -192,11 +192,11 @@ describe('getters', () => {
 })
 ```
 
-### 执行测试
+## 执行测试
 
 如果你的 mutation 和 action 编写正确，经过合理地 mocking 处理之后这些测试应该不依赖任何浏览器 API，因此你可以直接用 webpack 打包这些测试文件然后在 Node 中执行。换种方式，你也可以用 `mocha-loader` 或 Karma + `karma-webpack`在真实浏览器环境中进行测试。
 
-#### 在 Node 中执行测试
+### 在 Node 中执行测试
 
 创建以下 webpack 配置（配置好 [`.babelrc`](https://babeljs.io/docs/usage/babelrc/)）:
 
@@ -227,13 +227,13 @@ webpack
 mocha test-bundle.js
 ```
 
-#### 在浏览器中测试
+### 在浏览器中测试
 
 1. 安装 `mocha-loader`。
 2. 把上述 webpack 配置中的 `entry` 改成 `'mocha-loader!babel-loader!./test.js'`。
 3. 用以上配置启动 `webpack-dev-server`。
 4. 访问 `localhost:8080/webpack-dev-server/test-bundle`。
 
-#### 使用 Karma + karma-webpack 在浏览器中执行测试
+### 使用 Karma + karma-webpack 在浏览器中执行测试
 
 详见 [vue-loader documentation](https://vuejs.github.io/vue-loader/workflow/testing.html)。
