@@ -24,7 +24,7 @@ const store = createStore({
 store.commit('increment')
 ```
 
-### 提交载荷（Payload）
+## 提交载荷（Payload）
 
 你可以向 `store.commit` 传入额外的参数，即 mutation 的**载荷（payload）**：
 
@@ -57,7 +57,7 @@ store.commit('increment', {
 })
 ```
 
-### 对象风格的提交方式
+## 对象风格的提交方式
 
 提交 mutation 的另一种方式是直接使用包含 `type` 属性的对象：
 
@@ -78,7 +78,7 @@ mutations: {
 }
 ```
 
-### 使用常量替代 Mutation 事件类型
+## 使用常量替代 Mutation 事件类型
 
 使用常量替代 mutation 事件类型在各种 Flux 实现中是很常见的模式。这样可以使 linter 之类的工具发挥作用，同时把这些常量放在单独的文件中可以让你的代码合作者对整个 app 包含的 mutation 一目了然：
 
@@ -105,7 +105,7 @@ const store = createStore({
 
 用不用常量取决于你——在需要多人协作的大型项目中，这会很有帮助。但如果你不喜欢，你完全可以不这样做。
 
-### Mutation 必须是同步函数
+## Mutation 必须是同步函数
 
 一条重要的原则就是要记住 **mutation 必须是同步函数**。为什么？请参考下面的例子：
 
@@ -121,7 +121,7 @@ mutations: {
 
 现在想象，我们正在 debug 一个 app 并且观察 devtool 中的 mutation 日志。每一条 mutation 被记录，devtools 都需要捕捉到前一状态和后一状态的快照。然而，在上面的例子中 mutation 中的异步函数中的回调让这不可能完成：因为当 mutation 触发的时候，回调函数还没有被调用，devtools 不知道什么时候回调函数实际上被调用——实质上任何在回调函数中进行的状态的改变都是不可追踪的。
 
-### 在组件中提交 Mutation
+## 在组件中提交 Mutation
 
 你可以在组件中使用 `this.$store.commit('xxx')` 提交 mutation，或者使用 `mapMutations` 辅助函数将组件中的 methods 映射为 `store.commit` 调用（需要在根节点注入 `store`）。
 
@@ -144,7 +144,7 @@ export default {
 }
 ```
 
-### 下一步：Action
+## 下一步：Action
 
 在 mutation 中混合异步调用会导致你的程序很难调试。例如，当你调用了两个包含异步回调的 mutation 来改变状态，你怎么知道什么时候回调和哪个先回调呢？这就是为什么我们要区分这两个概念。在 Vuex 中，**mutation 都是同步事务**：
 
