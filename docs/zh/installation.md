@@ -1,6 +1,6 @@
 # 安装
 
-### 直接下载 / CDN 引用
+## 直接下载 / CDN 引用
 
 [https://unpkg.com/vuex@4](https://unpkg.com/vuex@4)
 
@@ -15,19 +15,19 @@
 <script src="/path/to/vuex.js"></script>
 ```
 
-### npm
+## npm
 
 ``` bash
 npm install vuex@next --save
 ```
 
-### Yarn
+## Yarn
 
 ``` bash
 yarn add vuex@next --save
 ```
 
-### 自己构建
+## 自己构建
 
 如果需要使用 dev 分支下的最新版本，您可以直接从 GitHub 上克隆代码并自己构建。
 

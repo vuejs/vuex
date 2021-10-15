@@ -1,6 +1,6 @@
 # State
 
-### 单一状态树
+## 单一状态树
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
@@ -10,7 +10,7 @@ Vuex 使用**单一状态树**——是的，用一个对象就包含了全部�
 
 存储在 Vuex 中的数据和 Vue 实例中的 `data` 遵循相同的规则，例如状态对象必须是纯粹 (plain) 的。**参考：**[Vue#data](https://v3.cn.vuejs.org/api/options-data.html#data-2)。
 
-### 在 Vue 组件中获得 Vuex 状态
+## 在 Vue 组件中获得 Vuex 状态
 
 那么我们如何在 Vue 组件中展示状态呢？由于 Vuex 的状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在[计算属性](https://cn.vuejs.org/guide/computed.html)中返回某个状态：
 
@@ -43,7 +43,7 @@ const Counter = {
 }
 ```
 
-### `mapState` 辅助函数
+## `mapState` 辅助函数
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/c8Pz7BSK" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
@@ -79,7 +79,7 @@ computed: mapState([
 ])
 ```
 
-### 对象展开运算符
+## 对象展开运算符
 
 `mapState` 函数返回的是一个对象。我们如何将它与局部计算属性混合使用呢？通常，我们需要使用一个工具函数将多个对象合并为一个，以使我们可以将最终对象传给 `computed` 属性。但是自从有了[对象展开运算符](https://github.com/tc39/proposal-object-rest-spread)，我们可以极大地简化写法：
 
@@ -93,6 +93,6 @@ computed: {
 }
 ```
 
-### 组件仍然保有局部状态
+## 组件仍然保有局部状态
 
 使用 Vuex 并不意味着你需要将**所有的**状态放入 Vuex。虽然将所有的状态放到 Vuex 会使状态变化更显式和易调试，但也会使代码变得冗长和不直观。如果有些状态严格属于单个组件，最好还是作为组件的局部状态。你应该根据你的应用开发需要进行权衡和确定。

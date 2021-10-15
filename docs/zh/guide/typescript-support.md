@@ -28,7 +28,7 @@ declare module '@vue/runtime-core' {
 }
 ```
 
-##  `useStore` 组合式函数类型声明
+## `useStore` 组合式函数类型声明
 
 当使用组合式 API 编写 Vue 组件时，您可能希望 `useStore` 返回类型化的 store。为了 `useStore` 能正确返回类型化的 store，必须执行以下步骤：
 
