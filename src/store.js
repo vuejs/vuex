@@ -361,7 +361,7 @@ function installModule (store, rootState, path, module, hot) {
       })
     }
   }
-  
+
   const local = module.context = makeLocalContext(store, namespace, path)
 
   module.forEachMutation((mutation, key) => {
