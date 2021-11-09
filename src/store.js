@@ -340,10 +340,10 @@ function installModule (store, rootState, path, module, hot) {
     store._modulesNamespaceMap[namespace] = module
   }
 
+  const parentState = getNestedState(rootState, path.slice(0, -1))
+  const moduleName = path[path.length - 1]
   // set state
-  if (!isRoot && !hot) {
-    const parentState = getNestedState(rootState, path.slice(0, -1))
-    const moduleName = path[path.length - 1]
+  if (!isRoot && !hot) {    
     store._withCommit(() => {
       if (__DEV__) {
         if (moduleName in parentState) {
@@ -355,6 +355,14 @@ function installModule (store, rootState, path, module, hot) {
       Vue.set(parentState, moduleName, module.state)
     })
   }
+  else{
+    //set state when preserved/hot is true, but no state for modules were register before
+      if(! (moduleName in parentState) ){
+        store._withCommit(function () {
+          Vue.set(rootState, moduleName, module.state);
+        });
+      }
+    }
 
   const local = module.context = makeLocalContext(store, namespace, path)
 
