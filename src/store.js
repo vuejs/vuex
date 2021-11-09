@@ -354,16 +354,14 @@ function installModule (store, rootState, path, module, hot) {
       }
       Vue.set(parentState, moduleName, module.state)
     })
-  }
-  else{
-    //set state when preserved/hot is true, but no state for modules were register before
-      if(! (moduleName in parentState) ){
-        store._withCommit(function () {
-          Vue.set(rootState, moduleName, module.state);
-        });
-      }
+  } else {
+    if( !parentState || !(moduleName in parentState) ){
+      store._withCommit(function () {
+        Vue.set(rootState, moduleName, module.state);
+      });
     }
-
+  }
+  
   const local = module.context = makeLocalContext(store, namespace, path)
 
   module.forEachMutation((mutation, key) => {
