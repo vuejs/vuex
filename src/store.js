@@ -343,7 +343,7 @@ function installModule (store, rootState, path, module, hot) {
   const parentState = getNestedState(rootState, path.slice(0, -1))
   const moduleName = path[path.length - 1]
   // set state
-  if (!isRoot && !hot) {    
+  if (!isRoot && !hot) {
     store._withCommit(() => {
       if (__DEV__) {
         if (moduleName in parentState) {
@@ -355,10 +355,10 @@ function installModule (store, rootState, path, module, hot) {
       Vue.set(parentState, moduleName, module.state)
     })
   } else {
-    if( !parentState || !(moduleName in parentState) ){
+    if (moduleName && (!parentState || !(moduleName in parentState))) {
       store._withCommit(function () {
-        Vue.set(rootState, moduleName, module.state);
-      });
+        Vue.set(rootState, moduleName, module.state)
+      })
     }
   }
   
