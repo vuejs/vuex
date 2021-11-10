@@ -149,13 +149,13 @@ function normalizeMap (map) {
   }
   return Array.isArray(map)
     ? map.reduce((acc, cur) => {
-        if (typeof now === "object") {
-          return acc.concat(normalizeMap(cur));
-        } else {
-          acc.push({ key: cur, val: cur });
-          return acc;
-        }
-      }, [])
+      if (typeof now === 'object') {
+        return acc.concat(normalizeMap(cur))
+      } else {
+        acc.push({ key: cur, val: cur })
+        return acc;
+      }
+    }, [])
     : Object.keys(map).map(key => ({ key, val: map[key] }))
 }
 
