@@ -153,7 +153,7 @@ function normalizeMap (map) {
         return acc.concat(normalizeMap(cur))
       } else {
         acc.push({ key: cur, val: cur })
-        return acc;
+        return acc
       }
     }, [])
     : Object.keys(map).map(key => ({ key, val: map[key] }))
