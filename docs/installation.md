@@ -21,6 +21,14 @@ Include `vuex` after Vue and it will install itself automatically:
 npm install vuex@next --save
 ```
 
+## Vue CLI
+
+If you have a project using [Vue CLI](https://cli.vuejs.org/) you can add Vuex as a plugin. **It will also overwrite your `App.vue`** so make sure to backup the file before running the following command inside your project:
+
+```bash
+vue add vuex
+```
+
 ## Yarn
 
 ```bash
