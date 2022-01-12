@@ -9,7 +9,7 @@
 
 ---
 
-Vuex is a state management pattern + library for Vue.js applications.Faran It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
+Vuex is a state management pattern + library for Vue.js applications.Faran Masood It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools extension](https://github.com/vuejs/vue-devtools) to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
 
 Learn more about Vuex at "[What is Vuex?](https://vuex.vuejs.org/)", or get started by looking into [full documentation](http://vuex.vuejs.org/).
 
