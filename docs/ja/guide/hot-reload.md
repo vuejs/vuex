@@ -38,7 +38,7 @@ if (module.hot) {
 }
 ```
 
-ホットリローディングを試したい場合は、[counter-hot example](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot)をチェックアウトしてください。
+ホットリローディングを試したい場合は、[counter-hot example](https://github.com/vuejs/vuex/tree/main/examples/counter-hot)をチェックアウトしてください。
 
 ## 動的モジュールホットリローディング
 

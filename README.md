@@ -1,11 +1,11 @@
 # Vuex
 
 [![npm](https://img.shields.io/npm/v/vuex/next.svg)](https://npmjs.com/package/vuex)
-[![ci status](https://circleci.com/gh/vuejs/vuex/tree/dev.png?style=shield)](https://circleci.com/gh/vuejs/vuex)
+[![ci status](https://circleci.com/gh/vuejs/vuex/tree/main.png?style=shield)](https://circleci.com/gh/vuejs/vuex)
 
 ---
 
-:fire: **HEADS UP!** You're currently looking at Vuex 4 branch. If you're looking for Vuex 3, [please check out `dev` branch](https://github.com/vuejs/vuex).
+:fire: **HEADS UP!** You're currently looking at Vuex 4 branch. If you're looking for Vuex 3, [please check out `3.x` branch](https://github.com/vuejs/vuex/tree/3.x).
 
 ---
 
@@ -34,7 +34,7 @@ For questions and support please use the [Discord chat server](https://chat.vuej
 
 ## Issues
 
-Please make sure to read the [Issue Reporting Checklist](https://github.com/vuejs/vuex/blob/dev/.github/contributing.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
+Please make sure to read the [Issue Reporting Checklist](https://github.com/vuejs/vuex/blob/main/.github/contributing.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
 ## Changelog
 
@@ -46,7 +46,7 @@ For latest releases and announcements, follow on Twitter: [@vuejs](https://twitt
 
 ## Contribution
 
-Please make sure to read the [Contributing Guide](https://github.com/vuejs/vuex/blob/dev/.github/contributing.md) before making a pull request.
+Please make sure to read the [Contributing Guide](https://github.com/vuejs/vuex/blob/main/.github/contributing.md) before making a pull request.
 
 ## License
 

@@ -38,7 +38,7 @@ if (module.hot) {
 }
 ```
 
-参考热重载示例 [counter-hot](https://github.com/vuejs/vuex/tree/dev/examples/counter-hot)。
+参考热重载示例 [counter-hot](https://github.com/vuejs/vuex/tree/main/examples/counter-hot)。
 
 ## 动态模块热重载
 
