@@ -4,5 +4,5 @@
 * [Français](fr/)
 * [Русский](ru/)
 * [日本語](ja/)
-* [한국어(Korean)](kr/)
+* [한국어(Korean)](ko/)
 * [1.0 Docs](old/)

@@ -20,8 +20,8 @@ module.exports = {
       title: 'Vuex',
       description: 'Централизованное управление состоянием для Vue.js'
     },
-    '/kr/': {
-      lang: 'kr',
+    '/ko/': {
+      lang: 'ko',
       title: 'Vuex',
       description: 'Vue.js의 중앙 상태 관리'
     },
@@ -252,13 +252,13 @@ module.exports = {
           }
         ]
       },
-      '/kr/': {
+      '/ko/': {
         label: '한국어',
         selectText: '언어 변경',
         editLinkText: 'GitHub에서 이 페이지 수정',
         nav: [
-          { text: '가이드', link: '/kr/guide/' },
-          { text: 'API 레퍼런스', link: '/kr/api/' },
+          { text: '가이드', link: '/ko/guide/' },
+          { text: 'API 레퍼런스', link: '/ko/api/' },
           { text: '릴리즈 노트', link: 'https://github.com/vuejs/vuex/releases' },
           {
             text: 'v3.x',
@@ -272,32 +272,32 @@ module.exports = {
             title: 'Introduction',
             collapsable: false,
             children: [
-              { title: 'Vuex가 무엇인가요?', path: '/kr/' },
-              { title: '설치', path: '/kr/installation' },
-              { title: '시작하기', path: '/kr/guide/' }
+              { title: 'Vuex가 무엇인가요?', path: '/ko/' },
+              { title: '설치', path: '/ko/installation' },
+              { title: '시작하기', path: '/ko/guide/' }
             ]
           },
           {
             title: '핵심 컨셉',
             collapsable: false,
             children: [
-              { title: '상태', path: '/kr/guide/state' },
-              { title: 'Getters', path: '/kr/guide/getters' },
-              { title: '변이', path: '/kr/guide/mutations' },
-              { title: '액션', path: '/kr/guide/actions' },
-              { title: '모듈', path: '/kr/guide/modules' }
+              { title: '상태', path: '/ko/guide/state' },
+              { title: 'Getters', path: '/ko/guide/getters' },
+              { title: '변이', path: '/ko/guide/mutations' },
+              { title: '액션', path: '/ko/guide/actions' },
+              { title: '모듈', path: '/ko/guide/modules' }
             ]
           },
           {
             title: 'Advanced',
             collapsable: false,
             children: [
-              { title: '애플리케이션 구조', path: '/kr/guide/structure' },
-              { title: '플러그인', path: '/kr/guide/plugins' },
-              { title: 'Strict 모드', path: '/kr/guide/strict' },
-              { title: '폼 핸들링', path: '/kr/guide/forms' },
-              { title: '테스팅', path: '/kr/guide/testing' },
-              { title: '핫 리로딩', path: '/kr/guide/hot-reload' }
+              { title: '애플리케이션 구조', path: '/ko/guide/structure' },
+              { title: '플러그인', path: '/ko/guide/plugins' },
+              { title: 'Strict 모드', path: '/ko/guide/strict' },
+              { title: '폼 핸들링', path: '/ko/guide/forms' },
+              { title: '테스팅', path: '/ko/guide/testing' },
+              { title: '핫 리로딩', path: '/ko/guide/hot-reload' }
             ]
           }
         ]
