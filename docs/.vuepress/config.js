@@ -63,7 +63,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+              { text: 'v4.x', link: 'https://vuex.vuejs.org/' }
             ]
           }
         ],
@@ -113,7 +113,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+              { text: 'v4.x', link: 'https://vuex.vuejs.org/zh/' }
             ]
           }
         ],
@@ -163,7 +163,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+              { text: 'v4.x', link: 'https://vuex.vuejs.org/ja/' }
             ]
           }
         ],
@@ -213,7 +213,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+              { text: 'v4.x', link: 'https://vuex.vuejs.org/' }
             ]
           }
         ],
@@ -263,7 +263,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+              { text: 'v4.x', link: 'https://vuex.vuejs.org/' }
             ]
           }
         ],
@@ -313,7 +313,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/ptbr/' }
+              { text: 'v4.x', link: 'https://vuex.vuejs.org/ptbr/' }
             ]
           }
         ],
@@ -363,7 +363,7 @@ module.exports = {
           {
             text: 'v3.x',
             items: [
-              { text: 'v4.x', link: 'https://next.vuex.vuejs.org/' }
+              { text: 'v4.x', link: 'https://vuex.vuejs.org/' }
             ]
           }
         ],
