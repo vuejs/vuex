@@ -54,7 +54,7 @@ module.exports = {
           {
             text: 'v4.x',
             items: [
-              { text: 'v3.x', link: 'https://vuex.vuejs.org/' }
+              { text: 'v3.x', link: 'https://v3.vuex.vuejs.org/' }
             ]
           }
         ],
@@ -113,7 +113,7 @@ module.exports = {
           {
             text: 'v4.x',
             items: [
-              { text: 'v3.x', link: 'https://vuex.vuejs.org/zh' }
+              { text: 'v3.x', link: 'https://v3.vuex.vuejs.org/zh' }
             ]
           }
         ],
@@ -172,7 +172,7 @@ module.exports = {
           {
             text: 'v4.x',
             items: [
-              { text: 'v3.x', link: 'https://vuex.vuejs.org/ja' }
+              { text: 'v3.x', link: 'https://v3.vuex.vuejs.org/ja' }
             ]
           }
         ],
@@ -231,7 +231,7 @@ module.exports = {
           {
             text: 'v4.x',
             items: [
-              { text: 'v3.x', link: 'https://vuex.vuejs.org/ptbr/' }
+              { text: 'v3.x', link: 'https://v3.vuex.vuejs.org/ptbr/' }
             ]
           }
         ],
