@@ -1,7 +1,7 @@
 # What is Vuex?
 
 ::: tip NOTE
-This is the docs for Vuex 4, which works with Vue 3. If you're looking for docs for Vuex 3, which works with Vue 2, [please check it out here](https://vuex.vuejs.org/).
+This is the docs for Vuex 4, which works with Vue 3. If you're looking for docs for Vuex 3, which works with Vue 2, [please check it out here](https://v3.vuex.vuejs.org/).
 :::
 
 Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion.
