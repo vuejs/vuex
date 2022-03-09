@@ -10,7 +10,7 @@ sidebar: auto
 
 - `createStore<S>(options: StoreOptions<S>): Store<S>`
 
-  Creates a new store.
+  Crée un nouveau store.
 
   ```js
   import { createStore } from 'vuex'
@@ -18,21 +18,21 @@ sidebar: auto
   const store = createStore({ ...options })
   ```
 
-## Store Constructor Options
+## Options du Constructeur du Store
 
 ### state
 
 - type: `Object | Function`
 
-  The root state object for the Vuex store. [Details](../guide/state.md)
+  L'objet d'état racine pour le store Vuex. [Détails](../guide/state.md)
 
-  If you pass a function that returns an object, the returned object is used as the root state. This is useful when you want to reuse the state object especially for module reuse. [Details](../guide/modules.md#module-reuse)
+  Si vous passez une fonction qui renvoie un objet, l'objet renvoyé est utilisé comme état racine. Ceci est utile lorsque vous souhaitez réutiliser l'objet d'état, notamment pour la réutilisation de modules. [Détails](../guide/modules.md#module-reuse)
 
 ### mutations
 
 - type: `{ [type: string]: Function }`
 
-  Register mutations on the store. The handler function always receives `state` as the first argument (will be module local state if defined in a module), and receives a second `payload` argument if there is one.
+  Enregistre les mutations sur le magasin. La fonction handler reçoit toujours `state` comme premier argument (ce sera l'état local du module s'il est défini dans un module), et reçoit un second argument `payload` s'il y en a un.
 
   [Details](../guide/mutations.md)
 
@@ -40,20 +40,20 @@ sidebar: auto
 
 - type: `{ [type: string]: Function }`
 
-  Register actions on the store. The handler function receives a `context` object that exposes the following properties:
+  Enregistre les actions sur le store. La fonction handler reçoit un objet `context` qui expose les propriétés suivantes :
 
   ```js
   {
-    state,      // same as `store.state`, or local state if in modules
-    rootState,  // same as `store.state`, only in modules
-    commit,     // same as `store.commit`
-    dispatch,   // same as `store.dispatch`
-    getters,    // same as `store.getters`, or local getters if in modules
-    rootGetters // same as `store.getters`, only in modules
+    state,      // même que `store.state`, ou l'état local si dans les modules
+    rootState,  // même que `store.state`, uniquement dans les modules
+    commit,     // même que `store.commit`
+    dispatch,   // même que `store.dispatch`
+    getters,    // même que `store.getters`, ou getters locaux si dans le modules
+    rootGetters // même que `store.getters`, uniquement dans les modules
   }
   ```
 
-  And also receives a second `payload` argument if there is one.
+  Et reçoit également un deuxième argument `payload` s'il y en a un.
 
   [Details](../guide/actions.md)
 
@@ -61,23 +61,23 @@ sidebar: auto
 
 - type: `{ [key: string]: Function }`
 
-  Register getters on the store. The getter function receives the following arguments:
+  Enregistrez les getters sur le store. La fonction getter reçoit les arguments suivants :
 
   ```
-  state,     // will be module local state if defined in a module.
-  getters    // same as store.getters
+  state, // sera l'état local du module s'il est défini dans un module.
+  getters // identique à store.getters
   ```
 
   Specific when defined in a module
 
   ```
-  state,       // will be module local state if defined in a module.
-  getters,     // module local getters of the current module
-  rootState,   // global state
-  rootGetters  // all getters
+  state, // sera l'état local du module s'il est défini dans un module.
+  getters, // getters locaux du module actuel
+  rootState, // état global
+  rootGetters // tous les getters
   ```
 
-  Registered getters are exposed on `store.getters`.
+  Les getters enregistrés sont exposés sur `store.getters`.
 
   [Details](../guide/getters.md)
 
@@ -85,7 +85,7 @@ sidebar: auto
 
 - type: `Object`
 
-  An object containing sub modules to be merged into the store, in the shape of:
+  Un objet contenant des sous-modules à fusionner dans le magasin, sous la forme de :
 
   ```js
   {
@@ -101,7 +101,7 @@ sidebar: auto
   }
   ```
 
-  Each module can contain `state` and `mutations` similar to the root options. A module's state will be attached to the store's root state using the module's key. A module's mutations and getters will only receives the module's local state as the first argument instead of the root state, and module actions' `context.state` will also point to the local state.
+  Chaque module peut contenir des options `state` et `mutations` similaires à celles de la racine. L'état d'un module sera attaché à l'état racine du magasin en utilisant la clé du module. Les mutations et getters d'un module ne recevront que l'état local du module comme premier argument au lieu de l'état racine, et le `context.state` des actions du module pointera également vers l'état local.
 
   [Details](../guide/modules.md)
 
@@ -109,7 +109,7 @@ sidebar: auto
 
 - type: `Array<Function>`
 
-  An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+  Un tableau de fonctions de plugin à appliquer au magasin. Le plugin reçoit simplement le magasin comme seul argument et peut soit écouter les mutations (pour la persistance des données sortantes, la journalisation ou le débogage), soit distribuer les mutations (pour les données entrantes, par exemple les websockets ou les observables).
 
   [Details](../guide/plugins.md)
 
@@ -118,7 +118,7 @@ sidebar: auto
 - type: `boolean`
 - default: `false`
 
-  Force the Vuex store into strict mode. In strict mode any mutations to Vuex state outside of mutation handlers will throw an Error.
+  Force le store de Vuex à passer en mode strict. En mode strict, toute mutation de l'état de Vuex en dehors des gestionnaires de mutation entraînera une erreur.
 
   [Details](../guide/strict.md)
 
@@ -126,7 +126,7 @@ sidebar: auto
 
 - type: `boolean`
 
-  Turn the devtools on or off for a particular Vuex instance. For instance, passing `false` tells the Vuex store to not subscribe to devtools plugin. Useful when you have multiple stores on a single page.
+  Active ou désactive le plugin devtools pour une instance Vuex particulière. Par exemple, passer `false` indique au store de Vuex de ne pas s'abonner au plugin devtools. Utile lorsque vous avez plusieurs magasins sur une seule page.
 
   ```js
   {
@@ -134,19 +134,19 @@ sidebar: auto
   }
   ```
 
-## Store Instance Properties
+## Propriétés de l'instance de Store
 
 ### state
 
 - type: `Object`
 
-  The root state. Read only.
+  L'état de la racine. En lecture seule.
 
 ### getters
 
 - type: `Object`
 
-  Exposes registered getters. Read only.
+  Expose les récupérateurs enregistrés. En lecture seule.
 
 ## Store Instance Methods
 
@@ -155,26 +155,26 @@ sidebar: auto
 -  `commit(type: string, payload?: any, options?: Object)`
 -  `commit(mutation: Object, options?: Object)`
 
-  Commit a mutation. `options` can have `root: true` that allows to commit root mutations in [namespaced modules](../guide/modules.md#namespacing). [Details](../guide/mutations.md)
+  Engager une mutation. `options` peut avoir `root : true` qui permet de valider les mutations de la racine dans [namespaced modules](../guide/modules.md#namespacing). [Détails](../guide/mutations.md)
 
 ### dispatch
 
 -  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
 -  `dispatch(action: Object, options?: Object): Promise<any>`
 
-  Dispatch an action. `options` can have `root: true` that allows to dispatch root actions in [namespaced modules](../guide/modules.md#namespacing). Returns a Promise that resolves all triggered action handlers. [Details](../guide/actions.md)
+  Dispatch une action. `options` peut avoir `root : true` qui permet de distribuer des actions racines dans les [modules à espacement de noms](../guide/modules.md#namespacing). Retourne une Promise qui résout tous les gestionnaires d'action déclenchés. [Détails](../guide/actions.md)
 
 ### replaceState
 
 -  `replaceState(state: Object)`
 
-  Replace the store's root state. Use this only for state hydration / time-travel purposes.
+  Remplace l'état racine du magasin. Utilisez ceci uniquement pour l'hydratation de l'état / le voyage dans le temps.
 
 ### watch
 
 -  `watch(fn: Function, callback: Function, options?: Object): Function`
 
-  Reactively watch `fn`'s return value, and call the callback when the value changes. `fn` receives the store's state as the first argument, and getters as the second argument. Accepts an optional options object that takes the same options as [Vue's `vm.$watch` method](https://vuejs.org/v2/api/#vm-watch).
+  Surveillez de manière réactive la valeur de retour de `fn`, et appelez le callback lorsque la valeur change. `fn` reçoit l'état du magasin comme premier argument, et les getters comme second argument. Accepte un objet optionnel d'options qui prend les mêmes options que [la méthode `vm.$watch` de Vue](https://vuejs.org/v2/api/#vm-watch).
 
   To stop watching, call the returned unwatch function.
 
@@ -182,7 +182,7 @@ sidebar: auto
 
 -  `subscribe(handler: Function, options?: Object): Function`
 
-  Subscribe to store mutations. The `handler` is called after every mutation and receives the mutation descriptor and post-mutation state as arguments.
+  S'abonner aux mutations du magasin. Le `handler` est appelé après chaque mutation et reçoit le descripteur de mutation et l'état post-mutation comme arguments.
 
   ```js
   const unsubscribe = store.subscribe((mutation, state) => {
@@ -194,22 +194,22 @@ sidebar: auto
   unsubscribe()
   ```
 
-  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+  Par défaut, le nouveau gestionnaire est ajouté à la fin de la chaîne, donc il sera exécuté après les autres gestionnaires qui ont été ajoutés avant. Ceci peut être modifié en ajoutant `prepend : true` à `options`, ce qui ajoutera le gestionnaire au début de la chaîne.
 
   ```js
   store.subscribe(handler, { prepend: true })
   ```
 
-  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribe` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
+  La méthode `subscribe` renvoie une fonction `unsubscribe`, qui doit être appelée lorsque l'abonnement n'est plus nécessaire. Par exemple, vous pouvez vous abonner à un module Vuex et vous désabonner lorsque vous désenregistrez le module. Ou bien vous pouvez appeler `subscribe` à l'intérieur d'un composant Vue et détruire le composant plus tard. Dans ces cas, vous devez vous souvenir de désabonner l'abonnement manuellement.
 
-  Most commonly used in plugins. [Details](../guide/plugins.md)
+  Le plus souvent utilisé dans les plugins. [Details](../guide/plugins.md)
 
 ### subscribeAction
 
 -  `subscribeAction(handler: Function, options?: Object): Function`
 
-  Subscribe to store actions. The `handler` is called for every dispatched action and receives the action descriptor and current store state as arguments.
-  The `subscribe` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, when unregistering a Vuex module or before destroying a Vue component.
+  S'abonner aux actions du magasin. Le `handler` est appelé pour chaque action distribuée et reçoit le descripteur de l'action et l'état actuel du magasin comme arguments.
+  La méthode `subscribe` renvoie une fonction `unsubscribe`, qui doit être appelée lorsque l'abonnement n'est plus nécessaire. Par exemple, lors du désenregistrement d'un module Vuex ou avant la destruction d'un composant Vue.
 
   ```js
   const unsubscribe = store.subscribeAction((action, state) => {
@@ -221,15 +221,15 @@ sidebar: auto
   unsubscribe()
   ```
 
-  By default, new handler is added to the end of the chain, so it will be executed after other handlers that were added before. This can be overridden by adding `prepend: true` to `options`, which will add the handler to the beginning of the chain.
+  Par défaut, le nouveau gestionnaire est ajouté à la fin de la chaîne, donc il sera exécuté après les autres gestionnaires qui ont été ajoutés avant. Ceci peut être modifié en ajoutant `prepend : true` à `options`, ce qui ajoutera le gestionnaire au début de la chaîne.
 
   ```js
   store.subscribeAction(handler, { prepend: true })
   ```
 
-  The `subscribeAction` method will return an `unsubscribe` function, which should be called when the subscription is no longer needed. For example, you might subscribe to a Vuex Module and unsubscribe when you unregister the module. Or you might call `subscribeAction` from inside a Vue Component and then destroy the component later. In these cases, you should remember to unsubscribe the subscription manually.
+  La méthode `subscribeAction` renvoie une fonction `unsubscribe`, qui doit être appelée lorsque l'abonnement n'est plus nécessaire. Par exemple, vous pouvez vous abonner à un module Vuex et vous désabonner lorsque vous désenregistrez le module. Ou bien vous pouvez appeler la fonction `subscribeAction` à l'intérieur d'un composant Vue et détruire le composant plus tard. Dans ces cas, vous devez vous souvenir de désabonner l'abonnement manuellement.
 
-  `subscribeAction` can also specify whether the subscribe handler should be called *before* or *after* an action dispatch (the default behavior is *before*):
+  `subscribeAction` peut également spécifier si le gestionnaire d'abonnement doit être appelé *avant* ou *après* la distribution d'une action (le comportement par défaut est *avant*) :
 
   ```js
   store.subscribeAction({
@@ -242,7 +242,7 @@ sidebar: auto
   })
   ```
 
-  `subscribeAction` can also specify an `error` handler to catch an error thrown when an action is dispatched. The function will receive an `error` object as the third argument.
+  `subscribeAction` peut également spécifier un gestionnaire `error` pour attraper une erreur lancée lorsqu'une action est distribuée. La fonction recevra un objet `error` comme troisième argument.
 
   ```js
   store.subscribeAction({
@@ -253,33 +253,33 @@ sidebar: auto
   })
   ```
 
-  The `subscribeAction` method is most commonly used in plugins. [Details](../guide/plugins.md)
+  La méthode `subscribeAction` est le plus souvent utilisée dans les plugins. [Détails](../guide/plugins.md)
 
 ### registerModule
 
 -  `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
-  Register a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+  Enregistrer un module dynamique. [Détails](../guide/modules.md#dynamic-module-registration)
 
-  `options` can have `preserveState: true` that allows to preserve the previous state. Useful with Server Side Rendering.
+  `options` peut avoir `preserveState : true` qui permet de préserver l'état précédent. Utile avec le Server Side Rendering.
 
 ### unregisterModule
 
 -  `unregisterModule(path: string | Array<string>)`
 
-  Unregister a dynamic module. [Details](../guide/modules.md#dynamic-module-registration)
+  Désenregistrement d'un module dynamique. [Détails](../guide/modules.md#dynamic-module-registration)
 
 ### hasModule
 
 - `hasModule(path: string | Array<string>): boolean`
 
-  Check if the module with the given name is already registered. [Details](../guide/modules.md#dynamic-module-registration)
+  Vérifie si le module avec le nom donné est déjà enregistré. [Détails](../guide/modules.md#dynamic-module-registration)
 
 ### hotUpdate
 
 -  `hotUpdate(newOptions: Object)`
 
-  Hot swap new actions and mutations. [Details](../guide/hot-reload.md)
+  Nouvelles actions et mutations de Hot Swap. [Détails](../guide/hot-reload.md)
 
 ## Component Binding Helpers
 
@@ -287,45 +287,45 @@ sidebar: auto
 
 -  `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component computed options that return the sub tree of the Vuex store. [Details](../guide/state.md#the-mapstate-helper)
+  Créer des options de calcul de composants qui renvoient la sous-arborescence du magasin Vuex. [Détails](../guide/state.md#the-mapstate-helper)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  Le premier argument peut éventuellement être une chaîne d'espace de noms. [Détails](../guide/modules.md#binding-helpers-with-namespace)
 
-  The second object argument's members can be a function. `function(state: any)`
+  Les membres du second argument de l'objet peuvent être une fonction. `function(state : any)`
 
 ### mapGetters
 
 -  `mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`
 
-  Create component computed options that return the evaluated value of a getter. [Details](../guide/getters.md#the-mapgetters-helper)
+  Créez des options calculées de composant qui renvoient la valeur évaluée d'un getter. [Détails](../guide/getters.md#the-mapgetters-helper)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  Le premier argument peut éventuellement être une chaîne d'espace de noms. [Détails](../guide/modules.md#binding-helpers-with-namespace)
 
 ### mapActions
 
 -  `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that dispatch an action. [Details](../guide/actions.md#dispatching-actions-in-components)
+  Créer des options de méthodes de composants qui répartissent une action. [Détails](../guide/actions.md#dispatching-actions-in-components)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  Le premier argument peut éventuellement être une chaîne d'espace de noms. [Détails](../guide/modules.md#binding-helpers-with-namespace)
 
-  The second object argument's members can be a function. `function(dispatch: function, ...args: any[])`
+  Les membres du deuxième argument objet peuvent être une fonction. `function(dispatch : function, ...args : any[])`
 
 ### mapMutations
 
 -  `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
-  Create component methods options that commit a mutation. [Details](../guide/mutations.md#committing-mutations-in-components)
+  Créer des options de méthodes de composants qui engagent une mutation. [Détails](../guide/mutations.md#committing-mutations-in-components)
 
-  The first argument can optionally be a namespace string. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  Le premier argument peut éventuellement être une chaîne d'espace de nom. [Détails](../guide/modules.md#binding-helpers-with-namespace)
 
-  The second object argument's members can be a function. `function(commit: function, ...args: any[])`
+  Les membres du deuxième argument objet peuvent être une fonction. `function(commit : function, ...args : any[])`
 
 ### createNamespacedHelpers
 
 -  `createNamespacedHelpers(namespace: string): Object`
 
-  Create namespaced component binding helpers. The returned object contains `mapState`, `mapGetters`, `mapActions` and `mapMutations` that are bound with the given namespace. [Details](../guide/modules.md#binding-helpers-with-namespace)
+  Crée des aides à la liaison de composants dans un espace de nom. L'objet retourné contient `mapState`, `mapGetters`, `mapActions` et `mapMutations` qui sont liés à l'espace de noms donné. [Détails](../guide/modules.md#binding-helpers-with-namespace)
 
 ## Composable Functions
 
@@ -333,7 +333,7 @@ sidebar: auto
 
 - `useStore<S = any>(injectKey?: InjectionKey<Store<S>> | string): Store<S>;`
 
-  Fetches the injected store when called inside the `setup` hook. When using the Composition API, you can retrieve the store by calling this method.
+  Récupère le magasin injecté lorsqu'il est appelé dans le crochet `setup`. Lorsque vous utilisez l'API de composition, vous pouvez récupérer le magasin en appelant cette méthode.
 
   ```js
   import { useStore } from 'vuex'
@@ -345,9 +345,9 @@ sidebar: auto
   }
   ```
 
-  TypeScript users can use an injection key to retrieve a typed store. In order for this to work, you must define the injection key and pass it along with the store when installing the store instance to the Vue app.
+  Les utilisateurs de TypeScript peuvent utiliser une clé d'injection pour récupérer un store typé. Pour que cela fonctionne, vous devez définir la clé d'injection et la transmettre avec le magasin lors de l'installation de l'instance du magasin dans l'application Vue.
 
-  First, declare the injection key using Vue's `InjectionKey` interface.
+  Tout d'abord, déclarez la clé d'injection en utilisant l'interface `InjectionKey` de Vue.
 
   ```ts
   // store.ts
@@ -367,7 +367,7 @@ sidebar: auto
   })
   ```
 
-  Then, pass the defined key as the second argument for the `app.use` method.
+  Ensuite, passez la clé définie comme deuxième argument pour la méthode `app.use`.
 
   ```ts
   // main.ts
@@ -381,7 +381,7 @@ sidebar: auto
   app.mount('#app')
   ```
 
-  Finally, you can pass the key to the `useStore` method to retrieve the typed store instance.
+  Enfin, vous pouvez passer la clé à la méthode `useStore` pour récupérer l'instance de magasin typée.
 
   ```ts
   // in a vue component
