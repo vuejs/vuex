@@ -342,6 +342,10 @@ namespace RegisterModule {
     };
   }
 
+  function getInsideModulePath(): string | string[] {
+    return Math.random() > 0.5 ? ["c"] : "c"
+  }
+
   const store = new Vuex.Store<RootState>({
     state: {
       value: 0
@@ -363,6 +367,12 @@ namespace RegisterModule {
   }, { preserveState: true });
 
   store.hasModule(['a', 'b'])
+
+  store.registerModule(getInsideModulePath(), {
+    state: {value: 3}
+  })
+
+  store.hasModule(getInsideModulePath())
 
   store.unregisterModule(["a", "b"]);
   store.unregisterModule("a");

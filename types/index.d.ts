@@ -24,14 +24,11 @@ export declare class Store<S> {
   subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>, options?: SubscribeOptions): () => void;
   watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
-  registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
-  registerModule<T>(path: string[], module: Module<T, S>, options?: ModuleOptions): void;
+  registerModule<T>(path: string | string[], module: Module<T, S>, options?: ModuleOptions): void;
 
-  unregisterModule(path: string): void;
-  unregisterModule(path: string[]): void;
+  unregisterModule(path: string | string[]): void;
 
-  hasModule(path: string): boolean;
-  hasModule(path: string[]): boolean;
+  hasModule(path: string | string[]): boolean;
 
   hotUpdate(options: {
     actions?: ActionTree<S, S>;
