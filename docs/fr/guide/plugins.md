@@ -2,7 +2,7 @@
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cvp8ZkCR" target="_blank" rel="noopener noreferrer">Essayez cette leçon sur le Scrimba</a></div>
 
-Les stores Vuex acceptent l'option `plugins` qui expose des hooks pour chaque mutation. Un plugin Vuex est simplement une fonction qui reçoit le store comme seul argument :
+Les stores Vuex acceptent l'option `plugins` qui expose des hooks pour chaque mutation. Un plugin Vuex est simplement une fonction qui reçoit le store comme seul argument : 
 
 ```js
 const myPlugin = (store) => {

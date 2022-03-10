@@ -1,4 +1,4 @@
-# Getting Started
+# Pour commencer
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cMPa2Uk" target="_blank" rel="noopener noreferrer">Essayez cette leçon sur Scrimba</a></div>
 
@@ -34,7 +34,7 @@ const store = createStore({
   }
 })
 
-const app = createApp({ /* your root component */ })
+const app = createApp({ /* votre composant racinet */ })
 
 // Installer l'instance du store en tant que plugin
 app.use(store)

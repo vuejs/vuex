@@ -12,7 +12,7 @@ Les données que vous stockez dans Vuex suivent les mêmes règles que les `data
 
 ## Obtenir l'état Vuex dans les composants Vue
 
-Alors comment afficher l'état du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple de "récupérer" l'état du store est simplement de retourner l'état du store à partir d'une [computed property](https://vuejs.org/guide/computed.html) :
+Alors comment afficher l'état du store dans nos composants Vue ? Puisque les stores Vuex sont réactifs, la façon la plus simple de "récupérer" l'état du store est simplement de retourner l'état du store à partir d'une [propriété calculée](https://vuejs.org/guide/computed.html) :
 
 ```js
 // créons un composant Compteur
@@ -79,9 +79,9 @@ computed: mapState([
 ])
 ```
 
-## Object Spread Operator
+## Opérateur de diffusion d'objets
 
-Notez que `mapState` renvoie un objet. Comment l'utiliser en combinaison avec d'autres propriétés locales calculées ? Normalement, nous devrions utiliser un utilitaire pour fusionner plusieurs objets en un seul afin de pouvoir passer l'objet final à `computed`. Cependant, avec l'opérateur [object spread operator](https://github.com/tc39/proposal-object-rest-spread), nous pouvons simplifier considérablement la syntaxe :
+Notez que `mapState` renvoie un objet. Comment l'utiliser en combinaison avec d'autres propriétés locales calculées ? Normalement, nous devrions utiliser un utilitaire pour fusionner plusieurs objets en un seul afin de pouvoir passer l'objet final à `computed`. Cependant, avec l'opérateur [opérateur de diffusion d'objets](https://github.com/tc39/proposal-object-rest-spread), nous pouvons simplifier considérablement la syntaxe :
 
 ```js
 computed: {

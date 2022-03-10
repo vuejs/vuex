@@ -48,7 +48,7 @@ Bien que ce ne soit pas techniquement un changement de rupture, vous pouvez touj
 
 ### Support TypeScript
 
-Vuex 4 supprime ses typages globaux pour `this.$store` dans un composant Vue pour résoudre le [problème #994] (https://github.com/vuejs/vuex/issues/994). Lorsqu'il est utilisé avec TypeScript, vous devez déclarer votre propre augmentation de module.
+Vuex 4 supprime ses typages globaux pour `this.$store` dans un composant Vue pour résoudre le [problème #994](https://github.com/vuejs/vuex/issues/994). Lorsqu'il est utilisé avec TypeScript, vous devez déclarer votre propre augmentation de module.
 
 Placez le code suivant dans votre projet pour permettre à `this.$store` d'être correctement typé :
 
@@ -81,7 +81,7 @@ Les bundles suivants sont générés pour s'aligner sur les bundles Vue 3 :
   - Le build global est construit en IIFE, et non en UMD, et n'est destiné qu'à une utilisation directe avec `<script src="...">`.
   - Contains hard-coded prod/dev branches and the prod build is pre-minified. Use the `.prod.js` files for production.
 - `vuex.esm-browser(.prod).js`
-  - À utiliser avec les importations de modules ES natifs (y compris les modules supportant les navigateurs via `<script type="module">`.
+  - À utiliser avec les importations de modules ES natifs (y compris les modules supportant les navigateurs via `<script type="module">`).
 - `vuex.esm-bundler.js`
   - A utiliser avec des bundlers tels que `webpack`, `rollup` et `parcel`.
   - Laisse les branches prod/dev avec les gardes `process.env.NODE_ENV` (doit être remplacé par bundler).
