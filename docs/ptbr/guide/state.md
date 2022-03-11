@@ -4,7 +4,7 @@
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/cWw3Zhb" target="_blank" rel="noopener noreferrer">Tente esta lição no Scrimba</a></div>
 
-Vuex usa uma **única árvore de estado** - ou seja, este único objeto contém todo o estado da sua aplicação e serve como "fonte única da verdade". Isso também significa que normalmente você terá apenas uma _store_ para cada aplicação. Uma única árvore de estado facilita a localização de uma parte específica do estado e nos permite capiturar facilmente momentos do estado atual da aplicação para fins de depuração.
+Vuex usa uma **única árvore de estado** - ou seja, este único objeto contém todo o estado da sua aplicação e serve como "fonte única da verdade". Isso também significa que normalmente você terá apenas uma _store_ para cada aplicação. Uma única árvore de estado facilita a localização de uma parte específica do estado e nos permite capturar facilmente momentos do estado atual da aplicação para fins de depuração.
 
 A árvore única de estado não entra em conflito com a modularidade - em capítulos posteriores, discutiremos como dividir seu estado e mutações em sub-módulos.
 
