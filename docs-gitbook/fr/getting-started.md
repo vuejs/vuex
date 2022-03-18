@@ -39,6 +39,6 @@ Encore une fois, la raison pour laquelle nous actons une mutation au lieu de mod
 
 Utiliser l'état du store dans un composant implique simplement de retourner l'état dans une *propriété calculée*, car l'état du store est réactif. Déclencher des changements signifie simplement d'acter des mutations dans les méthodes du composant.
 
-Voici un exemple de l'[application de comptage Vuex la plus basique](https://jsfiddle.net/n9jmu5v7/1269/).
+Voici un exemple de l'[application de comptage Vuex la plus basique](https://jsfiddle.net/ywpudorb/).
 
 Ensuite, nous allons examiner chaque concept de base plus en détails, et commençons avec l'[État](state.md).

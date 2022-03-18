@@ -77,6 +77,6 @@ Again, the reason we are committing a mutation instead of changing `store.state.
 
 Using store state in a component simply involves returning the state within a computed property, because the store state is reactive. Triggering changes simply means committing mutations in component methods.
 
-Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/n9jmu5v7/1269/).
+Here's an example of the [most basic Vuex counter app](https://jsfiddle.net/ywpudorb/).
 
 Next, we will discuss each core concept in much finer details, starting with [State](state.md).
