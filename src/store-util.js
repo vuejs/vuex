@@ -1,4 +1,5 @@
-import { reactive, computed, watch, effectScope } from 'vue'
+import { reactive, computed, effectScope } from '@vue/reactivity'
+import { watch } from '@vue/runtime-core'
 import { forEachValue, isObject, isPromise, assert, partial } from './util'
 
 export function genericSubscribe (fn, subs, options) {
