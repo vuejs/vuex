@@ -119,7 +119,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, [], {}, [
+    testAction(actions.getAllProducts, null, {}, [
       { type: 'REQUEST_PRODUCTS' },
       { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)
@@ -127,7 +127,7 @@ describe('actions', () => {
 })
 ```
 
-如果在测试环境下有可用的 spy (比如通过 [Sinon.JS](http://sinonjs.org/))，你可以使用它们替换辅助函数 `testAction`：
+如果在测试环境下有可用的 spies (比如通过 [Sinon.JS](http://sinonjs.org/))，你可以使用它们替换辅助函数 `testAction`：
 
 ``` js
 describe('actions', () => {

@@ -27,7 +27,7 @@ const store = createStore({
 
 在插件中不允许直接修改状态——类似于组件，只能通过提交 mutation 来触发变化。
 
-通过提交 mutation，插件可以用来同步数据源到 store。例如，同步 websocket 数据源到 store（下面是个大概例子，实际上 `createPlugin` 方法可以有更多选项来完成复杂任务）：
+通过提交 mutation，插件可以用来同步数据源到 store。例如，同步 websocket 数据源到 store（下面是个大概例子，实际上 `createWebSocketPlugin` 方法可以有更多选项来完成复杂任务）：
 
 ``` js
 export default function createWebSocketPlugin (socket) {
@@ -90,9 +90,9 @@ const store = createStore({
 Vuex 自带一个日志插件用于一般的调试:
 
 ``` js
-import createLogger from 'vuex/dist/logger'
+import { createLogger } from 'vuex'
 
-const store = new Vuex.Store({
+const store = createStore({
   plugins: [createLogger()]
 })
 ```

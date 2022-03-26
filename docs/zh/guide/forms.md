@@ -15,6 +15,7 @@
 ``` html
 <input :value="message" @input="updateMessage">
 ```
+
 ``` js
 // ...
 computed: {
@@ -47,6 +48,7 @@ mutations: {
 ``` html
 <input v-model="message">
 ```
+
 ``` js
 // ...
 computed: {

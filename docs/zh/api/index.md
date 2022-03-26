@@ -40,9 +40,7 @@ sidebar: auto
 
 - 类型: `{ [type: string]: Function }`
 
-  在 store 上注册 action。处理函数总是接受 `context` 作为第一个参数，`payload` 作为第二个参数（可选）。
-
-  `context` 对象包含以下属性：
+  在 store 上注册 action。处理函数总是接受 `context` 作为第一个参数，`context` 对象包含以下属性：
 
   ``` js
   {
@@ -67,15 +65,15 @@ sidebar: auto
 
   ```
   state,     // 如果在模块中定义则为模块的局部状态
-  getters,   // 等同于 store.getters
+  getters    // 等同于 store.getters
   ```
 
   当定义在一个模块里时会特别一些：
 
   ```
   state,       // 如果在模块中定义则为模块的局部状态
-  getters,     // 等同于 store.getters
-  rootState    // 等同于 store.state
+  getters,     // 当前模块的局部 getters
+  rootState,   // 全局 state
   rootGetters  // 所有 getters
   ```
 
@@ -89,12 +87,12 @@ sidebar: auto
 
   包含了子模块的对象，会被合并到 store，大概长这样：
 
-  ``` js
+  ```js
   {
     key: {
       state,
       namespaced?,
-      mutations,
+      mutations?,
       actions?,
       getters?,
       modules?
@@ -130,7 +128,7 @@ sidebar: auto
 
   为某个特定的 Vuex 实例打开或关闭 devtools。对于传入 `false` 的实例来说 Vuex store 不会订阅到 devtools 插件。对于一个页面中有多个 store 的情况非常有用。
 
-  ``` js
+  ```js
   {
     devtools: false
   }
@@ -154,15 +152,15 @@ sidebar: auto
 
 ### commit
 
-- `commit(type: string, payload?: any, options?: Object)`
-- `commit(mutation: Object, options?: Object)`
+-  `commit(type: string, payload?: any, options?: Object)`
+-  `commit(mutation: Object, options?: Object)`
 
   提交 mutation。`options` 里可以有 `root: true`，它允许在[命名空间模块](../guide/modules.md#命名空间)里提交根的 mutation。[详细介绍](../guide/mutations.md)
 
 ### dispatch
 
-- `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
-- `dispatch(action: Object, options?: Object): Promise<any>`
+-  `dispatch(type: string, payload?: any, options?: Object): Promise<any>`
+-  `dispatch(action: Object, options?: Object): Promise<any>`
 
   分发 action。`options` 里可以有 `root: true`，它允许在[命名空间模块](../guide/modules.md#命名空间)里分发根的 action。返回一个解析所有被触发的 action 处理器的 Promise。[详细介绍](../guide/actions.md)
 
@@ -174,7 +172,7 @@ sidebar: auto
 
 ### watch
 
-- `watch(fn: Function, callback: Function, options?: Object): Function`
+-  `watch(fn: Function, callback: Function, options?: Object): Function`
 
   响应式地侦听 `fn` 的返回值，当值改变时调用回调函数。`fn` 接收 store 的 state 作为第一个参数，其 getter 作为第二个参数。最后接收一个可选的对象参数表示 Vue 的 [`vm.$watch`](https://cn.vuejs.org/v2/api/#vm-watch) 方法的参数。
 
@@ -182,50 +180,58 @@ sidebar: auto
 
 ### subscribe
 
-- `subscribe(handler: Function, options?: Object): Function`
+-  `subscribe(handler: Function, options?: Object): Function`
 
   订阅 store 的 mutation。`handler` 会在每个 mutation 完成后调用，接收 mutation 和经过 mutation 后的状态作为参数：
 
-  ``` js
-  store.subscribe((mutation, state) => {
+  ```js
+  const unsubscribe = store.subscribe((mutation, state) => {
     console.log(mutation.type)
     console.log(mutation.payload)
   })
+
+  // 你可以调用 unsubscribe 来停止订阅。
+  unsubscribe()
   ```
 
   默认情况下，新的处理函数会被添加到其链的尾端，因此它会在其它之前已经被添加了的处理函数之后执行。这一行为可以通过向 `options` 添加 `prepend: true` 来覆写，即把处理函数添加到其链的最开始。
 
-  ``` js
+  ```js
   store.subscribe(handler, { prepend: true })
   ```
-  要停止订阅，调用此方法返回的函数即可停止订阅。
+ 
+ `subscribe` 方法将返回一个 `unsubscribe` 函数，当不再需要订阅时应该调用该函数。例如，你可能会订阅一个 Vuex 模块，当你取消注册该模块时取消订阅。或者你可能从一个Vue组件内部调用 `subscribe`，然后不久就会销毁该组件。在这些情况下，你应该记得手动取消订阅。
 
   通常用于插件。[详细介绍](../guide/plugins.md)
 
 ### subscribeAction
 
-- `subscribeAction(handler: Function, options?: Object): Function`
+-  `subscribeAction(handler: Function, options?: Object): Function`
 
-  订阅 store 的 action。`handler` 会在每个 action 分发的时候调用并接收 action 描述和当前的 store 的 state 这两个参数：
+  订阅 store 的 action。`handler` 会在每个 action 分发的时候调用并接收 action 描述和当前的 store 的 state 这两个参数。
+  `subscribe` 方法将返回一个 `unsubscribe` 函数，当不再需要订阅时，应调用该函数。例如，当取消注册一个 Vuex 模块或销毁一个 Vue 组件之前。
 
-  ``` js
-  store.subscribeAction((action, state) => {
+  ```js
+  const unsubscribe = store.subscribeAction((action, state) => {
     console.log(action.type)
     console.log(action.payload)
   })
+
+  // 你可以调用 unsubscribe 来停止订阅。
+  unsubscribe()
   ```
 
   默认情况下，新的处理函数会被添加到其链的尾端，因此它会在其它之前已经被添加了的处理函数之后执行。这一行为可以通过向 `options` 添加 `prepend: true` 来覆写，即把处理函数添加到其链的最开始。
 
-  ``` js
+  ```js
   store.subscribeAction(handler, { prepend: true })
   ```
 
-  要停止订阅，调用此方法返回的函数即可停止订阅。
+  `subscribeAction` 方法将返回一个 `unsubscribe` 函数，当不再需要订阅时，应该调用该函数。例如，你可能会订阅一个 Vuex 模块，并在取消注册该模块时取消订阅。或者你可能从 Vue 组件内部调用`subscribeAction`，然后不久就会销毁该组件。在这些情况下，你应该记得手动取消订阅。
 
   `subscribeAction` 也可以指定订阅处理函数的被调用时机应该在一个 action 分发*之前*还是*之后* (默认行为是*之前*)：
 
-  ``` js
+  ```js
   store.subscribeAction({
     before: (action, state) => {
       console.log(`before action ${action.type}`)
@@ -238,7 +244,7 @@ sidebar: auto
 
   `subscribeAction` 也可以指定一个 `error` 处理函数以捕获分发 action 的时候被抛出的错误。该函数会从第三个参数接收到一个 `error` 对象。
 
-  ``` js
+  ```js
   store.subscribeAction({
     error: (action, state, error) => {
       console.log(`error action ${action.type}`)
@@ -251,7 +257,7 @@ sidebar: auto
 
 ### registerModule
 
-- `registerModule(path: string | Array<string>, module: Module, options?: Object)`
+-  `registerModule(path: string | Array<string>, module: Module, options?: Object)`
 
   注册一个动态模块。[详细介绍](../guide/modules.md#模块动态注册)
 
@@ -259,7 +265,7 @@ sidebar: auto
 
 ### unregisterModule
 
-- `unregisterModule(path: string | Array<string>)`
+-  `unregisterModule(path: string | Array<string>)`
 
   卸载一个动态模块。[详细介绍](../guide/modules.md#模块动态注册)
 
@@ -271,7 +277,7 @@ sidebar: auto
 
 ### hotUpdate
 
-- `hotUpdate(newOptions: Object)`
+-  `hotUpdate(newOptions: Object)`
 
   热替换新的 action 和 mutation。[详细介绍](../guide/hot-reload.md)
 
@@ -279,7 +285,7 @@ sidebar: auto
 
 ### mapState
 
-- `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
+-  `mapState(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   为组件创建计算属性以返回 Vuex store 中的状态。[详细介绍](../guide/state.md#mapstate-辅助函数)
 
@@ -289,7 +295,7 @@ sidebar: auto
 
 ### mapGetters
 
-- `mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`
+-  `mapGetters(namespace?: string, map: Array<string> | Object<string>): Object`
 
   为组件创建计算属性以返回 getter 的返回值。[详细介绍](../guide/getters.md#mapgetters-辅助函数)
 
@@ -297,7 +303,7 @@ sidebar: auto
 
 ### mapActions
 
-- `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
+-  `mapActions(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   创建组件方法分发 action。[详细介绍](../guide/actions.md#在组件中分发-action)
 
@@ -307,7 +313,7 @@ sidebar: auto
 
 ### mapMutations
 
-- `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
+-  `mapMutations(namespace?: string, map: Array<string> | Object<string | function>): Object`
 
   创建组件方法提交 mutation。[详细介绍](../guide/mutations.md#在组件中提交-mutation)
 
@@ -378,7 +384,7 @@ sidebar: auto
   最后，将 key 传递给 `useStore` 方法以获取指定类型的 store 实例。
 
   ```ts
-  // vue 组件
+  // 在 vue 组件内
   import { useStore } from 'vuex'
   import { key } from './store'
 

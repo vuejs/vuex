@@ -17,7 +17,7 @@ computed: {
 Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计算属性）。
 
 ::: warning 注意
-从 Vue 3.0 开始，getter 的结果不再像计算属性一样会被缓存起来。这是一个已知的问题，将会在 3.2 版本中修复。详情请看 [PR #1878](https://github.com/vuejs/vuex/pull/1883)。
+从 Vue 3.0 开始，getter 的结果不再像计算属性一样会被缓存起来。这是一个已知的问题，将会在 3.1 版本中修复。详情请看 [PR #1878](https://github.com/vuejs/vuex/pull/1883)。
 :::
 
 Getter 接受 state 作为其第一个参数：
@@ -31,7 +31,7 @@ const store = createStore({
     ]
   },
   getters: {
-    doneTodos: (state) => {
+    doneTodos (state) {
       return state.todos.filter(todo => todo.done)
     }
   }
@@ -40,7 +40,7 @@ const store = createStore({
 
 ## 通过属性访问
 
-Getter 会暴露为 `store.getters` 对象，你可以以属性的形式访问这些值：
+getter 会暴露为 `store.getters` 对象，你可以以属性的形式访问这些值：
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]

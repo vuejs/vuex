@@ -12,7 +12,6 @@ Vuex 没有为 `this.$store` 属性提供开箱即用的类型声明。如果你
 
 ```ts
 // vuex.d.ts
-import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
 declare module '@vue/runtime-core' {
@@ -90,7 +89,6 @@ export default {
 ```
 
 本质上，Vuex 将store 安装到 Vue 应用中使用了 Vue 的 [Provide/Inject](https://v3.cn.vuejs.org/api/composition-api.html#provide-inject) 特性，这就是 injection key 是很重要的因素的原因。
-
 
 ### 简化 `useStore` 用法
 

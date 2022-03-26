@@ -46,7 +46,6 @@ const moduleA = {
       state.count++
     }
   },
-
   getters: {
     doubleCount (state) {
       return state.count * 2
@@ -151,6 +150,7 @@ modules: {
       someGetter (state, getters, rootState, rootGetters) {
         getters.someOtherGetter // -> 'foo/someOtherGetter'
         rootGetters.someOtherGetter // -> 'someOtherGetter'
+        rootGetters['bar/someOtherGetter'] // -> 'bar/someOtherGetter'
       },
       someOtherGetter: state => { ... }
     },
@@ -161,6 +161,7 @@ modules: {
       someAction ({ dispatch, commit, getters, rootGetters }) {
         getters.someGetter // -> 'foo/someGetter'
         rootGetters.someGetter // -> 'someGetter'
+        rootGetters['bar/someGetter'] // -> 'bar/someGetter'
 
         dispatch('someOtherAction') // -> 'foo/someOtherAction'
         dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
@@ -209,7 +210,11 @@ computed: {
   ...mapState({
     a: state => state.some.nested.module.a,
     b: state => state.some.nested.module.b
-  })
+  }),
+  ...mapGetters([
+    'some/nested/module/someGetter', // -> this['some/nested/module/someGetter']
+    'some/nested/module/someOtherGetter', // -> this['some/nested/module/someOtherGetter']
+  ])
 },
 methods: {
   ...mapActions([
@@ -226,7 +231,11 @@ computed: {
   ...mapState('some/nested/module', {
     a: state => state.a,
     b: state => state.b
-  })
+  }),
+  ...mapGetters('some/nested/module', [
+    'someGetter', // -> this.someGetter
+    'someOtherGetter', // -> this.someOtherGetter
+  ])
 },
 methods: {
   ...mapActions('some/nested/module', [
@@ -290,6 +299,7 @@ const store = createStore({ /* 选项 */ })
 store.registerModule('myModule', {
   // ...
 })
+
 // 注册嵌套模块 `nested/myModule`
 store.registerModule(['nested', 'myModule'], {
   // ...

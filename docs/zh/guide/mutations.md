@@ -1,4 +1,4 @@
-# Mutation
+# Mutations
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
@@ -36,6 +36,7 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', 10)
 ```

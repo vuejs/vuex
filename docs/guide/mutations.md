@@ -96,8 +96,7 @@ import { SOME_MUTATION } from './mutation-types'
 const store = createStore({
   state: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature
-    // to use a constant as the function name
+    // we can use the ES2015 computed property name feature to use a constant as the function name
     [SOME_MUTATION] (state) {
       // mutate state
     }
@@ -152,8 +151,7 @@ Asynchronicity combined with state mutation can make your program very hard to r
 
 ```js
 store.commit('increment')
-// any state change that the "increment" mutation may cause
-// should be done at this moment.
+// any state change that the "increment" mutation may cause should be done at this moment.
 ```
 
 To handle asynchronous operations, let's introduce [Actions](actions.md).
