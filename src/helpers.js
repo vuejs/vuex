@@ -8,17 +8,17 @@ import {getGlobalThis} from "@vue/shared";
  * @param {Object}
  */
 export const mapState = normalizeNamespace((namespace, states) => {
-  const globalThis= getGlobalThis()
+  const instance= this || getGlobalThis()
   const res = {}
   if (__DEV__ && !isValidMap(states)) {
     console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
   }
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
-      let state = globalThis.$store.state
-      let getters = globalThis.$store.getters
+      let state = instance.$store.state
+      let getters = instance.$store.getters
       if (namespace) {
-        const module = getModuleByNamespace(globalThis.$store, 'mapState', namespace)
+        const module = getModuleByNamespace(instance.$store, 'mapState', namespace)
         if (!module) {
           return
         }
@@ -42,7 +42,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
  * @return {Object}
  */
 export const mapMutations = normalizeNamespace((namespace, mutations) => {
-  const globalThis= getGlobalThis()
+  const instance= this || getGlobalThis()
   const res = {}
   if (__DEV__ && !isValidMap(mutations)) {
     console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object')
@@ -50,9 +50,9 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
       // Get the commit method from store
-      let commit = globalThis.$store.commit
+      let commit = instance.$store.commit
       if (namespace) {
-        const module = getModuleByNamespace(globalThis.$store, 'mapMutations', namespace)
+        const module = getModuleByNamespace(instance.$store, 'mapMutations', namespace)
         if (!module) {
           return
         }
@@ -73,7 +73,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
  * @return {Object}
  */
 export const mapGetters = normalizeNamespace((namespace, getters) => {
-  const globalThis= getGlobalThis()
+  const instance= this || getGlobalThis()
   const res = {}
   if (__DEV__ && !isValidMap(getters)) {
     console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object')
@@ -82,14 +82,14 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
     // The namespace has been mutated by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
-      if (namespace && !getModuleByNamespace(globalThis.$store, 'mapGetters', namespace)) {
+      if (namespace && !getModuleByNamespace(instance.$store, 'mapGetters', namespace)) {
         return
       }
-      if (__DEV__ && !(val in globalThis.$store.getters)) {
+      if (__DEV__ && !(val in instance.$store.getters)) {
         console.error(`[vuex] unknown getter: ${val}`)
         return
       }
-      return globalThis.$store.getters[val]
+      return instance.$store.getters[val]
     }
     // mark vuex getter for devtools
     res[key].vuex = true
@@ -104,7 +104,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
  * @return {Object}
  */
 export const mapActions = normalizeNamespace((namespace, actions) => {
-  const globalThis= getGlobalThis()
+  const instance= this || getGlobalThis()
   const res = {}
   if (__DEV__ && !isValidMap(actions)) {
     console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object')
@@ -112,9 +112,9 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
       // get dispatch function from store
-      let dispatch = globalThis.$store.dispatch
+      let dispatch = instance.$store.dispatch
       if (namespace) {
-        const module = getModuleByNamespace(globalThis.$store, 'mapActions', namespace)
+        const module = getModuleByNamespace(instance.$store, 'mapActions', namespace)
         if (!module) {
           return
         }
@@ -122,7 +122,7 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
       }
       return typeof val === 'function'
         ? val.apply(this, [dispatch].concat(args))
-        : dispatch.apply(globalThis.$store, [val].concat(args))
+        : dispatch.apply(instance.$store, [val].concat(args))
     }
   })
   return res
