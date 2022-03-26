@@ -1,5 +1,4 @@
 import { isObject } from './util'
-import {getGlobalThis} from "@vue/shared";
 
 /**
  * Reduce the code which written in Vue.js for getting the state.
@@ -14,11 +13,10 @@ export const mapState = normalizeNamespace((namespace, states) => {
   }
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
-      const instance = this || getGlobalThis()
-      let state = instance.$store.state
-      let getters = instance.$store.getters
+      let state = this.$store.state
+      let getters = this.$store.getters
       if (namespace) {
-        const module = getModuleByNamespace(instance.$store, 'mapState', namespace)
+        const module = getModuleByNamespace(this.$store, 'mapState', namespace)
         if (!module) {
           return
         }
@@ -48,11 +46,10 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
   }
   normalizeMap(mutations).forEach(({ key, val }) => {
     res[key] = function mappedMutation (...args) {
-      const instance = this || getGlobalThis()
       // Get the commit method from store
-      let commit = instance.$store.commit
+      let commit = this.$store.commit
       if (namespace) {
-        const module = getModuleByNamespace(instance.$store, 'mapMutations', namespace)
+        const module = getModuleByNamespace(this.$store, 'mapMutations', namespace)
         if (!module) {
           return
         }
@@ -81,15 +78,14 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
     // The namespace has been mutated by normalizeNamespace
     val = namespace + val
     res[key] = function mappedGetter () {
-      const instance = this || getGlobalThis()
-      if (namespace && !getModuleByNamespace(instance.$store, 'mapGetters', namespace)) {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
         return
       }
-      if (__DEV__ && !(val in instance.$store.getters)) {
+      if (__DEV__ && !(val in this.$store.getters)) {
         console.error(`[vuex] unknown getter: ${val}`)
         return
       }
-      return instance.$store.getters[val]
+      return this.$store.getters[val]
     }
     // mark vuex getter for devtools
     res[key].vuex = true
@@ -110,11 +106,10 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
   }
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
-      const instance = this || getGlobalThis()
       // get dispatch function from store
-      let dispatch = instance.$store.dispatch
+      let dispatch = this.$store.dispatch
       if (namespace) {
-        const module = getModuleByNamespace(instance.$store, 'mapActions', namespace)
+        const module = getModuleByNamespace(this.$store, 'mapActions', namespace)
         if (!module) {
           return
         }
@@ -122,7 +117,7 @@ export const mapActions = normalizeNamespace((namespace, actions) => {
       }
       return typeof val === 'function'
         ? val.apply(this, [dispatch].concat(args))
-        : dispatch.apply(instance.$store, [val].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
     }
   })
   return res
