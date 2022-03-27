@@ -1,9 +1,10 @@
-version: 2
+version: 2.1
 
 defaults: &defaults
   working_directory: ~/vuex
   docker:
-    - image: circleci/node:12-browsers
+    - image: cimg/node:current-browsers
+  parallelism: 4
 
 jobs:
   install:
