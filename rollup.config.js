@@ -3,7 +3,6 @@ import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
-import regenerator from 'rollup-plugin-regenerator'
 import pkg from './package.json'
 
 const banner = `/*!
@@ -33,7 +32,7 @@ function createEntry(config) {
   const c = {
     external: ['vue'],
     input: config.input,
-    plugins: [ regenerator() ],
+    plugins: [],
     output: {
       banner,
       file: config.file,
@@ -69,7 +68,7 @@ function createEntry(config) {
   }))
 
   if (config.transpile !== false) {
-    c.plugins.push(buble())
+    c.plugins.push(buble({ transforms: { asyncAwait: false, forOf: false }}))
   }
 
   c.plugins.push(resolve())
