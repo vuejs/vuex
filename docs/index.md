@@ -1,7 +1,10 @@
 # What is Vuex?
 
-::: tip NOTE
-This is the docs for Vuex 4, which works with Vue 3. If you're looking for docs for Vuex 3, which works with Vue 2, [please check it out here](https://v3.vuex.vuejs.org/).
+::: tip Pinia is now the new default
+
+The official state management library for Vue has changed to [Pinia](https://pinia.vuejs.org). Pinia has almost the exact same or enhanced API as Vuex 5, described in [Vuex 5 RFC](https://github.com/vuejs/rfcs/pull/271). You could simply consider Pinia as Vuex 5 with a different name. Pinia also works with Vue 2.x as well.
+
+Vuex 3 and 4 will still be maintained. However, it's unlikely to add new functionalities to it. Vuex and Pinia can be installed in the same project. If you're migrating existing Vuex app to Pinia, it might be a suitable option. However, if you're planning to start a new project, we highly recommend using Pinia instead.
 :::
 
 Vuex is a **state management pattern + library** for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion.

@@ -5,7 +5,11 @@
 
 ---
 
-:fire: **HEADS UP!** You're currently looking at Vuex 4 branch. If you're looking for Vuex 3, [please check out `3.x` branch](https://github.com/vuejs/vuex/tree/3.x).
+**Pinia is now the new default**
+
+The official state management library for Vue has changed to [Pinia](https://pinia.vuejs.org). Pinia has almost the exact same or enhanced API as Vuex 5, described in [Vuex 5 RFC](https://github.com/vuejs/rfcs/pull/271). You could simply consider Pinia as Vuex 5 with a different name. Pinia also works with Vue 2.x as well.
+
+Vuex 3 and 4 will still be maintained. However, it's unlikely to add new functionalities to it. Vuex and Pinia can be installed in the same project. If you're migrating existing Vuex app to Pinia, it might be a suitable option. However, if you're planning to start a new project, we highly recommend using Pinia instead.
 
 ---
 
