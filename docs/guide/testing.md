@@ -51,9 +51,9 @@ describe('mutations', () => {
 
 ## Testing Actions
 
-Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking - for example, we can abstract the API calls into a service and mock that service inside our tests. In order to easily mock dependencies, we can use webpack and [inject-loader](https://github.com/plasticine/inject-loader) to bundle our test files.
+Actions can be a bit more tricky because they may call out to external APIs. When testing actions, we usually need to do some level of mocking and spying - for example, we can abstract the API calls into a service and mock that service inside our tests.
 
-Example testing an async action:
+The following code assumes your testing environment uses [Sinon.JS](http://sinonjs.org/):
 
 ```js
 // actions.js
@@ -70,67 +70,8 @@ export const getAllProducts = ({ commit }) => {
 ```js
 // actions.spec.js
 
-// use require syntax for inline loaders.
-// with inject-loader, this returns a module factory
-// that allows us to inject mocked dependencies.
 import { expect } from 'chai'
-const actionsInjector = require('inject-loader!./actions')
 
-// create the module with our mocks
-const actions = actionsInjector({
-  '../api/shop': {
-    getProducts (cb) {
-      setTimeout(() => {
-        cb([ /* mocked response */ ])
-      }, 100)
-    }
-  }
-})
-
-// helper for testing action with expected mutations
-const testAction = (action, payload, state, expectedMutations, done) => {
-  let count = 0
-
-  // mock commit
-  const commit = (type, payload) => {
-    const mutation = expectedMutations[count]
-
-    try {
-      expect(type).to.equal(mutation.type)
-      expect(payload).to.deep.equal(mutation.payload)
-    } catch (error) {
-      done(error)
-    }
-
-    count++
-    if (count >= expectedMutations.length) {
-      done()
-    }
-  }
-
-  // call the action with mocked store and arguments
-  action({ commit, state }, payload)
-
-  // check if no mutations should have been dispatched
-  if (expectedMutations.length === 0) {
-    expect(count).to.equal(0)
-    done()
-  }
-}
-
-describe('actions', () => {
-  it('getAllProducts', done => {
-    testAction(actions.getAllProducts, null, {}, [
-      { type: 'REQUEST_PRODUCTS' },
-      { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
-    ], done)
-  })
-})
-```
-
-If you have spies available in your testing environment (for example via [Sinon.JS](http://sinonjs.org/)), you can use them instead of the `testAction` helper:
-
-```js
 describe('actions', () => {
   it('getAllProducts', () => {
     const commit = sinon.spy()
