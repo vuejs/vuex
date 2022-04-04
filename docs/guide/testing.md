@@ -87,6 +87,30 @@ describe('actions', () => {
 })
 ```
 
+If your environment uses [Jest](http://jestjs.io/):
+```js
+import shop from '../api/shop'
+
+describe('actions', () => {
+  it('getAllProducts', () => {
+    const commit = jest.fn()
+    const state = {}
+
+    let getProductsSpy = jest.spyOn(shop, 'getProducts')
+    getProductsSpy.mockImplementation(() => {
+      return [ /* mocked response */]
+    });
+
+    actions.getAllProducts({ commit, state })
+
+    expect(commit.args).to.deep.equal([
+      ['REQUEST_PRODUCTS'],
+      ['RECEIVE_PRODUCTS', { /* mocked response */ }]
+    ])
+  })
+})
+```
+
 ## Testing Getters
 
 If your getters have complicated computation, it is worth testing them. Getters are also very straightforward to test for the same reason as mutations.
