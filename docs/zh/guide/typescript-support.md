@@ -3,6 +3,23 @@
 Vuex 提供了类型声明，因此可以使用 TypeScript 定义 store，并且不需要任何特殊的 TypeScript 配置。请遵循 [Vue 的基本 TypeScript 配置](https://v3.cn.vuejs.org/guide/typescript-support.html)来配置项目。
 
 但是，如果你使用 TypeScript 来编写 Vue 组件，则需要遵循一些步骤才能正确地为 store 提供类型声明。
+## store 类型推断
+使用`createStore` 方法创建一个store实例时将推断出完整的 store 类型定义，支持 commit、dispatch 方法的参数感知及类型检查。
+
+在定义 state 对象属性时推荐使用 `class` 来进行类型声明及指定默认值;
+
+```ts
+class State {
+  name = ''
+  count = 1
+  foo?: string
+  list?: string[] = []
+}
+const store = createStore({
+  state: new State(),
+  ...
+}
+```
 
 ## Vue 组件中 `$store` 属性的类型声明
 
@@ -12,19 +29,38 @@ Vuex 没有为 `this.$store` 属性提供开箱即用的类型声明。如果你
 
 ```ts
 // vuex.d.ts
-import { ComponentCustomProperties } from 'vue'
-import { Store } from 'vuex'
+// 引入定义好的store实列
+import { store } from './store'
 
 declare module '@vue/runtime-core' {
-  // 声明自己的 store state
-  interface State {
-    count: number
-  }
 
   // 为 `this.$store` 提供类型声明
   interface ComponentCustomProperties {
-    $store: Store<State>
+    $store: typeof store
   }
+}
+```
+##  使用 `inject` 组合式函数类型声明
+将 store 安装到 Vue 应用时，会同时将 store 注入为应用级依赖，在未指定 `InjectionKey` 时将使用 "store" 作为默认 key, 因此我们可以在组合式 API 中使用`inject('store')`来拿到 store 实例，但是却无法感知返回的数据类型，为此我们同样可以使用上面的方式给 `inject` 方法添加一个重载类型补充：
+
+```ts
+// vuex.d.ts
+// 引入定义好的store实列
+import { store } from './store'
+
+// 指定需要全局声明的依赖类型
+interface InjectionMap {
+  'store': typeof store
+}
+
+declare module '@vue/runtime-core' {
+
+  // 为 `this.$store` 提供类型声明
+  interface ComponentCustomProperties {
+    $store: InjectionMap[S]
+  }
+  // 将 injectionMap 中的类型进行重载补充声明
+  export function inject<S extends keyof InjectionMap>(key:S):InjectionMap[S]
 }
 ```
 
@@ -44,18 +80,16 @@ import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
 
 // 为 store state 声明类型
-export interface State {
-  count: number
+class State {
+  count: number = 0
 }
 
-// 定义 injection key
-export const key: InjectionKey<Store<State>> = Symbol()
-
 export const store = createStore<State>({
-  state: {
-    count: 0
-  }
+  state: new State()
 })
+
+// 定义 injection key
+export const key: InjectionKey<typeof store> = Symbol()
 ```
 
 然后，将 store 安装到 Vue 应用时传入定义好的 injection key。
