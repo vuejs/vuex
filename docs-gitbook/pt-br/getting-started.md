@@ -38,6 +38,6 @@ Novamente, a razão pela qual estamos fazendo _commit_ de uma mutação em vez d
 
 Usar o estado do _store_ em um componente simplesmente envolve o retorno do estado dentro de um dado computado, porque o estado do _store_ é reativo. Fazer alterações simplesmente significa fazer _commit_ de mutações nos métodos dos componentes.
 
-Aqui está um exemplo do [aplicativo de contador do Vuex mais básico](https://jsfiddle.net/n9jmu5v7/1269/).
+Aqui está um exemplo do [aplicativo de contador do Vuex mais básico](https://jsfiddle.net/ywpudorb/).
 
 Em seguida, discutiremos cada conceito chave em mais detalhes, começando com [Estado](state.md).
