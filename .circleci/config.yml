@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/vuex
   docker:
-    - image: circleci/node:12-browsers
+    - image: circleci/node:12-browser
 
 jobs:
   install:
