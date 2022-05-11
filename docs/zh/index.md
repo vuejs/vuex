@@ -1,7 +1,7 @@
 # Vuex 是什么？
 
 ::: tip Pinia已成为新的Vue默认状态管理器
-Pinia取代Vuex成为Vue的官方状态管理器库，Pinia的API与Vuex 5几乎完全一直。您可以将Pinia简单地看作视为Vuex5。Vue2同样可以使用Pinia。
+Pinia取代Vuex成为Vue的官方状态管理器库，Pinia的API与Vuex 5几乎完全相同，相关请看![Vuex 5 RFC](https://github.com/vuejs/rfcs/pull/271)。您可以将Pinia简单地视为Vuex5。Vue2同样可以使用Pinia。
 
 Vuex3和4仍将保留，不过他们可能不再继续添加新的功能。VueX和Pinia可以安装在同一个项目中，因此您可以尝试将现有的Vuex应用迁移到Pinia。不过，如果您打算开始一个新项目，我们强烈建议您改用Pinia。
 :::
