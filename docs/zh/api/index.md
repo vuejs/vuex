@@ -200,7 +200,7 @@ sidebar: auto
   store.subscribe(handler, { prepend: true })
   ```
  
- `subscribe` 方法将返回一个 `unsubscribe` 函数，当不再需要订阅时应该调用该函数。例如，你可能会订阅一个 Vuex 模块，当你取消注册该模块时取消订阅。或者你可能从一个Vue组件内部调用 `subscribe`，然后不久就会销毁该组件。在这些情况下，你应该记得手动取消订阅。
+ `subscribe` 方法将返回一个 `unsubscribe` 函数，当不再需要订阅时应该调用该函数。例如，你可能会订阅一个 Vuex 模块，当你取消注册该模块时取消订阅。或者你可能从一个 Vue 组件内部调用 `subscribe`，然后不久就会销毁该组件。在这些情况下，你应该记得手动取消订阅。
 
   通常用于插件。[详细介绍](../guide/plugins.md)
 
