@@ -119,7 +119,7 @@ const testAction = (action, args, state, expectedMutations, done) => {
 
 describe('actions', () => {
   it('getAllProducts', done => {
-    testAction(actions.getAllProducts, [], {}, [
+    testAction(actions.getAllProducts, null, {}, [
       { type: 'REQUEST_PRODUCTS' },
       { type: 'RECEIVE_PRODUCTS', payload: { /* mocked response */ } }
     ], done)

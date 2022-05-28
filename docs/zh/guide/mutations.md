@@ -36,6 +36,7 @@ mutations: {
   }
 }
 ```
+
 ``` js
 store.commit('increment', 10)
 ```
@@ -95,7 +96,8 @@ import { SOME_MUTATION } from './mutation-types'
 const store = createStore({
   state: { ... },
   mutations: {
-    // 我们可以使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名
+    // 我们可以使用 ES2015 风格的计算属性命名功能
+    // 来使用一个常量作为函数名
     [SOME_MUTATION] (state) {
       // 修改 state
     }
