@@ -152,7 +152,8 @@ Asynchronicity combined with state mutation can make your program very hard to r
 
 ```js
 store.commit('increment')
-// any state change that the "increment" mutation may cause should be done at this moment.
+// any state change that the "increment" mutation may cause
+// should be done at this moment.
 ```
 
 To handle asynchronous operations, let's introduce [Actions](actions.md).
