@@ -96,7 +96,8 @@ import { SOME_MUTATION } from './mutation-types'
 const store = createStore({
   state: { ... },
   mutations: {
-    // we can use the ES2015 computed property name feature to use a constant as the function name
+    // we can use the ES2015 computed property name feature
+    // to use a constant as the function name
     [SOME_MUTATION] (state) {
       // mutate state
     }

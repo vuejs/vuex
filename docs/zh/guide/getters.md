@@ -40,7 +40,7 @@ const store = createStore({
 
 ## 通过属性访问
 
-getter 会暴露为 `store.getters` 对象，你可以以属性的形式访问这些值：
+Getter 会暴露为 `store.getters` 对象，你可以以属性的形式访问这些值：
 
 ``` js
 store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]

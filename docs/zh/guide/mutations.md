@@ -1,4 +1,4 @@
-# Mutations
+# Mutation
 
 <div class="scrimba"><a href="https://scrimba.com/p/pnyzgAP/ckMZp4HN" target="_blank" rel="noopener noreferrer">在 Scrimba 上尝试这节课</a></div>
 
@@ -96,7 +96,8 @@ import { SOME_MUTATION } from './mutation-types'
 const store = createStore({
   state: { ... },
   mutations: {
-    // 我们可以使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名
+    // 我们可以使用 ES2015 风格的计算属性命名功能
+    // 来使用一个常量作为函数名
     [SOME_MUTATION] (state) {
       // 修改 state
     }
