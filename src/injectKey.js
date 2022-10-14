@@ -1,4 +1,4 @@
-import { inject } from 'vue'
+import { inject } from '@vue/runtime-core'
 
 export const storeKey = 'store'
 

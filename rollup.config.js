@@ -1,4 +1,4 @@
-import buble from '@rollup/plugin-buble'
+import { babel } from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
@@ -68,7 +68,7 @@ function createEntry(config) {
   }))
 
   if (config.transpile !== false) {
-    c.plugins.push(buble())
+    c.plugins.push(babel({ babelHelpers: 'bundled' }))
   }
 
   c.plugins.push(resolve())

@@ -1,9 +1,10 @@
-version: 2
+version: 2.1
 
 defaults: &defaults
   working_directory: ~/vuex
   docker:
-    - image: circleci/node:12-browsers
+    - image: cimg/node:lts-browsers
+  parallelism: 4
 
 jobs:
   install:
@@ -48,8 +49,13 @@ jobs:
   test-unit:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: ~/
+      - checkout
+      - run:
+          name: Installing Dependencies
+          command: yarn
+      - run:
+          name: Installing peerDependencies explicitly
+          command: yarn add vue --peer
       - run:
           name: Running Unit Tests
           command: |
@@ -58,8 +64,13 @@ jobs:
   test-e2e:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: ~/
+      - checkout
+      - run:
+          name: Installing Dependencies
+          command: yarn
+      - run:
+          name: Installing peerDependencies explicitly
+          command: yarn add vue --peer
       - run:
           name: Running End-to-end Tests
           command: |
@@ -68,8 +79,13 @@ jobs:
   test-ssr:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: ~/
+      - checkout
+      - run:
+          name: Installing Dependencies
+          command: yarn
+      - run:
+          name: Installing peerDependencies explicitly
+          command: yarn add vue --peer
       - run:
           name: Running Server-side Rendering Tests
           command: |

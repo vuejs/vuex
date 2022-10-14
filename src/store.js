@@ -1,4 +1,4 @@
-import { watch } from 'vue'
+import { watch } from '@vue/runtime-core'
 import { storeKey } from './injectKey'
 import { addDevtools } from './plugins/devtool'
 import ModuleCollection from './module/module-collection'
