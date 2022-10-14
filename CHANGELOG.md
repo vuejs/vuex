@@ -1,3 +1,16 @@
+# [4.1.0](https://github.com/vuejs/vuex/compare/v4.0.2...v4.1.0) (2022-10-14)
+
+### Vue Core Version Requirement Change
+
+**This release contains an important fix (#1883) that relies on the `effectScope` API from Vue core, which is only available in Vue 3.2+.**
+
+### Bug Fixes
+
+* **build:** node deprecated warning in export module ([#2048](https://github.com/vuejs/vuex/issues/2048)) ([397e9fb](https://github.com/vuejs/vuex/commit/397e9fba45c8b4ec0c4a33d2578e34829bd348d7))
+* getters being destroyed on component destroy ([#1878](https://github.com/vuejs/vuex/issues/1878)) ([#1883](https://github.com/vuejs/vuex/issues/1883)) ([b2f851f](https://github.com/vuejs/vuex/commit/b2f851f427aa872d1e4f5a4774e07c4c69562789))
+
+
+
 ## [4.0.2](https://github.com/vuejs/vuex/compare/v4.0.1...v4.0.2) (2021-06-17)
 
 ### Bug Fixes
