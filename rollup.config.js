@@ -12,12 +12,45 @@ const banner = `/*!
  */`
 
 const configs = [
-  { input: 'src/index.js', file: 'dist/vuex.esm-browser.js', format: 'es', browser: true, env: 'development' },
-  { input: 'src/index.js', file: 'dist/vuex.esm-browser.prod.js', format: 'es', browser: true, env: 'production' },
-  { input: 'src/index.js', file: 'dist/vuex.esm-bundler.js', format: 'es', env: 'development' },
-  { input: 'src/index.cjs.js', file: 'dist/vuex.global.js', format: 'iife', env: 'development' },
-  { input: 'src/index.cjs.js', file: 'dist/vuex.global.prod.js', format: 'iife', minify: true, env: 'production' },
-  { input: 'src/index.cjs.js', file: 'dist/vuex.cjs.js', format: 'cjs', env: 'development' }
+  {
+    input: 'src/index.js',
+    file: 'dist/vuex.esm-browser.js',
+    format: 'es',
+    browser: true,
+    env: 'development'
+  },
+  {
+    input: 'src/index.js',
+    file: 'dist/vuex.esm-browser.prod.js',
+    format: 'es',
+    browser: true,
+    env: 'production'
+  },
+  {
+    input: 'src/index.js',
+    file: 'dist/vuex.esm-bundler.js',
+    format: 'es',
+    env: 'development'
+  },
+  {
+    input: 'src/index.cjs.js',
+    file: 'dist/vuex.global.js',
+    format: 'iife',
+    env: 'development'
+  },
+  {
+    input: 'src/index.cjs.js',
+    file: 'dist/vuex.global.prod.js',
+    format: 'iife',
+    minify: true,
+    env: 'production'
+  },
+  {
+    input: 'src/index.cjs.js',
+    file: 'dist/vuex.cjs.js',
+    format: 'cjs',
+    env: 'development'
+  }
 ]
 
 function createEntries() {
@@ -37,6 +70,7 @@ function createEntry(config) {
       banner,
       file: config.file,
       format: config.format,
+      exports: 'auto',
       globals: {
         vue: 'Vue'
       }
@@ -56,19 +90,25 @@ function createEntry(config) {
     c.external.push('@vue/devtools-api')
   }
 
-  c.plugins.push(replace({
-    preventAssignment: true,
-    __VERSION__: pkg.version,
-    __DEV__: isBundlerBuild
-      ? `(process.env.NODE_ENV !== 'production')`
-      : config.env !== 'production',
-    __VUE_PROD_DEVTOOLS__: isBundlerESMBuild
-      ? '__VUE_PROD_DEVTOOLS__'
-      : 'false'
-  }))
+  c.plugins.push(
+    replace({
+      preventAssignment: true,
+      __VERSION__: pkg.version,
+      __DEV__: isBundlerBuild
+        ? `(process.env.NODE_ENV !== 'production')`
+        : config.env !== 'production',
+      __VUE_PROD_DEVTOOLS__: isBundlerESMBuild
+        ? '__VUE_PROD_DEVTOOLS__'
+        : 'false'
+    })
+  )
 
   if (config.transpile !== false) {
-    c.plugins.push(buble())
+    c.plugins.push(
+      buble({
+        transforms: { asyncAwait: false, forOf: false }
+      })
+    )
   }
 
   c.plugins.push(resolve())
