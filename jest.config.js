@@ -1,5 +1,6 @@
 module.exports = {
   rootDir: __dirname,
+  testEnvironment: 'jsdom',
   globals: {
     __DEV__: true
   },
