@@ -264,8 +264,7 @@ sidebar: auto
 ### hasModule
 
 - `hasModule(path: string | Array<string>): boolean`
-
-  動的なモジュールがすでに登録されているかどうかを確認します。[詳細](../guide/modules.md#dynamic-module-registration)
+  渡された名前を持つモジュールがすでに登録されているかどうかを確認します。[詳細](../guide/modules.md#dynamic-module-registration)
 
 ### hotUpdate
 
