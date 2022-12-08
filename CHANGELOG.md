@@ -2,7 +2,7 @@
 
 ### Vue Core Version Requirement Change
 
-**This release contains an important fix (#1883) that relies on the `effectScope` API from Vue core, which is only available in Vue 3.2+.**
+**This release contains an important fix ([#1883](https://github.com/vuejs/vuex/pull/1883)) that relies on the `effectScope` API from Vue core, which is only available in Vue 3.2+.**
 
 ### Bug Fixes
 
