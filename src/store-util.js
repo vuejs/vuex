@@ -82,9 +82,18 @@ export function resetStoreState (store, state, hot) {
 
   // dispose previously registered effect scope if there is one.
   if (oldScope) {
-    // Keep the effect that already have dependencies from being killed,
-    // which will set the existed computed property unreactive.
-    oldScope.effects = oldScope.effects.filter(({ deps }) => !deps.length)
+    const deadEffects = []
+    oldScope.effects.forEach(effect => {
+      if (effect.deps.length) {
+        // Merge the effect that already have dependencies and prevent from being killed.
+        scope.effects.push(effect)
+      } else {
+        // Collect the dead effects.
+        deadEffects.push(effect)
+      }
+    })
+    // Dispose the dead effects.
+    oldScope.effects = deadEffects
     oldScope.stop()
   }
 }
