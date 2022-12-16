@@ -4,18 +4,15 @@ Vuex поддерживает горячую замену мутаций, мод
 
 Для мутаций и модулей необходимо использовать метод API `store.hotUpdate()`:
 
-```js
+``` js
 // store.js
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import mutations from './mutations'
 import moduleA from './modules/a'
 
-Vue.use(Vuex)
-
 const state = { ... }
 
-const store = new Vuex.Store({
+const store = createStore({
   state,
   mutations,
   modules: {
@@ -24,7 +21,7 @@ const store = new Vuex.Store({
 })
 
 if (module.hot) {
-  // рассматриваем действия и мутации как модули для горячей замены
+  // отслеживаем действия и мутации как модули для горячей замены
   module.hot.accept(['./mutations', './modules/a'], () => {
     // запрашиваем обновлённые модули
     // (нужно указать .default из-за формата вывода Babel 6)
@@ -47,14 +44,13 @@ if (module.hot) {
 
 Если в приложении используются только модули, то можно использовать `require.context` для загрузки и горячей перезагрузки всех модулей динамически.
 
-```js
+``` js
 // store.js
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
 // Загружаем все модули
 function loadModules() {
-  const context = require.context("./modules", false, /([a-z_]+)\.js$/i)
+  const context = require.context('./modules', false, /([a-z_]+)\.js$/i)
 
   const modules = context
     .keys()
@@ -72,9 +68,7 @@ function loadModules() {
 
 const { context, modules } = loadModules()
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
+const store = createStore({
   modules
 })
 
