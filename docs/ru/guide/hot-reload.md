@@ -4,7 +4,7 @@ Vuex поддерживает горячую замену мутаций, мод
 
 Для мутаций и модулей необходимо использовать метод API `store.hotUpdate()`:
 
-``` js
+```js
 // store.js
 import { createStore } from 'vuex'
 import mutations from './mutations'
@@ -44,7 +44,7 @@ if (module.hot) {
 
 Если в приложении используются только модули, то можно использовать `require.context` для загрузки и горячей перезагрузки всех модулей динамически.
 
-``` js
+```js
 // store.js
 import { createStore } from 'vuex'
 
