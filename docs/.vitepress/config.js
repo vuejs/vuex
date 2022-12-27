@@ -23,6 +23,11 @@ module.exports = {
       lang: 'pt-BR',
       title: 'Vuex',
       description: 'Gerenciamento de Estado Centralizado para Vue.js'
+    },
+    '/ru/': {
+      lang: 'ru',
+      title: 'Vuex',
+      description: 'Централизованное управление состоянием для Vue.js'
     }
   },
 
@@ -275,7 +280,66 @@ module.exports = {
             ]
           }
         ]
-      }
+      },
+
+      '/ru/': {
+        label: 'Русский',
+        selectText: 'Переводы',
+        editLinkText: 'Изменить эту страницу на GitHub',
+        lastUpdated: 'Последнее обновление',
+
+        nav: [
+          { text: 'Руководство', link: '/ru/guide/' },
+          { text: 'Справочник API', link: '/ru/api/' },
+          { text: 'История изменений', link: 'https://github.com/vuejs/vuex/releases' },
+          {
+            text: 'v4.x',
+            items: [
+              { text: 'v3.x', link: 'https://v3.vuex.vuejs.org/ru/' }
+            ]
+          }
+        ],
+
+        sidebar: [
+          {
+            text: 'Введение',
+            children: [
+              { text: 'Что такое Vuex?', link: '/ru/' },
+              { text: 'Установка', link: '/ru/installation' },
+              { text: 'Введение', link: '/ru/guide/' }
+            ]
+          },
+          {
+            text: 'Основные понятия',
+            children: [
+              { text: 'Состояние', link: '/ru/guide/state' },
+              { text: 'Геттеры', link: '/ru/guide/getters' },
+              { text: 'Мутации', link: '/ru/guide/mutations' },
+              { text: 'Действия', link: '/ru/guide/actions' },
+              { text: 'Модули', link: '/ru/guide/modules' }
+            ]
+          },
+          {
+            text: 'Продвинутые темы',
+            children: [
+              { text: 'Структура приложения', link: '/ru/guide/structure' },
+              { text: 'Composition API', link: '/ru/guide/composition-api' },
+              { text: 'Плагины', link: '/ru/guide/plugins' },
+              { text: 'Строгий режим (strict mode)', link: '/ru/guide/strict' },
+              { text: 'Работа c формами', link: '/ru/guide/forms' },
+              { text: 'Тестирование', link: '/ru/guide/testing' },
+              { text: 'Горячая перезагрузка', link: '/ru/guide/hot-reload' },
+              { text: 'Поддержка TypeScript', link: '/ru/guide/typescript-support' },
+            ]
+          },
+          {
+            text: 'Руководство по миграции',
+            children: [
+              { text: 'Миграция на 4.0 с 3.x', link: '/ru/guide/migrating-to-4-0-from-3-x' }
+            ]
+          }
+        ]
+      },
     }
   }
 }
