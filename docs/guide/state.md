@@ -8,11 +8,11 @@ Vuex uses a **single state tree** - that is, this single object contains all you
 
 The single state tree does not conflict with modularity - in later chapters we will discuss how to split your state and mutations into sub modules.
 
-The data you store in Vuex follows the same rules as the `data` in a Vue instance, ie the state object must be plain. **See also:** [Vue#data](https://vuejs.org/v2/api/#data).
+The data you store in Vuex follows the same rules as the `data` in a Vue instance, ie the state object must be plain. **See also:** [Vue#data](https://v2.vuejs.org/v2/api/#data).
 
 ## Getting Vuex State into Vue Components
 
-So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](https://vuejs.org/guide/computed.html):
+So how do we display state inside the store in our Vue components? Since Vuex stores are reactive, the simplest way to "retrieve" state from it is simply returning some store state from within a [computed property](https://v2.vuejs.org/guide/computed.html):
 
 ```js
 // let's create a Counter component
