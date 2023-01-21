@@ -131,6 +131,7 @@ export interface Module<S, R> {
 
 export interface ModuleOptions {
   preserveState?: boolean;
+  preserveStateType?: 'always' | 'existing' | 'mergeReplaceArrays' | 'mergeConcatArrays';
 }
 
 export interface GetterTree<S, R> {
