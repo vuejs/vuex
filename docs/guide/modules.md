@@ -7,6 +7,7 @@ Due to using a single state tree, all states of our application are contained in
 To help with that, Vuex allows us to divide our store into **modules**. Each module can contain its own state, mutations, actions, getters, and even nested modules - it's fractal all the way down:
 
 ```js
+// module a
 const moduleA = {
   state: () => ({ ... }),
   mutations: { ... },
@@ -14,17 +15,25 @@ const moduleA = {
   getters: { ... }
 }
 
+// module b
 const moduleB = {
   state: () => ({ ... }),
   mutations: { ... },
   actions: { ... }
 }
 
+// root store
 const store = new Vuex.Store({
+  // add modules to root store
   modules: {
     a: moduleA,
     b: moduleB
   }
+  // root assets
+  state: { ... },
+  mutations: { ... }
+  actions: { ... }
+  getters: { ... }
 })
 
 store.state.a // -> `moduleA`'s state
