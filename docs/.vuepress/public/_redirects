@@ -16,6 +16,6 @@
 /ru/intro.html /ru/guide/
 /ru/* /ru/guide/:splat
 
-/kr/api.html  /kr/api/
-/kr/intro.html /kr/guide/
-/kr/* /kr/guide/:splat
+/ko/api.html  /ko/api/
+/ko/intro.html /ko/guide/
+/ko/* /ko/guide/:splat
