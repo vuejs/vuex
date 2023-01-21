@@ -139,6 +139,7 @@ export const createNamespacedHelpers = (namespace) => ({
  * Normalize the map
  * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
  * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * normalizeMap([1, [2], {c: 3}]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 'c', val: 3 } ]
  * @param {Array|Object} map
  * @return {Array}
  */
@@ -147,7 +148,14 @@ function normalizeMap (map) {
     return []
   }
   return Array.isArray(map)
-    ? map.map(key => ({ key, val: key }))
+    ? map.reduce((acc, cur) => {
+      if (typeof now === 'object') {
+        return acc.concat(normalizeMap(cur))
+      } else {
+        acc.push({ key: cur, val: cur })
+        return acc
+      }
+    }, [])
     : Object.keys(map).map(key => ({ key, val: map[key] }))
 }
 
