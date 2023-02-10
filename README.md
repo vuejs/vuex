@@ -57,3 +57,5 @@ Please make sure to read the [Contributing Guide](https://github.com/vuejs/vuex/
 [MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2015-present Evan You
+
+Hi There
