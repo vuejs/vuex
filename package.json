@@ -5,6 +5,7 @@
   "main": "dist/vuex.common.js",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "module": "./dist/vuex.esm.js",
       "require": "./dist/vuex.common.js",
       "import": "./dist/vuex.mjs"
@@ -15,6 +16,7 @@
   "module": "dist/vuex.esm.js",
   "unpkg": "dist/vuex.js",
   "jsdelivr": "dist/vuex.js",
+  "types": "types/index.d.ts",
   "typings": "types/index.d.ts",
   "sideEffects": false,
   "files": [
