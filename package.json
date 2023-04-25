@@ -5,6 +5,7 @@
   "main": "dist/vuex.cjs.js",
   "exports": {
     ".": {
+      "types": "types/index.d.ts",
       "module": "./dist/vuex.esm-bundler.js",
       "require": "./dist/vuex.cjs.js",
       "import": "./dist/vuex.mjs"
@@ -16,6 +17,7 @@
   "browser": "dist/vuex.esm-browser.js",
   "unpkg": "dist/vuex.global.js",
   "jsdelivr": "dist/vuex.global.js",
+  "types": "types/index.d.ts",
   "typings": "types/index.d.ts",
   "sideEffects": false,
   "files": [
