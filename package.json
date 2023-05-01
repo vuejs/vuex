@@ -1,6 +1,8 @@
 {
-  "name": "vuex",
+  "name": "@ricardo_productiv/vuex",
   "version": "4.1.0",
+  "access": "public",
+  "private": false,
   "description": "state management for Vue.js",
   "main": "dist/vuex.cjs.js",
   "exports": {
@@ -41,10 +43,10 @@
     "docs": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "yarn docs:build && vitepress serve docs"
-  },
+  },  
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/vuex.git"
+    "url": "git@github.com:ricardobuquet/vuex.git"
   },
   "author": "Evan You",
   "license": "MIT",
