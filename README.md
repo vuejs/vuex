@@ -28,8 +28,8 @@ You may find example applications built with Vuex under the `examples` directory
 Running the examples:
 
 ```bash
-$ npm install
-$ npm run dev # serve examples at localhost:8080
+$ yarn
+$ yarn dev # serve examples at localhost:8080
 ```
 
 ## Questions
