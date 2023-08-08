@@ -36,7 +36,7 @@ module.exports = {
   themeConfig: {
     repo: 'vuejs/vuex',
     docsDir: 'docs',
-    docsBranch: '4.0',
+    docsBranch: 'main',
 
     editLinks: true,
 
