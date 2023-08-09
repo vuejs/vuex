@@ -1,4 +1,4 @@
-import { h, nextTick } from 'vue'
+import { computed, h, nextTick } from 'vue'
 import { mount } from 'test/helpers'
 import Vuex from '@/index'
 
@@ -924,5 +924,32 @@ describe('Modules', () => {
     }).toThrowError(
       /getters should be function but "getters\.test" in module "foo\.bar" is true/
     )
+  })
+
+  it('module: computed getter should be reactive after module registration', () => {
+    const store = new Vuex.Store({
+      state: {
+        foo: 0
+      },
+      getters: {
+        getFoo: state => state.foo
+      },
+      mutations: {
+        incrementFoo: state => state.foo++
+      }
+    })
+
+    const computedFoo = computed(() => store.getters.getFoo)
+    store.commit('incrementFoo')
+    expect(computedFoo.value).toBe(1)
+
+    store.registerModule('bar', {
+      state: {
+        bar: 0
+      }
+    })
+
+    store.commit('incrementFoo')
+    expect(computedFoo.value).toBe(2)
   })
 })

@@ -30,6 +30,8 @@ export function resetStore (store, hot) {
 export function resetStoreState (store, state, hot) {
   const oldState = store._state
   const oldScope = store._scope
+  const oldCache = store._computedCache
+  const oldGettersKeySet = new Set(store.getters ? Object.keys(store.getters) : [])
 
   // bind store public getters
   store.getters = {}
@@ -45,6 +47,10 @@ export function resetStoreState (store, state, hot) {
 
   scope.run(() => {
     forEachValue(wrappedGetters, (fn, key) => {
+      // Filter stale getters' key by comparing oldGetters and wrappedGetters,
+      // the key does not be removed from oldGettersKeySet are the key of stale computed cache.
+      // Stale computed cache: the computed cache should be removed as the corresponding module is removed.
+      oldGettersKeySet.delete(key)
       // use computed to leverage its lazy-caching mechanism
       // direct inline function use will lead to closure preserving oldState.
       // using partial to return function with only arguments preserved in closure environment.
@@ -64,6 +70,7 @@ export function resetStoreState (store, state, hot) {
   // register the newly created effect scope to the store so that we can
   // dispose the effects when this method runs again in the future.
   store._scope = scope
+  store._computedCache = computedCache
 
   // enable strict mode for new state
   if (store.strict) {
@@ -82,6 +89,24 @@ export function resetStoreState (store, state, hot) {
 
   // dispose previously registered effect scope if there is one.
   if (oldScope) {
+    const deadEffects = []
+    const staleComputedCache = new Set()
+    oldGettersKeySet.forEach((staleKey) => {
+      staleComputedCache.add(oldCache[staleKey])
+    })
+    oldScope.effects.forEach(effect => {
+      // Use the staleComputedCache match the computed property of reactiveEffect,
+      // to specify the stale cache
+      if (effect.deps.length && !staleComputedCache.has(effect.computed)) {
+        // Merge the effect that already have dependencies and prevent from being killed.
+        scope.effects.push(effect)
+      } else {
+        // Collect the dead effects.
+        deadEffects.push(effect)
+      }
+    })
+    // Dispose the dead effects.
+    oldScope.effects = deadEffects
     oldScope.stop()
   }
 }
