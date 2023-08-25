@@ -15,7 +15,7 @@ export function addDevtools (app, store) {
       app,
       label: 'Vuex',
       homepage: 'https://next.vuex.vuejs.org/',
-      logo: 'https://vuejs.org/images/icons/favicon-96x96.png',
+      logo: 'https://v2.vuejs.org/images/icons/favicon-96x96.png',
       packageName: 'vuex',
       componentStateTypes: [LABEL_VUEX_BINDINGS]
     },
