@@ -1,7 +1,11 @@
 # Vuex 是什么？
 
-::: tip 提示
-这是与 Vue 3 匹配的 Vuex 4 的文档。如果您在找与 Vue 2 匹配的 Vuex 3 的文档，[请在这里查看](https://v3.vuex.vuejs.org/zh/)。
+::: tip Pinia 已成为 Vue 默认最新的状态管理器
+
+[Pinia](https://pinia.vuejs.org) 已成为 Vue 官方的状态管理库。Pinia 具有与 Vuex 5 几乎一致或增强的 API，相关内容请看 [Vuex 5 RFC](https://github.com/vuejs/rfcs/pull/271)。你可以简单的认为 Pinia 就是 Vuex 5。Vue 2 同样可以使用 Pinia。
+
+Vuex 3 和 2 将继续维护。 不过，它们可能不会再继续添加新的功能。Vuex 和 Pinia 可以安装在同一个项目中。因此你可以尝试将现有的 Vuex 应用迁移到 Pinia。不过，如果你打算开始一个新项目，我们强烈建议你改用 Pinia。
+
 :::
 
 Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式 + 库**。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
