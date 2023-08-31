@@ -9,7 +9,8 @@ import {
   installModule,
   resetStore,
   resetStoreState,
-  unifyObjectStyle
+  unifyObjectStyle,
+  registerGetters
 } from './store-util'
 
 export function createStore (options) {
@@ -228,8 +229,10 @@ export class Store {
 
     this._modules.register(path, rawModule)
     installModule(this, this.state, path, this._modules.get(path), options.preserveState)
-    // reset store to update getters...
-    resetStoreState(this, this.state)
+
+    const namespace = this._modules.getNamespace(path)
+    const getterKeys = Object.keys(rawModule.getters || {}).map((key) => namespace + key)
+    registerGetters(this, getterKeys)
   }
 
   unregisterModule (path) {
