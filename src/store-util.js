@@ -1,5 +1,5 @@
 import { reactive, computed, watch, effectScope } from 'vue'
-import { forEachValue, isObject, isPromise, assert, partial } from './util'
+import { isObject, isPromise, assert, partial } from './util'
 
 export function genericSubscribe (fn, subs, options) {
   if (subs.indexOf(fn) < 0) {
@@ -35,35 +35,18 @@ export function resetStoreState (store, state, hot) {
   store.getters = {}
   // reset local getters cache
   store._makeLocalGettersCache = Object.create(null)
-  const wrappedGetters = store._wrappedGetters
-  const computedObj = {}
-  const computedCache = {}
 
   // create a new effect scope and create computed object inside it to avoid
   // getters (computed) getting destroyed on component unmount.
   const scope = effectScope(true)
-
-  scope.run(() => {
-    forEachValue(wrappedGetters, (fn, key) => {
-      // use computed to leverage its lazy-caching mechanism
-      // direct inline function use will lead to closure preserving oldState.
-      // using partial to return function with only arguments preserved in closure environment.
-      computedObj[key] = partial(fn, store)
-      computedCache[key] = computed(() => computedObj[key]())
-      Object.defineProperty(store.getters, key, {
-        get: () => computedCache[key].value,
-        enumerable: true // for local getters
-      })
-    })
-  })
+  // register the newly created effect scope to the store so that we can
+  // dispose the effects when this method runs again in the future.
+  store._scope = scope
+  registerGetters(store, Object.keys(store._wrappedGetters))
 
   store._state = reactive({
     data: state
   })
-
-  // register the newly created effect scope to the store so that we can
-  // dispose the effects when this method runs again in the future.
-  store._scope = scope
 
   // enable strict mode for new state
   if (store.strict) {
@@ -84,6 +67,26 @@ export function resetStoreState (store, state, hot) {
   if (oldScope) {
     oldScope.stop()
   }
+}
+
+export function registerGetters (store, getterKeys) {
+  const computedObj = {}
+  const computedCache = {}
+
+  store._scope.run(() => {
+    getterKeys.forEach((key) => {
+      const fn = store._wrappedGetters[key]
+      // use computed to leverage its lazy-caching mechanism
+      // direct inline function use will lead to closure preserving oldState.
+      // using partial to return function with only arguments preserved in closure environment.
+      computedObj[key] = partial(fn, store)
+      computedCache[key] = computed(() => computedObj[key]())
+      Object.defineProperty(store.getters, key, {
+        get: () => computedCache[key].value,
+        enumerable: true // for local getters
+      })
+    })
+  })
 }
 
 export function installModule (store, rootState, path, module, hot) {
