@@ -161,7 +161,7 @@ actions: {
 }
 ```
 
-Finally, if we make use of [async / await](https://tc39.github.io/ecmascript-asyncawait/), we can compose our actions like this:
+Finally, if we make use of [async / await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function), we can compose our actions like this:
 
 ``` js
 // assuming `getData()` and `getOtherData()` return Promises
