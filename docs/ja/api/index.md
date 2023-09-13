@@ -204,7 +204,7 @@ sidebar: auto
 
 -  `subscribeAction(handler: Function, options?: Object): Function`
 
-  スストアアクションを購読します。`handler` はディスパッチされたアクションごとに呼び出され、アクション記述子と現在のストア状態を引数として受け取ります:
+  ストアアクションを購読します。`handler` はディスパッチされたアクションごとに呼び出され、アクション記述子と現在のストア状態を引数として受け取ります:
 
   ```js
   const unsubscribe = store.subscribeAction((action, state) => {
