@@ -19,7 +19,7 @@ So how do we display state inside the store in our Vue components? Since Vuex st
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count () {
+    count() {
       return store.state.count
     }
   }
@@ -36,7 +36,7 @@ Vuex "injects" the store into all child components from the root component throu
 const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
-    count () {
+    count() {
       return this.$store.state.count
     }
   }
@@ -57,13 +57,13 @@ export default {
   // ...
   computed: mapState({
     // arrow functions can make the code very succinct!
-    count: state => state.count,
+    count: (state) => state.count,
 
     // passing the string value 'count' is same as `state => state.count`
     countAlias: 'count',
 
     // to access local state with `this`, a normal function must be used
-    countPlusLocalState (state) {
+    countPlusLocalState(state) {
       return state.count + this.localCount
     }
   })
@@ -92,6 +92,40 @@ computed: {
   })
 }
 ```
+
+## The `useState` Helper
+
+This works the same way as the `mapState` helper but is compatible with the composition API `setup()` function.
+
+```js
+import { useState } from "vuex";
+
+export default {
+  setup() {
+
+    const { count } = useState(["count"])
+
+    return {
+      count
+    };
+  },
+```
+
+or object destructuring
+
+```js
+import { useState } from 'vuex'
+
+export default {
+  setup() {
+    return {
+      ...useState(['count'])
+    }
+  }
+}
+```
+
+You can learn more in the [Composition API](./composition-api#New-helper-methods-for-Composition-API) section.
 
 ## Components Can Still Have Local State
 

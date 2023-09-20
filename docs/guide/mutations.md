@@ -10,7 +10,7 @@ const store = createStore({
     count: 1
   },
   mutations: {
-    increment (state) {
+    increment(state) {
       // mutate state
       state.count++
     }
@@ -145,6 +145,40 @@ export default {
   }
 }
 ```
+
+## The `useMutations` Helper
+
+This works the same way as the `mapMutations` helper but is compatible with the composition API `setup()` function.
+
+```js
+import { useMutations } from "vuex";
+
+export default {
+  setup() {
+
+    const { increment } = useMutations(["increment"])
+
+    return {
+      increment
+    };
+  },
+```
+
+or object destructuring
+
+```js
+import { useMutations } from 'vuex'
+
+export default {
+  setup() {
+    return {
+      ...useMutations(['increment'])
+    }
+  }
+}
+```
+
+You can learn more in the [Composition API](./composition-api#New-helper-methods-for-Composition-API) section.
 
 ## On to Actions
 
