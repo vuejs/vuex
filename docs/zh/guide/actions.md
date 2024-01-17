@@ -47,7 +47,7 @@ Action 通过 `store.dispatch` 方法触发：
 store.dispatch('increment')
 ```
 
-乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 **mutation 必须同步执行**这个限制么？Action 就不受约束！我们可以在 action 内部执行**异步**操作：
+乍一看似乎有些多余，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 **mutation 必须同步执行**这个限制么？Action 就不受约束！我们可以在 action 内部执行**异步**操作：
 
 ``` js
 actions: {
