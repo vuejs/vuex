@@ -9,11 +9,11 @@ import { createLogger } from "./logger";
 export * from "./helpers";
 export * from "./logger";
 
-export declare class Store<S> {
+export declare class Store<S, G = any> {
   constructor(options: StoreOptions<S>);
 
   readonly state: S;
-  readonly getters: any;
+  readonly getters: G;
 
   install(app: App, injectKey?: InjectionKey<Store<any>> | string): void;
 
@@ -24,7 +24,7 @@ export declare class Store<S> {
 
   subscribe<P extends MutationPayload>(fn: (mutation: P, state: S) => any, options?: SubscribeOptions): () => void;
   subscribeAction<P extends ActionPayload>(fn: SubscribeActionOptions<P, S>, options?: SubscribeOptions): () => void;
-  watch<T>(getter: (state: S, getters: any) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
+  watch<T>(getter: (state: S, getters: G) => T, cb: (value: T, oldValue: T) => void, options?: WatchOptions): () => void;
 
   registerModule<T>(path: string, module: Module<T, S>, options?: ModuleOptions): void;
   registerModule<T>(path: string[], module: Module<T, S>, options?: ModuleOptions): void;
