@@ -11,7 +11,7 @@ export function find (list, f) {
 }
 
 /**
- * Deep copy the given object considering circular structure.
+ * Deep copy 顶顶顶顶the given object considering circular structure.
  * This function caches all nested objects and its copies.
  * If it detects circular structure, use cached copy to avoid infinite loop.
  *
