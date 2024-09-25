@@ -7,7 +7,8 @@
     ".": {
       "module": "./dist/vuex.esm-bundler.js",
       "require": "./dist/vuex.cjs.js",
-      "import": "./dist/vuex.mjs"
+      "import": "./dist/vuex.mjs",
+      "types": ".types/index.d.ts"
     },
     "./*": "./*",
     "./": "./"
