@@ -12,6 +12,8 @@ import {
   unifyObjectStyle
 } from './store-util'
 
+const isBrowser = typeof document !== 'undefined'
+
 export function createStore (options) {
   return new Store(options)
 }
@@ -79,9 +81,9 @@ export class Store {
     app.provide(injectKey || storeKey, this)
     app.config.globalProperties.$store = this
 
-    const useDevtools = this._devtools !== undefined
+    const useDevtools = (this._devtools !== undefined
       ? this._devtools
-      : __DEV__ || __VUE_PROD_DEVTOOLS__
+      : __DEV__ || __VUE_PROD_DEVTOOLS__) && isBrowser
 
     if (useDevtools) {
       addDevtools(app, this)
