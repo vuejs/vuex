@@ -14,7 +14,7 @@ To do so, declare custom typings for Vue's `ComponentCustomProperties` by adding
 // vuex.d.ts
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // declare your own store states
   interface State {
     count: number

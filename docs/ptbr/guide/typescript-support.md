@@ -15,7 +15,7 @@ Para fazer isso, declare tipagens personalizadas para o `ComponentCustomProperti
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // declare seus próprios estados do store
   interface State {
     count: number

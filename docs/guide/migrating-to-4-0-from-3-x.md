@@ -58,7 +58,7 @@ Place the following code in your project to allow `this.$store` to be typed corr
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // Declare your own store states.
   interface State {
     count: number

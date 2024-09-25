@@ -58,7 +58,7 @@ Vuex 4 は、[issue #994](https://github.com/vuejs/vuex/issues/994) を解決す
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // ストアのステートを宣言する
   interface State {
     count: number
