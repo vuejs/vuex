@@ -58,7 +58,7 @@ Coloque o seguinte código em seu projeto para permitir que `this.$store` seja t
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // Declare seus próprios estados do store
   interface State {
     count: number

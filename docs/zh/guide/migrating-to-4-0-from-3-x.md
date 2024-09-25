@@ -58,7 +58,7 @@ app.mount('#app')
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // 声明自己的 store state
   interface State {
     count: number

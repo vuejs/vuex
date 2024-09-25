@@ -14,7 +14,7 @@ Vuex 没有为 `this.$store` 属性提供开箱即用的类型声明。如果你
 // vuex.d.ts
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // 声明自己的 store state
   interface State {
     count: number

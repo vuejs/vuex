@@ -15,7 +15,7 @@ Vuex はすぐに使用できる `this.$store` プロパティの型付けを提
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // ストアのステートを宣言する
   interface State {
     count: number
