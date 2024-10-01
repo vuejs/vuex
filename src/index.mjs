@@ -11,6 +11,10 @@ const {
   mapMutations,
   mapGetters,
   mapActions,
+  useState,
+  useMutations,
+  useGetters,
+  useActions,
   createNamespacedHelpers,
   createLogger
 } = Vuex
@@ -27,6 +31,10 @@ export {
   mapMutations,
   mapGetters,
   mapActions,
+  useState,
+  useMutations,
+  useGetters,
+  useActions,
   createNamespacedHelpers,
   createLogger
 }

@@ -6,7 +6,7 @@ To access the store within the `setup` hook, you can call the `useStore` functio
 import { useStore } from 'vuex'
 
 export default {
-  setup () {
+  setup() {
     const store = useStore()
   }
 }
@@ -21,7 +21,7 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-  setup () {
+  setup() {
     const store = useStore()
 
     return {
@@ -43,7 +43,7 @@ When accessing mutations and actions, you can simply provide the `commit` and `d
 import { useStore } from 'vuex'
 
 export default {
-  setup () {
+  setup() {
     const store = useStore()
 
     return {
@@ -52,6 +52,34 @@ export default {
 
       // access an action
       asyncIncrement: () => store.dispatch('asyncIncrement')
+    }
+  }
+}
+```
+
+## New helper methods for Composition API
+
+The `mapXXX` methods from vuex 3 do not work with the new `setup()` function in the composition API therefore the new `useXXX` methods allow for all the old funcionallity of the the mapping functions but with the `setup()` function.
+
+```js
+import { useState } from 'vuex'
+export default {
+  setup() {
+    return {
+      ...useState(['someState', 'someOtherState'])
+    }
+  }
+}
+```
+
+Giving a property an alias:
+
+```js
+import { useState } from 'vuex'
+export default {
+  setup() {
+    return {
+      ...useState({ countAlias: 'count' })
     }
   }
 }
