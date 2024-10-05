@@ -38,7 +38,7 @@ if (module.hot) {
 }
 ```
 
-Checkout the [counter-hot example](https://github.com/vuejs/vuex/tree/main/examples/counter-hot) to play with hot-reload.
+Checkout the [counter-hot example](https://github.com/vuejs/vuex/tree/main/examples/classic/counter-hot) to play with hot-reload.
 
 ## Dynamic module hot reloading
 
