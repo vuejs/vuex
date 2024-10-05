@@ -16,3 +16,16 @@ export default {
   createNamespacedHelpers,
   createLogger
 }
+
+export {
+  Store,
+  storeKey,
+  createStore,
+  useStore,
+  mapState,
+  mapMutations,
+  mapGetters,
+  mapActions,
+  createNamespacedHelpers,
+  createLogger
+}
