@@ -39,7 +39,7 @@ Let's tackle this step by step. First, define the key using Vue's `InjectionKey`
 
 ```ts
 // store.ts
-import { InjectionKey } from 'vue'
+import type { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
 
 // define your typings for the store state
@@ -96,7 +96,7 @@ Having to import `InjectionKey` and passing it to `useStore` everywhere it's use
 
 ```ts
 // store.ts
-import { InjectionKey } from 'vue'
+import type { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 
 export interface State {
