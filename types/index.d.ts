@@ -1,4 +1,4 @@
-import { App, WatchOptions, InjectionKey } from "vue";
+import { App, WatchOptions, InjectionKey , WatchStopHandle } from "vue";
 
 // augment typings of Vue.js
 import "./vue";
@@ -41,6 +41,8 @@ export declare class Store<S> {
     getters?: GetterTree<S, S>;
     modules?: ModuleTree<S>;
   }): void;
+
+  _strictModeWatcherUnsubscribe?: WatchStopHandle;
 }
 
 export const storeKey: string;

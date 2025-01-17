@@ -269,7 +269,8 @@ function registerGetter (store, type, rawGetter, local) {
 }
 
 function enableStrictMode (store) {
-  watch(() => store._state.data, () => {
+  store._strictModeWatcherUnsubscribe && store._strictModeWatcherUnsubscribe();
+  store._strictModeWatcherUnsubscribe = watch(() => store._state.data, () => {
     if (__DEV__) {
       assert(store._committing, `do not mutate vuex store state outside mutation handlers.`)
     }
