@@ -96,6 +96,8 @@ describe('ModuleCollection', () => {
     expect(collection.isRegistered(['a', 'b'])).toBe(true)
     expect(collection.isRegistered(['c'])).toBe(false)
     expect(collection.isRegistered(['c', 'd'])).toBe(false)
+    // 3-level deep path where intermediate module does not exist (fix #2164)
+    expect(collection.isRegistered(['c', 'd', 'e'])).toBe(false)
   })
 
   it('does not unregister initial modules', () => {

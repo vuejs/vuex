@@ -9,7 +9,7 @@ export default class ModuleCollection {
 
   get (path) {
     return path.reduce((module, key) => {
-      return module.getChild(key)
+      return module && module.getChild(key)
     }, this.root)
   }
 
