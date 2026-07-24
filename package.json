@@ -5,6 +5,7 @@
   "main": "dist/vuex.cjs.js",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "module": "./dist/vuex.esm-bundler.js",
       "require": "./dist/vuex.cjs.js",
       "import": "./dist/vuex.mjs"
