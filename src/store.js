@@ -265,7 +265,10 @@ export class Store {
   _withCommit (fn) {
     const committing = this._committing
     this._committing = true
-    fn()
-    this._committing = committing
+    try {
+      fn()
+    } finally {
+      this._committing = committing
+    }
   }
 }

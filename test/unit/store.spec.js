@@ -421,4 +421,23 @@ describe('Store', () => {
       })
     })
   }
+
+  it('strict mode keeps working after a mutation throws', () => {
+    const errorMessage = 'mutation failed'
+    const store = new Vuex.Store({
+      strict: true,
+      state: { count: 0 },
+      mutations: {
+        increment () {
+          throw new Error(errorMessage)
+        }
+      }
+    })
+
+    // error should reach the caller
+    expect(() => store.commit('increment')).toThrow(errorMessage)
+
+    // changing state out of a mutation must be caught by strict mode
+    expect(() => store.state.count++).toThrow(/do not mutate vuex store state outside mutation handlers/)
+  })
 })
